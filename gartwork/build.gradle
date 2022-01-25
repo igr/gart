@@ -1,0 +1,14 @@
+plugins {
+    id('org.jetbrains.kotlin.jvm')
+}
+
+test {
+    useJUnitPlatform()
+}
+
+dependencies {
+    api 'io.github.humbleui:skija-macos-x64:0.98.1'
+    implementation 'io.humble:humble-video-all:0.3.0'
+    //implementation("io.github.reactivecircus.cache4k:cache4k:0.4.0")
+    testImplementation 'org.jetbrains.kotlin:kotlin-test'
+}

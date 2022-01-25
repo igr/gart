@@ -1,0 +1,19 @@
+plugins {
+    id("org.jetbrains.kotlin.jvm") version "${kotlinVersion}" apply false
+}
+
+allprojects {
+    version = "1.0.0-SNAPSHOT"
+    group = "ac.obl.gart"
+
+    repositories {
+        mavenCentral()
+        maven {
+            url "https://packages.jetbrains.team/maven/p/skija/maven"
+        }
+    }
+}
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}

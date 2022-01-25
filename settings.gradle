@@ -1,0 +1,7 @@
+include 'gartwork'
+include 'arts'
+include 'arts:example'
+include 'arts:plasma'
+include 'arts:circledots'
+include 'arts:joydiv'
+include 'arts:skyscraper'
