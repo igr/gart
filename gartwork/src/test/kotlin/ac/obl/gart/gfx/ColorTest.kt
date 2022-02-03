@@ -1,11 +1,14 @@
-package ac.obl.gart
+package ac.obl.gart.gfx
 
-import ac.obl.gart.gfx.toARGB
-import ac.obl.gart.gfx.toRGBA
 import org.junit.jupiter.api.Test
 import kotlin.test.assertEquals
 
 class ColorTest {
+
+	@Test
+	fun testRGB() {
+		assertEquals(0xFF112233.toInt(), rgb(0x11, 0x22, 0x33))
+	}
 
 	@Test
 	fun testRGBAtoARGB() {

@@ -3,7 +3,11 @@ package ac.obl.gart.math
 import kotlin.math.cos
 import kotlin.math.sin
 
-sealed class MathPrecalcTable(private val resolution: Float, calculation: (Float) -> Float) {
+sealed class MathPrecalcTable(
+	private val resolution: Float,
+	private val negative: Boolean,
+	calculation: (Float) -> Float
+) {
 	private val values: FloatArray
 	init {
 		val total = (360 / resolution).toInt()
@@ -25,7 +29,7 @@ sealed class MathPrecalcTable(private val resolution: Float, calculation: (Float
 		return if (index >= 0) {
 			values[index]
 		} else {
-			values[-index]
+			if (negative) -values[-index] else values[-index]
 		}
 	}
 }
@@ -33,12 +37,12 @@ sealed class MathPrecalcTable(private val resolution: Float, calculation: (Float
 /**
  * Precalculated cos values.
  */
-class MathCos(resolution: Float = 0.1f) : MathPrecalcTable(resolution, {
+class MathCos(resolution: Float = 0.1f) : MathPrecalcTable(resolution, false, {
 	cos(it.toRadian())
 })
 /**
  * Precalculated sin values.
  */
-class MathSin(resolution: Float = 0.1f) : MathPrecalcTable(resolution, {
+class MathSin(resolution: Float = 0.1f) : MathPrecalcTable(resolution, true, {
 	sin(it.toRadian())
 })

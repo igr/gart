@@ -1,5 +1,7 @@
 package ac.obl.gart.gfx
 
+import io.github.humbleui.skija.Color
+
 fun alpha(color: Int): Int {
 	return color shr 24 and 0xFF
 }
@@ -17,14 +19,11 @@ fun blue(color: Int): Int {
 }
 
 fun rgb(r: Int, g: Int, b: Int): Int {
-	return argb(0xFF, r, g, b)
+	return Color.makeARGB(0xFF, r, g, b)
 }
 
 fun argb(a: Int, r: Int, g: Int, b: Int): Int {
-	return (a and 0xFF shl 24
-		or (r and 0xFF shl 16)
-		or (g and 0xFF shl 8)
-		or (b and 0xFF))
+	return Color.makeARGB(a, r, b, g)
 }
 
 fun alpha(color: Int, a: Int): Int {
