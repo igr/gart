@@ -100,14 +100,10 @@ class Painter(
 	private val frameDurationInMillis = 1000 / frames
 	// initial time is 1 second in the past, so we can kick painting right away
 	private var lastPaintTimestamp = System.currentTimeMillis() - 1000
-	var running = true
-		internal set
+	internal var running = true
 	private var frameCount = FramesCount(frames)
 
-	/**
-	 * Repaints the frame once enough time elapses between two frames.
-	 */
-	fun paint(paintFrame: (FramesCount) -> Unit) {
+	private fun draw(paintFrame: (FramesCount) -> Unit) {
 		val currentTimeStamp = System.currentTimeMillis()
 		val elapsedSinceLastPaint = currentTimeStamp - lastPaintTimestamp
 		val remainingSleepTime = frameDurationInMillis - elapsedSinceLastPaint
@@ -121,11 +117,11 @@ class Painter(
 	}
 
 	/**
-	 * Shortcut method that repaints the frame while running.
+	 * Paints a frame while window is up.
 	 */
-	fun paintWhileRunning(paintFrame: (FramesCount) -> Unit) {
+	fun paint(paintFrame: (FramesCount) -> Unit) {
 		while (this.running) {
-			this.paint(paintFrame)
+			this.draw(paintFrame)
 		}
 	}
 }

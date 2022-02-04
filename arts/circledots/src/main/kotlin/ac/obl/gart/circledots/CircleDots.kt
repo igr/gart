@@ -44,22 +44,20 @@ fun main() {
 	val v = VideoGartvas(g).start("circledots.mp4", frames)
 
 	var tick = 0
-	while (window.running) {
-		window.paint {
 
-			tick = if (it.offset == 0) tick + 1 else tick
-			paint(tick.mod(2) == 0)
+	window.paint {
+		tick = if (it.offset == 0) tick + 1 else tick
+		paint(tick.mod(2) == 0)
 
-			if (v.frameCount < frames * 8) {
-				v.addFrame()
-			} else {
-				if (v.running) {
-					v.save()
-					println("Video saved.")
-				}
+		if (v.frameCount < frames * 8) {
+			v.addFrame()
+		} else {
+			if (v.running) {
+				v.save()
+				println("Video saved.")
 			}
-
 		}
+
 	}
 
 	ImageWriter(g).save("circledots.png")

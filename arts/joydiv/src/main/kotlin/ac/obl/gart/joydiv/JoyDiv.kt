@@ -32,12 +32,11 @@ fun main() {
 
     val v = VideoGartvas(g).start("${name}.mp4", frames)
 
-    while (window.running) {
-        window.paint {
-            paint()
-            v.addFrameUntil(frames * 5) { it.save() }
-        }
+    window.paint {
+        paint()
+        v.addFrameUntil(frames * 5) { it.save() }
     }
+
     ImageWriter(g).save("${name}.png")
     println("Done")
 }

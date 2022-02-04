@@ -107,7 +107,7 @@ fun main() {
 
 	init()
 
-	w.paintWhileRunning {
+	w.paint {
 		drawNext(b, p)
 		b.draw()
 		v.addFrameUntil(757) { it.save() }

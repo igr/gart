@@ -124,7 +124,7 @@ fun main() {
 //    towerBuilding(30f)(100f, 100f)(g.canvas)
 //    squareBuilding(80f)(100f, 100f)(g.canvas)
 
-    window.paintWhileRunning {
+    window.paint {
         val color = colors[it.total.mod(colors.size)]
 
         rowTop(color).forEach { it(g.canvas) }
