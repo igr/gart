@@ -12,6 +12,16 @@ class Gartvas(val w: Int, val h: Int) {
 	 */
 	val wh = w * h
 
+	/**
+	 * Width as float.
+	 */
+	val wf = w.toFloat()
+
+	/**
+	 * Height as float.
+	 */
+	val hf = h.toFloat()
+
 	private val surface = Surface.makeRasterN32Premul(w, h)
 
 	/**

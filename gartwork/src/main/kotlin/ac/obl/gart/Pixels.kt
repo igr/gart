@@ -17,15 +17,15 @@ open class Pixels(val w: Int, val h: Int) {
 		pixels = bitmap.peekPixels()!!.asIntBuffer()
 	}
 
-	fun get(x: Int, y: Int): Int {
-		return pixels.get(x * w + y).toARGB()
+	operator fun get(x: Int, y: Int): Int {
+		return pixels.get(y * w + x).toARGB()
 	}
 
-	fun set(x: Int, y: Int, value: Int) {
-		pixels.put(x * w + y, value.toRGBA())
+	operator fun set(x: Int, y: Int, value: Int) {
+		pixels.put(y * w + x, value.toRGBA())
 	}
-	fun set(x: Int, y: Int, value: Long) {
-		pixels.put(x * w + y, value.toInt().toRGBA())
+	operator fun set(x: Int, y: Int, value: Long) {
+		pixels.put(y * w + x, value.toInt().toRGBA())
 	}
 
 	operator fun set(offset: Int, value: Int) {
