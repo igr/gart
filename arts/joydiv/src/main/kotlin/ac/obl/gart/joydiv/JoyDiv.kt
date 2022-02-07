@@ -3,7 +3,7 @@ package ac.obl.gart.joydiv
 import ac.obl.gart.*
 import ac.obl.gart.gfx.fillOfBlack
 import ac.obl.gart.gfx.strokeOfBlack
-import io.github.humbleui.types.Rect
+import ac.obl.gart.skia.Rect
 
 const val w: Int = 640
 const val h: Int = 1036 // gold ratio

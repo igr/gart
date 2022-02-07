@@ -6,9 +6,9 @@ import ac.obl.gart.gfx.strokeOfWhite
 import ac.obl.gart.math.GaussianFunction
 import ac.obl.gart.math.map
 import ac.obl.gart.math.perlinNoise
-import io.github.humbleui.skija.Path
-import io.github.humbleui.skija.PathFillMode
-import io.github.humbleui.types.Point
+import ac.obl.gart.skia.Path
+import ac.obl.gart.skia.PathFillMode
+import ac.obl.gart.skia.Point
 import kotlin.math.*
 import kotlin.random.Random
 
@@ -49,7 +49,9 @@ class Line(private val g: Gartvas, private val offsetY: Float) {
 		dots = dots(tickOffset)
 
 		val path = Path()
-			.setFillMode(PathFillMode.EVEN_ODD)
+            .apply {
+                fillMode = PathFillMode.EVEN_ODD
+            }
 			.moveTo(0f, offsetY)
 
 		for (i in 0 until segments) {

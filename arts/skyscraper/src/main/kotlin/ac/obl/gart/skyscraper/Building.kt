@@ -1,8 +1,8 @@
 package ac.obl.gart.skyscraper
 
 import ac.obl.gart.gfx.*
-import io.github.humbleui.skija.Canvas
-import io.github.humbleui.skija.Path
+import ac.obl.gart.skia.Canvas
+import ac.obl.gart.skia.Path
 import kotlin.random.Random
 
 data class Colors(

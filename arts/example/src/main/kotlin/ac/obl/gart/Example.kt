@@ -3,7 +3,7 @@ package ac.obl.gart
 import ac.obl.gart.gfx.fillOf
 import ac.obl.gart.gfx.fillOfRed
 import ac.obl.gart.math.GOLDEN_RATIO
-import io.github.humbleui.types.Rect
+import ac.obl.gart.skia.Rect
 
 fun main() {
     println("Example")
@@ -20,6 +20,7 @@ fun main() {
     // get bitmap
 
     val b = Gartmap(g)
+
     b.forEach { x, y, v ->
         if (v == 0xFFFF0000.toInt()) {  // red detected
             if ((x + y).mod(2) == 0) {
@@ -31,6 +32,7 @@ fun main() {
     for (x in 0 until w) {
         b[x, 0] = 0xFFFF0044
     }
+    b[0,0] = 0xFF00FF00
 
     b.draw()
 

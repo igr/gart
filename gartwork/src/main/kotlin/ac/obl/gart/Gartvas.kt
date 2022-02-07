@@ -37,8 +37,7 @@ class Gartvas(val w: Int, val h: Int) {
 
 	val bf = b.toFloat()
 
-	private val surface = Surface.makeRasterN32Premul(w, h)
-
+	internal val surface = Surface.makeRasterN32Premul(w, h)
 	/**
 	 * Canvas.
 	 */

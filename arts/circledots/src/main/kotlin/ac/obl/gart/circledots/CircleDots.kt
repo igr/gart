@@ -2,7 +2,7 @@ package ac.obl.gart.circledots
 
 import ac.obl.gart.*
 import ac.obl.gart.gfx.fillOfWhite
-import io.github.humbleui.types.Rect
+import ac.obl.gart.skia.Rect
 
 const val w: Int = 640
 const val h: Int = w
