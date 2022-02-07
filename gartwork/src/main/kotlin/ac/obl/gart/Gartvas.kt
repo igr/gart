@@ -1,6 +1,7 @@
 package ac.obl.gart
 
-import io.github.humbleui.skija.*
+import ac.obl.gart.skia.Image
+import ac.obl.gart.skia.Surface
 
 /**
  * It's the canvas.

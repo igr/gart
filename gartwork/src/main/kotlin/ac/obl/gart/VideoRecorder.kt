@@ -1,6 +1,6 @@
 package ac.obl.gart
 
-import io.github.humbleui.skija.Image
+import ac.obl.gart.skia.Image
 import io.humble.video.*
 import io.humble.video.Codec.findEncodingCodec
 import io.humble.video.Coder.Flag

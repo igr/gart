@@ -1,28 +1,31 @@
 package ac.obl.gart.gfx
 
-import io.github.humbleui.skija.Paint
-import io.github.humbleui.skija.PaintMode
+import ac.obl.gart.skia.Paint
+import ac.obl.gart.skia.PaintMode
 
-fun strokeOf(color: Long, width: Float) = Paint()
-	.setAntiAlias(true)
-	.setColor(color.toInt())
-	.setMode(PaintMode.STROKE)
-	.setStrokeWidth(width)
+fun strokeOf(color: Long, width: Float) = Paint().apply {
+    this.isAntiAlias = true
+    this.color = color.toInt()
+    this.mode = PaintMode.STROKE
+    this.strokeWidth = width
+}
 
-fun strokeOf(color: Int, width: Float) = Paint()
-	.setAntiAlias(true)
-	.setColor(color)
-	.setMode(PaintMode.STROKE)
-	.setStrokeWidth(width)
+fun strokeOf(color: Int, width: Float) = Paint().apply {
+    this.isAntiAlias = true
+    this.color = color
+    this.mode = PaintMode.STROKE
+    this.strokeWidth = width
+}
 
-fun fillOf(color: Int) = Paint()
-	.setAntiAlias(true)
-	.setColor(color)
+fun fillOf(color: Int) = Paint().apply {
+    this.isAntiAlias = true
+    this.color = color
+}
 
-fun fillOf(color: Long) = Paint()
-	.setAntiAlias(true)
-	.setColor(color.toInt())
-
+fun fillOf(color: Long) = Paint().apply {
+    this.isAntiAlias = true
+    this.color = color.toInt()
+}
 
 fun strokeOfBlack(width: Number) = strokeOf(0xFF000000, width.toFloat())
 fun strokeOfWhite(width: Number) = strokeOf(0xFFFFFFFF, width.toFloat())

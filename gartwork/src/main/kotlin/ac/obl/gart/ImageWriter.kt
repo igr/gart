@@ -1,6 +1,6 @@
 package ac.obl.gart
 
-import io.github.humbleui.skija.EncodedImageFormat
+import ac.obl.gart.skia.EncodedImageFormat
 import java.io.File
 
 class ImageWriter(private var g: Gartvas) {

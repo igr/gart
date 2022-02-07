@@ -1,7 +1,7 @@
 package ac.obl.gart.gfx
 
-import io.github.humbleui.types.Point
-import io.github.humbleui.types.Rect
+import ac.obl.gart.skia.Point
+import ac.obl.gart.skia.Rect
 
 /**
  * Converts rectangle to list of four points.

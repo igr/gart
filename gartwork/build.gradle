@@ -7,7 +7,10 @@ test {
 }
 
 dependencies {
-    api 'io.github.humbleui:skija-macos-x64:0.98.1'
+    //api 'io.github.humbleui:skija-macos-x64:0.98.1'
+    api 'org.jetbrains.skiko:skiko-awt-runtime-macos-x64:0.7.7'
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.0'
+
     implementation 'io.humble:humble-video-all:0.3.0'
     //implementation("io.github.reactivecircus.cache4k:cache4k:0.4.0")
     testImplementation 'org.jetbrains.kotlin:kotlin-test'

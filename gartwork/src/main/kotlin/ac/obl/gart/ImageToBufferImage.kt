@@ -1,6 +1,6 @@
 package ac.obl.gart
 
-import io.github.humbleui.skija.*
+import ac.obl.gart.skia.*
 import java.awt.Transparency
 import java.awt.color.ColorSpace
 import java.awt.image.*
@@ -10,7 +10,7 @@ fun Image.toBufferedImage(): BufferedImage {
 	bitmap.allocPixelsFlags(ImageInfo.makeS32(this.width, this.height, ColorAlphaType.PREMUL), false)
 	Canvas(bitmap).drawImage(this, 0f, 0f)
 
-	val bytes = bitmap.readPixels(bitmap.imageInfo, (this.width * 4L), 0, 0)!!
+	val bytes = bitmap.readPixels(bitmap.imageInfo, this.width * 4, 0, 0)!!
 	val buffer = DataBufferByte(bytes, bytes.size)
 	val raster = Raster.createInterleavedRaster(
 		buffer,

@@ -1,7 +1,7 @@
 package ac.obl.gart.gfx
 
 import ac.obl.gart.math.toRadian
-import io.github.humbleui.types.Point
+import ac.obl.gart.skia.Point
 import kotlin.math.cos
 import kotlin.math.sin
 

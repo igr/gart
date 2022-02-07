@@ -1,6 +1,6 @@
 package ac.obl.gart.gfx
 
-import io.github.humbleui.skija.Color
+import ac.obl.gart.skia.Color
 
 fun alpha(color: Int): Int {
 	return color shr 24 and 0xFF
