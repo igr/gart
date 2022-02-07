@@ -1,0 +1,40 @@
+root = true
+
+[*]
+end_of_line = lf
+insert_final_newline = true
+indent_size = 4
+tab_width = 4
+ij_continuation_indent_size = 4
+ij_formatter_off_tag = @formatter:off
+ij_formatter_on_tag = @formatter:on
+ij_formatter_tags_enabled = false
+ij_smart_tabs = false
+ij_wrap_on_typing = false
+max_line_length = 120
+
+[*.java]
+indent_style = space
+max_line_length = off
+ij_java_class_count_to_use_import_on_demand = 999
+ij_java_names_count_to_use_import_on_demand = 999
+
+[*.kt]
+indent_style = space
+max_line_length = off
+
+[Dockerfile]
+indent_style = space
+max_line_length = off
+
+[*.xml]
+indent_style = tab
+max_line_length = off
+
+[*.md]
+indent_style = space
+indent_size = 2
+
+[{*.yaml,*.yml}]
+indent_style = space
+indent_size = 2
