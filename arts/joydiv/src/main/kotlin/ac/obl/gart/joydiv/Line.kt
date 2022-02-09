@@ -1,15 +1,15 @@
 package ac.obl.gart.joydiv
 
-import ac.obl.gart.*
+import ac.obl.gart.Gartvas
 import ac.obl.gart.gfx.fillOfBlack
 import ac.obl.gart.gfx.strokeOfWhite
 import ac.obl.gart.math.GaussianFunction
+import ac.obl.gart.math.PerlinNoise
 import ac.obl.gart.math.map
-import ac.obl.gart.math.perlinNoise
 import ac.obl.gart.skia.Path
 import ac.obl.gart.skia.PathFillMode
 import ac.obl.gart.skia.Point
-import kotlin.math.*
+import kotlin.math.abs
 import kotlin.random.Random
 
 const val segments = 50
@@ -17,6 +17,7 @@ const val gap = w / segments
 val gauss = GaussianFunction(100, segments/2, 8)
 fun gaussianCurve(x: Number) = gauss(x)
 const val variety = 0.04f
+val perlin = PerlinNoise()
 
 class Line(private val g: Gartvas, private val offsetY: Float) {
 
@@ -35,7 +36,7 @@ class Line(private val g: Gartvas, private val offsetY: Float) {
 //		Point(x, y)
 
 		// noise lines
-		val noiseValue = perlinNoise(noiseOffset, noiseOffsetY)
+		val noiseValue = perlin.noise(noiseOffset, noiseOffsetY)
 		val gaussValue = gaussianCurve(it)
 		val value = abs(map(noiseValue, 0, 1, -gaussValue, gaussValue))
 

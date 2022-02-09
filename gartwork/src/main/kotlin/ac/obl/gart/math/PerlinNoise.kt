@@ -5,78 +5,87 @@ import kotlin.math.cos
 import kotlin.math.floor
 import kotlin.random.Random
 
-// todo make an object and use bellow as arguments
+private const val YWRAPB = 4
+private const val WRAP = 1 shl YWRAPB
+private const val ZWRAPB = 8
+private const val ZWRAP = 1 shl ZWRAPB
 
-const val PERLIN_YWRAPB = 4
-const val PERLIN_YWRAP = 1 shl PERLIN_YWRAPB
-const val PERLIN_ZWRAPB = 8
-const val PERLIN_ZWRAP = 1 shl PERLIN_ZWRAPB
-const val PERLIN_SIZE = 4095
-const val perlin_octaves = 4            // default to medium smooth
-const val perlin_amp_falloff = 0.5f     // 50% reduction/octave
+class PerlinNoise(
+    // default to medium smooth
+    private val perlinOctaves: Int = 4,
+    // 50% reduction/octave
+    private val perlinAmpFalloff: Float = 0.5f
+) {
 
-private fun scaledCosine(i: Float): Float {
-	return 0.5f * (1.0f - cos(i * Math.PI)).toFloat()
-}
-private val perlin = FloatArray(PERLIN_SIZE + 1) { Random.nextFloat() }
+    private val perlinSize = 4095
 
-fun perlinNoise(_x: Number, _y: Number = 0, _z: Number = 0): Float {
-	val x = abs(_x.toFloat())
-	val y = abs(_y.toFloat())
-	val z = abs(_z.toFloat())
+    private fun scaledCosine(i: Float): Float {
+        return 0.5f * (1.0f - cos(i * Math.PI)).toFloat()
+    }
 
-	var xi = floor(x).toInt()
-	var yi = floor(y).toInt()
-	var zi = floor(z).toInt()
-	var xf = x - xi
-	var yf = y - yi
-	var zf = z - zi
+    private val perlin = FloatArray(perlinSize + 1) { Random.nextFloat() }
 
-	var ampl = 0.5f
-	var r = 0.0f
+    /**
+     * Generate noise.
+     */
+    fun noise(x: Number, y: Number = 0, z: Number = 0): Float {
+        val xAbs = abs(x.toFloat())
+        val yAbs = abs(y.toFloat())
+        val zAbs = abs(z.toFloat())
 
-	for (o in 0 until  perlin_octaves) {
-		var of = xi + (yi shl PERLIN_YWRAPB) + (zi shl PERLIN_ZWRAPB)
+        var xi = floor(xAbs).toInt()
+        var yi = floor(yAbs).toInt()
+        var zi = floor(zAbs).toInt()
+        var xf = xAbs - xi
+        var yf = yAbs - yi
+        var zf = zAbs - zi
 
-		val rxf = scaledCosine(xf)
-		val ryf = scaledCosine(yf)
+        var ampl = 0.5f
+        var r = 0.0f
 
-		var n1 = perlin[of and PERLIN_SIZE]
-		n1 += rxf * (perlin[(of + 1) and PERLIN_SIZE] - n1)
-		var n2 = perlin[(of + PERLIN_YWRAP) and PERLIN_SIZE]
-		n2 += rxf * (perlin[(of + PERLIN_YWRAP + 1) and PERLIN_SIZE] - n2)
-		n1 += ryf * (n2 - n1)
+        for (o in 0 until perlinOctaves) {
+            var of = xi + (yi shl YWRAPB) + (zi shl ZWRAPB)
 
-		of += PERLIN_ZWRAP
-		n2 = perlin[of and PERLIN_SIZE]
-		n2 += rxf * (perlin[(of + 1) and PERLIN_SIZE] - n2)
-		var n3 = perlin[(of + PERLIN_YWRAP) and PERLIN_SIZE]
-		n3 += rxf * (perlin[(of + PERLIN_YWRAP + 1) and PERLIN_SIZE] - n3)
-		n2 += ryf * (n3 - n2)
+            val rxf = scaledCosine(xf)
+            val ryf = scaledCosine(yf)
 
-		n1 += scaledCosine(zf) * (n2 - n1)
+            var n1 = perlin[of and perlinSize]
+            n1 += rxf * (perlin[(of + 1) and perlinSize] - n1)
+            var n2 = perlin[(of + WRAP) and perlinSize]
+            n2 += rxf * (perlin[(of + WRAP + 1) and perlinSize] - n2)
+            n1 += ryf * (n2 - n1)
 
-		r += n1 * ampl
-		ampl *= perlin_amp_falloff
-		xi = xi shl 1
-		xf *= 2
-		yi = yi shl 1
-		yf *= 2
-		zi = zi shl 1
-		zf *= 2
+            of += ZWRAP
+            n2 = perlin[of and perlinSize]
+            n2 += rxf * (perlin[(of + 1) and perlinSize] - n2)
+            var n3 = perlin[(of + WRAP) and perlinSize]
+            n3 += rxf * (perlin[(of + WRAP + 1) and perlinSize] - n3)
+            n2 += ryf * (n3 - n2)
 
-		if (xf >= 1.0) {
-			xi++
-			xf--
-		}
-		if (yf >= 1.0) {
-			yi++
-			yf--
-		}
-		if (zf >= 1.0) {
-			zi++
-			zf--
-		}
-	}
-	return r
+            n1 += scaledCosine(zf) * (n2 - n1)
+
+            r += n1 * ampl
+            ampl *= perlinAmpFalloff
+            xi = xi shl 1
+            xf *= 2
+            yi = yi shl 1
+            yf *= 2
+            zi = zi shl 1
+            zf *= 2
+
+            if (xf >= 1.0) {
+                xi++
+                xf--
+            }
+            if (yf >= 1.0) {
+                yi++
+                yf--
+            }
+            if (zf >= 1.0) {
+                zi++
+                zf--
+            }
+        }
+        return r
+    }
 }

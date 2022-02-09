@@ -69,7 +69,7 @@ class GartPanel(private val g: Gartvas) : JPanel(true) {
  * All about frames count.
  */
 class FramesCount(val perSecond: Int) {
-	operator fun inc(): FramesCount {
+	internal operator fun inc(): FramesCount {
 		total++
 		offset++
 		if (offset >= perSecond) {
