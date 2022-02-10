@@ -120,12 +120,13 @@ fun main() {
 	val name = "skyscraper"
 	println(name)
 	val v = vcr.start("$name.mp4", 1)
+    val endMarker = v.frames.marker().atNumber(colors.size * 3) // repeat all colors 3 times
 
 //    towerBuilding(30f)(100f, 100f)(g.canvas)
 //    squareBuilding(80f)(100f, 100f)(g.canvas)
 
     window.paint {
-        val color = colors[it.total.mod(colors.size)]
+        val color = colors[it.count().mod(colors.size)]
 
         rowTop(color).forEach { it(g.canvas) }
 
@@ -137,8 +138,10 @@ fun main() {
 
         rowBottom(color).forEach { it(g.canvas) }
 
-	    // repeat all colors 3 times
-        v.addFrameUntil(colors.size * 3) { vid -> vid.save() }
+        when {
+            endMarker.before() -> v.addFrame()
+            endMarker.now() -> v.save()
+        }
     }
 
 	ImageWriter(g).save("$name.png")

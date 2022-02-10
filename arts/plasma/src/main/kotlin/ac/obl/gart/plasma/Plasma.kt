@@ -103,14 +103,19 @@ fun main() {
 	val g = Gartvas(w, h)
 	val b = Gartmap(g)
 	val v = VideoGartvas(g).start("plasma.mp4")
-	val w = Window(g).show()
+    val lastFrame = v.frames.marker().atNumber(757)
+    val w = Window(g).show()
 
 	init()
 
 	w.paint {
 		drawNext(b, p)
 		b.draw()
-		v.addFrameUntil(757) { it.save() }
+
+        when {
+            lastFrame.before() -> v.addFrame()
+            lastFrame.now() -> v.save()
+        }
 	}
 
 	ImageWriter(g).save("plasma.png")

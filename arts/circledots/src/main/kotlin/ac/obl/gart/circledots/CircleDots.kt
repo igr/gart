@@ -1,6 +1,9 @@
 package ac.obl.gart.circledots
 
-import ac.obl.gart.*
+import ac.obl.gart.Gartvas
+import ac.obl.gart.ImageWriter
+import ac.obl.gart.VideoGartvas
+import ac.obl.gart.Window
 import ac.obl.gart.gfx.fillOfWhite
 import ac.obl.gart.skia.Rect
 
@@ -44,12 +47,13 @@ fun main() {
 	val v = VideoGartvas(g).start("circledots.mp4", frames)
 
 	var tick = 0
+    val everySecondMarker = window.frames.marker().onEverySecond(1)
 
 	window.paint {
-		tick = if (it.offset == 0) tick + 1 else tick
+		tick = if (everySecondMarker.now()) tick + 1 else tick
 		paint(tick.mod(2) == 0)
 
-		if (v.frameCount < frames * 8) {
+		if (v.frames.count() < frames * 8) {
 			v.addFrame()
 		} else {
 			if (v.running) {

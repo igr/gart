@@ -1,6 +1,9 @@
 package ac.obl.gart.joydiv
 
-import ac.obl.gart.*
+import ac.obl.gart.Gartvas
+import ac.obl.gart.ImageWriter
+import ac.obl.gart.VideoGartvas
+import ac.obl.gart.Window
 import ac.obl.gart.gfx.fillOfBlack
 import ac.obl.gart.gfx.strokeOfBlack
 import ac.obl.gart.skia.Rect
@@ -31,10 +34,14 @@ fun main() {
     println(name)
 
     val v = VideoGartvas(g).start("${name}.mp4", frames)
+    val endMarker = v.frames.marker().atSecond(5)
 
     window.paint {
         paint()
-        v.addFrameUntil(frames * 5) { it.save() }
+        when {
+            endMarker.before() -> v.addFrame()
+            endMarker.now() -> v.save()
+        }
     }
 
     ImageWriter(g).save("${name}.png")

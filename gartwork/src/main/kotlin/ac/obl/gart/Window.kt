@@ -65,32 +65,6 @@ class GartPanel(private val g: Gartvas) : JPanel(true) {
 	}
 }
 
-/**
- * All about frames count.
- */
-class FramesCount(val perSecond: Int) {
-	internal operator fun inc(): FramesCount {
-		total++
-		offset++
-		if (offset >= perSecond) {
-			offset = 0
-		}
-		return this
-	}
-
-	/**
-	 * Returns frames offset in one second.
-	 */
-	var offset: Int = 0
-		private set
-
-	/**
-	 * Returns total count of elapsed frames.
-	 */
-	var total: Long = 0
-		private set
-}
-
 class Painter(
 	private val g: Gartvas,
 	frames: Int,
@@ -101,25 +75,26 @@ class Painter(
 	// initial time is 1 second in the past, so we can kick painting right away
 	private var lastPaintTimestamp = System.currentTimeMillis() - 1000
 	internal var running = true
-	private var frameCount = FramesCount(frames)
+    private val framesCount = FramesCount(frames)
+	val frames: Frames = framesCount
 
-	private fun draw(paintFrame: (FramesCount) -> Unit) {
+	private fun draw(paintFrame: (Frames) -> Unit) {
 		val currentTimeStamp = System.currentTimeMillis()
 		val elapsedSinceLastPaint = currentTimeStamp - lastPaintTimestamp
 		val remainingSleepTime = frameDurationInMillis - elapsedSinceLastPaint
 
 		if (remainingSleepTime < 0) {
-			paintFrame(frameCount)
+			paintFrame(frames)
 			paintCallback(g.snapshot().toBufferedImage())
 			lastPaintTimestamp = currentTimeStamp
-			frameCount++
+            framesCount.tick()
 		}
 	}
 
 	/**
 	 * Paints a frame while window is up.
 	 */
-	fun paint(paintFrame: (FramesCount) -> Unit) {
+	fun paint(paintFrame: (Frames) -> Unit) {
 		while (this.running) {
 			this.draw(paintFrame)
 		}

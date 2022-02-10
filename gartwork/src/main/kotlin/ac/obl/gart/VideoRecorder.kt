@@ -24,9 +24,10 @@ class VideoRecorder(internal val def: VideoDefinition) {
 	internal val picture: MediaPicture
 	internal val packet: MediaPacket
 	internal val muxer: Muxer
+    internal val framesCount = FramesCount(def.framesPerSecond)
 
 	init {
-		val framerate: Rational = Rational.make(1, def.framesPerSecond)
+		val framerate: Rational = Rational.make(1, framesCount.rate())
 
 		// first we create a muxer using the passed in filename and format name
 		muxer = Muxer.make(def.fileName, null, def.fileName.substringAfterLast('.'))
@@ -80,6 +81,7 @@ class VideoRecorder(internal val def: VideoDefinition) {
 	 * Starts with the recordings.
 	 */
 	fun start(imageProvider: () -> Image): Video {
+        println("Video recoding started")
 		return Video(this, imageProvider)
 	}
 }
@@ -91,32 +93,12 @@ class Video(private val vcr: VideoRecorder, private val imageProvider: () -> Ima
 
 	private var timestamp: Long = 0
 	private var converter: MediaPictureConverter? = null
-
-	/**
-	 * Frames count added to the video so far.
-	 */
-	var frameCount = 0
-		private set
-
-	/**
-	 * Adds frame until the given frame.
-	 * Invokes a callback when the max frame is hit.
-	 */
-	fun addFrameUntil(maxFrame: Int, consumer: (Video) -> Unit) {
-		if (frameCount >= maxFrame) {
-			// already reached
-			return
-		}
-		addFrame()
-		if (frameCount >= maxFrame) {
-			consumer(this)
-		}
-	}
+    val frames: Frames = vcr.framesCount
 	/**
 	 * Adds frame to the movie.
 	 */
 	fun addFrame() {
-		frameCount++
+        vcr.framesCount.tick()
 		val image = imageProvider()
 
 		// convert image to TYPE_3BYTE_BGR
@@ -144,6 +126,9 @@ class Video(private val vcr: VideoRecorder, private val imageProvider: () -> Ima
 		private set
 
 	fun save() {
+        if (!running) {
+            return
+        }
 		running = false
 		// Encoders, like decoders, sometimes cache pictures, so it can do the right key-frame optimizations.
 		// So, they need to be flushed as well. As with the decoders, the convention is to pass in a null
