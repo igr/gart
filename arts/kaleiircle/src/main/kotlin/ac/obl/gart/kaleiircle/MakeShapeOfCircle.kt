@@ -8,8 +8,9 @@ import ac.obl.gart.math.sind
 import ac.obl.gart.skia.*
 
 class MakeShapeOfCircle(private val box: Box) {
-    private val alfa = 7.5f
     operator fun invoke(circle: DHCircle): Shape {
+        val alfa = circle.innerAngle / 2
+
         val cx = box.w / 2f
         val cy = box.h / 2f
         val r = circle.radius

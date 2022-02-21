@@ -1,8 +1,8 @@
 package ac.obl.gart.kaleiircle
 
-import ac.obl.gart.Gartvas
-import ac.obl.gart.ImageWriter
+import ac.obl.gart.*
 import ac.obl.gart.gfx.fillOfBlack
+import ac.obl.gart.math.sind
 import ac.obl.gart.skia.Color4f
 import ac.obl.gart.skia.Rect
 
@@ -29,42 +29,50 @@ val triangleColors = arrayOf(
     Pair(Color4f(0xffb71193.toInt()), Color4f(0xff14bc01.toInt())),
     Pair(Color4f(0xffde1e6d.toInt()), Color4f(0xff0f9307.toInt())),
     Pair(Color4f(0xffa20329.toInt()), Color4f(0xff077d04.toInt())),
-)
+    Pair(Color4f(0xffde1e6d.toInt()), Color4f(0xff0f9307.toInt())),
+    Pair(Color4f(0xffb71193.toInt()), Color4f(0xff14bc01.toInt())),
+    Pair(Color4f(0xffd32ba7.toInt()), Color4f(0xff26c36b.toInt())),
+    Pair(Color4f(0xffe22b8b.toInt()), Color4f(0xff0ba57e.toInt())),
+    Pair(Color4f(0xffd71c68.toInt()), Color4f(0xff06797b.toInt())),
+
+    )
 
 const val r0 = 100f
 const val rw = 50f
 
-val circles = List(colors.size) {
-    DHCircle(
-        r0 + rw * it, rw,
-        colors[it],
-        -10f + it*15,
-        when (it < 5) {
-            true -> DHType.FULL
-            false -> DHType.CIRCLE
-        }
-    )
+fun circles(angle: Float, tick: Long): List<DHCircle> {
+    val a = 15f
+    val x = sind(tick) * sind(tick)
+    return List(colors.size) {
+        DHCircle(
+            r0 + rw * it + 20 * it * x, rw + 20 * x,
+            colors[it],
+            a,
+            angle + it*a + 20 * it * x,
+            when (it < 5) {
+                true -> DHType.FULL
+                false -> DHType.CIRCLE
+            }
+        )
+    }
 }
 
-val triangles = List(triangleColors.size) {
+fun triangles(angle: Float) = List(triangleColors.size) {
     DHCircle(
         r0 + rw, 1f,
         triangleColors[it],
-        -10f - (it+1) *15,
+        15f,
+        angle - (it+1) *15,
         DHType.TRIANGLE
     )
 }
 
 val makeShapeOfCircle = MakeShapeOfCircle(box)
 
-fun main() {
-    println(name)
+fun paint(g: Gartvas, frames: Frames) {
+    val shapes1 = triangles(-10f + frames.count()).map { makeShapeOfCircle(it) }
+    val shapes2 = circles(-10f + frames.count(), frames.count()).map { makeShapeOfCircle(it) }
 
-    val g = Gartvas(box.w, box.h)       // todo
-
-    val shapes1 = triangles.map { makeShapeOfCircle(it) }
-    val shapes = circles.map { makeShapeOfCircle(it) }
-    // background
     g.canvas.drawRect(Rect(0f, 0f, g.wf, g.hf), fillOfBlack())
 
 //    MakeWaves(box).invoke().draw(g.canvas)
@@ -72,8 +80,26 @@ fun main() {
     for (t in shapes1) {
         t.draw(g.canvas)
     }
-    for (s in shapes) {
+    for (s in shapes2) {
         s.draw(g.canvas)
+    }
+}
+
+fun main() {
+    println(name)
+
+    val g = Gartvas(box.w, box.h)
+    val frames = 30
+    val window = Window(g, frames).show()
+    val v = VideoGartvas(g).start("$name.mp4", frames)
+    val endMarker = v.frames.marker().atSecond(16)
+
+    window.paint {
+        paint(g, it)
+        when {
+            endMarker.before() -> v.addFrame()
+            endMarker.now() -> v.save()
+        }
     }
 
     ImageWriter(g).save("$name.png")
