@@ -1,5 +1,7 @@
 package ac.obl.gart
 
+import ac.obl.gart.math.format
+
 interface Frames {
     /**
      * Returns a framerate.
@@ -48,4 +50,8 @@ class FramesCount(private val rate: Int) : Frames {
     override fun count() = total
 
     override fun rate(): Int = rate
+
+    override fun toString(): String {
+        return "Count: $total. Time: ${time().format(2)}."
+    }
 }
