@@ -1,5 +1,8 @@
 package ac.obl.gart.math
 
+import kotlin.math.cos
+import kotlin.math.sin
+
 fun Float.toRadian(): Float = (this / 180 * Math.PI).toFloat()
 fun Double.toRadian(): Double = this / 180 * Math.PI
 
@@ -29,3 +32,6 @@ fun Float.addDeg(delta: Number): Float {
 	}
 	return result
 }
+
+fun sind(degrees: Number) = sin(degrees.toFloat().toRadian())
+fun cosd(degrees: Number) = cos(degrees.toFloat().toRadian())

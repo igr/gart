@@ -1,7 +1,15 @@
 package ac.obl.gart.gfx
 
+import ac.obl.gart.skia.Color4f
 import ac.obl.gart.skia.Paint
 import ac.obl.gart.skia.PaintMode
+
+fun strokeOf(color: Color4f, width: Float) = Paint().apply {
+    this.isAntiAlias = true
+    this.color4f = color
+    this.mode = PaintMode.STROKE
+    this.strokeWidth = width
+}
 
 fun strokeOf(color: Long, width: Float) = Paint().apply {
     this.isAntiAlias = true
@@ -15,6 +23,11 @@ fun strokeOf(color: Int, width: Float) = Paint().apply {
     this.color = color
     this.mode = PaintMode.STROKE
     this.strokeWidth = width
+}
+
+fun fillOf(color: Color4f) = Paint().apply {
+    this.isAntiAlias = true
+    this.color4f = color
 }
 
 fun fillOf(color: Int) = Paint().apply {
