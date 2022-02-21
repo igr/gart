@@ -1,5 +1,6 @@
 package ac.obl.gart.kaleiircle
 
+import ac.obl.gart.Box
 import ac.obl.gart.Shape
 import ac.obl.gart.math.sind
 import ac.obl.gart.skia.Canvas

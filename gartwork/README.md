@@ -1,10 +1,6 @@
 # gȧrtwork
 
-Simple framework that renders:
-
-+ still images,
-+ movies,
-+ or displays animation in the window.
+Simple framework for rendering **still images** or **movies**. Displays animation in the window if needed.
 
 ## Usage
 

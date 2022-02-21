@@ -70,10 +70,12 @@ fun triangles(angle: Float) = List(triangleColors.size) {
 val makeShapeOfCircle = MakeShapeOfCircle(box)
 
 fun paint(g: Gartvas, frames: Frames) {
+    println(frames)
+
     val shapes1 = triangles(-10f + frames.count()).map { makeShapeOfCircle(it) }
     val shapes2 = circles(-10f + frames.count(), frames.count()).map { makeShapeOfCircle(it) }
 
-    g.canvas.drawRect(Rect(0f, 0f, g.wf, g.hf), fillOfBlack())
+    g.canvas.drawRect(Rect(0f, 0f, g.box.wf, g.box.hf), fillOfBlack())
 
 //    MakeWaves(box).invoke().draw(g.canvas)
 
@@ -88,11 +90,11 @@ fun paint(g: Gartvas, frames: Frames) {
 fun main() {
     println(name)
 
-    val g = Gartvas(box.w, box.h)
+    val g = Gartvas(box)
     val frames = 30
     val window = Window(g, frames).show()
     val v = VideoGartvas(g).start("$name.mp4", frames)
-    val endMarker = v.frames.marker().atSecond(16)
+    val endMarker = v.frames.marker().atSecond(18)
 
     window.paint {
         paint(g, it)
