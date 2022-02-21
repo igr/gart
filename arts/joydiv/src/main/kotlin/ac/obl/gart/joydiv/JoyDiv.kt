@@ -1,9 +1,6 @@
 package ac.obl.gart.joydiv
 
-import ac.obl.gart.Gartvas
-import ac.obl.gart.ImageWriter
-import ac.obl.gart.VideoGartvas
-import ac.obl.gart.Window
+import ac.obl.gart.*
 import ac.obl.gart.gfx.fillOfBlack
 import ac.obl.gart.gfx.strokeOfBlack
 import ac.obl.gart.skia.Rect
@@ -14,7 +11,8 @@ const val wf = w.toFloat()
 const val hf = h.toFloat()
 const val frames = 50
 
-val g = Gartvas(w, h)
+val box = Box(w, h)
+val g = Gartvas(box)
 val window = Window(g, frames).show()
 
 val lines = Array(80) {

@@ -100,7 +100,8 @@ private fun drawNext(dest: Pixels, p: Palette) {
 fun main() {
 	println("Plasma")
 
-	val g = Gartvas(w, h)
+    val box = Box(w, h)
+	val g = Gartvas(box)
 	val b = Gartmap(g)
 	val v = VideoGartvas(g).start("plasma.mp4")
     val lastFrame = v.frames.marker().atNumber(757)

@@ -1,6 +1,9 @@
 package ac.obl.gart.skyscraper
 
-import ac.obl.gart.gfx.*
+import ac.obl.gart.gfx.RectIsometricLeft
+import ac.obl.gart.gfx.RectIsometricRight
+import ac.obl.gart.gfx.RectIsometricTop
+import ac.obl.gart.gfx.fillOf
 import ac.obl.gart.skia.Canvas
 import ac.obl.gart.skia.Path
 import kotlin.random.Random
@@ -24,10 +27,10 @@ class Building(x: Float, y: Float, a: Float, b: Float, alpha: Float, private val
 
 	init {
 		roofRect = RectIsometricTop(x, y, a, b, alpha)
-		rightRect = RectIsometricRight(roofRect.bottom.x, roofRect.bottom.y, g.h - y + a + 40, b, alpha)
+		rightRect = RectIsometricRight(roofRect.bottom.x, roofRect.bottom.y, g.box.h - y + a + 40, b, alpha)
 
 		roof = roofRect.path()
-		leftSide = RectIsometricLeft(x, y, g.h - y, a, alpha).path()
+		leftSide = RectIsometricLeft(x, y, g.box.h - y, a, alpha).path()
 		rightSide = rightRect.path()
 
 		val useNarrowWindows = Random.nextInt(10) < 3

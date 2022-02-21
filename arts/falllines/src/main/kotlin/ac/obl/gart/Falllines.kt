@@ -8,7 +8,8 @@ import kotlin.random.Random
 const val w = 600
 const val h = (w * GOLDEN_RATIO).toInt()
 
-val g = Gartvas(w, h)
+val box = Box(w, h)
+val g = Gartvas(box)
 val b = Gartmap(g)
 val scroll = PixelScroller(b)
 
@@ -23,7 +24,7 @@ fun main() {
     val markerStart = window.frames.marker().atSecond(40)   // window marker (!)
     val markerEnd = v.frames.marker().atSecond(20)          // video marker (!)
 
-    g.canvas.drawRect(Rect(0f, 0f, g.wf, g.hf), fillOf(0xFF000000))
+    g.canvas.drawRect(Rect(0f, 0f, g.box.wf, g.box.hf), fillOf(0xFF000000))
 
     window.paint {
         draw()

@@ -1,9 +1,6 @@
 package ac.obl.gart.circledots
 
-import ac.obl.gart.Gartvas
-import ac.obl.gart.ImageWriter
-import ac.obl.gart.VideoGartvas
-import ac.obl.gart.Window
+import ac.obl.gart.*
 import ac.obl.gart.gfx.fillOfWhite
 import ac.obl.gart.skia.Rect
 
@@ -15,7 +12,8 @@ const val gap = w / (rowCount - 2)
 
 const val frames = 50
 
-val g = Gartvas(w, h)
+val box = Box(w, h)
+val g = Gartvas(box)
 val ctx = Context(g)
 val window = Window(g, frames).show()
 

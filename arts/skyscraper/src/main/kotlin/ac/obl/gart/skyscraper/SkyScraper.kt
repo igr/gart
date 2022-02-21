@@ -1,16 +1,14 @@
 package ac.obl.gart.skyscraper
 
-import ac.obl.gart.Gartvas
-import ac.obl.gart.ImageWriter
-import ac.obl.gart.VideoGartvas
-import ac.obl.gart.Window
+import ac.obl.gart.*
 import kotlin.random.Random
 
 const val w = 1280
 const val h = 800
 const val windowSize = 10f
 
-val g = Gartvas(w, h)
+val box = Box(w, h)
+val g = Gartvas(box)
 val window = Window(g, 1).show()
 val vcr = VideoGartvas(g)
 
