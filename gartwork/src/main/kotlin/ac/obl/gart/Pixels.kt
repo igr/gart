@@ -33,19 +33,19 @@ private class PixelBytes(
 /**
  * In-memory bitmap.
  */
-open class Pixels(val w: Int, val h: Int) {
+open class Pixels(val box: Box) {
     protected val bitmap = Bitmap()
     private var pixelBytes: PixelBytes
 
     init {
-        bitmap.allocPixels(ImageInfo(w, h, ColorType.RGBA_8888, ColorAlphaType.PREMUL))
+        bitmap.allocPixels(ImageInfo(box.w, box.h, ColorType.RGBA_8888, ColorAlphaType.PREMUL))
         this.pixelBytes = bytes()
     }
     /**
      * Creates new pixel bytes from the internal bitmap.
      */
     private fun bytes(): PixelBytes {
-        return PixelBytes(bitmap.peekPixels()!!.buffer.bytes, w)
+        return PixelBytes(bitmap.peekPixels()!!.buffer.bytes, box.w)
     }
 
     /**
@@ -97,8 +97,8 @@ open class Pixels(val w: Int, val h: Int) {
      * Iterates all pixels.
      */
     fun forEach(consumer: (x: Int, y: Int, color: Int) -> Unit) {
-        for (j in 0 until h) {
-            for (i in 0 until w) {
+        for (j in 0 until box.h) {
+            for (i in 0 until box.w) {
                 consumer(i, j, get(i, j))
             }
         }

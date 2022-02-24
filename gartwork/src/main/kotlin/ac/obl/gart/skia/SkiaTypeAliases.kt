@@ -24,6 +24,7 @@ typealias PaintMode                 = org.jetbrains.skia.PaintMode
 typealias Path                      = org.jetbrains.skia.Path
 typealias PathEffect                = org.jetbrains.skia.PathEffect
 typealias PathFillMode              = org.jetbrains.skia.PathFillMode
+typealias PaintStrokeCap            = org.jetbrains.skia.PaintStrokeCap
 typealias Point                     = org.jetbrains.skia.Point
 typealias Rect                      = org.jetbrains.skia.Rect
 typealias Surface                   = org.jetbrains.skia.Surface

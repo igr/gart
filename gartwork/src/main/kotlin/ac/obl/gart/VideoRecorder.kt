@@ -94,6 +94,12 @@ class Video(private val vcr: VideoRecorder, private val imageProvider: () -> Ima
 	private var timestamp: Long = 0
 	private var converter: MediaPictureConverter? = null
     val frames: Frames = vcr.framesCount
+
+    fun addFrameIfRunning() {
+        if (running) {
+            this.addFrame()
+        }
+    }
 	/**
 	 * Adds frame to the movie.
 	 */

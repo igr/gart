@@ -3,7 +3,7 @@ package ac.obl.gart
 /**
  * Canvas pixels, i.e. a bitmap
  */
-class Gartmap(private val g: Gartvas) : Pixels(g.box.w, g.box.h) {
+class Gartmap(private val g: Gartvas) : Pixels(g.box) {
     init {
         update()
     }

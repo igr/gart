@@ -23,7 +23,7 @@ fun rgb(r: Int, g: Int, b: Int): Int {
 }
 
 fun argb(a: Int, r: Int, g: Int, b: Int): Int {
-	return Color.makeARGB(a, r, b, g)
+	return Color.makeARGB(a, r, g, b)
 }
 
 fun alpha(color: Int, a: Int): Int {

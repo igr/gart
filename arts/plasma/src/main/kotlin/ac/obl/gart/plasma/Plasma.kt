@@ -2,8 +2,7 @@ package ac.obl.gart.plasma
 
 import ac.obl.gart.*
 import ac.obl.gart.gfx.Palette
-import ac.obl.gart.gfx.PaletteBuilder
-import ac.obl.gart.gfx.gradientFill
+import ac.obl.gart.gfx.Palettes.gradient
 import kotlin.math.cos
 import kotlin.math.sin
 import kotlin.math.sqrt
@@ -25,10 +24,7 @@ var circle7 = 0f
 var circle8 = 0f
 var roll = 0
 
-val p: Palette = PaletteBuilder(256)
-	.apply { gradientFill(it, 0, 128, 0x174185, 0xFFFFFF) }
-	.apply { gradientFill(it, 128, 255, 0xFFFFFF, 0x174185) }
-	.get()
+val p: Palette = gradient(0xff174185, 0xffFFFFFF, 128) + gradient(0xffFFFFFF, 0xff174185, 128)
 
 private fun init() {
 	for (i in 0 until h) {

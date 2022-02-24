@@ -1,6 +1,9 @@
 package ac.obl.gart
 
-import ac.obl.gart.gfx.*
+import ac.obl.gart.gfx.Palettes
+import ac.obl.gart.gfx.alpha
+import ac.obl.gart.gfx.fillOf
+import ac.obl.gart.gfx.rgb
 import ac.obl.gart.math.GOLDEN_RATIO
 import ac.obl.gart.skia.Rect
 import kotlin.random.Random
@@ -49,7 +52,10 @@ val offset = (w - segmentsTotalWidth) / 2f
 
 // create segments
 fun colorOfIndex(index: Int): Int {
-    val color = coolColorOf(index, input.size, COOL_COL_6)
+    if (input.size > Palettes.cool6.size) {
+        throw IllegalArgumentException("Palette too small")
+    }
+    val color = Palettes.cool6[Palettes.cool6.size * index / input.size]
     return alpha(color, 255)
 }
 
