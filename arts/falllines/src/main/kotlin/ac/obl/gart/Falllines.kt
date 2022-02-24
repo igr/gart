@@ -4,12 +4,12 @@ import ac.obl.gart.gfx.Palettes
 import ac.obl.gart.gfx.alpha
 import ac.obl.gart.gfx.fillOf
 import ac.obl.gart.gfx.rgb
-import ac.obl.gart.math.GOLDEN_RATIO
+import ac.obl.gart.math.Constants
 import ac.obl.gart.skia.Rect
 import kotlin.random.Random
 
 const val w = 600
-const val h = (w * GOLDEN_RATIO).toInt()
+val h = (w * Constants.goldenRatio).toInt()
 
 val box = Box(w, h)
 val g = Gartvas(box)
