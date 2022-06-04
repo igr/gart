@@ -9,6 +9,7 @@ object Palettes {
     val cool6 = Palette(0xff99e2b4, 0xff88d4ab, 0xff78c6a3, 0xff67b99a, 0xff56ab91, 0xff469d89, 0xff358f80, 0xff248277, 0xff14746f, 0xff036666)
     val cool7 = Palette(0xff012a4a, 0xff013a63, 0xff01497c, 0xff014f86, 0xff2a6f97, 0xff2c7da0, 0xff468faf, 0xff61a5c2, 0xff89c2d9, 0xffa9d6e5)
     val cool8 = Palette(0xff2d0d30, 0xff4b1650, 0xff702279, 0xff942d9f, 0xffb136bf, 0xffc150ce, 0xffd280db, 0xffe3afe9)
+    val cool9 = Palette(0xffEF476F, 0xffF78C6B, 0xffFFD166, 0xff06D6A0, 0xff118AB2, 0xff073B4C)
 
     fun gradient(colorFrom: Long, colorTo: Long, steps: Int): Palette = gradient(colorFrom.toInt(), colorTo.toInt(), steps)
     fun gradient(colorFrom: Int, colorTo: Int, steps: Int): Palette {

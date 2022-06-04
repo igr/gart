@@ -71,32 +71,42 @@ class Painter(
 	private val paintCallback: (BufferedImage) -> Unit,
 ) {
 
-	private val frameDurationInMillis = 1000 / frames
-	// initial time is 1 second in the past, so we can kick painting right away
-	private var lastPaintTimestamp = System.currentTimeMillis() - 1000
-	internal var running = true
+    private val frameDurationInMillis = 1000 / frames
+
+    // initial time is 1 second in the past, so we can kick painting right away
+    private var lastPaintTimestamp = System.currentTimeMillis() - 1000
+    internal var running = true
     private val framesCount = FramesCount(frames)
-	val frames: Frames = framesCount
+    val frames: Frames = framesCount
 
-	private fun draw(paintFrame: (Frames) -> Unit) {
-		val currentTimeStamp = System.currentTimeMillis()
-		val elapsedSinceLastPaint = currentTimeStamp - lastPaintTimestamp
-		val remainingSleepTime = frameDurationInMillis - elapsedSinceLastPaint
+    private fun draw(paintFrame: (Frames) -> Boolean) {
+        val currentTimeStamp = System.currentTimeMillis()
+        val elapsedSinceLastPaint = currentTimeStamp - lastPaintTimestamp
+        val remainingSleepTime = frameDurationInMillis - elapsedSinceLastPaint
 
-		if (remainingSleepTime < 0) {
-			paintFrame(frames)
-			paintCallback(g.snapshot().toBufferedImage())
-			lastPaintTimestamp = currentTimeStamp
+        if (remainingSleepTime < 0) {
+            this.running = paintFrame(frames)
+            paintCallback(g.snapshot().toBufferedImage())
+            lastPaintTimestamp = currentTimeStamp
             framesCount.tick()
-		}
-	}
+        }
+    }
 
-	/**
-	 * Paints a frame while window is up.
-	 */
-	fun paint(paintFrame: (Frames) -> Unit) {
-		while (this.running) {
-			this.draw(paintFrame)
-		}
-	}
+    /**
+     * Paints a frame while window is up.
+     */
+    fun paint2(paintFrame: (Frames) -> Boolean) {
+        while (this.running) {
+            this.draw(paintFrame)
+        }
+    }
+
+    fun paint(paintFrame: (Frames) -> Unit) {
+        while (this.running) {
+            this.draw {
+                paintFrame(it)
+                return@draw true
+            }
+        }
+    }
 }
