@@ -5,7 +5,7 @@ package ac.obl.gart
  */
 data class Box(val w: Int, val h: Int) {
     val wf = w.toFloat()
-    val hf = w.toFloat()
+    val hf = h.toFloat()
     val cx = w / 2f
     val cy = h / 2f
     /**
