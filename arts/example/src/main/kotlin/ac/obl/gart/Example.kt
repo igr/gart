@@ -2,14 +2,14 @@ package ac.obl.gart
 
 import ac.obl.gart.gfx.fillOf
 import ac.obl.gart.gfx.fillOfRed
-import ac.obl.gart.math.GOLDEN_RATIO
+import ac.obl.gart.math.Constants.goldenRatio
 import ac.obl.gart.skia.Rect
 
 fun main() {
     println("Example")
 
     val h = 100
-    val w = (h * GOLDEN_RATIO).toInt()
+    val w = (h * goldenRatio).toInt()
     val box = Box(w, h)
     val g = Gartvas(box)
 
