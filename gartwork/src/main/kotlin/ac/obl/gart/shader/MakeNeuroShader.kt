@@ -42,7 +42,6 @@ class MakeNeuroShader(startTime: Float = 0f) {
             uniforms = Data.makeFromBytes(timeBits),
             children = null,
             localMatrix = null,
-            isOpaque = false
         )
     }
 
