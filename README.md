@@ -18,6 +18,6 @@ gënérative ȧrt made by pragmatic [micro-framework](gartwork/README.md) and �
 <a href="arts/lettero/README.md" float="left"><img src="arts/lettero/LetterO.png" height="240"></a>
 <a href="arts/roundrects/README.md" float="left"><img src="arts/roundrects/roundrects.png" height="240"></a>
 
-![](https://www.dropbox.com/s/xa3asij4q4wrnba/roundrects.mp4?raw=1)
+<video src="https://www.dropbox.com/s/xa3asij4q4wrnba/roundrects.mp4?raw=1" height="240"></video>
 
 👋 Enjoy.
