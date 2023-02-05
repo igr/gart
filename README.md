@@ -16,8 +16,11 @@ gënérative ȧrt made by pragmatic [micro-framework](gartwork/README.md) and �
 <a href="arts/ticktiletock/README.md" float="left"><img src="arts/ticktiletock/ticktiletock.png" width="240"></a>
 <a href="arts/bubbles/README.md" float="left"><img src="arts/bubbles/Bubbles2.png" width="240"></a>
 <a href="arts/lettero/README.md" float="left"><img src="arts/lettero/LetterO.png" height="240"></a>
-<a href="arts/roundrects/README.md" float="left"><img src="arts/roundrects/roundrects.png" height="240"></a>
 
-<video src="https://www.dropbox.com/s/xa3asij4q4wrnba/roundrects.mp4?raw=1" width="240" height="240"></video>
+[Round. Rect. Rotate.](arts/roundrects/README.md)
+
+https://user-images.githubusercontent.com/2280001/216817686-2be8a7e4-5230-4878-802d-c7a44dd3ddb1.mp4
+
+
 
 👋 Enjoy.
