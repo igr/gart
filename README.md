@@ -16,5 +16,6 @@ gënérative ȧrt made by pragmatic [micro-framework](gartwork/README.md) and �
 <a href="arts/ticktiletock/README.md" float="left"><img src="arts/ticktiletock/ticktiletock.png" width="240"></a>
 <a href="arts/bubbles/README.md" float="left"><img src="arts/bubbles/Bubbles2.png" width="240"></a>
 <a href="arts/lettero/README.md" float="left"><img src="arts/lettero/LetterO.png" height="240"></a>
+<a href="arts/roundrects/README.md" float="left"><img src="arts/roundrects/roundrects.png" height="240"></a>
 
 👋 Enjoy.
