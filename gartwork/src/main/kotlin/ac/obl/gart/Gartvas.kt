@@ -8,16 +8,17 @@ import ac.obl.gart.skia.Surface
  */
 class Gartvas(val box: Box) {
 
-	internal val surface = Surface.makeRasterN32Premul(box.w, box.h)
-	/**
-	 * Canvas.
-	 */
-	val canvas = surface.canvas
+    internal val surface = Surface.makeRasterN32Premul(box.w, box.h)
 
-	/**
-	 * Makes a snapshot of a canvas.
-	 */
-	fun snapshot(): Image {
-		return surface.makeImageSnapshot()
-	}
+    /**
+     * Canvas.
+     */
+    val canvas = surface.canvas
+
+    /**
+     * Makes a snapshot of a canvas.
+     */
+    fun snapshot(): Image {
+        return surface.makeImageSnapshot()
+    }
 }

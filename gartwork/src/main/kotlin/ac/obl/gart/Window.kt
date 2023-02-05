@@ -93,7 +93,7 @@ class Painter(
     }
 
     /**
-     * Paints a frame while window is up.
+     * Paints a frame while window is up. Provided lambda controls whether to continue painting.
      */
     fun paint2(paintFrame: (Frames) -> Boolean) {
         while (this.running) {
@@ -101,6 +101,9 @@ class Painter(
         }
     }
 
+    /**
+     * Paints a frame while window is up, until the window is explicitly closed.
+     */
     fun paint(paintFrame: (Frames) -> Unit) {
         while (this.running) {
             this.draw {

@@ -1,5 +1,7 @@
 package ac.obl.gart
 
+import kotlin.time.Duration
+
 interface FrameMarker {
     /**
      * Returns true if current frame is before the marker.
@@ -22,14 +24,21 @@ class FrameMarkerBuilder(private val frames: Frames) {
     fun atNumber(number: Number): FrameMarker {
         return FrameMarkerSingle(frames, number.toLong())
     }
+
     fun atSecond(seconds: Number): FrameMarker {
         return FrameMarkerSingle(frames, (frames.rate() * seconds.toFloat()).toLong())
     }
+
     fun onEveryFrame(number: Number): FrameMarker {
         return FrameMarkerRepeated(frames, number.toLong())
     }
+
     fun onEverySecond(seconds: Number): FrameMarker {
         return FrameMarkerRepeated(frames, (frames.rate() * seconds.toFloat()).toLong())
+    }
+
+    fun onEvery(duration: Duration): FrameMarker {
+        return FrameMarkerRepeated(frames, (frames.rate() * duration.inWholeSeconds.toFloat()).toLong())
     }
 }
 
