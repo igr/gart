@@ -4,7 +4,7 @@ plugins {
 
 allprojects {
     version = "1.0.0-SNAPSHOT"
-    group = "ac.obl.gart"
+    group = "studio.oblac.gart"
 
     repositories {
         mavenCentral()
@@ -14,6 +14,6 @@ allprojects {
     }
 }
 
-task clean(type: Delete) {
+tasks.register('clean', Delete) {
     delete rootProject.buildDir
 }
