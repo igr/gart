@@ -2,6 +2,8 @@
 
 gënérative ȧrt made by pragmatic [micro-framework](gartwork/README.md) and ❤️
 
+[🎬 YouTube gallery](https://www.youtube.com/watch?v=wbcpgElKq7E&list=PLKevVk1K8oXF_GrdsGHjeOuuSkpZXq5ps)
+
 ## 🍭 gȧlléry
 
 ⭐️ [Zen. Plasma. Watter.](arts/plasma/README.md)
