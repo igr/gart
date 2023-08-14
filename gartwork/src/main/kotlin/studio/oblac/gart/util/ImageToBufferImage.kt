@@ -1,11 +1,11 @@
-package studio.oblac.gart
+package studio.oblac.gart.util
 
 import studio.oblac.gart.skia.*
 import java.awt.Transparency
 import java.awt.color.ColorSpace
 import java.awt.image.*
 
-fun Image.toBufferedImage(): BufferedImage {
+internal fun Image.toBufferedImage(): BufferedImage {
 	val bitmap = Bitmap()
 	bitmap.allocPixelsFlags(ImageInfo.makeS32(this.width, this.height, ColorAlphaType.PREMUL), false)
 	Canvas(bitmap).drawImage(this, 0f, 0f)

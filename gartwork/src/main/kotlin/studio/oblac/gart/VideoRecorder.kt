@@ -7,6 +7,7 @@ import io.humble.video.Coder.Flag
 import io.humble.video.awt.MediaPictureConverter
 import io.humble.video.awt.MediaPictureConverterFactory
 import io.humble.video.awt.MediaPictureConverterFactory.convertToType
+import studio.oblac.gart.util.toBufferedImage
 import java.awt.image.BufferedImage
 
 // https://stackoverflow.com/a/38015682/511837

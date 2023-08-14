@@ -1,5 +1,6 @@
 package studio.oblac.gart
 
+import studio.oblac.gart.util.toBufferedImage
 import java.awt.*
 import java.awt.event.WindowAdapter
 import java.awt.event.WindowEvent
