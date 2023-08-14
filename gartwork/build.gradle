@@ -8,8 +8,8 @@ test {
 
 dependencies {
     //api 'io.github.humbleui:skija-macos-x64:0.98.1'
-    api 'org.jetbrains.skiko:skiko-awt-runtime-macos-x64:0.7.50'
-    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4'
+    api 'org.jetbrains.skiko:skiko-awt-runtime-macos-x64:0.7.76'
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3'
 
     implementation 'io.humble:humble-video-all:0.3.0'
     //implementation("io.github.reactivecircus.cache4k:cache4k:0.4.0")

@@ -12,7 +12,7 @@ Simple framework for rendering **still images** or **movies**. Displays animatio
 
 `Window` is a tool that displays the canvas. The performance are not in the focus here; the purpose is to visualise animation during development.
 
-`VideoRecorder` records frames in the video.
+`VideoRecorder` records frames into the video.
 
 `ImageWritter` stores a canvas snapshot into the image.
 
