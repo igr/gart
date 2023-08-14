@@ -115,6 +115,6 @@ fun main() {
         }
 	}
 
-	ImageWriter(g).save("plasma.png")
+    writeGartvasAsImage(g, "plasma.png")
 	println("Done")
 }

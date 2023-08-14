@@ -62,6 +62,6 @@ fun main() {
 
 	}
 
-	ImageWriter(g).save("circledots.png")
+    writeGartvasAsImage(g, "circledots.png")
 	println("Done")
 }

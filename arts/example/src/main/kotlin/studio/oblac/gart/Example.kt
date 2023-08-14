@@ -37,5 +37,5 @@ fun main() {
 
     b.draw()
 
-    ImageWriter(g).save("example.png")
+    writeGartvasAsImage(g, "example.png")
 }

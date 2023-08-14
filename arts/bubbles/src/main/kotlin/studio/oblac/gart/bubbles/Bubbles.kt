@@ -2,7 +2,6 @@ package studio.oblac.gart.bubbles
 
 import studio.oblac.gart.Box
 import studio.oblac.gart.Gartvas
-import studio.oblac.gart.ImageWriter
 import studio.oblac.gart.Window
 import studio.oblac.gart.gfx.Palettes
 import studio.oblac.gart.gfx.fillOf
@@ -12,6 +11,7 @@ import studio.oblac.gart.math.sind
 import studio.oblac.gart.math.toDegree
 import studio.oblac.gart.skia.Paint
 import studio.oblac.gart.skia.Rect
+import studio.oblac.gart.writeGartvasAsImage
 import kotlin.math.abs
 import kotlin.math.asin
 import kotlin.math.pow
@@ -22,7 +22,7 @@ import kotlin.random.Random.Default.nextLong
 const val name = "Bubbles"
 
 fun main() {
-    println(studio.oblac.gart.bubbles.name)
+    println(name)
 
     val box = Box(1024, 1024)
     val g = Gartvas(box)
@@ -69,7 +69,7 @@ fun main() {
         paintAll()
     }
 
-    ImageWriter(g).save("${studio.oblac.gart.bubbles.name}.png")
+    writeGartvasAsImage(g, "$name.png")
 }
 
 fun move(

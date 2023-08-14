@@ -104,5 +104,5 @@ fun main() {
         }
     }
 
-    ImageWriter(g).save("$name.png")
+    writeGartvasAsImage(g, "$name.png")
 }

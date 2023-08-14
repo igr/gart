@@ -34,6 +34,6 @@ fun main() {
         v.addFrameIfRunning()
         return@paint2 true
     }
-    ImageWriter(g).save("roundrects.png")
+    writeGartvasAsImage(g, "roundrects.png")
 }
 

@@ -2,10 +2,10 @@ package studio.oblac.gart.bubbles
 
 import studio.oblac.gart.Box
 import studio.oblac.gart.Gartvas
-import studio.oblac.gart.ImageWriter
 import studio.oblac.gart.gfx.fillOfWhite
 import studio.oblac.gart.gfx.strokeOfBlack
 import studio.oblac.gart.skia.Rect
+import studio.oblac.gart.writeGartvasAsImage
 import kotlin.random.Random
 
 const val name2 = "Bubbles2"
@@ -48,5 +48,5 @@ fun main() {
         g.canvas.drawCircle(it.x, it.y, it.r, it.paint)
     }
 
-    ImageWriter(g).save("$name2.png")
+    writeGartvasAsImage(g, "$name2.png")
 }
