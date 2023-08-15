@@ -77,8 +77,8 @@ class Painter(
     // initial time is 1 second in the past, so we can kick painting right away
     private var lastPaintTimestamp = System.currentTimeMillis() - 1000
     internal var running = true
-    private val framesCount = FramesCount(frames)
-    val frames: Frames = framesCount
+    private val framesCounter = FramesCounter(frames)
+    val frames: Frames = framesCounter
 
     private fun draw(paintFrame: (Frames) -> Boolean) {
         val currentTimeStamp = System.currentTimeMillis()
@@ -89,7 +89,7 @@ class Painter(
             this.running = paintFrame(frames)
             paintCallback(g.snapshot().toBufferedImage())
             lastPaintTimestamp = currentTimeStamp
-            framesCount.tick()
+            framesCounter.tick()
         }
     }
 

@@ -21,7 +21,7 @@ interface Frames {
     fun marker() = FrameMarkerBuilder(this)
 }
 
-class FramesCount(private val rate: Int) : Frames {
+class FramesCounter(private val rate: Int) : Frames {
 
     private var total: Long = 0
     //private var callbacks: Array<(Frames)->Unit> = emptyArray()
@@ -29,7 +29,7 @@ class FramesCount(private val rate: Int) : Frames {
     /**
      * Increments frame counter.
      */
-    fun tick(): FramesCount {
+    fun tick(): FramesCounter {
         total++
         return this
     }

@@ -29,7 +29,7 @@ fun main() {
         }
     }
 
-    writeGartvasAsImage(g, "$name.png")
+    g.writeSnapshotAsImage("$name.png")
 }
 
 fun movie(d: Dimension, m: Gartmap) {

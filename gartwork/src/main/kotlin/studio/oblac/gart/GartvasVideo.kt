@@ -12,8 +12,8 @@ class GartvasVideo(
     private val fileName: String,
     private val fps: Int = 25) {
 
-    private val framesCount = FramesCount(fps)
-    val frames: Frames = framesCount
+    private val framesCounter = FramesCounter(fps)
+    val frames: Frames = framesCounter
 
     private var running = true
     private val queue = mutableListOf<Image>()
@@ -26,7 +26,7 @@ class GartvasVideo(
             return
         }
         queue.add(g.snapshot())
-        framesCount.tick()
+        framesCounter.tick()
     }
 
     /**

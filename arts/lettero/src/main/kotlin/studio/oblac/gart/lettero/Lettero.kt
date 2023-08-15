@@ -51,7 +51,7 @@ fun main() {
         return@paint2 true
     }
 
-    writeGartvasAsImage(g, "LetterO.png")
+    g.writeSnapshotAsImage("LetterO.png")
 }
 
 fun drawLetters(g: Gartvas, text: Char) {

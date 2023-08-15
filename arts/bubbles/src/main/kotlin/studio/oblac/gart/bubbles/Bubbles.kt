@@ -12,7 +12,6 @@ import studio.oblac.gart.math.toDegree
 import studio.oblac.gart.skia.Paint
 import studio.oblac.gart.skia.Rect
 import studio.oblac.gart.util.nextFloat
-import studio.oblac.gart.writeGartvasAsImage
 import kotlin.math.abs
 import kotlin.math.asin
 import kotlin.math.pow
@@ -70,7 +69,7 @@ fun main() {
         paintAll()
     }
 
-    writeGartvasAsImage(g, "$name.png")
+    g.writeSnapshotAsImage("$name.png")
 }
 
 fun move(
@@ -148,12 +147,15 @@ data class Bubble(
     fun pushedByLeft(): Float? {
         return if (x - r <= 0) 180f else null
     }
+
     fun pushedByRight(): Float? {
         return if (x + r >= d.rf) 0f else null
     }
+
     fun pushedByUp(): Float? {
         return if (y - r <= 0) 90f else null
     }
+
     fun pushedByDown(): Float? {
         return if (y + r >= d.bf) 270f else null
     }

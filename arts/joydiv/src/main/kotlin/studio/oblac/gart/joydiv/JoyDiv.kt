@@ -42,6 +42,6 @@ fun main() {
         }
     }
 
-    writeGartvasAsImage(g, "${name}.png")
+    g.writeSnapshotAsImage("${name}.png")
     println("Done")
 }

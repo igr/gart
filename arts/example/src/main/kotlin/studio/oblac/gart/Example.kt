@@ -33,9 +33,9 @@ fun main() {
     for (x in 0 until w) {
         b[x, 0] = 0xFFFF0044
     }
-    b[0,0] = 0xFF00FF00
+    b[0, 0] = 0xFF00FF00
 
     b.draw()
 
-    writeGartvasAsImage(g, "example.png")
+    g.writeSnapshotAsImage("example.png")
 }

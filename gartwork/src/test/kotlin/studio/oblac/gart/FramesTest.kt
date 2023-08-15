@@ -7,7 +7,7 @@ class FramesTest {
 
     @Test
     fun testFrame0() {
-        val fc = FramesCount(25)
+        val fc = FramesCounter(25)
 
         assertEquals(0, fc.count())
         assertEquals(0f, fc.time(), 0.01f)
@@ -15,7 +15,7 @@ class FramesTest {
 
     @Test
     fun testFrame1() {
-        val fc = FramesCount(25)
+        val fc = FramesCounter(25)
         repeat(1) { fc.tick() }
 
         assertEquals(1, fc.count())
@@ -24,7 +24,7 @@ class FramesTest {
 
     @Test
     fun testFrame24() {
-        val fc = FramesCount(25)
+        val fc = FramesCounter(25)
         repeat(24) { fc.tick() }
 
         assertEquals(24, fc.count())
@@ -33,7 +33,7 @@ class FramesTest {
 
     @Test
     fun testFrame25() {
-        val fc = FramesCount(25)
+        val fc = FramesCounter(25)
         repeat(25) { fc.tick() }
 
         assertEquals(25, fc.count())

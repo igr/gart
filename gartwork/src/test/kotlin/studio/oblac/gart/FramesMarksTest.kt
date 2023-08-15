@@ -8,7 +8,7 @@ class FramesMarksTest {
 
     @Test
     fun testAfter() {
-        val fc = FramesCount(25)
+        val fc = FramesCounter(25)
         val mark = fc.marker().atNumber(15)
 
         repeat(10) { fc.tick() }

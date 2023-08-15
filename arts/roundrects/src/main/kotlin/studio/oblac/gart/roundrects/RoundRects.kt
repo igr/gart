@@ -15,7 +15,7 @@ fun main() {
     val onSceneChange = w.frames.marker().onEvery(2.seconds)
     val v = GartvasVideo(g, "$name.mp4")
 
-    var bigBox =  BigBox(d, 4, 4)
+    var bigBox = BigBox(d, 4, 4)
 
     var totalChanges = 10;
     w.paint2 { frames ->
@@ -34,6 +34,6 @@ fun main() {
         v.addFrame()
         return@paint2 true
     }
-    writeGartvasAsImage(g, "roundrects.png")
+    g.writeSnapshotAsImage("roundrects.png")
 }
 

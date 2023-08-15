@@ -48,7 +48,7 @@ fun circles(angle: Float, tick: Long): List<DHCircle> {
             r0 + rw * it + 20 * it * x, rw + 20 * x,
             colors[it],
             a,
-            angle + it*a + 20 * it * x,
+            angle + it * a + 20 * it * x,
             when (it < 5) {
                 true -> DHType.FULL
                 false -> DHType.CIRCLE
@@ -62,7 +62,7 @@ fun triangles(angle: Float) = List(triangleColors.size) {
         r0 + rw, 1f,
         triangleColors[it],
         15f,
-        angle - (it+1) *15,
+        angle - (it + 1) * 15,
         DHType.TRIANGLE
     )
 }
@@ -104,5 +104,5 @@ fun main() {
         }
     }
 
-    writeGartvasAsImage(g, "$name.png")
+    g.writeSnapshotAsImage("$name.png")
 }

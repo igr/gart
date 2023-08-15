@@ -37,7 +37,7 @@ fun main() {
         }
     }
 
-    writeGartvasAsImage(g, "$name.png")
+    g.writeSnapshotAsImage("$name.png")
 }
 
 const val gap = 10

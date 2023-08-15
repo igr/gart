@@ -6,7 +6,6 @@ import studio.oblac.gart.gfx.fillOfWhite
 import studio.oblac.gart.gfx.strokeOfBlack
 import studio.oblac.gart.skia.Rect
 import studio.oblac.gart.util.nextFloat
-import studio.oblac.gart.writeGartvasAsImage
 
 const val name2 = "Bubbles2"
 
@@ -27,12 +26,12 @@ fun main() {
 
         // is it valid?
 
-        if (!list.stream().anyMatch{ it.contains(x, y) }) {
+        if (!list.stream().anyMatch { it.contains(x, y) }) {
             // new dot
             var newBubble = Bubble(d, x, y, 1f, 0, strokeOfBlack(2f))
-            while(true) {
+            while (true) {
                 if (newBubble.r >= maxR) break
-                if (list.stream().anyMatch{newBubble.collide(it)}) break
+                if (list.stream().anyMatch { newBubble.collide(it) }) break
                 if (newBubble.pushedByLeft() != null) break
                 if (newBubble.pushedByRight() != null) break
                 if (newBubble.pushedByDown() != null) break
@@ -48,5 +47,5 @@ fun main() {
         g.canvas.drawCircle(it.x, it.y, it.r, it.paint)
     }
 
-    writeGartvasAsImage(g, "$name2.png")
+    g.writeSnapshotAsImage("$name2.png")
 }
