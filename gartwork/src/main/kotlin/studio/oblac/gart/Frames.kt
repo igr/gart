@@ -21,7 +21,7 @@ interface Frames {
     fun marker() = FrameMarkerBuilder(this)
 }
 
-class FramesCounter(private val rate: Int) : Frames {
+class FramesCounter(private val fps: Int) : Frames {
 
     private var total: Long = 0
     //private var callbacks: Array<(Frames)->Unit> = emptyArray()
@@ -38,19 +38,19 @@ class FramesCounter(private val rate: Int) : Frames {
      * Converts frames count to time in seconds.
      */
     fun framesToTime(frames: Int) : Float {
-        return frames / rate.toFloat()
+        return frames / fps.toFloat()
     }
     fun timeToFrames(time: Float) : Long {
-        return (time * rate).toLong()
+        return (time * fps).toLong()
     }
 
     override fun time(): Float {
-        return total / rate.toFloat()
+        return total / fps.toFloat()
     }
 
     override fun count() = total
 
-    override fun rate(): Int = rate
+    override fun rate(): Int = fps
 
     override fun toString(): String {
         return "Count: $total. Time: ${time().format(2)}."
