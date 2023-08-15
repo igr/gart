@@ -40,7 +40,7 @@ gënérative ȧrt made by pragmatic [micro-framework](gartwork/README.md) and �
 
 ⭐️ [Letter. Pattern. Repeat.](arts/lettero/README.md) [🎬](https://youtube.com/shorts/MLd-ai_lOBU?feature=share)
 
-<img src="arts/lettero/lettero.png" height="240px">
+<img src="arts/lettero/LetterO.png" height="240px">
 
 ⭐️ [Round. Rect. Rotate.](arts/roundrects/README.md) [🎬](https://youtube.com/shorts/i0cVxjT9K4Q?feature=share)
 
