@@ -48,7 +48,7 @@ class VideoRecorder(width: Int,
             }
         }
 
-        codec = avcodec.avcodec_find_encoder(avcodec.AV_CODEC_ID_MPEG4).also { codec ->
+        codec = avcodec.avcodec_find_encoder(avcodec.AV_CODEC_ID_H264).also { codec ->
             if (codec.isNull) {
                 throw RuntimeException("Failed to find encoder")
             }
@@ -83,7 +83,10 @@ class VideoRecorder(width: Int,
         }
 
         val codecOptions = AVDictionary()
-        av_dict_set(codecOptions, "preset", "icon", 0)
+        // mpg4 preset
+        //av_dict_set(codecOptions, "preset", "icon", 0)
+        // h264 presets: ultrafast superfast veryfast faster fast medium slow slower veryslow placebo
+        av_dict_set(codecOptions, "preset", "slow", 0)
 
         // Open codec
         avcodec.avcodec_open2(codecContext, codec, codecOptions).let { err ->
