@@ -93,14 +93,14 @@ fun main() {
     val g = Gartvas(d)
     val frames = 30
     val window = Window(g, frames).show()
-    val v = VideoGartvas(g).start("$name.mp4", frames)
+    val v = GartvasVideo(g, "$name.mp4", frames)
     val endMarker = v.frames.marker().atSecond(18)
 
     window.paint {
         paint(g, it)
         when {
             endMarker.before() -> v.addFrame()
-            endMarker.now() -> v.save()
+            endMarker.now() -> v.stopAndSaveVideo()
         }
     }
 

@@ -6,9 +6,6 @@ Code conventions:
 
 + we use common single-named variables for the most important objects.
 
-Dependency to manually install:
-
-+ [Humble Video](https://github.com/artclarke/humble-video)
 
 ## Usage
 

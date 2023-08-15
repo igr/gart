@@ -10,12 +10,12 @@ const val h: Int = w
 const val rowCount = 25
 const val gap = w / (rowCount - 2)
 
-const val frames = 50
+const val fps = 50
 
 val d = Dimension(w, h)
 val g = Gartvas(d)
 val ctx = Context(g)
-val window = Window(g, frames).show()
+val window = Window(g, fps).show()
 
 val circles = Array(rowCount * rowCount) {
 	val row = it.div(rowCount)
@@ -42,7 +42,7 @@ private fun paint(change: Boolean) {
 fun main() {
 	println("CircleDots")
 
-	val v = VideoGartvas(g).start("circledots.mp4", frames)
+	val v = GartvasVideo(g, "circledots.mp4", fps)
 
 	var tick = 0
     val everySecondMarker = window.frames.marker().onEverySecond(1)
@@ -51,13 +51,10 @@ fun main() {
 		tick = if (everySecondMarker.now()) tick + 1 else tick
 		paint(tick.mod(2) == 0)
 
-		if (v.frames.count() < frames * 8) {
+		if (v.frames.count() < fps * 8) {
 			v.addFrame()
 		} else {
-			if (v.running) {
-				v.save()
-				println("Video saved.")
-			}
+            v.stopAndSaveVideo()
 		}
 
 	}

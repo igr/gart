@@ -27,7 +27,7 @@ fun main() {
     val d = Dimension(768, 1024)
     val g = Gartvas(d)
     val w = Window(g).show()
-    val v = VideoGartvas(g).start("$name.mp4", 1)
+    val v = GartvasVideo(g, "$name.mp4", 1)
     val tick = w.frames.marker().onEverySecond(1)
 
     val letters = listOf('I', 'G', 'O', '.', 'R', 'S')
@@ -40,10 +40,10 @@ fun main() {
         if (tick.now()) {
             g.canvas.drawRect(Rect(0f, 0f, d.wf, d.hf), fillOf(p[count + pdelta]))
             drawLetters(g, letters[count])
-            v.addFrameIfRunning()
+            v.addFrame()
             count++
             if (count == letters.size) {
-                v.save()
+                v.stopAndSaveVideo()
                 return@paint2 false
             }
 

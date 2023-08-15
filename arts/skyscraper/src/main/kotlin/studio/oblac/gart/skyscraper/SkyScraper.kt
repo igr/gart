@@ -10,7 +10,6 @@ const val windowSize = 10f
 val d = Dimension(w, h)
 val g = Gartvas(d)
 val window = Window(g, 1).show()
-val vcr = VideoGartvas(g)
 
 typealias BuildingFunction = (x: Float, y: Float) -> Building
 
@@ -117,7 +116,7 @@ fun rowBottom(clr: Colors): Array<Building> {
 fun main() {
 	val name = "skyscraper"
 	println(name)
-	val v = vcr.start("$name.mp4", 1)
+	val v = GartvasVideo(g, "$name.mp4", 1)
     val endMarker = v.frames.marker().atNumber(colors.size * 3) // repeat all colors 3 times
 
 //    towerBuilding(30f)(100f, 100f)(g.canvas)
@@ -138,7 +137,7 @@ fun main() {
 
         when {
             endMarker.before() -> v.addFrame()
-            endMarker.now() -> v.save()
+            endMarker.now() -> v.stopAndSaveVideo()
         }
     }
 

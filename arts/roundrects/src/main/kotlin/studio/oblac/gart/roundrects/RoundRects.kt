@@ -13,7 +13,7 @@ fun main() {
     val g = Gartvas(d)
     val w = Window(g).show()
     val onSceneChange = w.frames.marker().onEvery(2.seconds)
-    val v = VideoGartvas(g).start("$name.mp4")
+    val v = GartvasVideo(g, "$name.mp4")
 
     var bigBox =  BigBox(d, 4, 4)
 
@@ -24,14 +24,14 @@ fun main() {
             val count = rnd(3, 9)
             bigBox = BigBox(d, count, count)
             if (totalChanges-- == 0) {
-                v.save()
+                v.stopAndSaveVideo()
                 return@paint2 false
             }
         }
 
         g.canvas.clear(Colors.black.toColor())
         bigBox.allCells.forEach { it.draw(g.canvas, frames.time()) }
-        v.addFrameIfRunning()
+        v.addFrame()
         return@paint2 true
     }
     writeGartvasAsImage(g, "roundrects.png")

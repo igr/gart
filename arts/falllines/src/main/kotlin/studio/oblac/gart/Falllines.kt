@@ -22,7 +22,7 @@ fun main() {
     val window = Window(g).show()
     val changeMarker = window.frames.marker().onEverySecond(8)
 
-    val v = VideoGartvas(g).start("$name.mp4", 50)
+    val v = GartvasVideo(g, "$name.mp4", 50)
     val markerStart = window.frames.marker().atSecond(40)   // window marker (!)
     val markerEnd = v.frames.marker().atSecond(20)          // video marker (!)
 
@@ -33,7 +33,7 @@ fun main() {
         when {
             changeMarker.now() -> randomizeSegments()
             markerStart.after() && markerEnd.before() -> v.addFrame()
-            markerEnd.now() -> v.save()
+            markerEnd.now() -> v.stopAndSaveVideo()
         }
     }
 

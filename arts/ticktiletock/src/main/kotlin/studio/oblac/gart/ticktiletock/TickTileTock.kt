@@ -11,7 +11,7 @@ fun main() {
     val g = Gartvas(d)
     val m = Gartmap(g)
     val w = Window(g).show()
-    val v = VideoGartvas(g).start("$name.mp4", 1)
+    val v = GartvasVideo(g, "$name.mp4", 1)
 
     // prepare scenario
     val tick = w.frames.marker().onEverySecond(1)
@@ -21,11 +21,11 @@ fun main() {
     w.paint {
         Scenes.draw(g.canvas)
         if (tick.now()) {
-            v.addFrameIfRunning()
+            v.addFrame()
             Scenes.tick()
         }
         if (Scenes.isEnd()) {
-            v.save()
+            v.stopAndSaveVideo()
         }
     }
 

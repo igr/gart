@@ -8,7 +8,7 @@ import java.awt.image.BufferedImage
 import javax.swing.JFrame
 import javax.swing.JPanel
 
-class Window(private val g: Gartvas, private val frames: Int = 25) {
+class Window(private val g: Gartvas, private val fps: Int = 25) {
 
 	init {
 		JFrame.setDefaultLookAndFeelDecorated(true)
@@ -26,7 +26,7 @@ class Window(private val g: Gartvas, private val frames: Int = 25) {
 		frame.contentPane.add(panel)
 		frame.pack()
 
-		val painter = Painter(g, frames) { panel.paint(it) }
+		val painter = Painter(g, fps) { panel.paint(it) }
 		frame.addWindowListener(object : WindowAdapter() {
 			override fun windowClosing(windowEvent: WindowEvent) {
 				painter.running = false

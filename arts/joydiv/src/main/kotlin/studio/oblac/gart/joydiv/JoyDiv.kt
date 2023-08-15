@@ -31,14 +31,14 @@ fun main() {
     val name = "joydiv"
     println(name)
 
-    val v = VideoGartvas(g).start("${name}.mp4", frames)
+    val v = GartvasVideo(g, "${name}.mp4", frames)
     val endMarker = v.frames.marker().atSecond(5)
 
     window.paint {
         paint()
         when {
             endMarker.before() -> v.addFrame()
-            endMarker.now() -> v.save()
+            endMarker.now() -> v.stopAndSaveVideo()
         }
     }
 

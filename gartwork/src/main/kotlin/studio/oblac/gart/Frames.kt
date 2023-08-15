@@ -25,6 +25,7 @@ class FramesCount(private val rate: Int) : Frames {
 
     private var total: Long = 0
     //private var callbacks: Array<(Frames)->Unit> = emptyArray()
+
     /**
      * Increments frame counter.
      */

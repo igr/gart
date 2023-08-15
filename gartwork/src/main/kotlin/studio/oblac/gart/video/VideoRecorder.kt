@@ -1,4 +1,4 @@
-package studio.oblac.gart
+package studio.oblac.gart.video
 
 import org.bytedeco.ffmpeg.avcodec.AVCodec
 import org.bytedeco.ffmpeg.avcodec.AVCodecContext
@@ -10,37 +10,33 @@ import org.bytedeco.ffmpeg.avutil.AVDictionary
 import org.bytedeco.ffmpeg.avutil.AVFrame
 import org.bytedeco.ffmpeg.avutil.AVRational
 import org.bytedeco.ffmpeg.global.avcodec
-import org.bytedeco.ffmpeg.global.avformat
 import org.bytedeco.ffmpeg.global.avformat.*
-import org.bytedeco.ffmpeg.global.avutil
 import org.bytedeco.ffmpeg.global.avutil.*
 import org.bytedeco.ffmpeg.global.swscale
 import org.bytedeco.ffmpeg.swscale.SwsContext
 import org.bytedeco.javacpp.BytePointer
 import org.bytedeco.javacpp.DoublePointer
-import studio.oblac.gart.skia.Image
 
-data class VideoDefinition(
-    val fileName: String,
-    val width: Int,
-    val height: Int,
-    val framesPerSecond: Int = 25,
-)
+/**
+ * Video recorder.
+ */
+class VideoRecorder(width: Int,
+                    height: Int,
+                    framesPerSecond: Int = 25) {
 
-class VideoRecorder(internal val def: VideoDefinition) {
-    internal val framesCount = FramesCount(def.framesPerSecond)
-    val frame: AVFrame
-    val rgbFrame: AVFrame
-    val swsCtx: SwsContext
-    val codecContext: AVCodecContext
-    val formatContext: AVFormatContext
-    val packet: AVPacket
-    val stream: AVStream
-    val codec: AVCodec
+    private val frame: AVFrame
+    private val rgbFrame: AVFrame
+    private val swsCtx: SwsContext
+    private val codecContext: AVCodecContext
+    private val formatContext: AVFormatContext
+    private val packet: AVPacket
+    private val stream: AVStream
+    private val codec: AVCodec
+    private var frameCount: Long = 0
 
     init {
         formatContext = AVFormatContext()
-        avformat_alloc_output_context2(formatContext, null, def.fileName.substringAfterLast('.'), null).let { err ->
+        avformat_alloc_output_context2(formatContext, null, "mp4", null).let { err ->
             if (err < 0) {
                 throw RuntimeException("Failed to allocate format context: ${av_err2str(err)}")
             }
@@ -69,16 +65,16 @@ class VideoRecorder(internal val def: VideoDefinition) {
             }
         }
 
-        codecContext.width(def.width)
-        codecContext.height(def.height)
+        codecContext.width(width)
+        codecContext.height(height)
         val targetFormat = AV_PIX_FMT_YUV420P
         codecContext.pix_fmt(targetFormat)
 
         codecContext.time_base(AVRational())
         codecContext.time_base().num(1)
-        codecContext.time_base().den(def.framesPerSecond)
+        codecContext.time_base().den(framesPerSecond)
         codecContext.framerate(AVRational())
-        codecContext.framerate().num(def.framesPerSecond)
+        codecContext.framerate().num(framesPerSecond)
         codecContext.framerate().den(1)
 
         // Some formats want stream headers to be separate.
@@ -106,7 +102,7 @@ class VideoRecorder(internal val def: VideoDefinition) {
 
         stream.time_base(AVRational())
         stream.time_base().num(1)
-        stream.time_base().den(def.framesPerSecond)
+        stream.time_base().den(framesPerSecond)
 
 
         // Frame used to push data into the codec
@@ -126,7 +122,7 @@ class VideoRecorder(internal val def: VideoDefinition) {
 
         // Input frame in RGBA format, we copy the rendered images to this for
         // conversion to the pixel format used by the codec
-        rgbFrame = avutil.av_frame_alloc().also { rgbFrame ->
+        rgbFrame = av_frame_alloc().also { rgbFrame ->
             if (rgbFrame.isNull) {
                 throw RuntimeException("Failed to allocate frame")
             }
@@ -134,7 +130,7 @@ class VideoRecorder(internal val def: VideoDefinition) {
         rgbFrame.format(AV_PIX_FMT_RGBA)
         rgbFrame.width(codecContext.width())
         rgbFrame.height(codecContext.height())
-        avutil.av_frame_get_buffer(rgbFrame, 0)
+        av_frame_get_buffer(rgbFrame, 0)
 
         // We use in-memory dynamic buffers
         val pb = AVIOContext(null)
@@ -161,7 +157,7 @@ class VideoRecorder(internal val def: VideoDefinition) {
         val formatOptions = AVDictionary()
         // Infinite loop
         av_dict_set_int(formatOptions, "loop", 0, 0)
-        avformat.avformat_write_header(formatContext, formatOptions).let { err ->
+        avformat_write_header(formatContext, formatOptions).let { err ->
             if (err < 0) {
                 throw RuntimeException("Failed to write header: ${av_err2str(err)}")
             }
@@ -177,38 +173,31 @@ class VideoRecorder(internal val def: VideoDefinition) {
     }
 
     /**
-     * Starts with the recordings.
+     * Adds the video frame defined as a byte array of RGB pixels.
      */
-    fun start(imageProvider: () -> Image): Video {
-        println("Video recoding started")
-        return Video(this, imageProvider)
-    }
-
-    fun writeFrame(index: Long, nativeImage: Image) {
+    fun writeFrame(pixels: ByteArray) {
         av_frame_make_writable(frame)
-
-        // This is slow. We could reach into NativeImage's native pointer
-        val pixels = nativeImage.peekPixels()!!.buffer.bytes
         val data = rgbFrame.data(0)
-        for ((index, p) in pixels.withIndex()) {
-            data.put(index.toLong(), p)
+        for ((ndx, p) in pixels.withIndex()) {
+            data.put(ndx.toLong(), p)
         }
 
         // Convert from in-memory pixel format to format required by codec
-        swscale.sws_scale(
-            swsCtx, rgbFrame.data(),
-            rgbFrame.linesize(), 0, codecContext.height(),
-            frame.data(), frame.linesize()
+        swscale.sws_scale(swsCtx,
+            rgbFrame.data(), rgbFrame.linesize(), 0,
+            frame.height(), frame.data(), frame.linesize()
         )
-        frame.pts(index)
+        frame.pts(frameCount)
         encode(formatContext, codecContext, packet, stream, frame)
+
+        frameCount++
     }
 
     fun finish(): ByteArray {
         encode(formatContext, codecContext, packet, stream, null)
 
         // Write the end of the file
-        avformat.av_write_trailer(formatContext)
+        av_write_trailer(formatContext)
 
         // Get the current output buffer
         val pb = BytePointer()
@@ -219,26 +208,16 @@ class VideoRecorder(internal val def: VideoDefinition) {
     }
 
     fun close() {
-        if (codecContext != null) {
-            avcodec.avcodec_free_context(codecContext)
-        }
-        if (frame != null) {
-            avutil.av_frame_free(frame)
-        }
-        if (rgbFrame != null) {
-            avutil.av_frame_free(rgbFrame)
-        }
-        if (codec != null) {
-            codec.close()
-        }
-        if (formatContext != null && !formatContext.pb().isNull) {
+        avcodec.avcodec_free_context(codecContext)
+        av_frame_free(frame)
+        av_frame_free(rgbFrame)
+        codec.close()
+        if (!formatContext.pb().isNull) {
             val pb = BytePointer()
             avio_close_dyn_buf(formatContext.pb(), pb)
             av_free(pb)
         }
-        if (formatContext != null) {
-            avformat.avformat_free_context(formatContext)
-        }
+        avformat_free_context(formatContext)
     }
 
     private fun encode(formatContext: AVFormatContext, codecContext: AVCodecContext, packet: AVPacket, stream: AVStream, frame: AVFrame?) {
@@ -252,7 +231,7 @@ class VideoRecorder(internal val def: VideoDefinition) {
         // Get the output packet, if any (codec may buffer frames)
         while (true) {
             val err = avcodec.avcodec_receive_packet(codecContext, packet)
-            if (err == avutil.AVERROR_EAGAIN() || err == avutil.AVERROR_EOF) {
+            if (err == AVERROR_EAGAIN() || err == AVERROR_EOF) {
                 return
             }
             if (err < 0) {
@@ -264,59 +243,13 @@ class VideoRecorder(internal val def: VideoDefinition) {
             packet.stream_index(stream.index())
 
             // Write packet
-            avformat.av_interleaved_write_frame(formatContext, packet).let { err ->
-                if (err < 0) {
-                    throw RuntimeException("Failed to write packet: ${av_err2str(err)}")
+            av_interleaved_write_frame(formatContext, packet).let {
+                if (it < 0) {
+                    throw RuntimeException("Failed to write packet: ${av_err2str(it)}")
                 }
             }
+
+            avcodec.av_packet_unref(packet)
         }
-    }
-}
-
-/**
- * Represents a running video, that is being recorded.
- */
-class Video(private val vcr: VideoRecorder, private val imageProvider: () -> Image) {
-    private var timestamp: Long = 0
-    val frames: Frames = vcr.framesCount
-
-    fun addFrameIfRunning() {
-        if (running) {
-            this.addFrame()
-        }
-    }
-
-    /**
-     * Adds frame to the movie.
-     */
-    fun addFrame() {
-        vcr.framesCount.tick()
-        val image = imageProvider()
-
-        vcr.writeFrame(vcr.framesCount.count(), image)
-
-        timestamp++
-    }
-
-    /**
-     * Returns true while video is saving.
-     */
-    var running = true
-        private set
-
-    fun save() {
-        if (!running) {
-            return
-        }
-        running = false
-
-        val bytes = vcr.finish()
-        val file = java.io.File(vcr.def.fileName)
-        file.writeBytes(bytes)
-        vcr.close()
-
-
-
-        println("Video saved: ${vcr.def.fileName}")
     }
 }

@@ -99,7 +99,7 @@ fun main() {
     val d = Dimension(w, h)
 	val g = Gartvas(d)
 	val b = Gartmap(g)
-	val v = VideoGartvas(g).start("plasma.mp4")
+	val v = GartvasVideo(g, "plasma.mp4")
     val lastFrame = v.frames.marker().atNumber(757)
     val w = Window(g).show()
 
@@ -111,7 +111,7 @@ fun main() {
 
         when {
             lastFrame.before() -> v.addFrame()
-            lastFrame.now() -> v.save()
+            lastFrame.now() -> v.stopAndSaveVideo()
         }
 	}
 
