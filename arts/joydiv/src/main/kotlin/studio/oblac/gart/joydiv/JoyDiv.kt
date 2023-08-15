@@ -11,8 +11,8 @@ const val wf = w.toFloat()
 const val hf = h.toFloat()
 const val frames = 50
 
-val box = Box(w, h)
-val g = Gartvas(box)
+val d = Dimension(w, h)
+val g = Gartvas(d)
 val window = Window(g, frames).show()
 
 val lines = Array(80) {

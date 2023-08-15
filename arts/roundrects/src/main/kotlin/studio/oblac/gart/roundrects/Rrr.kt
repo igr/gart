@@ -1,6 +1,6 @@
 package studio.oblac.gart.roundrects
 
-import studio.oblac.gart.Box
+import studio.oblac.gart.Dimension
 import studio.oblac.gart.gfx.strokeOfWhite
 import studio.oblac.gart.math.rnd
 import studio.oblac.gart.skia.Canvas
@@ -9,9 +9,9 @@ import kotlin.math.cos
 import kotlin.math.sin
 
 
-data class BigBox(val box: Box, val maxX: Int, val maxY: Int) {
-    val cellW = box.wf / maxX
-    val cellH = box.hf / maxY
+data class BigBox(val d: Dimension, val maxX: Int, val maxY: Int) {
+    val cellW = d.wf / maxX
+    val cellH = d.hf / maxY
     val inner = rnd(5, 10)
 
     val allCells = (0 until maxX).flatMap { x ->

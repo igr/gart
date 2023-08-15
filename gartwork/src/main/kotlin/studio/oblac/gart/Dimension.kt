@@ -3,16 +3,22 @@ package studio.oblac.gart
 /**
  * Represents a virtual dimensions.
  */
-data class Box(val w: Int, val h: Int) {
+data class Dimension(val w: Int, val h: Int) {
     val wf = w.toFloat()
     val hf = h.toFloat()
     val cx = w / 2f
     val cy = h / 2f
+
     /**
      * Right edge.
      */
     val r = w - 1
+
+    /**
+     * Right edge as float.
+     */
     val rf = r.toFloat()
+
     /**
      * Bottom edge.
      */

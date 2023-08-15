@@ -12,8 +12,8 @@ const val gap = w / (rowCount - 2)
 
 const val frames = 50
 
-val box = Box(w, h)
-val g = Gartvas(box)
+val d = Dimension(w, h)
+val g = Gartvas(d)
 val ctx = Context(g)
 val window = Window(g, frames).show()
 

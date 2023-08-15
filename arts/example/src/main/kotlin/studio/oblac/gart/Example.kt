@@ -10,12 +10,12 @@ fun main() {
 
     val h = 100
     val w = (h * goldenRatio).toInt()
-    val box = Box(w, h)
-    val g = Gartvas(box)
+    val d = Dimension(w, h)
+    val g = Gartvas(d)
 
     // use canvas
 
-    g.canvas.drawRect(Rect(0f, 0f, box.wf, box.hf), fillOf(0xFF174185))
+    g.canvas.drawRect(Rect(0f, 0f, d.wf, d.hf), fillOf(0xFF174185))
     g.canvas.drawCircle(w / 2f, h / 2f, 30f, fillOfRed())
 
     // get bitmap

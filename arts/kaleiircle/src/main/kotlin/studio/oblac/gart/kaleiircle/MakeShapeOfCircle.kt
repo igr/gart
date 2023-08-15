@@ -1,6 +1,6 @@
 package studio.oblac.gart.kaleiircle
 
-import studio.oblac.gart.Box
+import studio.oblac.gart.Dimension
 import studio.oblac.gart.Shape
 import studio.oblac.gart.gfx.Colors
 import studio.oblac.gart.gfx.fillOf
@@ -8,12 +8,12 @@ import studio.oblac.gart.math.cosd
 import studio.oblac.gart.math.sind
 import studio.oblac.gart.skia.*
 
-class MakeShapeOfCircle(private val box: Box) {
+class MakeShapeOfCircle(private val d: Dimension) {
     operator fun invoke(circle: DHCircle): Shape {
         val alfa = circle.innerAngle / 2
 
-        val cx = box.w / 2f
-        val cy = box.h / 2f
+        val cx = d.w / 2f
+        val cy = d.h / 2f
         val r = circle.radius
         val r2 = r + circle.width
         val r2prim = r2 + 10
@@ -85,7 +85,7 @@ class MakeShapeOfCircle(private val box: Box) {
         }
         val triangle2Color = fillOf(circle.colors.second)
 
-        val waves = MakeWaves(box).invoke(angle * 3)
+        val waves = MakeWaves(d).invoke(angle * 3)
 
         val drawCircle = circle.type == DHType.CIRCLE || circle.type == DHType.FULL
         val drawTriangle = circle.type == DHType.TRIANGLE || circle.type == DHType.FULL

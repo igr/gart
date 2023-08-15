@@ -7,8 +7,8 @@ const val w = 1280
 const val h = 800
 const val windowSize = 10f
 
-val box = Box(w, h)
-val g = Gartvas(box)
+val d = Dimension(w, h)
+val g = Gartvas(d)
 val window = Window(g, 1).show()
 val vcr = VideoGartvas(g)
 

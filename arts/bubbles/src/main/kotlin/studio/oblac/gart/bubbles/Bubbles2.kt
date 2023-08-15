@@ -1,35 +1,35 @@
 package studio.oblac.gart.bubbles
 
-import studio.oblac.gart.Box
+import studio.oblac.gart.Dimension
 import studio.oblac.gart.Gartvas
 import studio.oblac.gart.gfx.fillOfWhite
 import studio.oblac.gart.gfx.strokeOfBlack
 import studio.oblac.gart.skia.Rect
+import studio.oblac.gart.util.nextFloat
 import studio.oblac.gart.writeGartvasAsImage
-import kotlin.random.Random
 
 const val name2 = "Bubbles2"
 
 fun main() {
     println(name2)
 
-    val box = Box(1024, 1024)
-    val g = Gartvas(box)
+    val d = Dimension(1024, 1024)
+    val g = Gartvas(d)
 
-    val list = mutableListOf<studio.oblac.gart.bubbles.Bubble>()
-    val maxR = box.w / 6
+    val list = mutableListOf<Bubble>()
+    val maxR = d.w / 6
 
-    g.canvas.drawRect(Rect(0f, 0f, box.wf, box.hf), fillOfWhite())
+    g.canvas.drawRect(Rect(0f, 0f, d.wf, d.hf), fillOfWhite())
     var tries = 10000
     while (tries-- > 0) {
-        val x = Random.nextInt(box.w).toFloat()
-        val y = Random.nextInt(box.h).toFloat()
+        val x = nextFloat(d.w)
+        val y = nextFloat(d.h)
 
         // is it valid?
 
         if (!list.stream().anyMatch{ it.contains(x, y) }) {
             // new dot
-            var newBubble = studio.oblac.gart.bubbles.Bubble(box, x, y, 1f, 0, strokeOfBlack(2f))
+            var newBubble = Bubble(d, x, y, 1f, 0, strokeOfBlack(2f))
             while(true) {
                 if (newBubble.r >= maxR) break
                 if (list.stream().anyMatch{newBubble.collide(it)}) break

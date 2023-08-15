@@ -24,8 +24,8 @@ fun main() {
     val name = "lettero"
     println(name)
 
-    val box = Box(768, 1024)
-    val g = Gartvas(box)
+    val d = Dimension(768, 1024)
+    val g = Gartvas(d)
     val w = Window(g).show()
     val v = VideoGartvas(g).start("$name.mp4", 1)
     val tick = w.frames.marker().onEverySecond(1)
@@ -38,7 +38,7 @@ fun main() {
 
     w.paint2 {
         if (tick.now()) {
-            g.canvas.drawRect(Rect(0f, 0f, box.wf, box.hf), fillOf(p[count + pdelta]))
+            g.canvas.drawRect(Rect(0f, 0f, d.wf, d.hf), fillOf(p[count + pdelta]))
             drawLetters(g, letters[count])
             v.addFrameIfRunning()
             count++
@@ -55,7 +55,7 @@ fun main() {
 }
 
 fun drawLetters(g: Gartvas, text: Char) {
-    doubleLoop(44f to 64f, g.box.wf, g.box.hf, 20 to 20) { (i, j) ->
+    doubleLoop(44f to 64f, g.d.wf, g.d.hf, 20 to 20) { (i, j) ->
         val textLine = TextLine.make(text.toString(), fontOf(Random.nextDouble(8.0, 36.0).toFloat()))
         val deltax = textLine.width / 2
         val deltay = textLine.capHeight / 2

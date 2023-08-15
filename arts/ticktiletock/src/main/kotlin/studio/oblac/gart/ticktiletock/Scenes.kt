@@ -1,6 +1,6 @@
 package studio.oblac.gart.ticktiletock
 
-import studio.oblac.gart.Box
+import studio.oblac.gart.Dimension
 import studio.oblac.gart.Gartmap
 import studio.oblac.gart.Shape
 import studio.oblac.gart.gfx.Palettes
@@ -34,8 +34,8 @@ object Scenes {
     }
 }
 
-class SceneAWithFill(private val box: Box, split: Int, private val m: Gartmap): SceneX(box, split, paintTile2) {
-    private val r: Array<Pixel> = Array(10){ Pixel(nextInt(box.w), nextInt(box.h)) }
+class SceneAWithFill(private val d: Dimension, split: Int, private val m: Gartmap): SceneX(d, split, paintTile2) {
+    private val r: Array<Pixel> = Array(10){ Pixel(nextInt(d.w), nextInt(d.h)) }
     override fun draw(canvas: Canvas) {
         super.draw(canvas)
         m.update()
@@ -44,8 +44,8 @@ class SceneAWithFill(private val box: Box, split: Int, private val m: Gartmap): 
     }
 }
 
-class SceneAWithFill2(private val box: Box, split: Int, private val m: Gartmap): SceneX(box, split, paintTile2) {
-    private val r: Array<Pair<Pixel, Int>> = Array(24){ Pixel(nextInt(box.w), nextInt(box.h)) to Palettes.cool1.random() }
+class SceneAWithFill2(private val d: Dimension, split: Int, private val m: Gartmap): SceneX(d, split, paintTile2) {
+    private val r: Array<Pair<Pixel, Int>> = Array(24){ Pixel(nextInt(d.w), nextInt(d.h)) to Palettes.cool1.random() }
     override fun draw(canvas: Canvas) {
         super.draw(canvas)
         m.update()
@@ -54,10 +54,10 @@ class SceneAWithFill2(private val box: Box, split: Int, private val m: Gartmap):
     }
 }
 
-open class SceneX(box: Box, split: Int, tilePainter: (Tile) -> Shape) : Shape {
+open class SceneX(d: Dimension, split: Int, tilePainter: (Tile) -> Shape) : Shape {
     private val shape: Shape
     init {
-        val matrix = splitBox(box, split)
+        val matrix = splitBox(d, split)
         shape = calcMatrix(matrix) { tilePainter(it) }
     }
 

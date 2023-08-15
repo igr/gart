@@ -8,7 +8,7 @@ import studio.oblac.gart.skia.Rect
 
 const val name = "kaleiircle"
 
-val box = Box(710, 710)
+val d = Dimension(710, 710)
 
 val colors = arrayOf(
     Pair(Color4f(0xffff0503.toInt()), Color4f(0xff0534d3.toInt())),
@@ -67,7 +67,7 @@ fun triangles(angle: Float) = List(triangleColors.size) {
     )
 }
 
-val makeShapeOfCircle = MakeShapeOfCircle(box)
+val makeShapeOfCircle = MakeShapeOfCircle(d)
 
 fun paint(g: Gartvas, frames: Frames) {
     println(frames)
@@ -75,7 +75,7 @@ fun paint(g: Gartvas, frames: Frames) {
     val shapes1 = triangles(-10f + frames.count()).map { makeShapeOfCircle(it) }
     val shapes2 = circles(-10f + frames.count(), frames.count()).map { makeShapeOfCircle(it) }
 
-    g.canvas.drawRect(Rect(0f, 0f, g.box.wf, g.box.hf), fillOfBlack())
+    g.canvas.drawRect(Rect(0f, 0f, g.d.wf, g.d.hf), fillOfBlack())
 
 //    MakeWaves(box).invoke().draw(g.canvas)
 
@@ -90,7 +90,7 @@ fun paint(g: Gartvas, frames: Frames) {
 fun main() {
     println(name)
 
-    val g = Gartvas(box)
+    val g = Gartvas(d)
     val frames = 30
     val window = Window(g, frames).show()
     val v = VideoGartvas(g).start("$name.mp4", frames)

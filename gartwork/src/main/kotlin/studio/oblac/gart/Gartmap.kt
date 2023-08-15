@@ -3,7 +3,7 @@ package studio.oblac.gart
 /**
  * Canvas pixels, i.e. a bitmap
  */
-class Gartmap(private val g: Gartvas) : Pixels(g.box) {
+class Gartmap(private val g: Gartvas) : Pixels(g.d) {
     init {
         update()
     }

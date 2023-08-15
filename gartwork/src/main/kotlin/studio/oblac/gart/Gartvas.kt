@@ -6,9 +6,9 @@ import studio.oblac.gart.skia.Surface
 /**
  * It's the canvas.
  */
-class Gartvas(val box: Box) {
+class Gartvas(val d: Dimension) {
 
-    internal val surface = Surface.makeRasterN32Premul(box.w, box.h)
+    internal val surface = Surface.makeRasterN32Premul(d.w, d.h)
 
     /**
      * Canvas.

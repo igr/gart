@@ -27,10 +27,10 @@ class Building(x: Float, y: Float, a: Float, b: Float, alpha: Float, private val
 
 	init {
 		roofRect = RectIsometricTop(x, y, a, b, alpha)
-		rightRect = RectIsometricRight(roofRect.bottom.x, roofRect.bottom.y, g.box.h - y + a + 40, b, alpha)
+		rightRect = RectIsometricRight(roofRect.bottom.x, roofRect.bottom.y, g.d.h - y + a + 40, b, alpha)
 
 		roof = roofRect.path()
-		leftSide = RectIsometricLeft(x, y, g.box.h - y, a, alpha).path()
+		leftSide = RectIsometricLeft(x, y, g.d.h - y, a, alpha).path()
 		rightSide = rightRect.path()
 
 		val useNarrowWindows = Random.nextInt(10) < 3

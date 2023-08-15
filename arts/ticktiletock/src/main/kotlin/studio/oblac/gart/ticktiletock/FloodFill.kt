@@ -16,10 +16,10 @@ fun floodFill(m: Gartmap, start: Pixel, fillColor: Int)  {
             if (p.y > 0) {
                 fifo.add(Pixel(p.x, p.y - 1))
             }
-            if (p.y < m.box.b) {
+            if (p.y < m.d.b) {
                 fifo.add(Pixel(p.x, p.y + 1))
             }
-            if (p.x < m.box.r) {
+            if (p.x < m.d.r) {
                 fifo.add(Pixel(p.x + 1, p.y))
             }
             if (p.x > 0) {
@@ -41,10 +41,10 @@ fun floodFill(m: Gartmap, start: Pixel, fillColor: Int, downColor: Int)  {
             if (p.y > 0) {
                 fifo.add(Pixel(p.x, p.y - 1))
             }
-            if (p.y < m.box.b) {
+            if (p.y < m.d.b) {
                 fifo.add(Pixel(p.x, p.y + 1))
             }
-            if (p.x < m.box.r) {
+            if (p.x < m.d.r) {
                 fifo.add(Pixel(p.x + 1, p.y))
             }
             if (p.x > 0) {

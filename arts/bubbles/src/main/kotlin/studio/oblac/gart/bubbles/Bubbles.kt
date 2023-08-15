@@ -1,6 +1,6 @@
 package studio.oblac.gart.bubbles
 
-import studio.oblac.gart.Box
+import studio.oblac.gart.Dimension
 import studio.oblac.gart.Gartvas
 import studio.oblac.gart.Window
 import studio.oblac.gart.gfx.Palettes
@@ -11,6 +11,7 @@ import studio.oblac.gart.math.sind
 import studio.oblac.gart.math.toDegree
 import studio.oblac.gart.skia.Paint
 import studio.oblac.gart.skia.Rect
+import studio.oblac.gart.util.nextFloat
 import studio.oblac.gart.writeGartvasAsImage
 import kotlin.math.abs
 import kotlin.math.asin
@@ -24,14 +25,14 @@ const val name = "Bubbles"
 fun main() {
     println(name)
 
-    val box = Box(1024, 1024)
-    val g = Gartvas(box)
+    val d = Dimension(1024, 1024)
+    val g = Gartvas(d)
     val w = Window(g, 10).show()
 
 //    // load
     var list = Array(100) {
-        studio.oblac.gart.bubbles.Bubble(
-            box, nextInt(box.w).toFloat(), nextInt(box.h).toFloat(), 2.0f,
+        Bubble(
+            d, nextFloat(d.w), nextFloat(d.h), 2.0f,
             nextLong(100, 1000),
             fillOf(Palettes.cool2.random())
         )
@@ -57,14 +58,14 @@ fun main() {
     }
 
     // draw
-    g.canvas.drawRect(Rect(0f, 0f, box.wf, box.hf), fillOfBlack())
+    g.canvas.drawRect(Rect(0f, 0f, d.wf, d.hf), fillOfBlack())
     paintAll()
 
     w.paint { frames ->
-        g.canvas.drawRect(Rect(0f, 0f, box.wf, box.hf), fillOfBlack())
+        g.canvas.drawRect(Rect(0f, 0f, d.wf, d.hf), fillOfBlack())
         list = list
             .filter { !it.isExpired(frames.count()) }
-            .map { studio.oblac.gart.bubbles.move(list, it) }
+            .map { move(list, it) }
             .toList()
         paintAll()
     }
@@ -73,9 +74,9 @@ fun main() {
 }
 
 fun move(
-    list: List<studio.oblac.gart.bubbles.Bubble>,
-    b: studio.oblac.gart.bubbles.Bubble,
-): studio.oblac.gart.bubbles.Bubble {
+    list: List<Bubble>,
+    b: Bubble,
+): Bubble {
     val pushers =
         list
             .filter { it != b }
@@ -111,7 +112,7 @@ fun move(
 }
 
 data class Bubble(
-    val box: Box,
+    val d: Dimension,
     val x: Float,
     val y: Float,
     val r: Float,
@@ -125,11 +126,11 @@ data class Bubble(
         return time > life
     }
 
-    fun grow(): studio.oblac.gart.bubbles.Bubble {
-        return studio.oblac.gart.bubbles.Bubble(box, x, y, r + 1, life, paint, name)
+    fun grow(): Bubble {
+        return Bubble(d, x, y, r + 1, life, paint, name)
     }
 
-    fun push(angles: List<Float>): studio.oblac.gart.bubbles.Bubble {
+    fun push(angles: List<Float>): Bubble {
         var dx = 0f
         var dy = 0f
 
@@ -137,10 +138,10 @@ data class Bubble(
             dx += 1.41f * cosd(180 - it)
             dy += 1.41f * sind(180 - it)
         }
-        return studio.oblac.gart.bubbles.Bubble(box, x + dx, y + dy, r, life, paint, name)
+        return Bubble(d, x + dx, y + dy, r, life, paint, name)
     }
 
-    private fun distance(b: studio.oblac.gart.bubbles.Bubble): Float {
+    private fun distance(b: Bubble): Float {
         return sqrt((x - b.x).pow(2) + (y - b.y).pow(2))
     }
 
@@ -148,16 +149,16 @@ data class Bubble(
         return if (x - r <= 0) 180f else null
     }
     fun pushedByRight(): Float? {
-        return if (x + r >= box.rf) 0f else null
+        return if (x + r >= d.rf) 0f else null
     }
     fun pushedByUp(): Float? {
         return if (y - r <= 0) 90f else null
     }
     fun pushedByDown(): Float? {
-        return if (y + r >= box.bf) 270f else null
+        return if (y + r >= d.bf) 270f else null
     }
 
-    fun pushedBy(b: studio.oblac.gart.bubbles.Bubble): Float? {
+    fun pushedBy(b: Bubble): Float? {
         val d = distance(b)
 
         if (r + b.r < d) {
@@ -187,7 +188,7 @@ data class Bubble(
         return alpha
     }
 
-    fun collide(b: studio.oblac.gart.bubbles.Bubble): Boolean {
+    fun collide(b: Bubble): Boolean {
         val d = distance(b)
         return r + b.r > d
     }

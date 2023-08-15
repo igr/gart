@@ -2,6 +2,14 @@
 
 Simple framework for rendering **still images** or **movies**. Displays animation in the window if needed.
 
+Code conventions:
+
++ we use common single-named variables for the most important objects.
+
+Dependency to manually install:
+
++ [Humble Video](https://github.com/artclarke/humble-video)
+
 ## Usage
 
 `Gartvas` is a _canvas_. Just draw on it.
@@ -14,7 +22,9 @@ Simple framework for rendering **still images** or **movies**. Displays animatio
 
 `VideoRecorder` records frames into the video.
 
-`ImageWritter` stores a canvas snapshot into the image.
+`writeGartvasAsImage()` takes a snapshot of canvas into the image.
+
+Not super-optimized for speed, as the purpose is to render visualisations.
 
 ### [Example](arts/example/README.md)
 ![](../arts/example/example.png)

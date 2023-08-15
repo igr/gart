@@ -16,7 +16,7 @@ class WindowsOne(
 ) : WindowsConsumer {
 
 	override operator fun invoke(fn: (consumer: RectIsometric) -> Unit) {
-		val edge = g.box.h
+		val edge = g.d.h
 		val w = right.x - left.x - 2 * gap
 		val x = left.x + gap
 		val b = w / cos(beta.toRadian())

@@ -11,10 +11,9 @@ import kotlin.random.Random
 const val w = 600
 val h = (w * Constants.goldenRatio).toInt()
 
-val box = Box(w, h)
-val g = Gartvas(box)
+val d = Dimension(w, h)
+val g = Gartvas(d)
 val b = Gartmap(g)
-val scroll = PixelScroller(b)
 
 fun main() {
     val name = "falllines"
@@ -27,7 +26,7 @@ fun main() {
     val markerStart = window.frames.marker().atSecond(40)   // window marker (!)
     val markerEnd = v.frames.marker().atSecond(20)          // video marker (!)
 
-    g.canvas.drawRect(Rect(0f, 0f, g.box.wf, g.box.hf), fillOf(0xFF000000))
+    g.canvas.drawRect(Rect(0f, 0f, g.d.wf, g.d.hf), fillOf(0xFF000000))
 
     window.paint {
         draw()
@@ -60,9 +59,9 @@ fun colorOfIndex(index: Int): Int {
 }
 
 val segments = input
-        .mapIndexed{ index, value -> Segment(value, colorOfIndex(index), drawOrder[index]) }
-        .toTypedArray()
-        .apply { updateStartingPositions(this) }
+    .mapIndexed { index, value -> Segment(value, colorOfIndex(index), drawOrder[index]) }
+    .toTypedArray()
+    .apply { updateStartingPositions(this) }
 
 fun randomizeSegments() {
     val inMotion = segments.find { it.inMotion }?.inMotion ?: false
@@ -96,7 +95,7 @@ private fun <T> Array<T>.switch(a: Int, b: Int): Array<T> {
 
 fun draw() {
     b.update()
-    scroll.up(1)
+    scrollPixelsUp(b, 1)
 
     for (x in 0 until w) {
         val g = Random.nextInt(30)

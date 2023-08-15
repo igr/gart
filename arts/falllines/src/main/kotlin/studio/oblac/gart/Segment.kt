@@ -56,12 +56,12 @@ data class Segment(val w: Int, val color: Int, val drawOrder: Int) {
 
     fun draw() {
         g.canvas.drawLine(
-            x + w, g.box.bf - 1,
-            x + w + 4, g.box.bf - 1,
+            x + w, g.d.bf - 1,
+            x + w + 4, g.d.bf - 1,
             strokeShadow)
         g.canvas.drawLine(
-            x, g.box.bf - 1,
-            x + w, g.box.bf - 1,
+            x, g.d.bf - 1,
+            x + w, g.d.bf - 1,
 	        stroke)
     }
 

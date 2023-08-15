@@ -1,13 +1,13 @@
 package studio.oblac.gart.ticktiletock
 
-import studio.oblac.gart.Box
+import studio.oblac.gart.Dimension
 
-fun splitBox(box: Box, parts: Int): Array<Array<Tile>> {
-    val d = box.wf / parts
+fun splitBox(d: Dimension, parts: Int): Array<Array<Tile>> {
+    val partW = d.wf / parts
 
     return Array(parts) { i ->
         Array(parts) { j ->
-            Tile(i * d, j * d, d)
+            Tile(i * partW, j * partW, partW)
         }
     }
 }

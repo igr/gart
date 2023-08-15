@@ -9,20 +9,20 @@ fun main() {
     val name = "roundrects"
     println(name)
 
-    val box = Box(640, 640)
-    val g = Gartvas(box)
+    val d = Dimension(640, 640)
+    val g = Gartvas(d)
     val w = Window(g).show()
     val onSceneChange = w.frames.marker().onEvery(2.seconds)
     val v = VideoGartvas(g).start("$name.mp4")
 
-    var bigBox =  BigBox(box, 4, 4)
+    var bigBox =  BigBox(d, 4, 4)
 
     var totalChanges = 10;
     w.paint2 { frames ->
 
         if (onSceneChange.now()) {
             val count = rnd(3, 9)
-            bigBox = BigBox(box, count, count)
+            bigBox = BigBox(d, count, count)
             if (totalChanges-- == 0) {
                 v.save()
                 return@paint2 false

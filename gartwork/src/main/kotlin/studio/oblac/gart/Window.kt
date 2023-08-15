@@ -20,7 +20,7 @@ class Window(private val g: Gartvas, private val frames: Int = 25) {
 		frame.defaultCloseOperation = JFrame.DISPOSE_ON_CLOSE
 		frame.isResizable = false
 		frame.isVisible = true
-		frame.setSize(g.box.w, g.box.h)
+		frame.setSize(g.d.w, g.d.h)
 
 		val panel = GartPanel(g)
 		frame.contentPane.add(panel)
@@ -34,7 +34,7 @@ class Window(private val g: Gartvas, private val frames: Int = 25) {
 		})
 
 		val screenSize = Toolkit.getDefaultToolkit().screenSize
-		frame.setLocation((screenSize.width - g.box.w) / 2, (screenSize.height - g.box.h) / 2)
+		frame.setLocation((screenSize.width - g.d.w) / 2, (screenSize.height - g.d.h) / 2)
 
 		return painter
 	}
@@ -43,11 +43,11 @@ class Window(private val g: Gartvas, private val frames: Int = 25) {
 class GartPanel(private val g: Gartvas) : JPanel(true) {
 	private var lastBufferedImage = g.snapshot().toBufferedImage()
 
-	override fun getPreferredSize(): Dimension? {
+	override fun getPreferredSize(): java.awt.Dimension? {
 		return if (isPreferredSizeSet) {
 			super.getPreferredSize()
 		} else {
-			Dimension(g.box.w, g.box.h)
+			java.awt.Dimension(g.d.w, g.d.h)
 		}
 	}
 
