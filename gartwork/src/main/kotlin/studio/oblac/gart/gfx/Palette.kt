@@ -9,6 +9,10 @@ class Palette(private val colors: IntArray) {
 		return colors[position]
 	}
 
+    fun getSafe(position: Int): Int {
+        return colors[position % size]
+    }
+
     operator fun plus(otherPalette: Palette): Palette {
         return Palette(this.colors + otherPalette.colors)
     }
@@ -19,5 +23,9 @@ class Palette(private val colors: IntArray) {
 
     fun <R> map(transform: (Int) -> R): List<R> {
         return colors.map(transform)
+    }
+
+    fun reversed(): Palette {
+        return Palette(colors.reversedArray())
     }
 }

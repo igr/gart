@@ -54,4 +54,8 @@ gënérative ȧrt made by pragmatic [micro-framework](gartwork/README.md) and �
 
 <img src="arts/spiral/spiral.png" height="240px">
 
+⭐️ [Organic. Mesh. Web.](arts/lissajous/README.md) [🎬](https://youtu.be/fOrrLS0cj5Y)
+
+<img src="arts/lissajous/lissajous.png" height="240px">
+
 🧧 Enjoy.
