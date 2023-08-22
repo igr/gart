@@ -1,6 +1,9 @@
 package studio.oblac.gart.lettero
 
-import studio.oblac.gart.*
+import studio.oblac.gart.Dimension
+import studio.oblac.gart.Gartvas
+import studio.oblac.gart.GartvasVideo
+import studio.oblac.gart.Window
 import studio.oblac.gart.gfx.Palettes
 import studio.oblac.gart.gfx.fillOf
 import studio.oblac.gart.gfx.fillOfWhite
@@ -36,7 +39,7 @@ fun main() {
     val p = Palettes.cool9
     val pdelta = 0
 
-    w.paint2 {
+    w.paintWhile {
         if (tick.now()) {
             g.canvas.drawRect(Rect(0f, 0f, d.wf, d.hf), fillOf(p[count + pdelta]))
             drawLetters(g, letters[count])
@@ -44,11 +47,11 @@ fun main() {
             count++
             if (count == letters.size) {
                 v.stopAndSaveVideo()
-                return@paint2 false
+                return@paintWhile false
             }
 
         }
-        return@paint2 true
+        return@paintWhile true
     }
 
     g.writeSnapshotAsImage("LetterO.png")

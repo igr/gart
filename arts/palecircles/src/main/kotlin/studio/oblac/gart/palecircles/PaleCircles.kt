@@ -1,7 +1,10 @@
 package studio.oblac.gart.palecircles
 
 import org.jetbrains.skia.Rect
-import studio.oblac.gart.*
+import studio.oblac.gart.Dimension
+import studio.oblac.gart.Gartvas
+import studio.oblac.gart.GartvasVideo
+import studio.oblac.gart.Window
 import studio.oblac.gart.gfx.*
 import studio.oblac.gart.math.rnd
 
@@ -23,13 +26,13 @@ fun main() {
     val w = Window(g).show()
     val v = GartvasVideo(g, "$name.mp4", 30)
 
-    w.paint2 { frames ->
+    w.paintWhile { frames ->
         draw()
         v.addFrame()
         if (frames.time() > 10) {
-            return@paint2 false
+            return@paintWhile false
         }
-        return@paint2 true
+        return@paintWhile true
     }
     v.stopAndSaveVideo()
 

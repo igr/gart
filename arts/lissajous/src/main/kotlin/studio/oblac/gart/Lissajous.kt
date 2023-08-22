@@ -20,13 +20,13 @@ fun main() {
     val w = Window(g).show()
     val v = GartvasVideo(g, "$name.mp4", 30)
 
-    w.paint2 { frames ->
+    w.paintWhile { frames ->
         draw()
         v.addFrame()
         if (frames.time() > 12) {
-            return@paint2 false
+            return@paintWhile false
         }
-        return@paint2 true
+        return@paintWhile true
     }
     v.stopAndSaveVideo()
 

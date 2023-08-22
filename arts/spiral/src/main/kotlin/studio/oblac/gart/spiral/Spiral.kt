@@ -2,9 +2,14 @@ package studio.oblac.gart.spiral
 
 import org.jetbrains.skia.Canvas
 import org.jetbrains.skia.Rect
-import studio.oblac.gart.*
-import studio.oblac.gart.gfx.*
-import java.lang.Math.pow
+import studio.oblac.gart.Dimension
+import studio.oblac.gart.Gartvas
+import studio.oblac.gart.GartvasVideo
+import studio.oblac.gart.Window
+import studio.oblac.gart.gfx.Palette
+import studio.oblac.gart.gfx.fillOf
+import studio.oblac.gart.gfx.strokeOfBlack
+import studio.oblac.gart.gfx.strokeOfWhite
 import kotlin.math.PI
 import kotlin.math.cos
 import kotlin.math.pow
@@ -20,13 +25,13 @@ fun main() {
     val w = Window(g).show()
     val v = GartvasVideo(g, "$name.mp4", 30)
 
-    w.paint2 { frames ->
+    w.paintWhile { frames ->
         draw()
         v.addFrame()
         if (frames.time() > 12) {
-            return@paint2 false
+            return@paintWhile false
         }
-        return@paint2 true
+        return@paintWhile true
     }
     v.stopAndSaveVideo()
 

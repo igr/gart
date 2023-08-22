@@ -1,7 +1,10 @@
 package studio.oblac.gart
 
 import studio.oblac.gart.util.toBufferedImage
-import java.awt.*
+import java.awt.Graphics
+import java.awt.Graphics2D
+import java.awt.RenderingHints
+import java.awt.Toolkit
 import java.awt.event.WindowAdapter
 import java.awt.event.WindowEvent
 import java.awt.image.BufferedImage
@@ -94,9 +97,9 @@ class Painter(
     }
 
     /**
-     * Paints a frame while window is up. Provided lambda controls whether to continue painting.
+	 * Paints a frame while window is up and return value is true, until the window is explicitly closed.
      */
-    fun paint2(paintFrame: (Frames) -> Boolean) {
+	fun paintWhile(paintFrame: (Frames) -> Boolean) {
         while (this.running) {
             this.draw(paintFrame)
         }

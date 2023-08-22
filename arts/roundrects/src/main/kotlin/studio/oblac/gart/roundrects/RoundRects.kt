@@ -1,6 +1,9 @@
 package studio.oblac.gart.roundrects
 
-import studio.oblac.gart.*
+import studio.oblac.gart.Dimension
+import studio.oblac.gart.Gartvas
+import studio.oblac.gart.GartvasVideo
+import studio.oblac.gart.Window
 import studio.oblac.gart.gfx.Colors
 import studio.oblac.gart.math.rnd
 import kotlin.time.Duration.Companion.seconds
@@ -18,21 +21,21 @@ fun main() {
     var bigBox = BigBox(d, 4, 4)
 
     var totalChanges = 10;
-    w.paint2 { frames ->
+    w.paintWhile { frames ->
 
         if (onSceneChange.now()) {
             val count = rnd(3, 9)
             bigBox = BigBox(d, count, count)
             if (totalChanges-- == 0) {
                 v.stopAndSaveVideo()
-                return@paint2 false
+                return@paintWhile false
             }
         }
 
         g.canvas.clear(Colors.black.toColor())
         bigBox.allCells.forEach { it.draw(g.canvas, frames.time()) }
         v.addFrame()
-        return@paint2 true
+        return@paintWhile true
     }
     g.writeSnapshotAsImage("roundrects.png")
 }
