@@ -10,7 +10,9 @@ import java.io.File
 class GartvasVideo(
     private val g: Gartvas,
     private val fileName: String,
-    private val fps: Int = 25) {
+    private val fps: Int = 25,
+    private val dryRun: Boolean = false
+) {
 
     private val framesCounter = FramesCounter(fps)
     val frames: Frames = framesCounter
@@ -25,6 +27,9 @@ class GartvasVideo(
         if (!running) {
             return
         }
+        if (dryRun) {
+            return
+        }
         queue.add(g.snapshot())
         framesCounter.tick()
     }
@@ -37,6 +42,11 @@ class GartvasVideo(
             return
         }
         running = false
+
+        if (dryRun) {
+            println("Dry run, not saving video.")
+            return
+        }
 
         println("Saving video...")
 

@@ -13,6 +13,8 @@ fun fastSqrt(d: Double): Double {
     return (sqrt + d / sqrt) / 2.0
 }
 
+fun fastSqrt(f: Float) = fastSqrt(f.toDouble()).toFloat()
+
 /**
  * Less accurate, but somewhat faster approximation of square root of a number.
  */
