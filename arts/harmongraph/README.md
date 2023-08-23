@@ -1,3 +1,7 @@
-# gȧrt : Har. Mon. .Ich.
+# gȧrt : Har. Mon. Ich.
 
-![](lissajous.png)
+![](harmongraph0.png)
+
+![](harmongraph1.png)
+
+![](harmongraph2.png)

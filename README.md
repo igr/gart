@@ -58,4 +58,10 @@ gënérative ȧrt made by pragmatic [micro-framework](gartwork/README.md) and �
 
 <img src="arts/lissajous/lissajous.png" height="240px">
 
+⭐️ [Har. Mon. Ich.](arts/harmongraph/README.md) [🎬](https://youtu.be/TdzbQ84cAVU)
+
+<img src="arts/harmongraph/harmongraph0.png" height="240px">
+<img src="arts/harmongraph/harmongraph1.png" height="240px">
+<img src="arts/harmongraph/harmongraph2.png" height="240px">
+
 🧧 Enjoy.
