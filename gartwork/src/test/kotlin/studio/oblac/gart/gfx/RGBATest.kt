@@ -27,6 +27,20 @@ class RGBATest {
 		assertEquals(20.00f, hsl.l, 0.01f)
 	}
 
+    @Test
+    fun testConverts() {
+        for (i in 0xFF000000..0xFFFFFFFF) {
+            val rgba = RGBA.of(i)
+            val hsl = rgba.toHSL()
+            val rgba2 = hsl.toRGBA()
+
+            assertEquals(rgba.r.toDouble(), rgba2.r.toDouble(), 1.0)
+            assertEquals(rgba.g.toDouble(), rgba2.g.toDouble(), 1.0)
+            assertEquals(rgba.b.toDouble(), rgba2.b.toDouble(), 1.0)
+            assertEquals(rgba.a.toDouble(), rgba2.a.toDouble(), 1.0)
+        }
+    }
+
 	@Test
 	fun testConvertToHSLColors() {
 		val rgbs = arrayOf(
@@ -42,7 +56,7 @@ class RGBATest {
 			HSLA(60f, 100f, 50f),
 		)
 
-		for ((index, rgb) in rgbs.withIndex()) {
+        for ((index, _) in rgbs.withIndex()) {
 			val h = rgbs[index].toHSL()
 			val h2 = hsls[index]
 

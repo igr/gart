@@ -36,4 +36,12 @@ class Gartvas(val d: Dimension) {
                 println("Image saved: $name")
             }
     }
+
+    fun forEachPoint(consumer: (x: Int, y: Int) -> Unit) {
+        for (j in 0 until d.h) {
+            for (i in 0 until d.w) {
+                consumer(i, j)
+            }
+        }
+    }
 }

@@ -48,13 +48,14 @@ fun blue(color: Int, b: Int): Int {
 /**
  * Converts ARGB to RGBA.
  */
-fun Int.toRGBA(): Int {
+fun Int.covertARGBtoRGBA(): Int {
 	return this shl 8 or (this ushr 24)
 }
 
 /**
  * Converts RGBA to ARGB.
  */
-fun Int.toARGB(): Int {
+fun Int.convertRGBAtoARGB(): Int {
 	return this ushr 8 or (this shl 24)
 }
+

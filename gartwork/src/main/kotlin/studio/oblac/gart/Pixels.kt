@@ -1,7 +1,7 @@
 package studio.oblac.gart
 
-import studio.oblac.gart.gfx.toARGB
-import studio.oblac.gart.gfx.toRGBA
+import studio.oblac.gart.gfx.convertRGBAtoARGB
+import studio.oblac.gart.gfx.covertARGBtoRGBA
 import studio.oblac.gart.skia.*
 import java.nio.ByteBuffer
 import java.nio.ByteOrder
@@ -20,13 +20,13 @@ private class PixelBytes(
         .asIntBuffer()
 
     fun get(x: Int, y: Int): Int {
-        return ints.get(y * width + x).toARGB()
+        return ints.get(y * width + x).convertRGBAtoARGB()
     }
     fun set(x: Int, y: Int, value: Int) {
-        ints.put(y * width + x, value.toRGBA())
+        ints.put(y * width + x, value.covertARGBtoRGBA())
     }
     fun set(offset: Int, value: Int) {
-        ints.put(offset, value.toRGBA())
+        ints.put(offset, value.covertARGBtoRGBA())
     }
 }
 
