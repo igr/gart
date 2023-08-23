@@ -57,7 +57,7 @@ class MakeShapeOfCircle(private val d: Dimension) {
                 imageFilter = ImageFilter.makeDropShadow(
                     0f, 0f,
                     10f, 10f,
-                    Colors.black.toColor()
+                    Colors.blackColor.toColor()
                 )
             }
         val arc2Color = fillOf(circle.colors.second)
@@ -65,14 +65,14 @@ class MakeShapeOfCircle(private val d: Dimension) {
                 imageFilter = ImageFilter.makeDropShadow(
                     0f, 0f,
                     10f, 10f,
-                    Colors.black.toColor()
+                    Colors.blackColor.toColor()
                 )
             }
         val triangle1ColorShadow = fillOf(circle.colors.first).apply {
             imageFilter = ImageFilter.makeDropShadow(
                 0f, 0f,
                 10f, 0f,
-                Colors.black.toColor()
+                Colors.blackColor.toColor()
             )
         }
         val triangle1Color = fillOf(circle.colors.first)
@@ -80,7 +80,7 @@ class MakeShapeOfCircle(private val d: Dimension) {
             imageFilter = ImageFilter.makeDropShadow(
                 0f, 0f,
                 10f, 0f,
-                Colors.black.toColor()
+                Colors.blackColor.toColor()
             )
         }
         val triangle2Color = fillOf(circle.colors.second)

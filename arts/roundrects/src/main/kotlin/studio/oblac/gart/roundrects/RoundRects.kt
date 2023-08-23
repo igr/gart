@@ -32,7 +32,7 @@ fun main() {
             }
         }
 
-        g.canvas.clear(Colors.black.toColor())
+        g.canvas.clear(Colors.blackColor.toColor())
         bigBox.allCells.forEach { it.draw(g.canvas, frames.time()) }
         v.addFrame()
         return@paintWhile true
