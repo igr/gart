@@ -1,4 +1,4 @@
-package studio.oblac.gart.math
+package studio.oblac.gart.noise
 
 import kotlin.math.abs
 import kotlin.math.cos

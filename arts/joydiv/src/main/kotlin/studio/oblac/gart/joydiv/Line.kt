@@ -4,8 +4,8 @@ import studio.oblac.gart.Gartvas
 import studio.oblac.gart.gfx.fillOfBlack
 import studio.oblac.gart.gfx.strokeOfWhite
 import studio.oblac.gart.math.GaussianFunction
-import studio.oblac.gart.math.PerlinNoise
 import studio.oblac.gart.math.map
+import studio.oblac.gart.noise.PerlinNoise
 import studio.oblac.gart.skia.Path
 import studio.oblac.gart.skia.PathFillMode
 import studio.oblac.gart.skia.Point
