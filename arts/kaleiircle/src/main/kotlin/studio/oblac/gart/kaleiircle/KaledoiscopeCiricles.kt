@@ -2,7 +2,7 @@ package studio.oblac.gart.kaleiircle
 
 import studio.oblac.gart.*
 import studio.oblac.gart.gfx.fillOfBlack
-import studio.oblac.gart.math.sind
+import studio.oblac.gart.math.sinDeg
 import studio.oblac.gart.skia.Color4f
 import studio.oblac.gart.skia.Rect
 
@@ -42,7 +42,7 @@ const val rw = 50f
 
 fun circles(angle: Float, tick: Long): List<DHCircle> {
     val a = 15f
-    val x = sind(tick) * sind(tick)
+    val x = sinDeg(tick) * sinDeg(tick)
     return List(colors.size) {
         DHCircle(
             r0 + rw * it + 20 * it * x, rw + 20 * x,

@@ -4,8 +4,8 @@ import studio.oblac.gart.Dimension
 import studio.oblac.gart.Shape
 import studio.oblac.gart.gfx.Colors
 import studio.oblac.gart.gfx.fillOf
-import studio.oblac.gart.math.cosd
-import studio.oblac.gart.math.sind
+import studio.oblac.gart.math.cosDeg
+import studio.oblac.gart.math.sinDeg
 import studio.oblac.gart.skia.*
 
 class MakeShapeOfCircle(private val d: Dimension) {
@@ -23,34 +23,34 @@ class MakeShapeOfCircle(private val d: Dimension) {
         val rect2 = Rect(cx-r2, cy-r2, cx+r2, cy+r2)
         val arc1 = Path()
             .addArc(rect, 180f - angle, 180f)
-            .lineTo(cx + r2 * cosd(-angle), cy + r2 * sind(-angle))
+            .lineTo(cx + r2 * cosDeg(-angle), cy + r2 * sinDeg(-angle))
             .addArc(rect2, -angle, -180f)
-            .lineTo(cx - r * cosd(-angle), cy - r * sind(-angle))
+            .lineTo(cx - r * cosDeg(-angle), cy - r * sinDeg(-angle))
 
         val triangle1 = Path()
             .moveTo(cx, cy)
-            .lineTo(cx + r2prim * cosd(-angle - alfa), cy + r2prim * sind(-angle - alfa))
-            .lineTo(cx + r2prim * cosd(-angle + alfa), cy + r2prim * sind(-angle + alfa))
+            .lineTo(cx + r2prim * cosDeg(-angle - alfa), cy + r2prim * sinDeg(-angle - alfa))
+            .lineTo(cx + r2prim * cosDeg(-angle + alfa), cy + r2prim * sinDeg(-angle + alfa))
             .closePath()
         val triangle1_2 = Path()
             .moveTo(cx, cy)
-            .lineTo(cx + r2prim * cosd(-angle), cy + r2prim * sind(-angle))
-            .lineTo(cx + r2prim * cosd(-angle + alfa), cy + r2prim * sind(-angle + alfa))
+            .lineTo(cx + r2prim * cosDeg(-angle), cy + r2prim * sinDeg(-angle))
+            .lineTo(cx + r2prim * cosDeg(-angle + alfa), cy + r2prim * sinDeg(-angle + alfa))
             .closePath()
         val arc2 = Path()
             .addArc(rect, -angle, 180f)
-            .lineTo(cx - r2 * cosd(-angle), cy - r2 * sind(-angle))
+            .lineTo(cx - r2 * cosDeg(-angle), cy - r2 * sinDeg(-angle))
             .addArc(rect2, 180f - angle, -180f)
-            .lineTo(cx + r * cosd(-angle), cy + r * sind(-angle))
+            .lineTo(cx + r * cosDeg(-angle), cy + r * sinDeg(-angle))
         val triangle2 = Path()
             .moveTo(cx, cy)
-            .lineTo(cx - r2prim * cosd(-angle - alfa), cy - r2prim * sind(-angle - alfa))
-            .lineTo(cx - r2prim * cosd(-angle + alfa), cy - r2prim * sind(-angle + alfa))
+            .lineTo(cx - r2prim * cosDeg(-angle - alfa), cy - r2prim * sinDeg(-angle - alfa))
+            .lineTo(cx - r2prim * cosDeg(-angle + alfa), cy - r2prim * sinDeg(-angle + alfa))
             .closePath()
         val triangle2_2 = Path()
             .moveTo(cx, cy)
-            .lineTo(cx - r2prim * cosd(-angle), cy - r2prim * sind(-angle))
-            .lineTo(cx - r2prim * cosd(-angle + alfa), cy - r2prim * sind(-angle + alfa))
+            .lineTo(cx - r2prim * cosDeg(-angle), cy - r2prim * sinDeg(-angle))
+            .lineTo(cx - r2prim * cosDeg(-angle + alfa), cy - r2prim * sinDeg(-angle + alfa))
             .closePath()
         val arc1Color = fillOf(circle.colors.first)
             .apply {

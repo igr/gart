@@ -33,7 +33,7 @@ fun Float.addDeg(delta: Number): Float {
 	return result
 }
 
-fun sind(degrees: Number) = sin(degrees.toFloat().toRadian())
-fun cosd(degrees: Number) = cos(degrees.toFloat().toRadian())
+fun sinDeg(degrees: Number) = sin(degrees.toFloat().toRadian())
+fun cosDeg(degrees: Number) = cos(degrees.toFloat().toRadian())
 
 fun Float.format(digits: Int) = "%.${digits}f".format(this)

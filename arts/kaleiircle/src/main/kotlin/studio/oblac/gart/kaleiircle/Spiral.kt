@@ -3,8 +3,8 @@ package studio.oblac.gart.kaleiircle
 import studio.oblac.gart.Dimension
 import studio.oblac.gart.Shape
 import studio.oblac.gart.gfx.strokeOf
-import studio.oblac.gart.math.cosd
-import studio.oblac.gart.math.sind
+import studio.oblac.gart.math.cosDeg
+import studio.oblac.gart.math.sinDeg
 import studio.oblac.gart.skia.Canvas
 import studio.oblac.gart.skia.Path
 import studio.oblac.gart.skia.Point
@@ -19,8 +19,8 @@ class MakeSpiral(private val d: Dimension) {
 
         for (angle in 0..3600) {
             val scaledRadius = radius * angle / 3600
-            val x = center.x + scaledRadius * cosd(angle)
-            val y = center.y + scaledRadius * sind(angle)
+            val x = center.x + scaledRadius * cosDeg(angle)
+            val y = center.y + scaledRadius * sinDeg(angle)
             val point = Point(x, y)
             if (angle == 0) {
                 path.moveTo(point)

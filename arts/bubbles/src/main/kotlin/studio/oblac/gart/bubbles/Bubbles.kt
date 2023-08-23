@@ -6,8 +6,8 @@ import studio.oblac.gart.Window
 import studio.oblac.gart.gfx.Palettes
 import studio.oblac.gart.gfx.fillOf
 import studio.oblac.gart.gfx.fillOfBlack
-import studio.oblac.gart.math.cosd
-import studio.oblac.gart.math.sind
+import studio.oblac.gart.math.cosDeg
+import studio.oblac.gart.math.sinDeg
 import studio.oblac.gart.math.toDegree
 import studio.oblac.gart.skia.Paint
 import studio.oblac.gart.skia.Rect
@@ -134,8 +134,8 @@ data class Bubble(
         var dy = 0f
 
         angles.forEach {
-            dx += 1.41f * cosd(180 - it)
-            dy += 1.41f * sind(180 - it)
+            dx += 1.41f * cosDeg(180 - it)
+            dy += 1.41f * sinDeg(180 - it)
         }
         return Bubble(d, x + dx, y + dy, r, life, paint, name)
     }

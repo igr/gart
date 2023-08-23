@@ -2,7 +2,7 @@ package studio.oblac.gart.kaleiircle
 
 import studio.oblac.gart.Dimension
 import studio.oblac.gart.Shape
-import studio.oblac.gart.math.sind
+import studio.oblac.gart.math.sinDeg
 import studio.oblac.gart.skia.Canvas
 import studio.oblac.gart.skia.Paint
 import studio.oblac.gart.skia.Path
@@ -16,7 +16,7 @@ class MakeWaves(private val d: Dimension) {
             var x = 0f
             val p = Path().moveTo(x, y)
             while (x < d.w) {
-                val dy = amplitude * sind(x * speed)
+                val dy = amplitude * sinDeg(x * speed)
                 x++
                 p.lineTo(x, y + dy)
             }

@@ -26,9 +26,12 @@ fun argb(a: Int, r: Int, g: Int, b: Int): Int {
 	return Color.makeARGB(a, r, g, b)
 }
 
+@JvmName("setAlpha")
 fun alpha(color: Int, a: Int): Int {
 	return a and 0xFF shl 24 or (color and 0x00FFFFFF)
 }
+
+fun Int.alpha(a: Int): Int = alpha(this, a)
 
 fun red(color: Int, r: Int): Int {
 	return r and 0xFF shl 16 or (color and -0xff0001)
