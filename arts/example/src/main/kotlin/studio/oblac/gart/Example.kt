@@ -1,8 +1,10 @@
 package studio.oblac.gart
 
+import studio.oblac.gart.gfx.Colors
 import studio.oblac.gart.gfx.fillOf
 import studio.oblac.gart.gfx.fillOfRed
 import studio.oblac.gart.math.Constants.goldenRatio
+import studio.oblac.gart.noise.HaltonSequenceGenerator
 import studio.oblac.gart.skia.Rect
 
 fun main() {
@@ -30,11 +32,24 @@ fun main() {
         }
     }
 
+    // add noise
+    val halton = HaltonSequenceGenerator(2)
+    for (i in 1 until 1000) {
+        halton.get().toList().zipWithNext().forEach {
+            val (x, y) = it
+            val x1 = (x * w).toInt()
+            val y1 = (y * h).toInt()
+            b[x1, y1] = Colors.black
+        }
+    }
+
+    // draw a line and a dot
     for (x in 0 until w) {
         b[x, 0] = 0xFFFF0044
     }
     b[0, 0] = 0xFF00FF00
 
+    // draw back
     b.draw()
 
     g.writeSnapshotAsImage("example.png")
