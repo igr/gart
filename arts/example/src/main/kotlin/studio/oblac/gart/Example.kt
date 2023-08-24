@@ -20,6 +20,15 @@ fun main() {
     g.canvas.drawRect(Rect(0f, 0f, d.wf, d.hf), fillOf(0xFF174185))
     g.canvas.drawCircle(w / 2f, h / 2f, 30f, fillOfRed())
 
+    // second canvas
+
+    val d2 = Dimension(10, 10)
+    val g2 = Gartvas(d2)
+    g2.canvas.drawCircle(5f, 5f, 5f, fillOf(Colors.coral))
+
+    g.draw(g2, 30f, 30f)
+    g.draw(g2, 50f, 95f)
+
     // get bitmap
 
     val b = Gartmap(g)

@@ -31,4 +31,15 @@ data class Dimension(val w: Int, val h: Int) {
      */
     val area = w * h
 
+    /**
+     * Iterates over the all elements of the rectangle dimension.
+     */
+    fun forEach(consumer: (x: Int, y: Int) -> Unit) {
+        for (j in 0 until h) {
+            for (i in 0 until w) {
+                consumer(i, j)
+            }
+        }
+    }
+
 }

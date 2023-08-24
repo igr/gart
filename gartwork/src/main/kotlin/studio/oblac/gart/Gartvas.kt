@@ -37,11 +37,11 @@ class Gartvas(val d: Dimension) {
             }
     }
 
-    fun forEachPoint(consumer: (x: Int, y: Int) -> Unit) {
-        for (j in 0 until d.h) {
-            for (i in 0 until d.w) {
-                consumer(i, j)
-            }
-        }
+    /**
+     * Draw one Gartvas onto the another.
+     */
+    fun draw(g: Gartvas, x: Float, y: Float) {
+        canvas.drawImage(g.snapshot(), x, y)
     }
+
 }
