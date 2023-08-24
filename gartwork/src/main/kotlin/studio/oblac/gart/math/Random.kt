@@ -1,13 +1,11 @@
 package studio.oblac.gart.math
 
-fun rnd(max: Int): Int {
-    return (Math.random() * max).toInt()
-}
+import kotlin.random.Random
 
-fun rnd(min: Int, max: Int): Int {
-    return (Math.random() * (max - min) + min).toInt()
-}
+fun rnd(max: Int) = (Math.random() * max).toInt()
 
-fun rnd(min: Float, max: Float): Float {
-    return (Math.random() * (max - min) + min).toFloat()
-}
+fun rnd(min: Int, max: Int) = (Math.random() * (max - min) + min).toInt()
+
+fun rnd(min: Float, max: Float): Float = (Math.random() * (max - min) + min).toFloat()
+
+fun nextFloat(range: Number) = Random.nextFloat() * range.toFloat()
