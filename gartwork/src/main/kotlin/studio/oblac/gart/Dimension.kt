@@ -24,6 +24,9 @@ data class Dimension(val w: Int, val h: Int) {
      */
     val b = h - 1
 
+    /**
+     * Bottom edge as float.
+     */
     val bf = b.toFloat()
 
     /**
@@ -42,4 +45,8 @@ data class Dimension(val w: Int, val h: Int) {
         }
     }
 
+    /**
+     * Grows the dimension by the factor.
+     */
+    operator fun times(factor: Number) = Dimension((w * factor.toFloat()).toInt(), (h * factor.toFloat()).toInt())
 }

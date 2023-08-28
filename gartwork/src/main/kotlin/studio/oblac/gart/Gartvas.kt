@@ -1,7 +1,9 @@
 package studio.oblac.gart
 
+import studio.oblac.gart.gfx.fillOf
 import studio.oblac.gart.skia.EncodedImageFormat
 import studio.oblac.gart.skia.Image
+import studio.oblac.gart.skia.Rect
 import studio.oblac.gart.skia.Surface
 import java.io.File
 
@@ -11,6 +13,7 @@ import java.io.File
 class Gartvas(val d: Dimension) {
 
     internal val surface = Surface.makeRasterN32Premul(d.w, d.h)
+    val rect = Rect(0f, 0f, d.wf, d.hf)
 
     /**
      * Canvas.
@@ -42,6 +45,10 @@ class Gartvas(val d: Dimension) {
      */
     fun draw(g: Gartvas, x: Float, y: Float) {
         canvas.drawImage(g.snapshot(), x, y)
+    }
+
+    fun fill(color: Int) {
+        canvas.drawRect(rect, fillOf(color))
     }
 
 }
