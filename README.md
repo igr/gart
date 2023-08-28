@@ -68,6 +68,16 @@ gënérative ȧrt made by pragmatic [micro-framework](gartwork/README.md) and �
 
 <br clear="both">
 
+⭐️ [Solitude. Solace. Serenity.](arts/flowforce/README.md)
+
+<p align="center">
+<img src="arts/flowforce/flowforce1.png" height="240px" align="left">
+<img src="arts/flowforce/flowforce2.png" height="240px" align="left">
+<img src="arts/flowforce/flowforce3.png" height="240px" align="left">
+</p>
+
+<br clear="both">
+
 ## 🍬 The End
 
 🧧 Enjoy.
