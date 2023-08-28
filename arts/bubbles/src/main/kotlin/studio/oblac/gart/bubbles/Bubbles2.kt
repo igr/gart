@@ -4,8 +4,8 @@ import studio.oblac.gart.Dimension
 import studio.oblac.gart.Gartvas
 import studio.oblac.gart.gfx.fillOfWhite
 import studio.oblac.gart.gfx.strokeOfBlack
+import studio.oblac.gart.math.nextFloat
 import studio.oblac.gart.skia.Rect
-import studio.oblac.gart.util.nextFloat
 
 const val name2 = "Bubbles2"
 

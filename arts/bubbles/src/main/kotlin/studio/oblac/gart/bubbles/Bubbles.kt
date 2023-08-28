@@ -7,11 +7,11 @@ import studio.oblac.gart.gfx.Palettes
 import studio.oblac.gart.gfx.fillOf
 import studio.oblac.gart.gfx.fillOfBlack
 import studio.oblac.gart.math.cosDeg
+import studio.oblac.gart.math.nextFloat
 import studio.oblac.gart.math.sinDeg
 import studio.oblac.gart.math.toDegree
 import studio.oblac.gart.skia.Paint
 import studio.oblac.gart.skia.Rect
-import studio.oblac.gart.util.nextFloat
 import kotlin.math.abs
 import kotlin.math.asin
 import kotlin.math.pow
