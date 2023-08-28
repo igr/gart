@@ -11,7 +11,8 @@ import kotlin.math.sin
 class CircularFlowForce(
     private val cx: Float,
     private val cy: Float,
-    private val direction: RotationDirection = CW
+    private val direction: RotationDirection = CW,
+    private val magnitude: Float = 1f,
 ) : ForceGenerator<FlowForce> {
     override fun invoke(x: Float, y: Float): FlowForce {
         val dx = x - cx
@@ -22,7 +23,7 @@ class CircularFlowForce(
             RotationDirection.CCW -> -atan2(-dy, dx)
         }
 
-        return FlowForce(normalizeRad(theta), 1f)
+        return FlowForce(normalizeRad(theta), magnitude)
     }
 }
 
@@ -30,7 +31,8 @@ class SpiralFlowForce(
     val cx: Float,
     val cy: Float,
     private val spiralSpeed: Float = 0.3f,
-    private val direction: RotationDirection = CW
+    private val direction: RotationDirection = CW,
+    private val magnitude: Float = 1f,
 ) : ForceGenerator<FlowForce> {
     override fun invoke(x: Float, y: Float): FlowForce {
         val dx = x - cx
@@ -41,7 +43,7 @@ class SpiralFlowForce(
             RotationDirection.CCW -> -atan2(-dy, dx)
         } + spiralSpeed
 
-        return FlowForce(normalizeRad(theta), 1f)
+        return FlowForce(normalizeRad(theta), magnitude)
     }
 }
 
@@ -50,11 +52,12 @@ class WaveFlowForce(
     private val yFreq: Float = 0.03f,
     private val xAmp: Float = 0.8f,
     private val yAmp: Float = 0.5f,
+    private val magnitude: Float = 1f,
 ) : ForceGenerator<FlowForce> {
     override fun invoke(x: Float, y: Float): FlowForce {
         val a = sin(x * xFreq) * xAmp
         val b = cos(y * yFreq) * yAmp
-        return FlowForce(a + b, 1f)
+        return FlowForce(a + b, magnitude)
     }
 
 }

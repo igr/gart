@@ -47,4 +47,17 @@ object Palettes {
 
         return Palette(colors)
     }
+
+    fun gradient(palette: Palette, steps: Int): Palette {
+        val delta = steps / palette.size
+        var i = 0
+
+        var gradient = Palette()
+        while (i < palette.size - 1) {
+            gradient += gradient(palette[i], palette[i + 1], delta)
+            i++
+        }
+
+        return gradient
+    }
 }

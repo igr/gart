@@ -1,6 +1,8 @@
 package studio.oblac.gart.gfx
 
-class Palette(private val colors: IntArray) {
+import kotlin.math.abs
+
+class Palette(internal val colors: IntArray) {
     constructor(vararg values: Long) : this(values.map { it.toInt() }.toIntArray())
 
     val size = colors.size
@@ -10,7 +12,7 @@ class Palette(private val colors: IntArray) {
 	}
 
     fun getSafe(position: Int): Int {
-        return colors[position % size]
+        return colors[abs(position) % size]
     }
 
     operator fun plus(otherPalette: Palette): Palette {
