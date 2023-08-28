@@ -66,6 +66,8 @@ gënérative ȧrt made by pragmatic [micro-framework](gartwork/README.md) and �
 <img src="arts/harmongraph/harmongraph2.png" height="240px" align="left">
 </p>
 
-## 🍬 ȧrt
+<br clear="both">
+
+## 🍬 The End
 
 🧧 Enjoy.
