@@ -8,6 +8,8 @@ interface FrameMarker {
      */
     fun before(): Boolean
 
+    fun beforeFun(): () -> Boolean = { before() }
+
     /**
      * Returns true if current frame is after the marker.
      */
@@ -39,6 +41,13 @@ class FrameMarkerBuilder(private val frames: Frames) {
 
     fun onEvery(duration: Duration): FrameMarker {
         return FrameMarkerRepeated(frames, (frames.rate() * duration.inWholeSeconds.toFloat()).toLong())
+    }
+
+    /**
+     * Creates a marker after certain duration passed from the current moment.
+     */
+    fun after(duration: Duration): FrameMarker {
+        return FrameMarkerSingle(frames, frames.count() + (frames.rate() * duration.inWholeSeconds.toFloat()).toLong())
     }
 }
 

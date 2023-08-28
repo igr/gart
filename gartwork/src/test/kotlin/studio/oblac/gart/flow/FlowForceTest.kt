@@ -1,4 +1,4 @@
-package studio.oblac.gart.util
+package studio.oblac.gart.flow
 
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test

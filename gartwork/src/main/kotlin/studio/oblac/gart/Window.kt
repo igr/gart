@@ -11,7 +11,7 @@ import java.awt.image.BufferedImage
 import javax.swing.JFrame
 import javax.swing.JPanel
 
-class Window(private val g: Gartvas, private val fps: Int = 25) {
+class Window(val g: Gartvas, private val fps: Int = 25) {
 
 	init {
 		JFrame.setDefaultLookAndFeelDecorated(true)
@@ -102,6 +102,15 @@ class Painter(
 	fun paintWhile(paintFrame: (Frames) -> Boolean) {
         while (this.running) {
             this.draw(paintFrame)
+        }
+    }
+
+    fun paintWhile(condition: () -> Boolean, paintFrame: (Frames) -> Unit) {
+        while (this.running) {
+            this.draw {
+                paintFrame(it)
+                return@draw condition()
+            }
         }
     }
 

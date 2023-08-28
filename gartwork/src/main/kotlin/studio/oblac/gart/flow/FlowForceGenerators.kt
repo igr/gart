@@ -26,6 +26,25 @@ class CircularFlowForce(
     }
 }
 
+class SpiralFlowForce(
+    val cx: Float,
+    val cy: Float,
+    private val spiralSpeed: Float = 0.3f,
+    private val direction: RotationDirection = CW
+) : ForceGenerator<FlowForce> {
+    override fun invoke(x: Float, y: Float): FlowForce {
+        val dx = x - cx
+        val dy = y - cy
+
+        val theta = when (direction) {
+            CW -> PIf - atan2(-dy, dx)
+            RotationDirection.CCW -> -atan2(-dy, dx)
+        } + spiralSpeed
+
+        return FlowForce(normalizeRad(theta), 1f)
+    }
+}
+
 class WaveFlowForce(
     private val xFreq: Float = 0.01f,
     private val yFreq: Float = 0.03f,
