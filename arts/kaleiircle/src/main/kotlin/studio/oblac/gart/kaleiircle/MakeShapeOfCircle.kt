@@ -1,15 +1,18 @@
 package studio.oblac.gart.kaleiircle
 
 import studio.oblac.gart.Dimension
-import studio.oblac.gart.Shape
+import studio.oblac.gart.Drawable
 import studio.oblac.gart.gfx.Colors
 import studio.oblac.gart.gfx.fillOf
 import studio.oblac.gart.math.cosDeg
 import studio.oblac.gart.math.sinDeg
-import studio.oblac.gart.skia.*
+import studio.oblac.gart.skia.ClipMode
+import studio.oblac.gart.skia.ImageFilter
+import studio.oblac.gart.skia.Path
+import studio.oblac.gart.skia.Rect
 
 class MakeShapeOfCircle(private val d: Dimension) {
-    operator fun invoke(circle: DHCircle): Shape {
+    operator fun invoke(circle: DHCircle): Drawable {
         val alfa = circle.innerAngle / 2
 
         val cx = d.w / 2f
@@ -90,28 +93,26 @@ class MakeShapeOfCircle(private val d: Dimension) {
         val drawCircle = circle.type == DHType.CIRCLE || circle.type == DHType.FULL
         val drawTriangle = circle.type == DHType.TRIANGLE || circle.type == DHType.FULL
 
-        return object : Shape {
-            override fun draw(canvas: Canvas) {
-                if (drawCircle) {
-                    canvas.drawPath(arc1, arc1Color)
-                    canvas.drawPath(arc2, arc2Color)
-                }
-                if (drawTriangle) {
-                    canvas.drawPath(triangle1_2, triangle1ColorShadow)
-                    canvas.drawPath(triangle1, triangle1Color)
-                    canvas.drawPath(triangle2_2, triangle2ColorShadow)
-                    canvas.drawPath(triangle2, triangle2Color)
-                }
-                if (drawCircle) {
-                    canvas.save()
-                    canvas.clipPath(arc1, ClipMode.INTERSECT)
-                    waves.draw(canvas)
-                    canvas.restore()
-                    canvas.save()
-                    canvas.clipPath(arc2, ClipMode.INTERSECT)
-                    waves.draw(canvas)
-                    canvas.restore()
-                }
+        return Drawable { canvas ->
+            if (drawCircle) {
+                canvas.drawPath(arc1, arc1Color)
+                canvas.drawPath(arc2, arc2Color)
+            }
+            if (drawTriangle) {
+                canvas.drawPath(triangle1_2, triangle1ColorShadow)
+                canvas.drawPath(triangle1, triangle1Color)
+                canvas.drawPath(triangle2_2, triangle2ColorShadow)
+                canvas.drawPath(triangle2, triangle2Color)
+            }
+            if (drawCircle) {
+                canvas.save()
+                canvas.clipPath(arc1, ClipMode.INTERSECT)
+                waves(canvas)
+                canvas.restore()
+                canvas.save()
+                canvas.clipPath(arc2, ClipMode.INTERSECT)
+                waves(canvas)
+                canvas.restore()
             }
         }
     }

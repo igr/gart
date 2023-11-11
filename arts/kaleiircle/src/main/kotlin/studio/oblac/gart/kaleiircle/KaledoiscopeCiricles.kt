@@ -80,10 +80,10 @@ fun paint(g: Gartvas, frames: Frames) {
 //    MakeWaves(box).invoke().draw(g.canvas)
 
     for (t in shapes1) {
-        t.draw(g.canvas)
+        t(g.canvas)
     }
     for (s in shapes2) {
-        s.draw(g.canvas)
+        s(g.canvas)
     }
 }
 

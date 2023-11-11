@@ -1,18 +1,17 @@
 package studio.oblac.gart.kaleiircle
 
 import studio.oblac.gart.Dimension
-import studio.oblac.gart.Shape
+import studio.oblac.gart.Drawable
 import studio.oblac.gart.gfx.strokeOf
 import studio.oblac.gart.math.cosDeg
 import studio.oblac.gart.math.sinDeg
-import studio.oblac.gart.skia.Canvas
 import studio.oblac.gart.skia.Path
 import studio.oblac.gart.skia.Point
 import kotlin.math.max
 
 class MakeSpiral(private val d: Dimension) {
 
-    operator fun invoke(dx: Float, dy: Float): Shape {
+    operator fun invoke(dx: Float, dy: Float): Drawable {
         val center = Point(d.cx + dx, d.cy + dy)
         val radius = max(d.w, d.h)
         val path = Path()
@@ -29,10 +28,6 @@ class MakeSpiral(private val d: Dimension) {
             }
         }
 
-        return object : Shape {
-            override fun draw(canvas: Canvas) {
-                canvas.drawPath(path, strokeOf(0x11000000, 4f))
-            }
-        }
+        return Drawable { canvas -> canvas.drawPath(path, strokeOf(0x11000000, 4f)) }
     }
 }
