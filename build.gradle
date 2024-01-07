@@ -4,7 +4,7 @@ plugins {
 
 allprojects {
     version = "1.0.0-SNAPSHOT"
-    group = "studio.oblac.gart"
+    group = "dev.oblac.gart"
 
     repositories {
         mavenCentral()
