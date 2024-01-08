@@ -1,11 +1,11 @@
-package studio.oblac.gart
+package dev.oblac.gart
 
-import studio.oblac.gart.gfx.Colors
-import studio.oblac.gart.gfx.fillOf
-import studio.oblac.gart.gfx.fillOfRed
-import studio.oblac.gart.math.Constants.goldenRatio
-import studio.oblac.gart.noise.HaltonSequenceGenerator
-import studio.oblac.gart.skia.Rect
+import dev.oblac.gart.gfx.Colors
+import dev.oblac.gart.gfx.fillOf
+import dev.oblac.gart.gfx.fillOfRed
+import dev.oblac.gart.math.Constants.goldenRatio
+import dev.oblac.gart.noise.HaltonSequenceGenerator
+import dev.oblac.gart.skia.Rect
 
 fun main() {
     println("Example")
