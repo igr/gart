@@ -1,8 +1,8 @@
-package studio.oblac.gart.plasma
+package dev.oblac.gart.plasma
 
-import studio.oblac.gart.*
-import studio.oblac.gart.gfx.Palette
-import studio.oblac.gart.gfx.Palettes.gradient
+import dev.oblac.gart.*
+import dev.oblac.gart.gfx.Palette
+import dev.oblac.gart.gfx.Palettes.gradient
 import kotlin.math.cos
 import kotlin.math.sin
 import kotlin.math.sqrt
