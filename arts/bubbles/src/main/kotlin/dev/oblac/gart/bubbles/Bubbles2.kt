@@ -1,11 +1,11 @@
-package studio.oblac.gart.bubbles
+package dev.oblac.gart.bubbles
 
-import studio.oblac.gart.Dimension
-import studio.oblac.gart.Gartvas
-import studio.oblac.gart.gfx.fillOfWhite
-import studio.oblac.gart.gfx.strokeOfBlack
-import studio.oblac.gart.math.nextFloat
-import studio.oblac.gart.skia.Rect
+import dev.oblac.gart.Dimension
+import dev.oblac.gart.Gartvas
+import dev.oblac.gart.gfx.fillOfWhite
+import dev.oblac.gart.gfx.strokeOfBlack
+import dev.oblac.gart.math.nextFloat
+import dev.oblac.gart.skia.Rect
 
 const val name2 = "Bubbles2"
 
