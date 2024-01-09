@@ -1,6 +1,9 @@
 package dev.oblac.gart.skyscraper
 
-import dev.oblac.gart.*
+import dev.oblac.gart.Dimension
+import dev.oblac.gart.Gartvas
+import dev.oblac.gart.GartvasVideo
+import dev.oblac.gart.Window
 import kotlin.random.Random
 
 const val w = 1280
@@ -123,7 +126,7 @@ fun main() {
 //    squareBuilding(80f)(100f, 100f)(g.canvas)
 
     window.paint {
-        val color = colors[it.count().mod(colors.size)]
+        val color = colors[it.count.mod(colors.size)]
 
         rowTop(color).forEach { it(g.canvas) }
 

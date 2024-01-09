@@ -28,7 +28,7 @@ class FrameMarkerBuilder(private val frames: Frames) {
     }
 
     fun atSecond(seconds: Number): FrameMarker {
-        return FrameMarkerSingle(frames, (frames.rate() * seconds.toFloat()).toLong())
+        return FrameMarkerSingle(frames, (frames.rate * seconds.toFloat()).toLong())
     }
 
     fun onEveryFrame(number: Number): FrameMarker {
@@ -36,29 +36,29 @@ class FrameMarkerBuilder(private val frames: Frames) {
     }
 
     fun onEverySecond(seconds: Number): FrameMarker {
-        return FrameMarkerRepeated(frames, (frames.rate() * seconds.toFloat()).toLong())
+        return FrameMarkerRepeated(frames, (frames.rate * seconds.toFloat()).toLong())
     }
 
     fun onEvery(duration: Duration): FrameMarker {
-        return FrameMarkerRepeated(frames, (frames.rate() * duration.inWholeSeconds.toFloat()).toLong())
+        return FrameMarkerRepeated(frames, (frames.rate * duration.inWholeSeconds.toFloat()).toLong())
     }
 
     /**
      * Creates a marker after certain duration passed from the current moment.
      */
     fun after(duration: Duration): FrameMarker {
-        return FrameMarkerSingle(frames, frames.count() + (frames.rate() * duration.inWholeSeconds.toFloat()).toLong())
+        return FrameMarkerSingle(frames, frames.count + (frames.rate * duration.inWholeSeconds.toFloat()).toLong())
     }
 }
 
 internal class FrameMarkerSingle(private val frames: Frames, private val frameValue: Long) : FrameMarker {
-    override fun before() = frames.count() < frameValue
-    override fun after() = frames.count() > frameValue
-    override fun now() = frames.count() == frameValue
+    override fun before() = frames.count < frameValue
+    override fun after() = frames.count > frameValue
+    override fun now() = frames.count == frameValue
 }
 
 internal class FrameMarkerRepeated(private val frames: Frames, private val frameValue: Long) : FrameMarker {
     override fun before() = true
     override fun after() = false
-    override fun now() = frames.count().mod(frameValue) == 0L
+    override fun now() = frames.count.mod(frameValue) == 0L
 }

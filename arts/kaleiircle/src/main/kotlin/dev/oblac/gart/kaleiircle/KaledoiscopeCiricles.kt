@@ -72,8 +72,8 @@ val makeShapeOfCircle = MakeShapeOfCircle(d)
 fun paint(g: Gartvas, frames: Frames) {
     println(frames)
 
-    val shapes1 = triangles(-10f + frames.count()).map { makeShapeOfCircle(it) }
-    val shapes2 = circles(-10f + frames.count(), frames.count()).map { makeShapeOfCircle(it) }
+    val shapes1 = triangles(-10f + frames.count).map { makeShapeOfCircle(it) }
+    val shapes2 = circles(-10f + frames.count, frames.count).map { makeShapeOfCircle(it) }
 
     g.canvas.drawRect(Rect(0f, 0f, g.d.wf, g.d.hf), fillOfBlack())
 

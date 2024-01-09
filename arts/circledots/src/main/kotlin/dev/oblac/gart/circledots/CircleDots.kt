@@ -54,7 +54,7 @@ fun main() {
         tick = if (everySecondMarker.now()) tick + 1 else tick
         paint(tick.mod(2) == 0)
 
-        if (v.frames.count() < fps * 8) {
+        if (v.frames.count < fps * 8) {
             v.addFrame()
         } else {
             v.stopAndSaveVideo()

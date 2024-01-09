@@ -4,22 +4,34 @@ import dev.oblac.gart.math.format
 
 interface Frames {
     /**
-     * Returns a framerate.
+     * Framerate (fps).
      */
-    fun rate(): Int
+    val rate: Int
 
     /**
-     * Returns elapsed time in seconds.
+     * Elapsed time in seconds.
      */
-    fun time(): Float
+    val time: Float
+        get() = count / rate.toFloat()
 
     /**
      * Returns elapsed number of frames.
      */
-    fun count(): Long
+    val count: Long
 
     /**
-     * Creates a marker on certain position.
+     * Converts frames count to time in seconds.
+     */
+    fun framesToTime(frames: Int): Float {
+        return frames / rate.toFloat()
+    }
+
+    fun timeToFrames(time: Float): Long {
+        return (time * rate).toLong()
+    }
+
+    /**
+     * Creates a marker on a certain position.
      */
     fun marker() = FrameMarkerBuilder(this)
 }
@@ -37,26 +49,13 @@ class FramesCounter(private val fps: Int) : Frames {
         return this
     }
 
-    /**
-     * Converts frames count to time in seconds.
-     */
-    fun framesToTime(frames: Int): Float {
-        return frames / fps.toFloat()
-    }
+    override val rate: Int
+        get() = fps
 
-    fun timeToFrames(time: Float): Long {
-        return (time * fps).toLong()
-    }
-
-    override fun time(): Float {
-        return total / fps.toFloat()
-    }
-
-    override fun count() = total
-
-    override fun rate(): Int = fps
+    override val count: Long
+        get() = total
 
     override fun toString(): String {
-        return "Count: $total. Time: ${time().format(2)}."
+        return "Count: $total. Time: ${time.format(2)}."
     }
 }

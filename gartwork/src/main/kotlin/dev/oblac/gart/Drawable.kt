@@ -3,7 +3,7 @@ package dev.oblac.gart
 import dev.oblac.gart.skia.Canvas
 
 /**
- * Generic drawable unit.
+ * Drawable canvas consumer function interface.
  */
 fun interface Drawable {
     operator fun invoke(canvas: Canvas)

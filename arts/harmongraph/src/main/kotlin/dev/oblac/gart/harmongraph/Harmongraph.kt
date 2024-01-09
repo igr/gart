@@ -27,7 +27,7 @@ fun main() {
     val changeMarker = w.frames.marker().onEverySecond(10)
 
     w.paintWhile { frames ->
-        draw(frames.count(), drawing)
+        draw(frames.count, drawing)
         v.addFrame()
 
         if (changeMarker.now()) {

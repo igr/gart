@@ -29,7 +29,7 @@ fun main() {
     w.paintWhile { frames ->
         draw()
         v.addFrame()
-        if (frames.time() > 10) {
+        if (frames.time > 10) {
             return@paintWhile false
         }
         return@paintWhile true

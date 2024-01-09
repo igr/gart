@@ -63,7 +63,7 @@ fun main() {
     w.paint { frames ->
         g.canvas.drawRect(Rect(0f, 0f, d.wf, d.hf), fillOfBlack())
         list = list
-            .filter { !it.isExpired(frames.count()) }
+            .filter { !it.isExpired(frames.count) }
             .map { move(list, it) }
             .toList()
         paintAll()

@@ -2,6 +2,7 @@
 
 gënérative ȧrt made by pragmatic [micro-framework](gartwork/README.md) and ❤️
 
+follow: [🎇 Instagram](https://www.instagram.com/gart_173) |
 [🎥 YouTube gallery](https://www.youtube.com/watch?v=wbcpgElKq7E&list=PLKevVk1K8oXF_GrdsGHjeOuuSkpZXq5ps)
 
 ## 🍭 gȧlléry
