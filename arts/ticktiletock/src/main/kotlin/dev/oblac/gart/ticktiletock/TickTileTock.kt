@@ -3,7 +3,7 @@ package dev.oblac.gart.ticktiletock
 import dev.oblac.gart.Dimension
 import dev.oblac.gart.Gart
 import dev.oblac.gart.Gartmap
-import dev.oblac.gart.GartvasVideo
+import dev.oblac.gart.Media
 import kotlin.time.Duration.Companion.seconds
 
 val gart = Gart.of(
@@ -16,32 +16,29 @@ fun main() {
     with(gart) {
         println(name)
 
-        val v = GartvasVideo(g, "$name.mp4", 1)
-
         // prepare scenario
         val tick = f.marker().onEvery(1.seconds)
 
-        movie(d, b)
+        makeMovie(d, b)
 
         w.show()
-
-        a.onPaint { v.addFrame(it) }        // todo move to video!
+        a.record()
         a.draw {
             Scenes.draw(g.canvas)
             if (tick.now()) {
-                v.addFrame()
                 Scenes.tick()
             }
             if (Scenes.isEnd()) {
-                v.stopAndSaveVideo()
+                a.stop()
             }
         }
 
-        g.writeSnapshotAsImage("$name.png")
+        Media.saveImage(this)
+        Media.saveVideo(this)
     }
 }
 
-fun movie(d: Dimension, m: Gartmap) {
+fun makeMovie(d: Dimension, m: Gartmap) {
     Scenes
         .add(4) { SceneX(d, 32, paintTile2) }
         .add(4) { SceneX(d, 64, paintTile2) }

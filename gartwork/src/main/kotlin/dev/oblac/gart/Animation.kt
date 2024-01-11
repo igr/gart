@@ -16,6 +16,7 @@ class Animation(
     val frames: Frames = framesCounter
 
     private var running = true
+
     // the initial time is 1 second in the past, to kick painting right away
     private var lastPaintTimestamp = System.currentTimeMillis() - 1000
 
@@ -51,9 +52,11 @@ class Animation(
      * Use [stop] to stop the animation loop.
      */
     fun draw(drawFrame: () -> Unit) {
+        println("animation started")
         while (running) {
             this.drawSingleFrame(drawFrame)
         }
+        println("animation stopped")
     }
 
     /**
@@ -61,5 +64,30 @@ class Animation(
      */
     fun stop() {
         running = false
+    }
+
+    /// RECORDING
+
+    internal val allFrames = mutableListOf<Image>()
+
+    private var recording = false
+
+    /**
+     * Enables storing of all the frames.
+     */
+    fun record() {
+        if (recording) {
+            return
+        }
+        recording = true
+        onPaint {
+            if (recording) {
+                allFrames.add(it)
+            }
+        }
+    }
+
+    fun stopRecording() {
+        recording = false
     }
 }

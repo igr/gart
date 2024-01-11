@@ -7,6 +7,7 @@ import java.io.File
 /**
  * Holds a buffer for [Gartvas] snapshots, used by [VideoRecorder].
  */
+@Deprecated("Use MediaRecorder instead")
 class GartvasVideo(
     private val g: Gartvas,
     private val fileName: String,

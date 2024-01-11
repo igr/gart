@@ -1,11 +1,9 @@
 package dev.oblac.gart
 
 import dev.oblac.gart.gfx.fillOf
-import dev.oblac.gart.skia.EncodedImageFormat
 import dev.oblac.gart.skia.Image
 import dev.oblac.gart.skia.Rect
 import dev.oblac.gart.skia.Surface
-import java.io.File
 
 /**
  * It's the canvas.
@@ -25,19 +23,6 @@ class Gartvas(val d: Dimension) {
      */
     fun snapshot(): Image {
         return surface.makeImageSnapshot()
-    }
-
-    /**
-     * Creates snapshot and writes it as an image file.
-     */
-    fun writeSnapshotAsImage(name: String) {
-        snapshot()
-            .encodeToData(EncodedImageFormat.valueOf(name.substringAfterLast('.').uppercase()))
-            .let { it!!.bytes }
-            .also {
-                File(name).writeBytes(it)
-                println("Image saved: $name")
-            }
     }
 
     /**
