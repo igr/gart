@@ -1,37 +1,44 @@
 package dev.oblac.gart.ticktiletock
 
-import dev.oblac.gart.*
+import dev.oblac.gart.Dimension
+import dev.oblac.gart.Gart
+import dev.oblac.gart.Gartmap
+import dev.oblac.gart.GartvasVideo
 import kotlin.time.Duration.Companion.seconds
 
+val gart = Gart.of(
+    "ticktiletock",
+    1024, 1024,
+    1
+)
+
 fun main() {
-    val name = "ticktiletock"
+    with(gart) {
+        println(name)
 
-    println(name)
+        val v = GartvasVideo(g, "$name.mp4", 1)
 
-    val d = Dimension(1024, 1024)
-    val g = Gartvas(d)
-    val m = Gartmap(g)
-    val a = Animation(g, 1)
-    val w = Window(a).show()
-    val v = GartvasVideo(g, "$name.mp4", 1)
+        // prepare scenario
+        val tick = f.marker().onEvery(1.seconds)
 
-    // prepare scenario
-    val tick = a.frames.marker().onEvery(1.seconds)
+        movie(d, b)
 
-    movie(d, m)
+        w.show()
 
-    w.draw {
-        Scenes.draw(g.canvas)
-        if (tick.now()) {
-            v.addFrame()
-            Scenes.tick()
+        a.onPaint { v.addFrame(it) }        // todo move to video!
+        a.draw {
+            Scenes.draw(g.canvas)
+            if (tick.now()) {
+                v.addFrame()
+                Scenes.tick()
+            }
+            if (Scenes.isEnd()) {
+                v.stopAndSaveVideo()
+            }
         }
-        if (Scenes.isEnd()) {
-            v.stopAndSaveVideo()
-        }
+
+        g.writeSnapshotAsImage("$name.png")
     }
-
-    g.writeSnapshotAsImage("$name.png")
 }
 
 fun movie(d: Dimension, m: Gartmap) {

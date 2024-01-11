@@ -10,8 +10,6 @@ interface FrameMarker {
      */
     fun before(): Boolean
 
-    fun beforeAsFun(): () -> Boolean = { before() }
-
     /**
      * Returns `true` if current frame is after the marker.
      */

@@ -1,6 +1,8 @@
 package dev.oblac.gart.harmongraph
 
-import dev.oblac.gart.*
+import dev.oblac.gart.FramesCount
+import dev.oblac.gart.Gart
+import dev.oblac.gart.GartvasVideo
 import dev.oblac.gart.gfx.*
 import dev.oblac.gart.math.sinDeg
 import org.jetbrains.skia.Canvas
@@ -10,42 +12,46 @@ import kotlin.math.exp
 import kotlin.math.sin
 import kotlin.time.Duration.Companion.seconds
 
-val d = Dimension(800, 800)
-val g = Gartvas(d)
-val a = Animation(g)
-val f = a.frames
+val gart = Gart.of(
+    "Harmongraph",
+    800, 800,
+    30
+)
 
 fun main() {
-    val name = "harmongraph"
-    println(name)
+    with(gart) {
+        println(name)
 
-    val w = Window(a).show()
-    val v = GartvasVideo(g, "$name.mp4", 30, dryRun = false)
+        w.show()
+        val v = GartvasVideo(g, "$name.mp4", 30, dryRun = false)
 
-    var drawing = 4
+        var drawing = 4
 
-    val changeMarker = f.marker().onEvery(10.seconds)
+        val changeMarker = f.marker().onEvery(10.seconds)
 
-    w.drawWhile { frames ->
-        draw(frames.count, drawing)
-        v.addFrame()
+        a.draw {
+            draw(f.count, drawing)
+            v.addFrame()
 
-        if (changeMarker.now()) {
-            drawing--
-            g.writeSnapshotAsImage("$name$drawing.png")
+            if (changeMarker.now()) {
+                drawing--
+                g.writeSnapshotAsImage("$name$drawing.png")
+            }
+
+            if (drawing == 0) {
+                a.stop()
+            }
         }
-
-        if (drawing == 0) {
-            return@drawWhile false
-        }
-        return@drawWhile true
+        v.stopAndSaveVideo()
     }
-    v.stopAndSaveVideo()
 }
 
 var deltaPhase = 0f
 
 fun draw(tick: FramesCount, drawing: Int) {
+    val g = gart.g
+    val d = gart.d
+
     val backTriangle1 = Triangle(
         Point(0f, 0f),
         Point(d.wf, 0f),

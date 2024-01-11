@@ -16,6 +16,11 @@ import org.jetbrains.skia.Rect
 import kotlin.time.Duration.Companion.seconds
 
 fun three(name: String) {
+    val d = gart.d
+    val g = gart.g
+    val f = gart.f
+    val a = gart.a
+
     println(name)
 
     // prepare field
@@ -62,11 +67,14 @@ fun three(name: String) {
     // paint
 
     val marker = f.marker().after(6.seconds)
-    val beforeMarker = marker.beforeAsFun()
 
     val markerMiddle = f.marker().after(3.seconds)
 
-    w.drawWhile(beforeMarker) {
+    a.draw {
+        if (marker.before()) {
+            a.stop()
+            return@draw
+        }
 //        flowField.drawField(g)
 
         if (markerMiddle.before()) {

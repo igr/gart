@@ -1,15 +1,14 @@
 package dev.oblac.gart.kaleiircle
 
-import dev.oblac.gart.*
+import dev.oblac.gart.Frames
+import dev.oblac.gart.Gart
+import dev.oblac.gart.Gartvas
+import dev.oblac.gart.GartvasVideo
 import dev.oblac.gart.gfx.fillOfBlack
 import dev.oblac.gart.math.sinDeg
 import dev.oblac.gart.skia.Color4f
 import dev.oblac.gart.skia.Rect
 import kotlin.time.Duration.Companion.seconds
-
-const val name = "kaleiircle"
-
-val d = Dimension(710, 710)
 
 val colors = arrayOf(
     Pair(Color4f(0xffff0503.toInt()), Color4f(0xff0534d3.toInt())),
@@ -37,6 +36,12 @@ val triangleColors = arrayOf(
     Pair(Color4f(0xffd71c68.toInt()), Color4f(0xff06797b.toInt())),
 
     )
+
+val gart = Gart.of(
+    "kaleiircle",
+    710, 710,
+    30
+)
 
 const val r0 = 100f
 const val rw = 50f
@@ -68,7 +73,7 @@ fun triangles(angle: Float) = List(triangleColors.size) {
     )
 }
 
-val makeShapeOfCircle = MakeShapeOfCircle(d)
+val makeShapeOfCircle = MakeShapeOfCircle(gart.d)
 
 fun paint(g: Gartvas, frames: Frames) {
     println(frames)
@@ -88,23 +93,23 @@ fun paint(g: Gartvas, frames: Frames) {
     }
 }
 
+
 fun main() {
-    println(name)
+    with(gart) {
+        println(name)
 
-    val g = Gartvas(d)
-    val frames = 30
-    val a = Animation(g, frames)
-    val window = Window(a).show()
-    val v = GartvasVideo(g, "$name.mp4", frames)
-    val endMarker = v.frames.marker().atTime(18.seconds)
+        w.show()
+        val v = GartvasVideo(g, "${name}.mp4", f.fps)
+        val endMarker = f.marker().atTime(18.seconds)
 
-    window.draw {
-        paint(g, it)
-        when {
-            endMarker.before() -> v.addFrame()
-            endMarker.now() -> v.stopAndSaveVideo()
+        gart.a.draw {
+            paint(g, f)
+            when {
+                endMarker.before() -> v.addFrame()
+                endMarker.now() -> v.stopAndSaveVideo()
+            }
         }
-    }
 
-    g.writeSnapshotAsImage("$name.png")
+        g.writeSnapshotAsImage("$name.png")
+    }
 }

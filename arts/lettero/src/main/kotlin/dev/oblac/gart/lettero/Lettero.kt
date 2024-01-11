@@ -1,6 +1,8 @@
 package dev.oblac.gart.lettero
 
-import dev.oblac.gart.*
+import dev.oblac.gart.Gart
+import dev.oblac.gart.Gartvas
+import dev.oblac.gart.GartvasVideo
 import dev.oblac.gart.gfx.Palettes
 import dev.oblac.gart.gfx.fillOf
 import dev.oblac.gart.gfx.fillOfWhite
@@ -21,40 +23,43 @@ fun fontOf(size: Float): Font {
     return fonts.getOrPut(size) { Font(jbMono, size) }
 }
 
+val gart = Gart.of(
+    "lettero",
+    768, 1024,
+    1
+)
+
 fun main() {
-    val name = "lettero"
-    println(name)
+    with(gart) {
+        val name = "lettero"
+        println(name)
 
-    val d = Dimension(768, 1024)
-    val g = Gartvas(d)
-    val a = Animation(g)
-    val f = a.frames
-    val w = Window(a).show()
-    val v = GartvasVideo(g, "$name.mp4", 1)
-    val tick = f.marker().onEvery(1.seconds)
+        w.show()
 
-    val letters = listOf('I', 'G', 'O', '.', 'R', 'S')
-    var count = 0;
+        val v = GartvasVideo(g, "$name.mp4", 1)
+        val tick = f.marker().onEvery(1.seconds)
 
-    val p = Palettes.cool9
-    val pdelta = 0
+        val letters = listOf('I', 'G', 'O', '.', 'R', 'S')
+        var count = 0;
 
-    w.drawWhile {
-        if (tick.now()) {
-            g.canvas.drawRect(Rect(0f, 0f, d.wf, d.hf), fillOf(p[count + pdelta]))
-            drawLetters(g, letters[count])
-            v.addFrame()
-            count++
-            if (count == letters.size) {
-                v.stopAndSaveVideo()
-                return@drawWhile false
+        val p = Palettes.cool9
+        val pdelta = 0
+
+        a.draw {
+            if (tick.now()) {
+                g.canvas.drawRect(Rect(0f, 0f, d.wf, d.hf), fillOf(p[count + pdelta]))
+                drawLetters(g, letters[count])
+                v.addFrame()
+                count++
+                if (count == letters.size) {
+                    v.stopAndSaveVideo()
+                    a.stop()
+                }
             }
-
         }
-        return@drawWhile true
-    }
 
-    g.writeSnapshotAsImage("LetterO.png")
+        g.writeSnapshotAsImage("LetterO.png")
+    }
 }
 
 fun drawLetters(g: Gartvas, text: Char) {

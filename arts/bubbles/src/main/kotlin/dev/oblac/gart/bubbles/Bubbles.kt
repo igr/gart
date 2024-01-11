@@ -19,7 +19,8 @@ import kotlin.random.Random.Default.nextInt
 import kotlin.random.Random.Default.nextLong
 
 val gart = Gart.of(
-    "Bubbles", 1024, 1024,
+    "bubbles",
+    1024, 1024,
 )
 
 fun main() {
@@ -27,7 +28,7 @@ fun main() {
 
         println(name)
 
-        val w = window.show()
+        w.show()
 
 //    // load
         var list = Array(100) {
@@ -61,10 +62,10 @@ fun main() {
         g.canvas.drawRect(Rect(0f, 0f, d.wf, d.hf), fillOfBlack())
         paintAll()
 
-        w.draw { frames ->
+        a.draw {
             g.canvas.drawRect(Rect(0f, 0f, d.wf, d.hf), fillOfBlack())
             list = list
-                .filter { !it.isExpired(frames.count.value) }
+                .filter { !it.isExpired(f.count.value) }
                 .map { move(list, it) }
                 .toList()
             paintAll()

@@ -19,14 +19,14 @@ data class Gart(
     /**
      * The animation.
      */
-    val anim: Animation,
+    val a: Animation,
     /**
      * The window, bind to the animation but not yet started.
      */
-    val window: Window,
+    val w: Window,
 ) {
 
-    val frames: Frames = anim.frames
+    val f: Frames = a.frames
 
     val b: Gartmap by lazy {
         Gartmap(g)
@@ -40,9 +40,9 @@ data class Gart(
         ): Gart {
             val d = Dimension(width, height)
             val g = Gartvas(d)
-            val anim = Animation(g, fps)
-            val window = Window(anim)
-            return Gart(name, d, g, anim, window)
+            val a = Animation(g, fps)
+            val w = Window(a)
+            return Gart(name, d, g, a, w)
         }
     }
 

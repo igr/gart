@@ -12,6 +12,11 @@ import org.jetbrains.skia.Point
 import kotlin.time.Duration.Companion.seconds
 
 fun two(name: String) {
+    val d = gart.d
+    val g = gart.g
+    val f = gart.f
+    val a = gart.a
+
     println(name)
 
     // prepare field
@@ -44,9 +49,12 @@ fun two(name: String) {
     // paint
 
     val marker = f.marker().after(15.seconds)
-    val beforeMarker = marker.beforeAsFun()
 
-    w.drawWhile(beforeMarker) {
+    a.draw {
+        if (marker.before()) {
+            a.stop()
+            return@draw
+        }
 //        flowField.drawField(g)
         randomPoints = randomPoints
             .filter { it.isInside(d) }

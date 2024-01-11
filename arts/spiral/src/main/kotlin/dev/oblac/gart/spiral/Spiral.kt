@@ -1,6 +1,7 @@
 package dev.oblac.gart.spiral
 
-import dev.oblac.gart.*
+import dev.oblac.gart.Gart
+import dev.oblac.gart.GartvasVideo
 import dev.oblac.gart.gfx.Palette
 import dev.oblac.gart.gfx.fillOf
 import dev.oblac.gart.gfx.strokeOfBlack
@@ -13,32 +14,38 @@ import kotlin.math.pow
 import kotlin.math.sin
 import kotlin.time.Duration.Companion.seconds
 
-val d = Dimension(800, 800)
-val g = Gartvas(d)
-val anim = Animation(g)
+val gart = Gart.of(
+    "spiral",
+    800, 800,
+    30
+)
 
 fun main() {
-    val name = "spiral"
-    println(name)
+    with(gart) {
+        val name = gart.name
+        println(name)
 
-    val w = Window(anim).show()
-    val v = GartvasVideo(g, "$name.mp4", 30)
-    val endMarker = anim.frames.marker().atTime(12.seconds)
+        gart.w.show()
+        val v = GartvasVideo(g, "$name.mp4", 30)
+        val endMarker = f.marker().atTime(12.seconds)
 
-    w.drawWhile { frames ->
-        draw()
-        v.addFrame()
-        if (endMarker.after()) {
-            return@drawWhile false
+        a.draw {
+            draw()
+            v.addFrame()
+            if (endMarker.after()) {
+                a.stop()
+            }
         }
-        return@drawWhile true
-    }
-    v.stopAndSaveVideo()
 
-    g.writeSnapshotAsImage("$name.png")
+        v.stopAndSaveVideo()
+        g.writeSnapshotAsImage("$name.png")
+    }
 }
 
 fun draw() {
+    val g = gart.g
+    val d = gart.d
+
     g.canvas.drawRect(Rect(0f, 0f, d.w.toFloat(), d.h.toFloat()), fillOf(0xFF121212))
 
     // draw every tick

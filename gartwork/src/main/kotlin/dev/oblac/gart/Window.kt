@@ -20,7 +20,7 @@ class Window(private val animation: Animation) {
     /**
      * Shows the windows and starts the animation.
      */
-    fun show(): Animation.AnimationRunner {
+    fun show() {
         val g = animation.g
 
         val frame = JFrame()
@@ -34,18 +34,16 @@ class Window(private val animation: Animation) {
         frame.contentPane.add(panel)
         frame.pack()
 
-        val anim = animation.start { panel.paint(it.toBufferedImage()) }
+        animation.onPaint { panel.paint(it.toBufferedImage()) }
 
         frame.addWindowListener(object : WindowAdapter() {
             override fun windowClosing(windowEvent: WindowEvent) {
-                anim.stop()
+                animation.stop()
             }
         })
 
         val screenSize = Toolkit.getDefaultToolkit().screenSize
         frame.setLocation((screenSize.width - g.d.w) / 2, (screenSize.height - g.d.h) / 2)
-
-        return anim
     }
 }
 

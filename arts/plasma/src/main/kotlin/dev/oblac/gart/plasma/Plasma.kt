@@ -93,29 +93,32 @@ private fun drawNext(dest: Pixels, p: Palette) {
     }
 }
 
+val gart = Gart.of(
+    "Plasma",
+    w, h
+)
+
 fun main() {
-    println("Plasma")
+    with(gart) {
+        println(name)
 
-    val d = Dimension(w, h)
-    val g = Gartvas(d)
-    val b = Gartmap(g)
-    val a = Animation(g)
-    val v = GartvasVideo(g, "plasma.mp4")
-    val lastFrame = v.frames.marker().atFrame(757)
-    val w = Window(a).show()
+        val v = GartvasVideo(g, "plasma.mp4")
+        val lastFrame = f.marker().atFrame(757)
+        w.show()
 
-    init()
+        init()
 
-    w.draw {
-        drawNext(b, p)
-        b.draw()
+        a.draw {
+            drawNext(b, p)
+            b.draw()
 
-        when {
-            lastFrame.before() -> v.addFrame()
-            lastFrame.now() -> v.stopAndSaveVideo()
+            when {
+                lastFrame.before() -> v.addFrame()
+                lastFrame.now() -> v.stopAndSaveVideo()
+            }
         }
-    }
 
-	g.writeSnapshotAsImage("plasma.png")
-    println("Done")
+        g.writeSnapshotAsImage("plasma.png")
+        println("Done")
+    }
 }

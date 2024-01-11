@@ -13,29 +13,30 @@ import kotlin.time.Duration.Companion.seconds
 
 val gart = Gart.of(
     "lissajous", 800, 800,
+    30
 )
 val d = gart.d
 val g = gart.g
 
 
 fun main() {
-    println(gart.name)
+    with(gart) {
+        println(name)
+        w.show()
+        val v = GartvasVideo(g, "${name}.mp4", 30)
+        val endMarker = f.marker().atTime(12.seconds)
 
-    val w = gart.window.show()
-    val v = GartvasVideo(g, "${gart.name}.mp4", 30)
-    val endMarker = gart.frames.marker().atTime(12.seconds)
-
-    w.drawWhile { frames ->
-        draw()
-        v.addFrame()
-        if (endMarker.after()) {
-            return@drawWhile false
+        a.draw {
+            draw()
+            v.addFrame()
+            if (endMarker.after()) {
+                a.stop()
+            }
         }
-        return@drawWhile true
-    }
-    v.stopAndSaveVideo()
+        v.stopAndSaveVideo()
 
-    g.writeSnapshotAsImage("${gart.name}.png")
+        g.writeSnapshotAsImage("${gart.name}.png")
+    }
 }
 
 
@@ -110,4 +111,5 @@ fun drawConnectDots(canvas: Canvas, dots: List<Dot>) {
         }
     }
 }
+
 val palette = Palettes.cool3 + Palettes.cool3.reversed()

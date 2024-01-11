@@ -35,7 +35,7 @@ class WindowsMany(
 	}
 
 	override operator fun invoke(fn: (consumer: RectIsometric) -> Unit) {
-		val edge = g.d.h
+        val edge = gart.d.h
 
 		val x = left.x
 		var y = left.y

@@ -1,16 +1,20 @@
 package dev.oblac.gart.palecircles
 
-import dev.oblac.gart.*
+import dev.oblac.gart.Gart
+import dev.oblac.gart.GartvasVideo
 import dev.oblac.gart.gfx.*
 import dev.oblac.gart.math.rnd
 import org.jetbrains.skia.Rect
 import kotlin.time.Duration.Companion.seconds
 
-val d = Dimension(800, 800)
-val g = Gartvas(d)
-val a = Animation(g)
+val gart = Gart.of(
+    "palecircles",
+    800, 800,
+    30
+)
+
 const val numberOfCircles = 12
-val size = d.w / numberOfCircles
+val size = gart.d.w / numberOfCircles
 
 val matrix: Array<Array<CircleSet>> = Array(numberOfCircles) { row ->
     Array(numberOfCircles) { col ->
@@ -22,24 +26,26 @@ fun main() {
     val name = "palecircles"
     println(name)
 
-    val w = Window(a).show()
-    val v = GartvasVideo(g, "$name.mp4", 30)
+    gart.w.show()
+    val v = GartvasVideo(gart.g, "$name.mp4", 30)
     val endMarker = v.frames.marker().atTime(10.seconds)
 
-    w.drawWhile { frames ->
+    gart.a.draw {
         draw()
         v.addFrame()
         if (endMarker.after()) {
-            return@drawWhile false
+            gart.a.stop()
         }
-        return@drawWhile true
     }
     v.stopAndSaveVideo()
 
-    g.writeSnapshotAsImage("$name.png")
+    gart.g.writeSnapshotAsImage("$name.png")
 }
 
 fun draw() {
+    val g = gart.g
+    val d = gart.d
+
     g.canvas.drawRect(Rect(0f, 0f, d.w.toFloat(), d.h.toFloat()), fillOfWhite())
 
     // draw every tick
@@ -75,6 +81,7 @@ fun draw() {
 }
 
 fun drawCircleSet(circleSet: CircleSet) {
+    val g = gart.g
     circleSet.circles.reversed().forEach { circle ->
         g.canvas.drawCircle(
             circleSet.x + circle.x.toFloat(),

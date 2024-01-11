@@ -19,13 +19,13 @@ val gart = Gart.of(
 
 val g = gart.g
 val b = gart.b
-val frames = gart.frames
+val frames = gart.f
 
 fun main() {
     val name = "falllines"
     println(name)
 
-    val window = gart.window.show()
+    gart.w.show()
     val changeMarker = frames.marker().onEvery(8.seconds)
 
     val v = GartvasVideo(g, "$name.mp4", 50)
@@ -34,7 +34,7 @@ fun main() {
 
     g.canvas.drawRect(Rect(0f, 0f, g.d.wf, g.d.hf), fillOf(0xFF000000))
 
-    window.draw {
+    gart.a.draw {
         draw()
         when {
             changeMarker.now() -> randomizeSegments()

@@ -16,7 +16,9 @@ data class Colors(
 	val rightWindowsColor: Int)
 
 class Building(x: Float, y: Float, a: Float, b: Float, alpha: Float, private val colors: Colors) {
-	val roofRect: RectIsometricTop
+    private val g = gart.g
+
+    val roofRect: RectIsometricTop
 	val rightRect: RectIsometricRight
 	private val roof: Path
 	private val leftSide: Path

@@ -15,69 +15,51 @@ class Animation(
     private val framesCounter = FramesCounter(fps)
     val frames: Frames = framesCounter
 
+    private var running = true
     // the initial time is 1 second in the past, to kick painting right away
     private var lastPaintTimestamp = System.currentTimeMillis() - 1000
+
+    private val painters = mutableListOf<AnimationPainter>()
 
     /**
      * Defines paint callback that animation will _try_ to call at given FPS.
      * It is called after the drawing is done.
      */
-    fun start(paintCallback: AnimationPainter): AnimationRunner {
-        return AnimationRunner(paintCallback)
+    fun onPaint(painter: AnimationPainter) {
+        painters.add(painter)
     }
 
+
+    private fun drawSingleFrame(drawFrame: () -> Unit) {
+        val currentTimeStamp = System.currentTimeMillis()
+        val elapsedSinceLastPaint = currentTimeStamp - lastPaintTimestamp
+        val remainingSleepTime = frames.frameDuration.inWholeMilliseconds - elapsedSinceLastPaint
+
+        if (remainingSleepTime < 0) {
+            drawFrame()
+
+            val frameSnapshot = g.snapshot()
+            painters.forEach { it(frameSnapshot) }
+
+            lastPaintTimestamp = currentTimeStamp
+            framesCounter.tick()
+        }
+    }
+
+    /**
+     * Draws a frame while animation is running, until it is explicitly closed.
+     * Use [stop] to stop the animation loop.
+     */
+    fun draw(drawFrame: () -> Unit) {
+        while (running) {
+            this.drawSingleFrame(drawFrame)
+        }
+    }
+
+    /**
+     * Stops with the animation.
+     */
     fun stop() {
-    }
-
-    inner class AnimationRunner(private val paintCallback: AnimationPainter) {
-        private var running = true
-
-        private fun drawSingleFrame(drawFrame: (Frames) -> Boolean) {
-            val currentTimeStamp = System.currentTimeMillis()
-            val elapsedSinceLastPaint = currentTimeStamp - lastPaintTimestamp
-            val remainingSleepTime = frames.frameDuration.inWholeMilliseconds - elapsedSinceLastPaint
-
-            if (remainingSleepTime < 0) {
-                running = drawFrame(frames)
-                paintCallback(g.snapshot())
-                lastPaintTimestamp = currentTimeStamp
-                framesCounter.tick()
-            }
-        }
-
-
-        /**
-         * Paints a frame while the window is up and return value is true, until the window is explicitly closed.
-         */
-        fun drawWhile(drawFrame: (Frames) -> Boolean) {
-            while (running) {
-                this.drawSingleFrame(drawFrame)
-            }
-        }
-
-        fun drawWhile(condition: () -> Boolean, drawFrame: (Frames) -> Unit) {
-            while (running) {
-                this.drawSingleFrame {
-                    drawFrame(it)
-                    return@drawSingleFrame condition()
-                }
-            }
-        }
-
-        /**
-         * Draws a frame while animation is running, until it is explicitly closed.
-         */
-        fun draw(drawFrame: (Frames) -> Unit) {     // todo have only one single function should be enough
-            while (running) {
-                this.drawSingleFrame {
-                    drawFrame(it)
-                    return@drawSingleFrame true
-                }
-            }
-        }
-
-        fun stop() {
-            running = false
-        }
+        running = false
     }
 }

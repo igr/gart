@@ -1,25 +1,23 @@
 package dev.oblac.gart.circledots
 
-import dev.oblac.gart.*
+import dev.oblac.gart.Gart
+import dev.oblac.gart.GartvasVideo
+import dev.oblac.gart.before
 import dev.oblac.gart.gfx.fillOfWhite
 import dev.oblac.gart.skia.Rect
 import kotlin.time.Duration.Companion.seconds
 
-const val w: Int = 640
-const val h: Int = w
+val gart = Gart.of(
+    "CircleDots",
+    640, 640,
+    50
+)
 
 const val rowCount = 25
-const val gap = w / (rowCount - 2)
+val gap = gart.d.w / (rowCount - 2)
 
-const val fps = 50
-
-val d = Dimension(w, h)
-val g = Gartvas(d)
-val ctx = Context(g)
-val anim = Animation(g, fps)
-val frames = anim.frames
-val window = Window(anim).show()
-val v = GartvasVideo(g, "circledots.mp4", fps)
+val ctx = Context(gart.g)
+val v = GartvasVideo(gart.g, "circledots.mp4", gart.f.fps)
 
 val circles = Array(rowCount * rowCount) {
     val row = it.div(rowCount)
@@ -36,6 +34,9 @@ val circles = Array(rowCount * rowCount) {
 
 var drawCircle = true
 private fun drawAll(change: Boolean) {
+    val g = gart.g
+    val w = gart.d.w
+    val h = gart.d.h
     if (change) drawCircle = !drawCircle
     g.canvas.drawRect(Rect(0f, 0f, w.toFloat(), h.toFloat()), fillOfWhite())
     for (circle in circles) {
@@ -44,24 +45,28 @@ private fun drawAll(change: Boolean) {
 }
 
 fun main() {
-    println("CircleDots")
+    with(gart) {
 
-    var tick = 0
+        println(name)
 
-    val markEverySecond = frames.marker().onEvery(1.seconds)
-    val markEnd = frames.marker().atFrame(8 * fps)
+        var tick = 0
 
-    window.draw {
-        tick = if (markEverySecond.now()) tick + 1 else tick
-        drawAll(tick.mod(2) == 0)
+        val markEverySecond = f.marker().onEvery(1.seconds)
+        val markEnd = f.marker().atFrame(8 * f.fps)
 
-        if (before(markEnd)) {
-            v.addFrame()
-        } else {
-            v.stopAndSaveVideo()
+        a.draw {
+            tick = if (markEverySecond.now()) tick + 1 else tick
+            drawAll(tick.mod(2) == 0)
+
+            if (before(markEnd)) {
+                v.addFrame()
+            } else {
+                v.stopAndSaveVideo()
+            }
         }
-    }
 
-    g.writeSnapshotAsImage("circledots.png")
-    println("Done")
+
+        g.writeSnapshotAsImage("circledots.png")
+        println("Done")
+    }
 }

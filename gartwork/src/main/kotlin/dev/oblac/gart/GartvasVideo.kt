@@ -20,6 +20,10 @@ class GartvasVideo(
     private var running = true
     private val queue = mutableListOf<Image>()
 
+    fun addFrame(frame: Image) {
+        queue.add(frame)
+    }
+
     /**
      * Adds a frame to the buffer.
      */

@@ -1,16 +1,18 @@
 package dev.oblac.gart.skyscraper
 
-import dev.oblac.gart.*
+import dev.oblac.gart.Gart
+import dev.oblac.gart.GartvasVideo
 import kotlin.random.Random
 
 const val w = 1280
 const val h = 800
 const val windowSize = 10f
 
-val d = Dimension(w, h)
-val g = Gartvas(d)
-val a = Animation(g, 1)
-val window = Window(a).show()
+val gart = Gart.of(
+    "skyscraper",
+    w, h,
+    1
+)
 
 typealias BuildingFunction = (x: Float, y: Float) -> Building
 
@@ -115,32 +117,33 @@ fun rowBottom(clr: Colors): Array<Building> {
 }
 
 fun main() {
-    val name = "skyscraper"
-    println(name)
-    val v = GartvasVideo(g, "$name.mp4", 1)
-    val endMarker = v.frames.marker().atFrame(colors.size * 3) // repeat all colors 3 times
+    with(gart) {
+        println(name)
+        val v = GartvasVideo(g, "$name.mp4", 1)
+        val endMarker = f.marker().atFrame(colors.size * 3) // repeat all colors 3 times
 
 //    towerBuilding(30f)(100f, 100f)(g.canvas)
 //    squareBuilding(80f)(100f, 100f)(g.canvas)
 
-    window.draw {
-        val color = colors[it.count.value.mod(colors.size)]
+        a.draw {
+            val color = colors[f.count.value.mod(colors.size)]
 
-        rowTop(color).forEach { it(g.canvas) }
+            rowTop(color).forEach { it(g.canvas) }
 
-        if (Random.nextBoolean()) {
-            rowMiddleSpread(color)
-        } else {
-            rowMiddle(color)
-        }.forEach { it(g.canvas) }
+            if (Random.nextBoolean()) {
+                rowMiddleSpread(color)
+            } else {
+                rowMiddle(color)
+            }.forEach { it(g.canvas) }
 
-        rowBottom(color).forEach { it(g.canvas) }
+            rowBottom(color).forEach { it(g.canvas) }
 
-        when {
-            endMarker.before() -> v.addFrame()
-            endMarker.now() -> v.stopAndSaveVideo()
+            when {
+                endMarker.before() -> v.addFrame()
+                endMarker.now() -> v.stopAndSaveVideo()
+            }
         }
-    }
 
-	g.writeSnapshotAsImage("$name.png")
+        g.writeSnapshotAsImage("$name.png")
+    }
 }

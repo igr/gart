@@ -16,9 +16,8 @@ val w: Int = gart.d.w
 val h: Int = gart.d.h
 val wf = gart.d.wf
 val hf = gart.d.hf
-val frames = gart.frames.fps
+val frames = gart.f.fps
 val g = gart.g
-val window = gart.window.show()
 
 val lines = Array(80) {
     Line(g, 200 + (it * 8).toFloat())
@@ -33,13 +32,12 @@ fun paint() {
 }
 
 fun main() {
-    val name = "joydiv"
-    println(name)
+    println(gart.name)
 
-    val v = GartvasVideo(g, "${name}.mp4", frames)
-    val markEnd = gart.frames.marker().atTime(5.seconds)
+    val v = GartvasVideo(g, "${gart.name}.mp4", frames)
+    val markEnd = gart.f.marker().atTime(5.seconds)
 
-    window.draw {
+    gart.a.draw {
         paint()
         when {
             markEnd.before() -> v.addFrame()
@@ -47,6 +45,6 @@ fun main() {
         }
     }
 
-    g.writeSnapshotAsImage("${name}.png")
+    g.writeSnapshotAsImage("${gart.name}.png")
     println("Done")
 }
