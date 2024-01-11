@@ -19,31 +19,30 @@ val gart = Gart.of(
 
 val g = gart.g
 val b = gart.b
-val frames = gart.f
 
 fun main() {
-    val name = "falllines"
-    println(name)
+    with(gart) {
+        println(name)
 
-    gart.w.show()
-    val changeMarker = frames.marker().onEvery(8.seconds)
+        w.show()
+        val changeMarker = f.marker().onEvery(8.seconds)
 
-    val v = GartvasVideo(g, "$name.mp4", 50)
-    val markerStart = frames.marker().atTime(40.seconds)   // window marker (!)
-    val markerEnd = v.frames.marker().atTime(20.seconds)          // video marker (!)
+        val markerStart = f.marker().atTime(40.seconds)   // window marker (!)
+        val markerEnd = f.marker().atTime(20.seconds)          // video marker (!)
 
-    g.canvas.drawRect(Rect(0f, 0f, g.d.wf, g.d.hf), fillOf(0xFF000000))
-
-    gart.a.draw {
-        draw()
-        when {
-            changeMarker.now() -> randomizeSegments()
-            markerStart.after() && markerEnd.before() -> v.addFrame()
-            markerEnd.now() -> v.stopAndSaveVideo()
+        g.canvas.drawRect(Rect(0f, 0f, g.d.wf, g.d.hf), fillOf(0xFF000000))
+        a.draw {
+            draw()
+            when {
+                changeMarker.now() -> randomizeSegments()
+                markerStart.now() -> a.record()
+                markerEnd.now() -> a.stop()
+            }
         }
-    }
 
-    g.writeSnapshotAsImage("$name.png")
+        Media.saveImage(this)
+        Media.saveVideo(this)
+    }
 }
 
 const val gap = 10

@@ -1,7 +1,7 @@
 package dev.oblac.gart.joydiv
 
 import dev.oblac.gart.Gart
-import dev.oblac.gart.GartvasVideo
+import dev.oblac.gart.Media
 import dev.oblac.gart.gfx.fillOfBlack
 import dev.oblac.gart.gfx.strokeOfBlack
 import dev.oblac.gart.skia.Rect
@@ -32,19 +32,20 @@ fun paint() {
 }
 
 fun main() {
-    println(gart.name)
+    with(gart) {
 
-    val v = GartvasVideo(g, "${gart.name}.mp4", frames)
-    val markEnd = gart.f.marker().atTime(5.seconds)
-
-    gart.a.draw {
-        paint()
-        when {
-            markEnd.before() -> v.addFrame()
-            markEnd.now() -> v.stopAndSaveVideo()
+        println(name)
+        val markEnd = f.marker().atTime(5.seconds)
+        w.show()
+        a.record()
+        a.draw {
+            paint()
+            when {
+                markEnd.now() -> a.stop()
+            }
         }
-    }
 
-    g.writeSnapshotAsImage("${gart.name}.png")
-    println("Done")
+        Media.saveImage(this)
+        Media.saveVideo(this)
+    }
 }

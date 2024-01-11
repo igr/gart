@@ -102,23 +102,22 @@ fun main() {
     with(gart) {
         println(name)
 
-        val v = GartvasVideo(g, "plasma.mp4")
         val lastFrame = f.marker().atFrame(757)
-        w.show()
 
         init()
 
+        w.show()
+        a.record()
         a.draw {
             drawNext(b, p)
             b.draw()
 
             when {
-                lastFrame.before() -> v.addFrame()
-                lastFrame.now() -> v.stopAndSaveVideo()
+                lastFrame.now() -> a.stop()
             }
         }
 
-        g.writeSnapshotAsImage("plasma.png")
-        println("Done")
+        Media.saveImage(this)
+        Media.saveVideo(this)
     }
 }

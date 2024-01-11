@@ -21,21 +21,21 @@ val g = gart.g
 
 fun main() {
     with(gart) {
+
         println(name)
         w.show()
-        val v = GartvasVideo(g, "${name}.mp4", 30)
-        val endMarker = f.marker().atTime(12.seconds)
 
+        val endMarker = f.marker().atTime(12.seconds)
+        a.record()
         a.draw {
             draw()
-            v.addFrame()
             if (endMarker.after()) {
                 a.stop()
             }
         }
-        v.stopAndSaveVideo()
 
-        g.writeSnapshotAsImage("${gart.name}.png")
+        Media.saveImage(this)
+        Media.saveVideo(this)
     }
 }
 

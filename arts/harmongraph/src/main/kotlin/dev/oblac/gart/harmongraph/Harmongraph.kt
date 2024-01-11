@@ -2,7 +2,7 @@ package dev.oblac.gart.harmongraph
 
 import dev.oblac.gart.FramesCount
 import dev.oblac.gart.Gart
-import dev.oblac.gart.GartvasVideo
+import dev.oblac.gart.Media
 import dev.oblac.gart.gfx.*
 import dev.oblac.gart.math.sinDeg
 import org.jetbrains.skia.Canvas
@@ -23,26 +23,24 @@ fun main() {
         println(name)
 
         w.show()
-        val v = GartvasVideo(g, "$name.mp4", 30, dryRun = false)
 
         var drawing = 4
 
         val changeMarker = f.marker().onEvery(10.seconds)
-
+        a.record()
         a.draw {
             draw(f.count, drawing)
-            v.addFrame()
 
             if (changeMarker.now()) {
                 drawing--
-                g.writeSnapshotAsImage("$name$drawing.png")
+                Media.saveImage(gart, "$name$drawing.png")
             }
 
             if (drawing == 0) {
                 a.stop()
             }
         }
-        v.stopAndSaveVideo()
+        Media.saveVideo(this)
     }
 }
 

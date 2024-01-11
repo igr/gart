@@ -3,6 +3,7 @@ package dev.oblac.gart.lettero
 import dev.oblac.gart.Gart
 import dev.oblac.gart.Gartvas
 import dev.oblac.gart.GartvasVideo
+import dev.oblac.gart.Media
 import dev.oblac.gart.gfx.Palettes
 import dev.oblac.gart.gfx.fillOf
 import dev.oblac.gart.gfx.fillOfWhite
@@ -31,12 +32,8 @@ val gart = Gart.of(
 
 fun main() {
     with(gart) {
-        val name = "lettero"
         println(name)
-
-        w.show()
-
-        val v = GartvasVideo(g, "$name.mp4", 1)
+        
         val tick = f.marker().onEvery(1.seconds)
 
         val letters = listOf('I', 'G', 'O', '.', 'R', 'S')
@@ -45,20 +42,21 @@ fun main() {
         val p = Palettes.cool9
         val pdelta = 0
 
+        w.show()
+        a.record()
         a.draw {
             if (tick.now()) {
                 g.canvas.drawRect(Rect(0f, 0f, d.wf, d.hf), fillOf(p[count + pdelta]))
                 drawLetters(g, letters[count])
-                v.addFrame()
                 count++
                 if (count == letters.size) {
-                    v.stopAndSaveVideo()
                     a.stop()
                 }
             }
         }
 
-        g.writeSnapshotAsImage("LetterO.png")
+        Media.saveImage(this)
+        Media.saveVideo(this)
     }
 }
 

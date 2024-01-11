@@ -1,5 +1,6 @@
 package dev.oblac.gart.flowforce
 
+import dev.oblac.gart.Media
 import dev.oblac.gart.flow.ForceField
 import dev.oblac.gart.flow.SpiralVecForce
 import dev.oblac.gart.gfx.Colors
@@ -70,5 +71,5 @@ fun one(name: String) {
             }
     }
 
-    g.writeSnapshotAsImage("${name}.png")
+    Media.saveImage(gart)
 }

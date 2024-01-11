@@ -2,6 +2,7 @@ package dev.oblac.gart.bubbles
 
 import dev.oblac.gart.Dimension
 import dev.oblac.gart.Gart
+import dev.oblac.gart.Media
 import dev.oblac.gart.gfx.Palettes
 import dev.oblac.gart.gfx.fillOf
 import dev.oblac.gart.gfx.fillOfBlack
@@ -71,7 +72,7 @@ fun main() {
             paintAll()
         }
 
-        g.writeSnapshotAsImage("$name.png")
+        Media.saveImage(this)
     }
 }
 

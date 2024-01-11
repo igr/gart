@@ -1,8 +1,8 @@
 package dev.oblac.gart.circledots
 
 import dev.oblac.gart.Gart
-import dev.oblac.gart.GartvasVideo
-import dev.oblac.gart.before
+import dev.oblac.gart.Media
+import dev.oblac.gart.after
 import dev.oblac.gart.gfx.fillOfWhite
 import dev.oblac.gart.skia.Rect
 import kotlin.time.Duration.Companion.seconds
@@ -17,7 +17,6 @@ const val rowCount = 25
 val gap = gart.d.w / (rowCount - 2)
 
 val ctx = Context(gart.g)
-val v = GartvasVideo(gart.g, "circledots.mp4", gart.f.fps)
 
 val circles = Array(rowCount * rowCount) {
     val row = it.div(rowCount)
@@ -54,19 +53,18 @@ fun main() {
         val markEverySecond = f.marker().onEvery(1.seconds)
         val markEnd = f.marker().atFrame(8 * f.fps)
 
+        w.show()
+        a.record()
         a.draw {
             tick = if (markEverySecond.now()) tick + 1 else tick
             drawAll(tick.mod(2) == 0)
 
-            if (before(markEnd)) {
-                v.addFrame()
-            } else {
-                v.stopAndSaveVideo()
+            if (after(markEnd)) {
+                a.stop()
             }
         }
 
-
-        g.writeSnapshotAsImage("circledots.png")
-        println("Done")
+        Media.saveImage(this)
+        Media.saveVideo(this)
     }
 }

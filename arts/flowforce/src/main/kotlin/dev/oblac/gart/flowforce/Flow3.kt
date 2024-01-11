@@ -1,5 +1,6 @@
 package dev.oblac.gart.flowforce
 
+import dev.oblac.gart.Media
 import dev.oblac.gart.flow.ForceField
 import dev.oblac.gart.flow.SpiralFlowForce
 import dev.oblac.gart.flow.WaveFlowForce
@@ -105,5 +106,5 @@ fun three(name: String) {
 
     g.canvas.drawRect(Rect(0f, 0f, d.wf, d.hf), strokeOf(Colors.white, 40f))
 
-    g.writeSnapshotAsImage("${name}.png")
+    Media.saveImage(gart)
 }

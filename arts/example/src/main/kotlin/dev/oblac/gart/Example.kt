@@ -3,22 +3,23 @@ package dev.oblac.gart
 import dev.oblac.gart.gfx.Colors
 import dev.oblac.gart.gfx.fillOf
 import dev.oblac.gart.gfx.fillOfRed
-import dev.oblac.gart.math.Constants.goldenRatio
 import dev.oblac.gart.noise.HaltonSequenceGenerator
 import dev.oblac.gart.skia.Rect
 
 fun main() {
+    val gart = Gart.of(
+        "Example",
+        162, 100
+    )
     println("Example")
 
-    val h = 100
-    val w = (h * goldenRatio).toInt()
-    val d = Dimension(w, h)
-    val g = Gartvas(d)
 
     // use canvas
+    val g = gart.g
+    val d = gart.d
 
     g.canvas.drawRect(Rect(0f, 0f, d.wf, d.hf), fillOf(0xFF174185))
-    g.canvas.drawCircle(w / 2f, h / 2f, 30f, fillOfRed())
+    g.canvas.drawCircle(d.w / 2f, d.h / 2f, 30f, fillOfRed())
 
     // second canvas
 
@@ -31,7 +32,7 @@ fun main() {
 
     // get bitmap
 
-    val b = Gartmap(g)
+    val b = gart.b
 
     b.forEach { x, y, v ->
         if (v == 0xFFFF0000.toInt()) {  // red detected
@@ -46,14 +47,14 @@ fun main() {
     for (i in 1 until 1000) {
         halton.get().toList().zipWithNext().forEach {
             val (x, y) = it
-            val x1 = (x * w).toInt()
-            val y1 = (y * h).toInt()
+            val x1 = (x * d.w).toInt()
+            val y1 = (y * d.h).toInt()
             b[x1, y1] = Colors.black
         }
     }
 
     // draw a line and a dot
-    for (x in 0 until w) {
+    for (x in 0 until d.w) {
         b[x, 0] = 0xFFFF0044
     }
     b[0, 0] = 0xFF00FF00
@@ -61,5 +62,5 @@ fun main() {
     // draw back
     b.draw()
 
-    g.writeSnapshotAsImage("example.png")
+    Media.saveImage(gart)
 }

@@ -3,7 +3,7 @@ package dev.oblac.gart.kaleiircle
 import dev.oblac.gart.Frames
 import dev.oblac.gart.Gart
 import dev.oblac.gart.Gartvas
-import dev.oblac.gart.GartvasVideo
+import dev.oblac.gart.Media
 import dev.oblac.gart.gfx.fillOfBlack
 import dev.oblac.gart.math.sinDeg
 import dev.oblac.gart.skia.Color4f
@@ -99,17 +99,17 @@ fun main() {
         println(name)
 
         w.show()
-        val v = GartvasVideo(g, "${name}.mp4", f.fps)
         val endMarker = f.marker().atTime(18.seconds)
 
-        gart.a.draw {
+        a.record()
+        a.draw {
             paint(g, f)
             when {
-                endMarker.before() -> v.addFrame()
-                endMarker.now() -> v.stopAndSaveVideo()
+                endMarker.now() -> a.stop()
             }
         }
 
-        g.writeSnapshotAsImage("$name.png")
+        Media.saveImage(this)
+        Media.saveVideo(this)
     }
 }

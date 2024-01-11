@@ -1,7 +1,7 @@
 package dev.oblac.gart.palecircles
 
 import dev.oblac.gart.Gart
-import dev.oblac.gart.GartvasVideo
+import dev.oblac.gart.Media
 import dev.oblac.gart.gfx.*
 import dev.oblac.gart.math.rnd
 import org.jetbrains.skia.Rect
@@ -23,23 +23,23 @@ val matrix: Array<Array<CircleSet>> = Array(numberOfCircles) { row ->
 }
 
 fun main() {
-    val name = "palecircles"
-    println(name)
+    with(gart) {
 
-    gart.w.show()
-    val v = GartvasVideo(gart.g, "$name.mp4", 30)
-    val endMarker = v.frames.marker().atTime(10.seconds)
+        println(name)
 
-    gart.a.draw {
-        draw()
-        v.addFrame()
-        if (endMarker.after()) {
-            gart.a.stop()
+        w.show()
+        val endMarker = f.marker().atTime(10.seconds)
+        a.record()
+        a.draw {
+            draw()
+            if (endMarker.after()) {
+                a.stop()
+            }
         }
-    }
-    v.stopAndSaveVideo()
 
-    gart.g.writeSnapshotAsImage("$name.png")
+        Media.saveImage(this)
+        Media.saveVideo(this)
+    }
 }
 
 fun draw() {
@@ -86,11 +86,13 @@ fun drawCircleSet(circleSet: CircleSet) {
         g.canvas.drawCircle(
             circleSet.x + circle.x.toFloat(),
             circleSet.y + circle.y.toFloat(),
-            circle.rOff(), fillOf(alpha(circle.color, 0x55)))
+            circle.rOff(), fillOf(alpha(circle.color, 0x55))
+        )
 
         g.canvas.drawCircle(
             circleSet.x + circle.x.toFloat(),
             circleSet.y + circle.y.toFloat(),
-            circle.rOff(), strokeOfBlack(0.5f))
+            circle.rOff(), strokeOfBlack(0.5f)
+        )
     }
 }
