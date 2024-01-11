@@ -1,22 +1,24 @@
 package dev.oblac.gart.joydiv
 
-import dev.oblac.gart.Dimension
-import dev.oblac.gart.Gartvas
+import dev.oblac.gart.Gart
 import dev.oblac.gart.GartvasVideo
-import dev.oblac.gart.Window
 import dev.oblac.gart.gfx.fillOfBlack
 import dev.oblac.gart.gfx.strokeOfBlack
 import dev.oblac.gart.skia.Rect
+import kotlin.time.Duration.Companion.seconds
 
-const val w: Int = 640
-const val h: Int = 1036 // gold ratio
-const val wf = w.toFloat()
-const val hf = h.toFloat()
-const val frames = 50
-
-val d = Dimension(w, h)
-val g = Gartvas(d)
-val window = Window(g, frames).show()
+val gart = Gart.of(
+    "joydiv",
+    640, 1036,  // gold ratio
+    50
+)
+val w: Int = gart.d.w
+val h: Int = gart.d.h
+val wf = gart.d.wf
+val hf = gart.d.hf
+val frames = gart.frames.fps
+val g = gart.g
+val window = gart.window.show()
 
 val lines = Array(80) {
     Line(g, 200 + (it * 8).toFloat())
@@ -35,13 +37,13 @@ fun main() {
     println(name)
 
     val v = GartvasVideo(g, "${name}.mp4", frames)
-    val endMarker = v.frames.marker().atSecond(5)
+    val markEnd = gart.frames.marker().atTime(5.seconds)
 
-    window.paint {
+    window.draw {
         paint()
         when {
-            endMarker.before() -> v.addFrame()
-            endMarker.now() -> v.stopAndSaveVideo()
+            markEnd.before() -> v.addFrame()
+            markEnd.now() -> v.stopAndSaveVideo()
         }
     }
 

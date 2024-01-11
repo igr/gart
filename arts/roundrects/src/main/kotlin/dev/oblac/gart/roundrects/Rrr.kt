@@ -4,9 +4,11 @@ import dev.oblac.gart.Dimension
 import dev.oblac.gart.gfx.strokeOfWhite
 import dev.oblac.gart.math.rnd
 import dev.oblac.gart.skia.Canvas
+import dev.oblac.gart.toSeconds
 import org.jetbrains.skia.RRect
 import kotlin.math.cos
 import kotlin.math.sin
+import kotlin.time.Duration
 
 
 data class BigBox(val d: Dimension, val maxX: Int, val maxY: Int) {
@@ -28,7 +30,8 @@ class Cell(private val box: BigBox, private val x: Int, private val y: Int, priv
     private val delta = (box.cellW - inner * strokeSize) / inner / 2
 
 
-    fun draw(canvas: Canvas, time: Float) {
+    fun draw(canvas: Canvas, duration: Duration) {
+        val time = duration.toSeconds()
         var xxx1 = x1 + delta
         var yyy1 = y1 + delta
         var www1 = box.cellH - 2 * delta

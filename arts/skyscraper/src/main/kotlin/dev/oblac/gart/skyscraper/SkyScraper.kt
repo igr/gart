@@ -1,9 +1,6 @@
 package dev.oblac.gart.skyscraper
 
-import dev.oblac.gart.Dimension
-import dev.oblac.gart.Gartvas
-import dev.oblac.gart.GartvasVideo
-import dev.oblac.gart.Window
+import dev.oblac.gart.*
 import kotlin.random.Random
 
 const val w = 1280
@@ -12,7 +9,8 @@ const val windowSize = 10f
 
 val d = Dimension(w, h)
 val g = Gartvas(d)
-val window = Window(g, 1).show()
+val a = Animation(g, 1)
+val window = Window(a).show()
 
 typealias BuildingFunction = (x: Float, y: Float) -> Building
 
@@ -120,13 +118,13 @@ fun main() {
     val name = "skyscraper"
     println(name)
     val v = GartvasVideo(g, "$name.mp4", 1)
-    val endMarker = v.frames.marker().atNumber(colors.size * 3) // repeat all colors 3 times
+    val endMarker = v.frames.marker().atFrame(colors.size * 3) // repeat all colors 3 times
 
 //    towerBuilding(30f)(100f, 100f)(g.canvas)
 //    squareBuilding(80f)(100f, 100f)(g.canvas)
 
-    window.paint {
-        val color = colors[it.count.mod(colors.size)]
+    window.draw {
+        val color = colors[it.count.value.mod(colors.size)]
 
         rowTop(color).forEach { it(g.canvas) }
 

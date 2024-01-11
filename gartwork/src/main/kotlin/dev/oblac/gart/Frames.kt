@@ -1,61 +1,82 @@
 package dev.oblac.gart
 
-import dev.oblac.gart.math.format
+import kotlin.time.Duration
+import kotlin.time.Duration.Companion.milliseconds
+import kotlin.time.DurationUnit
+
+@JvmInline
+value class FramesCount(val value: Long) {
+    fun time(fps: Int) = (value * 1000 / fps).milliseconds
+
+    operator fun inc() = FramesCount(value + 1)
+    operator fun compareTo(frameValue: FramesCount): Int {
+        return value.compareTo(frameValue.value)
+    }
+
+    fun mod(frameValue: FramesCount): Boolean {
+        return value % frameValue.value == 0L
+    }
+
+    operator fun plus(of: FramesCount): FramesCount = FramesCount(value + of.value)
+
+    companion object {
+        val ZERO = FramesCount(0)
+        fun of(time: Duration, fps: Int) = FramesCount(time.inWholeMilliseconds * fps / 1000)
+    }
+}
 
 interface Frames {
     /**
-     * Framerate (fps).
+     * Framerate in frames per second.
      */
-    val rate: Int
+    val fps: Int
 
     /**
-     * Elapsed time in seconds.
+     * Elapsed time.
      */
-    val time: Float
-        get() = count / rate.toFloat()
+    val time: Duration
 
     /**
-     * Returns elapsed number of frames.
+     * Elapsed number of frames.
      */
-    val count: Long
+    val count: FramesCount
 
     /**
-     * Converts frames count to time in seconds.
+     * Duration of a single frame.
      */
-    fun framesToTime(frames: Int): Float {
-        return frames / rate.toFloat()
-    }
-
-    fun timeToFrames(time: Float): Long {
-        return (time * rate).toLong()
-    }
+    val frameDuration: Duration
 
     /**
-     * Creates a marker on a certain position.
+     * Starts marker creation.
      */
     fun marker() = FrameMarkerBuilder(this)
+
 }
 
-class FramesCounter(private val fps: Int) : Frames {
+class FramesCounter(override val fps: Int) : Frames {
 
-    private var total: Long = 0
-    //private var callbacks: Array<(Frames)->Unit> = emptyArray()
-
+    private val singleFrameDuration = 1000.milliseconds / fps
+    private var total: FramesCount = FramesCount.ZERO
+    private var elapsed: Duration = 0.milliseconds
     /**
      * Increments frame counter.
      */
     fun tick(): FramesCounter {
-        total++
+        total = total++
+        elapsed = total.time(fps)
         return this
     }
 
-    override val rate: Int
-        get() = fps
-
-    override val count: Long
+    override val count: FramesCount
         get() = total
 
+    override val time: Duration
+        get() = elapsed
+
+    override val frameDuration: Duration
+        get() = singleFrameDuration
+
     override fun toString(): String {
-        return "Count: $total. Time: ${time.format(2)}."
+        return "Count: $total. Time: ${time.toString(DurationUnit.SECONDS, 2)}s."
     }
 }

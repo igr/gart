@@ -13,7 +13,7 @@ import kotlin.math.abs
 import kotlin.random.Random
 
 const val segments = 50
-const val gap = w / segments
+val gap = w / segments
 val gauss = GaussianFunction(100, segments/2, 8)
 fun gaussianCurve(x: Number) = gauss(x)
 const val variety = 0.04f

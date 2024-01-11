@@ -1,9 +1,6 @@
 package dev.oblac.gart.lettero
 
-import dev.oblac.gart.Dimension
-import dev.oblac.gart.Gartvas
-import dev.oblac.gart.GartvasVideo
-import dev.oblac.gart.Window
+import dev.oblac.gart.*
 import dev.oblac.gart.gfx.Palettes
 import dev.oblac.gart.gfx.fillOf
 import dev.oblac.gart.gfx.fillOfWhite
@@ -14,6 +11,7 @@ import dev.oblac.gart.skia.TextLine
 import dev.oblac.gart.skia.Typeface
 import dev.oblac.gart.util.loadResourceAsData
 import kotlin.random.Random
+import kotlin.time.Duration.Companion.seconds
 
 val jbMono = Typeface.makeFromData(loadResourceAsData("/JetBrainsMono-Bold.ttf"))
 val jbMonoFont = Font(jbMono, 22.0f)
@@ -29,9 +27,11 @@ fun main() {
 
     val d = Dimension(768, 1024)
     val g = Gartvas(d)
-    val w = Window(g).show()
+    val a = Animation(g)
+    val f = a.frames
+    val w = Window(a).show()
     val v = GartvasVideo(g, "$name.mp4", 1)
-    val tick = w.frames.marker().onEverySecond(1)
+    val tick = f.marker().onEvery(1.seconds)
 
     val letters = listOf('I', 'G', 'O', '.', 'R', 'S')
     var count = 0;
@@ -39,7 +39,7 @@ fun main() {
     val p = Palettes.cool9
     val pdelta = 0
 
-    w.paintWhile {
+    w.drawWhile {
         if (tick.now()) {
             g.canvas.drawRect(Rect(0f, 0f, d.wf, d.hf), fillOf(p[count + pdelta]))
             drawLetters(g, letters[count])
@@ -47,11 +47,11 @@ fun main() {
             count++
             if (count == letters.size) {
                 v.stopAndSaveVideo()
-                return@paintWhile false
+                return@drawWhile false
             }
 
         }
-        return@paintWhile true
+        return@drawWhile true
     }
 
     g.writeSnapshotAsImage("LetterO.png")

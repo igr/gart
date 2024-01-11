@@ -1,15 +1,14 @@
 package dev.oblac.gart.palecircles
 
-import dev.oblac.gart.Dimension
-import dev.oblac.gart.Gartvas
-import dev.oblac.gart.GartvasVideo
-import dev.oblac.gart.Window
+import dev.oblac.gart.*
 import dev.oblac.gart.gfx.*
 import dev.oblac.gart.math.rnd
 import org.jetbrains.skia.Rect
+import kotlin.time.Duration.Companion.seconds
 
 val d = Dimension(800, 800)
 val g = Gartvas(d)
+val a = Animation(g)
 const val numberOfCircles = 12
 val size = d.w / numberOfCircles
 
@@ -23,16 +22,17 @@ fun main() {
     val name = "palecircles"
     println(name)
 
-    val w = Window(g).show()
+    val w = Window(a).show()
     val v = GartvasVideo(g, "$name.mp4", 30)
+    val endMarker = v.frames.marker().atTime(10.seconds)
 
-    w.paintWhile { frames ->
+    w.drawWhile { frames ->
         draw()
         v.addFrame()
-        if (frames.time > 10) {
-            return@paintWhile false
+        if (endMarker.after()) {
+            return@drawWhile false
         }
-        return@paintWhile true
+        return@drawWhile true
     }
     v.stopAndSaveVideo()
 

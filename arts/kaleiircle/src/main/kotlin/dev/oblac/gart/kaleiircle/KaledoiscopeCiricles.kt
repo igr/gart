@@ -5,6 +5,7 @@ import dev.oblac.gart.gfx.fillOfBlack
 import dev.oblac.gart.math.sinDeg
 import dev.oblac.gart.skia.Color4f
 import dev.oblac.gart.skia.Rect
+import kotlin.time.Duration.Companion.seconds
 
 const val name = "kaleiircle"
 
@@ -72,8 +73,8 @@ val makeShapeOfCircle = MakeShapeOfCircle(d)
 fun paint(g: Gartvas, frames: Frames) {
     println(frames)
 
-    val shapes1 = triangles(-10f + frames.count).map { makeShapeOfCircle(it) }
-    val shapes2 = circles(-10f + frames.count, frames.count).map { makeShapeOfCircle(it) }
+    val shapes1 = triangles(-10f + frames.count.value).map { makeShapeOfCircle(it) }
+    val shapes2 = circles(-10f + frames.count.value, frames.count.value).map { makeShapeOfCircle(it) }
 
     g.canvas.drawRect(Rect(0f, 0f, g.d.wf, g.d.hf), fillOfBlack())
 
@@ -92,11 +93,12 @@ fun main() {
 
     val g = Gartvas(d)
     val frames = 30
-    val window = Window(g, frames).show()
+    val a = Animation(g, frames)
+    val window = Window(a).show()
     val v = GartvasVideo(g, "$name.mp4", frames)
-    val endMarker = v.frames.marker().atSecond(18)
+    val endMarker = v.frames.marker().atTime(18.seconds)
 
-    window.paint {
+    window.draw {
         paint(g, it)
         when {
             endMarker.before() -> v.addFrame()

@@ -1,8 +1,8 @@
 package dev.oblac.gart
 
 /**
- * Canvas pixels, i.e. a bitmap.
- * Pixels do not have transparency (!) as there is no background to be transparent to.
+ * Canvas pixels, i.e., a bitmap.
+ * Pixels do not have a transparency (!) as there is no background to be transparent to.
  */
 class Gartmap(private val g: Gartvas) : Pixels(g.d) {
     init {

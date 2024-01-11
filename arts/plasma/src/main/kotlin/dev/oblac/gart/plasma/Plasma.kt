@@ -99,13 +99,14 @@ fun main() {
     val d = Dimension(w, h)
     val g = Gartvas(d)
     val b = Gartmap(g)
+    val a = Animation(g)
     val v = GartvasVideo(g, "plasma.mp4")
-    val lastFrame = v.frames.marker().atNumber(757)
-    val w = Window(g).show()
+    val lastFrame = v.frames.marker().atFrame(757)
+    val w = Window(a).show()
 
     init()
 
-    w.paint {
+    w.draw {
         drawNext(b, p)
         b.draw()
 

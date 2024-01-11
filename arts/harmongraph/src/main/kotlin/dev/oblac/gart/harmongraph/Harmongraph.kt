@@ -1,9 +1,6 @@
 package dev.oblac.gart.harmongraph
 
-import dev.oblac.gart.Dimension
-import dev.oblac.gart.Gartvas
-import dev.oblac.gart.GartvasVideo
-import dev.oblac.gart.Window
+import dev.oblac.gart.*
 import dev.oblac.gart.gfx.*
 import dev.oblac.gart.math.sinDeg
 import org.jetbrains.skia.Canvas
@@ -11,22 +8,25 @@ import org.jetbrains.skia.Point
 import org.jetbrains.skia.Rect
 import kotlin.math.exp
 import kotlin.math.sin
+import kotlin.time.Duration.Companion.seconds
 
 val d = Dimension(800, 800)
 val g = Gartvas(d)
+val a = Animation(g)
+val f = a.frames
 
 fun main() {
     val name = "harmongraph"
     println(name)
 
-    val w = Window(g).show()
+    val w = Window(a).show()
     val v = GartvasVideo(g, "$name.mp4", 30, dryRun = false)
 
     var drawing = 4
 
-    val changeMarker = w.frames.marker().onEverySecond(10)
+    val changeMarker = f.marker().onEvery(10.seconds)
 
-    w.paintWhile { frames ->
+    w.drawWhile { frames ->
         draw(frames.count, drawing)
         v.addFrame()
 
@@ -36,16 +36,16 @@ fun main() {
         }
 
         if (drawing == 0) {
-            return@paintWhile false
+            return@drawWhile false
         }
-        return@paintWhile true
+        return@drawWhile true
     }
     v.stopAndSaveVideo()
 }
 
 var deltaPhase = 0f
 
-fun draw(tick: Long, drawing: Int) {
+fun draw(tick: FramesCount, drawing: Int) {
     val backTriangle1 = Triangle(
         Point(0f, 0f),
         Point(d.wf, 0f),
@@ -100,7 +100,7 @@ fun draw(tick: Long, drawing: Int) {
     g.canvas.drawRect(Rect(0f, 0f, d.wf, d.hf), strokeOf(Colors.oldLace, 40f))
     g.canvas.drawLine(0f, 0f, d.wf, d.hf, strokeOf(Colors.oldLace, 20f))
 
-    deltaPhase = sinDeg(tick / 2.5f) / 4
+    deltaPhase = sinDeg(tick.value / 2.5f) / 4
 }
 
 fun drawHarmongraph(

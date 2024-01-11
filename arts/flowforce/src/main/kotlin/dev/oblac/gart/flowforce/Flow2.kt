@@ -43,10 +43,10 @@ fun two(name: String) {
 
     // paint
 
-    val marker = w.frames.marker().after(15.seconds)
+    val marker = f.marker().after(15.seconds)
     val beforeMarker = marker.beforeAsFun()
 
-    w.paintWhile(beforeMarker) {
+    w.drawWhile(beforeMarker) {
 //        flowField.drawField(g)
         randomPoints = randomPoints
             .filter { it.isInside(d) }

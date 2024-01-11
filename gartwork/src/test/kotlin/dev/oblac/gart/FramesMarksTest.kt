@@ -9,7 +9,7 @@ class FramesMarksTest {
     @Test
     fun testAfter() {
         val fc = FramesCounter(25)
-        val mark = fc.marker().atNumber(15)
+        val mark = FrameMarkerBuilder(fc).atFrame(15)
 
         repeat(10) { fc.tick() }
         assertFalse(mark.after())

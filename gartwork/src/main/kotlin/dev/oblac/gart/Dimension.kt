@@ -1,7 +1,5 @@
 package dev.oblac.gart
 
-import dev.oblac.gart.skia.Point
-
 /**
  * Represents a virtual dimensions.
  */
@@ -37,8 +35,6 @@ data class Dimension(val w: Int, val h: Int) {
     val area = w * h
 
     fun isInside(x: Float, y: Float) = x.toInt() in 0 until w && y.toInt() in 0 until h
-
-    fun isInside(point: Point) = isInside(point.x, point.y)
 
     /**
      * Iterates over the all elements of the rectangle dimension.

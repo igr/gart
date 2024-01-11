@@ -1,9 +1,6 @@
 package dev.oblac.gart.spiral
 
-import dev.oblac.gart.Dimension
-import dev.oblac.gart.Gartvas
-import dev.oblac.gart.GartvasVideo
-import dev.oblac.gart.Window
+import dev.oblac.gart.*
 import dev.oblac.gart.gfx.Palette
 import dev.oblac.gart.gfx.fillOf
 import dev.oblac.gart.gfx.strokeOfBlack
@@ -14,24 +11,27 @@ import kotlin.math.PI
 import kotlin.math.cos
 import kotlin.math.pow
 import kotlin.math.sin
+import kotlin.time.Duration.Companion.seconds
 
 val d = Dimension(800, 800)
 val g = Gartvas(d)
+val anim = Animation(g)
 
 fun main() {
     val name = "spiral"
     println(name)
 
-    val w = Window(g).show()
+    val w = Window(anim).show()
     val v = GartvasVideo(g, "$name.mp4", 30)
+    val endMarker = anim.frames.marker().atTime(12.seconds)
 
-    w.paintWhile { frames ->
+    w.drawWhile { frames ->
         draw()
         v.addFrame()
-        if (frames.time > 12) {
-            return@paintWhile false
+        if (endMarker.after()) {
+            return@drawWhile false
         }
-        return@paintWhile true
+        return@drawWhile true
     }
     v.stopAndSaveVideo()
 

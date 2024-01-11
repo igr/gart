@@ -1,6 +1,7 @@
 package dev.oblac.gart.ticktiletock
 
 import dev.oblac.gart.*
+import kotlin.time.Duration.Companion.seconds
 
 fun main() {
     val name = "ticktiletock"
@@ -10,15 +11,16 @@ fun main() {
     val d = Dimension(1024, 1024)
     val g = Gartvas(d)
     val m = Gartmap(g)
-    val w = Window(g).show()
+    val a = Animation(g, 1)
+    val w = Window(a).show()
     val v = GartvasVideo(g, "$name.mp4", 1)
 
     // prepare scenario
-    val tick = w.frames.marker().onEverySecond(1)
+    val tick = a.frames.marker().onEvery(1.seconds)
 
     movie(d, m)
 
-    w.paint {
+    w.draw {
         Scenes.draw(g.canvas)
         if (tick.now()) {
             v.addFrame()

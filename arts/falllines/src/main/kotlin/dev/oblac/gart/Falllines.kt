@@ -5,30 +5,36 @@ import dev.oblac.gart.gfx.alpha
 import dev.oblac.gart.gfx.fillOf
 import dev.oblac.gart.gfx.rgb
 import dev.oblac.gart.math.Constants
+import dev.oblac.gart.pixels.scrollPixelsUp
 import dev.oblac.gart.skia.Rect
 import kotlin.random.Random
+import kotlin.time.Duration.Companion.seconds
 
 const val w = 600
-val h = (w * Constants.goldenRatio).toInt()
+const val h = (w * Constants.goldenRatio).toInt()
 
-val d = Dimension(w, h)
-val g = Gartvas(d)
-val b = Gartmap(g)
+val gart = Gart.of(
+    "falllines", w, h,
+)
+
+val g = gart.g
+val b = gart.b
+val frames = gart.frames
 
 fun main() {
     val name = "falllines"
     println(name)
 
-    val window = Window(g).show()
-    val changeMarker = window.frames.marker().onEverySecond(8)
+    val window = gart.window.show()
+    val changeMarker = frames.marker().onEvery(8.seconds)
 
     val v = GartvasVideo(g, "$name.mp4", 50)
-    val markerStart = window.frames.marker().atSecond(40)   // window marker (!)
-    val markerEnd = v.frames.marker().atSecond(20)          // video marker (!)
+    val markerStart = frames.marker().atTime(40.seconds)   // window marker (!)
+    val markerEnd = v.frames.marker().atTime(20.seconds)          // video marker (!)
 
     g.canvas.drawRect(Rect(0f, 0f, g.d.wf, g.d.hf), fillOf(0xFF000000))
 
-    window.paint {
+    window.draw {
         draw()
         when {
             changeMarker.now() -> randomizeSegments()

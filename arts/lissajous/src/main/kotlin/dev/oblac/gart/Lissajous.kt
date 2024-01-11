@@ -9,28 +9,33 @@ import org.jetbrains.skia.Rect
 import kotlin.math.PI
 import kotlin.math.pow
 import kotlin.math.sin
+import kotlin.time.Duration.Companion.seconds
 
-val d = Dimension(800, 800)
-val g = Gartvas(d)
+val gart = Gart.of(
+    "lissajous", 800, 800,
+)
+val d = gart.d
+val g = gart.g
+
 
 fun main() {
-    val name = "lissajous"
-    println(name)
+    println(gart.name)
 
-    val w = Window(g).show()
-    val v = GartvasVideo(g, "$name.mp4", 30)
+    val w = gart.window.show()
+    val v = GartvasVideo(g, "${gart.name}.mp4", 30)
+    val endMarker = gart.frames.marker().atTime(12.seconds)
 
-    w.paintWhile { frames ->
+    w.drawWhile { frames ->
         draw()
         v.addFrame()
-        if (frames.time > 12) {
-            return@paintWhile false
+        if (endMarker.after()) {
+            return@drawWhile false
         }
-        return@paintWhile true
+        return@drawWhile true
     }
     v.stopAndSaveVideo()
 
-    g.writeSnapshotAsImage("$name.png")
+    g.writeSnapshotAsImage("${gart.name}.png")
 }
 
 

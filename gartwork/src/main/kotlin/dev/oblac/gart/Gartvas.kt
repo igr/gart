@@ -41,7 +41,7 @@ class Gartvas(val d: Dimension) {
     }
 
     /**
-     * Draw one Gartvas onto the another.
+     * Draw one Gartvas onto another.
      */
     fun draw(g: Gartvas, x: Float, y: Float) {
         canvas.drawImage(g.snapshot(), x, y)

@@ -1,8 +1,7 @@
 package dev.oblac.gart.bubbles
 
 import dev.oblac.gart.Dimension
-import dev.oblac.gart.Gartvas
-import dev.oblac.gart.Window
+import dev.oblac.gart.Gart
 import dev.oblac.gart.gfx.Palettes
 import dev.oblac.gart.gfx.fillOf
 import dev.oblac.gart.gfx.fillOfBlack
@@ -19,23 +18,25 @@ import kotlin.math.sqrt
 import kotlin.random.Random.Default.nextInt
 import kotlin.random.Random.Default.nextLong
 
-const val name = "Bubbles"
+val gart = Gart.of(
+    "Bubbles", 1024, 1024,
+)
 
 fun main() {
-    println(name)
+    with(gart) {
 
-    val d = Dimension(1024, 1024)
-    val g = Gartvas(d)
-    val w = Window(g, 10).show()
+        println(name)
+
+        val w = window.show()
 
 //    // load
-    var list = Array(100) {
-        Bubble(
-            d, nextFloat(d.w), nextFloat(d.h), 2.0f,
-            nextLong(100, 1000),
-            fillOf(Palettes.cool2.random())
-        )
-    }.toList()
+        var list = Array(100) {
+            Bubble(
+                d, nextFloat(d.w), nextFloat(d.h), 2.0f,
+                nextLong(100, 1000),
+                fillOf(Palettes.cool2.random())
+            )
+        }.toList()
 
 //    var list = listOf(
 //        Bubble(box, 150f, 200f, 100.0f),
@@ -49,27 +50,28 @@ fun main() {
 ////        Bubble(box, 600f, 800f, 20.0f),
 //    )
 
-    fun paintAll() {
-        list.forEach {
-            //g.canvas.drawCircle(it.x, it.y, 2f, strokeOfGreen(2f))
-            g.canvas.drawCircle(it.x, it.y, it.r, it.paint)
+        fun paintAll() {
+            list.forEach {
+                //g.canvas.drawCircle(it.x, it.y, 2f, strokeOfGreen(2f))
+                g.canvas.drawCircle(it.x, it.y, it.r, it.paint)
+            }
         }
-    }
 
-    // draw
-    g.canvas.drawRect(Rect(0f, 0f, d.wf, d.hf), fillOfBlack())
-    paintAll()
-
-    w.paint { frames ->
+        // draw
         g.canvas.drawRect(Rect(0f, 0f, d.wf, d.hf), fillOfBlack())
-        list = list
-            .filter { !it.isExpired(frames.count) }
-            .map { move(list, it) }
-            .toList()
         paintAll()
-    }
 
-    g.writeSnapshotAsImage("$name.png")
+        w.draw { frames ->
+            g.canvas.drawRect(Rect(0f, 0f, d.wf, d.hf), fillOfBlack())
+            list = list
+                .filter { !it.isExpired(frames.count.value) }
+                .map { move(list, it) }
+                .toList()
+            paintAll()
+        }
+
+        g.writeSnapshotAsImage("$name.png")
+    }
 }
 
 fun move(
@@ -170,7 +172,7 @@ data class Bubble(
         var alpha = asin(abs(b.y - y) / d).toDegree()
 
         alpha = if (x >= b.x) {
-            // this bubble is right, so move to right, i.e. the push is on the left
+            // this bubble is right, so move to the right, i.e. the push is on the left
             if (y <= b.y) {
                 180 + alpha // Q1
             } else {

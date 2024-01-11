@@ -11,15 +11,20 @@ import java.awt.image.BufferedImage
 import javax.swing.JFrame
 import javax.swing.JPanel
 
-class Window(val g: Gartvas, private val fps: Int = 25) {
+class Window(private val animation: Animation) {
 
     init {
         JFrame.setDefaultLookAndFeelDecorated(true)
     }
 
-    fun show(): Painter {
+    /**
+     * Shows the windows and starts the animation.
+     */
+    fun show(): Animation.AnimationRunner {
+        val g = animation.g
+
         val frame = JFrame()
-        frame.title = "gȧrt"
+        frame.title = "gȧrt!"
         frame.defaultCloseOperation = JFrame.DISPOSE_ON_CLOSE
         frame.isResizable = false
         frame.isVisible = true
@@ -29,17 +34,18 @@ class Window(val g: Gartvas, private val fps: Int = 25) {
         frame.contentPane.add(panel)
         frame.pack()
 
-        val painter = Painter(g, fps) { panel.paint(it) }
+        val anim = animation.start { panel.paint(it.toBufferedImage()) }
+
         frame.addWindowListener(object : WindowAdapter() {
             override fun windowClosing(windowEvent: WindowEvent) {
-                painter.running = false
+                anim.stop()
             }
         })
 
         val screenSize = Toolkit.getDefaultToolkit().screenSize
         frame.setLocation((screenSize.width - g.d.w) / 2, (screenSize.height - g.d.h) / 2)
 
-        return painter
+        return anim
     }
 }
 
@@ -66,63 +72,5 @@ class GartPanel(private val g: Gartvas) : JPanel(true) {
     fun paint(bufferedImage: BufferedImage) {
         lastBufferedImage = bufferedImage
         this.repaint()
-    }
-}
-
-class Painter(
-    private val g: Gartvas,
-    frames: Int,
-    private val paintCallback: (BufferedImage) -> Unit,
-) {
-
-    private val frameDurationInMillis = 1000 / frames
-
-    // initial time is 1 second in the past, so we can kick painting right away
-    private var lastPaintTimestamp = System.currentTimeMillis() - 1000
-    internal var running = true
-    private val framesCounter = FramesCounter(frames)
-    val frames: Frames = framesCounter
-
-    private fun draw(paintFrame: (Frames) -> Boolean) {
-        val currentTimeStamp = System.currentTimeMillis()
-        val elapsedSinceLastPaint = currentTimeStamp - lastPaintTimestamp
-        val remainingSleepTime = frameDurationInMillis - elapsedSinceLastPaint
-
-        if (remainingSleepTime < 0) {
-            this.running = paintFrame(frames)
-            paintCallback(g.snapshot().toBufferedImage())
-            lastPaintTimestamp = currentTimeStamp
-            framesCounter.tick()
-        }
-    }
-
-    /**
-     * Paints a frame while window is up and return value is true, until the window is explicitly closed.
-     */
-    fun paintWhile(paintFrame: (Frames) -> Boolean) {
-        while (this.running) {
-            this.draw(paintFrame)
-        }
-    }
-
-    fun paintWhile(condition: () -> Boolean, paintFrame: (Frames) -> Unit) {
-        while (this.running) {
-            this.draw {
-                paintFrame(it)
-                return@draw condition()
-            }
-        }
-    }
-
-    /**
-     * Paints a frame while window is up, until the window is explicitly closed.
-     */
-    fun paint(paintFrame: (Frames) -> Unit) {
-        while (this.running) {
-            this.draw {
-                paintFrame(it)
-                return@draw true
-            }
-        }
     }
 }

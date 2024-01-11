@@ -61,12 +61,12 @@ fun three(name: String) {
 
     // paint
 
-    val marker = w.frames.marker().after(6.seconds)
+    val marker = f.marker().after(6.seconds)
     val beforeMarker = marker.beforeAsFun()
 
-    val markerMiddle = w.frames.marker().after(3.seconds)
+    val markerMiddle = f.marker().after(3.seconds)
 
-    w.paintWhile(beforeMarker) {
+    w.drawWhile(beforeMarker) {
 //        flowField.drawField(g)
 
         if (markerMiddle.before()) {
