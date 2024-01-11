@@ -4,11 +4,9 @@ import kotlin.time.Duration
 import kotlin.time.Duration.Companion.milliseconds
 import kotlin.time.DurationUnit
 
-@JvmInline
-value class FramesCount(val value: Long) {
+data class FramesCount(val value: Long) {
     fun time(fps: Int) = (value * 1000 / fps).milliseconds
 
-    operator fun inc() = FramesCount(value + 1)
     operator fun compareTo(frameValue: FramesCount): Int {
         return value.compareTo(frameValue.value)
     }
@@ -17,7 +15,8 @@ value class FramesCount(val value: Long) {
         return value % frameValue.value == 0L
     }
 
-    operator fun plus(of: FramesCount): FramesCount = FramesCount(value + of.value)
+    operator fun plus(fc: FramesCount): FramesCount = FramesCount(value + fc.value)
+    operator fun plus(i: Int): FramesCount = FramesCount(value + i)
 
     companion object {
         val ZERO = FramesCount(0)
@@ -62,7 +61,7 @@ class FramesCounter(override val fps: Int) : Frames {
      * Increments frame counter.
      */
     fun tick(): FramesCounter {
-        total = total++
+        total += 1
         elapsed = total.time(fps)
         return this
     }
@@ -77,6 +76,6 @@ class FramesCounter(override val fps: Int) : Frames {
         get() = singleFrameDuration
 
     override fun toString(): String {
-        return "Count: $total. Time: ${time.toString(DurationUnit.SECONDS, 2)}s."
+        return "Count: $total. Time: ${time.toString(DurationUnit.SECONDS, 2)}."
     }
 }

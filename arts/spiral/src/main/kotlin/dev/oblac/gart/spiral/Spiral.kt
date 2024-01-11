@@ -1,7 +1,7 @@
 package dev.oblac.gart.spiral
 
 import dev.oblac.gart.Gart
-import dev.oblac.gart.GartvasVideo
+import dev.oblac.gart.Media
 import dev.oblac.gart.gfx.Palette
 import dev.oblac.gart.gfx.fillOf
 import dev.oblac.gart.gfx.strokeOfBlack
@@ -22,23 +22,21 @@ val gart = Gart.of(
 
 fun main() {
     with(gart) {
-        val name = gart.name
         println(name)
 
-        gart.w.show()
-        val v = GartvasVideo(g, "$name.mp4", 30)
+        w.show()
         val endMarker = f.marker().atTime(12.seconds)
 
+        a.record()
         a.draw {
             draw()
-            v.addFrame()
             if (endMarker.after()) {
                 a.stop()
             }
         }
 
-        v.stopAndSaveVideo()
-        g.writeSnapshotAsImage("$name.png")
+        Media.saveImage(this)
+        Media.saveVideo(this)
     }
 }
 
