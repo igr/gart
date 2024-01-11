@@ -80,6 +80,7 @@ class Animation(
             return
         }
         recording = true
+        println("recording started")
         onPaint {
             if (recording) {
                 allFrames.add(it)
@@ -88,6 +89,7 @@ class Animation(
     }
 
     fun stopRecording() {
+        println("recording stopped")
         recording = false
     }
 }

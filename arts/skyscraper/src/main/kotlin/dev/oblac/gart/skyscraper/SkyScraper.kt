@@ -1,7 +1,7 @@
 package dev.oblac.gart.skyscraper
 
 import dev.oblac.gart.Gart
-import dev.oblac.gart.GartvasVideo
+import dev.oblac.gart.Media
 import kotlin.random.Random
 
 const val w = 1280
@@ -119,12 +119,14 @@ fun rowBottom(clr: Colors): Array<Building> {
 fun main() {
     with(gart) {
         println(name)
-        val v = GartvasVideo(g, "$name.mp4", 1)
+
         val endMarker = f.marker().atFrame(colors.size * 3) // repeat all colors 3 times
 
 //    towerBuilding(30f)(100f, 100f)(g.canvas)
 //    squareBuilding(80f)(100f, 100f)(g.canvas)
 
+        w.show()
+        a.record()
         a.draw {
             val color = colors[f.count.value.mod(colors.size)]
 
@@ -139,11 +141,11 @@ fun main() {
             rowBottom(color).forEach { it(g.canvas) }
 
             when {
-                endMarker.before() -> v.addFrame()
-                endMarker.now() -> v.stopAndSaveVideo()
+                endMarker.now() -> a.stopRecording()
             }
         }
 
-        g.writeSnapshotAsImage("$name.png")
+        Media.saveImage(this)
+        Media.saveVideo(this)
     }
 }
