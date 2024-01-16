@@ -2,7 +2,6 @@ package dev.oblac.gart.circledots
 
 import dev.oblac.gart.Gart
 import dev.oblac.gart.Media
-import dev.oblac.gart.after
 import dev.oblac.gart.gfx.fillOfWhite
 import dev.oblac.gart.skia.Rect
 import kotlin.time.Duration.Companion.seconds
@@ -59,7 +58,7 @@ fun main() {
             tick = if (markEverySecond.now()) tick + 1 else tick
             drawAll(tick.mod(2) == 0)
 
-            if (after(markEnd)) {
+            if (f after markEnd) {
                 a.stop()
             }
         }

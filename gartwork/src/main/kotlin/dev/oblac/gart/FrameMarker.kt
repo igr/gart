@@ -1,10 +1,6 @@
 package dev.oblac.gart
 
 import kotlin.time.Duration
-
-fun before(frameMarker: FrameMarker): Boolean = frameMarker.before()
-fun after(frameMarker: FrameMarker): Boolean = frameMarker.after()
-
 interface FrameMarker {
     /**
      * Returns `true` if current frame is before the marker.

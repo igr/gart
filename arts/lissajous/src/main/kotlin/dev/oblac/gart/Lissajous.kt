@@ -25,11 +25,11 @@ fun main() {
         println(name)
         w.show()
 
-        val endMarker = f.marker().atTime(12.seconds)
+        val end = f.marker().atTime(12.seconds)
         a.record()
         a.draw {
             draw()
-            if (endMarker.after()) {
+            if (f after end) {
                 a.stop()
             }
         }

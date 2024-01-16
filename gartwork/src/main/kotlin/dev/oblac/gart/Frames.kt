@@ -49,6 +49,8 @@ interface Frames {
      * Starts marker creation.
      */
     fun marker() = FrameMarkerBuilder(this)
+    infix fun after(marker: FrameMarker): Boolean = marker.after()
+    infix fun before(marker: FrameMarker): Boolean = marker.before()
 
 }
 
