@@ -2,7 +2,6 @@ package dev.oblac.gart.lettero
 
 import dev.oblac.gart.Gart
 import dev.oblac.gart.Gartvas
-import dev.oblac.gart.GartvasVideo
 import dev.oblac.gart.Media
 import dev.oblac.gart.gfx.Palettes
 import dev.oblac.gart.gfx.fillOf
