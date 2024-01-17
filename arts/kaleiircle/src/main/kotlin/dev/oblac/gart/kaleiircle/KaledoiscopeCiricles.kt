@@ -105,7 +105,7 @@ fun main() {
         a.draw {
             paint(g, f)
             when {
-                endMarker.now() -> a.stop()
+                f isNow endMarker -> a.stop()
             }
         }
 

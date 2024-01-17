@@ -52,10 +52,10 @@ fun one(name: String) {
 
     // paint
 
-    val marker = f.marker().after(10.seconds)
+    val marker = f.marker().atTime(10.seconds)
 
     a.draw {
-        if (marker.before()) {
+        if (f before marker) {
             a.stop()
             return@draw
         }

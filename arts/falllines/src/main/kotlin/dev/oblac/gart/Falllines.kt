@@ -34,9 +34,9 @@ fun main() {
         a.draw {
             draw()
             when {
-                changeMarker.now() -> randomizeSegments()
-                markerStart.now() -> a.record()
-                markerEnd.now() -> a.stop()
+                f isNow changeMarker -> randomizeSegments()
+                f isNow markerStart -> a.record()
+                f isNow markerEnd -> a.stop()
             }
         }
 

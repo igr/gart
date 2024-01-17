@@ -1,59 +1,49 @@
 package dev.oblac.gart
 
 import kotlin.time.Duration
-interface FrameMarker {
-    /**
-     * Returns `true` if current frame is before the marker.
-     */
-    fun before(): Boolean
 
-    /**
-     * Returns `true` if current frame is after the marker.
-     */
-    fun after(): Boolean
-
-    /**
-     * Returns true if current frame equals the marker.
-     */
-    fun now(): Boolean
+enum class FrameMarkerType {
+    SINGLE_FRAME,
+    REPEATED_FRAME,
 }
 
+data class FrameMarker(val value: FramesCount, val frameMarkerType: FrameMarkerType)
+
+fun before(currentFrame: FramesCount, marker: FrameMarker): Boolean {
+    return when (marker.frameMarkerType) {
+        FrameMarkerType.SINGLE_FRAME -> currentFrame < marker.value
+        FrameMarkerType.REPEATED_FRAME -> true
+    }
+}
+
+fun after(currentFrame: FramesCount, marker: FrameMarker): Boolean {
+    return when (marker.frameMarkerType) {
+        FrameMarkerType.SINGLE_FRAME -> currentFrame > marker.value
+        FrameMarkerType.REPEATED_FRAME -> false
+    }
+}
+
+fun isNow(currentFrame: FramesCount, marker: FrameMarker): Boolean {
+    return when (marker.frameMarkerType) {
+        FrameMarkerType.SINGLE_FRAME -> currentFrame == marker.value
+        FrameMarkerType.REPEATED_FRAME -> currentFrame.mod(marker.value)
+    }
+}
 
 class FrameMarkerBuilder(private val frames: Frames) {
     fun atFrame(number: Number): FrameMarker {
-        return FrameMarkerOnSingleFrame(frames, FramesCount(number.toLong()))
+        return FrameMarker(FramesCount.of(number), FrameMarkerType.SINGLE_FRAME)
     }
 
     fun atTime(duration: Duration): FrameMarker {
-        return FrameMarkerOnSingleFrame(frames, FramesCount.of(duration, frames.fps))
+        return FrameMarker(FramesCount.of(duration, frames.fps), FrameMarkerType.SINGLE_FRAME)
     }
 
     fun onEveryFrame(number: Number): FrameMarker {
-        return FrameMarkerOnRepeatedFrame(frames, FramesCount(number.toLong()))
+        return FrameMarker(FramesCount.of(number), FrameMarkerType.REPEATED_FRAME)
     }
 
     fun onEvery(duration: Duration): FrameMarker {
-        return FrameMarkerOnRepeatedFrame(frames, FramesCount.of(duration, frames.fps))
+        return FrameMarker(FramesCount.of(duration, frames.fps), FrameMarkerType.REPEATED_FRAME)
     }
-
-    /**
-     * Creates a marker after a certain duration passed from the current moment.
-     */
-    fun after(duration: Duration): FrameMarker {
-        return FrameMarkerOnSingleFrame(
-            frames, frames.count + FramesCount.of(duration, frames.fps)
-        )
-    }
-}
-
-internal class FrameMarkerOnSingleFrame(private val frames: Frames, private val frameValue: FramesCount) : FrameMarker {
-    override fun before() = frames.count < frameValue
-    override fun after() = frames.count > frameValue
-    override fun now() = frames.count == frameValue
-}
-
-internal class FrameMarkerOnRepeatedFrame(private val frames: Frames, private val frameValue: FramesCount) : FrameMarker {
-    override fun before() = true
-    override fun after() = false
-    override fun now() = frames.count.mod(frameValue)
 }

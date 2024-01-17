@@ -67,18 +67,18 @@ fun three(name: String) {
 
     // paint
 
-    val marker = f.marker().after(6.seconds)
+    val marker = f.marker().atTime(6.seconds)
 
-    val markerMiddle = f.marker().after(3.seconds)
+    val markerMiddle = f.marker().atTime(3.seconds)
 
     a.draw {
-        if (marker.before()) {
+        if (f after marker) {
             a.stop()
             return@draw
         }
 //        flowField.drawField(g)
 
-        if (markerMiddle.before()) {
+        if (f before markerMiddle) {
             randomPoints = randomPoints
                 .filter { it.isInside(d) }
                 .map { p ->

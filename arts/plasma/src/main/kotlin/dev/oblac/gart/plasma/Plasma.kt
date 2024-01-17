@@ -1,6 +1,8 @@
 package dev.oblac.gart.plasma
 
-import dev.oblac.gart.*
+import dev.oblac.gart.Gart
+import dev.oblac.gart.Media
+import dev.oblac.gart.Pixels
 import dev.oblac.gart.gfx.Palette
 import dev.oblac.gart.gfx.Palettes.gradient
 import kotlin.math.cos
@@ -113,7 +115,7 @@ fun main() {
             b.draw()
 
             when {
-                lastFrame.now() -> a.stop()
+                f isNow lastFrame -> a.stop()
             }
         }
 

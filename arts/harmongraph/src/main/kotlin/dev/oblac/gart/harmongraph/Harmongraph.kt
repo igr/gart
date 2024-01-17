@@ -31,7 +31,7 @@ fun main() {
         a.draw {
             draw(f.count, drawing)
 
-            if (changeMarker.now()) {
+            if (f isNow changeMarker) {
                 drawing--
                 Media.saveImage(gart, "$name$drawing.png")
             }

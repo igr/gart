@@ -44,7 +44,7 @@ fun main() {
         w.show()
         a.record()
         a.draw {
-            if (tick.now()) {
+            if (f isNow tick) {
                 g.canvas.drawRect(Rect(0f, 0f, d.wf, d.hf), fillOf(p[count + pdelta]))
                 drawLetters(g, letters[count])
                 count++

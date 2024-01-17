@@ -41,7 +41,7 @@ fun main() {
         a.draw {
             paint()
             when {
-                markEnd.now() -> a.stop()
+                f isNow markEnd -> a.stop()
             }
         }
 

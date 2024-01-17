@@ -141,7 +141,7 @@ fun main() {
             rowBottom(color).forEach { it(g.canvas) }
 
             when {
-                endMarker.now() -> a.stopRecording()
+                f isNow endMarker -> a.stopRecording()
             }
         }
 

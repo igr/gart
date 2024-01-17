@@ -32,7 +32,7 @@ fun main() {
         a.record()
         a.draw {
             draw()
-            if (endMarker.after()) {
+            if (f isNow endMarker) {
                 a.stop()
             }
         }

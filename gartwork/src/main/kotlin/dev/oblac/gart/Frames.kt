@@ -21,6 +21,7 @@ data class FramesCount(val value: Long) {
     companion object {
         val ZERO = FramesCount(0)
         fun of(time: Duration, fps: Int) = FramesCount(time.inWholeMilliseconds * fps / 1000)
+        fun of(number: Number) = FramesCount(number.toLong())
     }
 }
 
@@ -49,8 +50,9 @@ interface Frames {
      * Starts marker creation.
      */
     fun marker() = FrameMarkerBuilder(this)
-    infix fun after(marker: FrameMarker): Boolean = marker.after()
-    infix fun before(marker: FrameMarker): Boolean = marker.before()
+    infix fun after(marker: FrameMarker): Boolean = after(count, marker)
+    infix fun before(marker: FrameMarker): Boolean = before(count, marker)
+    infix fun isNow(marker: FrameMarker): Boolean = isNow(count, marker)
 
 }
 

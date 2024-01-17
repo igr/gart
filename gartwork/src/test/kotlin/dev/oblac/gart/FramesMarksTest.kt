@@ -12,18 +12,18 @@ class FramesMarksTest {
         val mark = FrameMarkerBuilder(fc).atFrame(15)
 
         repeat(10) { fc.tick() }
-        assertFalse(mark.after())
-        assertTrue(mark.before())
-        assertFalse(mark.now())
+        assertFalse(fc after mark)
+        assertTrue(fc before mark)
+        assertFalse(fc isNow mark)
 
         repeat(5) { fc.tick() }
-        assertFalse(mark.after())
-        assertFalse(mark.before())
-        assertTrue(mark.now())
+        assertFalse(fc after mark)
+        assertFalse(fc before mark)
+        assertTrue(fc isNow mark)
 
         repeat(1) { fc.tick() }
-        assertTrue(mark.after())
-        assertFalse(mark.before())
-        assertFalse(mark.now())
+        assertTrue(fc after mark)
+        assertFalse(fc before mark)
+        assertFalse(fc isNow mark)
     }
 }

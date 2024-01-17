@@ -55,7 +55,7 @@ fun main() {
         w.show()
         a.record()
         a.draw {
-            tick = if (markEverySecond.now()) tick + 1 else tick
+            tick = if (f isNow markEverySecond) tick + 1 else tick
             drawAll(tick.mod(2) == 0)
 
             if (f after markEnd) {

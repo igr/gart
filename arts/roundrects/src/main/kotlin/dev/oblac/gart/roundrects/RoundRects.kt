@@ -24,7 +24,7 @@ fun main() {
         w.show()
         a.record()
         a.draw {
-            if (onSceneChange.now()) {
+            if (f isNow onSceneChange) {
                 val count = rnd(3, 9)
                 bigBox = BigBox(d, count, count)
                 if (totalChanges-- == 0) {

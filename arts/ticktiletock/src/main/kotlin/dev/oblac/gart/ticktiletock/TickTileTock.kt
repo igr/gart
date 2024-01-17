@@ -25,7 +25,7 @@ fun main() {
         a.record()
         a.draw {
             Scenes.draw(g.canvas)
-            if (tick.now()) {
+            if (f isNow tick) {
                 Scenes.tick()
             }
             if (Scenes.isEnd()) {
