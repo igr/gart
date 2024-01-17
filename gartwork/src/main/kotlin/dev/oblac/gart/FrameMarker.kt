@@ -9,21 +9,21 @@ enum class FrameMarkerType {
 
 data class FrameMarker(val value: FramesCount, val frameMarkerType: FrameMarkerType)
 
-fun before(currentFrame: FramesCount, marker: FrameMarker): Boolean {
+internal fun before(currentFrame: FramesCount, marker: FrameMarker): Boolean {
     return when (marker.frameMarkerType) {
         FrameMarkerType.SINGLE_FRAME -> currentFrame < marker.value
         FrameMarkerType.REPEATED_FRAME -> true
     }
 }
 
-fun after(currentFrame: FramesCount, marker: FrameMarker): Boolean {
+internal fun after(currentFrame: FramesCount, marker: FrameMarker): Boolean {
     return when (marker.frameMarkerType) {
         FrameMarkerType.SINGLE_FRAME -> currentFrame > marker.value
         FrameMarkerType.REPEATED_FRAME -> false
     }
 }
 
-fun isNow(currentFrame: FramesCount, marker: FrameMarker): Boolean {
+internal fun isNow(currentFrame: FramesCount, marker: FrameMarker): Boolean {
     return when (marker.frameMarkerType) {
         FrameMarkerType.SINGLE_FRAME -> currentFrame == marker.value
         FrameMarkerType.REPEATED_FRAME -> currentFrame.mod(marker.value)
