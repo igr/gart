@@ -36,7 +36,7 @@ fun main() {
         val tick = f.marker().onEvery(1.seconds)
 
         val letters = listOf('I', 'G', 'O', '.', 'R', 'S')
-        var count = 0;
+        var count = 0
 
         val p = Palettes.cool9
         val pdelta = 0

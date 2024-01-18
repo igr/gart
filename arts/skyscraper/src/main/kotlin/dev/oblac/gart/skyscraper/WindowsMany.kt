@@ -7,6 +7,9 @@ import dev.oblac.gart.skia.Point
 import kotlin.math.cos
 import kotlin.math.floor
 import kotlin.math.sin
+import kotlin.random.Random
+
+var windowRandThreshold = 2
 
 class WindowsMany(
 	private val left: Point,
@@ -52,7 +55,9 @@ class WindowsMany(
 			while (rowX + windowSize < right.x) {
 				val w = rowX - x
 				rowY = y + gapEdge + w * sin(beta.toRadian()) / cos(beta.toRadian())
-				fn(RectIsometricLeft(rowX, rowY, windowSize, windowSize, beta))
+                if (Random.nextInt(10) > windowRandThreshold) {
+                    fn(RectIsometricLeft(rowX, rowY, windowSize, windowSize, beta))
+                }
 				rowX += windowSize + gapX
 			}
 			y += gapY + windowSize

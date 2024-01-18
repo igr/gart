@@ -19,7 +19,7 @@ fun main() {
 
         var bigBox = BigBox(d, 4, 4)
 
-        var totalChanges = 10;
+        var totalChanges = 10
 
         w.show()
         a.record()

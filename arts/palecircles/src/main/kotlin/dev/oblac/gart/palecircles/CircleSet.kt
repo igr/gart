@@ -3,7 +3,7 @@ package dev.oblac.gart.palecircles
 import dev.oblac.gart.gfx.Palette
 import dev.oblac.gart.math.rnd
 
-const val STARTING_R = 6f;
+const val STARTING_R = 6f
 
 data class Circle(val x: Int, val y: Int, val r: Float, val color: Int = colors.random(), var off: Float = 0f) {
     fun rOff() = r + off

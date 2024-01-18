@@ -22,6 +22,7 @@ follow: [🎇 Instagram](https://www.instagram.com/gart_173) |
 ⭐️ [City. High. Sky.](arts/skyscraper/README.md) [🎬](https://youtu.be/RfkeQ4tyilQ)
 
 <img src="arts/skyscraper/skyscraper.png" height="240px">
+<img src="arts/skyscraper/skyscraper2.png" height="240px">
 
 ⭐️ [Line. Line. Falls.](arts/falllines/README.md) [🎬](https://youtube.com/shorts/TfrEu3_NyOE?feature=share)
 
