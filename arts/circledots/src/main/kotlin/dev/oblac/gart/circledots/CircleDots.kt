@@ -6,18 +6,18 @@ import dev.oblac.gart.gfx.fillOfWhite
 import dev.oblac.gart.skia.Rect
 import kotlin.time.Duration.Companion.seconds
 
-val gart = Gart.of(
+private val gart = Gart.of(
     "CircleDots",
     640, 640,
     50
 )
 
-const val rowCount = 25
-val gap = gart.d.w / (rowCount - 2)
+private const val rowCount = 25
+private val gap = gart.d.w / (rowCount - 2)
 
-val ctx = Context(gart.g)
+private val ctx = Context(gart.g)
 
-val circles = Array(rowCount * rowCount) {
+private val circles = Array(rowCount * rowCount) {
     val row = it.div(rowCount)
     val column = it.mod(rowCount)
     Circle(
