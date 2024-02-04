@@ -14,6 +14,7 @@ follow: [🎇 Instagram](https://www.instagram.com/gart_173) |
 ⭐️ [Dots. Wave. Flash.](arts/circledots/README.md) [🎬](https://youtube.com/shorts/kVAayKYXRTE?feature=share)
 
 <img src="arts/circledots/circledots.png" height="240px">
+<img src="arts/circledots/circledots2.png" height="240px">
 
 ⭐️ [Love. Tear. Apart.](arts/joydiv/README.md) [🎬](https://youtube.com/shorts/U9aAmfEqzNw?feature=share)
 

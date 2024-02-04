@@ -5,6 +5,7 @@ package dev.oblac.gart.skia
  */
 
 typealias Bitmap = org.jetbrains.skia.Bitmap
+typealias BlendMode = org.jetbrains.skia.BlendMode
 typealias Canvas = org.jetbrains.skia.Canvas
 typealias Color = org.jetbrains.skia.Color
 typealias Color4f = org.jetbrains.skia.Color4f
@@ -29,6 +30,7 @@ typealias PathFillMode = org.jetbrains.skia.PathFillMode
 typealias PaintStrokeCap = org.jetbrains.skia.PaintStrokeCap
 typealias Point = org.jetbrains.skia.Point
 typealias Rect = org.jetbrains.skia.Rect
+typealias RRect = org.jetbrains.skia.RRect
 typealias Surface = org.jetbrains.skia.Surface
 typealias TextLine = org.jetbrains.skia.TextLine
 typealias Typeface = org.jetbrains.skia.Typeface
