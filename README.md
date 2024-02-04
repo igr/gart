@@ -81,6 +81,14 @@ follow: [🎇 Instagram](https://www.instagram.com/gart_173) |
 
 <br clear="both">
 
+⭐️ [Repe. Repeti. Repetition.](arts/repetition/README.md)
+
+<p align="center">
+<img src="arts/repetition/Repetition1.png" height="240px" align="left">
+</p>
+
+<br clear="both">
+
 ## 🍬 The End
 
 🧧 Enjoy.

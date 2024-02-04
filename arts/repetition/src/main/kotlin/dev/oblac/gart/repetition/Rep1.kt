@@ -11,18 +11,18 @@ import kotlin.math.cos
 import kotlin.math.sin
 
 private val gart = Gart.of(
-    "Repetition",
-    640, 640
+    "Repetition1",
+    1280, 1280
 )
 
 private const val count = 14
-private const val gap = 20f
-private const val offset = 40
+private const val gap = 40f
+private const val offset = 80
 
-private const val blur = 4f
+private const val blur = 8f
 private const val speed = 0.05f
 
-private const val size = 12f
+private const val size = 24f
 
 private fun drawAll(tick: Long) {
     val offsetsB = Array(count) { Pair(
@@ -51,17 +51,17 @@ private fun drawAll(tick: Long) {
             val h = d.hf - 2 * y
 
             offsetsB[i].let { (dx, dy) ->
-                RRect.makeXYWH(x + dx, y + dy, w, h, 20f).let {
+                RRect.makeXYWH(x + dx, y + dy, w, h, 40f).let {
                     g.canvas.drawRRect(it, strokeOf(Colors.blue, size).apply { blendMode = BlendMode.SCREEN })
                 }
             }
             offsetsG[i].let { (dx, dy) ->
-                RRect.makeXYWH(x + dx, y + dy, w, h, 20f).let {
+                RRect.makeXYWH(x + dx, y + dy, w, h, 40f).let {
                     g.canvas.drawRRect(it, strokeOf(Colors.lime, size).apply { blendMode = BlendMode.SCREEN })
                 }
             }
             offsetsR[i].let { (dx, dy) ->
-                RRect.makeXYWH(x + dx, y + dy, w, h, 20f).let {
+                RRect.makeXYWH(x + dx, y + dy, w, h, 40f).let {
                     g.canvas.drawRRect(it, strokeOf(Colors.red, size).apply { blendMode = BlendMode.SCREEN })
                 }
             }
