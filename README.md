@@ -89,6 +89,15 @@ follow: [🎇 Instagram](https://www.instagram.com/gart_173) |
 
 <br clear="both">
 
+⭐️ [Rect. Rect. Rect](arts/rects/README.md)
+
+<p align="center">
+<img src="arts/rects/rects1.png" height="240px" align="left">
+<img src="arts/rects/rects2.png" height="240px" align="left">
+</p>
+
+<br clear="both">
+
 ## 🍬 The End
 
 🧧 Enjoy.
