@@ -1,5 +1,6 @@
 package dev.oblac.gart.gfx
 
+import dev.oblac.gart.skia.Color
 import dev.oblac.gart.skia.Color4f
 import dev.oblac.gart.skia.Paint
 import dev.oblac.gart.skia.PaintMode
@@ -42,11 +43,13 @@ fun fillOf(color: Long) = Paint().apply {
 
 fun strokeOfBlack(width: Number) = strokeOf(0xFF000000, width.toFloat())
 fun strokeOfWhite(width: Number) = strokeOf(0xFFFFFFFF, width.toFloat())
-fun strokeOfRed(width: Number) = strokeOf(0xFFFF0000, width.toFloat())
+fun strokeOfRed(width: Number) = strokeOf(Color.RED, width.toFloat())
 fun strokeOfGreen(width: Number) = strokeOf(0xFF00FF00, width.toFloat())
-fun strokeOfBlue(width: Number) = strokeOf(0xFF0000FF, width.toFloat())
+fun strokeOfBlue(width: Number) = strokeOf(Color.BLUE, width.toFloat())
 
 fun fillOfBlack() = fillOf(0xFF000000)
 fun fillOfWhite() = fillOf(0xFFFFFFFF)
-fun fillOfYellow() = fillOf(0xFFFFFF00)
-fun fillOfRed() = fillOf(0xFFFF0000)
+fun fillOfYellow() = fillOf(Color.YELLOW)
+fun fillOfRed() = fillOf(Color.RED)
+fun fillOfBlue() = fillOf(Color.BLUE)
+fun fillOfGreen() = fillOf(Color.GREEN)
