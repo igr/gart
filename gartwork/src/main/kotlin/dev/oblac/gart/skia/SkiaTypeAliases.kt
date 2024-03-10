@@ -7,12 +7,12 @@ package dev.oblac.gart.skia
 typealias Bitmap = org.jetbrains.skia.Bitmap
 typealias BlendMode = org.jetbrains.skia.BlendMode
 typealias Canvas = org.jetbrains.skia.Canvas
+typealias ClipComponent = org.jetbrains.skiko.ClipComponent
+typealias ClipMode = org.jetbrains.skia.ClipMode
 typealias Color = org.jetbrains.skia.Color
 typealias Color4f = org.jetbrains.skia.Color4f
-typealias ColorType = org.jetbrains.skia.ColorType
 typealias ColorAlphaType = org.jetbrains.skia.ColorAlphaType
-typealias ClipMode = org.jetbrains.skia.ClipMode
-typealias ClipComponent = org.jetbrains.skiko.ClipComponent
+typealias ColorType = org.jetbrains.skia.ColorType
 typealias Data = org.jetbrains.skia.Data
 typealias EncodedImageFormat = org.jetbrains.skia.EncodedImageFormat
 typealias FilterBlurMode = org.jetbrains.skia.FilterBlurMode
@@ -24,18 +24,22 @@ typealias MaskFilter = org.jetbrains.skia.MaskFilter
 typealias Matrix33 = org.jetbrains.skia.Matrix33
 typealias Paint = org.jetbrains.skia.Paint
 typealias PaintMode = org.jetbrains.skia.PaintMode
+typealias PaintStrokeCap = org.jetbrains.skia.PaintStrokeCap
+typealias PaintStrokeJoin = org.jetbrains.skia.PaintStrokeJoin
 typealias Path = org.jetbrains.skia.Path
 typealias PathEffect = org.jetbrains.skia.PathEffect
 typealias PathFillMode = org.jetbrains.skia.PathFillMode
-typealias PaintStrokeCap = org.jetbrains.skia.PaintStrokeCap
+typealias PathMeasure = org.jetbrains.skia.PathMeasure
 typealias Point = org.jetbrains.skia.Point
-typealias Rect = org.jetbrains.skia.Rect
 typealias RRect = org.jetbrains.skia.RRect
+typealias Rect = org.jetbrains.skia.Rect
 typealias Surface = org.jetbrains.skia.Surface
 typealias TextLine = org.jetbrains.skia.TextLine
 typealias Typeface = org.jetbrains.skia.Typeface
 
+// swing
+
+typealias GenericSkikoView = org.jetbrains.skiko.GenericSkikoView
 typealias SkikoView = org.jetbrains.skiko.SkikoView
 typealias SkiaLayer = org.jetbrains.skiko.SkiaLayer
-typealias GenericSkikoView = org.jetbrains.skiko.GenericSkikoView
 typealias FPSCounter = org.jetbrains.skiko.FPSCounter
