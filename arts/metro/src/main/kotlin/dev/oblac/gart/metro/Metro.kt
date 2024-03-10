@@ -82,7 +82,7 @@ fun main() {
 
         val tick = f.marker().onEveryFrame(1)
         w.show()
-        a.draw {
+        m.draw {
 
 //            when {
 //                f isNow tick -> indexOffset++

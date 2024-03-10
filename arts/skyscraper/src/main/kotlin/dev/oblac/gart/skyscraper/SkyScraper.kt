@@ -126,8 +126,8 @@ fun main() {
 //    squareBuilding(80f)(100f, 100f)(g.canvas)
 
         w.show()
-        a.record()
-        a.draw {
+        m.record()
+        m.draw {
             val color = colors[f.count.value.mod(colors.size)]
 
             rowTop(color).forEach { it(g.canvas) }
@@ -141,7 +141,7 @@ fun main() {
             rowBottom(color).forEach { it(g.canvas) }
 
             when {
-                f isNow endMarker -> a.stopRecording()
+                f isNow endMarker -> m.stopRecording()
             }
         }
 

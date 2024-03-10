@@ -37,11 +37,11 @@ fun main() {
         println(name)
         val markEnd = f.marker().atTime(5.seconds)
         w.show()
-        a.record()
-        a.draw {
+        m.record()
+        m.draw {
             paint()
             when {
-                f isNow markEnd -> a.stop()
+                f isNow markEnd -> m.stop()
             }
         }
 

@@ -22,14 +22,14 @@ fun main() {
         makeMovie(d, b)
 
         w.show()
-        a.record()
-        a.draw {
+        m.record()
+        m.draw {
             Scenes.draw(g.canvas)
             if (f isNow tick) {
                 Scenes.tick()
             }
             if (Scenes.isEnd()) {
-                a.stop()
+                m.stop()
             }
         }
 

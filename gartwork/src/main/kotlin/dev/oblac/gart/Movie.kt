@@ -5,12 +5,11 @@ import dev.oblac.gart.skia.Image
 /**
  * A painter function that takes a [Gartvas] Image and paints it.
  */
-typealias AnimationPainter = (Image) -> Unit
+typealias MovieFramePainter = (Image) -> Unit
 
-class Animation(
+class Movie(
     val g: Gartvas,
-    fps: Int = 25,
-    val printFps: Boolean = true
+    fps: Int = 25
 ) {
 
     private val framesCounter = FramesCounter(fps)
@@ -21,13 +20,13 @@ class Animation(
     // the initial time is 1 second in the past, to kick painting right away
     private var lastPaintTimestamp = System.currentTimeMillis() - 1000
 
-    private val painters = mutableListOf<AnimationPainter>()
+    private val painters = mutableListOf<MovieFramePainter>()
 
     /**
-     * Defines paint callback that animation will _try_ to call at given FPS.
+     * Defines paint callback that movie will _try_ to call at given FPS.
      * It is called after the drawing is done.
      */
-    fun onPaint(painter: AnimationPainter) {
+    fun onPaint(painter: MovieFramePainter) {
         painters.add(painter)
     }
 
@@ -49,19 +48,19 @@ class Animation(
     }
 
     /**
-     * Draws a frame while animation is running, until it is explicitly closed.
-     * Use [stop] to stop the animation loop.
+     * Draws a frame while the movie is running, until it is explicitly closed.
+     * Use [stop] to stop the movie loop.
      */
     fun draw(drawFrame: () -> Unit) {
-        println("animation started")
+        println("movie started")
         while (running) {
             this.drawSingleFrame(drawFrame)
         }
-        println("animation stopped")
+        println("movie stopped")
     }
 
     /**
-     * Stops with the animation.
+     * Stops the movie.
      */
     fun stop() {
         running = false

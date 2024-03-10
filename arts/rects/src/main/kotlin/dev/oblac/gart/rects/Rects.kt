@@ -18,7 +18,7 @@ fun main() {
     with(gart) {
         println(name)
         w.show()
-        a.draw {
+        m.draw {
             g.canvas.clear(Colors.blackColor.toColor())
 
             val totalX = 26

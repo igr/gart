@@ -17,7 +17,7 @@ fun one(name: String) {
     val d = gart.d
     val g = gart.g
     val f = gart.f
-    val a = gart.a
+    val a = gart.m
 
     println(name)
 

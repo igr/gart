@@ -74,13 +74,13 @@ fun main() {
         println(name)
         val marker = f.marker().atFrame(600)
         w.show()
-        a.record()
-        a.draw {
+        m.record()
+        m.draw {
             g.fill(Colors.black)
             drawAll(f.count.value)
 
             if (f after marker) {
-                a.stop()
+                m.stop()
                 return@draw
             }
         }

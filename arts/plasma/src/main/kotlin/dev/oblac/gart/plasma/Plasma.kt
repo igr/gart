@@ -109,13 +109,13 @@ fun main() {
         init()
 
         w.show()
-        a.record()
-        a.draw {
+        m.record()
+        m.draw {
             drawNext(b, p)
             b.draw()
 
             when {
-                f isNow lastFrame -> a.stop()
+                f isNow lastFrame -> m.stop()
             }
         }
 

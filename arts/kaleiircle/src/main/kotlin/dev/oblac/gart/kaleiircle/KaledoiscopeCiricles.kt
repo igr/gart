@@ -101,11 +101,11 @@ fun main() {
         w.show()
         val endMarker = f.marker().atTime(18.seconds)
 
-        a.record()
-        a.draw {
+        m.record()
+        m.draw {
             paint(g, f)
             when {
-                f isNow endMarker -> a.stop()
+                f isNow endMarker -> m.stop()
             }
         }
 

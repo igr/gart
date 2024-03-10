@@ -11,7 +11,7 @@ fun main() {
 //    squareBuilding(80f)(100f, 100f)(g.canvas)
 
         w.show()
-        a.draw {
+        m.draw {
             val color = colors[2]
 
             rowTop(color).forEach { it(g.canvas) }
@@ -24,7 +24,7 @@ fun main() {
 
             rowBottom(color).forEach { it(g.canvas) }
 
-            a.stop()
+            m.stop()
         }
         Media.saveImage(this)
     }

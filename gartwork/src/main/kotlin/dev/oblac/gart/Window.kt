@@ -7,7 +7,7 @@ import java.awt.event.WindowEvent
 import javax.swing.JFrame
 import javax.swing.SwingUtilities
 
-class Window(private val animation: Animation) {
+class Window(private val movie: Movie) {
 
     init {
         JFrame.setDefaultLookAndFeelDecorated(true)
@@ -18,7 +18,7 @@ class Window(private val animation: Animation) {
      * Shows the windows and starts the animation.
      */
     fun show() = SwingUtilities.invokeLater {
-        val g = animation.g
+        val g = movie.g
 
         val frame = JFrame()
         frame.title = "gȧrt!"
@@ -28,18 +28,18 @@ class Window(private val animation: Animation) {
 
         // skia
         val skiaLayer = SkiaLayer()
-        val view = GartView(g, animation.printFps)
+        val view = GartView(g, false)
         skiaLayer.addView(GenericSkikoView(skiaLayer, view))
         skiaLayer.attachTo(frame.contentPane)
 
         // animation
-        animation.onPaint {
+        movie.onPaint {
             view.update(it)
             //SwingUtilities.invokeLater { skiaLayer.needRedraw() }
         }
         frame.addWindowListener(object : WindowAdapter() {
             override fun windowClosing(windowEvent: WindowEvent) {
-                animation.stop()
+                movie.stop()
             }
         })
 

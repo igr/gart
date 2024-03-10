@@ -27,8 +27,8 @@ fun main() {
         var drawing = 4
 
         val changeMarker = f.marker().onEvery(10.seconds)
-        a.record()
-        a.draw {
+        m.record()
+        m.draw {
             draw(f.count, drawing)
 
             if (f isNow changeMarker) {
@@ -37,7 +37,7 @@ fun main() {
             }
 
             if (drawing == 0) {
-                a.stop()
+                m.stop()
             }
         }
         Media.saveVideo(this)

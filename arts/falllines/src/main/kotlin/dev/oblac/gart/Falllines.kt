@@ -31,12 +31,12 @@ fun main() {
         val markerEnd = f.marker().atTime(20.seconds)          // video marker (!)
 
         g.canvas.drawRect(Rect(0f, 0f, g.d.wf, g.d.hf), fillOf(0xFF000000))
-        a.draw {
+        m.draw {
             draw()
             when {
                 f isNow changeMarker -> randomizeSegments()
-                f isNow markerStart -> a.record()
-                f isNow markerEnd -> a.stop()
+                f isNow markerStart -> m.record()
+                f isNow markerEnd -> m.stop()
             }
         }
 

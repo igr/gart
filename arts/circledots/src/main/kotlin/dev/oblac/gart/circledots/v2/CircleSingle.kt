@@ -25,17 +25,17 @@ fun main() {
         val ccs = createAnimation(320, 320, 220)
 
         w.show()
-        a.draw {
+        m.draw {
             tick++
             if (tick > 440) {
-                a.record()
+                m.record()
             }
             g.fill(Colors.black)
             for (cc in ccs) {
                 cc.draw()
             }
             if (tick == 2000) {
-                a.stop()
+                m.stop()
                 return@draw
             }
         }

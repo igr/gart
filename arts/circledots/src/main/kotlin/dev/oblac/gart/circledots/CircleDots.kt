@@ -53,13 +53,13 @@ fun main() {
         val markEnd = f.marker().atFrame(8 * f.fps)
 
         w.show()
-        a.record()
-        a.draw {
+        m.record()
+        m.draw {
             tick = if (f isNow markEverySecond) tick + 1 else tick
             drawAll(tick.mod(2) == 0)
 
             if (f after markEnd) {
-                a.stop()
+                m.stop()
             }
         }
 

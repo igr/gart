@@ -63,7 +63,7 @@ fun main() {
         g.canvas.drawRect(Rect(0f, 0f, d.wf, d.hf), fillOfBlack())
         paintAll()
 
-        a.draw {
+        m.draw {
             g.canvas.drawRect(Rect(0f, 0f, d.wf, d.hf), fillOfBlack())
             list = list
                 .filter { !it.isExpired(f.count.value) }

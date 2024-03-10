@@ -19,7 +19,7 @@ object Media {
     fun saveVideo(gart: Gart, name: String = "${gart.name}.mp4", fps: Int = gart.f.fps) {
         val vcr = VideoRecorder(gart.d.w, gart.d.h, fps)
 
-        with(gart.a) {
+        with(gart.m) {
             val size = allFrames.size
 
             allFrames.forEachIndexed { index, it ->

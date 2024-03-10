@@ -22,13 +22,13 @@ fun main() {
         var totalChanges = 10
 
         w.show()
-        a.record()
-        a.draw {
+        m.record()
+        m.draw {
             if (f isNow onSceneChange) {
                 val count = rnd(3, 9)
                 bigBox = BigBox(d, count, count)
                 if (totalChanges-- == 0) {
-                    a.stop()
+                    m.stop()
                     return@draw
                 }
             }
