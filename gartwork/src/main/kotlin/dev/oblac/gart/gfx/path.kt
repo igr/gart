@@ -19,7 +19,8 @@ fun closedPathOf(first: Point, vararg points: Point): Path {
 /**
  * Returns a list of [count] points on the path.
  */
-fun pointsOn(path: Path, count: Int): List<Point> {
+fun pointsOn(path: Path, pointsCount: Int): List<Point> {
+    val count = pointsCount - 1
     val iter = PathMeasure(path)
     val length = iter.length
     val step = length / count
@@ -31,3 +32,22 @@ fun pointsOn(path: Path, count: Int): List<Point> {
     }
     return points
 }
+
+fun pointsOn(path: Path, pointsCount: Int, ease: EaseFn = EaseFn.Linear): List<Point> {
+    val count = pointsCount - 1
+    val iter = PathMeasure(path)
+    val length = iter.length
+
+    val stepRelative = 1.0f / count
+    var x = 0f
+    val points = mutableListOf<Point>()
+    for (i in 0..count) {
+        val distance = ease(x) * length
+        x += stepRelative
+
+        val position = iter.getPosition(distance)!!
+        points.add(position)
+    }
+    return points
+}
+

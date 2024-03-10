@@ -102,7 +102,7 @@ data class Dot(val x: Float, val y: Float) {
 fun drawConnectDots(canvas: Canvas, dots: List<Dot>) {
     dots.forEach { dot ->
         val maxDistance = 60f + sin(dot.x / 250) * 20f + sin(dot.y / 250) * 50f
-        val color = alpha(palette.getSafe((dot.x / 50).toInt()), 0x33)
+        val color = alpha(palette.safe((dot.x / 50).toInt()), 0x33)
         dots.forEach { otherDot ->
             val distance = dot.distanceTo(otherDot)
             if (distance < maxDistance) {

@@ -8,7 +8,7 @@ import dev.oblac.gart.gfx.fillOfBlack
 
 data class Circle2Anim(private val ctx: Context, val x: Float, val y: Float, val r: Float, var deg: Float, var speed: Float = 3f, val from: Int) {
     var tick = 0
-    private val fill = fillOf(palette.getSafe(from))
+    private val fill = fillOf(palette.safe(from))
     fun draw() {
         tick++
         //ctx.g.canvas.drawCircle(x, y, r, blackStroke)

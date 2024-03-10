@@ -7,8 +7,9 @@ import dev.oblac.gart.gfx.Palettes
 import dev.oblac.gart.gfx.fillOfBlack
 import dev.oblac.gart.gfx.strokeOf
 import dev.oblac.gart.skia.Canvas
+import dev.oblac.gart.skia.PaintStrokeCap
+import dev.oblac.gart.skia.PathEffect
 import dev.oblac.gart.skia.Point
-import org.jetbrains.skia.PaintStrokeCap
 
 val gart = Gart.of(
     "metro",
@@ -111,19 +112,36 @@ fun main() {
 
 private fun drawR(c: Canvas, rl: RLine) {
     c.drawPath(rl.rect, fillOfBlack())
-    rl.toLines(9).forEachIndexed { index, it ->
-        c.drawLine(it.first.x, it.first.y, it.second.x, it.second.y, strokeOf(Palettes.cool24.getSafe(index + indexOffset), 6f).apply { this.strokeCap = PaintStrokeCap.ROUND })
+    val count = 60
+    rl.toLines(count).forEachIndexed { index, it ->
+        c.drawLine(it.first.x, it.first.y, it.second.x, it.second.y,
+//            strokeOf(Palettes.cool24.safe(index + indexOffset), 6f).apply {
+//                this.strokeCap = PaintStrokeCap.ROUND
+//                this.pathEffect = PathEffect.makeCorner(10f)
+//            })
+            strokeOf(Palettes.cool24.relative(index / count.toFloat()), 6f).apply {
+                this.strokeCap = PaintStrokeCap.ROUND
+                this.pathEffect = PathEffect.makeCorner(10f)
+            })
     }
 }
 private fun drawR2(c: Canvas, rl: RLine) {
     c.drawPath(rl.rect, fillOfBlack())
     rl.toLines(9).forEachIndexed { index, it ->
-        c.drawLine(it.first.x, it.first.y, it.second.x, it.second.y, strokeOf(Palettes.cool7.getSafe(index), 4f).apply { this.strokeCap = PaintStrokeCap.ROUND })
+        c.drawLine(it.first.x, it.first.y, it.second.x, it.second.y,
+            strokeOf(Palettes.cool7.safe(index), 4f).apply {
+                this.strokeCap = PaintStrokeCap.ROUND
+                this.pathEffect = PathEffect.makeCorner(10f)
+            })
     }
 }
 private fun drawR3(c: Canvas, rl: RLine) {
     c.drawPath(rl.rect, fillOfBlack())
     rl.toLines(9).forEachIndexed { index, it ->
-        c.drawLine(it.first.x, it.first.y, it.second.x, it.second.y, strokeOf(Palettes.cool15.getSafe(index), 4f).apply { this.strokeCap = PaintStrokeCap.ROUND })
+        c.drawLine(it.first.x, it.first.y, it.second.x, it.second.y,
+            strokeOf(Palettes.cool15.safe(index), 4f).apply {
+                this.strokeCap = PaintStrokeCap.ROUND
+                this.pathEffect = PathEffect.makeCorner(10f)
+            })
     }
 }

@@ -11,8 +11,17 @@ class Palette(internal val colors: IntArray) {
 		return colors[position]
 	}
 
-    fun getSafe(position: Int): Int {
+    fun at(position: Int): Int {
+        return colors[position]
+    }
+
+    fun safe(position: Int): Int {
         return colors[abs(position) % size]
+    }
+
+    fun relative(offset: Float): Int {
+        val index = (offset * size).toInt()
+        return colors[index % size]
     }
 
     operator fun plus(otherPalette: Palette): Palette {

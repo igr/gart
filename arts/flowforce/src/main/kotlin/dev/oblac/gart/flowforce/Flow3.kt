@@ -85,7 +85,7 @@ fun three(name: String) {
                     with(p) {
                         flowField[x.toInt(), y.toInt()].offset(this)
                     }.also {
-                        val color = palette.getSafe((it.x + it.y).toInt() * 2)
+                        val color = palette.safe((it.x + it.y).toInt() * 2)
                         g.canvas.drawLine(p.x, p.y, it.x, it.y, strokeOf(color.alpha(0x40), 1f))
                     }
                 }

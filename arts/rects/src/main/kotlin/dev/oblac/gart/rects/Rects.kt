@@ -29,7 +29,7 @@ fun main() {
             range(0, totalX).forEach {x ->
                 range(0, totalY).forEach { y ->
 //                    val p = fillOf(Palettes.cool1.random().alpha(128)).apply { blendMode = BlendMode.SCREEN }
-                    val p = fillOf(Palettes.cool1.getSafe((x / 2.5).toInt()).alpha(128))
+                    val p = fillOf(Palettes.cool1.safe((x / 2.5).toInt()).alpha(128))
                         .apply { blendMode = BlendMode.SCREEN }
                     drawRandomRect(Point(x * deltaX + rnd(20f), y * deltaY + rnd(20f)), 50f, p)
                 }
