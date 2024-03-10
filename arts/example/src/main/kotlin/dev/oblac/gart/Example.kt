@@ -13,7 +13,6 @@ fun main() {
     )
     println("Example")
 
-
     // use canvas
     val g = gart.g
     val d = gart.d
@@ -63,4 +62,9 @@ fun main() {
     b.draw()
 
     Media.saveImage(gart)
+
+    // show image
+    with(gart) {
+        w.show()
+    }
 }

@@ -10,6 +10,7 @@ typealias AnimationPainter = (Image) -> Unit
 class Animation(
     val g: Gartvas,
     fps: Int = 25,
+    val printFps: Boolean = true
 ) {
 
     private val framesCounter = FramesCounter(fps)

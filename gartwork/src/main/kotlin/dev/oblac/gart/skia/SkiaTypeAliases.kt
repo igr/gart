@@ -34,3 +34,8 @@ typealias RRect = org.jetbrains.skia.RRect
 typealias Surface = org.jetbrains.skia.Surface
 typealias TextLine = org.jetbrains.skia.TextLine
 typealias Typeface = org.jetbrains.skia.Typeface
+
+typealias SkikoView = org.jetbrains.skiko.SkikoView
+typealias SkiaLayer = org.jetbrains.skiko.SkiaLayer
+typealias GenericSkikoView = org.jetbrains.skiko.GenericSkikoView
+typealias FPSCounter = org.jetbrains.skiko.FPSCounter
