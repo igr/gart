@@ -1,6 +1,8 @@
 package dev.oblac.gart
 
 import dev.oblac.gart.util.toBufferedImage
+import org.jetbrains.skiko.DefaultConsoleLogger
+import org.jetbrains.skiko.setupSkikoLoggerFactory
 import java.awt.Graphics
 import java.awt.Graphics2D
 import java.awt.RenderingHints
@@ -15,6 +17,7 @@ class Window(private val animation: Animation) {
 
     init {
         JFrame.setDefaultLookAndFeelDecorated(true)
+        setupSkikoLoggerFactory { DefaultConsoleLogger.fromLevel(System.getProperty("skiko.log.level", "INFO")) }
     }
 
     /**
