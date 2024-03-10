@@ -80,7 +80,7 @@ class Movie(
             return
         }
         recording = true
-        println("recording started")
+        println("recording in progress...")
         onPaint {
             if (recording) {
                 allFrames.add(it)

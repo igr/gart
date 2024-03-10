@@ -15,7 +15,7 @@ class Window(private val movie: Movie) {
     }
 
     /**
-     * Shows the windows and starts the animation.
+     * Shows the windows and starts the movie.
      */
     fun show() = SwingUtilities.invokeLater {
         val g = movie.g
@@ -58,13 +58,13 @@ internal class GartView(g: Gartvas, private val printFps: Boolean) : SkikoView {
 
     private var lastBufferedImage = g.snapshot()
     private val fpsCounter = FPSCounter()
-    private val animationTicker = AnimationTicker()
+    private val movieTicker = MovieTicker()
 
     override fun onRender(canvas: Canvas, width: Int, height: Int, nanoTime: Long) {
         canvas.drawImage(lastBufferedImage, 0f, 0f)
         if (printFps) {
             fpsCounter.tick()
-            print("fps = ${fpsCounter.average} ${animationTicker.str()}\r")
+            print("fps = ${fpsCounter.average} ${movieTicker.str()}\r")
         }
     }
 
@@ -77,7 +77,7 @@ internal class GartView(g: Gartvas, private val printFps: Boolean) : SkikoView {
     }
 }
 
-private class AnimationTicker {
+private class MovieTicker {
     private val chars = charArrayOf('|', '/', '-', '\\')
     private var index = 0
     fun str(): Char {
