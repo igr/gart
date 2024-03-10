@@ -96,6 +96,7 @@ follow: [🎇 Instagram](https://www.instagram.com/gart_173) |
 <img src="arts/rects/rects2.png" height="240px" align="left">
 </p>
 
+<br clear="both">
 
 ⭐️ [Metro](arts/metro/README.md)
 
