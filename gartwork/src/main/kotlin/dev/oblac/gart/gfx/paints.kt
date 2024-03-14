@@ -41,13 +41,13 @@ fun fillOf(color: Long) = Paint().apply {
     this.color = color.toInt()
 }
 
-fun strokeOfBlack(width: Number) = strokeOf(0xFF000000, width.toFloat())
-fun strokeOfWhite(width: Number) = strokeOf(0xFFFFFFFF, width.toFloat())
+fun strokeOfBlack(width: Number) = strokeOf(Color.BLACK, width.toFloat())
+fun strokeOfWhite(width: Number) = strokeOf(Color.WHITE, width.toFloat())
 fun strokeOfRed(width: Number) = strokeOf(Color.RED, width.toFloat())
-fun strokeOfGreen(width: Number) = strokeOf(0xFF00FF00, width.toFloat())
+fun strokeOfGreen(width: Number) = strokeOf(Color.GREEN, width.toFloat())
 fun strokeOfBlue(width: Number) = strokeOf(Color.BLUE, width.toFloat())
 
-fun fillOfBlack() = fillOf(0xFF000000)
+fun fillOfBlack() = fillOf(Color.BLACK)
 fun fillOfWhite() = fillOf(0xFFFFFFFF)
 fun fillOfYellow() = fillOf(Color.YELLOW)
 fun fillOfRed() = fillOf(Color.RED)
