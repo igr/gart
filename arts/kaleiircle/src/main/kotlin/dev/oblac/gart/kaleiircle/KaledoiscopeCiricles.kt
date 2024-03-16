@@ -1,11 +1,14 @@
 package dev.oblac.gart.kaleiircle
 
-import dev.oblac.gart.*
+import dev.oblac.gart.Dimension
+import dev.oblac.gart.Frames
+import dev.oblac.gart.Gart
 import dev.oblac.gart.gfx.fillOfBlack
 import dev.oblac.gart.math.sinDeg
 import dev.oblac.gart.skia.Canvas
 import dev.oblac.gart.skia.Color4f
 import dev.oblac.gart.skia.Rect
+import dev.oblac.gart.toFrames
 import kotlin.time.Duration.Companion.seconds
 
 val colors = arrayOf(
@@ -37,9 +40,8 @@ val triangleColors = arrayOf(
 
 val gart = Gart.of(
     "kaleiircle",
-    710, 710,
+    710, 710, 30
 )
-const val fps = 30
 
 const val r0 = 100f
 const val rw = 50f
@@ -94,10 +96,10 @@ fun paint(canvas: Canvas, d: Dimension, frames: Frames) {
 fun main() {
     println(gart)
 
-    val w = gart.window(fps = fps)
+    val w = gart.window()
     val m = gart.movie()
 
-    val endMarker = 18.seconds.toFrames(fps)
+    val endMarker = 18.seconds.toFrames(gart.fps)
 
     m.record(w).show { c, d, f ->
         paint(c, d, f)

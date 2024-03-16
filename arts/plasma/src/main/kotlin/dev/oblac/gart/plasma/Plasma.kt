@@ -94,7 +94,7 @@ private fun drawNext(dest: Pixels, p: Palette) {
     }
 }
 
-val gart = Gart.of("Plasma", w, h)
+val gart = Gart.of("Plasma", w, h, 30)
 
 fun main() {
     println(gart.name)
@@ -104,7 +104,7 @@ fun main() {
     val g = gart.gartvas()
     val b = gart.gartmap(g)
     val m = gart.movie()
-    val w = gart.window(fps = 30)
+    val w = gart.window()
 
     m.record(w).show { c, _, f ->
         f.tick {

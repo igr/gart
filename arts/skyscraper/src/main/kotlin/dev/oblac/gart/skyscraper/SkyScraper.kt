@@ -7,11 +7,10 @@ import kotlin.random.Random
 const val w = 1280
 const val h = 800
 const val windowSize = 10f
-val fps = 1
 
 val gart = Gart.of(
     "skyscraper",
-    w, h,
+    w, h, 1
 )
 
 
@@ -125,7 +124,7 @@ fun main() {
 //    towerBuilding(30f)(100f, 100f)(g.canvas)
 //    squareBuilding(80f)(100f, 100f)(g.canvas)
 
-    val w = gart.window(fps = fps)
+    val w = gart.window()
     val m = gart.movie()
 
     m.record(w).show { c, _, f ->

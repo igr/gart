@@ -13,9 +13,8 @@ import kotlin.time.Duration.Companion.seconds
 
 const val w = 600
 const val h = (w * GOLDEN_RATIO).toInt()
-const val fps = 25
 val gart = Gart.of(
-    "falllines", w, h,
+    "falllines", w, h, 25
 )
 
 val g = gart.gartvas()
@@ -24,13 +23,13 @@ val b = gart.gartmap(g)
 fun main() {
     println(gart)
 
-    val changeMarker = 8.seconds.toFrames(fps)
-    val markerStart = 40.seconds.toFrames(fps)   // window marker (!)
-    val markerEnd = 20.seconds.toFrames(fps)     // video marker (!)
+    val changeMarker = 8.seconds.toFrames(gart.fps)
+    val markerStart = 40.seconds.toFrames(gart.fps)   // window marker (!)
+    val markerEnd = 20.seconds.toFrames(gart.fps)     // video marker (!)
 
     g.draw { c, d -> c.drawRect(Rect(0f, 0f, d.wf, d.hf), fillOf(0xFF000000)) }
 
-    val w = gart.window(fps = fps)
+    val w = gart.window()
     val m = gart.movie()
 
     m.record(w, recording = false).show { c, _, f ->
