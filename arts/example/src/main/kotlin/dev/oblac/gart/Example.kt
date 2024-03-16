@@ -6,9 +6,10 @@ import dev.oblac.gart.gfx.fillOfRed
 import dev.oblac.gart.noise.HaltonSequenceGenerator
 import dev.oblac.gart.skia.Rect
 
+@OptIn(ExperimentalStdlibApi::class)
 fun main() {
-    val gart = Gart("Example")
-    println("Example")
+    val gart = Gart("example")
+    println(gart.name)
 
     // second canvas
 
@@ -29,12 +30,14 @@ fun main() {
         c.drawRect(Rect(0f, 0f, d.wf, d.hf), fillOf(0xFF174185))
         c.drawCircle(d.w / 2f, d.h / 2f, 30f, fillOfRed())
         c.drawImage(snapshot2, 30f, 30f)
-        c.drawImage(snapshot2, 50f, 50f)
+        c.drawImage(snapshot2, 30f, 50f)
     }
 
     // bitmap
 
     val b = gart.gartmap(g1)
+    println(b[0, 0].toHexString())
+
     b.forEach { x, y, v ->
         if (v == 0xFFFF0000.toInt()) {  // red detected
             if ((x + y).mod(2) == 0) {
@@ -62,12 +65,12 @@ fun main() {
     b[0, 0] = 0xFF00FF00
 
     // draw back
-    b.draw()
+    b.drawToCanvas()
 
     // THE END, save
 
     gart.saveImage(g1)
 
     // show image
-    //gart.window()
+    gart.showImage(g1)
 }
