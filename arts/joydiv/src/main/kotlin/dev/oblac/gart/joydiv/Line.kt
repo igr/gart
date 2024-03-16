@@ -1,11 +1,11 @@
 package dev.oblac.gart.joydiv
 
-import dev.oblac.gart.Gartvas
 import dev.oblac.gart.gfx.fillOfBlack
 import dev.oblac.gart.gfx.strokeOfWhite
 import dev.oblac.gart.math.GaussianFunction
 import dev.oblac.gart.math.map
 import dev.oblac.gart.noise.PerlinNoise
+import dev.oblac.gart.skia.Canvas
 import dev.oblac.gart.skia.Path
 import dev.oblac.gart.skia.PathFillMode
 import dev.oblac.gart.skia.Point
@@ -19,7 +19,7 @@ fun gaussianCurve(x: Number) = gauss(x)
 const val variety = 0.04f
 val perlin = PerlinNoise()
 
-class Line(private val g: Gartvas, private val offsetY: Float) {
+class Line(private val offsetY: Float) {
 
 	private var tickOffset = 0f
 	private val patternOffset = Random.nextInt(300).toFloat()
@@ -44,7 +44,7 @@ class Line(private val g: Gartvas, private val offsetY: Float) {
 		Point(x.toFloat(), offsetY - value)
 	}
 
-	fun draw() {
+    fun draw(canvas: Canvas) {
 		tickOffset += 0.005f
 		noiseOffset = patternOffset
 		dots = dots(tickOffset)
@@ -70,7 +70,7 @@ class Line(private val g: Gartvas, private val offsetY: Float) {
 			.lineTo(0f, hf)
 			.closePath()
 
-		g.canvas.drawPath(path, fillOfBlack())
-		g.canvas.drawPath(path, strokeOfWhite(2f))
+        canvas.drawPath(path, fillOfBlack())
+        canvas.drawPath(path, strokeOfWhite(2f))
 	}
 }

@@ -114,7 +114,7 @@ fun main() {
         b.drawToCanvas()
         c.drawImage(b.image(), 0f, 0f)
 
-        f.isFrame(757) {
+        f.onFrame(757) {
             m.stopRecording()
         }
     }
