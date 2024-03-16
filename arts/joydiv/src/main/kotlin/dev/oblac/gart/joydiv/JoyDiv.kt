@@ -11,8 +11,8 @@ import kotlin.time.Duration.Companion.seconds
 val gart = Gart.of(
     "joydiv",
     640, 1036,  // gold ratio
+    50
 )
-val fps = 50
 val w: Int = gart.d.w
 val h: Int = gart.d.h
 val wf = gart.d.wf
@@ -32,7 +32,7 @@ fun paint(canvas: Canvas) {
 
 fun main() {
     println(gart.name)
-    val end = 5.seconds.toFrames(fps)
+    val end = 5.seconds.toFrames(gart.fps)
 
     val w = gart.window()
     val m = gart.movie()

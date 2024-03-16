@@ -8,20 +8,19 @@ import kotlin.time.Duration.Companion.seconds
 
 val gart = Gart.of(
     "roundrects",
-    640, 640
+    640, 640, 25
 )
-const val fps = 25
 
 fun main() {
     println(gart)
 
-    val sceneChange = 2.seconds.toFrames(fps)
+    val sceneChange = 2.seconds.toFrames(gart.fps)
 
     var bigBox = BigBox(gart.d, 4, 4)
 
     var totalChanges = 10
 
-    val w = gart.window(fps = fps)
+    val w = gart.window()
     val m = gart.movie()
 
     m.record(w).show { c, d, f ->

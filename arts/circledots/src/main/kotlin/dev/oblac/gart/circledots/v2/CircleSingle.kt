@@ -9,7 +9,7 @@ import kotlin.math.sin
 
 private val gart = Gart.of(
     "CircleDots2",
-    640, 640
+    640, 640, 50
 )
 private val g = gart.gartvas()
 private val ctx = Context(g)
@@ -17,7 +17,7 @@ private val ctx = Context(g)
 fun main() {
     println(gart.name)
 
-    val w = gart.window(fps = 50)
+    val w = gart.window()
     val m = gart.movie()
 
     var tick = 0

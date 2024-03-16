@@ -6,9 +6,8 @@ import dev.oblac.gart.Gartmap
 
 val gart = Gart.of(
     "ticktiletock",
-    1024, 1024,
+    1024, 1024, 1
 )
-const val fps = 1
 
 fun main() {
     println(gart)
@@ -18,7 +17,7 @@ fun main() {
     val b = gart.gartmap(g)
     makeMovie(gart.d, b)
 
-    val w = gart.window(fps = fps)
+    val w = gart.window()
     w.show { c, d, f ->
         Scenes.draw(g.canvas, d)
 

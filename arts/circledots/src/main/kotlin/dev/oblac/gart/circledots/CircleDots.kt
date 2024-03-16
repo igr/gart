@@ -9,7 +9,7 @@ import kotlin.time.Duration.Companion.seconds
 
 private val gart = Gart.of(
     "CircleDots",
-    640, 640
+    640, 640, 50
 )
 
 private const val rowCount = 25
@@ -47,7 +47,7 @@ fun main() {
 
     var tick = 0
 
-    val w = gart.window(fps = 50)
+    val w = gart.window()
     val m = gart.movie()
 
     val everySecond = 1.seconds.toFrames(w.fps)

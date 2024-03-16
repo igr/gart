@@ -20,9 +20,8 @@ fun fontOf(size: Float): Font {
 
 val gart = Gart.of(
     "lettero",
-    768, 1024,
+    768, 1024, 1
 )
-const val fps = 1
 
 fun main() {
     println(gart)
@@ -33,7 +32,7 @@ fun main() {
     val p = Palettes.cool9
     val pdelta = 0
 
-    val w = gart.window(fps = fps)
+    val w = gart.window()
     val m = gart.movie()
 
     m.record(w).show { c, d, f ->
