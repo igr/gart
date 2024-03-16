@@ -2,7 +2,6 @@ package dev.oblac.gart.bubbles
 
 import dev.oblac.gart.Dimension
 import dev.oblac.gart.Gart
-import dev.oblac.gart.Media
 import dev.oblac.gart.gfx.Palettes
 import dev.oblac.gart.gfx.fillOf
 import dev.oblac.gart.gfx.fillOfBlack
@@ -10,6 +9,7 @@ import dev.oblac.gart.math.cosDeg
 import dev.oblac.gart.math.nextFloat
 import dev.oblac.gart.math.sinDeg
 import dev.oblac.gart.math.toDegree
+import dev.oblac.gart.skia.Canvas
 import dev.oblac.gart.skia.Paint
 import dev.oblac.gart.skia.Rect
 import kotlin.math.abs
@@ -25,20 +25,17 @@ val gart = Gart.of(
 )
 
 fun main() {
-    with(gart) {
-
-        println(name)
-
-        w.show()
-
+    println(gart)
+    val d = gart.d
+    val g = gart.gartvas()
 //    // load
-        var list = Array(100) {
-            Bubble(
-                d, nextFloat(d.w), nextFloat(d.h), 2.0f,
-                nextLong(100, 1000),
-                fillOf(Palettes.cool2.random())
-            )
-        }.toList()
+    var list = Array(100) {
+        Bubble(
+            d, nextFloat(d.w), nextFloat(d.h), 2.0f,
+            nextLong(100, 1000),
+            fillOf(Palettes.cool2.random())
+        )
+    }.toList()
 
 //    var list = listOf(
 //        Bubble(box, 150f, 200f, 100.0f),
@@ -52,28 +49,26 @@ fun main() {
 ////        Bubble(box, 600f, 800f, 20.0f),
 //    )
 
-        fun paintAll() {
-            list.forEach {
-                //g.canvas.drawCircle(it.x, it.y, 2f, strokeOfGreen(2f))
-                g.canvas.drawCircle(it.x, it.y, it.r, it.paint)
-            }
+    fun paintAll(canvas: Canvas) {
+        list.forEach {
+            //g.canvas.drawCircle(it.x, it.y, 2f, strokeOfGreen(2f))
+            canvas.drawCircle(it.x, it.y, it.r, it.paint)
         }
-
-        // draw
-        g.canvas.drawRect(Rect(0f, 0f, d.wf, d.hf), fillOfBlack())
-        paintAll()
-
-        m.draw {
-            g.canvas.drawRect(Rect(0f, 0f, d.wf, d.hf), fillOfBlack())
-            list = list
-                .filter { !it.isExpired(f.count.value) }
-                .map { move(list, it) }
-                .toList()
-            paintAll()
-        }
-
-        Media.saveImage(this)
     }
+
+    // draw
+    g.canvas.drawRect(Rect(0f, 0f, d.wf, d.hf), fillOfBlack())
+    paintAll(g.canvas)
+    for (i in 0..3000) {
+        g.canvas.drawRect(Rect(0f, 0f, d.wf, d.hf), fillOfBlack())
+        list = list
+//            .filter { !it.isExpired(i.toLong()) }
+            .map { move(list, it) }
+            .toList()
+        paintAll(g.canvas)
+    }
+
+    gart.showImage(g)
 }
 
 fun move(
