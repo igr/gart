@@ -1,31 +1,30 @@
 package dev.oblac.gart.skyscraper
 
-import dev.oblac.gart.Media
 import kotlin.random.Random
 
 fun main() {
-    with(gart) {
-        println(name)
+    println(gart)
 
 //    towerBuilding(30f)(100f, 100f)(g.canvas)
 //    squareBuilding(80f)(100f, 100f)(g.canvas)
 
-        w.show()
-        m.draw {
-            val color = colors[2]
+    val g = gart.gartvas()
 
-            rowTop(color).forEach { it(g.canvas) }
+    g.draw { c, _ ->
+        val color = colors[2]
 
-            if (Random.nextBoolean()) {
-                rowMiddleSpread(color)
-            } else {
-                rowMiddle(color)
-            }.forEach { it(g.canvas) }
+        rowTop(color).forEach { it(c) }
 
-            rowBottom(color).forEach { it(g.canvas) }
+        if (Random.nextBoolean()) {
+            rowMiddleSpread(color)
+        } else {
+            rowMiddle(color)
+        }.forEach { it(c) }
 
-            m.stop()
-        }
-        Media.saveImage(this)
+        rowBottom(color).forEach { it(c) }
     }
+
+    gart.showImage(g)
+
 }
+

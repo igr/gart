@@ -1,5 +1,6 @@
 package dev.oblac.gart.skyscraper
 
+import dev.oblac.gart.Dimension
 import dev.oblac.gart.gfx.RectIsometricLeft
 import dev.oblac.gart.gfx.RectIsometricRight
 import dev.oblac.gart.gfx.RectIsometricTop
@@ -15,8 +16,7 @@ data class Colors(
 	val leftWindowsColor: Int,
 	val rightWindowsColor: Int)
 
-class Building(x: Float, y: Float, a: Float, b: Float, alpha: Float, private val colors: Colors) {
-    private val g = gart.g
+class Building(x: Float, y: Float, a: Float, b: Float, alpha: Float, private val colors: Colors, private val d: Dimension) {
 
     val roofRect: RectIsometricTop
 	val rightRect: RectIsometricRight
@@ -29,10 +29,10 @@ class Building(x: Float, y: Float, a: Float, b: Float, alpha: Float, private val
 
 	init {
 		roofRect = RectIsometricTop(x, y, a, b, alpha)
-		rightRect = RectIsometricRight(roofRect.bottom.x, roofRect.bottom.y, g.d.h - y + a + 40, b, alpha)
+        rightRect = RectIsometricRight(roofRect.bottom.x, roofRect.bottom.y, d.h - y + a + 40, b, alpha)
 
 		roof = roofRect.path()
-		leftSide = RectIsometricLeft(x, y, g.d.h - y, a, alpha).path()
+        leftSide = RectIsometricLeft(x, y, d.h - y, a, alpha).path()
 		rightSide = rightRect.path()
 
 		val useNarrowWindows = Random.nextInt(10) < 3
@@ -55,10 +55,10 @@ class Building(x: Float, y: Float, a: Float, b: Float, alpha: Float, private val
 		c.drawPath(rightSide, fillOf(colors.rightColor))
 
 		leftWindows {
-			g.canvas.drawPath(it.path(), fillOf(colors.leftWindowsColor))
+            c.drawPath(it.path(), fillOf(colors.leftWindowsColor))
 		}
 		rightWindows {
-			g.canvas.drawPath(it.path(), fillOf(colors.rightWindowsColor))
+            c.drawPath(it.path(), fillOf(colors.rightWindowsColor))
 		}
 
 //		g.canvas.drawPoint(roofRect.left.x, roofRect.left.y, strokeOfGreen(4f))

@@ -1,35 +1,36 @@
 package dev.oblac.gart.skyscraper
 
 import dev.oblac.gart.Gart
-import dev.oblac.gart.Media
+import dev.oblac.gart.toTime
 import kotlin.random.Random
 
 const val w = 1280
 const val h = 800
 const val windowSize = 10f
+val fps = 1
 
 val gart = Gart.of(
     "skyscraper",
     w, h,
-    1
 )
+
 
 typealias BuildingFunction = (x: Float, y: Float) -> Building
 
 fun towerBuilding(side: Float, clr: Colors): BuildingFunction = { x, y ->
-    Building(x, y, side, side, 20f, clr)
+    Building(x, y, side, side, 20f, clr, gart.d)
 }
 
 fun squareBuilding(side: Float, clr: Colors): BuildingFunction = { x, y ->
-    Building(x, y, side, side, 20f, clr)
+    Building(x, y, side, side, 20f, clr, gart.d)
 }
 
 fun largeBuilding(a: Float, ratio: Float, clr: Colors): BuildingFunction = { x, y ->
-    Building(x, y, a, a * ratio, 20f, clr)
+    Building(x, y, a, a * ratio, 20f, clr, gart.d)
 }
 
 fun largeBuildingOpposite(a: Float, ratio: Float, clr: Colors): BuildingFunction = { x, y ->
-    Building(x, y, a * ratio, a, 20f, clr)
+    Building(x, y, a * ratio, a, 20f, clr, gart.d)
 }
 
 fun nextFloatStep(value: Number, step: Int): Float {
@@ -117,35 +118,35 @@ fun rowBottom(clr: Colors): Array<Building> {
 }
 
 fun main() {
-    with(gart) {
-        println(name)
+    println(gart)
 
-        val endMarker = f.marker().atFrame(colors.size * 3) // repeat all colors 3 times
+    val endMarker = colors.size * 3L // repeat all colors 3 times
 
 //    towerBuilding(30f)(100f, 100f)(g.canvas)
 //    squareBuilding(80f)(100f, 100f)(g.canvas)
 
-        w.show()
-        m.record()
-        m.draw {
-            val color = colors[f.count.value.mod(colors.size)]
+    val w = gart.window(fps = fps)
+    val m = gart.movie()
 
-            rowTop(color).forEach { it(g.canvas) }
+    m.record(w).show { c, _, f ->
+        val color = colors[f.frame.toTime(f.frametime).inWholeSeconds.mod(colors.size)]
 
-            if (Random.nextBoolean()) {
-                rowMiddleSpread(color)
-            } else {
-                rowMiddle(color)
-            }.forEach { it(g.canvas) }
+        rowTop(color).forEach { it(c) }
 
-            rowBottom(color).forEach { it(g.canvas) }
+        if (Random.nextBoolean()) {
+            rowMiddleSpread(color)
+        } else {
+            rowMiddle(color)
+        }.forEach { it(c) }
 
-            when {
-                f isNow endMarker -> m.stopRecording()
-            }
+        rowBottom(color).forEach { it(c) }
+
+        f.onFrame(endMarker) {
+            m.stopRecording()
         }
 
-        Media.saveImage(this)
-        Media.saveVideo(this)
+        f.onFrame(1) {
+            gart.saveImage(c)
+        }
     }
 }
