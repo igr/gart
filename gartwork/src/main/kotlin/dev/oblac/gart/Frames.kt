@@ -46,6 +46,11 @@ interface Frames {
     val new: Boolean
 
     /**
+     * Calculates the time of the current frame, elapsed duration.
+     */
+    val time get() = frame.toTime(frametime)
+
+    /**
      * Called on each tick, with given FPS.
      */
     fun tick(callback: () -> Unit) {
