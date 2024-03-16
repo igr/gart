@@ -39,6 +39,30 @@ interface Frames {
      * It is called FPS times per second.
      */
     val new: Boolean
+
+    /**
+     * Called on each tick, with given FPS.
+     */
+    fun tick(callback: () -> Unit) {
+        if (new) {
+            callback()
+        }
+    }
+
+    /**
+     * Invokes the callback f the current frame is the target frame.
+     */
+    fun onFrame(targetFrame: Long, callback: () -> Unit) {
+        if (new && frame == targetFrame) {
+            callback()
+        }
+    }
+
+    fun onEveryFrame(targetFrame: Long, callback: () -> Unit) {
+        if (new && frame % targetFrame == 0L) {
+            callback()
+        }
+    }
 }
 
 /**
@@ -89,12 +113,12 @@ internal class FpsGuard(fps: Int, private val printFps: Boolean = false) {
         }
 
         if (printFps) {
-            print("fps: ${fpsCounterReal.average} / ${fpsCounterMax.average} ${activeTicker.str()} \r")
+            print("frame: ${frames.frame} • fps: ${fpsCounterReal.average} / ${fpsCounterMax.average} ${activeTicker.str()} \r")
         }
     }
 
     private class ActiveTicker {
-        private val chars = charArrayOf('|', '/', '-', '\\')
+        private val chars = charArrayOf('¦', '/', '—', '\\')
         private var index = 0
         fun str(): Char {
             val c = chars[index]
