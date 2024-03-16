@@ -12,6 +12,12 @@ class Movie(val d: Dimension, private val name: String, startRecording: Boolean 
     private val bitmap = gartvas.createBitmap()
 
     private var recording = startRecording
+    
+    init {
+        if (recording) {
+            println("Recording started")
+        }
+    }
 
     fun addFrame(gartvas: Gartvas) {
         if (!recording) return

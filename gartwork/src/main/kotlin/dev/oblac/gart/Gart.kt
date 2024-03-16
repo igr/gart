@@ -36,7 +36,7 @@ data class Gart(
     }
 
     override fun toString(): String {
-        return "gȧrt! $name"
+        return "gȧrt! • $name"
     }
 
     companion object {
