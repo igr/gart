@@ -6,7 +6,7 @@ import java.awt.event.WindowEvent
 import javax.swing.JFrame
 import javax.swing.SwingUtilities
 
-open class Window(val d: Dimension, val fps: Int = 60, private val printFps: Boolean = true) {
+open class Window(val d: Dimension, val fps: Int, internal val printFps: Boolean) {
 
     init {
         JFrame.setDefaultLookAndFeelDecorated(true)
@@ -23,7 +23,7 @@ open class Window(val d: Dimension, val fps: Int = 60, private val printFps: Boo
         frame.isResizable = false
         frame.isVisible = true
         val density = frame.graphicsConfiguration.defaultTransform.scaleX
-        println("Windows density: $density")
+        println("Window fps: $fps • density: $density")
         val d = Dimension((d.w / density).toInt(), (d.h / density).toInt())
 
         // skia
