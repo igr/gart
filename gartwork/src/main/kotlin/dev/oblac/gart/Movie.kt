@@ -26,10 +26,16 @@ class Movie(val d: Dimension, private val name: String, startRecording: Boolean 
     }
 
     fun startRecording() {
+        if (!recording) {
+            println("Recording started")
+        }
         recording = true
     }
 
     fun stopRecording() {
+        if (recording) {
+            println("Recording stopped")
+        }
         recording = false
     }
 
