@@ -1,9 +1,9 @@
 package dev.oblac.gart.palecircles
 
 import dev.oblac.gart.Gart
-import dev.oblac.gart.Media
 import dev.oblac.gart.gfx.*
 import dev.oblac.gart.math.rnd
+import dev.oblac.gart.skia.Canvas
 import org.jetbrains.skia.Rect
 import kotlin.time.Duration.Companion.seconds
 
@@ -23,45 +23,34 @@ val matrix: Array<Array<CircleSet>> = Array(numberOfCircles) { row ->
 }
 
 fun main() {
-    with(gart) {
+    println(gart)
 
-        println(name)
+    val w = gart.window()
 
-        w.show()
-        val endMarker = f.marker().atTime(10.seconds)
-        m.record()
-        m.draw {
-            draw()
-            if (f isNow endMarker) {
-                m.stop()
-            }
-        }
-
-        Media.saveImage(this)
-        Media.saveVideo(this)
+    w.show { c, _, _ ->
+        draw(c)
     }
 }
 
-fun draw() {
-    val g = gart.g
+fun draw(canvas: Canvas) {
     val d = gart.d
 
-    g.canvas.drawRect(Rect(0f, 0f, d.w.toFloat(), d.h.toFloat()), fillOfWhite())
+    canvas.drawRect(Rect(0f, 0f, d.w.toFloat(), d.h.toFloat()), fillOfWhite())
 
     // draw every tick
     var i = 0
     matrix.forEach { row ->
         row.forEach { circleSet ->
-            if (i++ % 2 == 0) drawCircleSet(circleSet)
+            if (i++ % 2 == 0) drawCircleSet(canvas, circleSet)
         }
     }
     i = 1
     matrix.forEach { row ->
         row.forEach { circleSet ->
-            if (i++ % 2 == 0) drawCircleSet(circleSet)
+            if (i++ % 2 == 0) drawCircleSet(canvas, circleSet)
         }
     }
-    g.canvas.drawRect(Rect(0f, 0f, d.w.toFloat(), d.h.toFloat()), strokeOf(0xFF1A1A1A, 50f))
+    canvas.drawRect(Rect(0f, 0f, d.w.toFloat(), d.h.toFloat()), strokeOf(0xFF1A1A1A, 50f))
 
     // increase off
     matrix.forEach { row ->
@@ -80,16 +69,15 @@ fun draw() {
 
 }
 
-fun drawCircleSet(circleSet: CircleSet) {
-    val g = gart.g
+fun drawCircleSet(canvas: Canvas, circleSet: CircleSet) {
     circleSet.circles.reversed().forEach { circle ->
-        g.canvas.drawCircle(
+        canvas.drawCircle(
             circleSet.x + circle.x.toFloat(),
             circleSet.y + circle.y.toFloat(),
             circle.rOff(), fillOf(alpha(circle.color, 0x55))
         )
 
-        g.canvas.drawCircle(
+        canvas.drawCircle(
             circleSet.x + circle.x.toFloat(),
             circleSet.y + circle.y.toFloat(),
             circle.rOff(), strokeOfBlack(0.5f)
