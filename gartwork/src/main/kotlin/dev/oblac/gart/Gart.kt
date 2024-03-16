@@ -35,6 +35,10 @@ data class Gart(
         }
     }
 
+    override fun toString(): String {
+        return "gȧrt! $name"
+    }
+
     companion object {
         fun of(name: String, width: Int, height: Int) = Gart(name, Dimension(width, height))
     }
