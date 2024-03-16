@@ -4,47 +4,33 @@ import dev.oblac.gart.gfx.Palettes
 import dev.oblac.gart.gfx.alpha
 import dev.oblac.gart.gfx.fillOf
 import dev.oblac.gart.gfx.strokeOf
-import org.jetbrains.skia.Canvas
-import org.jetbrains.skia.Rect
+import dev.oblac.gart.skia.Canvas
+import dev.oblac.gart.skia.Rect
 import kotlin.math.PI
 import kotlin.math.pow
 import kotlin.math.sin
-import kotlin.time.Duration.Companion.seconds
 
 val gart = Gart.of(
     "lissajous", 800, 800,
     30
 )
 val d = gart.d
-val g = gart.g
 
 
 fun main() {
-    with(gart) {
-
-        println(name)
-        w.show()
-
-        val end = f.marker().atTime(12.seconds)
-        m.record()
-        m.draw {
-            draw()
-            if (f after end) {
-                m.stop()
-            }
-        }
-
-        Media.saveImage(this)
-        Media.saveVideo(this)
+    println(gart)
+    val w = gart.window()
+    w.show { c, _, _ ->
+        draw(c)
     }
 }
 
 
-fun draw() {
-    g.canvas.drawRect(Rect(0f, 0f, d.wf, d.hf), fillOf(0xFF121212))
+fun draw(canvas: Canvas) {
+    canvas.drawRect(Rect(0f, 0f, d.wf, d.hf), fillOf(0xFF121212))
 
     // draw every tick
-    drawLissajous(g.canvas, d.cx, d.cy, d.wf - 40, d.hf - 40)
+    drawLissajous(canvas, d.cx, d.cy, d.wf - 40, d.hf - 40)
 
     //g.canvas.drawRect(Rect(0f, 0f, d.w.toFloat(), d.h.toFloat()), strokeOfWhite(40f))
 }
