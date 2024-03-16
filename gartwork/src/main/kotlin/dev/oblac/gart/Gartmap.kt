@@ -10,7 +10,7 @@ class Gartmap(private val g: Gartvas) : Pixels {
     override val d = g.d
 
     override var pixelBytes: PixelBytes
-    private val bitmap = g.createBitmap()
+    val bitmap = g.createBitmap()
 
     init {
         this.pixelBytes = PixelBytes(byteArrayOf(), 0)  // initial state

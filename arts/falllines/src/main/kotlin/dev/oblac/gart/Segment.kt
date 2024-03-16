@@ -3,6 +3,7 @@ package dev.oblac.gart
 import dev.oblac.gart.gfx.argb
 import dev.oblac.gart.gfx.strokeOf
 import dev.oblac.gart.math.GaussianFunction
+import dev.oblac.gart.skia.Canvas
 import kotlin.math.abs
 
 data class Segment(val w: Int, val color: Int, val drawOrder: Int) {
@@ -54,12 +55,12 @@ data class Segment(val w: Int, val color: Int, val drawOrder: Int) {
         inMotion = false
     }
 
-    fun draw() {
-        g.canvas.drawLine(
+    fun draw(canvas: Canvas) {
+        canvas.drawLine(
             x + w, g.d.bf - 1,
             x + w + 4, g.d.bf - 1,
             strokeShadow)
-        g.canvas.drawLine(
+        canvas.drawLine(
             x, g.d.bf - 1,
             x + w, g.d.bf - 1,
 	        stroke)
