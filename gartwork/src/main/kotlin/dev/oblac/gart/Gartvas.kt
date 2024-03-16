@@ -14,7 +14,7 @@ class Gartvas(val d: Dimension) {
     /**
      * Canvas.
      */
-    private val canvas = surface.canvas
+    val canvas = surface.canvas
 
     /**
      * Makes a snapshot Image of a canvas

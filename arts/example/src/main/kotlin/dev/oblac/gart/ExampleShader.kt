@@ -5,12 +5,11 @@ import dev.oblac.gart.shader.createNeuroShader
 import dev.oblac.gart.shader.toPaint
 
 fun main() {
-    val gart = Gart("ExampleShader")
+    val gart = Gart.of("ExampleShader", 400, 400)
     println(gart.name)
 
-    val d = gart.dimension(400, 400)
-    val w = gart.window(d, 60)
-    val m = gart.movie(d)
+    val w = gart.window(fps = 60)
+    val m = gart.movie()
 
     var tick = 0f
 
