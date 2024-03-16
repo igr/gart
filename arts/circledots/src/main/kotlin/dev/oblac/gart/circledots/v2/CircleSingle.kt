@@ -1,48 +1,50 @@
 package dev.oblac.gart.circledots.v2
 
 import dev.oblac.gart.Gart
-import dev.oblac.gart.Media
 import dev.oblac.gart.circledots.Context
-import dev.oblac.gart.gfx.Colors
+import dev.oblac.gart.gfx.fillOfBlack
 import kotlin.math.PI
 import kotlin.math.cos
 import kotlin.math.sin
 
 private val gart = Gart.of(
     "CircleDots2",
-    640, 640,
-    50
+    640, 640
 )
-private val ctx = Context(gart.g)
+private val g = gart.gartvas()
+private val ctx = Context(g)
 
 fun main() {
-    with(gart) {
+    println(gart.name)
 
-        println(name)
+    val w = gart.window(fps = 50)
+    val m = gart.movie()
 
-        var tick = 0
+    var tick = 0
 
-        val ccs = createAnimation(320, 320, 220)
+    val ccs = createAnimation(320, 320, 220)
 
-        w.show()
-        m.draw {
+    m.record(w, recording = false).show { c, d, f ->
+        f.tick {
             tick++
-            if (tick > 440) {
-                m.record()
-            }
-            g.fill(Colors.black)
-            for (cc in ccs) {
-                cc.draw()
-            }
-            if (tick == 2000) {
-                m.stop()
-                return@draw
+            if (tick == 440) {
+                m.startRecording()
             }
         }
-        Media.saveImage(this, "circledots2.png")
-        Media.saveVideo(this, "circledots2.mp4")
-    }
 
+        c.drawPaint(fillOfBlack())
+        for (cc in ccs) {
+            cc.draw(c)
+        }
+
+        if (tick == 2000) {
+            m.stopRecording()
+        }
+
+        f.onFrame(1) {
+            gart.saveImage(c, d, "circledots2.png")
+        }
+    }
 }
 
 private fun createAnimation(x: Int, y: Int, count: Int): Array<Circle2Anim> {
@@ -57,7 +59,7 @@ private fun createAnimation(x: Int, y: Int, count: Int): Array<Circle2Anim> {
             y = (y + 200 * sin(angle)).toFloat(),
             r = 80f,
             deg = it * PI.toFloat() * 2,
-            speed = 4f,
+            speed = 0.4f,
             it * 2
         )
     }
