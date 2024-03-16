@@ -1,26 +1,54 @@
 package dev.oblac.gart
 
+import dev.oblac.gart.skia.Bitmap
+import dev.oblac.gart.skia.Image
+
 /**
- * Canvas pixels, i.e., a bitmap.
- * Pixels do not have a transparency (!) as there is no background to be transparent to.
+ * In-memory bitmap.
  */
-class Gartmap(private val g: Gartvas) : Pixels(g.d) {
+class Gartmap(private val g: Gartvas) : Pixels {
+    override val d = g.d
+
+    override var pixelBytes: PixelBytes
+    private val bitmap = g.createBitmap()
+
     init {
-        update()
+        this.pixelBytes = PixelBytes(byteArrayOf(), 0)  // initial state
+        updatePixelsFromCanvas()
     }
 
-    override fun update() {
+    /**
+     * Updates the bitmap from the canvas.
+     * CANVAS -> BITMAP -> PIXELBYTES
+     */
+    fun updatePixelsFromCanvas() {
         g.surface.readPixels(bitmap, 0, 0)
-        super.update()
+        this.pixelBytes = PixelBytes(bitmap.peekPixels()!!.buffer.bytes, d.w)
     }
 
     /**
      * Draws bitmap to the canvas.
-     * BITMAP -> CANVAS
+     * PIXELBYTES -> BITMAP -> CANVAS
      */
-    fun draw() {
-        g.draw(apply)
+    fun drawToCanvas() {
+        g.surface.writePixels(updateBitmapFromPixels(), 0, 0)
     }
 
-    private val apply = Draw { c, _ -> c.drawImage(image(), 0f, 0f) }
+    /**
+     * Returns an updated bitmap.
+     * PIXELBYTES -> BITMAP
+     */
+    private fun updateBitmapFromPixels(): Bitmap {
+        this.bitmap.installPixels(this.pixelBytes.bytes)
+        return this.bitmap
+    }
+
+    /**
+     * Creates an Image from the current bitmap.
+     * PIXELBYTES -> BITMAP -> IMAGE
+     */
+    fun image(): Image {
+        return Image.makeFromBitmap(updateBitmapFromPixels().setImmutable())
+    }
 }
+

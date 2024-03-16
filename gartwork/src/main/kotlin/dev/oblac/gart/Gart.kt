@@ -24,4 +24,10 @@ data class Gart(
 
     fun saveMovie(movie: Movie, fps: Int, name: String = "${this.name}.mp4") = saveMovieToFile(movie, fps, name)
 
+    fun showImage(gartvas: Gartvas) {
+        window(gartvas.d).show { c, _, _ ->
+            c.drawImage(gartvas.snapshot(), 0f, 0f)
+        }
+    }
+
 }
