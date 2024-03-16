@@ -10,7 +10,14 @@ data class Gart(
      * The name of the Gart.
      */
     val name: String,
+    /**
+     * The default dimension of the Gart.
+     */
     val d: Dimension,
+    /**
+     * The default frames per second of the Gart.
+     */
+    val fps: Int,
 ) {
 
     fun gartvas(dimension: Dimension = this.d) = Gartvas(dimension)
@@ -19,7 +26,7 @@ data class Gart(
 
     fun dimension(width: Int, height: Int) = Dimension(width, height)
 
-    fun window(d: Dimension = this.d, fps: Int = 60, printFps: Boolean = true) = Window(d, fps, printFps)
+    fun window(d: Dimension = this.d, fps: Int = this.fps, printFps: Boolean = true) = Window(d, fps, printFps)
 
     fun movie(d: Dimension = this.d, name: String = "${this.name}.mp4") = Movie(d, name)
 
@@ -27,7 +34,7 @@ data class Gart(
 
     fun saveImage(canvas: Canvas, d: Dimension = this.d, name: String = "${this.name}.png") = saveImageToFile(canvas, d, name)
 
-    fun saveMovie(movie: Movie, fps: Int, name: String = "${this.name}.mp4") = saveMovieToFile(movie, fps, name)
+    fun saveMovie(movie: Movie, fps: Int = this.fps, name: String = "${this.name}.mp4") = saveMovieToFile(movie, fps, name)
 
     fun showImage(gartvas: Gartvas) {
         window(gartvas.d).show { c, _, _ ->
@@ -40,6 +47,6 @@ data class Gart(
     }
 
     companion object {
-        fun of(name: String, width: Int, height: Int) = Gart(name, Dimension(width, height))
+        fun of(name: String, width: Int, height: Int, fps: Int = 60) = Gart(name, Dimension(width, height), fps)
     }
 }
