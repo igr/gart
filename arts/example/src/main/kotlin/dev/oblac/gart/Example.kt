@@ -8,8 +8,8 @@ import dev.oblac.gart.skia.Rect
 
 @OptIn(ExperimentalStdlibApi::class)
 fun main() {
-    val gart = Gart("example")
-    println(gart.name)
+    val gart = Gart.of("example", 162, 100)
+    println(gart)
 
     // second canvas
 

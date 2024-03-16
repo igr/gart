@@ -30,6 +30,11 @@ interface Frames {
     val fps: Int
 
     /**
+     * Time of the current frame in nanoseconds.
+     */
+    val frametime: Long
+
+    /**
      * Current frame, i.e. total number of elapsed frames.
      */
     val frame: Long
@@ -69,6 +74,7 @@ interface Frames {
  * Simple frames counter for manually controlled movies.
  */
 internal class FrameCounter(override val fps: Int) : Frames {
+    override val frametime = 1000000000L / fps   // frame time in nanoseconds
     private var totalFrames: Long = 0
     override val frame get() = totalFrames
     private var drawNew: Boolean = false
@@ -91,7 +97,6 @@ internal class FrameCounter(override val fps: Int) : Frames {
  * Frames drawing FPS guard
  */
 internal class FpsGuard(fps: Int, private val printFps: Boolean = false) {
-    private val frametime = 1000000000L / fps   // frame time in nanoseconds
     private val framesCounter = FrameCounter(fps)
     val frames get() = framesCounter
 
@@ -104,7 +109,7 @@ internal class FpsGuard(fps: Int, private val printFps: Boolean = false) {
     fun withFps(now: Long) {
         fpsCounterMax.tick()
 
-        if (now - last > frametime) {
+        if (now - last > framesCounter.frametime) {
             fpsCounterReal.tick()
             framesCounter.tick()
             last = now
