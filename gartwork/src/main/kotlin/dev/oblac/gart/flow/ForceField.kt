@@ -42,10 +42,13 @@ class ForceField<T : Force<T>>(val w: Int, val h: Int, private val field: Array<
             val f = this[x, y]
             val xf = x.toFloat()
             val yf = y.toFloat()
-            g.canvas.drawPoint(xf, yf, strokeOfRed(2.1f))
             val dx = sin(f.direction) * f.magnitude * gap
             val dy = -cos(f.direction) * f.magnitude * gap
-            g.canvas.drawLine(xf, yf, x + dx, y + dy, strokeOfBlue(1f))
+            g.draw { c, _ ->
+                c.drawPoint(xf, yf, strokeOfRed(2.1f))
+                c.drawLine(xf, yf, x + dx, y + dy, strokeOfBlue(1f))
+            }
+
         }
     }
 

@@ -13,11 +13,14 @@ class Gartmap(private val g: Gartvas) : Pixels(g.d) {
         g.surface.readPixels(bitmap, 0, 0)
         super.update()
     }
+
     /**
      * Draws bitmap to the canvas.
      * BITMAP -> CANVAS
      */
     fun draw() {
-        g.canvas.drawImage(image(), 0f, 0f)
+        g.draw(apply)
     }
+
+    private val apply = Draw { c, _ -> c.drawImage(image(), 0f, 0f) }
 }

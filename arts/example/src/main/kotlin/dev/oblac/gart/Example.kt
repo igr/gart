@@ -7,32 +7,34 @@ import dev.oblac.gart.noise.HaltonSequenceGenerator
 import dev.oblac.gart.skia.Rect
 
 fun main() {
-    val gart = Gart.of(
-        "Example",
-        162, 100
-    )
+    val gart = Gart("Example")
     println("Example")
-
-    // use canvas
-    val g = gart.g
-    val d = gart.d
-
-    g.canvas.drawRect(Rect(0f, 0f, d.wf, d.hf), fillOf(0xFF174185))
-    g.canvas.drawCircle(d.w / 2f, d.h / 2f, 30f, fillOfRed())
 
     // second canvas
 
-    val d2 = Dimension(10, 10)
-    val g2 = Gartvas(d2)
-    g2.canvas.drawCircle(5f, 5f, 5f, fillOf(Colors.coral))
+    val d2 = gart.dimension(10, 10)
+    val g2 = gart.gartvas(d2)
 
-    g.draw(g2, 30f, 30f)
-    g.draw(g2, 50f, 95f)
+    g2.draw { c, _ ->
+        c.drawCircle(5f, 5f, 5f, fillOf(Colors.coral))
+    }
+    val snapshot2 = g2.snapshot()
 
-    // get bitmap
+    // main canvas
 
-    val b = gart.b
+    val d1 = gart.dimension(162, 100)
+    val g1 = gart.gartvas(d1)
 
+    g1.draw { c, d ->
+        c.drawRect(Rect(0f, 0f, d.wf, d.hf), fillOf(0xFF174185))
+        c.drawCircle(d.w / 2f, d.h / 2f, 30f, fillOfRed())
+        c.drawImage(snapshot2, 30f, 30f)
+        c.drawImage(snapshot2, 50f, 50f)
+    }
+
+    // bitmap
+
+    val b = gart.gartmap(g1)
     b.forEach { x, y, v ->
         if (v == 0xFFFF0000.toInt()) {  // red detected
             if ((x + y).mod(2) == 0) {
@@ -41,19 +43,20 @@ fun main() {
         }
     }
 
-    // add noise
+    // add bitmap noise
+
     val halton = HaltonSequenceGenerator(2)
     for (i in 1 until 1000) {
         halton.get().toList().zipWithNext().forEach {
             val (x, y) = it
-            val x1 = (x * d.w).toInt()
-            val y1 = (y * d.h).toInt()
+            val x1 = (x * b.d.w).toInt()
+            val y1 = (y * b.d.h).toInt()
             b[x1, y1] = Colors.black
         }
     }
 
     // draw a line and a dot
-    for (x in 0 until d.w) {
+    for (x in 0 until b.d.w) {
         b[x, 0] = 0xFFFF0044
     }
     b[0, 0] = 0xFF00FF00
@@ -61,10 +64,10 @@ fun main() {
     // draw back
     b.draw()
 
-    Media.saveImage(gart)
+    // THE END, save
+
+    gart.saveImage(g1)
 
     // show image
-    with(gart) {
-        w.show()
-    }
+    //gart.window()
 }

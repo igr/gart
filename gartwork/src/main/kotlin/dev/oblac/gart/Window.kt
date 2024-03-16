@@ -1,13 +1,12 @@
 package dev.oblac.gart
 
-import dev.oblac.gart.skia.*
 import java.awt.Toolkit
 import java.awt.event.WindowAdapter
 import java.awt.event.WindowEvent
 import javax.swing.JFrame
 import javax.swing.SwingUtilities
 
-class Window(private val movie: Movie) {
+open class Window(val d: Dimension, val fps: Int = 60, private val printFps: Boolean = true) {
 
     init {
         JFrame.setDefaultLookAndFeelDecorated(true)
@@ -15,74 +14,37 @@ class Window(private val movie: Movie) {
     }
 
     /**
-     * Shows the windows and starts the movie.
+     * Shows the windows.
      */
-    fun show() = SwingUtilities.invokeLater {
-        val g = movie.g
-
+    open fun show(drawFrame: DrawFrame) = SwingUtilities.invokeLater {
         val frame = JFrame()
         frame.title = "gȧrt!"
         frame.defaultCloseOperation = JFrame.DISPOSE_ON_CLOSE
         frame.isResizable = false
         frame.isVisible = true
+        val density = frame.graphicsConfiguration.defaultTransform.scaleX
+        println("Windows density: $density")
+        val d = Dimension((d.w / density).toInt(), (d.h / density).toInt())
 
         // skia
-        val skiaLayer = SkiaLayer()
-        val view = GartView(g, false)
-        skiaLayer.addView(GenericSkikoView(skiaLayer, view))
-        skiaLayer.attachTo(frame.contentPane)
+        val view = GartView(d, drawFrame, fps, printFps)
+        view.attachTo(frame)
 
-        // animation
-        movie.onPaint {
-            view.update(it)
-            //SwingUtilities.invokeLater { skiaLayer.needRedraw() }
-        }
         frame.addWindowListener(object : WindowAdapter() {
             override fun windowClosing(windowEvent: WindowEvent) {
-                movie.stop()
+                onClose()
             }
         })
 
         // frame sizing
-        frame.preferredSize = java.awt.Dimension(g.d.w, g.d.h + frame.insets.top)   // add title bar height
-        skiaLayer.needRedraw()
+        frame.preferredSize = java.awt.Dimension(d.w, d.h + frame.insets.top)   // add title bar height
+        view.repaint()
         frame.pack()
 
         // windows positioning
         val screenSize = Toolkit.getDefaultToolkit().screenSize
-        frame.setLocation((screenSize.width - g.d.w) / 2, (screenSize.height - g.d.h) / 2)
-    }
-}
-
-internal class GartView(g: Gartvas, private val printFps: Boolean) : SkikoView {
-
-    private var lastBufferedImage = g.snapshot()
-    private val fpsCounter = FPSCounter()
-    private val movieTicker = MovieTicker()
-
-    override fun onRender(canvas: Canvas, width: Int, height: Int, nanoTime: Long) {
-        canvas.drawImage(lastBufferedImage, 0f, 0f)
-        if (printFps) {
-            fpsCounter.tick()
-            print("fps = ${fpsCounter.average} ${movieTicker.str()}\r")
-        }
+        frame.setLocation((screenSize.width - d.w) / 2, (screenSize.height - d.h) / 2)
     }
 
-    /**
-     * Updates image to be drawn.
-     */
-    fun update(image: Image) {
-        lastBufferedImage = image
-        //skiaLayer.needRedraw()
-    }
-}
-
-private class MovieTicker {
-    private val chars = charArrayOf('|', '/', '-', '\\')
-    private var index = 0
-    fun str(): Char {
-        val c = chars[index]
-        index = (index + 1) % chars.size
-        return c
-    }
+    protected open fun onClose() = println("Window closing")
 }
