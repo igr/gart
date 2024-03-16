@@ -1,85 +1,106 @@
 package dev.oblac.gart
 
-import kotlin.time.Duration
-import kotlin.time.Duration.Companion.milliseconds
-import kotlin.time.DurationUnit
+import dev.oblac.gart.skia.FPSCounter
 
-data class FramesCount(val value: Long) {
-    fun time(fps: Int) = (value * 1000 / fps).milliseconds
-
-    operator fun compareTo(frameValue: FramesCount): Int {
-        return value.compareTo(frameValue.value)
-    }
-
-    fun mod(frameValue: FramesCount): Boolean {
-        return value % frameValue.value == 0L
-    }
-
-    operator fun plus(fc: FramesCount): FramesCount = FramesCount(value + fc.value)
-    operator fun plus(i: Int): FramesCount = FramesCount(value + i)
-
-    companion object {
-        val ZERO = FramesCount(0)
-        fun of(time: Duration, fps: Int) = FramesCount(time.inWholeMilliseconds * fps / 1000)
-        fun of(number: Number) = FramesCount(number.toLong())
-    }
-}
+//data class FramesCount(val value: Long) {
+//    fun time(fps: Int) = (value * 1000 / fps).milliseconds
+//
+//    operator fun compareTo(frameValue: FramesCount): Int {
+//        return value.compareTo(frameValue.value)
+//    }
+//
+//    fun mod(frameValue: FramesCount): Boolean {
+//        return value % frameValue.value == 0L
+//    }
+//
+//    operator fun plus(fc: FramesCount): FramesCount = FramesCount(value + fc.value)
+//    operator fun plus(i: Int): FramesCount = FramesCount(value + i)
+//
+//    companion object {
+//        val ZERO = FramesCount(0)
+//        fun of(time: Duration, fps: Int) = FramesCount(time.inWholeMilliseconds * fps / 1000)
+//        fun of(number: Number) = FramesCount(number.toLong())
+//    }
+//}
 
 interface Frames {
     /**
-     * Framerate in frames per second.
+     * Frame rate i.e. Frames per second.
      */
     val fps: Int
 
     /**
-     * Elapsed time.
+     * Current frame, i.e. total number of elapsed frames.
      */
-    val time: Duration
+    val frame: Long
 
     /**
-     * Elapsed number of frames.
+     * Returns true if the new frame is drawn.
+     * It is called FPS times per second.
      */
-    val count: FramesCount
-
-    /**
-     * Duration of a single frame.
-     */
-    val frameDuration: Duration
-
-    /**
-     * Starts marker creation.
-     */
-    fun marker() = FrameMarkerBuilder(this)
-    infix fun after(marker: FrameMarker): Boolean = after(count, marker)
-    infix fun before(marker: FrameMarker): Boolean = before(count, marker)
-    infix fun isNow(marker: FrameMarker): Boolean = isNow(count, marker)
-
+    val new: Boolean
 }
 
-class FramesCounter(override val fps: Int) : Frames {
+/**
+ * Simple frames counter for manually controlled movies.
+ */
+internal class FrameCounter(override val fps: Int) : Frames {
+    private var totalFrames: Long = 0
+    override val frame get() = totalFrames
+    private var drawNew: Boolean = false
+    override val new get() = drawNew
 
-    private val singleFrameDuration = 1000.milliseconds / fps
-    private var total: FramesCount = FramesCount.ZERO
-    private var elapsed: Duration = 0.milliseconds
     /**
      * Increments frame counter.
      */
-    fun tick(): FramesCounter {
-        total += 1
-        elapsed = total.time(fps)
-        return this
+    fun tick() {
+        totalFrames += 1
+        drawNew = true
     }
 
-    override val count: FramesCount
-        get() = total
-
-    override val time: Duration
-        get() = elapsed
-
-    override val frameDuration: Duration
-        get() = singleFrameDuration
-
-    override fun toString(): String {
-        return "Count: $total. Time: ${time.toString(DurationUnit.SECONDS, 2)}."
+    fun tock() {
+        drawNew = false
     }
+}
+
+/**
+ * Frames drawing FPS guard
+ */
+internal class FpsGuard(fps: Int, private val printFps: Boolean = false) {
+    private val frametime = 1000000000L / fps   // frame time in nanoseconds
+    private val framesCounter = FrameCounter(fps)
+    val frames get() = framesCounter
+
+    private var last = System.nanoTime()
+
+    private val fpsCounterMax = FPSCounter()
+    private val fpsCounterReal = FPSCounter()
+    private val activeTicker = ActiveTicker()
+
+    fun withFps(now: Long) {
+        fpsCounterMax.tick()
+
+        if (now - last > frametime) {
+            fpsCounterReal.tick()
+            framesCounter.tick()
+            last = now
+        } else {
+            framesCounter.tock()
+        }
+
+        if (printFps) {
+            print("fps: ${fpsCounterReal.average} / ${fpsCounterMax.average} ${activeTicker.str()} \r")
+        }
+    }
+
+    private class ActiveTicker {
+        private val chars = charArrayOf('|', '/', '-', '\\')
+        private var index = 0
+        fun str(): Char {
+            val c = chars[index]
+            index = (index + 1) % chars.size
+            return c
+        }
+    }
+
 }

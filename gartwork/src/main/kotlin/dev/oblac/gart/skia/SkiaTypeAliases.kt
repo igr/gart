@@ -46,4 +46,5 @@ typealias Typeface = org.jetbrains.skia.Typeface
 typealias GenericSkikoView = org.jetbrains.skiko.GenericSkikoView
 typealias SkikoView = org.jetbrains.skiko.SkikoView
 typealias SkiaLayer = org.jetbrains.skiko.SkiaLayer
+typealias SkiaSwingLayer = org.jetbrains.skiko.swing.SkiaSwingLayer
 typealias FPSCounter = org.jetbrains.skiko.FPSCounter

@@ -37,7 +37,7 @@ private class PixelBytes(
  * In-memory bitmap.
  */
 open class Pixels(val d: Dimension) {
-    protected val bitmap = Bitmap()
+    val bitmap = Bitmap()
     private var pixelBytes: PixelBytes
 
     init {
