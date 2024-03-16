@@ -1,7 +1,7 @@
 package dev.oblac.gart.kaleiircle
 
 import dev.oblac.gart.Dimension
-import dev.oblac.gart.Drawable
+import dev.oblac.gart.Draw
 import dev.oblac.gart.gfx.Colors
 import dev.oblac.gart.gfx.fillOf
 import dev.oblac.gart.math.cosDeg
@@ -12,7 +12,7 @@ import dev.oblac.gart.skia.Path
 import dev.oblac.gart.skia.Rect
 
 class MakeShapeOfCircle(private val d: Dimension) {
-    operator fun invoke(circle: DHCircle): Drawable {
+    operator fun invoke(circle: DHCircle): Draw {
         val alfa = circle.innerAngle / 2
 
         val cx = d.w / 2f
@@ -93,7 +93,7 @@ class MakeShapeOfCircle(private val d: Dimension) {
         val drawCircle = circle.type == DHType.CIRCLE || circle.type == DHType.FULL
         val drawTriangle = circle.type == DHType.TRIANGLE || circle.type == DHType.FULL
 
-        return Drawable { canvas ->
+        return Draw { canvas, _ ->
             if (drawCircle) {
                 canvas.drawPath(arc1, arc1Color)
                 canvas.drawPath(arc2, arc2Color)
@@ -107,11 +107,11 @@ class MakeShapeOfCircle(private val d: Dimension) {
             if (drawCircle) {
                 canvas.save()
                 canvas.clipPath(arc1, ClipMode.INTERSECT)
-                waves(canvas)
+                waves(canvas, d)
                 canvas.restore()
                 canvas.save()
                 canvas.clipPath(arc2, ClipMode.INTERSECT)
-                waves(canvas)
+                waves(canvas, d)
                 canvas.restore()
             }
         }
