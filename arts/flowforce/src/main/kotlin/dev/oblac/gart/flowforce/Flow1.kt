@@ -1,23 +1,17 @@
 package dev.oblac.gart.flowforce
 
-import dev.oblac.gart.Media
 import dev.oblac.gart.flow.ForceField
 import dev.oblac.gart.flow.SpiralVecForce
-import dev.oblac.gart.gfx.Colors
-import dev.oblac.gart.gfx.alpha
-import dev.oblac.gart.gfx.fillOfBlack
-import dev.oblac.gart.gfx.strokeOf
-import dev.oblac.gart.isInside
+import dev.oblac.gart.gfx.*
 import dev.oblac.gart.math.RotationDirection
 import dev.oblac.gart.math.nextFloat
-import org.jetbrains.skia.Point
+import dev.oblac.gart.skia.Point
+import dev.oblac.gart.toFrames
 import kotlin.time.Duration.Companion.seconds
 
 fun one(name: String) {
     val d = gart.d
-    val g = gart.g
-    val f = gart.f
-    val a = gart.m
+    val g = gart.gartvas()
 
     println(name)
 
@@ -47,29 +41,29 @@ fun one(name: String) {
         Point(nextFloat(d.wf), nextFloat(d.hf))
     }.toList()
 
-    g.fill(Colors.white)
+    g.canvas.drawPaint(fillOfWhite())
     g.canvas.drawCircle(spiralVec1.cx, spiralVec1.cy, 30f, fillOfBlack())
 
     // paint
 
-    val marker = f.marker().atTime(10.seconds)
+    val stopDrawing = 15.seconds.toFrames(gart.fps)
 
-    a.draw {
-        if (f before marker) {
-            a.stop()
-            return@draw
-        }
-//        flowField.drawField(g)
-        randomPoints = randomPoints
-            .filter { it.isInside(d) }
-            .map { p ->
-                with(p) {
-                    flowField[x.toInt(), y.toInt()].offset(this)
-                }.also {
-                    g.canvas.drawLine(p.x, p.y, it.x, it.y, strokeOf(Colors.black.alpha(0x28), 1f))
+    val w = gart.window()
+    var image = g.snapshot()
+    w.show { c, _, f ->
+        f.onBeforeFrame(stopDrawing) {
+//            flowField.drawField(g)
+            randomPoints = randomPoints
+                .filter { it.isInside(d) }
+                .map { p ->
+                    with(p) {
+                        flowField[x.toInt(), y.toInt()].offset(this)
+                    }.also {
+                        g.canvas.drawLine(p.x, p.y, it.x, it.y, strokeOf(Colors.black.alpha(0x28), 1f))
+                    }
                 }
-            }
+            image = g.snapshot()
+        }
+        c.drawImage(image, 0f, 0f)
     }
-
-    Media.saveImage(gart)
 }
