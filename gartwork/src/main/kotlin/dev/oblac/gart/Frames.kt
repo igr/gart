@@ -68,6 +68,18 @@ interface Frames {
         }
     }
 
+    fun onBeforeFrame(targetFrame: Long, callback: () -> Unit) {
+        if (new && frame < targetFrame) {
+            callback()
+        }
+    }
+
+    fun onAfterFrame(targetFrame: Long, callback: () -> Unit) {
+        if (new && frame > targetFrame) {
+            callback()
+        }
+    }
+
     fun onEveryFrame(targetFrame: Long, callback: () -> Unit) {
         if (new && frame % targetFrame == 0L) {
             callback()

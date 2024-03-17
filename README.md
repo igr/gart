@@ -5,6 +5,9 @@ gënérative ȧrt made by pragmatic [micro-framework](gartwork/README.md) and �
 follow: [🎇 Instagram](https://www.instagram.com/gart_173) |
 [🎥 YouTube gallery](https://www.youtube.com/watch?v=wbcpgElKq7E&list=PLKevVk1K8oXF_GrdsGHjeOuuSkpZXq5ps)
 
+⚠️ As the library grows, it changes. Some code probably needs to be updated. I don't have time to maintain everything.
+🤷‍♂️
+
 ## 🍭 gȧlléry
 
 ⭐️ [Zen. Plasma. Watter.](arts/plasma/README.md) [🎬](https://youtu.be/wbcpgElKq7E)
