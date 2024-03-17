@@ -1,12 +1,8 @@
 package dev.oblac.gart.rects
 
 import dev.oblac.gart.Gart
-import dev.oblac.gart.Media
 import dev.oblac.gart.gfx.*
-import dev.oblac.gart.skia.BlendMode
-import dev.oblac.gart.skia.Paint
-import dev.oblac.gart.skia.Path
-import dev.oblac.gart.skia.Point
+import dev.oblac.gart.skia.*
 import java.util.stream.IntStream.range
 
 val gart = Gart.of(
@@ -15,34 +11,27 @@ val gart = Gart.of(
 )
 
 fun main() {
-    with(gart) {
-        println(name)
-        w.show()
-        m.draw {
-            g.canvas.clear(Colors.blackColor.toColor())
+    println(gart)
+    val g = gart.gartvas()
+    g.canvas.clear(Colors.blackColor.toColor())
 
-            val totalX = 26
-            val deltaX = g.rect.width / (totalX - 2)
-            val totalY = 12
-            val deltaY = g.rect.height / (totalY - 2)
+    val totalX = 26
+    val deltaX = gart.d.rect.width / (totalX - 2)
+    val totalY = 12
+    val deltaY = gart.d.rect.height / (totalY - 2)
 
-            range(0, totalX).forEach {x ->
-                range(0, totalY).forEach { y ->
+    range(0, totalX).forEach { x ->
+        range(0, totalY).forEach { y ->
 //                    val p = fillOf(Palettes.cool1.random().alpha(128)).apply { blendMode = BlendMode.SCREEN }
-                    val p = fillOf(Palettes.cool1.safe((x / 2.5).toInt()).alpha(128))
-                        .apply { blendMode = BlendMode.SCREEN }
-                    drawRandomRect(Point(x * deltaX + rnd(20f), y * deltaY + rnd(20f)), 50f, p)
-                }
-            }
+            val p = fillOf(Palettes.cool1.safe((x / 2.5).toInt()).alpha(128))
+                .apply { blendMode = BlendMode.SCREEN }
+            drawRandomRect(g.canvas, Point(x * deltaX + rnd(20f), y * deltaY + rnd(20f)), 50f, p)
         }
-
-        Media.saveImage(this)
     }
+    gart.showImage(g)
 }
 
-private fun drawRandomRect(point: Point, r: Float, p: Paint) {
-    val canvas = gart.g.canvas
-
+private fun drawRandomRect(canvas: Canvas, point: Point, r: Float, p: Paint) {
     val rect = pathOf(
         Point(point.x - r + rnd(10f), point.y - r + rnd(10f)),
         Point(point.x + r + rnd(10f), point.y - r + rnd(10f)),
@@ -53,7 +42,7 @@ private fun drawRandomRect(point: Point, r: Float, p: Paint) {
     canvas.drawPath(rect, strokeOfBlack(1f))
 }
 
-private fun pathOf(left: Point, bottom: Point, right: Point, top:Point) : Path {
+private fun pathOf(left: Point, bottom: Point, right: Point, top: Point): Path {
     return Path()
         .moveTo(left)
         .lineTo(bottom)
@@ -62,4 +51,4 @@ private fun pathOf(left: Point, bottom: Point, right: Point, top:Point) : Path {
         .closePath()
 }
 
-private fun rnd(delta: Float)  = (Math.random() * 2 * delta).toFloat() - delta
+private fun rnd(delta: Float) = (Math.random() * 2 * delta).toFloat() - delta
