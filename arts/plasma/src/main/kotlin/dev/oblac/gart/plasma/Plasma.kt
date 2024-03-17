@@ -1,7 +1,6 @@
 package dev.oblac.gart.plasma
 
 import dev.oblac.gart.Gart
-import dev.oblac.gart.Media
 import dev.oblac.gart.Pixels
 import dev.oblac.gart.gfx.Palette
 import dev.oblac.gart.gfx.Palettes.gradient
@@ -95,31 +94,28 @@ private fun drawNext(dest: Pixels, p: Palette) {
     }
 }
 
-val gart = Gart.of(
-    "Plasma",
-    w, h
-)
+val gart = Gart.of("Plasma", w, h, 30)
 
 fun main() {
-    with(gart) {
-        println(name)
+    println(gart.name)
 
-        val lastFrame = f.marker().atFrame(757)
+    init()
 
-        init()
+    val g = gart.gartvas()
+    val b = gart.gartmap(g)
+    val m = gart.movie()
+    val w = gart.window()
 
-        w.show()
-        m.record()
-        m.draw {
+    m.record(w).show { c, _, f ->
+        f.tick {
             drawNext(b, p)
-            b.draw()
-
-            when {
-                f isNow lastFrame -> m.stop()
-            }
         }
 
-        Media.saveImage(this)
-        Media.saveVideo(this)
+        b.drawToCanvas()
+        c.drawImage(b.image(), 0f, 0f)
+
+        f.onFrame(757) {
+            m.stopRecording()
+        }
     }
 }

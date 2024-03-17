@@ -1,17 +1,15 @@
 package dev.oblac.gart
 
-import dev.oblac.gart.gfx.fillOf
+import dev.oblac.gart.skia.Bitmap
 import dev.oblac.gart.skia.Image
-import dev.oblac.gart.skia.Rect
+import dev.oblac.gart.skia.ImageInfo
 import dev.oblac.gart.skia.Surface
 
 /**
- * It's the canvas.
+ * In-memory, slow canvas.
  */
 class Gartvas(val d: Dimension) {
-
     internal val surface = Surface.makeRasterN32Premul(d.w, d.h)
-    val rect = Rect(0f, 0f, d.wf, d.hf)
 
     /**
      * Canvas.
@@ -19,21 +17,29 @@ class Gartvas(val d: Dimension) {
     val canvas = surface.canvas
 
     /**
-     * Makes a snapshot of a canvas.
+     * Makes a snapshot Image of a canvas
      */
     fun snapshot(): Image {
         return surface.makeImageSnapshot()
     }
 
     /**
-     * Draw one Gartvas onto another.
+     * Drawing on this canvas
      */
-    fun draw(g: Gartvas, x: Float, y: Float) {
-        canvas.drawImage(g.snapshot(), x, y)
+    fun draw(draw: Draw) = draw(canvas, d)
+
+    /**
+     * Creates a bitmap compatible with the canvas.
+     */
+    fun createBitmap(): Bitmap {
+        val bitmap = Bitmap()
+        bitmap.setImageInfo(ImageInfo.makeN32Premul(d.w, d.h))
+        bitmap.allocPixels()
+        return bitmap
     }
 
-    fun fill(color: Int) {
-        canvas.drawRect(rect, fillOf(color))
+    fun writeBitmap(bitmap: Bitmap) {
+        surface.writePixels(bitmap, 0, 0)
     }
 
 }

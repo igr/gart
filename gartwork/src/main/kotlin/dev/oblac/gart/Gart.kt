@@ -1,7 +1,9 @@
 package dev.oblac.gart
 
+import dev.oblac.gart.skia.Canvas
+
 /**
- * GART context.
+ * GART.
  */
 data class Gart(
     /**
@@ -9,41 +11,42 @@ data class Gart(
      */
     val name: String,
     /**
-     * The dimension of the canvas.
+     * The default dimension of the Gart.
      */
     val d: Dimension,
     /**
-     * The canvas.
+     * The default frames per second of the Gart.
      */
-    var g: Gartvas,
-    /**
-     * The movie.
-     */
-    val m: Movie,
-    /**
-     * The window, bound to the movie, but not yet started.
-     */
-    val w: Window,
+    val fps: Int,
 ) {
 
-    val f: Frames = m.frames
+    fun gartvas(dimension: Dimension = this.d) = Gartvas(dimension)
 
-    val b: Gartmap by lazy {
-        Gartmap(g)
-    }
+    fun gartmap(gartvas: Gartvas) = Gartmap(gartvas)
 
-    companion object {
-        fun of(
-            name: String,
-            width: Int, height: Int,
-            fps: Int = 25
-        ): Gart {
-            val d = Dimension(width, height)
-            val g = Gartvas(d)
-            val m = Movie(g, fps)
-            val w = Window(m)
-            return Gart(name, d, g, m, w)
+    fun dimension(width: Int, height: Int) = Dimension(width, height)
+
+    fun window(d: Dimension = this.d, fps: Int = this.fps, printFps: Boolean = true) = Window(d, fps, printFps)
+
+    fun movie(d: Dimension = this.d, name: String = "${this.name}.mp4") = Movie(d, name)
+
+    fun saveImage(gartvas: Gartvas, name: String = "${this.name}.png") = saveImageToFile(gartvas, name)
+
+    fun saveImage(canvas: Canvas, d: Dimension = this.d, name: String = "${this.name}.png") = saveImageToFile(canvas, d, name)
+
+    fun saveMovie(movie: Movie, fps: Int = this.fps, name: String = "${this.name}.mp4") = saveMovieToFile(movie, fps, name)
+
+    fun showImage(gartvas: Gartvas) {
+        window(gartvas.d).show { c, _, _ ->
+            c.drawImage(gartvas.snapshot(), 0f, 0f)
         }
     }
 
+    override fun toString(): String {
+        return "gȧrt! • $name"
+    }
+
+    companion object {
+        fun of(name: String, width: Int, height: Int, fps: Int = 60) = Gart(name, Dimension(width, height), fps)
+    }
 }

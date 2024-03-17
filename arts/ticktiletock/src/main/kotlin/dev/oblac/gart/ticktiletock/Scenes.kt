@@ -1,7 +1,7 @@
 package dev.oblac.gart.ticktiletock
 
 import dev.oblac.gart.Dimension
-import dev.oblac.gart.Drawable
+import dev.oblac.gart.Draw
 import dev.oblac.gart.Gartmap
 import dev.oblac.gart.gfx.Palettes
 import dev.oblac.gart.skia.Canvas
@@ -12,9 +12,9 @@ private fun clear(canvas: Canvas) {
 }
 
 object Scenes {
-    private val scenes = mutableListOf<Drawable>()
+    private val scenes = mutableListOf<Draw>()
 
-    fun add(count: Int, scene: () -> Drawable): Scenes {
+    fun add(count: Int, scene: () -> Draw): Scenes {
         repeat(count){ scenes.add(scene()) }
         return this
     }
@@ -23,9 +23,9 @@ object Scenes {
         if (scenes.isNotEmpty()) {scenes.removeFirst()}
     }
 
-    fun draw(canvas: Canvas) {
+    fun draw(canvas: Canvas, d: Dimension) {
         if (scenes.isNotEmpty()) {
-            scenes[0](canvas)
+            scenes[0](canvas, d)
         }
     }
 
@@ -36,40 +36,40 @@ object Scenes {
 
 class SceneAWithFill(private val d: Dimension, split: Int, private val m: Gartmap): SceneX(d, split, paintTile2) {
     private val r: Array<Pixel> = Array(10){ Pixel(nextInt(d.w), nextInt(d.h)) }
-    override fun invoke(canvas: Canvas) {
-        super.invoke(canvas)
-        m.update()
+    override fun invoke(canvas: Canvas, d: Dimension) {
+        super.invoke(canvas, d)
+        m.updatePixelsFromCanvas()
         r.forEach { floodFill(m, it, 0xFF000000.toInt()) }
-        m.draw()
+        m.drawToCanvas()
     }
 }
 
 class SceneAWithFill2(private val d: Dimension, split: Int, private val m: Gartmap): SceneX(d, split, paintTile2) {
     private val r: Array<Pair<Pixel, Int>> = Array(24){ Pixel(nextInt(d.w), nextInt(d.h)) to Palettes.cool1.random() }
-    override fun invoke(canvas: Canvas) {
-        super.invoke(canvas)
-        m.update()
+    override fun invoke(canvas: Canvas, d: Dimension) {
+        super.invoke(canvas, d)
+        m.updatePixelsFromCanvas()
         r.forEach { floodFill(m, it.first, it.second, 0xFFFFFFFF.toInt()) }
-        m.draw()
+        m.drawToCanvas()
     }
 }
 
-open class SceneX(d: Dimension, split: Int, tilePainter: (Tile) -> Drawable) : Drawable {
-    private val drawable: Drawable
+open class SceneX(d: Dimension, split: Int, tilePainter: (Tile) -> Draw) : Draw {
+    private val drawable: Draw
     init {
         val matrix = splitBox(d, split)
         drawable = calcMatrix(matrix) { tilePainter(it) }
     }
 
-    override fun invoke(canvas: Canvas) {
+    override fun invoke(canvas: Canvas, d: Dimension) {
         clear(canvas)
-        drawable(canvas)
+        drawable(canvas, d)
     }
 }
 
-private fun calcMatrix(matrix: Array<Array<Tile>>, tilePainter: (Tile) -> Drawable): Drawable {
+private fun calcMatrix(matrix: Array<Array<Tile>>, tilePainter: (Tile) -> Draw): Draw {
     val tiles = matrix
         .flatten()
         .map { tilePainter(it) }
-    return Drawable { canvas -> tiles.forEach { it.invoke(canvas) } }
+    return Draw { canvas, d -> tiles.forEach { it.invoke(canvas, d) } }
 }

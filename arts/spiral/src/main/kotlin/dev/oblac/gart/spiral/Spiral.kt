@@ -1,18 +1,16 @@
 package dev.oblac.gart.spiral
 
 import dev.oblac.gart.Gart
-import dev.oblac.gart.Media
 import dev.oblac.gart.gfx.Palette
 import dev.oblac.gart.gfx.fillOf
 import dev.oblac.gart.gfx.strokeOfBlack
 import dev.oblac.gart.gfx.strokeOfWhite
-import org.jetbrains.skia.Canvas
-import org.jetbrains.skia.Rect
+import dev.oblac.gart.skia.Canvas
+import dev.oblac.gart.skia.Rect
 import kotlin.math.PI
 import kotlin.math.cos
 import kotlin.math.pow
 import kotlin.math.sin
-import kotlin.time.Duration.Companion.seconds
 
 val gart = Gart.of(
     "spiral",
@@ -21,38 +19,26 @@ val gart = Gart.of(
 )
 
 fun main() {
-    with(gart) {
-        println(name)
+    println(gart)
 
-        w.show()
-        val endMarker = f.marker().atTime(12.seconds)
-
-        m.record()
-        m.draw {
-            draw()
-            if (f isNow endMarker) {
-                m.stop()
-            }
-        }
-
-        Media.saveImage(this)
-        Media.saveVideo(this)
+    val w = gart.window()
+    w.show { c, _, _ ->
+        draw(c)
     }
 }
 
-fun draw() {
-    val g = gart.g
+fun draw(canvas: Canvas) {
     val d = gart.d
 
-    g.canvas.drawRect(Rect(0f, 0f, d.w.toFloat(), d.h.toFloat()), fillOf(0xFF121212))
+    canvas.drawRect(Rect(0f, 0f, d.w.toFloat(), d.h.toFloat()), fillOf(0xFF121212))
 
     // draw every tick
-    drawSpiral(g.canvas, d.cx - 100, d.cy - 450, 1f, 1f, true)
-    drawSpiral(g.canvas, d.cx + 100, d.cy + 100, 11f, -1f, true)
-    drawSpiral(g.canvas, d.cx - 100, d.cy - 150, 1f, 1f, false)
-    drawSpiral(g.canvas, d.cx + 100, d.cy + 100, 11f, -1f, false)
+    drawSpiral(canvas, d.cx - 100, d.cy - 450, 1f, 1f, true)
+    drawSpiral(canvas, d.cx + 100, d.cy + 100, 11f, -1f, true)
+    drawSpiral(canvas, d.cx - 100, d.cy - 150, 1f, 1f, false)
+    drawSpiral(canvas, d.cx + 100, d.cy + 100, 11f, -1f, false)
 
-    g.canvas.drawRect(Rect(0f, 0f, d.w.toFloat(), d.h.toFloat()), strokeOfWhite(40f))
+    canvas.drawRect(Rect(0f, 0f, d.w.toFloat(), d.h.toFloat()), strokeOfWhite(40f))
 }
 
 var a = 12f

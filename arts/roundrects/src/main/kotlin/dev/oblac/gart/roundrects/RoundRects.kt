@@ -1,44 +1,38 @@
 package dev.oblac.gart.roundrects
 
 import dev.oblac.gart.Gart
-import dev.oblac.gart.Media
 import dev.oblac.gart.gfx.Colors
 import dev.oblac.gart.math.rnd
+import dev.oblac.gart.toFrames
 import kotlin.time.Duration.Companion.seconds
 
 val gart = Gart.of(
     "roundrects",
-    640, 640
+    640, 640, 25
 )
 
 fun main() {
-    with(gart) {
-        println(name)
+    println(gart)
 
-        val onSceneChange = f.marker().onEvery(2.seconds)
+    val sceneChange = 2.seconds.toFrames(gart.fps)
 
-        var bigBox = BigBox(d, 4, 4)
+    var bigBox = BigBox(gart.d, 4, 4)
 
-        var totalChanges = 10
+    var totalChanges = 10
 
-        w.show()
-        m.record()
-        m.draw {
-            if (f isNow onSceneChange) {
-                val count = rnd(3, 9)
-                bigBox = BigBox(d, count, count)
-                if (totalChanges-- == 0) {
-                    m.stop()
-                    return@draw
-                }
+    val w = gart.window()
+    val m = gart.movie()
+
+    m.record(w).show { c, d, f ->
+        f.onEveryFrame(sceneChange) {
+            val count = rnd(3, 9)
+            bigBox = BigBox(d, count, count)
+            if (totalChanges-- == 0) {
+                m.stopRecording()
             }
-
-            g.canvas.clear(Colors.blackColor.toColor())
-            bigBox.allCells.forEach { it.draw(g.canvas, f.time) }
         }
-
-        Media.saveImage(this)
-        Media.saveVideo(this)
+        c.clear(Colors.blackColor.toColor())
+        bigBox.allCells.forEach { it.draw(c, f.time) }
     }
 }
 

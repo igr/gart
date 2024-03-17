@@ -1,13 +1,13 @@
 package dev.oblac.gart.kaleiircle
 
 import dev.oblac.gart.Dimension
-import dev.oblac.gart.Drawable
+import dev.oblac.gart.Draw
 import dev.oblac.gart.math.sinDeg
 import dev.oblac.gart.skia.Paint
 import dev.oblac.gart.skia.Path
 
 class MakeWaves(private val d: Dimension) {
-    fun invoke(angle: Float = 0f, amplitude: Float = 20f, gap: Float = 10f, speed: Float = 2f): Drawable {
+    fun invoke(angle: Float = 0f, amplitude: Float = 20f, gap: Float = 10f, speed: Float = 2f): Draw {
         val paths = mutableListOf<Path>()
 
         var y = -amplitude
@@ -29,7 +29,7 @@ class MakeWaves(private val d: Dimension) {
             setStroke(true)
         }
 
-        return Drawable { canvas ->
+        return Draw { canvas, d ->
             canvas.save()
             canvas.rotate(angle, d.cx, d.cy)
             paths.forEach {

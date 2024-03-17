@@ -6,42 +6,46 @@ import dev.oblac.gart.gfx.fillOf
 import dev.oblac.gart.gfx.rgb
 import dev.oblac.gart.math.GOLDEN_RATIO
 import dev.oblac.gart.pixels.scrollPixelsUp
+import dev.oblac.gart.skia.Canvas
 import dev.oblac.gart.skia.Rect
 import kotlin.random.Random
 import kotlin.time.Duration.Companion.seconds
 
 const val w = 600
 const val h = (w * GOLDEN_RATIO).toInt()
-
 val gart = Gart.of(
-    "falllines", w, h,
+    "falllines", w, h, 25
 )
 
-val g = gart.g
-val b = gart.b
+val g = gart.gartvas()
+val b = gart.gartmap(g)
 
 fun main() {
-    with(gart) {
-        println(name)
+    println(gart)
 
-        w.show()
-        val changeMarker = f.marker().onEvery(8.seconds)
+    val changeMarker = 8.seconds.toFrames(gart.fps)
+    val markerStart = 40.seconds.toFrames(gart.fps)   // window marker (!)
+    val markerEnd = 20.seconds.toFrames(gart.fps)     // video marker (!)
 
-        val markerStart = f.marker().atTime(40.seconds)   // window marker (!)
-        val markerEnd = f.marker().atTime(20.seconds)          // video marker (!)
+    g.draw { c, d -> c.drawRect(Rect(0f, 0f, d.wf, d.hf), fillOf(0xFF000000)) }
 
-        g.canvas.drawRect(Rect(0f, 0f, g.d.wf, g.d.hf), fillOf(0xFF000000))
-        m.draw {
-            draw()
-            when {
-                f isNow changeMarker -> randomizeSegments()
-                f isNow markerStart -> m.record()
-                f isNow markerEnd -> m.stop()
-            }
+    val w = gart.window()
+    val m = gart.movie()
+
+    m.record(w, recording = false).show { c, _, f ->
+        draw(g.canvas)
+        g.writeBitmap(b.bitmap)
+        c.drawImage(b.image(), 0f, 0f)
+
+        f.onEveryFrame(changeMarker) {
+            randomizeSegments()
         }
-
-        Media.saveImage(this)
-        Media.saveVideo(this)
+        f.onFrame(markerStart) {
+            m.startRecording()
+        }
+        f.onFrame(markerEnd) {
+            m.stopRecording()
+        }
     }
 }
 
@@ -98,19 +102,19 @@ private fun <T> Array<T>.switch(a: Int, b: Int): Array<T> {
     return this
 }
 
-fun draw() {
-    b.update()
+fun draw(canvas: Canvas) {
+    b.updatePixelsFromCanvas()
     scrollPixelsUp(b, 1)
 
     for (x in 0 until w) {
         val g = Random.nextInt(30)
         b[x, h - 1] = rgb(g, g, g)
     }
-    b.draw()
+    b.drawToCanvas()
     segments
         .sortedBy { it.drawOrder }
         .forEach {
-            it.draw()
+            it.draw(canvas)
             it.tickNextX()
         }
 }

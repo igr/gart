@@ -1,13 +1,25 @@
 package dev.oblac.gart
 
+import dev.oblac.gart.skia.Rect
+
 /**
  * Represents a virtual dimensions.
  */
 data class Dimension(val w: Int, val h: Int) {
     val wf = w.toFloat()
     val hf = h.toFloat()
+
+    /**
+     * Center X.
+     */
     val cx = w / 2f
+
+    /**
+     * Center Y.
+     */
     val cy = h / 2f
+
+    val rect = Rect(0f, 0f, wf, hf)
 
     /**
      * Right edge.

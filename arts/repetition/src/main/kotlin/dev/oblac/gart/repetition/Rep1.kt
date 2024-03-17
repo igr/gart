@@ -1,18 +1,19 @@
 package dev.oblac.gart.repetition
 
 import dev.oblac.gart.Gart
-import dev.oblac.gart.Media
 import dev.oblac.gart.gfx.Colors
 import dev.oblac.gart.gfx.strokeOf
 import dev.oblac.gart.math.PIf
 import dev.oblac.gart.skia.BlendMode
+import dev.oblac.gart.skia.Canvas
 import dev.oblac.gart.skia.RRect
 import kotlin.math.cos
 import kotlin.math.sin
 
 private val gart = Gart.of(
     "Repetition1",
-    1280, 1280
+    1280, 1280,
+    30
 )
 
 private const val count = 14
@@ -24,7 +25,7 @@ private const val speed = 0.05f
 
 private const val size = 24f
 
-private fun drawAll(tick: Long) {
+private fun drawAll(canvas: Canvas, tick: Long) {
     val offsetsB = Array(count) { Pair(
         sin(tick * speed) * blur,
         cos(tick * speed) * blur,
@@ -52,17 +53,17 @@ private fun drawAll(tick: Long) {
 
             offsetsB[i].let { (dx, dy) ->
                 RRect.makeXYWH(x + dx, y + dy, w, h, 40f).let {
-                    g.canvas.drawRRect(it, strokeOf(Colors.blue, size).apply { blendMode = BlendMode.SCREEN })
+                    canvas.drawRRect(it, strokeOf(Colors.blue, size).apply { blendMode = BlendMode.SCREEN })
                 }
             }
             offsetsG[i].let { (dx, dy) ->
                 RRect.makeXYWH(x + dx, y + dy, w, h, 40f).let {
-                    g.canvas.drawRRect(it, strokeOf(Colors.lime, size).apply { blendMode = BlendMode.SCREEN })
+                    canvas.drawRRect(it, strokeOf(Colors.lime, size).apply { blendMode = BlendMode.SCREEN })
                 }
             }
             offsetsR[i].let { (dx, dy) ->
                 RRect.makeXYWH(x + dx, y + dy, w, h, 40f).let {
-                    g.canvas.drawRRect(it, strokeOf(Colors.red, size).apply { blendMode = BlendMode.SCREEN })
+                    canvas.drawRRect(it, strokeOf(Colors.red, size).apply { blendMode = BlendMode.SCREEN })
                 }
             }
         }
@@ -70,21 +71,10 @@ private fun drawAll(tick: Long) {
 }
 
 fun main() {
-    with(gart) {
-        println(name)
-        val marker = f.marker().atFrame(600)
-        w.show()
-        m.record()
-        m.draw {
-            g.fill(Colors.black)
-            drawAll(f.count.value)
-
-            if (f after marker) {
-                m.stop()
-                return@draw
-            }
-        }
-        Media.saveImage(this)
-        Media.saveVideo(this)
+    println(gart)
+    val w = gart.window()
+    w.show { c, _, f ->
+        c.clear(Colors.black)
+        drawAll(c, f.frame)
     }
 }

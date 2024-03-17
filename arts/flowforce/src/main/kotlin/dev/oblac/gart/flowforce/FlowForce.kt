@@ -8,9 +8,9 @@ val gart = Gart.of(
 )
 
 fun main() {
-    val name = "flowforce"
+    val name = gart.name
 
-    //one("${name}1")
-    //two("${name}2")
+//    one("${name}1")
+//    two("${name}2")
     three("${name}3")
 }

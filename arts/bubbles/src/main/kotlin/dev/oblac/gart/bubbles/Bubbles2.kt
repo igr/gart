@@ -2,7 +2,6 @@ package dev.oblac.gart.bubbles
 
 import dev.oblac.gart.Dimension
 import dev.oblac.gart.Gartvas
-import dev.oblac.gart.Media
 import dev.oblac.gart.gfx.fillOfWhite
 import dev.oblac.gart.gfx.strokeOfBlack
 import dev.oblac.gart.math.nextFloat
@@ -48,5 +47,5 @@ fun main() {
         g.canvas.drawCircle(it.x, it.y, it.r, it.paint)
     }
 
-    Media.saveImage(gart, "$name2.png")
+    gart.saveImage(g, "$name2.png")
 }

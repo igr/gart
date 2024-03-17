@@ -1,13 +1,14 @@
 package dev.oblac.gart.kaleiircle
 
+import dev.oblac.gart.Dimension
 import dev.oblac.gart.Frames
 import dev.oblac.gart.Gart
-import dev.oblac.gart.Gartvas
-import dev.oblac.gart.Media
 import dev.oblac.gart.gfx.fillOfBlack
 import dev.oblac.gart.math.sinDeg
+import dev.oblac.gart.skia.Canvas
 import dev.oblac.gart.skia.Color4f
 import dev.oblac.gart.skia.Rect
+import dev.oblac.gart.toFrames
 import kotlin.time.Duration.Companion.seconds
 
 val colors = arrayOf(
@@ -39,8 +40,7 @@ val triangleColors = arrayOf(
 
 val gart = Gart.of(
     "kaleiircle",
-    710, 710,
-    30
+    710, 710, 30
 )
 
 const val r0 = 100f
@@ -75,41 +75,37 @@ fun triangles(angle: Float) = List(triangleColors.size) {
 
 val makeShapeOfCircle = MakeShapeOfCircle(gart.d)
 
-fun paint(g: Gartvas, frames: Frames) {
-    println(frames)
+fun paint(canvas: Canvas, d: Dimension, frames: Frames) {
 
-    val shapes1 = triangles(-10f + frames.count.value).map { makeShapeOfCircle(it) }
-    val shapes2 = circles(-10f + frames.count.value, frames.count.value).map { makeShapeOfCircle(it) }
+    val shapes1 = triangles(-10f + frames.frame).map { makeShapeOfCircle(it) }
+    val shapes2 = circles(-10f + frames.frame, frames.frame).map { makeShapeOfCircle(it) }
 
-    g.canvas.drawRect(Rect(0f, 0f, g.d.wf, g.d.hf), fillOfBlack())
+    canvas.drawRect(Rect(0f, 0f, d.wf, d.hf), fillOfBlack())
 
 //    MakeWaves(box).invoke().draw(g.canvas)
 
     for (t in shapes1) {
-        t(g.canvas)
+        t(canvas, d)
     }
     for (s in shapes2) {
-        s(g.canvas)
+        s(canvas, d)
     }
 }
 
 
 fun main() {
-    with(gart) {
-        println(name)
+    println(gart)
 
-        w.show()
-        val endMarker = f.marker().atTime(18.seconds)
+    val w = gart.window()
+    val m = gart.movie()
 
-        m.record()
-        m.draw {
-            paint(g, f)
-            when {
-                f isNow endMarker -> m.stop()
-            }
+    val endMarker = 18.seconds.toFrames(gart.fps)
+
+    m.record(w).show { c, d, f ->
+        paint(c, d, f)
+        f.onFrame(endMarker) {
+            m.stopRecording()
         }
-
-        Media.saveImage(this)
-        Media.saveVideo(this)
     }
+
 }

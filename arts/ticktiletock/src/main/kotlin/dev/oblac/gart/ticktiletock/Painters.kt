@@ -1,6 +1,7 @@
 package dev.oblac.gart.ticktiletock
 
-import dev.oblac.gart.Drawable
+import dev.oblac.gart.Dimension
+import dev.oblac.gart.Draw
 import dev.oblac.gart.gfx.Palettes
 import dev.oblac.gart.gfx.fillOfBlack
 import dev.oblac.gart.gfx.strokeOf
@@ -8,7 +9,7 @@ import dev.oblac.gart.gfx.strokeOfBlack
 import dev.oblac.gart.skia.*
 import kotlin.random.Random
 
-val paintTile2: (Tile) -> Drawable = { tile ->
+val paintTile2: (Tile) -> Draw = { tile ->
     val line = when (Random.nextBoolean()) {
         false -> Path().moveTo(tile.x, tile.y).lineTo(tile.x + tile.d, tile.y + tile.d)
         true -> Path().moveTo(tile.x, tile.y + tile.d).lineTo(tile.x + tile.d, tile.y)
@@ -17,9 +18,9 @@ val paintTile2: (Tile) -> Drawable = { tile ->
     val stroke = strokeOfBlack(4f).apply {
         strokeCap = PaintStrokeCap.SQUARE
     }
-    Drawable { canvas -> canvas.drawPath(line, stroke) }
+    Draw { canvas, _ -> canvas.drawPath(line, stroke) }
 }
-val paintTile4: (Tile) -> Drawable = { tile ->
+val paintTile4: (Tile) -> Draw = { tile ->
     val line = when (Random.nextInt(4)) {
         0 -> Path().moveTo(tile.x, tile.y).lineTo(tile.x + tile.d, tile.y + tile.d)
         1 -> Path().moveTo(tile.x, tile.y + tile.d).lineTo(tile.x + tile.d, tile.y)
@@ -31,28 +32,28 @@ val paintTile4: (Tile) -> Drawable = { tile ->
         strokeCap = PaintStrokeCap.SQUARE
     }
 
-    Drawable { canvas -> canvas.drawPath(line, stroke) }
+    Draw { canvas, _ -> canvas.drawPath(line, stroke) }
 }
-val paintCircle: (Tile) -> Drawable = { tile ->
+val paintCircle: (Tile) -> Draw = { tile ->
     val rnd = Random.nextInt(4)
     val circle = Path().addCircle(tile.x + tile.d / 2, tile.y + tile.d / 2, rnd * tile.d / 8)
     val stroke = strokeOf(Palettes.cool1.random(), 4f)
 
-    Drawable { canvas -> canvas.drawPath(circle, stroke) }
+    Draw { canvas, _ -> canvas.drawPath(circle, stroke) }
 }
-val paintCircleBW: (Tile) -> Drawable = { tile ->
+val paintCircleBW: (Tile) -> Draw = { tile ->
     val rnd = Random.nextInt(4)
     val circle = Path().addCircle(tile.x + tile.d/2, tile.y + tile.d/2, rnd * tile.d/8)
     val stroke = fillOfBlack()
 
-    Drawable { canvas -> canvas.drawPath(circle, stroke) }
+    Draw { canvas, _ -> canvas.drawPath(circle, stroke) }
 }
 
-val paintSquares: (Tile) -> Drawable = { paintSquares(it, 0) }
-val paintSquaresFill1: (Tile) -> Drawable = { paintSquares(it, 1) }
-val paintSquaresFill2: (Tile) -> Drawable = { paintSquares(it, 2) }
+val paintSquares: (Tile) -> Draw = { paintSquares(it, 0) }
+val paintSquaresFill1: (Tile) -> Draw = { paintSquares(it, 1) }
+val paintSquaresFill2: (Tile) -> Draw = { paintSquares(it, 2) }
 
-private fun paintSquares(tile: Tile, type: Int): Drawable {
+private fun paintSquares(tile: Tile, type: Int): Draw {
     val finalSize = 3
     val directions = arrayOf(-1, 0, 1)
 
@@ -87,7 +88,7 @@ private fun paintSquares(tile: Tile, type: Int): Drawable {
         }
     }
 
-    return object : Drawable {
+    return object : Draw {
 
         fun draw(canvas: Canvas, x: Float, y: Float, width: Float, height: Float, xMovement: Int, yMovement: Int, step: Int) {
             canvas.drawRect(Rect(x, y, x + width, y + height), p[step + 1])
@@ -104,7 +105,7 @@ private fun paintSquares(tile: Tile, type: Int): Drawable {
             draw(canvas, newX, newY, size, size, xMovement, yMovement, step - 1)
         }
 
-        override fun invoke(canvas: Canvas) {
+        override fun invoke(canvas: Canvas, d: Dimension) {
             draw(canvas, tile.x, tile.y, tile.d, tile.d, xDirection, yDirection, totalSteps - 1)
         }
     }

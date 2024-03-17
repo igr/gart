@@ -1,26 +1,19 @@
 package dev.oblac.gart.flowforce
 
-import dev.oblac.gart.Media
 import dev.oblac.gart.flow.ForceField
 import dev.oblac.gart.flow.SpiralFlowForce
 import dev.oblac.gart.flow.WaveFlowForce
-import dev.oblac.gart.gfx.Colors
-import dev.oblac.gart.gfx.Palettes
-import dev.oblac.gart.gfx.alpha
-import dev.oblac.gart.gfx.strokeOf
-import dev.oblac.gart.isInside
+import dev.oblac.gart.gfx.*
 import dev.oblac.gart.math.RotationDirection.CCW
 import dev.oblac.gart.math.RotationDirection.CW
 import dev.oblac.gart.math.nextFloat
-import org.jetbrains.skia.Point
-import org.jetbrains.skia.Rect
+import dev.oblac.gart.skia.Point
+import dev.oblac.gart.toFrames
 import kotlin.time.Duration.Companion.seconds
 
 fun three(name: String) {
     val d = gart.d
-    val g = gart.g
-    val f = gart.f
-    val a = gart.m
+    val g = gart.gartvas()
 
     println(name)
 
@@ -63,22 +56,18 @@ fun three(name: String) {
         Point(nextFloat(1024), 1000f)
     }.toList()
 
-    g.fill(Colors.white)
+//    g.fill(Colors.white)
 
     // paint
 
-    val marker = f.marker().atTime(6.seconds)
-
-    val markerMiddle = f.marker().atTime(3.seconds)
-
-    a.draw {
-        if (f after marker) {
-            a.stop()
-            return@draw
-        }
+    val marker = 6.seconds.toFrames(gart.fps)
+    val markerMiddle = 3.seconds.toFrames(gart.fps)
+    val w = gart.window()
+    var image = g.snapshot()
+    w.show { c, _, f ->
 //        flowField.drawField(g)
 
-        if (f before markerMiddle) {
+        f.onBeforeFrame(markerMiddle) {
             randomPoints = randomPoints
                 .filter { it.isInside(d) }
                 .map { p ->
@@ -89,7 +78,9 @@ fun three(name: String) {
                         g.canvas.drawLine(p.x, p.y, it.x, it.y, strokeOf(color.alpha(0x40), 1f))
                     }
                 }
-        } else {
+            image = g.snapshot()
+        }
+        f.onAfterFrame(markerMiddle) {
             randomPoints2 = randomPoints2
                 .filter { it.isInside(d) }
                 .map { p ->
@@ -99,12 +90,10 @@ fun three(name: String) {
                         g.canvas.drawLine(-p.x, p.y, -it.x, it.y, strokeOf(Colors.white, 1f))
                     }
                 }
+            image = g.snapshot()
         }
+        c.drawImage(image, 0f, 0f)
     }
 
-    println("switching to second field")
-
-    g.canvas.drawRect(Rect(0f, 0f, d.wf, d.hf), strokeOf(Colors.white, 40f))
-
-    Media.saveImage(gart)
+    //g.canvas.drawRect(Rect(0f, 0f, d.wf, d.hf), strokeOf(Colors.white, 40f))
 }

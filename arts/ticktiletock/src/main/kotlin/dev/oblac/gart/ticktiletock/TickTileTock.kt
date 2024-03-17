@@ -3,38 +3,29 @@ package dev.oblac.gart.ticktiletock
 import dev.oblac.gart.Dimension
 import dev.oblac.gart.Gart
 import dev.oblac.gart.Gartmap
-import dev.oblac.gart.Media
-import kotlin.time.Duration.Companion.seconds
 
 val gart = Gart.of(
     "ticktiletock",
-    1024, 1024,
-    1
+    1024, 1024, 1
 )
 
 fun main() {
-    with(gart) {
-        println(name)
+    println(gart)
 
         // prepare scenario
-        val tick = f.marker().onEvery(1.seconds)
+    val g = gart.gartvas()
+    val b = gart.gartmap(g)
+    makeMovie(gart.d, b)
 
-        makeMovie(d, b)
+    val w = gart.window()
+    w.show { c, d, f ->
+        Scenes.draw(g.canvas, d)
 
-        w.show()
-        m.record()
-        m.draw {
-            Scenes.draw(g.canvas)
-            if (f isNow tick) {
-                Scenes.tick()
-            }
-            if (Scenes.isEnd()) {
-                m.stop()
-            }
+        c.drawImage(g.snapshot(), 0f, 0f)
+
+        f.tick {
+            Scenes.tick()
         }
-
-        Media.saveImage(this)
-        Media.saveVideo(this)
     }
 }
 

@@ -1,7 +1,6 @@
 package dev.oblac.gart.metro
 
 import dev.oblac.gart.Gart
-import dev.oblac.gart.Media
 import dev.oblac.gart.gfx.Colors
 import dev.oblac.gart.gfx.Palettes
 import dev.oblac.gart.gfx.fillOfBlack
@@ -78,36 +77,26 @@ val polyX = RLine(
 var indexOffset = 0
 
 fun main() {
-    with(gart) {
-        println(name)
+    println(gart)
+    val g = gart.gartvas()
 
-        val tick = f.marker().onEveryFrame(1)
-        w.show()
-        m.draw {
+    g.canvas.clear(Colors.blackColor.toColor())
 
-//            when {
-//                f isNow tick -> indexOffset++
-//            }
+    drawR3(g.canvas, polyG)
+    drawR3(g.canvas, polyG2)
+    drawR3(g.canvas, polyX)
 
-            g.canvas.clear(Colors.blackColor.toColor())
+    drawR2(g.canvas, polyA)
+    drawR(g.canvas, poly1)
+    drawR(g.canvas, poly2)
+    drawR2(g.canvas, polyB)
+    drawR2(g.canvas, polyC)
+    drawR(g.canvas, poly3)
 
-            drawR3(g.canvas, polyG)
-            drawR3(g.canvas, polyG2)
-            drawR3(g.canvas, polyX)
+    drawR3(g.canvas, polyT)
+    drawR3(g.canvas, polyT2)
 
-            drawR2(g.canvas, polyA)
-            drawR(g.canvas, poly1)
-            drawR(g.canvas, poly2)
-            drawR2(g.canvas, polyB)
-            drawR2(g.canvas, polyC)
-            drawR(g.canvas, poly3)
-
-            drawR3(g.canvas, polyT)
-            drawR3(g.canvas, polyT2)
-        }
-
-        Media.saveImage(this)
-    }
+    gart.showImage(g)
 }
 
 private fun drawR(c: Canvas, rl: RLine) {
