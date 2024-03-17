@@ -1,13 +1,13 @@
 package dev.oblac.gart.harmongraph
 
-import dev.oblac.gart.FramesCount
+import dev.oblac.gart.Frames
 import dev.oblac.gart.Gart
-import dev.oblac.gart.Media
 import dev.oblac.gart.gfx.*
 import dev.oblac.gart.math.sinDeg
-import org.jetbrains.skia.Canvas
-import org.jetbrains.skia.Point
-import org.jetbrains.skia.Rect
+import dev.oblac.gart.skia.Canvas
+import dev.oblac.gart.skia.Point
+import dev.oblac.gart.skia.Rect
+import dev.oblac.gart.toFrames
 import kotlin.math.exp
 import kotlin.math.sin
 import kotlin.time.Duration.Companion.seconds
@@ -19,35 +19,25 @@ val gart = Gart.of(
 )
 
 fun main() {
-    with(gart) {
-        println(name)
+    println(gart)
 
-        w.show()
+    var drawing = 3
+    val changeMarker = 10.seconds.toFrames(gart.fps)
 
-        var drawing = 4
+    val w = gart.window()
+    w.show { c, _, f ->
+        draw(c, f, drawing)
 
-        val changeMarker = f.marker().onEvery(10.seconds)
-        m.record()
-        m.draw {
-            draw(f.count, drawing)
-
-            if (f isNow changeMarker) {
-                drawing--
-                Media.saveImage(gart, "$name$drawing.png")
-            }
-
-            if (drawing == 0) {
-                m.stop()
-            }
+        f.onEveryFrame(changeMarker) {
+            drawing--
+            //Media.saveImage(gart, "$name$drawing.png")
         }
-        Media.saveVideo(this)
     }
 }
 
 var deltaPhase = 0f
 
-fun draw(tick: FramesCount, drawing: Int) {
-    val g = gart.g
+fun draw(canvas: Canvas, tick: Frames, drawing: Int) {
     val d = gart.d
 
     val backTriangle1 = Triangle(
@@ -60,13 +50,13 @@ fun draw(tick: FramesCount, drawing: Int) {
         Point(0f, d.hf),
         Point(d.wf, d.hf)
     )
-    g.canvas.drawTriangle(backTriangle1, fillOf(Colors.warmBlack1))
-    g.canvas.drawTriangle(backTriangle2, fillOf(Colors.oldLace))
+    canvas.drawTriangle(backTriangle1, fillOf(Colors.warmBlack1))
+    canvas.drawTriangle(backTriangle2, fillOf(Colors.oldLace))
 
     when (drawing) {
         3 ->
             drawHarmongraph(
-                g.canvas, d.cx, d.cy, d.wf - 80, d.hf - 80,
+                canvas, d.cx, d.cy, d.wf - 80, d.hf - 80,
                 iterations = 100000,
                 p1Start = 0.3f,
                 p2Start = 1.7f,
@@ -78,7 +68,7 @@ fun draw(tick: FramesCount, drawing: Int) {
 
         2 ->
             drawHarmongraph(
-                g.canvas, d.cx, d.cy, d.wf - 80, d.hf - 80,
+                canvas, d.cx, d.cy, d.wf - 80, d.hf - 80,
                 iterations = 100000,
                 p1Start = 12.6f,
                 p2Start = 1.0f,
@@ -90,7 +80,7 @@ fun draw(tick: FramesCount, drawing: Int) {
 
         1 ->
             drawHarmongraph(
-                g.canvas, d.cx, d.cy, d.wf - 80, d.hf - 80,
+                canvas, d.cx, d.cy, d.wf - 80, d.hf - 80,
                 iterations = 100000,
                 p1Start = 0.6f,
                 p2Start = 1.7f,
@@ -101,10 +91,10 @@ fun draw(tick: FramesCount, drawing: Int) {
             )
     }
 
-    g.canvas.drawRect(Rect(0f, 0f, d.wf, d.hf), strokeOf(Colors.oldLace, 40f))
-    g.canvas.drawLine(0f, 0f, d.wf, d.hf, strokeOf(Colors.oldLace, 20f))
+    canvas.drawRect(Rect(0f, 0f, d.wf, d.hf), strokeOf(Colors.oldLace, 40f))
+    canvas.drawLine(0f, 0f, d.wf, d.hf, strokeOf(Colors.oldLace, 20f))
 
-    deltaPhase = sinDeg(tick.value / 2.5f) / 4
+    deltaPhase = sinDeg(tick.frame / 2.5f) / 4
 }
 
 fun drawHarmongraph(
