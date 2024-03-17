@@ -1,0 +1,27 @@
+import dev.oblac.gart.gfx.closedPathOf
+import dev.oblac.gart.skia.Path
+import dev.oblac.gart.skia.Point
+import kotlin.math.sqrt
+
+// https://www.forbes.com/asap/2002/0624/044.html
+/**
+ * Creates a path that represents a fat line.
+ */
+fun fatLine(x0: Float, y0: Float, x1: Float, y1: Float, thickness: Float): Path {
+    var dx = x1 - x0
+    var dy = y1 - y0
+    val linelength = sqrt(dx * dx + dy * dy)
+    dx /= linelength
+    dy /= linelength
+    // (dx, dy) is now a unit vector pointing in the direction of the line
+    // A perpendicular vector is given by (-dy, dx)
+    val px = 0.5f * thickness * (-dy) // perpendicular vector with length thickness * 0.5
+    val py = 0.5f * thickness * dx
+
+    return closedPathOf(
+        Point(x0 + px, y0 + py),
+        Point(x0 - px, y0 - py),
+        Point(x1 - px, y1 - py),
+        Point(x1 + px, y1 + py),
+    )
+}
