@@ -3,7 +3,6 @@ package dev.oblac.gart.flowforce
 import dev.oblac.gart.flow.ForceField
 import dev.oblac.gart.flow.WaveFlowForce
 import dev.oblac.gart.gfx.*
-import dev.oblac.gart.math.nextFloat
 import dev.oblac.gart.skia.Point
 import dev.oblac.gart.toFrames
 import java.util.*
@@ -31,7 +30,7 @@ fun main() {
     val rnd = Random()
 
     var randomPoints = Array(30000) {
-        Point(nextFloat(d.wf), (rnd.nextGaussian(d.hf.toDouble() / 6, d.hf.toDouble() / 4)).toFloat())
+        Point(rnd.nextGaussian(d.wf.toDouble() / 2, d.wf.toDouble() / 4).toFloat(), (rnd.nextGaussian(d.hf.toDouble() / 6, d.hf.toDouble() / 4)).toFloat())
     }.toList()
 
     g.canvas.clear(BgColors.sand)
