@@ -16,9 +16,8 @@ fun main() {
     val d2 = gart.dimension(10, 10)
     val g2 = gart.gartvas(d2)
 
-    g2.draw { c, _ ->
-        c.drawCircle(5f, 5f, 5f, fillOf(Colors.coral))
-    }
+    // draw directly on canvas
+    g2.canvas.drawCircle(5f, 5f, 5f, fillOf(Colors.coral))
     val snapshot2 = g2.snapshot()
 
     // main canvas
@@ -26,6 +25,7 @@ fun main() {
     val d1 = gart.dimension(162, 100)
     val g1 = gart.gartvas(d1)
 
+    // draw on canvas
     g1.draw { c, d ->
         c.drawRect(Rect(0f, 0f, d.wf, d.hf), fillOf(0xFF174185))
         c.drawCircle(d.w / 2f, d.h / 2f, 30f, fillOfRed())
