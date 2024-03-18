@@ -3,12 +3,12 @@ package dev.oblac.gart.flow
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 
-class FlowForceTest {
+class FlowTest {
 
     @Test
     fun addOppositeFlows() {
-        val right = FlowForce(0f, 1f)
-        val left = FlowForce(Math.PI.toFloat(), 1f)
+        val right = Flow(0f, 1f)
+        val left = Flow(Math.PI.toFloat(), 1f)
 
         val result = right + left
 

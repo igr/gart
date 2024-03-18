@@ -12,10 +12,10 @@ import kotlin.math.sin
  * @param direction in radians, indicates the direction of the flow. The angle is measured from the negative x-axis.
  * 0 is up, PI/2 is right, PI is down, 3PI/2 is left.
  */
-data class FlowForce(override val direction: Float, override val magnitude: Float = 1f) : Force<FlowForce> {
+data class Flow(override val direction: Float, override val magnitude: Float = 1f) : Force<Flow> {
 
-    override operator fun plus(other: FlowForce): FlowForce {
-        return FlowForce(middleAngle(direction, other.direction), (magnitude + other.magnitude) / 2)
+    override operator fun plus(other: Flow): Flow {
+        return Flow(middleAngle(direction, other.direction), (magnitude + other.magnitude) / 2)
     }
 
     /**
