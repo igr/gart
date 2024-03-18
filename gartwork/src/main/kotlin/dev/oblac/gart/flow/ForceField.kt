@@ -1,9 +1,9 @@
 package dev.oblac.gart.flow
 
 import dev.oblac.gart.Dimension
-import dev.oblac.gart.Gartvas
 import dev.oblac.gart.gfx.strokeOfBlue
 import dev.oblac.gart.gfx.strokeOfRed
+import dev.oblac.gart.skia.Canvas
 import kotlin.math.cos
 import kotlin.math.sin
 
@@ -34,8 +34,8 @@ class ForceField<T : Force<T>>(val w: Int, val h: Int, private val field: Array<
     /**
      * Utility to visualise the field.
      */
-    fun drawField(g: Gartvas, gap: Int = 20) {
-        g.d.forEach { x, y ->
+    fun drawField(c: Canvas, d: Dimension, gap: Int = 20) {
+        d.forEach { x, y ->
             if (x % gap != 0 || y % gap != 0) {
                 return@forEach
             }
@@ -44,11 +44,8 @@ class ForceField<T : Force<T>>(val w: Int, val h: Int, private val field: Array<
             val yf = y.toFloat()
             val dx = sin(f.direction) * f.magnitude * gap
             val dy = -cos(f.direction) * f.magnitude * gap
-            g.draw { c, _ ->
-                c.drawPoint(xf, yf, strokeOfRed(2.1f))
-                c.drawLine(xf, yf, x + dx, y + dy, strokeOfBlue(1f))
-            }
-
+            c.drawPoint(xf, yf, strokeOfRed(2.5f))
+            c.drawLine(xf, yf, x + dx, y + dy, strokeOfBlue(1f))
         }
     }
 

@@ -2,15 +2,15 @@ package dev.oblac.gart
 
 import dev.oblac.gart.skia.Canvas
 import dev.oblac.gart.skia.SkiaSwingLayer
+import dev.oblac.gart.skia.SkikoKeyboardEvent
 import dev.oblac.gart.skia.SkikoView
 import javax.swing.JFrame
 
-internal class GartView(
+class GartView(
     private val d: Dimension,
     private val drawFrame: DrawFrame,
     fps: Int,
     printFps: Boolean,
-    private val gartvas: Gartvas? = null
 ) : SkikoView {
 
     // github says to use SkiaLayer if swing inter-op is needed
@@ -32,7 +32,15 @@ internal class GartView(
         skiaLayer.repaint()
     }
 
-    fun attachTo(frame: JFrame) {
+    internal fun attachTo(frame: JFrame) {
         frame.contentPane.add(skiaLayer)
     }
+
+    internal var keyboardHandler: (SkikoKeyboardEvent) -> Unit = {}
+
+    override fun onKeyboardEvent(event: SkikoKeyboardEvent) {
+        keyboardHandler(event)
+        super.onKeyboardEvent(event)
+    }
+
 }

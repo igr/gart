@@ -24,7 +24,7 @@ class Gartvas(val d: Dimension) {
     }
 
     /**
-     * Drawing on this canvas
+     * Draw on this canvas.
      */
     fun draw(draw: Draw) = draw(canvas, d)
 

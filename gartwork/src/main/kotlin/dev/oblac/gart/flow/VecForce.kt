@@ -7,6 +7,9 @@ import kotlin.math.atan2
 import kotlin.math.cos
 import kotlin.math.sin
 
+/**
+ * Vector force has a vector defined in each point.
+ */
 data class VecForce(override val direction: Float, override val magnitude: Float = 1f) : Force<VecForce> {
 
     override operator fun plus(other: VecForce): VecForce {

@@ -55,8 +55,8 @@ class Movie(val d: Dimension, private val name: String, startRecording: Boolean 
     fun record(window: Window, recording: Boolean = this.recording): Window {
         this.recording = recording
         return object : Window(d, window.fps, window.printFps) {
-            override fun show(drawFrame: DrawFrame) {
-                super.show { c, d, f ->
+            override fun show(drawFrame: DrawFrame): WindowView {
+                return super.show { c, d, f ->
                     drawFrame(c, d, f)
                     if (f.new) {
                         addFrame(c)
