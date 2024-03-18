@@ -9,7 +9,8 @@ import dev.oblac.gart.skia.Point
 import dev.oblac.gart.toFrames
 import kotlin.time.Duration.Companion.seconds
 
-fun one(name: String) {
+fun main() {
+    val name = gart.name
     val d = gart.d
     val g = gart.gartvas()
 
