@@ -1,7 +1,7 @@
 package dev.oblac.gart.flowforce
 
 import dev.oblac.gart.flow.ForceField
-import dev.oblac.gart.flow.WaveFlowForce
+import dev.oblac.gart.flow.WaveFlow
 import dev.oblac.gart.gfx.*
 import dev.oblac.gart.skia.Point
 import dev.oblac.gart.toFrames
@@ -12,7 +12,7 @@ fun main() {
     val d = gart.d
     val g = gart.gartvas()
 
-    val wave1 = WaveFlowForce(
+    val wave1 = WaveFlow(
         xFreq = 0.04f,
         yFreq = 0.04f,
         xAmp = 1.2f,

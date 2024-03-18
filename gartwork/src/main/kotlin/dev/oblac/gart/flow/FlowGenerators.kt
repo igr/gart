@@ -8,7 +8,7 @@ import kotlin.math.atan2
 import kotlin.math.cos
 import kotlin.math.sin
 
-class CircularFlowForce(
+class CircularFlow(
     private val cx: Float,
     private val cy: Float,
     private val direction: RotationDirection = CW,
@@ -27,7 +27,7 @@ class CircularFlowForce(
     }
 }
 
-class SpiralFlowForce(
+class SpiralFlow(
     val cx: Float,
     val cy: Float,
     private val spiralSpeed: Float = 0.3f,
@@ -47,7 +47,7 @@ class SpiralFlowForce(
     }
 }
 
-class WaveFlowForce(
+class WaveFlow(
     private val xFreq: Float = 0.01f,
     private val yFreq: Float = 0.03f,
     private val xAmp: Float = 0.8f,

@@ -1,7 +1,7 @@
 package dev.oblac.gart.flowforce
 
 import dev.oblac.gart.flow.ForceField
-import dev.oblac.gart.flow.SpiralFlowForce
+import dev.oblac.gart.flow.SpiralFlow
 import dev.oblac.gart.gfx.*
 import dev.oblac.gart.math.RotationDirection
 import dev.oblac.gart.math.nextFloat
@@ -15,14 +15,14 @@ fun main() {
 
     // prepare field
 
-    val spiralFlow1 = SpiralFlowForce(
+    val spiralFlow1 = SpiralFlow(
         d.wf / 3, 1 * d.hf / 3f + 100
     )
-    val spiralFlow2 = SpiralFlowForce(
+    val spiralFlow2 = SpiralFlow(
         d.wf / 3f + 440, 2 * d.hf / 3f - 100,
         direction = RotationDirection.CCW
     )
-    val spiralFlow3 = SpiralFlowForce(
+    val spiralFlow3 = SpiralFlow(
         2 * d.wf / 3f - 200, 2 * d.hf / 3f + 100,
         spiralSpeed = 0.4f,
         direction = RotationDirection.CCW

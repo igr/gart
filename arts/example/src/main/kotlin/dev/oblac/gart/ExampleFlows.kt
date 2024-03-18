@@ -20,20 +20,20 @@ fun main() {
     val flowField2: ForceField<VecForce> = ForceField.of(gart.d) { x, y -> spiralVec2(x, y) }
 
     // 3
-    val circleFlowForce = CircularFlowForce(
+    val circleFlowForce = CircularFlow(
         gart.d.wf / 3, 1 * gart.d.hf / 3f + 100
     )
     val flowField3: ForceField<Flow> = ForceField.of(gart.d) { x, y -> circleFlowForce(x, y) }
     // 4
-    val spiralFlowForce = SpiralFlowForce(
+    val spiralFlow = SpiralFlow(
         gart.d.wf / 3, 1 * gart.d.hf / 3f + 100
     )
-    val flowField4: ForceField<Flow> = ForceField.of(gart.d) { x, y -> spiralFlowForce(x, y) }
+    val flowField4: ForceField<Flow> = ForceField.of(gart.d) { x, y -> spiralFlow(x, y) }
     // 5
-    val waveFlowForce = WaveFlowForce(
+    val waveFlow = WaveFlow(
         gart.d.wf / 3, 1 * gart.d.hf / 3f + 100
     )
-    val flowField5: ForceField<Flow> = ForceField.of(gart.d) { x, y -> waveFlowForce(x, y) }
+    val flowField5: ForceField<Flow> = ForceField.of(gart.d) { x, y -> waveFlow(x, y) }
 
 
     var ff: ForceField<*> = flowField1

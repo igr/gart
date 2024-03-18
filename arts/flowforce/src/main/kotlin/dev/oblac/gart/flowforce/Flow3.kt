@@ -1,8 +1,8 @@
 package dev.oblac.gart.flowforce
 
 import dev.oblac.gart.flow.ForceField
-import dev.oblac.gart.flow.SpiralFlowForce
-import dev.oblac.gart.flow.WaveFlowForce
+import dev.oblac.gart.flow.SpiralFlow
+import dev.oblac.gart.flow.WaveFlow
 import dev.oblac.gart.gfx.*
 import dev.oblac.gart.math.RotationDirection.CCW
 import dev.oblac.gart.math.RotationDirection.CW
@@ -17,7 +17,7 @@ fun main() {
 
     // prepare field
 
-    val wave = WaveFlowForce(
+    val wave = WaveFlow(
         xFreq = 0.002f,
         yFreq = 0.01f,
         xAmp = 1.2f,
@@ -25,14 +25,14 @@ fun main() {
         magnitude = 1f
     )
 
-    val spiralFlow1 = SpiralFlowForce(
+    val spiralFlow1 = SpiralFlow(
         400f, 400f,
         spiralSpeed = 0.8f,
         magnitude = 10f,
         direction = CW
     )
 
-    val spiralFlow3 = SpiralFlowForce(
+    val spiralFlow3 = SpiralFlow(
         2 * d.wf / 3f - 200, 2 * d.hf / 3f + 100,
         spiralSpeed = 0.3f,
         magnitude = 10f,
