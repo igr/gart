@@ -1,6 +1,7 @@
 package dev.oblac.gart
 
 import dev.oblac.gart.skia.Canvas
+import dev.oblac.gart.skia.Image
 
 /**
  * GART.
@@ -33,6 +34,8 @@ data class Gart(
     fun saveImage(gartvas: Gartvas, name: String = "${this.name}.png") = saveImageToFile(gartvas, name)
 
     fun saveImage(canvas: Canvas, d: Dimension = this.d, name: String = "${this.name}.png") = saveImageToFile(canvas, d, name)
+
+    fun saveImage(image: Image, name: String = "${this.name}.png") = saveImageToFile(image, name)
 
     fun saveMovie(movie: Movie, fps: Int = this.fps, name: String = "${this.name}.mp4") = saveMovieToFile(movie, fps, name)
 

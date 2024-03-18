@@ -48,3 +48,7 @@ fun Rect.thirds(): Rect {
         this.bottom - thirdH,
     )
 }
+
+fun Rect.shrink(delta: Float): Rect {
+    return Rect(this.left + delta, this.top + delta, this.right - delta, this.bottom - delta)
+}

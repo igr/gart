@@ -18,7 +18,7 @@ fun saveImageToFile(canvas: Canvas, d: Dimension, name: String) {
     saveImageToFile(gartvas.snapshot(), name)
 }
 
-private fun saveImageToFile(image: Image, name: String) {
+fun saveImageToFile(image: Image, name: String) {
     image
         .encodeToData(EncodedImageFormat.valueOf(name.substringAfterLast('.').uppercase()))
         .let { it!!.bytes }
