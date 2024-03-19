@@ -75,14 +75,22 @@ object Palettes {
         return Palette(colors)
     }
 
+    /**
+     * Grows (expands) palette by adding gradients between each pair of colors.
+     */
     fun gradient(palette: Palette, steps: Int): Palette {
-        val delta = steps / palette.size
+        val delta = steps.toFloat() / (palette.size - 1)
         var i = 0
 
         var gradient = Palette()
+        var colorCounter = 0f
         while (i < palette.size - 1) {
-            gradient += gradient(palette[i], palette[i + 1], delta)
+            // since delta is float, some gradients will have more steps than others
+            val gradientSteps = (colorCounter + delta).toInt() - colorCounter.toInt()
+
+            gradient += gradient(palette[i], palette[i + 1], gradientSteps)
             i++
+            colorCounter += delta
         }
 
         return gradient

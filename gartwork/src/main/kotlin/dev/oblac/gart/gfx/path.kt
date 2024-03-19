@@ -10,6 +10,18 @@ fun pathOf(first: Point, vararg points: Point): Path {
     return path
 }
 
+fun pathOf(list: List<Point>): Path {
+    val path = Path()
+    list.forEachIndexed { index, point ->
+        if (index == 0) {
+            path.moveTo(point)
+        } else {
+            path.lineTo(point)
+        }
+    }
+    return path
+}
+
 fun closedPathOf(first: Point, vararg points: Point): Path {
     val path = Path().moveTo(first)
     points.forEach { path.lineTo(it) }
