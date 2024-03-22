@@ -8,6 +8,9 @@ import kotlin.math.atan2
 import kotlin.math.cos
 import kotlin.math.sin
 
+/**
+ * Simple circular flow generator.
+ */
 class CircularFlow(
     private val cx: Float,
     private val cy: Float,

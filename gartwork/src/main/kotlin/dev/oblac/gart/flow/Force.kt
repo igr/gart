@@ -11,6 +11,11 @@ import kotlin.math.sin
 interface Force<T : Force<T>> {
     val direction: Float
     val magnitude: Float
+
+    /**
+     * Calculates the offset of the point by the force.
+     * Used to determine the next position of the point.
+     */
     fun offset(p: Point): Point
     operator fun plus(other: T): T
 }

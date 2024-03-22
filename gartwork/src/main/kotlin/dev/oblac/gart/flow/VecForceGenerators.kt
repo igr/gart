@@ -6,6 +6,11 @@ import dev.oblac.gart.math.fastSqrt
 import dev.oblac.gart.math.normalizeRad
 import kotlin.math.atan2
 
+/**
+ * Circular force that pulls the points towards the center.
+ * It is the same as [VecForce] except there is no additional angle pull.
+ * Closer points are faster. Points are always circulating around the center.
+ */
 class CircularVecForce(
     private val cx: Float,
     private val cy: Float,
@@ -28,10 +33,20 @@ class CircularVecForce(
     }
 }
 
+/**
+ * Spiral force that pulls the points towards the center.
+ * The center is never reached - points start to circle around it.
+ */
 class SpiralVecForce(
     val cx: Float,
     val cy: Float,
+    /**
+     * The speed of the spiral. The higher the value, the faster the spiral.pull.
+     */
     private val spiralSpeed: Float = 0.3f,
+    /**
+     * The magnitude is calculated as this value divided by the distance from the center.
+     */
     private val maxMagnitude: Float = 1024f,
     private val minDistance: Float = 200f,
     private val direction: RotationDirection = RotationDirection.CW
