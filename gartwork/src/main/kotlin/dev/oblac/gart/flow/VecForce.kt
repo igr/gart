@@ -10,9 +10,9 @@ import kotlin.math.sin
 /**
  * Vector force has a vector defined in each point.
  */
-data class VecForce(override val direction: Float, override val magnitude: Float = 1f) : Force<VecForce> {
+data class VecForce(override val direction: Float, override val magnitude: Float = 1f) : Force {
 
-    override operator fun plus(other: VecForce): VecForce {
+    override operator fun plus(other: Force): VecForce {
         val x3 = magnitude * cos(direction) + other.magnitude * cos(other.direction)
         val y3 = magnitude * sin(direction) + other.magnitude * sin(other.direction)
         val r3 = fastSqrt(x3 * x3 + y3 * y3)

@@ -8,7 +8,10 @@ import dev.oblac.gart.skia.Point
 import kotlin.math.cos
 import kotlin.math.sin
 
-interface Force<T : Force<T>> {
+/**
+ * Represents a force that acts on a point.
+ */
+interface Force {
     val direction: Float
     val magnitude: Float
 
@@ -17,26 +20,30 @@ interface Force<T : Force<T>> {
      * Used to determine the next position of the point.
      */
     fun offset(p: Point): Point
-    operator fun plus(other: T): T
+
+    /**
+     * Combines two forces into one.
+     */
+    operator fun plus(other: Force): Force
 }
 
 /**
  * Generates a force at the given point.
  */
-fun interface ForceGenerator<T : Force<T>> {
+fun interface ForceGenerator<T : Force> {
     operator fun invoke(x: Float, y: Float): T
 }
 
-class ForceField<T : Force<T>>(val w: Int, val h: Int, private val field: Array<Array<T>>) {
+class ForceField<T : Force>(val w: Int, val h: Int, private val field: Array<Array<T>>) {
 
     operator fun get(x: Int, y: Int): T {
         return field[x][y]
     }
 
     companion object {
-        inline fun <reified T : Force<T>> of(d: Dimension, supplier: ForceGenerator<T>) = of(d.w, d.h, supplier)
+        inline fun <reified T : Force> of(d: Dimension, supplier: ForceGenerator<T>) = of(d.w, d.h, supplier)
 
-        inline fun <reified T : Force<T>> of(width: Int, height: Int, supplier: ForceGenerator<T>): ForceField<T> {
+        inline fun <reified T : Force> of(width: Int, height: Int, supplier: ForceGenerator<T>): ForceField<T> {
             val field = Array(width) { x ->
                 Array(height) { y ->
                     supplier(x.toFloat(), y.toFloat())
