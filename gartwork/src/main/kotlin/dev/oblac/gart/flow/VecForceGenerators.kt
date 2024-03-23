@@ -16,7 +16,7 @@ class CircularVecForce(
     private val cy: Float,
     private val maxMagnitude: Float = 1024f,
     private val direction: RotationDirection = RotationDirection.CW
-) : ForceGenerator<VecForce> {
+) : ForceGenerator {
     override fun invoke(x: Float, y: Float): VecForce {
         val dx = x - cx
         val dy = y - cy
@@ -50,7 +50,7 @@ class SpiralVecForce(
     private val maxMagnitude: Float = 1024f,
     private val minDistance: Float = 200f,
     private val direction: RotationDirection = RotationDirection.CW
-) : ForceGenerator<VecForce> {
+) : ForceGenerator {
     override fun invoke(x: Float, y: Float): VecForce {
         val dx = x - cx
         val dy = y - cy

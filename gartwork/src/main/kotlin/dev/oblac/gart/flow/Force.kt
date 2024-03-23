@@ -30,20 +30,20 @@ interface Force {
 /**
  * Generates a force at the given point.
  */
-fun interface ForceGenerator<T : Force> {
-    operator fun invoke(x: Float, y: Float): T
+fun interface ForceGenerator {
+    operator fun invoke(x: Float, y: Float): Force
 }
 
-class ForceField<T : Force>(val w: Int, val h: Int, private val field: Array<Array<T>>) {
+class ForceField(val w: Int, val h: Int, private val field: Array<Array<Force>>) {
 
-    operator fun get(x: Int, y: Int): T {
+    operator fun get(x: Int, y: Int): Force {
         return field[x][y]
     }
 
     companion object {
-        inline fun <reified T : Force> of(d: Dimension, supplier: ForceGenerator<T>) = of(d.w, d.h, supplier)
+        fun of(d: Dimension, supplier: ForceGenerator) = of(d.w, d.h, supplier)
 
-        inline fun <reified T : Force> of(width: Int, height: Int, supplier: ForceGenerator<T>): ForceField<T> {
+        fun of(width: Int, height: Int, supplier: ForceGenerator): ForceField {
             val field = Array(width) { x ->
                 Array(height) { y ->
                     supplier(x.toFloat(), y.toFloat())
