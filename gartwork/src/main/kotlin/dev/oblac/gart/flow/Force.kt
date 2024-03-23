@@ -1,30 +1,28 @@
 package dev.oblac.gart.flow
 
 import dev.oblac.gart.Dimension
+import dev.oblac.gart.gfx.offset
 import dev.oblac.gart.gfx.strokeOfBlue
 import dev.oblac.gart.gfx.strokeOfRed
+import dev.oblac.gart.math.Vector
 import dev.oblac.gart.skia.Canvas
 import dev.oblac.gart.skia.Point
-import kotlin.math.cos
-import kotlin.math.sin
 
 /**
  * Represents a force that acts on a point.
  */
 interface Force {
-    val direction: Float
-    val magnitude: Float
 
     /**
-     * Calculates the offset of the point by the force.
-     * Used to determine the next position of the point.
+     * Calculates the force vector (offset) at the given point.
      */
-    fun offset(p: Point): Point
+    fun apply(p: Point): Vector
 
     /**
-     * Combines two forces into one.
+     * Applies the force to the given point and returns the new point.
      */
-    operator fun plus(other: Force): Force
+    fun offset(p: Point) = apply(p).let { p.offset(it) }
+
 }
 
 /**
@@ -39,6 +37,7 @@ class ForceField(val w: Int, val h: Int, private val field: Array<Array<Force>>)
     operator fun get(x: Int, y: Int): Force {
         return field[x][y]
     }
+    operator fun get(x: Number, y: Number) = get(x.toInt(), y.toInt())
 
     companion object {
         fun of(d: Dimension, supplier: ForceGenerator) = of(d.w, d.h, supplier)
@@ -65,10 +64,11 @@ class ForceField(val w: Int, val h: Int, private val field: Array<Array<Force>>)
             val f = this[x, y]
             val xf = x.toFloat()
             val yf = y.toFloat()
-            val dx = sin(f.direction) * f.magnitude * gap
-            val dy = -cos(f.direction) * f.magnitude * gap
+
+            val v = f.apply(Point(xf, yf)).normalize() * 10f
+
             c.drawPoint(xf, yf, strokeOfRed(2.5f))
-            c.drawLine(xf, yf, x + dx, y + dy, strokeOfBlue(1f))
+            c.drawLine(xf, yf, x + v.x, y + v.y, strokeOfBlue(1f))
         }
     }
 

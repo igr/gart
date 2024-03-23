@@ -1,5 +1,6 @@
 package dev.oblac.gart.flow
 
+import dev.oblac.gart.math.Vector
 import dev.oblac.gart.math.fastSqrt
 import dev.oblac.gart.math.normalizeRad
 import dev.oblac.gart.skia.Point
@@ -10,9 +11,9 @@ import kotlin.math.sin
 /**
  * Vector force has a vector defined in each point.
  */
-data class VecForce(override val direction: Float, override val magnitude: Float = 1f) : Force {
+data class VecForce(val direction: Float, val magnitude: Float = 1f) : Force {
 
-    override operator fun plus(other: Force): VecForce {
+    operator fun plus(other: VecForce): VecForce {
         val x3 = magnitude * cos(direction) + other.magnitude * cos(other.direction)
         val y3 = magnitude * sin(direction) + other.magnitude * sin(other.direction)
         val r3 = fastSqrt(x3 * x3 + y3 * y3)
@@ -23,9 +24,9 @@ data class VecForce(override val direction: Float, override val magnitude: Float
     /**
      * Calculates the offset of a point by the flow.
      */
-    override fun offset(p: Point): Point {
+    override fun apply(p: Point): Vector {
         val dx = sin(direction) * magnitude
         val dy = -cos(direction) * magnitude
-        return p.offset(dx, dy)
+        return Vector(dx, dy)
     }
 }

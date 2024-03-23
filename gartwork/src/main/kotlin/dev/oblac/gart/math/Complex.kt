@@ -1,5 +1,6 @@
 package dev.oblac.gart.math
 
+import java.util.*
 import kotlin.math.*
 
 
@@ -94,7 +95,7 @@ class Complex(val real: Double, val img: Double) {
     }
 
     override fun hashCode(): Int {
-        return real.hashCode() * 31 + img.hashCode()
+        return Objects.hash(real, img)
     }
 
     operator fun unaryMinus() = Complex(-real, -img)
