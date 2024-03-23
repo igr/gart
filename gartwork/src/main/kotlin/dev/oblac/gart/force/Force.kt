@@ -1,4 +1,4 @@
-package dev.oblac.gart.flow
+package dev.oblac.gart.force
 
 import dev.oblac.gart.Dimension
 import dev.oblac.gart.gfx.offset
