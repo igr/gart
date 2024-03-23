@@ -1,7 +1,7 @@
 package dev.oblac.gart.flowforce
 
-import dev.oblac.gart.flow.ForceField
-import dev.oblac.gart.flow.SpiralFlow
+import dev.oblac.gart.force.ForceField
+import dev.oblac.gart.force.SpiralFlow
 import dev.oblac.gart.gfx.*
 import dev.oblac.gart.math.RotationDirection
 import dev.oblac.gart.math.nextFloat
@@ -51,12 +51,12 @@ fun main() {
 //            flowField.drawField(g)
             randomPoints = randomPoints
                 .filter { it.isInside(d) }
-                .map { p ->
-                    with(p) {
-                        flowField[x.toInt(), y.toInt()].offset(this)
-                    }.also {
-                        g.canvas.drawLine(p.x, p.y, it.x, it.y, strokeOf(Colors.black.alpha(0x28), 1f))
-                    }
+                .map {
+                    flowField[it.x, it.y]
+                        .offset(it)
+                        .also { p ->
+                            g.canvas.drawLine(it.x, it.y, p.x, p.y, strokeOf(Colors.black.alpha(0x28), 1f))
+                        }
                 }
             image = g.snapshot()
         }

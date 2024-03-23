@@ -1,6 +1,6 @@
 package dev.oblac.gart
 
-import dev.oblac.gart.flow.*
+import dev.oblac.gart.force.*
 import dev.oblac.gart.gfx.isInside
 import dev.oblac.gart.gfx.strokeOf
 import dev.oblac.gart.math.rnd
@@ -16,23 +16,23 @@ fun main() {
     val cx = gart.d.wf / 3
     val cy = 1 * gart.d.hf / 3f + 100
     val spiralVec1 = SpiralVecForce(cx, cy, spiralSpeed = 0.2f, maxMagnitude = 1400f, minDistance = 200f)
-    val flowField1: ForceField<VecForce> = ForceField.of(gart.d) { x, y -> spiralVec1(x, y) }
+    val flowField1 = ForceField.of(gart.d) { x, y -> spiralVec1(x, y) }
 
     // 2
     val spiralVec2 = CircularVecForce(cx, cy, maxMagnitude = 1000f)
-    val flowField2: ForceField<VecForce> = ForceField.of(gart.d) { x, y -> spiralVec2(x, y) }
+    val flowField2 = ForceField.of(gart.d) { x, y -> spiralVec2(x, y) }
 
     // 3
     val circleFlowForce = CircularFlow(cx, cy)
-    val flowField3: ForceField<Flow> = ForceField.of(gart.d) { x, y -> circleFlowForce(x, y) }
+    val flowField3 = ForceField.of(gart.d) { x, y -> circleFlowForce(x, y) }
     // 4
     val spiralFlow = SpiralFlow(cx, cy)
-    val flowField4: ForceField<Flow> = ForceField.of(gart.d) { x, y -> spiralFlow(x, y) }
+    val flowField4 = ForceField.of(gart.d) { x, y -> spiralFlow(x, y) }
     // 5
     val waveFlow = WaveFlow(cx, cy)
-    val flowField5: ForceField<Flow> = ForceField.of(gart.d) { x, y -> waveFlow(x, y) }
+    val flowField5 = ForceField.of(gart.d) { x, y -> waveFlow(x, y) }
 
-    var ff: ForceField<*> = flowField1
+    var ff = flowField1
     val w = gart.window()
 
     fun resetPoints(): List<Point> = Array(1000) {
@@ -46,11 +46,15 @@ fun main() {
     w.show { c, d, _ ->
         ff.drawField(c, d)
 
-        points = points.filter { it.isInside(d) }.map {
-            ff[it.x.toInt(), it.y.toInt()].offset(it).also { next ->
-                c.drawLine(it.x, it.y, next.x, next.y, stroke)
-            }
-        }.toList()
+        points = points
+            .filter { it.isInside(d) }
+            .map {
+                ff[it.x, it.y]
+                    .offset(it)
+                    .also { p ->
+                        c.drawLine(it.x, it.y, p.x, p.y, stroke)
+                    }
+            }.toList()
     }
         .keyboardHandler {
             if (it.kind != SkikoKeyboardEventKind.UP) {
@@ -81,6 +85,7 @@ fun main() {
                     points = resetPoints()
                     flowField5
                 }
+
                 else -> ff
             }
         }

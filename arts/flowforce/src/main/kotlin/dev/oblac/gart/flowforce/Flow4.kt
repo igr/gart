@@ -1,7 +1,7 @@
 package dev.oblac.gart.flowforce
 
-import dev.oblac.gart.flow.ForceField
-import dev.oblac.gart.flow.WaveFlow
+import dev.oblac.gart.force.ForceField
+import dev.oblac.gart.force.WaveFlow
 import dev.oblac.gart.gfx.*
 import dev.oblac.gart.skia.Point
 import dev.oblac.gart.toFrames
@@ -43,12 +43,12 @@ fun main() {
 //            flowField.drawField(g)
             randomPoints = randomPoints
                 .filter { it.isInside(d) }
-                .map { p ->
-                    with(p) {
-                        flowField[x.toInt(), y.toInt()].offset(this)
-                    }.also {
-                        val color = palette.safe(it.y.toInt() * 3)
-                        g.canvas.drawLine(p.x, p.y, it.x, it.y, strokeOf(color.alpha(0x33), 1f))
+                .map {
+                    flowField[it.x, it.y]
+                        .offset(it)
+                        .also { p ->
+                            val color = palette.safe(p.y.toInt() * 3)
+                            g.canvas.drawLine(it.x, it.y, p.x, p.y, strokeOf(color.alpha(0x33), 1f))
                     }
                 }
             image = g.snapshot()
