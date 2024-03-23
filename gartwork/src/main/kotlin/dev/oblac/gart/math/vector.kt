@@ -11,9 +11,9 @@ data class Vector(val x: Float, val y: Float) {
     operator fun div(scalar: Float) = Vector(x / scalar, y / scalar)
     fun dot(other: Vector) = x * other.x + y * other.y
     fun cross(other: Vector) = x * other.y - y * other.x
-    fun length() = fastSqrt(x * x + y * y)
-    fun magnitude() = length()
-    fun normalize() = this / length()
+
+    val magnitude by lazy { fastSqrt(x * x + y * y) }
+    fun normalize() = this / magnitude
     fun rotate(angle: Float) = Vector(
         x * cos(angle) - y * sin(angle),
         x * sin(angle) + y * cos(angle)
@@ -22,7 +22,7 @@ data class Vector(val x: Float, val y: Float) {
     /**
      * Returns the angle of the vector in radians.
      */
-    fun angle() = atan2(y, x)
+    val angle by lazy { atan2(y, x) }
 
     companion object {
         val ZERO = Vector(0f, 0f)
