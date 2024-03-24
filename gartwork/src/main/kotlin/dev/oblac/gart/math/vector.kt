@@ -5,6 +5,7 @@ import kotlin.math.cos
 import kotlin.math.sin
 
 data class Vector(val x: Float, val y: Float) {
+    constructor(x: Number, y: Number) : this(x.toFloat(), y.toFloat())
     operator fun plus(other: Vector) = Vector(x + other.x, y + other.y)
     operator fun minus(other: Vector) = Vector(x - other.x, y - other.y)
     operator fun times(scalar: Float) = Vector(x * scalar, y * scalar)

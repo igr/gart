@@ -37,18 +37,52 @@ class ForceField(val w: Int, val h: Int, private val field: Array<Array<Force>>)
     operator fun get(x: Int, y: Int): Force {
         return field[x][y]
     }
+
     operator fun get(x: Number, y: Number) = get(x.toInt(), y.toInt())
 
     companion object {
-        fun of(d: Dimension, supplier: ForceGenerator) = of(d.w, d.h, supplier)
-
-        fun of(width: Int, height: Int, supplier: ForceGenerator): ForceField {
-            val field = Array(width) { x ->
-                Array(height) { y ->
-                    supplier(x.toFloat(), y.toFloat())
+        fun of(d: Dimension, fn: (Float, Float) -> Force) = ForceField(d.w, d.h,
+            Array(d.w) { x ->
+                Array(d.h) { y ->
+                    fn(x.toFloat(), y.toFloat())
                 }
-            }
-            return ForceField(width, height, field)
+            })
+
+        fun ofVectors(d: Dimension, fn: (Float, Float) -> Vector) = ForceField(d.w, d.h,
+            Array(d.w) {
+                Array(d.h) {
+                    object : Force {
+                        override fun apply(p: Point): Vector {
+                            return fn(p.x, p.y)
+                        }
+                    }
+                }
+            })
+
+        /**
+         * Creates a force field from a function that generates a vector for each point.
+         * Points are defined with the index. Used when mapping from one space into another.
+         */
+        fun from(d: Dimension, fn: (Int, Int) -> Vector) = ForceField(d.w, d.h,
+            Array(d.w) { x ->
+                Array(d.h) { y ->
+                    object : Force {
+                        override fun apply(p: Point): Vector {
+                            return fn(x, y)
+                        }
+                    }
+                }
+            })
+
+        fun of(d: Dimension, forceGenerator: ForceGenerator) = of(d.w, d.h, forceGenerator)
+
+        fun of(width: Int, height: Int, forceGenerator: ForceGenerator): ForceField {
+            return ForceField(width, height,
+                Array(width) { x ->
+                    Array(height) { y ->
+                        forceGenerator(x.toFloat(), y.toFloat())
+                    }
+                })
         }
     }
 

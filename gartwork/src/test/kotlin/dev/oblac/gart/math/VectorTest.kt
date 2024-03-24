@@ -10,6 +10,6 @@ class VectorTest {
         assertEquals(0f, Vector(1f, 0f).angle, 0.0001f)
         assertEquals(PIf / 2, Vector(0f, 1f).angle, 0.0001f)
         assertEquals(PIf, Vector(-1f, 0f).angle, 0.0001f)
-        assertEquals(-PIf / 2, Vector(0f, -1f).angle, 0.0001f)  // ! important
+        assertEquals(-PIf / 2, Vector(0f, -1f).angle, 0.0001f)
     }
 }
