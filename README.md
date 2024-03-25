@@ -118,6 +118,15 @@ follow: [🎇 Instagram](https://www.instagram.com/gart_173) |
 <img src="arts/cotton/cotton3_thumb.png" align="left">
 </p>
 
+<br clear="both">
+
+⭐️ [Thre3](arts/thre3/README.md)
+
+<p align="center">
+<img src="arts/thre3/surfing_thumb.png" align="left">
+</p>
+
+
 
 <br clear="both">
 
