@@ -4,6 +4,8 @@ import dev.oblac.gart.skia.Canvas
 import dev.oblac.gart.skia.SkiaSwingLayer
 import dev.oblac.gart.skia.SkikoKeyboardEvent
 import dev.oblac.gart.skia.SkikoView
+import org.jetbrains.skiko.SkikoPointerEvent
+import org.jetbrains.skiko.SkikoPointerEventKind
 import javax.swing.JFrame
 
 class GartView(
@@ -16,7 +18,7 @@ class GartView(
     // github says to use SkiaLayer if swing inter-op is needed
     // however, with SkiaSwingLayer I am getting significantly better performance
     private val skiaLayer = SkiaSwingLayer(this)
-    private val fpsGuard = FpsGuard(fps, printFps)
+    internal val fpsGuard = FpsGuard(fps, printFps)
 
     init {
         //skiaLayer.addView(this)
@@ -43,4 +45,10 @@ class GartView(
         super.onKeyboardEvent(event)
     }
 
+    override fun onPointerEvent(event: SkikoPointerEvent) {
+        if (event.kind == SkikoPointerEventKind.DOWN) {
+            println("(${event.x},${event.y})")
+        }
+        super.onPointerEvent(event)
+    }
 }

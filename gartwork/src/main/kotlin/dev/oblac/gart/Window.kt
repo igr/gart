@@ -55,6 +55,27 @@ open class Window(val d: Dimension, val fps: Int, internal val printFps: Boolean
                     view.onKeyboardEvent(toSkikoEvent(e))
                 }
             })
+            frame.addMouseListener(object : java.awt.event.MouseListener {
+                override fun mouseClicked(e: java.awt.event.MouseEvent) {
+                    view.onPointerEvent(toSkikoEvent(e))
+                }
+
+                override fun mousePressed(e: java.awt.event.MouseEvent) {
+                    view.onPointerEvent(toSkikoEvent(e))
+                }
+
+                override fun mouseReleased(e: java.awt.event.MouseEvent) {
+                    view.onPointerEvent(toSkikoEvent(e))
+                }
+
+                override fun mouseEntered(e: java.awt.event.MouseEvent) {
+                    view.onPointerEvent(toSkikoEvent(e))
+                }
+
+                override fun mouseExited(e: java.awt.event.MouseEvent) {
+                    view.onPointerEvent(toSkikoEvent(e))
+                }
+            })
 
             // frame sizing
             frame.preferredSize = java.awt.Dimension(d.w, d.h + frame.insets.top)   // add title bar height
@@ -78,8 +99,13 @@ class WindowView(w: Window, private val v: GartView) {
     /**
      * Defines a keyboard handler.
      */
-    fun keyboardHandler(keyboardHandler: (SkikoKeyboardEvent) -> Unit) {
+    fun keyboardHandler(keyboardHandler: (SkikoKeyboardEvent) -> Unit): WindowView {
         v.keyboardHandler = keyboardHandler
+        return this
+    }
+
+    fun fastForwardTo(frame: Long) {
+        v.fpsGuard.frames.set(frame)
     }
 
 }

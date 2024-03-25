@@ -49,6 +49,8 @@ fun Rect.thirds(): Rect {
     )
 }
 
-fun Rect.shrink(delta: Float): Rect {
-    return Rect(this.left + delta, this.top + delta, this.right - delta, this.bottom - delta)
-}
+fun Rect.shrink(delta: Float) =
+    Rect(this.left + delta, this.top + delta, this.right - delta, this.bottom - delta)
+
+fun Rect.grow(delta: Float) =
+    Rect(this.left - delta, this.top - delta, this.right + delta, this.bottom + delta)

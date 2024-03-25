@@ -14,15 +14,14 @@ object ComplexFunctions {
      * Creates a function that has poles and holes at given points.
      */
     fun polesAndHoles(poles: Array<Complex>, holes: Array<Complex>) = { z: Complex ->
-        var result = Complex.ONE
-        for (pole in poles) {
-            result *= z - pole
+        var result = z - holes[0]
+        for (hole in holes.slice(1 until holes.size)) {
+            result *= (z - hole)
         }
-        for (hole in holes) {
-            result /= z - hole
+        for (pole in poles) {
+            result /= (z - pole)
         }
         result
-
     }
 }
 

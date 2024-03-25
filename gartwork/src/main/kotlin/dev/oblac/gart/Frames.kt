@@ -108,6 +108,10 @@ internal class FrameCounter(override val fps: Int) : Frames {
     fun tock() {
         drawNew = false
     }
+
+    fun set(frame: Long) {
+        totalFrames = frame
+    }
 }
 
 /**
