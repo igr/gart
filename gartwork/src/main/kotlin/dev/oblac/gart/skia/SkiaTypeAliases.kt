@@ -32,6 +32,7 @@ typealias PathEffect = org.jetbrains.skia.PathEffect
 typealias PathFillMode = org.jetbrains.skia.PathFillMode
 typealias PathMeasure = org.jetbrains.skia.PathMeasure
 typealias Point = org.jetbrains.skia.Point
+typealias Point3 = org.jetbrains.skia.Point3
 typealias RRect = org.jetbrains.skia.RRect
 typealias Rect = org.jetbrains.skia.Rect
 typealias RuntimeEffect = org.jetbrains.skia.RuntimeEffect
