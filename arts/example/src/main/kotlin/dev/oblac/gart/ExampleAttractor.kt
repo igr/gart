@@ -37,6 +37,8 @@ fun main() {
             SkikoKey.KEY_T -> peterDeJongAttractor(gart.d)
             SkikoKey.KEY_Y -> duffingAttractor(gart.d)
             SkikoKey.KEY_U -> symmetricIconAttractor(gart.d)
+            SkikoKey.KEY_I -> quadraticAttractor(gart.d)
+            SkikoKey.KEY_O -> qubicAttractor(gart.d)
             else -> p
         }
         println(p.size)
@@ -142,3 +144,15 @@ private fun symmetricIconAttractor(d: Dimension) =
         .map { Point(it.x, it.y) }
         .map { it.fromCenter(d, 200f) }
         .map { it.offset(0f, -50f) }
+
+private fun quadraticAttractor(d: Dimension) =
+    QuadraticAttractor.ONE.computeN(QuadraticAttractor.initialPoint, 0.001f, 50_000)
+        .map { Point(it.x, it.y) }
+        .map { it.fromCenter(d, 100f) }
+        .map { it.offset(100f, -50f) }
+
+private fun qubicAttractor(d: Dimension) =
+    CubicAttractor.ONE.computeN(CubicAttractor.initialPoint, 0.001f, 50_000)
+        .map { Point(it.x, it.y) }
+        .map { it.fromCenter(d, 200f) }
+        .map { it.offset(100f, -50f) }
