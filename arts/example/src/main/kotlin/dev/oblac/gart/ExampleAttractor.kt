@@ -32,6 +32,11 @@ fun main() {
             SkikoKey.KEY_0 -> threeScrollUnifiedChaoticAttractor(gart.d)
             SkikoKey.KEY_Q -> sprottAttractor(gart.d)
             SkikoKey.KEY_W -> fourWingAttractor(gart.d)
+            SkikoKey.KEY_E -> fourWingAttractor(gart.d)
+            SkikoKey.KEY_R -> cliffordAttractor(gart.d)
+            SkikoKey.KEY_T -> peterDeJongAttractor(gart.d)
+            SkikoKey.KEY_Y -> duffingAttractor(gart.d)
+            SkikoKey.KEY_U -> symmetricIconAttractor(gart.d)
             else -> p
         }
         println(p.size)
@@ -112,4 +117,28 @@ private fun fourWingAttractor(d: Dimension) =
     FourWingAttractor().computeN(FourWingAttractor.initialPoint, 0.01f, 30000)
         .map { Point(it.x, it.y) }
         .map { it.fromCenter(d, 100f) }
+        .map { it.offset(0f, -50f) }
+
+private fun cliffordAttractor(d: Dimension) =
+    CliffordAttractor().computeN(CliffordAttractor.initialPoint, 0.01f, 50000)
+        .map { Point(it.x, it.y) }
+        .map { it.fromCenter(d, 100f) }
+        .map { it.offset(0f, -50f) }
+
+private fun peterDeJongAttractor(d: Dimension) =
+    PeterDeJongAttractor().computeN(PeterDeJongAttractor.initialPoint, 0.01f, 50000)
+        .map { Point(it.x, it.y) }
+        .map { it.fromCenter(d, 100f) }
+        .map { it.offset(0f, -50f) }
+
+private fun duffingAttractor(d: Dimension) =
+    DuffingAttractor().computeN(DuffingAttractor.initialPoint, 0.01f, 100000)
+        .map { Point(it.x, it.y) }
+        .map { it.fromCenter(d, 200f) }
+        .map { it.offset(0f, -50f) }
+
+private fun symmetricIconAttractor(d: Dimension) =
+    SymmetricIconAttractor().computeN(SymmetricIconAttractor.initialPoint, 0.01f, 100_000)
+        .map { Point(it.x, it.y) }
+        .map { it.fromCenter(d, 200f) }
         .map { it.offset(0f, -50f) }
