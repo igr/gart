@@ -3,7 +3,18 @@ package dev.oblac.gart.noise
 import dev.oblac.gart.skia.BlendMode
 import dev.oblac.gart.skia.Shader
 
-class NoiseColor(baseX: Float = 0.5f, baseY: Float = 0.5f, octaves: Int = 4, seed: Float = 2.0f) {
+class NoiseColor(
+    baseX: Float = 0.5f,
+    baseY: Float = 0.5f,
+    octaves: Int = 4,
+    seed: Float = 2.0f,
+    noiseType: NoiseType = NoiseType.FRACTAL
+) {
+
+    enum class NoiseType {
+        FRACTAL,
+        TURBULENCE
+    }
 
     enum class BlendType(val blendMode: BlendMode) {
         /**
@@ -40,13 +51,21 @@ class NoiseColor(baseX: Float = 0.5f, baseY: Float = 0.5f, octaves: Int = 4, see
         PRINT(BlendMode.LUMINOSITY)
     }
 
+    private val noiseShader = when (noiseType) {
+        NoiseType.TURBULENCE -> Shader.makeTurbulence(
+            baseFrequencyX = baseX,
+            baseFrequencyY = baseY,
+            numOctaves = octaves,
+            seed = seed
+        )
 
-    private val noiseShader = Shader.makeFractalNoise(
-        baseFrequencyX = baseX,
-        baseFrequencyY = baseY,
-        numOctaves = octaves,
-        seed = seed
-    )
+        NoiseType.FRACTAL -> Shader.makeFractalNoise(
+            baseFrequencyX = baseX,
+            baseFrequencyY = baseY,
+            numOctaves = octaves,
+            seed = seed
+        )
+    }
 
     fun composeShader(color: Int, blend: BlendType = BlendType.PRINT) = Shader.makeBlend(
         blend.blendMode,
