@@ -2,7 +2,7 @@ package dev.oblac.gart
 
 import dev.oblac.gart.skia.Canvas
 import dev.oblac.gart.skia.SkiaSwingLayer
-import dev.oblac.gart.skia.SkikoView
+import dev.oblac.gart.skia.SkikoRenderDelegate
 import javax.swing.JFrame
 
 class GartView(
@@ -10,7 +10,7 @@ class GartView(
     private val drawFrame: DrawFrame,
     fps: Int,
     printFps: Boolean,
-) : SkikoView {
+) : SkikoRenderDelegate {
 
     // github says to use SkiaLayer if swing inter-op is needed
     // however, with SkiaSwingLayer I am getting significantly better performance
