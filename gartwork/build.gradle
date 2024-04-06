@@ -8,7 +8,7 @@ test {
 
 dependencies {
     //api 'io.github.humbleui:skija-macos-x64:0.98.1'
-    api 'org.jetbrains.skiko:skiko-awt-runtime-macos-arm64:0.7.90'
+    api 'org.jetbrains.skiko:skiko-awt-runtime-macos-arm64:0.8.0'
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3'
 
     implementation 'org.bytedeco:ffmpeg-platform:6.0-1.5.9'
