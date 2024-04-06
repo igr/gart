@@ -2,10 +2,7 @@ package dev.oblac.gart
 
 import dev.oblac.gart.gfx.Colors
 import dev.oblac.gart.gfx.fillOfRed
-import dev.oblac.gart.shader.createNeuroShader
-import dev.oblac.gart.shader.createNoiseGrain2Filter
-import dev.oblac.gart.shader.createNoiseGrainFilter
-import dev.oblac.gart.shader.toPaint
+import dev.oblac.gart.shader.*
 import dev.oblac.gart.skia.FilterTileMode
 import dev.oblac.gart.skia.ImageFilter
 import dev.oblac.gart.skia.Paint
@@ -74,7 +71,20 @@ fun main() {
                 fill = fillOfRed()
                 filter = createNoiseGrain2Filter(0.2f, gart.d)
             }
+            Key.KEY_D -> {
+                fill = fillOfRed()
+                filter = createRisographFilter(0.1f, d = gart.d)
+            }
 
+            Key.KEY_F -> {
+                fill = fillOfRed()
+                filter = createMarbledFilter(0.1f, gart.d)
+            }
+
+            Key.KEY_G -> {
+                fill = fillOfRed()
+                filter = createSketchingPaperFilter(1.2f, 0.2f, 0.15f, gart.d)
+            }
             else -> {}
         }
     }

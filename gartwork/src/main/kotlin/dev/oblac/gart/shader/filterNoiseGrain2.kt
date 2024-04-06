@@ -23,12 +23,7 @@ float random( vec2 p )
 vec4 main( vec2 fragCoord )  {
     // Normalized pixel coordinates (from 0 to 1)
     vec2 uv = fragCoord/resolution.xy;
-    
-    // Check if pixel is inside viewport bounds
-    if (fragCoord.x < 0.0 || fragCoord.x > resolution.x || fragCoord.y < 0.0 || fragCoord.y > resolution.y) {
-        return vec4(image.eval(fragCoord));
-    }
-    
+        
     vec2 uvRandom = uv;
     float amount = 0.2;
     uvRandom.y *= random(vec2(uvRandom.y,amount));
