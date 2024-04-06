@@ -44,11 +44,11 @@ typealias Typeface = org.jetbrains.skia.Typeface
 
 // swing
 
+
 typealias GenericSkikoView = org.jetbrains.skiko.GenericSkikoView
+typealias SkiaLayerRenderDelegate = org.jetbrains.skiko.SkiaLayerRenderDelegate
 typealias SkikoView = org.jetbrains.skiko.SkikoView
+typealias SkikoRenderDelegate = org.jetbrains.skiko.SkikoRenderDelegate
 typealias SkiaLayer = org.jetbrains.skiko.SkiaLayer
-typealias SkikoKey = org.jetbrains.skiko.SkikoKey
-typealias SkikoKeyboardEventKind = org.jetbrains.skiko.SkikoKeyboardEventKind
-typealias SkikoKeyboardEvent = org.jetbrains.skiko.SkikoKeyboardEvent
 typealias SkiaSwingLayer = org.jetbrains.skiko.swing.SkiaSwingLayer
 typealias FPSCounter = org.jetbrains.skiko.FPSCounter

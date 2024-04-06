@@ -2,10 +2,7 @@ package dev.oblac.gart
 
 import dev.oblac.gart.skia.Canvas
 import dev.oblac.gart.skia.SkiaSwingLayer
-import dev.oblac.gart.skia.SkikoKeyboardEvent
 import dev.oblac.gart.skia.SkikoView
-import org.jetbrains.skiko.SkikoPointerEvent
-import org.jetbrains.skiko.SkikoPointerEventKind
 import javax.swing.JFrame
 
 class GartView(
@@ -36,19 +33,5 @@ class GartView(
 
     internal fun attachTo(frame: JFrame) {
         frame.contentPane.add(skiaLayer)
-    }
-
-    internal var keyboardHandler: (SkikoKeyboardEvent) -> Unit = {}
-
-    override fun onKeyboardEvent(event: SkikoKeyboardEvent) {
-        keyboardHandler(event)
-        super.onKeyboardEvent(event)
-    }
-
-    override fun onPointerEvent(event: SkikoPointerEvent) {
-        if (event.kind == SkikoPointerEventKind.DOWN) {
-            println("(${event.x},${event.y})")
-        }
-        super.onPointerEvent(event)
     }
 }

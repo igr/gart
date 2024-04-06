@@ -4,10 +4,8 @@ import dev.oblac.gart.force.*
 import dev.oblac.gart.gfx.isInside
 import dev.oblac.gart.gfx.strokeOf
 import dev.oblac.gart.math.*
-import dev.oblac.gart.skia.SkikoKey
-import dev.oblac.gart.skia.SkikoKeyboardEventKind
-import org.jetbrains.skia.Color
-import org.jetbrains.skia.Point
+import dev.oblac.gart.skia.Color
+import dev.oblac.gart.skia.Point
 
 fun main() {
     val gart = Gart.of("Flows", 800, 800)
@@ -65,36 +63,33 @@ fun main() {
             }.toList()
     }
         .keyboardHandler {
-            if (it.kind != SkikoKeyboardEventKind.UP) {
-                return@keyboardHandler
-            }
-            ff = when (it.key) {
-                SkikoKey.KEY_1 -> {
+            ff = when (it) {
+                Key.KEY_1 -> {
                     points = resetPoints()
                     forceField1
                 }
 
-                SkikoKey.KEY_2 -> {
+                Key.KEY_2 -> {
                     points = resetPoints()
                     forceField2
                 }
 
-                SkikoKey.KEY_3 -> {
+                Key.KEY_3 -> {
                     points = resetPoints()
                     forceField3
                 }
 
-                SkikoKey.KEY_4 -> {
+                Key.KEY_4 -> {
                     points = resetPoints()
                     forceField4
                 }
 
-                SkikoKey.KEY_5 -> {
+                Key.KEY_5 -> {
                     points = resetPoints()
                     forceField5
                 }
 
-                SkikoKey.KEY_6 -> {
+                Key.KEY_6 -> {
                     points = resetPoints()
                     forceField6
                 }

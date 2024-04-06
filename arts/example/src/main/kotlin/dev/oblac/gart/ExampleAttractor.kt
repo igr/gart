@@ -6,7 +6,6 @@ import dev.oblac.gart.gfx.drawPoints
 import dev.oblac.gart.gfx.fromCenter
 import dev.oblac.gart.gfx.strokeOfBlack
 import dev.oblac.gart.skia.Point
-import dev.oblac.gart.skia.SkikoKey
 
 fun main() {
     val gart = Gart.of("ExampleAttractor", 600, 600, 30)
@@ -19,26 +18,26 @@ fun main() {
         c.clear(Colors.white)
         c.drawPoints(p, strokeOfBlack(1f))
     }.keyboardHandler { k ->
-        p = when (k.key) {
-            SkikoKey.KEY_1 -> lorenzAttractor(gart.d)
-            SkikoKey.KEY_2 -> thomasAttractor(gart.d)
-            SkikoKey.KEY_3 -> aizawaAttractor(gart.d)
-            SkikoKey.KEY_4 -> dadrasAttractor(gart.d)
-            SkikoKey.KEY_5 -> chenAttractor(gart.d)
-            SkikoKey.KEY_6 -> lorenz84Attractor(gart.d)
-            SkikoKey.KEY_7 -> rosslerAttractor(gart.d)
-            SkikoKey.KEY_8 -> halvorsenAttractor(gart.d)
-            SkikoKey.KEY_9 -> rabinovichFabrikantAttractor(gart.d)
-            SkikoKey.KEY_0 -> threeScrollUnifiedChaoticAttractor(gart.d)
-            SkikoKey.KEY_Q -> sprottAttractor(gart.d)
-            SkikoKey.KEY_W -> fourWingAttractor(gart.d)
-            SkikoKey.KEY_E -> fourWingAttractor(gart.d)
-            SkikoKey.KEY_R -> cliffordAttractor(gart.d)
-            SkikoKey.KEY_T -> peterDeJongAttractor(gart.d)
-            SkikoKey.KEY_Y -> duffingAttractor(gart.d)
-            SkikoKey.KEY_U -> symmetricIconAttractor(gart.d)
-            SkikoKey.KEY_I -> quadraticAttractor(gart.d)
-            SkikoKey.KEY_O -> qubicAttractor(gart.d)
+        p = when (k) {
+            Key.KEY_1 -> lorenzAttractor(gart.d)
+            Key.KEY_2 -> thomasAttractor(gart.d)
+            Key.KEY_3 -> aizawaAttractor(gart.d)
+            Key.KEY_4 -> dadrasAttractor(gart.d)
+            Key.KEY_5 -> chenAttractor(gart.d)
+            Key.KEY_6 -> lorenz84Attractor(gart.d)
+            Key.KEY_7 -> rosslerAttractor(gart.d)
+            Key.KEY_8 -> halvorsenAttractor(gart.d)
+            Key.KEY_9 -> rabinovichFabrikantAttractor(gart.d)
+            Key.KEY_0 -> threeScrollUnifiedChaoticAttractor(gart.d)
+            Key.KEY_Q -> sprottAttractor(gart.d)
+            Key.KEY_W -> fourWingAttractor(gart.d)
+            Key.KEY_E -> fourWingAttractor(gart.d)
+            Key.KEY_R -> cliffordAttractor(gart.d)
+            Key.KEY_T -> peterDeJongAttractor(gart.d)
+            Key.KEY_Y -> duffingAttractor(gart.d)
+            Key.KEY_U -> symmetricIconAttractor(gart.d)
+            Key.KEY_I -> quadraticAttractor(gart.d)
+            Key.KEY_O -> qubicAttractor(gart.d)
             else -> p
         }
         println(p.size)
