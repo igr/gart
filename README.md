@@ -115,6 +115,7 @@ follow: [🎇 Instagram](https://www.instagram.com/gart_173) |
 <p align="center">
 <img src="arts/cotton/cotton1_thumb.png" align="left">
 <img src="arts/cotton/cotton-circles_thumb.png" align="left">
+<img src="arts/cotton/cotton-circles2_thumb.png" align="left">
 </p>
 
 <br clear="both">
