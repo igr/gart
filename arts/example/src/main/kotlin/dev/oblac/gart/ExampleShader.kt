@@ -28,7 +28,7 @@ fun main() {
         if (f.new) {
             tick += 0.01f
         }
-    }.keyboardHandler {
+    }.onKey {
         when (it) {
             Key.KEY_1 -> {
                 fill = fillOfRed()

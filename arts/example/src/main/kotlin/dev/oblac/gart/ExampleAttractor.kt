@@ -17,7 +17,7 @@ fun main() {
     w.show { c, _, _ ->
         c.clear(Colors.white)
         c.drawPoints(p, strokeOfBlack(1f))
-    }.keyboardHandler { k ->
+    }.onKey { k ->
         p = when (k) {
             Key.KEY_1 -> lorenzAttractor(gart.d)
             Key.KEY_2 -> thomasAttractor(gart.d)

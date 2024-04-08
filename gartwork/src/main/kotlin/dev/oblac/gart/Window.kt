@@ -53,19 +53,25 @@ open class Window(val d: Dimension, val fps: Int, internal val printFps: Boolean
         return windowView
     }
 
+    internal var onCloseHandler: () -> Unit = {
+        println("Window closing")
+    }
+
     /**
      * Called when the window is closing.
      */
-    protected open fun onClose() = println("Window closing")
+    protected open fun onClose() {
+        onCloseHandler()
+    }
 }
 
-class WindowView(w: Window, private val v: GartView) {
+class WindowView(private val w: Window, private val v: GartView) {
 
     private var keyboardHandler: (Key) -> Unit = {}
     /**
      * Defines a keyboard handler.
      */
-    fun keyboardHandler(keyboardHandler: (Key) -> Unit): WindowView {
+    fun onKey(keyboardHandler: (Key) -> Unit): WindowView {
         this.keyboardHandler = keyboardHandler
         return this
     }
@@ -106,6 +112,10 @@ class WindowView(w: Window, private val v: GartView) {
 
     fun fastForwardTo(frame: Long) {
         v.fpsGuard.frames.set(frame)
+    }
+
+    fun onClose(onClose: () -> Unit) {
+        w.onCloseHandler = onClose
     }
 
 }

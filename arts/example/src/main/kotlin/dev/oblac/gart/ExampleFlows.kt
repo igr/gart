@@ -62,7 +62,7 @@ fun main() {
                     }
             }.toList()
     }
-        .keyboardHandler {
+        .onKey {
             ff = when (it) {
                 Key.KEY_1 -> {
                     points = resetPoints()

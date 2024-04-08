@@ -1,5 +1,7 @@
 # gȧrt : cotton
 
+![](cotton-circles2.png)
+
 ![](cotton-circles.png)
 
 ![](cotton1.png)
