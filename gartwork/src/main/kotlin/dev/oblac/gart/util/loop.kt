@@ -1,5 +1,12 @@
 package dev.oblac.gart.util
 
+
+fun loop(count: Int, block: (x: Int) -> Unit) {
+    for (x in 0 until count) {
+        block(x)
+    }
+}
+
 /**
  * Double loop.
  */

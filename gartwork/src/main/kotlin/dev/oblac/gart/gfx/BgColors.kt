@@ -23,4 +23,10 @@ object BgColors {
     val linen = 0xFFF8F0E7.toInt()
     val milkMustache = 0xFFFAF5E7.toInt()
 
+    val dark01 = 0xFF18191A.toInt()
+    val dark02 = 0xFF242526.toInt()
+    val elegantDark = 0xFF212121.toInt()
+    val elegan = 0xFF2E2E2E.toInt()
+
+
 }
