@@ -34,10 +34,8 @@ fun interface ForceGenerator {
 
 class ForceField(val w: Int, val h: Int, private val field: Array<Array<Force>>) {
 
-    operator fun get(x: Int, y: Int): Force {
-        return field[x][y]
-    }
-
+    operator fun get(x: Int, y: Int): Force = field[x][y]
+    operator fun get(point: Point): Force = get(point.x, point.y)
     operator fun get(x: Number, y: Number) = get(x.toInt(), y.toInt())
 
     companion object {

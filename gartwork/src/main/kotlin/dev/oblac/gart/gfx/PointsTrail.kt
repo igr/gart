@@ -32,4 +32,22 @@ class PointsTrail(val size: Int) {
         points.asReversed().forEach(action)
     }
 
+    fun last(): Point {
+        return points.last()
+    }
+
+    fun update(apply: (Point) -> Point): PointsTrail {
+        val last = points.last()
+        val newPoint = apply(last)
+        this.add(newPoint)
+        return this
+    }
+
+    fun filter(predicate: (Point) -> Boolean): PointsTrail {
+        points.removeIf { !predicate(it) }
+        return this
+    }
+
+    fun isNotEmpty(): Boolean = points.isNotEmpty()
+
 }
