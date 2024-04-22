@@ -96,6 +96,13 @@ object Palettes {
             colorCounter += delta
         }
 
+        if (gradient.size == steps - 1) {
+            gradient += palette.last()
+        }
+        if (gradient.size != steps) {
+            throw IllegalStateException("Gradient size is ${gradient.size}, expected $steps")
+        }
+
         return gradient
     }
 }

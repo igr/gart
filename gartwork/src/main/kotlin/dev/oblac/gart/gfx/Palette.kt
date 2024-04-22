@@ -24,8 +24,16 @@ class Palette(internal val colors: IntArray) {
         return colors[index % size]
     }
 
+    fun last(): Int {
+        return colors[size - 1]
+    }
+
     operator fun plus(otherPalette: Palette): Palette {
         return Palette(this.colors + otherPalette.colors)
+    }
+
+    operator fun plus(color: Int): Palette {
+        return Palette(this.colors + color)
     }
 
     fun random(): Int {

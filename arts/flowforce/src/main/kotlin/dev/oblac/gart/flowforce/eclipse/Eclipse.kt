@@ -101,7 +101,7 @@ fun drawRays(c: Canvas, d: Dimension, moonR: Float) {
 
     loop(200) {
         rayPoints
-            .filter { it.isNotEmpty() }
+            .filter { it.isActive() }
             .forEach { trail ->
                 trail.update {
                     ff[it].offset(it)
