@@ -19,6 +19,16 @@ data class Dimension(val w: Int, val h: Int) {
      */
     val cy = h / 2f
 
+    /**
+     * Third of the width.
+     */
+    val w3 = w / 3f
+
+    /**
+     * Third of the height.
+     */
+    val h3 = h / 3f
+
     val rect = Rect(0f, 0f, wf, hf)
 
     /**

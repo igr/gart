@@ -19,35 +19,50 @@ class PointsTrail(val size: Int) {
     }
 
     /**
-     * Iterates over the points in the trail.
+     * Iterates over the points in the trail, starting from
+     * the oldest point (first) to the newest point (last).
      */
     fun forEach(action: (Point) -> Unit) {
         points.forEach(action)
     }
-
-    /**
-     * Iterates over the points in the trail in reverse order.
-     */
-    fun forEachReverse(action: (Point) -> Unit) {
-        points.asReversed().forEach(action)
+    fun forEachIndexed(action: (Int, Point) -> Unit) {
+        points.forEachIndexed(action)
     }
 
     fun last(): Point {
         return points.last()
     }
 
-    fun update(apply: (Point) -> Point): PointsTrail {
+    fun update(apply: (Point) -> Point?): PointsTrail {
+        if (points.isEmpty()) {
+            return this
+        }
         val last = points.last()
         val newPoint = apply(last)
-        this.add(newPoint)
+        if (newPoint != null) {
+            this.add(newPoint)
+        } else {
+            points.removeFirst()
+        }
+
         return this
     }
 
+    /**
+     * Filters points in the trail.
+     * Warning - this method modifies the trail and may be slow.
+     */
     fun filter(predicate: (Point) -> Boolean): PointsTrail {
         points.removeIf { !predicate(it) }
         return this
     }
 
-    fun isNotEmpty(): Boolean = points.isNotEmpty()
+    fun isActive(): Boolean = points.isNotEmpty()
+    fun isEmpty(): Boolean = points.isEmpty()
 
 }
+
+/**
+ * Counts trails that are active, i.e. have at least one point.
+ */
+fun List<PointsTrail>.countActive() = this.count { it.isActive() }
