@@ -81,6 +81,8 @@ follow: [🎇 Instagram](https://www.instagram.com/gart_173) |
 <img src="arts/flowforce/flowforce2_thumb.png" align="left">
 <img src="arts/flowforce/flowforce3_thumb.png" align="left">
 <img src="arts/flowforce/flowforce4_thumb.png" align="left">
+<img src="arts/flowforce/Eclipse_thumb.png" align="left">
+<img src="arts/flowforce/Spring_thumb.png" align="left">
 </p>
 
 <br clear="both">
