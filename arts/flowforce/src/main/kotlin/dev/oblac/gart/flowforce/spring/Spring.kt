@@ -1,6 +1,7 @@
 package dev.oblac.gart.flowforce.spring
 
 import dev.oblac.gart.Dimension
+import dev.oblac.gart.Frames
 import dev.oblac.gart.Gart
 import dev.oblac.gart.force.ForceField
 import dev.oblac.gart.force.WaveFlow
@@ -9,7 +10,8 @@ import dev.oblac.gart.skia.Canvas
 import dev.oblac.gart.skia.Paint
 import dev.oblac.gart.skia.Point
 
-val gart = Gart.of("Spring", 1024, 1024)
+// use high FPS so not to wait much.
+val gart = Gart.of("Spring", 1024, 1024, fps = 1000)
 
 val d = gart.d
 val w = gart.window()
@@ -36,7 +38,7 @@ val trails = Array(TRAILS) { newTrail() }.toMutableList()
 fun main() {
     w.show { c, _, f ->
         c.clear(BgColors.dark01)
-        drawRays(c, d)
+        drawRays(c, d, f)
         c.drawRect(d.rect, strokeOfBlack(40f))
 
         if (f.frame == 620L) {
@@ -45,14 +47,17 @@ fun main() {
     }
 }
 
-fun drawRays(c: Canvas, d: Dimension) {
+fun drawRays(c: Canvas, d: Dimension, f: Frames) {
     trails
         .forEach { trail ->
             trail.update { u(it, d) }
         }
-    trails.forEach { trail ->
-        trail.forEachIndexed { i, p ->
-            c.drawCircle(p.x, p.y, 4f, pal[i])
+    // don't draw until the end
+    if (f.frame > 610) {
+        trails.forEach { trail ->
+            trail.forEachIndexed { i, p ->
+                c.drawCircle(p.x, p.y, 4f, pal[i])
+            }
         }
     }
 
