@@ -2,7 +2,6 @@ package dev.oblac.gart.flowforce.spring
 
 import dev.oblac.gart.Dimension
 import dev.oblac.gart.Gart
-import dev.oblac.gart.force.CircularFlow
 import dev.oblac.gart.force.ForceField
 import dev.oblac.gart.force.WaveFlow
 import dev.oblac.gart.gfx.*
@@ -14,12 +13,6 @@ val gart = Gart.of("Spring", 1024, 1024)
 
 val d = gart.d
 val w = gart.window()
-
-// field
-val sunx = d.w3 * 2
-val suny = d.h3
-val circularFlow = CircularFlow(sunx, suny)
-val cff = ForceField.of(gart.d) { x, y -> circularFlow(x, y) }
 
 val waveFlow = WaveFlow(10f, 10f, 4f, 4f, 7f)
 val ff = ForceField.of(gart.d) { x, y -> waveFlow(x, y) }
