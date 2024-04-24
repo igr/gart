@@ -1,7 +1,11 @@
 package dev.oblac.gart.rects
 
 import dev.oblac.gart.Gart
-import dev.oblac.gart.gfx.*
+import dev.oblac.gart.color.Colors
+import dev.oblac.gart.color.Palettes
+import dev.oblac.gart.color.alpha
+import dev.oblac.gart.gfx.fillOf
+import dev.oblac.gart.gfx.strokeOfBlack
 import dev.oblac.gart.skia.*
 import java.util.stream.IntStream.range
 

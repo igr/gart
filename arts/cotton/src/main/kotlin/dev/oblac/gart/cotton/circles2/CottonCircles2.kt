@@ -1,9 +1,14 @@
 package dev.oblac.gart.cotton.circles2
 
 import dev.oblac.gart.Gart
+import dev.oblac.gart.color.BgColors
+import dev.oblac.gart.color.Palettes
 import dev.oblac.gart.force.CircularFlow
 import dev.oblac.gart.force.ForceField
-import dev.oblac.gart.gfx.*
+import dev.oblac.gart.gfx.drawPoints
+import dev.oblac.gart.gfx.isInside
+import dev.oblac.gart.gfx.randomPoint
+import dev.oblac.gart.gfx.strokeOfWhite
 import dev.oblac.gart.shader.createNoiseGrainFilter
 import dev.oblac.gart.skia.Canvas
 import dev.oblac.gart.skia.Paint

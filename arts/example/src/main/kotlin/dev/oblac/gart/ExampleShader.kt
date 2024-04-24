@@ -1,6 +1,6 @@
 package dev.oblac.gart
 
-import dev.oblac.gart.gfx.Colors
+import dev.oblac.gart.color.Colors
 import dev.oblac.gart.gfx.fillOfRed
 import dev.oblac.gart.shader.*
 import dev.oblac.gart.skia.FilterTileMode

@@ -1,7 +1,11 @@
 package dev.oblac.gart.cotton
 
 import dev.oblac.gart.Gart
-import dev.oblac.gart.gfx.*
+import dev.oblac.gart.color.BgColors
+import dev.oblac.gart.color.Palettes
+import dev.oblac.gart.gfx.contains
+import dev.oblac.gart.gfx.move
+import dev.oblac.gart.gfx.thirds
 import dev.oblac.gart.math.rnd
 import dev.oblac.gart.math.rndIn
 import dev.oblac.gart.noise.NoiseColor

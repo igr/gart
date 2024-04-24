@@ -1,5 +1,6 @@
 package dev.oblac.gart.gfx
 
+import dev.oblac.gart.color.Palettes
 import kotlin.test.Test
 import kotlin.test.assertEquals
 

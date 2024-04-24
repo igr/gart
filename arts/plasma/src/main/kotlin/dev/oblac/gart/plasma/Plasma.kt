@@ -2,8 +2,8 @@ package dev.oblac.gart.plasma
 
 import dev.oblac.gart.Gart
 import dev.oblac.gart.Pixels
-import dev.oblac.gart.gfx.Palette
-import dev.oblac.gart.gfx.Palettes.gradient
+import dev.oblac.gart.color.Palette
+import dev.oblac.gart.color.Palettes.gradient
 import kotlin.math.cos
 import kotlin.math.sin
 import kotlin.math.sqrt

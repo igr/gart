@@ -1,8 +1,8 @@
 package dev.oblac.gart.circledots.v2
 
 import dev.oblac.gart.circledots.Context
-import dev.oblac.gart.gfx.Colors
-import dev.oblac.gart.gfx.Palettes
+import dev.oblac.gart.color.Colors
+import dev.oblac.gart.color.Palettes
 import dev.oblac.gart.gfx.fillOf
 import dev.oblac.gart.gfx.fillOfBlack
 import dev.oblac.gart.skia.Canvas

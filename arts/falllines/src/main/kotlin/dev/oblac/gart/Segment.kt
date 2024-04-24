@@ -1,6 +1,6 @@
 package dev.oblac.gart
 
-import dev.oblac.gart.gfx.argb
+import dev.oblac.gart.color.argb
 import dev.oblac.gart.gfx.strokeOf
 import dev.oblac.gart.math.GaussianFunction
 import dev.oblac.gart.skia.Canvas

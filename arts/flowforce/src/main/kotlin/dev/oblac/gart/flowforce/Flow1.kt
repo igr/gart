@@ -1,8 +1,13 @@
 package dev.oblac.gart.flowforce
 
+import dev.oblac.gart.color.Colors
+import dev.oblac.gart.color.alpha
 import dev.oblac.gart.force.ForceField
 import dev.oblac.gart.force.SpiralVecForce
-import dev.oblac.gart.gfx.*
+import dev.oblac.gart.gfx.fillOfBlack
+import dev.oblac.gart.gfx.fillOfWhite
+import dev.oblac.gart.gfx.isInside
+import dev.oblac.gart.gfx.strokeOf
 import dev.oblac.gart.math.RotationDirection
 import dev.oblac.gart.math.nextFloat
 import dev.oblac.gart.skia.Point

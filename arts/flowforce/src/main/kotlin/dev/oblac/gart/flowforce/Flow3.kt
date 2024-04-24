@@ -1,9 +1,13 @@
 package dev.oblac.gart.flowforce
 
+import dev.oblac.gart.color.Colors
+import dev.oblac.gart.color.Palettes
+import dev.oblac.gart.color.alpha
 import dev.oblac.gart.force.ForceField
 import dev.oblac.gart.force.SpiralFlow
 import dev.oblac.gart.force.WaveFlow
-import dev.oblac.gart.gfx.*
+import dev.oblac.gart.gfx.isInside
+import dev.oblac.gart.gfx.strokeOf
 import dev.oblac.gart.math.RotationDirection.CCW
 import dev.oblac.gart.math.RotationDirection.CW
 import dev.oblac.gart.math.nextFloat

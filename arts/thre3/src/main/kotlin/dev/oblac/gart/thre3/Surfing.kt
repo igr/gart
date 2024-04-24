@@ -2,6 +2,9 @@ package dev.oblac.gart.thre3
 
 import dev.oblac.gart.Dimension
 import dev.oblac.gart.Gart
+import dev.oblac.gart.color.BgColors
+import dev.oblac.gart.color.Palettes
+import dev.oblac.gart.color.alpha
 import dev.oblac.gart.force.ForceField
 import dev.oblac.gart.gfx.*
 import dev.oblac.gart.math.*

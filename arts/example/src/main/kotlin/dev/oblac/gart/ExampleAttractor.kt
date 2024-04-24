@@ -1,7 +1,7 @@
 package dev.oblac.gart
 
 import dev.oblac.gart.attractor.*
-import dev.oblac.gart.gfx.Colors
+import dev.oblac.gart.color.Colors
 import dev.oblac.gart.gfx.drawPoints
 import dev.oblac.gart.gfx.fromCenter
 import dev.oblac.gart.gfx.strokeOfBlack

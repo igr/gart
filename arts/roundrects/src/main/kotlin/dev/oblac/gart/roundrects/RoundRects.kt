@@ -1,7 +1,7 @@
 package dev.oblac.gart.roundrects
 
 import dev.oblac.gart.Gart
-import dev.oblac.gart.gfx.Colors
+import dev.oblac.gart.color.Colors
 import dev.oblac.gart.math.rnd
 import dev.oblac.gart.toFrames
 import kotlin.time.Duration.Companion.seconds

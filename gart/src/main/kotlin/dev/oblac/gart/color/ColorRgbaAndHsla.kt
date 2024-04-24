@@ -1,4 +1,4 @@
-package dev.oblac.gart.gfx
+package dev.oblac.gart.color
 
 import kotlin.math.absoluteValue
 import kotlin.math.max
@@ -14,7 +14,7 @@ data class RGBA(
 
     companion object {
 		fun of(value: Long): RGBA {
-			return this.of(value.toInt())
+            return of(value.toInt())
 		}
 		fun of(value: Int): RGBA {
 			return RGBA(

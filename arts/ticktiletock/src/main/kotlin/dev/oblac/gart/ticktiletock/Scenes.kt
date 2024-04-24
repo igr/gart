@@ -3,7 +3,7 @@ package dev.oblac.gart.ticktiletock
 import dev.oblac.gart.Dimension
 import dev.oblac.gart.Draw
 import dev.oblac.gart.Gartmap
-import dev.oblac.gart.gfx.Palettes
+import dev.oblac.gart.color.Palettes
 import dev.oblac.gart.skia.Canvas
 import kotlin.random.Random.Default.nextInt
 

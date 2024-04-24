@@ -1,8 +1,8 @@
 package dev.oblac.gart.metro
 
 import dev.oblac.gart.Gart
-import dev.oblac.gart.gfx.Colors
-import dev.oblac.gart.gfx.Palettes
+import dev.oblac.gart.color.Colors
+import dev.oblac.gart.color.Palettes
 import dev.oblac.gart.gfx.fillOfBlack
 import dev.oblac.gart.gfx.strokeOf
 import dev.oblac.gart.skia.Canvas

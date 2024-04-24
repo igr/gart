@@ -1,4 +1,4 @@
-package dev.oblac.gart.gfx
+package dev.oblac.gart.color
 
 /**
  * Some nice predefined background colors.

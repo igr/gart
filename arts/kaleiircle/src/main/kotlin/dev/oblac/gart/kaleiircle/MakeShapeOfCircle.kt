@@ -2,7 +2,7 @@ package dev.oblac.gart.kaleiircle
 
 import dev.oblac.gart.Dimension
 import dev.oblac.gart.Draw
-import dev.oblac.gart.gfx.Colors
+import dev.oblac.gart.color.Colors
 import dev.oblac.gart.gfx.fillOf
 import dev.oblac.gart.math.cosDeg
 import dev.oblac.gart.math.sinDeg

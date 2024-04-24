@@ -2,7 +2,7 @@ package dev.oblac.gart.lettero
 
 import dev.oblac.gart.Dimension
 import dev.oblac.gart.Gart
-import dev.oblac.gart.gfx.Palettes
+import dev.oblac.gart.color.Palettes
 import dev.oblac.gart.gfx.fillOf
 import dev.oblac.gart.gfx.fillOfWhite
 import dev.oblac.gart.math.doubleLoop

@@ -1,6 +1,6 @@
 package dev.oblac.gart.palecircles
 
-import dev.oblac.gart.gfx.Palette
+import dev.oblac.gart.color.Palette
 import dev.oblac.gart.math.rnd
 
 const val STARTING_R = 6f

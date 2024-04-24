@@ -1,9 +1,9 @@
 package dev.oblac.gart
 
-import dev.oblac.gart.gfx.Palettes
-import dev.oblac.gart.gfx.alpha
+import dev.oblac.gart.color.Palettes
+import dev.oblac.gart.color.alpha
+import dev.oblac.gart.color.rgb
 import dev.oblac.gart.gfx.fillOf
-import dev.oblac.gart.gfx.rgb
 import dev.oblac.gart.math.GOLDEN_RATIO
 import dev.oblac.gart.pixels.scrollPixelsUp
 import dev.oblac.gart.skia.Canvas

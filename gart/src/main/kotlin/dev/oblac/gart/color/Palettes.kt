@@ -1,4 +1,4 @@
-package dev.oblac.gart.gfx
+package dev.oblac.gart.color
 
 object Palettes {
     val cool1 = Palette(0xff001219, 0xff005f73, 0xff0a9396, 0xff94d2bd, 0xffe9d8a6, 0xffee9b00, 0xffca6702, 0xffbb3e03, 0xffae2012, 0xff9b2226)

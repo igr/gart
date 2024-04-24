@@ -1,7 +1,7 @@
 package dev.oblac.gart.spiral
 
 import dev.oblac.gart.Gart
-import dev.oblac.gart.gfx.Palette
+import dev.oblac.gart.color.Palette
 import dev.oblac.gart.gfx.fillOf
 import dev.oblac.gart.gfx.strokeOfBlack
 import dev.oblac.gart.gfx.strokeOfWhite

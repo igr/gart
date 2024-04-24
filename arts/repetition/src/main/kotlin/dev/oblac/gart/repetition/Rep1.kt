@@ -1,7 +1,7 @@
 package dev.oblac.gart.repetition
 
 import dev.oblac.gart.Gart
-import dev.oblac.gart.gfx.Colors
+import dev.oblac.gart.color.Colors
 import dev.oblac.gart.gfx.strokeOf
 import dev.oblac.gart.math.PIf
 import dev.oblac.gart.skia.BlendMode

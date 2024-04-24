@@ -2,7 +2,7 @@ package dev.oblac.gart.ticktiletock
 
 import dev.oblac.gart.Dimension
 import dev.oblac.gart.Draw
-import dev.oblac.gart.gfx.Palettes
+import dev.oblac.gart.color.Palettes
 import dev.oblac.gart.gfx.fillOfBlack
 import dev.oblac.gart.gfx.strokeOf
 import dev.oblac.gart.gfx.strokeOfBlack
