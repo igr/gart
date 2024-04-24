@@ -7,15 +7,15 @@ import kotlin.test.assertEquals
 class PalettesTest {
 
     @Test
-    fun testPaletteToGradient() {
+    fun testPaletteToExpand() {
         val p = Palettes.cool27
-        val g = Palettes.gradient(p, 256)
+        val g = p.expand(256)
         assertEquals(256, g.size)
     }
 
     @Test
-    fun testPaletteToGradient2() {
-        val g = Palettes.gradient(Palettes.cool20, 500)
+    fun testPaletteToExpand2() {
+        val g = Palettes.cool20.expand(500)
         assertEquals(500, g.size)
     }
 }

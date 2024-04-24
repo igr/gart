@@ -29,7 +29,7 @@ fun main() {
     val flowField = ForceField.of(d) { x, y -> wave1(x, y) }
     val stopDrawing = 10.seconds.toFrames(gart.fps)
 
-    val gradient = Palettes.gradient(Palettes.cool36, 3000)
+    val gradient = Palettes.cool36.expand(3000)
     val palette = gradient
 
     val rnd = Random()

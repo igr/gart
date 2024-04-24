@@ -47,7 +47,7 @@ fun main() {
     val flowField2 = ForceField.of(d) { x, y -> spiralFlow1(x, y) }
 
     // prepare points
-    val gradient = Palettes.gradient(Palettes.cool1, 3000)
+    val gradient = Palettes.cool1.expand(3000)
     val palette = gradient + gradient.reversed()
 
     var randomPoints = Array(40000) {

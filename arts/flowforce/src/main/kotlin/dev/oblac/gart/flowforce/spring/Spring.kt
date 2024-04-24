@@ -26,7 +26,7 @@ val ff = ForceField.of(gart.d) { x, y -> waveFlow(x, y) }
 const val TRAILS = 1000
 const val TRAIL_LEN = 500
 
-val pal = Palettes.gradient(Palettes.cool19, TRAIL_LEN)
+val pal = Palettes.cool19.expand(TRAIL_LEN)
     .map { c ->
         Paint().apply {
             color = c

@@ -47,4 +47,32 @@ class Palette(internal val colors: IntArray) {
     fun reversed(): Palette {
         return Palette(colors.reversedArray())
     }
+
+    /**
+     * Grows (expands) palette by adding gradients between each pair of colors.
+     */
+    fun expand(steps: Int): Palette {
+        val delta = steps.toFloat() / (this.size - 1)
+        var i = 0
+
+        var gradient = Palette()
+        var colorCounter = 0f
+        while (i < this.size - 1) {
+            // since delta is float, some gradients will have more steps than others
+            val gradientSteps = (colorCounter + delta).toInt() - colorCounter.toInt()
+
+            gradient += Palettes.gradient(this[i], this[i + 1], gradientSteps)
+            i++
+            colorCounter += delta
+        }
+
+        if (gradient.size == steps - 1) {
+            gradient += this.last()
+        }
+        if (gradient.size != steps) {
+            throw IllegalStateException("Gradient size is ${gradient.size}, expected $steps")
+        }
+
+        return gradient
+    }
 }
