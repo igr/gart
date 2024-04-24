@@ -1,5 +1,12 @@
 plugins {
     id('org.jetbrains.kotlin.jvm')
+    id 'java-library'
+}
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(17)
+    }
 }
 
 test {
@@ -14,4 +21,5 @@ dependencies {
     implementation 'org.bytedeco:ffmpeg-platform-gpl:6.1.1-1.5.10'
 
     testImplementation 'org.jetbrains.kotlin:kotlin-test'
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 }
