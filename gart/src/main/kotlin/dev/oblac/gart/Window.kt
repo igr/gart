@@ -110,7 +110,10 @@ class WindowView(private val w: Window, private val v: GartView) {
         }
     }
 
-    fun fastForwardTo(frame: Long) {
+    /**
+     * Skips time to the given frame.
+     */
+    fun skipTo(frame: Long) {
         v.fpsGuard.frames.set(frame)
     }
 
