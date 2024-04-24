@@ -1,6 +1,7 @@
 package dev.oblac.gart.force
 
 import dev.oblac.gart.Dimension
+import dev.oblac.gart.gfx.isInside
 import dev.oblac.gart.gfx.offset
 import dev.oblac.gart.gfx.strokeOfBlue
 import dev.oblac.gart.gfx.strokeOfRed
@@ -34,9 +35,31 @@ fun interface ForceGenerator {
 
 class ForceField(val w: Int, val h: Int, private val field: Array<Array<Force>>) {
 
+    private val fieldDimension = Dimension(w, h)
+
     operator fun get(x: Int, y: Int): Force = field[x][y]
     operator fun get(point: Point): Force = get(point.x, point.y)
     operator fun get(x: Number, y: Number) = get(x.toInt(), y.toInt())
+
+    /**
+     * Applies the force field to the given points and returns the updated list of new points.
+     */
+    fun apply(points: List<Point>, pointConsumer: (Point, Point) -> Unit): List<Point> {
+        if (points.isEmpty()) {
+            return points
+        }
+        val result = mutableListOf<Point>()
+        for (point in points) {
+            if (!point.isInside(fieldDimension)) {
+                continue
+            }
+            val newPoint = this[point].offset(point)
+            pointConsumer(point, newPoint)
+            result.add(newPoint);
+        }
+        return result
+    }
+
 
     companion object {
         fun of(d: Dimension, fn: (Float, Float) -> Force) = ForceField(d.w, d.h,
@@ -83,7 +106,6 @@ class ForceField(val w: Int, val h: Int, private val field: Array<Array<Force>>)
                 })
         }
     }
-
 
     /**
      * Utility to visualise the field.

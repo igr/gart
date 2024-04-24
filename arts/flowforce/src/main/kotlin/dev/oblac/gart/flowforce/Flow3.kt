@@ -6,7 +6,6 @@ import dev.oblac.gart.color.alpha
 import dev.oblac.gart.force.ForceField
 import dev.oblac.gart.force.SpiralFlow
 import dev.oblac.gart.force.WaveFlow
-import dev.oblac.gart.gfx.isInside
 import dev.oblac.gart.gfx.strokeOf
 import dev.oblac.gart.math.RotationDirection.CCW
 import dev.oblac.gart.math.RotationDirection.CW
@@ -70,28 +69,16 @@ fun main() {
 //        flowField.drawField(g)
 
         f.onBeforeFrame(markerMiddle) {
-            randomPoints = randomPoints
-                .filter { it.isInside(d) }
-                .map {
-                    flowField[it.x, it.y]
-                        .offset(it)
-                        .also { p ->
-                            val color = palette.safe((p.x + p.y).toInt() * 2)
-                            g.canvas.drawLine(it.x, it.y, p.x, p.y, strokeOf(color.alpha(0x40), 1f))
-                        }
-                }
+            randomPoints = flowField.apply(randomPoints) { old, p ->
+                val color = palette.safe((p.x + p.y).toInt() * 2)
+                g.canvas.drawLine(old.x, old.y, p.x, p.y, strokeOf(color.alpha(0x40), 1f))
+            }
             image = g.snapshot()
         }
         f.onAfterFrame(markerMiddle) {
-            randomPoints2 = randomPoints2
-                .filter { it.isInside(d) }
-                .map {
-                    flowField2[it.x, it.y]
-                        .offset(it)
-                        .also { p ->
-                            g.canvas.drawLine(-it.x, it.y, -p.x, p.y, strokeOf(Colors.white, 1f))
-                    }
-                }
+            randomPoints2 = flowField2.apply(randomPoints2) { old, p ->
+                g.canvas.drawLine(-old.x, old.y, -p.x, p.y, strokeOf(Colors.white, 1f))
+            }
             image = g.snapshot()
         }
         c.drawImage(image, 0f, 0f)

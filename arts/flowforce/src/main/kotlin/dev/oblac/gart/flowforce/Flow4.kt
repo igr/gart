@@ -5,7 +5,6 @@ import dev.oblac.gart.color.Palettes
 import dev.oblac.gart.color.alpha
 import dev.oblac.gart.force.ForceField
 import dev.oblac.gart.force.WaveFlow
-import dev.oblac.gart.gfx.isInside
 import dev.oblac.gart.gfx.shrink
 import dev.oblac.gart.gfx.strokeOf
 import dev.oblac.gart.skia.Point
@@ -46,16 +45,11 @@ fun main() {
     w.show { c, _, f ->
         f.onBeforeFrame(stopDrawing) {
 //            flowField.drawField(g)
-            randomPoints = randomPoints
-                .filter { it.isInside(d) }
-                .map {
-                    flowField[it.x, it.y]
-                        .offset(it)
-                        .also { p ->
-                            val color = palette.safe(p.y.toInt() * 3)
-                            g.canvas.drawLine(it.x, it.y, p.x, p.y, strokeOf(color.alpha(0x33), 1f))
-                    }
-                }
+
+            randomPoints = flowField.apply(randomPoints) { old, p ->
+                val color = palette.safe(p.y.toInt() * 3)
+                g.canvas.drawLine(old.x, old.y, p.x, p.y, strokeOf(color.alpha(0x33), 1f))
+            }
             image = g.snapshot()
         }
         f.onFrame(stopDrawing) {

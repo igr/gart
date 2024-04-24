@@ -5,7 +5,6 @@ import dev.oblac.gart.color.alpha
 import dev.oblac.gart.force.ForceField
 import dev.oblac.gart.force.SpiralFlow
 import dev.oblac.gart.gfx.fillOfWhite
-import dev.oblac.gart.gfx.isInside
 import dev.oblac.gart.gfx.strokeOf
 import dev.oblac.gart.math.RotationDirection
 import dev.oblac.gart.math.nextFloat
@@ -53,15 +52,9 @@ fun main() {
     w.show { c, _, f ->
         f.onBeforeFrame(stopDrawing) {
 //            flowField.drawField(g)
-            randomPoints = randomPoints
-                .filter { it.isInside(d) }
-                .map {
-                    flowField[it.x, it.y]
-                        .offset(it)
-                        .also { p ->
-                            g.canvas.drawLine(it.x, it.y, p.x, p.y, strokeOf(Colors.black.alpha(0x28), 1f))
-                        }
-                }
+            randomPoints = flowField.apply(randomPoints) { old, p ->
+                g.canvas.drawLine(old.x, old.y, p.x, p.y, strokeOf(Colors.black.alpha(0x28), 1f))
+            }
             image = g.snapshot()
         }
         c.drawImage(image, 0f, 0f)

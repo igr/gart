@@ -1,7 +1,6 @@
 package dev.oblac.gart
 
 import dev.oblac.gart.force.*
-import dev.oblac.gart.gfx.isInside
 import dev.oblac.gart.gfx.strokeOf
 import dev.oblac.gart.math.*
 import dev.oblac.gart.skia.Color
@@ -52,15 +51,9 @@ fun main() {
     w.show { c, d, _ ->
         ff.drawField(c, d)
 
-        points = points
-            .filter { it.isInside(d) }
-            .map {
-                ff[it.x, it.y]
-                    .offset(it)
-                    .also { p ->
-                        c.drawLine(it.x, it.y, p.x, p.y, stroke)
-                    }
-            }.toList()
+        points = ff.apply(points) { old, p ->
+            c.drawLine(old.x, old.y, p.x, p.y, stroke)
+        }
     }
         .onKey {
             ff = when (it) {

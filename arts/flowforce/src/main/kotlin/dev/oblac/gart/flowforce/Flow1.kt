@@ -34,7 +34,7 @@ fun main() {
         direction = RotationDirection.CCW
     )
 
-    val flowField = ForceField.of(d) { x, y ->
+    val forceField = ForceField.of(d) { x, y ->
         spiralVec1(x, y) + spiralVec2(x, y) + spiralVec3(x, y)
     }
 
@@ -59,7 +59,7 @@ fun main() {
             randomPoints = randomPoints
                 .filter { it.isInside(d) }
                 .map {
-                    flowField[it.x, it.y]
+                    forceField[it.x, it.y]
                         .offset(it)
                         .also { p ->
                             g.canvas.drawLine(it.x, it.y, p.x, p.y, strokeOf(Colors.black.alpha(0x28), 1f))
