@@ -10,13 +10,8 @@ import dev.oblac.gart.gfx.isInside
 import dev.oblac.gart.gfx.randomPoint
 import dev.oblac.gart.gfx.strokeOfWhite
 import dev.oblac.gart.shader.createNoiseGrainFilter
-import dev.oblac.gart.skia.Canvas
-import dev.oblac.gart.skia.Paint
-import dev.oblac.gart.skia.Path
-import dev.oblac.gart.skia.Rect
+import dev.oblac.gart.skia.*
 import dev.oblac.gart.util.loop
-import org.jetbrains.skia.FilterTileMode
-import org.jetbrains.skia.ImageFilter
 import kotlin.math.sin
 
 val gart = Gart.of(

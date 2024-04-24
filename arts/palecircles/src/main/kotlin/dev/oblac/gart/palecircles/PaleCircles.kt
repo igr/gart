@@ -1,11 +1,14 @@
 package dev.oblac.gart.palecircles
 
 import dev.oblac.gart.Gart
-import dev.oblac.gart.gfx.*
+import dev.oblac.gart.color.alpha
+import dev.oblac.gart.gfx.fillOf
+import dev.oblac.gart.gfx.fillOfWhite
+import dev.oblac.gart.gfx.strokeOf
+import dev.oblac.gart.gfx.strokeOfBlack
 import dev.oblac.gart.math.rnd
 import dev.oblac.gart.skia.Canvas
-import org.jetbrains.skia.Rect
-import kotlin.time.Duration.Companion.seconds
+import dev.oblac.gart.skia.Rect
 
 val gart = Gart.of(
     "palecircles",

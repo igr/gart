@@ -10,10 +10,10 @@ import dev.oblac.gart.math.rnd
 import dev.oblac.gart.math.rndIn
 import dev.oblac.gart.noise.NoiseColor
 import dev.oblac.gart.shader.toPaint
+import dev.oblac.gart.skia.Canvas
 import dev.oblac.gart.skia.Paint
 import dev.oblac.gart.skia.Rect
 import fatLine
-import org.jetbrains.skia.Canvas
 
 val gart = Gart.of(
     "cotton",

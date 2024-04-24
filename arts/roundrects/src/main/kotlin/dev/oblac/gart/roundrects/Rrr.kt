@@ -4,8 +4,8 @@ import dev.oblac.gart.Dimension
 import dev.oblac.gart.gfx.strokeOfWhite
 import dev.oblac.gart.math.rnd
 import dev.oblac.gart.skia.Canvas
+import dev.oblac.gart.skia.RRect
 import dev.oblac.gart.toSeconds
-import org.jetbrains.skia.RRect
 import kotlin.math.cos
 import kotlin.math.sin
 import kotlin.time.Duration
