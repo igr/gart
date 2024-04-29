@@ -2,39 +2,37 @@
 
 🧧 gënérative ȧrt made by pragmatic kotlin [micro-framework](gart/README.md)
 
-Follow: [🎇 Instagram](https://www.instagram.com/gart_173) |
-[🎥 YouTube gallery](https://www.youtube.com/watch?v=wbcpgElKq7E&list=PLKevVk1K8oXF_GrdsGHjeOuuSkpZXq5ps)
+Follow: [Instagram](https://www.instagram.com/gart_173)
 
-<details>
-<summary>🍭 Gȧlléry</summary>
+## 🍭 Gȧlléry
 
-⭐️ [Zen. Plasma. Watter.](arts/plasma/README.md) [🎬](https://youtu.be/wbcpgElKq7E)
+⭐️ [Zen. Plasma. Watter.](arts/plasma/README.md)
 
 <img src="arts/plasma/plasma_thumb.png">
 
-⭐️ [Dots. Wave. Flash.](arts/circledots/README.md) [🎬](https://youtube.com/shorts/kVAayKYXRTE?feature=share)
+⭐️ [Dots. Wave. Flash.](arts/circledots/README.md)
 
 <img src="arts/circledots/circledots_thumb.png">
 <img src="arts/circledots/circledots2_thumb.png">
 
-⭐️ [Love. Tear. Apart.](arts/joydiv/README.md) [🎬](https://youtube.com/shorts/U9aAmfEqzNw?feature=share)
+⭐️ [Love. Tear. Apart.](arts/joydiv/README.md)
 
 <img src="arts/joydiv/joydiv_thumb.png">
 
-⭐️ [City. High. Sky.](arts/skyscraper/README.md) [🎬](https://youtu.be/RfkeQ4tyilQ)
+⭐️ [City. High. Sky.](arts/skyscraper/README.md)
 
 <img src="arts/skyscraper/skyscraper_thumb.png">
 <img src="arts/skyscraper/skyscraper2_thumb.png">
 
-⭐️ [Line. Line. Falls.](arts/falllines/README.md) [🎬](https://youtube.com/shorts/TfrEu3_NyOE?feature=share)
+⭐️ [Line. Line. Falls.](arts/falllines/README.md)
 
 <img src="arts/falllines/falllines_thumb.png">
 
-⭐️ [Twist.Color. Turn.](arts/kaleiircle/README.md) [🎬](https://youtube.com/shorts/Wz81MnR1rKU?feature=share)
+⭐️ [Twist.Color. Turn.](arts/kaleiircle/README.md)
 
 <img src="arts/kaleiircle/kaleiircle_thumb.png">
 
-⭐️ [Tick. Tile. Tock.](arts/ticktiletock/README.md) [🎬](https://youtube.com/shorts/PF235oh5Gds?feature=share)
+⭐️ [Tick. Tile. Tock.](arts/ticktiletock/README.md)
 
 <img src="arts/ticktiletock/ticktiletock_thumb.png">
 
@@ -42,27 +40,27 @@ Follow: [🎇 Instagram](https://www.instagram.com/gart_173) |
 
 <img src="arts/bubbles/Bubbles2_thumb.png">
 
-⭐️ [Letter. Pattern. Repeat.](arts/lettero/README.md) [🎬](https://youtube.com/shorts/MLd-ai_lOBU?feature=share)
+⭐️ [Letter. Pattern. Repeat.](arts/lettero/README.md)
 
 <img src="arts/lettero/LetterO_thumb.png">
 
-⭐️ [Round. Rect. Rotate.](arts/roundrects/README.md) [🎬](https://youtube.com/shorts/i0cVxjT9K4Q?feature=share)
+⭐️ [Round. Rect. Rotate.](arts/roundrects/README.md)
 
 <img src="arts/roundrects/roundrects_thumb.png">
 
-⭐️ [Pale. Uneasy. Tremble.](arts/palecircles/README.md) [🎬](https://youtu.be/ExmzYd21k3o)
+⭐️ [Pale. Uneasy. Tremble.](arts/palecircles/README.md)
 
 <img src="arts/palecircles/palecircles_thumb.png">
 
-⭐️ [Chaos. Order. Lights.](arts/spiral/README.md) [🎬](https://youtube.com/shorts/NlRk1x6rk2c?feature=share)
+⭐️ [Chaos. Order. Lights.](arts/spiral/README.md)
 
 <img src="arts/spiral/spiral_thumb.png">
 
-⭐️ [Organic. Mesh. Web.](arts/lissajous/README.md) [🎬](https://youtu.be/fOrrLS0cj5Y)
+⭐️ [Organic. Mesh. Web.](arts/lissajous/README.md)
 
 <img src="arts/lissajous/lissajous_thumb.png">
 
-⭐️ [Har. Mon. Ich.](arts/harmongraph/README.md) [🎬](https://youtu.be/TdzbQ84cAVU)
+⭐️ [Har. Mon. Ich.](arts/harmongraph/README.md)
 
 <p align="center">
 <img src="arts/harmongraph/harmongraph0_thumb.png" align="left">
@@ -129,6 +127,3 @@ Follow: [🎇 Instagram](https://www.instagram.com/gart_173) |
 
 
 <br clear="both">
-
-</details>
-
