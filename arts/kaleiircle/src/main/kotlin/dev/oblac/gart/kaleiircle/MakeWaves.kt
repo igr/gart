@@ -3,8 +3,8 @@ package dev.oblac.gart.kaleiircle
 import dev.oblac.gart.Dimension
 import dev.oblac.gart.Draw
 import dev.oblac.gart.math.sinDeg
-import dev.oblac.gart.skia.Paint
-import dev.oblac.gart.skia.Path
+import org.jetbrains.skia.Paint
+import org.jetbrains.skia.Path
 
 class MakeWaves(private val d: Dimension) {
     fun invoke(angle: Float = 0f, amplitude: Float = 20f, gap: Float = 10f, speed: Float = 2f): Draw {

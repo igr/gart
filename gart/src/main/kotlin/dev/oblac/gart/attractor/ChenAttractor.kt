@@ -1,6 +1,6 @@
 package dev.oblac.gart.attractor
 
-import dev.oblac.gart.skia.Point3
+import org.jetbrains.skia.Point3
 
 class ChenAttractor(
     val alpha: Float = 5.0f,

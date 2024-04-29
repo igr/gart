@@ -1,6 +1,6 @@
 package dev.oblac.gart.attractor
 
-import dev.oblac.gart.skia.Point3
+import org.jetbrains.skia.Point3
 
 // see: https://mathworld.wolfram.com/StrangeAttractor.html
 class QuadraticAttractor(

@@ -5,7 +5,7 @@ import dev.oblac.gart.color.Colors
 import dev.oblac.gart.gfx.drawPoints
 import dev.oblac.gart.gfx.fromCenter
 import dev.oblac.gart.gfx.strokeOfBlack
-import dev.oblac.gart.skia.Point
+import org.jetbrains.skia.Point
 
 fun main() {
     val gart = Gart.of("ExampleAttractor", 600, 600, 30)

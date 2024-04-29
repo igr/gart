@@ -2,9 +2,9 @@ package dev.oblac.gart.circledots
 
 import dev.oblac.gart.Gart
 import dev.oblac.gart.gfx.fillOfWhite
-import dev.oblac.gart.skia.Canvas
-import dev.oblac.gart.skia.Rect
 import dev.oblac.gart.toFrames
+import org.jetbrains.skia.Canvas
+import org.jetbrains.skia.Rect
 import kotlin.time.Duration.Companion.seconds
 
 private val gart = Gart.of(

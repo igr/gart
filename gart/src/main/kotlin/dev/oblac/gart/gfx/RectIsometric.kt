@@ -1,8 +1,8 @@
 package dev.oblac.gart.gfx
 
 import dev.oblac.gart.math.toRadian
-import dev.oblac.gart.skia.Path
-import dev.oblac.gart.skia.Point
+import org.jetbrains.skia.Path
+import org.jetbrains.skia.Point
 import kotlin.math.cos
 import kotlin.math.sin
 

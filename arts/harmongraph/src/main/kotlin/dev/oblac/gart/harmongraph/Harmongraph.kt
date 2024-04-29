@@ -9,10 +9,10 @@ import dev.oblac.gart.gfx.drawTriangle
 import dev.oblac.gart.gfx.fillOf
 import dev.oblac.gart.gfx.strokeOf
 import dev.oblac.gart.math.sinDeg
-import dev.oblac.gart.skia.Canvas
-import dev.oblac.gart.skia.Point
-import dev.oblac.gart.skia.Rect
 import dev.oblac.gart.toFrames
+import org.jetbrains.skia.Canvas
+import org.jetbrains.skia.Point
+import org.jetbrains.skia.Rect
 import kotlin.math.exp
 import kotlin.math.sin
 import kotlin.time.Duration.Companion.seconds

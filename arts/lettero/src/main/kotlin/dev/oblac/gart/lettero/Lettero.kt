@@ -6,8 +6,8 @@ import dev.oblac.gart.color.Palettes
 import dev.oblac.gart.gfx.fillOf
 import dev.oblac.gart.gfx.fillOfWhite
 import dev.oblac.gart.math.doubleLoop
-import dev.oblac.gart.skia.*
 import dev.oblac.gart.util.loadResourceAsData
+import org.jetbrains.skia.*
 import kotlin.random.Random
 
 val jbMono = Typeface.makeFromData(loadResourceAsData("/JetBrainsMono-Bold.ttf"))

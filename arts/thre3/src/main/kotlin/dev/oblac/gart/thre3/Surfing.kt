@@ -8,10 +8,10 @@ import dev.oblac.gart.color.alpha
 import dev.oblac.gart.force.ForceField
 import dev.oblac.gart.gfx.*
 import dev.oblac.gart.math.*
-import dev.oblac.gart.skia.Image
-import dev.oblac.gart.skia.Point
-import dev.oblac.gart.skia.Rect
 import dev.oblac.gart.toFrames
+import org.jetbrains.skia.Image
+import org.jetbrains.skia.Point
+import org.jetbrains.skia.Rect
 import kotlin.time.Duration.Companion.seconds
 
 fun main() {

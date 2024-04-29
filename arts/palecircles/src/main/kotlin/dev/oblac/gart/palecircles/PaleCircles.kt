@@ -7,8 +7,8 @@ import dev.oblac.gart.gfx.fillOfWhite
 import dev.oblac.gart.gfx.strokeOf
 import dev.oblac.gart.gfx.strokeOfBlack
 import dev.oblac.gart.math.rnd
-import dev.oblac.gart.skia.Canvas
-import dev.oblac.gart.skia.Rect
+import org.jetbrains.skia.Canvas
+import org.jetbrains.skia.Rect
 
 val gart = Gart.of(
     "palecircles",

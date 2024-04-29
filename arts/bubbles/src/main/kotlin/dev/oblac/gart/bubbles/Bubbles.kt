@@ -9,9 +9,9 @@ import dev.oblac.gart.math.cosDeg
 import dev.oblac.gart.math.nextFloat
 import dev.oblac.gart.math.sinDeg
 import dev.oblac.gart.math.toDegree
-import dev.oblac.gart.skia.Canvas
-import dev.oblac.gart.skia.Paint
-import dev.oblac.gart.skia.Rect
+import org.jetbrains.skia.Canvas
+import org.jetbrains.skia.Paint
+import org.jetbrains.skia.Rect
 import kotlin.math.abs
 import kotlin.math.asin
 import kotlin.math.pow

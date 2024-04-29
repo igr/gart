@@ -1,6 +1,6 @@
 package dev.oblac.gart.gfx
 
-import dev.oblac.gart.skia.Point
+import org.jetbrains.skia.Point
 
 /**
  * Just a queue of points.
@@ -25,6 +25,7 @@ class PointsTrail(val size: Int) {
     fun forEach(action: (Point) -> Unit) {
         points.forEach(action)
     }
+
     fun forEachIndexed(action: (Int, Point) -> Unit) {
         points.forEachIndexed(action)
     }

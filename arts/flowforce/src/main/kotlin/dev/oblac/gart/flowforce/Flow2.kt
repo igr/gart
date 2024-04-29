@@ -8,8 +8,8 @@ import dev.oblac.gart.gfx.fillOfWhite
 import dev.oblac.gart.gfx.strokeOf
 import dev.oblac.gart.math.RotationDirection
 import dev.oblac.gart.math.nextFloat
-import dev.oblac.gart.skia.Point
 import dev.oblac.gart.toFrames
+import org.jetbrains.skia.Point
 import kotlin.time.Duration.Companion.seconds
 
 fun main() {

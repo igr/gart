@@ -10,10 +10,10 @@ import dev.oblac.gart.math.rnd
 import dev.oblac.gart.math.rndIn
 import dev.oblac.gart.noise.NoiseColor
 import dev.oblac.gart.shader.toPaint
-import dev.oblac.gart.skia.Canvas
-import dev.oblac.gart.skia.Paint
-import dev.oblac.gart.skia.Rect
 import fatLine
+import org.jetbrains.skia.Canvas
+import org.jetbrains.skia.Paint
+import org.jetbrains.skia.Rect
 
 val gart = Gart.of(
     "cotton",
@@ -50,22 +50,22 @@ fun main() {
     // small rects
     val smallRects = distributedRects(rnd(2, 4)) { smallRect(delta, count) }
     smallRects.forEachIndexed { index, it ->
-        g.canvas.drawRect(it.move(rnd(-40f, 40f)), colors[colors.size - 1 -index])
+        g.canvas.drawRect(it.move(rnd(-40f, 40f)), colors[colors.size - 1 - index])
     }
 
     // draw lines in thirds
     val thirdsRect = gart.d.rect.thirds()
     if (rndIn(1, 4)) {
-        line(g.canvas, 0f, thirdsRect.top, thirdsRect.right * rnd(1,2), thirdsRect.top, colors.random())
+        line(g.canvas, 0f, thirdsRect.top, thirdsRect.right * rnd(1, 2), thirdsRect.top, colors.random())
     }
     if (rndIn(1, 4)) {
-        line(g.canvas, 0f, thirdsRect.top * 2, thirdsRect.right * rnd(1,2), thirdsRect.top * 2, colors.random())
+        line(g.canvas, 0f, thirdsRect.top * 2, thirdsRect.right * rnd(1, 2), thirdsRect.top * 2, colors.random())
     }
     if (rndIn(1, 4)) {
-        line(g.canvas, thirdsRect.left, thirdsRect.top, thirdsRect.left, thirdsRect.top + thirdsRect.top * rnd(1,3), colors.random())
+        line(g.canvas, thirdsRect.left, thirdsRect.top, thirdsRect.left, thirdsRect.top + thirdsRect.top * rnd(1, 3), colors.random())
     }
     if (rndIn(1, 4)) {
-        line(g.canvas, thirdsRect.left * 2, thirdsRect.top, thirdsRect.left * 2, thirdsRect.top + thirdsRect.top * rnd(1,3), colors.random())
+        line(g.canvas, thirdsRect.left * 2, thirdsRect.top, thirdsRect.left * 2, thirdsRect.top + thirdsRect.top * rnd(1, 3), colors.random())
     }
 
     gart.showImage(g)

@@ -6,7 +6,7 @@ import dev.oblac.gart.color.Palettes
 import dev.oblac.gart.color.alpha
 import dev.oblac.gart.gfx.fillOf
 import dev.oblac.gart.gfx.strokeOfBlack
-import dev.oblac.gart.skia.*
+import org.jetbrains.skia.*
 import java.util.stream.IntStream.range
 
 val gart = Gart.of(

@@ -3,7 +3,7 @@ package dev.oblac.gart.skyscraper
 import dev.oblac.gart.gfx.RectIsometric
 import dev.oblac.gart.gfx.RectIsometricLeft
 import dev.oblac.gart.math.toRadian
-import dev.oblac.gart.skia.Point
+import org.jetbrains.skia.Point
 import kotlin.math.cos
 import kotlin.math.sin
 

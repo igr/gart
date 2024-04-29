@@ -4,9 +4,9 @@ import dev.oblac.gart.Gart
 import dev.oblac.gart.color.Colors
 import dev.oblac.gart.gfx.strokeOf
 import dev.oblac.gart.math.PIf
-import dev.oblac.gart.skia.BlendMode
-import dev.oblac.gart.skia.Canvas
-import dev.oblac.gart.skia.RRect
+import org.jetbrains.skia.BlendMode
+import org.jetbrains.skia.Canvas
+import org.jetbrains.skia.RRect
 import kotlin.math.cos
 import kotlin.math.sin
 

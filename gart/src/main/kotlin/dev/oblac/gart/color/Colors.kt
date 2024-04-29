@@ -1,6 +1,6 @@
 package dev.oblac.gart.color
 
-import dev.oblac.gart.skia.Color4f
+import org.jetbrains.skia.Color4f
 
 object Colors {
     const val empty = 0x000000

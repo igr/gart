@@ -1,6 +1,6 @@
 package dev.oblac.gart.particle
 
-import dev.oblac.gart.skia.Point
+import org.jetbrains.skia.Point
 
 data class Particle(
     val point: Point,

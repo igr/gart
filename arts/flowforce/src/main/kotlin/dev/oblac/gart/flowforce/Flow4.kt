@@ -7,8 +7,8 @@ import dev.oblac.gart.force.ForceField
 import dev.oblac.gart.force.WaveFlow
 import dev.oblac.gart.gfx.shrink
 import dev.oblac.gart.gfx.strokeOf
-import dev.oblac.gart.skia.Point
 import dev.oblac.gart.toFrames
+import org.jetbrains.skia.Point
 import java.util.*
 import kotlin.time.Duration.Companion.seconds
 
@@ -34,7 +34,10 @@ fun main() {
     val rnd = Random()
 
     var randomPoints = Array(30000) {
-        Point(rnd.nextGaussian(d.wf.toDouble() / 2, d.wf.toDouble() / 4).toFloat(), (rnd.nextGaussian(d.hf.toDouble() / 6, d.hf.toDouble() / 4)).toFloat())
+        Point(
+            rnd.nextGaussian(d.wf.toDouble() / 2, d.wf.toDouble() / 4).toFloat(),
+            (rnd.nextGaussian(d.hf.toDouble() / 6, d.hf.toDouble() / 4)).toFloat()
+        )
     }.toList()
 
     g.canvas.clear(BgColors.sand)

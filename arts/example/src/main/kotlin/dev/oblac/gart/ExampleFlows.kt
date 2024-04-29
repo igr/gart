@@ -3,8 +3,8 @@ package dev.oblac.gart
 import dev.oblac.gart.force.*
 import dev.oblac.gart.gfx.strokeOf
 import dev.oblac.gart.math.*
-import dev.oblac.gart.skia.Color
-import dev.oblac.gart.skia.Point
+import org.jetbrains.skia.Color
+import org.jetbrains.skia.Point
 
 fun main() {
     val gart = Gart.of("Flows", 800, 800)

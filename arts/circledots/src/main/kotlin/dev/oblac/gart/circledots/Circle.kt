@@ -3,7 +3,7 @@ package dev.oblac.gart.circledots
 import dev.oblac.gart.gfx.fillOfBlack
 import dev.oblac.gart.gfx.strokeOfBlack
 import dev.oblac.gart.math.subDeg
-import dev.oblac.gart.skia.Canvas
+import org.jetbrains.skia.Canvas
 
 data class Circle(private val ctx: Context, val x: Float, val y: Float, val r: Float, var deg: Float, var speed: Float = 3f) {
 	private var rOffset = 4

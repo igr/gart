@@ -1,7 +1,7 @@
 package dev.oblac.gart
 
-import dev.oblac.gart.skia.Canvas
-import dev.oblac.gart.skia.Image
+import org.jetbrains.skia.Canvas
+import org.jetbrains.skia.Image
 
 /**
  * Movie is just a simple buffer of snapshot images.

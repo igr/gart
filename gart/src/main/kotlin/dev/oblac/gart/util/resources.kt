@@ -1,6 +1,6 @@
 package dev.oblac.gart.util
 
-import dev.oblac.gart.skia.Data
+import org.jetbrains.skia.Data
 
 fun loadResourceAsText(path: String): String? =
     object {}.javaClass.getResource(path)?.readText()

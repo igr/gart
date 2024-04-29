@@ -2,7 +2,7 @@ package dev.oblac.gart.gfx
 
 import dev.oblac.gart.Dimension
 import dev.oblac.gart.math.rnd
-import dev.oblac.gart.skia.Point
+import org.jetbrains.skia.Point
 import kotlin.math.cos
 import kotlin.math.sin
 

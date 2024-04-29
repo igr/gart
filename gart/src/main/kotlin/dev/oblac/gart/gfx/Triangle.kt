@@ -1,9 +1,9 @@
 package dev.oblac.gart.gfx
 
-import dev.oblac.gart.skia.Canvas
-import dev.oblac.gart.skia.Paint
-import dev.oblac.gart.skia.Path
-import dev.oblac.gart.skia.Point
+import org.jetbrains.skia.Canvas
+import org.jetbrains.skia.Paint
+import org.jetbrains.skia.Path
+import org.jetbrains.skia.Point
 
 data class Triangle(val p1: Point, val p2: Point, val p3: Point) {
     fun points() = arrayOf(p1, p2, p3)

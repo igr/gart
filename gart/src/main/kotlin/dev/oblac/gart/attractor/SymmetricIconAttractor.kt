@@ -1,6 +1,6 @@
 package dev.oblac.gart.attractor
 
-import dev.oblac.gart.skia.Point3
+import org.jetbrains.skia.Point3
 
 class SymmetricIconAttractor(
     val l: Float = 2.409f,

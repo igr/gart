@@ -5,8 +5,8 @@ import dev.oblac.gart.gfx.RectIsometricLeft
 import dev.oblac.gart.gfx.RectIsometricRight
 import dev.oblac.gart.gfx.RectIsometricTop
 import dev.oblac.gart.gfx.fillOf
-import dev.oblac.gart.skia.Canvas
-import dev.oblac.gart.skia.Path
+import org.jetbrains.skia.Canvas
+import org.jetbrains.skia.Path
 import kotlin.random.Random
 
 data class Colors(

@@ -1,8 +1,8 @@
 package dev.oblac.gart.gfx
 
-import dev.oblac.gart.skia.Path
-import dev.oblac.gart.skia.Point
+import org.jetbrains.skia.Path
 import org.jetbrains.skia.PathMeasure
+import org.jetbrains.skia.Point
 
 fun pathOf(first: Point, vararg points: Point): Path {
     val path = Path().moveTo(first)

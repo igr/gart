@@ -1,9 +1,9 @@
 package dev.oblac.gart
 
-import dev.oblac.gart.skia.Bitmap
-import dev.oblac.gart.skia.Image
-import dev.oblac.gart.skia.ImageInfo
-import dev.oblac.gart.skia.Surface
+import org.jetbrains.skia.Bitmap
+import org.jetbrains.skia.Image
+import org.jetbrains.skia.ImageInfo
+import org.jetbrains.skia.Surface
 
 /**
  * In-memory, slow canvas.

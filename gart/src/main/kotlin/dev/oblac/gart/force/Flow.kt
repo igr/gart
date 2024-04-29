@@ -2,7 +2,7 @@ package dev.oblac.gart.force
 
 import dev.oblac.gart.math.Vector
 import dev.oblac.gart.math.middleAngle
-import dev.oblac.gart.skia.Point
+import org.jetbrains.skia.Point
 import kotlin.math.cos
 import kotlin.math.sin
 

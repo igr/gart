@@ -1,9 +1,9 @@
 package dev.oblac.gart.gfx
 
-import dev.oblac.gart.skia.Color
-import dev.oblac.gart.skia.Color4f
-import dev.oblac.gart.skia.Paint
-import dev.oblac.gart.skia.PaintMode
+import org.jetbrains.skia.Color
+import org.jetbrains.skia.Color4f
+import org.jetbrains.skia.Paint
+import org.jetbrains.skia.PaintMode
 
 fun strokeOf(color: Color4f, width: Float) = Paint().apply {
     this.isAntiAlias = true

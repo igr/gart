@@ -5,10 +5,10 @@ import dev.oblac.gart.color.Colors
 import dev.oblac.gart.color.Palettes
 import dev.oblac.gart.gfx.fillOfBlack
 import dev.oblac.gart.gfx.strokeOf
-import dev.oblac.gart.skia.Canvas
-import dev.oblac.gart.skia.PaintStrokeCap
-import dev.oblac.gart.skia.PathEffect
-import dev.oblac.gart.skia.Point
+import org.jetbrains.skia.Canvas
+import org.jetbrains.skia.PaintStrokeCap
+import org.jetbrains.skia.PathEffect
+import org.jetbrains.skia.Point
 
 val gart = Gart.of(
     "metro",

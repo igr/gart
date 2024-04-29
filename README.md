@@ -1,12 +1,9 @@
 # gȧrt
 
-🧧 gënérative ȧrt made by pragmatic kotlin [micro-framework](gartwork/README.md)
+🧧 gënérative ȧrt made by pragmatic kotlin [micro-framework](gart/README.md)
 
-follow: [🎇 Instagram](https://www.instagram.com/gart_173) |
+Follow: [🎇 Instagram](https://www.instagram.com/gart_173) |
 [🎥 YouTube gallery](https://www.youtube.com/watch?v=wbcpgElKq7E&list=PLKevVk1K8oXF_GrdsGHjeOuuSkpZXq5ps)
-
-⚠️ As the library grows, it changes. Some examples may need to be updated. I don't have time to maintain everything.
-🤷‍♂️
 
 <details>
 <summary>🍭 Gȧlléry</summary>

@@ -6,8 +6,8 @@ import dev.oblac.gart.color.rgb
 import dev.oblac.gart.gfx.fillOf
 import dev.oblac.gart.math.GOLDEN_RATIO
 import dev.oblac.gart.pixels.scrollPixelsUp
-import dev.oblac.gart.skia.Canvas
-import dev.oblac.gart.skia.Rect
+import org.jetbrains.skia.Canvas
+import org.jetbrains.skia.Rect
 import kotlin.random.Random
 import kotlin.time.Duration.Companion.seconds
 

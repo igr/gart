@@ -1,7 +1,7 @@
 package dev.oblac.gart.noise
 
-import dev.oblac.gart.skia.BlendMode
-import dev.oblac.gart.skia.Shader
+import org.jetbrains.skia.BlendMode
+import org.jetbrains.skia.Shader
 
 class NoiseColor(
     baseX: Float = 0.5f,

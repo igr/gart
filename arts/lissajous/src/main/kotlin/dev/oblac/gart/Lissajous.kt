@@ -4,8 +4,8 @@ import dev.oblac.gart.color.Palettes
 import dev.oblac.gart.color.alpha
 import dev.oblac.gart.gfx.fillOf
 import dev.oblac.gart.gfx.strokeOf
-import dev.oblac.gart.skia.Canvas
-import dev.oblac.gart.skia.Rect
+import org.jetbrains.skia.Canvas
+import org.jetbrains.skia.Rect
 import kotlin.math.PI
 import kotlin.math.pow
 import kotlin.math.sin

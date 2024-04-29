@@ -1,8 +1,8 @@
 package dev.oblac.gart.gfx
 
-import dev.oblac.gart.skia.Paint
-import dev.oblac.gart.skia.Point
 import org.jetbrains.skia.Canvas
+import org.jetbrains.skia.Paint
+import org.jetbrains.skia.Point
 
 fun Canvas.drawPoints(points: Collection<Point>, stroke: Paint) = this.drawPoints(points.toTypedArray(), stroke)
 

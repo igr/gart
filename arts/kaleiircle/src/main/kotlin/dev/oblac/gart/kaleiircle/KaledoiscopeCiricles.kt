@@ -5,10 +5,10 @@ import dev.oblac.gart.Frames
 import dev.oblac.gart.Gart
 import dev.oblac.gart.gfx.fillOfBlack
 import dev.oblac.gart.math.sinDeg
-import dev.oblac.gart.skia.Canvas
-import dev.oblac.gart.skia.Color4f
-import dev.oblac.gart.skia.Rect
 import dev.oblac.gart.toFrames
+import org.jetbrains.skia.Canvas
+import org.jetbrains.skia.Color4f
+import org.jetbrains.skia.Rect
 import kotlin.time.Duration.Companion.seconds
 
 val colors = arrayOf(

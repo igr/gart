@@ -1,6 +1,6 @@
 package dev.oblac.gart
 
-import dev.oblac.gart.skia.Rect
+import org.jetbrains.skia.Rect
 
 /**
  * Represents a virtual dimensions.

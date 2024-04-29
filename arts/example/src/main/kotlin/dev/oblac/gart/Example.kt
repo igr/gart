@@ -4,7 +4,7 @@ import dev.oblac.gart.color.Colors
 import dev.oblac.gart.gfx.fillOf
 import dev.oblac.gart.gfx.fillOfRed
 import dev.oblac.gart.noise.HaltonSequenceGenerator
-import dev.oblac.gart.skia.Rect
+import org.jetbrains.skia.Rect
 
 @OptIn(ExperimentalStdlibApi::class)
 fun main() {

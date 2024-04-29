@@ -1,6 +1,6 @@
 package dev.oblac.gart.attractor
 
-import dev.oblac.gart.skia.Point3
+import org.jetbrains.skia.Point3
 import kotlin.math.sin
 
 class ThomasAttractor(val b: Float = 0.208186f) : Attractor {

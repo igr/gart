@@ -5,8 +5,8 @@ import dev.oblac.gart.Draw
 import dev.oblac.gart.gfx.strokeOf
 import dev.oblac.gart.math.cosDeg
 import dev.oblac.gart.math.sinDeg
-import dev.oblac.gart.skia.Path
-import dev.oblac.gart.skia.Point
+import org.jetbrains.skia.Path
+import org.jetbrains.skia.Point
 import kotlin.math.max
 
 class MakeSpiral(private val d: Dimension) {

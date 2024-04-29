@@ -5,7 +5,7 @@ import dev.oblac.gart.Gartvas
 import dev.oblac.gart.gfx.fillOfWhite
 import dev.oblac.gart.gfx.strokeOfBlack
 import dev.oblac.gart.math.nextFloat
-import dev.oblac.gart.skia.Rect
+import org.jetbrains.skia.Rect
 
 const val name2 = "Bubbles2"
 

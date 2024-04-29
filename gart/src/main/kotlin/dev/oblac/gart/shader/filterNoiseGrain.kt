@@ -1,7 +1,7 @@
 package dev.oblac.gart.shader
 
 import dev.oblac.gart.Dimension
-import dev.oblac.gart.skia.ImageFilter
+import org.jetbrains.skia.ImageFilter
 
 // https://www.shadertoy.com/view/3sGGR
 private val sksl = """

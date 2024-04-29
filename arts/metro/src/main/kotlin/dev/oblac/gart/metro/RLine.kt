@@ -4,8 +4,8 @@ import dev.oblac.gart.gfx.EaseFn
 import dev.oblac.gart.gfx.closedPathOf
 import dev.oblac.gart.gfx.pathOf
 import dev.oblac.gart.gfx.pointsOn
-import dev.oblac.gart.skia.Path
-import dev.oblac.gart.skia.Point
+import org.jetbrains.skia.Path
+import org.jetbrains.skia.Point
 
 data class RLine(
     val left: Point,

@@ -1,7 +1,7 @@
 package dev.oblac.gart
 
-import dev.oblac.gart.skia.Bitmap
-import dev.oblac.gart.skia.Image
+import org.jetbrains.skia.Bitmap
+import org.jetbrains.skia.Image
 
 /**
  * In-memory bitmap.

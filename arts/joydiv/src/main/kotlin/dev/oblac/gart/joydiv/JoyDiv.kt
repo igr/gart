@@ -3,9 +3,9 @@ package dev.oblac.gart.joydiv
 import dev.oblac.gart.Gart
 import dev.oblac.gart.gfx.fillOfBlack
 import dev.oblac.gart.gfx.strokeOfBlack
-import dev.oblac.gart.skia.Canvas
-import dev.oblac.gart.skia.Rect
 import dev.oblac.gart.toFrames
+import org.jetbrains.skia.Canvas
+import org.jetbrains.skia.Rect
 import kotlin.time.Duration.Companion.seconds
 
 val gart = Gart.of(

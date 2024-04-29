@@ -1,6 +1,6 @@
 package dev.oblac.gart.math
 
-import dev.oblac.gart.skia.Point
+import org.jetbrains.skia.Point
 import kotlin.math.cos
 import kotlin.math.sin
 

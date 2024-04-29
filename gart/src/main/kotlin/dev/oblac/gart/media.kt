@@ -1,9 +1,9 @@
 package dev.oblac.gart
 
-import dev.oblac.gart.skia.Canvas
-import dev.oblac.gart.skia.EncodedImageFormat
-import dev.oblac.gart.skia.Image
 import dev.oblac.gart.video.VideoRecorder
+import org.jetbrains.skia.Canvas
+import org.jetbrains.skia.EncodedImageFormat
+import org.jetbrains.skia.Image
 import java.io.File
 
 internal fun saveImageToFile(gartvas: Gartvas, name: String) {

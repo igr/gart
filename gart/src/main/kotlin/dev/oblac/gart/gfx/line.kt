@@ -1,6 +1,6 @@
 import dev.oblac.gart.gfx.closedPathOf
-import dev.oblac.gart.skia.Path
-import dev.oblac.gart.skia.Point
+import org.jetbrains.skia.Path
+import org.jetbrains.skia.Point
 import kotlin.math.sqrt
 
 // https://www.forbes.com/asap/2002/0624/044.html

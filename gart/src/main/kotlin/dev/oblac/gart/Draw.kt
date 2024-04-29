@@ -1,6 +1,6 @@
 package dev.oblac.gart
 
-import dev.oblac.gart.skia.Canvas
+import org.jetbrains.skia.Canvas
 
 fun interface Draw {
     operator fun invoke(canvas: Canvas, dimension: Dimension)

@@ -1,7 +1,7 @@
 package dev.oblac.gart.gfx
 
-import dev.oblac.gart.skia.Point
-import dev.oblac.gart.skia.Rect
+import org.jetbrains.skia.Point
+import org.jetbrains.skia.Rect
 
 /**
  * Converts rectangle to the list of four points.

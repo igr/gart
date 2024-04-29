@@ -1,6 +1,6 @@
 package dev.oblac.gart.kaleiircle
 
-import dev.oblac.gart.skia.Color4f
+import org.jetbrains.skia.Color4f
 
 class DHCircle(
     val radius: Float,

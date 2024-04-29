@@ -1,6 +1,6 @@
 package dev.oblac.gart
 
-import dev.oblac.gart.skia.FPSCounter
+import org.jetbrains.skiko.FPSCounter
 
 //data class FramesCount(val value: Long) {
 //    fun time(fps: Int) = (value * 1000 / fps).milliseconds

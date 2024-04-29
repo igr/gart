@@ -5,7 +5,7 @@ import dev.oblac.gart.color.Colors
 import dev.oblac.gart.color.Palettes
 import dev.oblac.gart.gfx.fillOf
 import dev.oblac.gart.gfx.fillOfBlack
-import dev.oblac.gart.skia.Canvas
+import org.jetbrains.skia.Canvas
 
 data class Circle2Anim(private val ctx: Context, val x: Float, val y: Float, val r: Float, var deg: Float, var speed: Float = 3f, val from: Int) {
     var tick = 0

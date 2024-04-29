@@ -6,7 +6,7 @@ import dev.oblac.gart.color.Palettes
 import dev.oblac.gart.gfx.fillOfBlack
 import dev.oblac.gart.gfx.strokeOf
 import dev.oblac.gart.gfx.strokeOfBlack
-import dev.oblac.gart.skia.*
+import org.jetbrains.skia.*
 import kotlin.random.Random
 
 val paintTile2: (Tile) -> Draw = { tile ->
@@ -43,7 +43,7 @@ val paintCircle: (Tile) -> Draw = { tile ->
 }
 val paintCircleBW: (Tile) -> Draw = { tile ->
     val rnd = Random.nextInt(4)
-    val circle = Path().addCircle(tile.x + tile.d/2, tile.y + tile.d/2, rnd * tile.d/8)
+    val circle = Path().addCircle(tile.x + tile.d / 2, tile.y + tile.d / 2, rnd * tile.d / 8)
     val stroke = fillOfBlack()
 
     Draw { canvas, _ -> canvas.drawPath(circle, stroke) }
@@ -64,7 +64,7 @@ private fun paintSquares(tile: Tile, type: Int): Draw {
     val p = when(type) {
         2 -> {
             Palettes.cool1.map {
-                Paint().apply{
+                Paint().apply {
                     color = it
                     strokeWidth = 2f
                 }
@@ -72,7 +72,7 @@ private fun paintSquares(tile: Tile, type: Int): Draw {
         }
         1 -> {
             Palettes.cool4.map {
-                Paint().apply{
+                Paint().apply {
                     color = it
                     strokeWidth = 2f
                 }
@@ -90,7 +90,16 @@ private fun paintSquares(tile: Tile, type: Int): Draw {
 
     return object : Draw {
 
-        fun draw(canvas: Canvas, x: Float, y: Float, width: Float, height: Float, xMovement: Int, yMovement: Int, step: Int) {
+        fun draw(
+            canvas: Canvas,
+            x: Float,
+            y: Float,
+            width: Float,
+            height: Float,
+            xMovement: Int,
+            yMovement: Int,
+            step: Int
+        ) {
             canvas.drawRect(Rect(x, y, x + width, y + height), p[step + 1])
             if (step < 0) return
 

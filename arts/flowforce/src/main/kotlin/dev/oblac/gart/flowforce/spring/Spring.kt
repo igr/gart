@@ -8,9 +8,9 @@ import dev.oblac.gart.color.Palettes
 import dev.oblac.gart.force.ForceField
 import dev.oblac.gart.force.WaveFlow
 import dev.oblac.gart.gfx.*
-import dev.oblac.gart.skia.Canvas
-import dev.oblac.gart.skia.Paint
-import dev.oblac.gart.skia.Point
+import org.jetbrains.skia.Canvas
+import org.jetbrains.skia.Paint
+import org.jetbrains.skia.Point
 
 // use high FPS so not to wait much.
 val gart = Gart.of("Spring", 1024, 1024, fps = 1000)

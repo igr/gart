@@ -10,8 +10,8 @@ import dev.oblac.gart.gfx.isInside
 import dev.oblac.gart.gfx.randomPoint
 import dev.oblac.gart.gfx.strokeOfWhite
 import dev.oblac.gart.shader.createNoiseGrainFilter
-import dev.oblac.gart.skia.*
 import dev.oblac.gart.util.loop
+import org.jetbrains.skia.*
 import kotlin.math.sin
 
 val gart = Gart.of(
@@ -90,7 +90,16 @@ fun main() {
     //gart.saveImage(g)
 }
 
-fun drawCCircle(c: Canvas, x: Float, y: Float, r: Float, color1: Paint, color2: Paint, frametime: Long, random: Float) {
+fun drawCCircle(
+    c: Canvas,
+    x: Float,
+    y: Float,
+    r: Float,
+    color1: Paint,
+    color2: Paint,
+    frametime: Long,
+    random: Float
+) {
     val s = sin(frametime.toFloat() / period)
 //    val angle = -60f + 5 * frametime + s * s * 20f * (r / 14f)
 

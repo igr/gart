@@ -5,10 +5,10 @@ import dev.oblac.gart.gfx.strokeOfWhite
 import dev.oblac.gart.math.GaussianFunction
 import dev.oblac.gart.math.map
 import dev.oblac.gart.noise.PerlinNoise
-import dev.oblac.gart.skia.Canvas
-import dev.oblac.gart.skia.Path
-import dev.oblac.gart.skia.PathFillMode
-import dev.oblac.gart.skia.Point
+import org.jetbrains.skia.Canvas
+import org.jetbrains.skia.Path
+import org.jetbrains.skia.PathFillMode
+import org.jetbrains.skia.Point
 import kotlin.math.abs
 import kotlin.random.Random
 

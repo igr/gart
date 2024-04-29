@@ -6,12 +6,12 @@ import dev.oblac.gart.color.Palettes
 import dev.oblac.gart.math.rnd
 import dev.oblac.gart.noise.NoiseColor
 import dev.oblac.gart.shader.toPaint
-import dev.oblac.gart.skia.Canvas
-import dev.oblac.gart.skia.Paint
-import dev.oblac.gart.skia.Path
-import dev.oblac.gart.skia.Rect
 import dev.oblac.gart.util.loop
 import dev.oblac.gart.util.randomExcept
+import org.jetbrains.skia.Canvas
+import org.jetbrains.skia.Paint
+import org.jetbrains.skia.Path
+import org.jetbrains.skia.Rect
 
 val gart = Gart.of(
     "cotton-circles",

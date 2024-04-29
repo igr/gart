@@ -6,8 +6,8 @@ import dev.oblac.gart.gfx.offset
 import dev.oblac.gart.gfx.strokeOfBlue
 import dev.oblac.gart.gfx.strokeOfRed
 import dev.oblac.gart.math.Vector
-import dev.oblac.gart.skia.Canvas
-import dev.oblac.gart.skia.Point
+import org.jetbrains.skia.Canvas
+import org.jetbrains.skia.Point
 
 /**
  * Represents a force that acts on a point.

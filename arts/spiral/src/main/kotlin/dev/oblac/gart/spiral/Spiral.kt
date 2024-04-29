@@ -5,8 +5,8 @@ import dev.oblac.gart.color.Palette
 import dev.oblac.gart.gfx.fillOf
 import dev.oblac.gart.gfx.strokeOfBlack
 import dev.oblac.gart.gfx.strokeOfWhite
-import dev.oblac.gart.skia.Canvas
-import dev.oblac.gart.skia.Rect
+import org.jetbrains.skia.Canvas
+import org.jetbrains.skia.Rect
 import kotlin.math.PI
 import kotlin.math.cos
 import kotlin.math.pow
@@ -43,7 +43,14 @@ fun draw(canvas: Canvas) {
 
 var a = 12f
 var step = 0.35f
-fun drawSpiral(canvas: Canvas, cx: Float, cy: Float, from: Float = 0.01f, direction: Float = 1f, ff: Boolean = false) {
+fun drawSpiral(
+    canvas: Canvas,
+    cx: Float,
+    cy: Float,
+    from: Float = 0.01f,
+    direction: Float = 1f,
+    ff: Boolean = false
+) {
     var flipFlop = ff
     var t = from.toDouble()
     var i = 0

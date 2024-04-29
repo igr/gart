@@ -1,6 +1,6 @@
 package dev.oblac.gart.util
 
-import dev.oblac.gart.skia.*
+import org.jetbrains.skia.*
 import java.awt.Transparency
 import java.awt.color.ColorSpace
 import java.awt.image.*

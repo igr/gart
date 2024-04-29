@@ -1,8 +1,8 @@
 package dev.oblac.gart
 
-import dev.oblac.gart.skia.Canvas
-import dev.oblac.gart.skia.SkiaSwingLayer
-import dev.oblac.gart.skia.SkikoRenderDelegate
+import org.jetbrains.skia.Canvas
+import org.jetbrains.skiko.SkikoRenderDelegate
+import org.jetbrains.skiko.swing.SkiaSwingLayer
 import javax.swing.JFrame
 
 class GartView(

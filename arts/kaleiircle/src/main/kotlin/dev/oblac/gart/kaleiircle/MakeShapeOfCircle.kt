@@ -6,10 +6,10 @@ import dev.oblac.gart.color.Colors
 import dev.oblac.gart.gfx.fillOf
 import dev.oblac.gart.math.cosDeg
 import dev.oblac.gart.math.sinDeg
-import dev.oblac.gart.skia.ClipMode
-import dev.oblac.gart.skia.ImageFilter
-import dev.oblac.gart.skia.Path
-import dev.oblac.gart.skia.Rect
+import org.jetbrains.skia.ClipMode
+import org.jetbrains.skia.ImageFilter
+import org.jetbrains.skia.Path
+import org.jetbrains.skia.Rect
 
 class MakeShapeOfCircle(private val d: Dimension) {
     operator fun invoke(circle: DHCircle): Draw {
@@ -22,8 +22,8 @@ class MakeShapeOfCircle(private val d: Dimension) {
         val r2prim = r2 + 10
         val angle = circle.angle
 
-        val rect = Rect(cx-r, cy-r, cx+r, cy+r)
-        val rect2 = Rect(cx-r2, cy-r2, cx+r2, cy+r2)
+        val rect = Rect(cx - r, cy - r, cx + r, cy + r)
+        val rect2 = Rect(cx - r2, cy - r2, cx + r2, cy + r2)
         val arc1 = Path()
             .addArc(rect, 180f - angle, 180f)
             .lineTo(cx + r2 * cosDeg(-angle), cy + r2 * sinDeg(-angle))
