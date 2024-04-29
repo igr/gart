@@ -1,14 +1,15 @@
 # gȧrt
 
-gënérative ȧrt made by pragmatic [micro-framework](gartwork/README.md) and ❤️
+🧧 gënérative ȧrt made by pragmatic kotlin [micro-framework](gartwork/README.md)
 
 follow: [🎇 Instagram](https://www.instagram.com/gart_173) |
 [🎥 YouTube gallery](https://www.youtube.com/watch?v=wbcpgElKq7E&list=PLKevVk1K8oXF_GrdsGHjeOuuSkpZXq5ps)
 
-⚠️ As the library grows, it changes. Some code probably needs to be updated. I don't have time to maintain everything.
+⚠️ As the library grows, it changes. Some examples may need to be updated. I don't have time to maintain everything.
 🤷‍♂️
 
-## 🍭 gȧlléry
+<details>
+<summary>🍭 Gȧlléry</summary>
 
 ⭐️ [Zen. Plasma. Watter.](arts/plasma/README.md) [🎬](https://youtu.be/wbcpgElKq7E)
 
@@ -132,6 +133,5 @@ follow: [🎇 Instagram](https://www.instagram.com/gart_173) |
 
 <br clear="both">
 
-## 🍬 The End
+</details>
 
-🧧 Enjoy.
