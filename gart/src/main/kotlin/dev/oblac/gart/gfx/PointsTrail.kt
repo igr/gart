@@ -1,5 +1,6 @@
 package dev.oblac.gart.gfx
 
+import org.jetbrains.skia.Path
 import org.jetbrains.skia.Point
 
 /**
@@ -17,18 +18,14 @@ class PointsTrail(val size: Int) {
         }
         points.add(p)
     }
-
+    
     /**
-     * Iterates over the points in the trail, starting from
+     * Returns sequence of the points in the trail, starting from
      * the oldest point (first) to the newest point (last).
      */
-    fun forEach(action: (Point) -> Unit) {
-        points.forEach(action)
-    }
+    fun sequence(): Sequence<Point> = points.asSequence()
 
-    fun forEachIndexed(action: (Int, Point) -> Unit) {
-        points.forEachIndexed(action)
-    }
+    fun sequenceIndexed(): Sequence<IndexedValue<Point>> = points.asSequence().withIndex()
 
     fun last(): Point {
         return points.last()
@@ -60,6 +57,8 @@ class PointsTrail(val size: Int) {
 
     fun isActive(): Boolean = points.isNotEmpty()
     fun isEmpty(): Boolean = points.isEmpty()
+
+    fun toPath(): Path = pathOf(points)
 
 }
 

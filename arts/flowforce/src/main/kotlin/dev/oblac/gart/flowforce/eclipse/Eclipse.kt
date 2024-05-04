@@ -108,6 +108,7 @@ fun drawRays(c: Canvas, d: Dimension, moonR: Float) {
         rayPoints.forEach { trail ->
             trail
                 .filter { it.isInside(d) }
+                .sequence()
                 .forEach { p ->
                     c.drawPoint(p.x, p.y, rayPaint)
                 }

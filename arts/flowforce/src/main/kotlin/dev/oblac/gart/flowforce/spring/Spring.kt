@@ -57,7 +57,9 @@ fun drawRays(c: Canvas, d: Dimension, f: Frames) {
     // don't draw until the end
     if (f.frame > 610) {
         trails.forEach { trail ->
-            trail.forEachIndexed { i, p ->
+            trail.sequenceIndexed().forEach {
+                val i = it.index
+                val p = it.value
                 c.drawCircle(p.x, p.y, 4f, pal[i])
             }
         }

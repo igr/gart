@@ -75,4 +75,6 @@ class Palette(internal val colors: IntArray) {
 
         return gradient
     }
+
+    fun sequence(): Sequence<Int> = colors.asSequence()
 }
