@@ -5,7 +5,7 @@ import dev.oblac.gart.color.alpha
 import dev.oblac.gart.color.rgb
 import dev.oblac.gart.gfx.fillOf
 import dev.oblac.gart.math.GOLDEN_RATIO
-import dev.oblac.gart.pixels.scrollPixelsUp
+import dev.oblac.gart.pixels.scrollUp
 import org.jetbrains.skia.Canvas
 import org.jetbrains.skia.Rect
 import kotlin.random.Random
@@ -104,7 +104,7 @@ private fun <T> Array<T>.switch(a: Int, b: Int): Array<T> {
 
 fun draw(canvas: Canvas) {
     b.updatePixelsFromCanvas()
-    scrollPixelsUp(b, 1)
+    b.scrollUp(1)
 
     for (x in 0 until w) {
         val g = Random.nextInt(30)

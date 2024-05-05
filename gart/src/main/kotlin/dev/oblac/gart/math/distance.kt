@@ -15,10 +15,3 @@ fun dist(p1: Point, p2: Point): Float {
     return dist(p1.x, p1.y, p2.x, p2.y)
 }
 
-/**
- * Returns the distance between two points.
- * @see dist
- */
-fun Point.distanceTo(p: Point): Float {
-    return dist(this, p)
-}
