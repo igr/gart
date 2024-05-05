@@ -7,6 +7,8 @@ import org.jetbrains.skia.Point
 fun Point.isInside(dimension: Dimension) =
     ((x >= 0f) && (x < dimension.w)) && ((y >= 0f) && (y < dimension.h))
 
+fun Point.ifInside(dimension: Dimension): Point? = if (isInside(dimension)) this else null
+
 fun Point.offset(vec: Vector) = this.offset(vec.x, vec.y)
 
 fun Point.fromCenter(d: Dimension, fl: Float = 1f): Point {
