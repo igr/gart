@@ -46,7 +46,7 @@ fun main() {
         drawRectCircle(g.canvas, x.toFloat(), y.toFloat(), delta, colors)
     }
 
-    gart.showImage(g)
+    gart.window().showImage(g)
     gart.saveImage(g)
 }
 

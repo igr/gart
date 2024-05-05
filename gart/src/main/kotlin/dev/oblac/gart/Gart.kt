@@ -39,13 +39,6 @@ data class Gart(
 
     fun saveMovie(movie: Movie, fps: Int = this.fps, name: String = "${this.name}.mp4") = saveMovieToFile(movie, fps, name)
 
-    // todo move to Window
-    fun showImage(gartvas: Gartvas) {
-        window(gartvas.d).show { c, _, _ ->
-            c.drawImage(gartvas.snapshot(), 0f, 0f)
-        }
-    }
-
     override fun toString(): String {
         return "gȧrt! • $name"
     }

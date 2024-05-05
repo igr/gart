@@ -32,7 +32,7 @@ fun main() {
             drawRandomRect(g.canvas, Point(x * deltaX + rnd(20f), y * deltaY + rnd(20f)), 50f, p)
         }
     }
-    gart.showImage(g)
+    gart.window().showImage(g)
 }
 
 private fun drawRandomRect(canvas: Canvas, point: Point, r: Float, p: Paint) {

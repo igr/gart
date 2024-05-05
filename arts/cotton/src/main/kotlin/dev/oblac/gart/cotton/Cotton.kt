@@ -62,13 +62,27 @@ fun main() {
         line(g.canvas, 0f, thirdsRect.top * 2, thirdsRect.right * rnd(1, 2), thirdsRect.top * 2, colors.random())
     }
     if (rndIn(1, 4)) {
-        line(g.canvas, thirdsRect.left, thirdsRect.top, thirdsRect.left, thirdsRect.top + thirdsRect.top * rnd(1, 3), colors.random())
+        line(
+            g.canvas,
+            thirdsRect.left,
+            thirdsRect.top,
+            thirdsRect.left,
+            thirdsRect.top + thirdsRect.top * rnd(1, 3),
+            colors.random()
+        )
     }
     if (rndIn(1, 4)) {
-        line(g.canvas, thirdsRect.left * 2, thirdsRect.top, thirdsRect.left * 2, thirdsRect.top + thirdsRect.top * rnd(1, 3), colors.random())
+        line(
+            g.canvas,
+            thirdsRect.left * 2,
+            thirdsRect.top,
+            thirdsRect.left * 2,
+            thirdsRect.top + thirdsRect.top * rnd(1, 3),
+            colors.random()
+        )
     }
 
-    gart.showImage(g)
+    gart.window().showImage(g)
 
     gart.saveImage(g)
 }

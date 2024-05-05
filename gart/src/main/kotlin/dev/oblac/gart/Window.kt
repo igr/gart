@@ -1,5 +1,6 @@
 package dev.oblac.gart
 
+import org.jetbrains.skia.Image
 import java.awt.Toolkit
 import java.awt.event.*
 import javax.swing.JFrame
@@ -10,6 +11,22 @@ open class Window(val d: Dimension, val fps: Int, internal val printFps: Boolean
     init {
         JFrame.setDefaultLookAndFeelDecorated(true)
         //setupSkikoLoggerFactory { DefaultConsoleLogger.fromLevel(System.getProperty("skiko.log.level", "INFO")) }
+    }
+
+    /**
+     * Shows the gartvas image.
+     * Usually used for static images already generated.
+     */
+    fun showImage(gartvas: Gartvas) {
+        show { c, _, _ ->
+            c.drawImage(gartvas.snapshot(), 0f, 0f)
+        }
+    }
+
+    fun showImage(image: Image) {
+        show { c, _, _ ->
+            c.drawImage(image, 0f, 0f)
+        }
     }
 
     /**

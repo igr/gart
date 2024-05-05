@@ -72,5 +72,5 @@ fun main() {
     gart.saveImage(g1)
 
     // show image
-    gart.showImage(g1)
+    gart.window().showImage(g1)
 }

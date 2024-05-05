@@ -96,7 +96,7 @@ fun main() {
     drawR3(g.canvas, polyT)
     drawR3(g.canvas, polyT2)
 
-    gart.showImage(g)
+    gart.window().showImage(g)
 }
 
 private fun drawR(c: Canvas, rl: RLine) {
@@ -114,6 +114,7 @@ private fun drawR(c: Canvas, rl: RLine) {
             })
     }
 }
+
 private fun drawR2(c: Canvas, rl: RLine) {
     c.drawPath(rl.rect, fillOfBlack())
     rl.toLines(9).forEachIndexed { index, it ->
@@ -124,6 +125,7 @@ private fun drawR2(c: Canvas, rl: RLine) {
             })
     }
 }
+
 private fun drawR3(c: Canvas, rl: RLine) {
     c.drawPath(rl.rect, fillOfBlack())
     rl.toLines(9).forEachIndexed { index, it ->

@@ -7,7 +7,6 @@ import dev.oblac.gart.force.Force
 import dev.oblac.gart.force.ForceField
 import dev.oblac.gart.gfx.*
 import dev.oblac.gart.math.Vector
-import dev.oblac.gart.math.distanceTo
 import dev.oblac.gart.math.rnd
 import dev.oblac.gart.noise.PerlinNoise
 import org.jetbrains.skia.Canvas
@@ -35,7 +34,7 @@ data class TrailPath(
             if (tp == this) continue
             if (!tp.started) continue
             val collide = tp.trail.sequence()
-                .any{ it.distanceTo(p) < MAX_DISTANCE}
+                .any { it.distanceTo(p) < MAX_DISTANCE }
             if (collide) return true
         }
         return false
@@ -51,7 +50,7 @@ fun main() {
     Palettes.cool35.sequence().forEachIndexed { index, it -> drawww(c, it, index) }
 
     gart.saveImage(g)
-    gart.showImage(g)
+    gart.window().showImage(g)
 }
 
 fun ff(): ForceField {
@@ -68,6 +67,7 @@ fun ff(): ForceField {
     }
     return ff
 }
+
 val ff = ff()
 
 private fun drawww(c: Canvas, color: Int, index: Int) {
@@ -105,9 +105,11 @@ private fun drawww(c: Canvas, color: Int, index: Int) {
 
     tps.forEach { trail ->
         if (trail.trail.size < 100) return@forEach
-        trail.trail.toPath().let { c.drawPath(it, strokeOf(color, trail.width).also { paint ->
-            paint.strokeCap = PaintStrokeCap.ROUND
-        }) }
+        trail.trail.toPath().let {
+            c.drawPath(it, strokeOf(color, trail.width).also { paint ->
+                paint.strokeCap = PaintStrokeCap.ROUND
+            })
+        }
     }
     //ff.drawField(c, d)
     c.drawBorder(d, 20f, BgColors.bg08)

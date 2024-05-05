@@ -24,7 +24,7 @@ fun main() {
         rowBottom(color).forEach { it(c) }
     }
 
-    gart.showImage(g)
+    gart.window().showImage(g)
 
 }
 

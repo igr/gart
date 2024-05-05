@@ -68,7 +68,7 @@ fun main() {
         paintAll(g.canvas)
     }
 
-    gart.showImage(g)
+    gart.window().showImage(g)
 }
 
 fun move(
