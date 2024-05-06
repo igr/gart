@@ -18,3 +18,5 @@ fun randomPoint(cx: Float, cy: Float, rmax: Float, rmin: Float = rmax): Point {
     val y = cy + r * sin(angle)
     return Point(x, y)
 }
+
+fun Point.Companion.random(d: Dimension): Point = randomPoint(d)

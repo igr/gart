@@ -19,3 +19,7 @@ fun Canvas.drawBorder(d: Dimension, width: Float, color: Int) {
     this.drawLine(d.wf - w2, w2, d.wf - w2, d.hf - w2, stroke)
     this.drawLine(0f, d.hf - w2, d.wf, d.hf - w2, stroke)
 }
+
+fun Canvas.drawPoint(p: Point, stroke: Paint) = this.drawPoint(p.x, p.y, stroke)
+
+fun Canvas.drawCircle(p: Point, r: Float, fill: Paint) = this.drawCircle(p.x, p.y, r, fill)
