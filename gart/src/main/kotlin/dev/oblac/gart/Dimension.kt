@@ -1,5 +1,6 @@
 package dev.oblac.gart
 
+import org.jetbrains.skia.Point
 import org.jetbrains.skia.Rect
 
 /**
@@ -18,6 +19,11 @@ data class Dimension(val w: Int, val h: Int) {
      * Center Y.
      */
     val cy = h / 2f
+
+    /**
+     * Center point.
+     */
+    val center = Point(cx, cy)
 
     /**
      * Third of the width.
