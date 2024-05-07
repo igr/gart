@@ -1,7 +1,7 @@
 package dev.oblac.gart.noise
 
-import dev.oblac.gart.math.Vector2
 import dev.oblac.gart.math.rnd
+import org.jetbrains.skia.Point
 import java.util.*
 import kotlin.math.*
 
@@ -27,31 +27,31 @@ class PoissonDiskSamplingNoise(seed: Long = System.nanoTime()) {
     private var xOffset: Float = 0f
     private var yOffset: Float = 0f
 
-    var points: MutableList<Vector2> = mutableListOf()
+    var points: MutableList<Point> = mutableListOf()
 
     init {
         grid = doubleArrayOf()
         queue = mutableListOf()
     }
 
-    fun generate(xmin: Double, ymin: Double, xmax: Double, ymax: Double, minDist: Double, rejectionLimit: Int): List<Vector2> {
+    fun generate(xmin: Double, ymin: Double, xmax: Double, ymax: Double, minDist: Double, rejectionLimit: Int): List<Point> {
         xOffset = xmin.toFloat()
         yOffset = ymin.toFloat()
         return generate(xmax - xmin, ymax - ymin, minDist, rejectionLimit)
     }
 
-    fun generate(xmin: Double, ymin: Double, xmax: Double, ymax: Double, minDist: Double): List<Vector2> {
+    fun generate(xmin: Double, ymin: Double, xmax: Double, ymax: Double, minDist: Double): List<Point> {
         return generate(xmin, ymin, xmax, ymax, minDist, 11)
     }
 
-    fun generate(xmin: Double, ymin: Double, xmax: Double, ymax: Double, n: Int): List<Vector2> {
+    fun generate(xmin: Double, ymin: Double, xmax: Double, ymax: Double, n: Int): List<Point> {
         val radius2 = (sqrt(0.5) * ((xmax - xmin) * (ymax - ymin))) / n
         val radius = sqrt(radius2)
         val pointz = generate(xmin, ymin, xmax, ymax, radius, 11).shuffled(Random(1337))
         return pointz.subList(0, min(pointz.size, n))
     }
 
-    private fun generate(width: Double, height: Double, radius: Double, k: Int): List<Vector2> {
+    private fun generate(width: Double, height: Double, radius: Double, k: Int): List<Point> {
         val m = 1 + k * 2
         cellSize = 1 / (radius * sqrt(0.5))
         val minDistSquared = radius * radius
@@ -108,7 +108,7 @@ class PoissonDiskSamplingNoise(seed: Long = System.nanoTime()) {
         grid[index] = x
         grid[index + 1] = y
         queue.add(doubleArrayOf(x, y))
-        points.add(Vector2(x.toFloat() + xOffset, y.toFloat() + yOffset))
+        points.add(Point(x.toFloat() + xOffset, y.toFloat() + yOffset))
     }
 
     private fun far(x: Double, y: Double, minDistSquared: Double): Boolean {
