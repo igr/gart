@@ -10,6 +10,8 @@ fun rndf(max: Number): Float = Random.nextFloat() * max.toFloat()
 fun rndf(min: Float, max: Float): Float = (Random.nextFloat() * (max - min) + min)
 fun rndf(min: Number, max: Number): Float = (Random.nextFloat() * (max.toFloat() - min.toFloat()) + min.toFloat())
 
+fun rnd(min: Double, max: Double): Double = min + (max - min) * Random.nextDouble()
+
 /**
  * Returns true with the probability of [success] / [total].
  */
