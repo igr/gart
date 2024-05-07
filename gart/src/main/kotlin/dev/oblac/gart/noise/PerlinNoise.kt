@@ -26,7 +26,7 @@ class PerlinNoise(
     private val perlin = FloatArray(perlinSize + 1) { Random.nextFloat() }
 
     /**
-     * Generate noise.
+     * Generate noise between 0 and 1.
      */
     fun noise(x: Number, y: Number = 0, z: Number = 0): Float {
         val xAbs = abs(x.toFloat())

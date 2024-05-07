@@ -17,14 +17,14 @@ open class Window(val d: Dimension, val fps: Int, internal val printFps: Boolean
      * Shows the gartvas image.
      * Usually used for static images already generated.
      */
-    fun showImage(gartvas: Gartvas) {
-        show { c, _, _ ->
+    fun showImage(gartvas: Gartvas): WindowView {
+        return show { c, _, _ ->
             c.drawImage(gartvas.snapshot(), 0f, 0f)
         }
     }
 
-    fun showImage(image: Image) {
-        show { c, _, _ ->
+    fun showImage(image: Image): WindowView {
+        return show { c, _, _ ->
             c.drawImage(image, 0f, 0f)
         }
     }

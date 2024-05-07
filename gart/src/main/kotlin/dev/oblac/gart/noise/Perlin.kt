@@ -1,6 +1,7 @@
 package dev.oblac.gart.noise
 
 import kotlin.math.floor
+import kotlin.random.Random
 
 object Perlin {
 
@@ -27,7 +28,18 @@ object Perlin {
 		if (it < 256) permutation[it] else permutation[it - 256]
 	}
 
-	fun noise(x: Double, y: Double, z: Double): Double {
+    /**
+     * Returns a random value between 0 and 1.
+     */
+    fun noise(): Double {
+        return noise(
+            Random.nextDouble(-1.0, 1.0),
+            Random.nextDouble(-1.0, 1.0),
+            Random.nextDouble(-1.0, 1.0),
+        ) / 2 + 0.5
+    }
+
+    fun noise(x: Double, y: Double, z: Double): Double {
 		// Find unit cube that contains point
 		val xi = floor(x).toInt() and 255
 		val yi = floor(y).toInt() and 255
