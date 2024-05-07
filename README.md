@@ -80,6 +80,7 @@ Follow: [Instagram](https://www.instagram.com/gart_173)
 <img src="arts/flowforce/Eclipse_thumb.png" align="left">
 <img src="arts/flowforce/Spring_thumb.png" align="left">
 <img src="arts/flowforce/Eclectic_thumb.png" align="left">
+<img src="arts/flowforce/emergence_thumb.png" align="left">
 </p>
 
 <br clear="both">
