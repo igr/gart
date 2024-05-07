@@ -6,7 +6,7 @@ import dev.oblac.gart.color.Palettes
 import dev.oblac.gart.force.Force
 import dev.oblac.gart.force.ForceField
 import dev.oblac.gart.gfx.*
-import dev.oblac.gart.math.Vector
+import dev.oblac.gart.math.Vector2
 import dev.oblac.gart.math.rndf
 import dev.oblac.gart.noise.PerlinNoise
 import org.jetbrains.skia.Canvas
@@ -59,9 +59,9 @@ fun ff(): ForceField {
     val step = 10
     val ff = ForceField.of(gart.d) { x, y ->
         object : Force {
-            override fun apply(p: Point): Vector {
+            override fun apply(p: Point): Vector2 {
                 val n = noise.noise(p.x / smooth, p.y / smooth) * 3
-                return Vector(cos(n - 0.5) * step, sin(n - 0.5) * step)
+                return Vector2(cos(n - 0.5) * step, sin(n - 0.5) * step)
             }
         }
     }

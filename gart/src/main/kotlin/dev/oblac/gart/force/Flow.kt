@@ -1,6 +1,6 @@
 package dev.oblac.gart.force
 
-import dev.oblac.gart.math.Vector
+import dev.oblac.gart.math.Vector2
 import dev.oblac.gart.math.middleAngle
 import org.jetbrains.skia.Point
 import kotlin.math.cos
@@ -23,9 +23,9 @@ data class Flow(val direction: Float, val magnitude: Float = 1f) : Force {
     /**
      * Calculates the offset of a point by the flow.
      */
-    override fun apply(p: Point): Vector {
+    override fun apply(p: Point): Vector2 {
         val dx = sin(direction) * magnitude
         val dy = -cos(direction) * magnitude
-        return Vector(dx, dy)
+        return Vector2(dx, dy)
     }
 }

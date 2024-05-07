@@ -176,7 +176,7 @@ private fun force1(d: Dimension): ForceField {
         ComplexFunctions.polesAndHoles(poles, holes)(z)
     }
     return ForceField.from(d) { x, y ->
-        complexField[x, y].let { c -> Vector(c.real, c.img).normalize() }
+        complexField[x, y].let { c -> Vector2(c.real, c.img).normalize() }
     }
 }
 
@@ -189,6 +189,6 @@ private fun force2(d: Dimension): ForceField {
         ComplexFunctions.polesAndHoles(poles, holes)(z)
     }
     return ForceField.from(d) { x, y ->
-        complexField[x, y].let { c -> Vector(c.real, c.img).normalize() }
+        complexField[x, y].let { c -> Vector2(c.real, c.img).normalize() }
     }
 }

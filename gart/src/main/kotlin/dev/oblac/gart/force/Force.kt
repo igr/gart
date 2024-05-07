@@ -5,7 +5,7 @@ import dev.oblac.gart.gfx.isInside
 import dev.oblac.gart.gfx.offset
 import dev.oblac.gart.gfx.strokeOfBlue
 import dev.oblac.gart.gfx.strokeOfRed
-import dev.oblac.gart.math.Vector
+import dev.oblac.gart.math.Vector2
 import org.jetbrains.skia.Canvas
 import org.jetbrains.skia.Point
 
@@ -17,7 +17,7 @@ interface Force {
     /**
      * Calculates the force vector (offset) at the given point.
      */
-    fun apply(p: Point): Vector
+    fun apply(p: Point): Vector2
 
     /**
      * Applies the force to the given point and returns the new point.
@@ -69,11 +69,12 @@ class ForceField(val w: Int, val h: Int, private val field: Array<Array<Force>>)
                 }
             })
 
-        fun ofVectors(d: Dimension, fn: (Float, Float) -> Vector) = ForceField(d.w, d.h,
+        fun ofVectors(d: Dimension, fn: (Float, Float) -> Vector2) = ForceField(
+            d.w, d.h,
             Array(d.w) {
                 Array(d.h) {
                     object : Force {
-                        override fun apply(p: Point): Vector {
+                        override fun apply(p: Point): Vector2 {
                             return fn(p.x, p.y)
                         }
                     }
@@ -84,11 +85,12 @@ class ForceField(val w: Int, val h: Int, private val field: Array<Array<Force>>)
          * Creates a force field from a function that generates a vector for each point.
          * Points are defined with the index. Used when mapping from one space into another.
          */
-        fun from(d: Dimension, fn: (Int, Int) -> Vector) = ForceField(d.w, d.h,
+        fun from(d: Dimension, fn: (Int, Int) -> Vector2) = ForceField(
+            d.w, d.h,
             Array(d.w) { x ->
                 Array(d.h) { y ->
                     object : Force {
-                        override fun apply(p: Point): Vector {
+                        override fun apply(p: Point): Vector2 {
                             return fn(x, y)
                         }
                     }
