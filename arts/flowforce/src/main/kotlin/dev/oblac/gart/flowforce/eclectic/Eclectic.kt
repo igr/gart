@@ -7,7 +7,7 @@ import dev.oblac.gart.force.Force
 import dev.oblac.gart.force.ForceField
 import dev.oblac.gart.gfx.*
 import dev.oblac.gart.math.Vector
-import dev.oblac.gart.math.rnd
+import dev.oblac.gart.math.rndf
 import dev.oblac.gart.noise.PerlinNoise
 import org.jetbrains.skia.Canvas
 import org.jetbrains.skia.PaintStrokeCap
@@ -73,7 +73,7 @@ val ff = ff()
 private fun drawww(c: Canvas, color: Int, index: Int) {
     //val ff = ff()
     val tps = Array(TRAILS) { PointsTrail(TRAIL_LEN).apply { add(randomPoint(d)) } }
-        .map { TrailPath(it, rnd(6f, MAX_WIDTH)) }
+        .map { TrailPath(it, rndf(6f, MAX_WIDTH)) }
         .toMutableList()
     repeat(TRAIL_LEN) {
         tps

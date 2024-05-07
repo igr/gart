@@ -7,7 +7,7 @@ import dev.oblac.gart.force.SpiralFlow
 import dev.oblac.gart.gfx.fillOfWhite
 import dev.oblac.gart.gfx.strokeOf
 import dev.oblac.gart.math.RotationDirection
-import dev.oblac.gart.math.nextFloat
+import dev.oblac.gart.math.rndf
 import dev.oblac.gart.toFrames
 import org.jetbrains.skia.Point
 import kotlin.time.Duration.Companion.seconds
@@ -38,7 +38,7 @@ fun main() {
     // prepare points
 
     var randomPoints = Array(30000) {
-        Point(nextFloat(d.wf), nextFloat(d.hf))
+        Point(rndf(d.wf), rndf(d.hf))
     }.toList()
 
     g.canvas.drawPaint(fillOfWhite())

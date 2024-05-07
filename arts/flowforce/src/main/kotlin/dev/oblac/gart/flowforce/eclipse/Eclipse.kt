@@ -9,7 +9,7 @@ import dev.oblac.gart.force.ForceField
 import dev.oblac.gart.force.ForceGenerator
 import dev.oblac.gart.gfx.*
 import dev.oblac.gart.math.PIf
-import dev.oblac.gart.math.rnd
+import dev.oblac.gart.math.rndf
 import dev.oblac.gart.shader.createMarbledFilter
 import dev.oblac.gart.util.loop
 import org.jetbrains.skia.*
@@ -66,7 +66,7 @@ fun drawHalo(c: Canvas, d: Dimension, moonR: Float) {
     }
 
     haloPoints.forEach { p ->
-        c.drawCircle(p.x, p.y, rnd(1f, 40f), haloPaint)
+        c.drawCircle(p.x, p.y, rndf(1f, 40f), haloPaint)
     }
 }
 
@@ -75,7 +75,7 @@ fun drawRays(c: Canvas, d: Dimension, moonR: Float) {
     val flow = ForceGenerator { x, y ->
         val dx = x - d.cx
         val dy = y - d.cy
-        val theta = atan2(dy, dx) + PIf / 2f + rnd(-0.3f, 0.3f)
+        val theta = atan2(dy, dx) + PIf / 2f + rndf(-0.3f, 0.3f)
         Flow(theta, 2f)
     }
     val ff = ForceField.of(gart.d) { x, y -> flow(x, y) }
@@ -84,7 +84,7 @@ fun drawRays(c: Canvas, d: Dimension, moonR: Float) {
         PointsTrail(1).apply {
             val angle = (if (rnd.nextBoolean()) 330f else 0f) + rnd.nextGaussian() / 2f
 
-            val r = rnd(10f, moonR)
+            val r = rndf(10f, moonR)
             val x = d.cx + r * cos(angle)
             val y = d.cy + r * sin(angle)
             add(Point(x.toFloat(), y.toFloat()))

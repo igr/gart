@@ -21,13 +21,13 @@ val g = gart.gartvas()
 
 val fnz = ComplexFunctions.polesAndHoles(
     poles = Array(10) {
-        val x = 0.4 * sin((rnd(0, 360)).toFloat().toRadian())
-        val y = 0.4 * cos((rnd(0, 360)).toFloat().toRadian())
+        val x = 0.4 * sin((rndf(0, 360)).toRadian())
+        val y = 0.4 * cos((rndf(0, 360)).toRadian())
         Complex(x, y)
     },
     holes = Array(20) {
-        val x = 0.2 * sin((rnd(0, 360)).toFloat().toRadian())
-        val y = 0.2 * cos((rnd(0, 360)).toFloat().toRadian())
+        val x = 0.2 * sin((rndf(0, 360)).toRadian())
+        val y = 0.2 * cos((rndf(0, 360)).toRadian())
         Complex(x, y)
     },
 )

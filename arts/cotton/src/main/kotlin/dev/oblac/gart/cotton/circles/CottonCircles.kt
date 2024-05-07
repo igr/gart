@@ -3,7 +3,7 @@ package dev.oblac.gart.cotton.circles
 import dev.oblac.gart.Gart
 import dev.oblac.gart.color.BgColors
 import dev.oblac.gart.color.Palettes
-import dev.oblac.gart.math.rnd
+import dev.oblac.gart.math.rndi
 import dev.oblac.gart.noise.NoiseColor
 import dev.oblac.gart.shader.toPaint
 import dev.oblac.gart.util.loop
@@ -17,7 +17,6 @@ val gart = Gart.of(
     "cotton-circles",
     1000, 1000
 )
-
 
 fun main() {
     println(gart)
@@ -57,7 +56,7 @@ fun drawRectCircle(c: Canvas, x: Float, y: Float, delta: Int, colors: List<Paint
     c.drawRect(Rect(x, y, x + delta, y + delta), fill)
 
     val d2 = delta / 2
-    val rnd = rnd(0, 4)
+    val rnd = rndi(0, 4)
     val r = when (rnd) {
         0 -> Rect(x, y - d2, x + delta, y + d2)
         1 -> Rect(x + d2, y, x + delta + d2, y + delta)

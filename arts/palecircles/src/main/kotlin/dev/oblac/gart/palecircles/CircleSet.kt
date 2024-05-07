@@ -1,7 +1,7 @@
 package dev.oblac.gart.palecircles
 
 import dev.oblac.gart.color.Palette
-import dev.oblac.gart.math.rnd
+import dev.oblac.gart.math.rndi
 
 const val STARTING_R = 6f
 
@@ -20,7 +20,7 @@ fun createCircleSet(size: Int, count: Int) : MutableList<Circle> {
 
     val circles = mutableListOf<Circle>()
     for (i in 0..count) {
-        circles.add(Circle(x + rnd(-rndOffset, rndOffset), y + rnd(-rndOffset, rndOffset), r))
+        circles.add(Circle(x + rndi(-rndOffset, rndOffset), y + rndi(-rndOffset, rndOffset), r))
         x -= step
         y += step
         r += rStep

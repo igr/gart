@@ -2,7 +2,7 @@ package dev.oblac.gart.roundrects
 
 import dev.oblac.gart.Gart
 import dev.oblac.gart.color.Colors
-import dev.oblac.gart.math.rnd
+import dev.oblac.gart.math.rndi
 import dev.oblac.gart.toFrames
 import kotlin.time.Duration.Companion.seconds
 
@@ -25,7 +25,7 @@ fun main() {
 
     m.record(w).show { c, d, f ->
         f.onEveryFrame(sceneChange) {
-            val count = rnd(3, 9)
+            val count = rndi(3, 9)
             bigBox = BigBox(d, count, count)
             if (totalChanges-- == 0) {
                 m.stopRecording()

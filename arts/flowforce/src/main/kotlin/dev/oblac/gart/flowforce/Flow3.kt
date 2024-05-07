@@ -9,7 +9,7 @@ import dev.oblac.gart.force.WaveFlow
 import dev.oblac.gart.gfx.strokeOf
 import dev.oblac.gart.math.RotationDirection.CCW
 import dev.oblac.gart.math.RotationDirection.CW
-import dev.oblac.gart.math.nextFloat
+import dev.oblac.gart.math.rndf
 import dev.oblac.gart.toFrames
 import org.jetbrains.skia.Point
 import kotlin.time.Duration.Companion.seconds
@@ -50,11 +50,11 @@ fun main() {
     val palette = gradient + gradient.reversed()
 
     var randomPoints = Array(40000) {
-        Point(nextFloat(d.wf), nextFloat(d.hf))
+        Point(rndf(d.wf), rndf(d.hf))
     }.toList()
 
     var randomPoints2 = Array(100) {
-        Point(nextFloat(1024), 1000f)
+        Point(rndf(1024), 1000f)
     }.toList()
 
 //    g.fill(Colors.white)

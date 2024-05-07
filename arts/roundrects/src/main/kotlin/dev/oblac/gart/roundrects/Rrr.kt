@@ -2,7 +2,7 @@ package dev.oblac.gart.roundrects
 
 import dev.oblac.gart.Dimension
 import dev.oblac.gart.gfx.strokeOfWhite
-import dev.oblac.gart.math.rnd
+import dev.oblac.gart.math.rndi
 import dev.oblac.gart.toSeconds
 import org.jetbrains.skia.Canvas
 import org.jetbrains.skia.RRect
@@ -14,7 +14,7 @@ import kotlin.time.Duration
 data class BigBox(val d: Dimension, val maxX: Int, val maxY: Int) {
     val cellW = d.wf / maxX
     val cellH = d.hf / maxY
-    val inner = rnd(5, 10)
+    val inner = rndi(5, 10)
 
     val allCells = (0 until maxX).flatMap { x ->
         (0 until maxY).map { y ->

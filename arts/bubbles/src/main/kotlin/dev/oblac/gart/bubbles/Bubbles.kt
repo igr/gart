@@ -6,7 +6,7 @@ import dev.oblac.gart.color.Palettes
 import dev.oblac.gart.gfx.fillOf
 import dev.oblac.gart.gfx.fillOfBlack
 import dev.oblac.gart.math.cosDeg
-import dev.oblac.gart.math.nextFloat
+import dev.oblac.gart.math.rndf
 import dev.oblac.gart.math.sinDeg
 import dev.oblac.gart.math.toDegree
 import org.jetbrains.skia.Canvas
@@ -31,7 +31,7 @@ fun main() {
 //    // load
     var list = Array(100) {
         Bubble(
-            d, nextFloat(d.w), nextFloat(d.h), 2.0f,
+            d, rndf(d.w), rndf(d.h), 2.0f,
             nextLong(100, 1000),
             fillOf(Palettes.cool2.random())
         )

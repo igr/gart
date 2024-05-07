@@ -6,7 +6,7 @@ import dev.oblac.gart.gfx.fillOf
 import dev.oblac.gart.gfx.fillOfWhite
 import dev.oblac.gart.gfx.strokeOf
 import dev.oblac.gart.gfx.strokeOfBlack
-import dev.oblac.gart.math.rnd
+import dev.oblac.gart.math.rndf
 import org.jetbrains.skia.Canvas
 import org.jetbrains.skia.Rect
 
@@ -59,7 +59,7 @@ fun draw(canvas: Canvas) {
     matrix.forEach { row ->
         row.forEach { circleSet ->
             circleSet.circles.forEach { circle ->
-                circle.off += rnd(-1f, 1f)
+                circle.off += rndf(-1f, 1f)
                 if (circle.off > 4) {
                     circle.off = 4f
                 }

@@ -4,7 +4,7 @@ import dev.oblac.gart.Dimension
 import dev.oblac.gart.Gartvas
 import dev.oblac.gart.gfx.fillOfWhite
 import dev.oblac.gart.gfx.strokeOfBlack
-import dev.oblac.gart.math.nextFloat
+import dev.oblac.gart.math.rndf
 import org.jetbrains.skia.Rect
 
 const val name2 = "Bubbles2"
@@ -21,8 +21,8 @@ fun main() {
     g.canvas.drawRect(Rect(0f, 0f, d.wf, d.hf), fillOfWhite())
     var tries = 10000
     while (tries-- > 0) {
-        val x = nextFloat(d.w)
-        val y = nextFloat(d.h)
+        val x = rndf(d.w)
+        val y = rndf(d.h)
 
         // is it valid?
 

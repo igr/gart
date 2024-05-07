@@ -41,7 +41,7 @@ fun main() {
     val w = gart.window()
 
     fun resetPoints(): List<Point> = Array(1000) {
-        Point(rnd(0f, gart.d.wf), rnd(0f, gart.d.hf))
+        Point(rndf(0f, gart.d.wf), rndf(0f, gart.d.hf))
     }.toList()
 
     var points = resetPoints()
