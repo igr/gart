@@ -9,6 +9,8 @@ import org.jetbrains.skia.Rect
 data class Dimension(val w: Int, val h: Int) {
     val wf = w.toFloat()
     val hf = h.toFloat()
+    val wd = w.toDouble()
+    val hd = h.toDouble()
 
     /**
      * Center X.

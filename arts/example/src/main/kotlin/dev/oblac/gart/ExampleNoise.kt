@@ -4,10 +4,7 @@ import dev.oblac.gart.color.Colors
 import dev.oblac.gart.gfx.drawPoint
 import dev.oblac.gart.gfx.random
 import dev.oblac.gart.gfx.strokeOf
-import dev.oblac.gart.noise.HaltonSequenceGenerator
-import dev.oblac.gart.noise.Perlin
-import dev.oblac.gart.noise.PerlinNoise
-import dev.oblac.gart.noise.PoissonDiskSamplingNoise
+import dev.oblac.gart.noise.*
 import org.jetbrains.skia.Canvas
 import org.jetbrains.skia.Point
 
@@ -32,6 +29,7 @@ fun main() {
                 Key.KEY_3 -> perlin(c, d)
                 Key.KEY_4 -> perlin2(c, d)
                 Key.KEY_5 -> poissonDiskSampling(c, d)
+                Key.KEY_6 -> poissonDiskSampling2(c, d)
                 else -> {}
             }
         }
@@ -86,5 +84,12 @@ fun poissonDiskSampling(c: Canvas, d: Dimension) {
     val samples = noise.generate(0.0, 0.0, d.w.toDouble(), d.h.toDouble(), POINTS)
     for (sample in samples) {
         c.drawPoint(sample.x, sample.y, color)
+    }
+}
+
+fun poissonDiskSampling2(c: Canvas, d: Dimension) {
+    c.clear(Colors.white)
+    orxPoissonDiskSamplingNoise(d, 10.0).forEach {
+        c.drawPoint(it, color)
     }
 }

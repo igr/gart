@@ -17,6 +17,9 @@ dependencies {
     api 'org.jetbrains.skiko:skiko-awt-runtime-macos-arm64:0.8.4'
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.8.0'
 
+    implementation 'org.openrndr.extra:orx-noise-jvm:0.4.4'
+    implementation 'org.openrndr:openrndr-shape:0.4.4'
+
     implementation 'org.bytedeco:ffmpeg-platform:6.1.1-1.5.10'
     implementation 'org.bytedeco:ffmpeg-platform-gpl:6.1.1-1.5.10'
 
