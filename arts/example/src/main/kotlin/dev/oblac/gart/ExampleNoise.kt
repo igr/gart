@@ -89,7 +89,7 @@ fun poissonDiskSampling(c: Canvas, d: Dimension) {
 
 fun poissonDiskSampling2(c: Canvas, d: Dimension) {
     c.clear(Colors.white)
-    orxPoissonDiskSamplingNoise(d, 10.0).forEach {
+    poissonDiskSamplingNoise(d, 10.0).forEach {
         c.drawPoint(it, color)
     }
 }
