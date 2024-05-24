@@ -1,5 +1,6 @@
 package dev.oblac.gart.gfx
 
+import dev.oblac.gart.Dimension
 import org.jetbrains.skia.Point
 import org.jetbrains.skia.Rect
 
@@ -54,3 +55,14 @@ fun Rect.shrink(delta: Float) =
 
 fun Rect.grow(delta: Float) =
     Rect(this.left - delta, this.top - delta, this.right + delta, this.bottom + delta)
+
+/**
+ * Returns dimensions of the rectangle.
+ */
+fun Rect.dimension(): Dimension {
+    return Dimension(this.width.toInt(), this.height.toInt())
+}
+
+fun Rect.topLeftPoint(): Point {
+    return Point(this.left, this.top)
+}

@@ -5,6 +5,7 @@ import org.jetbrains.skia.Rect
 
 /**
  * Represents a virtual dimensions.
+ * todo: migrate w/h to float
  */
 data class Dimension(val w: Int, val h: Int) {
     val wf = w.toFloat()
