@@ -124,6 +124,7 @@ Follow: [Instagram](https://www.instagram.com/gart_173)
 
 <p align="center">
 <img src="arts/thre3/surfing_thumb.png" align="left">
+<img src="arts/thre3/noisepads_thumb.png" align="left">
 </p>
 
 
