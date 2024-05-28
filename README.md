@@ -98,6 +98,7 @@ Follow: [Instagram](https://www.instagram.com/gart_173)
 <p align="center">
 <img src="arts/rects/rects1_thumb.png" align="left">
 <img src="arts/rects/rects2_thumb.png" align="left">
+<img src="arts/rects/rects-over_thumb.png" align="left">
 </p>
 
 <br clear="both">
@@ -126,7 +127,5 @@ Follow: [Instagram](https://www.instagram.com/gart_173)
 <img src="arts/thre3/surfing_thumb.png" align="left">
 <img src="arts/thre3/noisepads_thumb.png" align="left">
 </p>
-
-
 
 <br clear="both">

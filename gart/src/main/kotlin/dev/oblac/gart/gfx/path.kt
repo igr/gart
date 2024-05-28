@@ -27,7 +27,7 @@ fun List<Point>.toPath() = pathOf(this)
 fun closedPathOf(first: Point, vararg points: Point): Path {
     val path = Path().moveTo(first)
     points.forEach { path.lineTo(it) }
-    return path
+    return path.closePath()
 }
 
 /**
