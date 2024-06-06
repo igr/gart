@@ -66,3 +66,5 @@ fun Rect.dimension(): Dimension {
 fun Rect.topLeftPoint(): Point {
     return Point(this.left, this.top)
 }
+
+fun Rect.Companion.ofPWH(left: Float, top: Float, w: Float, h: Float): Rect = Rect(left, top, left + w, top + h)

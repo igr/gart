@@ -12,8 +12,12 @@ fun Canvas.drawPointsAsCircles(points: Collection<Point>, stroke: Paint, radius:
 fun Canvas.drawLine(p1: Point, p2: Point, stroke: Paint) = this.drawLine(p1.x, p1.y, p2.x, p2.y, stroke)
 
 fun Canvas.drawBorder(d: Dimension, width: Float, color: Int) {
+    this.drawBorder(d, strokeOf(color, width))
+}
+
+fun Canvas.drawBorder(d: Dimension, stroke: Paint) {
+    val width = stroke.strokeWidth
     val w2 = width / 2
-    val stroke = strokeOf(color, width)
     this.drawLine(0f, w2, d.wf, w2, stroke)
     this.drawLine(w2, w2, w2, d.hf - w2, stroke)
     this.drawLine(d.wf - w2, w2, d.wf - w2, d.hf - w2, stroke)
