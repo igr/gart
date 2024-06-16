@@ -99,6 +99,8 @@ Follow: [Instagram](https://www.instagram.com/gart_173)
 <img src="arts/rects/rects1_thumb.png" align="left">
 <img src="arts/rects/rects2_thumb.png" align="left">
 <img src="arts/rects/rects-over_thumb.png" align="left">
+<img src="arts/rects/divine-divide_thumb.png" align="left">
+<img src="arts/rects/mondrian-01_thumb.png" align="left">
 </p>
 
 <br clear="both">

@@ -1,6 +1,7 @@
 package dev.oblac.gart.color
 
 import org.jetbrains.skia.Color
+import org.jetbrains.skia.Color4f
 
 fun alpha(color: Int): Int {
     return color shr 24 and 0xFF
@@ -59,3 +60,5 @@ fun Int.convertRGBAtoARGB(): Int {
     return this ushr 8 or (this shl 24)
 }
 
+
+fun Number.toColor4f(): Color4f = Color4f(this.toInt())
