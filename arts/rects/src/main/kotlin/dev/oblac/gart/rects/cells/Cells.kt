@@ -17,8 +17,8 @@ import kotlin.math.cos
 import kotlin.math.sin
 
 val gart = Gart.of(
-    "rects",
-    1023, 1023, 1
+    "cells",
+    1024, 1024, 1
 )
 
 fun main() {
@@ -32,16 +32,17 @@ fun main() {
 
     range(0, xCount).forEach { x ->
         range(0, yCount).forEach { y ->
-            drawRect1(g.canvas, x * rectW, y * rectW, rectW)
+            drawRect1(g.canvas, x * rectW, y * rectW, rectW + 1)
         }
     }
     range(0, xCount).forEach { x ->
         range(0, yCount).forEach { y ->
-            drawRect2(g.canvas, x * rectW, y * rectW, rectW)
+            drawRect2(g.canvas, x * rectW, y * rectW, rectW + 1)
         }
     }
-    //g.canvas.drawBorder(g.d, rectW, Colors.whiteSmoke)
+    //g.canvas.drawBorder(g.d, rectW / 2, Colors.warmBlack1)
     gart.window().showImage(g)
+    gart.saveImage(g)
 }
 
 val palette = Palettes.cool14
@@ -52,12 +53,16 @@ private fun drawRect1(canvas: Canvas, x: Float, y: Float, r: Float) {
     canvas.drawRect(backRect, fillOf(pb))
 
     // inner rect2
+    val delta = rndf(-10f, 10f)
+    canvas.rotate(delta, x, y)
+
     val s = rndf(6, 10)
     val rect = Rect(
         x + rndf(-s, s), y + rndf(-s, s), x + r + rndf(-s, s), y + r + rndf(-s, s)
     )
     val p = palette.safe((sin(x / 30) * 6 + cos(y / 10) * 6).toInt())
     canvas.drawRect(rect, fillOf(p))
+    canvas.rotate(-delta, x, y)
 }
 
 private fun drawRect2(canvas: Canvas, x: Float, y: Float, r: Float) {
