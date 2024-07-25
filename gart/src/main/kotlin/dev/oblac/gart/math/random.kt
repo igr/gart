@@ -15,4 +15,6 @@ fun rnd(min: Double, max: Double): Double = min + (max - min) * Random.nextDoubl
 /**
  * Returns true with the probability of [success] / [total].
  */
-fun rndb(success: Int, total: Int): Boolean = Math.random() < success.toDouble() / total
+fun rndb(success: Int, total: Int): Boolean = Math.random() < (success.toDouble() / total)
+
+fun rndb(): Boolean = Math.random() < 0.5
