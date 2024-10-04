@@ -1,6 +1,7 @@
 package dev.oblac.gart.gfx
 
 import dev.oblac.gart.Dimension
+import org.jetbrains.skia.Path
 import org.jetbrains.skia.Point
 import org.jetbrains.skia.Rect
 
@@ -14,6 +15,17 @@ fun Rect.points(): Array<Point> {
         Point(this.right, this.bottom),
         Point(this.right, this.top),
     )
+}
+
+fun Rect.path(): Path {
+    val points = this.points()
+    return Path().apply {
+        moveTo(points[0])
+        lineTo(points[1])
+        lineTo(points[2])
+        lineTo(points[3])
+        close()
+    }
 }
 
 fun Rect.move(delta: Float): Rect {
