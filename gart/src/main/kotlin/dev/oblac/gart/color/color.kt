@@ -1,7 +1,10 @@
 package dev.oblac.gart.color
 
+import dev.oblac.gart.gfx.fillOf
+import dev.oblac.gart.gfx.strokeOf
 import org.jetbrains.skia.Color
 import org.jetbrains.skia.Color4f
+import org.jetbrains.skia.Paint
 
 fun alpha(color: Int): Int {
     return color shr 24 and 0xFF
@@ -62,3 +65,6 @@ fun Int.convertRGBAtoARGB(): Int {
 
 
 fun Number.toColor4f(): Color4f = Color4f(this.toInt())
+
+fun Int.toFillPaint(): Paint = fillOf(this)
+fun Int.toStrokePaint(width: Float): Paint = strokeOf(this, width)
