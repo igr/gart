@@ -11,3 +11,5 @@
 ![](mondrian-01.png)
 ![](mondrian-02.png)
 ![](mondrian-03.png)
+
+![](cells.png)

@@ -89,6 +89,7 @@ Follow: [Instagram](https://www.instagram.com/gart_173)
 
 <p align="center">
 <img src="arts/repetition/Repetition1_thumb.png" align="left">
+<img src="arts/repetition/Repetition2_thumb.png" align="left">
 </p>
 
 <br clear="both">
@@ -101,6 +102,7 @@ Follow: [Instagram](https://www.instagram.com/gart_173)
 <img src="arts/rects/rects-over_thumb.png" align="left">
 <img src="arts/rects/divine-divide_thumb.png" align="left">
 <img src="arts/rects/mondrian-01_thumb.png" align="left">
+<img src="arts/rects/cells_thumb.png" align="left">
 </p>
 
 <br clear="both">
@@ -128,6 +130,20 @@ Follow: [Instagram](https://www.instagram.com/gart_173)
 <p align="center">
 <img src="arts/thre3/surfing_thumb.png" align="left">
 <img src="arts/thre3/noisepads_thumb.png" align="left">
+</p>
+
+<br clear="both">
+
+⭐️ [Igor](arts/igor/README.md)
+<p align="center">
+<img src="arts/igor/igor_thumb.png" align="left">
+</p>
+
+<br clear="both">
+
+⭐️ [flamebrush](arts/flamebrush/README.md)
+<p align="center">
+<img src="arts/flamebrush/flamebrush1_thumb.png" align="left">
 </p>
 
 <br clear="both">
