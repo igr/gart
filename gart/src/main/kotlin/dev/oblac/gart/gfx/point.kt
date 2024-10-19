@@ -20,3 +20,5 @@ fun randomPoint(cx: Float, cy: Float, rmax: Float, rmin: Float = rmax): Point {
 }
 
 fun Point.Companion.random(d: Dimension): Point = randomPoint(d)
+
+fun Pair<Number, Number>.toPoint(): Point = Point(first.toFloat(), second.toFloat())
