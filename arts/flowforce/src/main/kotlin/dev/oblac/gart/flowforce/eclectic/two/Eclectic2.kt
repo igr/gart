@@ -1,9 +1,9 @@
-package dev.oblac.gart.flowforce.eclectic
+package dev.oblac.gart.flowforce.eclectic.two
 
+import dev.oblac.gart.Dimension
 import dev.oblac.gart.Gart
 import dev.oblac.gart.color.BgColors
 import dev.oblac.gart.color.Palettes
-import dev.oblac.gart.flowforce.eclectic.two.TrailPath
 import dev.oblac.gart.force.Force
 import dev.oblac.gart.force.ForceField
 import dev.oblac.gart.gfx.*
@@ -16,10 +16,10 @@ import org.jetbrains.skia.Point
 import kotlin.math.cos
 import kotlin.math.sin
 
-val gart = Gart.of("Eclectic", 1024, 1024)
-val d = dev.oblac.gart.flowforce.eclectic.two.gart.d
+val gart = Gart.of("Eclectic2", 1024, 1024)
+val d = gart.d
 
-const val TRAILS = 100
+const val TRAILS = 300
 const val TRAIL_LEN = 300
 const val MAX_WIDTH = 30f
 const val MAX_DISTANCE = 50f
@@ -35,7 +35,7 @@ data class TrailPath(
             if (tp == this) continue
             if (!tp.started) continue
             val collide = tp.trail.sequence()
-                .any { it.distanceTo(p) < dev.oblac.gart.flowforce.eclectic.two.MAX_DISTANCE }
+                .any { it.distanceTo(p) < MAX_DISTANCE }
             if (collide) return true
         }
         return false
@@ -43,40 +43,40 @@ data class TrailPath(
 }
 
 fun main() {
-    val g = dev.oblac.gart.flowforce.eclectic.two.gart.gartvas()
+    val g = gart.gartvas()
     val c = g.canvas
 
     c.clear(BgColors.elegant)
 
-    Palettes.cool35.sequence().forEachIndexed { index, it -> drawww(c, it, index) }
+    Palettes.cool6.sequence().forEachIndexed { index, it -> drawww(c, it, index) }
 
-    dev.oblac.gart.flowforce.eclectic.two.gart.saveImage(g)
-    dev.oblac.gart.flowforce.eclectic.two.gart.window().showImage(g)
+    gart.saveImage(g)
+    gart.window().showImage(g)
 }
 
 fun ff(): ForceField {
     val noise = PerlinNoise()
-    val smooth = 300
+    val smooth = 600
     val step = 10
-    val ff = ForceField.of(dev.oblac.gart.flowforce.eclectic.two.gart.d) { x, y ->
+    val ff = ForceField.of(gart.d) { x, y ->
         object : Force {
             override fun apply(p: Point): Vector2 {
                 val n = noise.noise(p.x / smooth, p.y / smooth) * 3
-                return Vector2(cos(n - 0.5) * step, sin(n - 0.5) * step)
+                return Vector2(cos(n + 0.5) * step, sin(n + 0.5) * step * 1.7)
             }
         }
     }
     return ff
 }
 
-val ff = dev.oblac.gart.flowforce.eclectic.two.ff()
+val ff = ff()
 
 private fun drawww(c: Canvas, color: Int, index: Int) {
     //val ff = ff()
-    val tps = Array(dev.oblac.gart.flowforce.eclectic.two.TRAILS) { PointsTrail(dev.oblac.gart.flowforce.eclectic.two.TRAIL_LEN).apply { add(randomPoint(dev.oblac.gart.flowforce.eclectic.two.d)) } }
-        .map { TrailPath(it, rndf(6f, dev.oblac.gart.flowforce.eclectic.two.MAX_WIDTH)) }
+    val tps = Array(TRAILS) { PointsTrail(TRAIL_LEN).apply { add(randomPoint(Dimension(1200, 1200))) } }
+        .map { TrailPath(it, rndf(-26f, MAX_WIDTH)) }
         .toMutableList()
-    repeat(dev.oblac.gart.flowforce.eclectic.two.TRAIL_LEN) {
+    repeat(TRAIL_LEN) {
         tps
             .filter { it.active }
             .filter { !it.trail.isEmpty() }
@@ -86,8 +86,8 @@ private fun drawww(c: Canvas, color: Int, index: Int) {
                     tp.active = false
                 } else {
                     tp.trail.update {
-                        it.ifInside(dev.oblac.gart.flowforce.eclectic.two.d)?.let { p ->
-                            dev.oblac.gart.flowforce.eclectic.two.ff[p].offset(p)
+                        it.ifInside(d)?.let { p ->
+                            ff[p].offset(p)
                         }
                     }
                     tp.started = true
@@ -97,10 +97,14 @@ private fun drawww(c: Canvas, color: Int, index: Int) {
 
     // draw
     when (index) {
-        3 -> c.drawCircle(dev.oblac.gart.flowforce.eclectic.two.d.w - 200f, dev.oblac.gart.flowforce.eclectic.two.d.hf / 3, 100f, fillOf(BgColors.coconutMilk))
-        6 -> c.drawCircle(dev.oblac.gart.flowforce.eclectic.two.d.cx / 3 + 400, dev.oblac.gart.flowforce.eclectic.two.d.hf / 3 + 400, 80f, fillOf(BgColors.coconutMilk))
-        7 -> c.drawCircle(dev.oblac.gart.flowforce.eclectic.two.d.cx / 2, dev.oblac.gart.flowforce.eclectic.two.d.hf / 3, 100f, fillOf(BgColors.coconutMilk))
-        9 -> c.drawCircle(dev.oblac.gart.flowforce.eclectic.two.d.cx, dev.oblac.gart.flowforce.eclectic.two.d.cy, 50f, fillOf(BgColors.coconutMilk))
+        3 -> c.drawCircle(d.w - 200f, d.hf / 3, 160f, fillOf(BgColors.coconutMilk))
+        6 -> c.drawCircle(d.cx / 3 + 400, d.hf / 3 + 400, 80f, fillOf(BgColors.coconutMilk))
+        7 -> {
+            c.drawCircle(d.cx / 2, d.hf / 3, 30f, fillOf(BgColors.coconutMilk))
+            c.drawCircle(d.cx / 2 - 50f, d.hf / 3 - 50f, 30f, fillOf(BgColors.coconutMilk))
+        }
+
+//        9 -> c.drawCircle(d.cx, d.cy, 50f, fillOf(BgColors.coconutMilk))
     }
 
 
@@ -112,6 +116,6 @@ private fun drawww(c: Canvas, color: Int, index: Int) {
             })
         }
     }
-    //ff.drawField(c, d)
-    c.drawBorder(dev.oblac.gart.flowforce.eclectic.two.d, 20f, BgColors.bg08)
+//    ff.drawField(c, d)
+    c.drawBorder(d, 20f, BgColors.bg08)
 }
