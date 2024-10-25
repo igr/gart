@@ -3,15 +3,11 @@ package dev.oblac.gart.math
 import kotlin.math.cos
 import kotlin.math.sin
 
-
 fun Int.isEven() = this % 2 == 0
 fun Int.isOdd() = this % 2 == 1
 
 fun Float.toRadian(): Float = (this / 180 * Math.PI).toFloat()
-fun Double.toRadian(): Double = this / 180 * Math.PI
-
 fun Float.toDegree(): Float = (this * 180 / Math.PI).toFloat()
-fun Double.toDegree(): Double = this * 180 / Math.PI
 
 /**
  * Safe degrees' subtraction.
@@ -39,7 +35,7 @@ fun normalizeRad(rad: Float): Float {
     return result
 }
 
-fun normalizeDeg(deg: Float): Float {
+private fun normalizeDeg(deg: Float): Float {
     var result = deg
     while (result < 0) {
         result += 360

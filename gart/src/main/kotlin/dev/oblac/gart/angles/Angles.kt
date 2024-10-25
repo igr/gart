@@ -1,6 +1,7 @@
 package dev.oblac.gart.angles
 
 import dev.oblac.gart.math.DOUBLE_PIf
+import dev.oblac.gart.math.HALF_PIf
 import dev.oblac.gart.math.PIf
 
 @JvmInline
@@ -39,7 +40,10 @@ value class Radians(internal val value: Float) {
     }
 
     companion object {
-        val ZERO: Radians = Radians(0f)
+        val ZERO = Radians(0f)
+        val PI_HALF = Radians(HALF_PIf)
+        val PI = Radians(PIf)
+        val TWO_PI = Radians(DOUBLE_PIf)
     }
 }
 
@@ -90,6 +94,13 @@ value class Degrees(internal val value: Float) {
             result -= 360
         }
         return Degrees(result)
+    }
+
+    companion object {
+        val ZERO = Degrees(0f)
+        val D90 = Degrees(90f)
+        val D180 = Degrees(180f)
+        val D360 = Degrees(360f)
     }
 }
 
