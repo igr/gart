@@ -2,6 +2,7 @@ package dev.oblac.gart.flowforce.eclipse
 
 import dev.oblac.gart.Dimension
 import dev.oblac.gart.Gart
+import dev.oblac.gart.angles.Radians
 import dev.oblac.gart.color.BgColors
 import dev.oblac.gart.color.Colors
 import dev.oblac.gart.force.Flow
@@ -76,7 +77,7 @@ fun drawRays(c: Canvas, d: Dimension, moonR: Float) {
         val dx = x - d.cx
         val dy = y - d.cy
         val theta = atan2(dy, dx) + PIf / 2f + rndf(-0.3f, 0.3f)
-        Flow(theta, 2f)
+        Flow(Radians(theta), 2f)
     }
     val ff = ForceField.of(gart.d) { x, y -> flow(x, y) }
 

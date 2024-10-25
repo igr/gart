@@ -45,18 +45,3 @@ private fun normalizeDeg(deg: Float): Float {
     }
     return result
 }
-
-/**
- * Calculates the middle angle between two angles. The result is always in the range of -PI..PI.
- * This means that the result is always the shortest angle between the two angles.
- */
-fun middleAngle(a: Float, b: Float): Float {
-    return when (val diff = b - a) {
-        in -PIf..PIf -> normalizeRad(a + diff / 2)
-        in PIf..DOUBLE_PIf -> normalizeRad(a + diff / 2 - PIf)
-        in -DOUBLE_PIf..-PIf -> normalizeRad(a + diff / 2 + PIf)
-        in DOUBLE_PIf..2 * DOUBLE_PIf -> normalizeRad(a + (diff - DOUBLE_PIf) / 2)
-        in -2 * DOUBLE_PIf..-DOUBLE_PIf -> normalizeRad(a + (diff + DOUBLE_PIf) / 2)
-        else -> throw IllegalStateException("Unexpected angle difference: $diff")
-    }
-}

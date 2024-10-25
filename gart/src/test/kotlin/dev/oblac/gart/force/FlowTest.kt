@@ -1,5 +1,6 @@
 package dev.oblac.gart.force
 
+import dev.oblac.gart.angles.Radians
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 
@@ -7,8 +8,8 @@ class FlowTest {
 
     @Test
     fun addOppositeFlows() {
-        val right = Flow(0f, 1f)
-        val left = Flow(Math.PI.toFloat(), 1f)
+        val right = Flow(Radians.ZERO, 1f)
+        val left = Flow(Radians.PI, 1f)
 
         val result = right + left
 

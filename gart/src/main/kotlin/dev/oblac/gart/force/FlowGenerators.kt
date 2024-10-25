@@ -1,9 +1,9 @@
 package dev.oblac.gart.force
 
+import dev.oblac.gart.angles.Radians
 import dev.oblac.gart.math.PIf
 import dev.oblac.gart.math.RotationDirection
 import dev.oblac.gart.math.RotationDirection.CW
-import dev.oblac.gart.math.normalizeRad
 import kotlin.math.atan2
 import kotlin.math.cos
 import kotlin.math.sin
@@ -26,7 +26,7 @@ class CircularFlow(
             RotationDirection.CCW -> -atan2(-dy, dx)
         }
 
-        return Flow(normalizeRad(theta), magnitude)
+        return Flow(Radians(theta).normalize(), magnitude)
     }
 }
 
@@ -46,7 +46,7 @@ class SpiralFlow(
             RotationDirection.CCW -> -atan2(-dy, dx)
         } + spiralSpeed
 
-        return Flow(normalizeRad(theta), magnitude)
+        return Flow(Radians(theta).normalize(), magnitude)
     }
 }
 
@@ -60,7 +60,7 @@ class WaveFlow(
     override fun invoke(x: Float, y: Float): Flow {
         val a = sin(x * xFreq) * xAmp
         val b = cos(y * yFreq) * yAmp
-        return Flow(a + b, magnitude)
+        return Flow(Radians(a + b), magnitude)
     }
 
 }

@@ -1,10 +1,11 @@
 package dev.oblac.gart.force
 
+import dev.oblac.gart.angles.Radians
+import dev.oblac.gart.angles.cos
+import dev.oblac.gart.angles.middleAngle
+import dev.oblac.gart.angles.sin
 import dev.oblac.gart.math.Vector2
-import dev.oblac.gart.math.middleAngle
 import org.jetbrains.skia.Point
-import kotlin.math.cos
-import kotlin.math.sin
 
 /**
  * Flow is a vector that represents the direction and magnitude of a flow.
@@ -13,7 +14,7 @@ import kotlin.math.sin
  * @param direction in radians, indicates the direction of the flow. The angle is measured from the negative x-axis.
  * 0 is up, PI/2 is right, PI is down, 3PI/2 is left.
  */
-data class Flow(val direction: Float, val magnitude: Float = 1f) : Force {
+data class Flow(val direction: Radians, val magnitude: Float = 1f) : Force {
 
     // todo remove? ne treba jer ce sabirati vektori
     operator fun plus(other: Flow): Flow {
