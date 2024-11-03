@@ -1,9 +1,9 @@
 package dev.oblac.gart.force
 
+import dev.oblac.gart.angles.Radians
 import dev.oblac.gart.math.PIf
 import dev.oblac.gart.math.RotationDirection
 import dev.oblac.gart.math.fastSqrt
-import dev.oblac.gart.math.normalizeRad
 import kotlin.math.atan2
 
 /**
@@ -12,8 +12,8 @@ import kotlin.math.atan2
  * Closer points are faster. Points are always circulating around the center.
  */
 class CircularVecForce(
-    private val cx: Float,
-    private val cy: Float,
+    val cx: Float,
+    val cy: Float,
     private val maxMagnitude: Float = 1024f,
     private val direction: RotationDirection = RotationDirection.CW
 ) : ForceGenerator {
@@ -29,7 +29,7 @@ class CircularVecForce(
         val distance = fastSqrt(dx * dx + dy * dy)
         val magnitude = maxMagnitude / (maxMagnitude * 0.1f + distance)
 
-        return VecForce(normalizeRad(theta), magnitude)
+        return VecForce(Radians(theta).normalize(), magnitude)
     }
 }
 
@@ -63,6 +63,6 @@ class SpiralVecForce(
         val distance = fastSqrt(dx * dx + dy * dy)
         val magnitude = maxMagnitude / (minDistance + distance)
 
-        return VecForce(normalizeRad(theta), magnitude)
+        return VecForce(Radians(theta).normalize(), magnitude)
     }
 }
