@@ -82,4 +82,9 @@ data class Dimension(val w: Int, val h: Int) {
      * Grows the dimension by the factor.
      */
     operator fun times(factor: Number) = Dimension((w * factor.toFloat()).toInt(), (h * factor.toFloat()).toInt())
+
+    companion object {
+        val DESKTOP_FULL_HD = Dimension(1920, 1080)
+        val LAPTOP_FULL_HD = Dimension(1366, 768)
+    }
 }

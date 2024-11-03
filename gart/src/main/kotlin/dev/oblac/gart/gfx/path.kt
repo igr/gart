@@ -24,6 +24,9 @@ fun pathOf(list: List<Point>): Path {
 
 fun List<Point>.toPath() = pathOf(this)
 
+fun Point.pathTo(point: Point): Path = Path().moveTo(this).lineTo(point)
+
+
 fun closedPathOf(first: Point, vararg points: Point): Path {
     val path = Path().moveTo(first)
     points.forEach { path.lineTo(it) }
