@@ -26,6 +26,8 @@ value class Radians(internal val value: Float) {
     operator fun div(n: Number): Radians =
         Radians(this.value / n.toFloat())
 
+    operator fun unaryMinus(): Radians = Radians(-value)
+
     fun toFloat() = value
 
     fun normalize(): Radians {
@@ -47,13 +49,11 @@ value class Radians(internal val value: Float) {
     }
 }
 
-fun cos(r: Radians): Double {
-    return kotlin.math.cos(r.value.toDouble())
-}
+fun cos(r: Radians) =
+    kotlin.math.cos(r.value.toDouble())
 
-fun sin(r: Radians): Double {
-    return kotlin.math.sin(r.value.toDouble())
-}
+fun sin(r: Radians) =
+    kotlin.math.sin(r.value.toDouble())
 
 /**
  * Calculates the middle angle between two angles.
@@ -85,6 +85,9 @@ value class Degrees(internal val value: Float) {
     operator fun minus(delta: Degrees): Degrees =
         Degrees(value - delta.value)
 
+    operator fun times(n: Number): Degrees =
+        Degrees(n.toFloat() * this.value)
+
     fun normalize(): Degrees {
         var result = value
         while (result < 0) {
@@ -95,6 +98,8 @@ value class Degrees(internal val value: Float) {
         }
         return Degrees(result)
     }
+
+    operator fun unaryMinus(): Degrees = Degrees(-value)
 
     companion object {
         val ZERO = Degrees(0f)

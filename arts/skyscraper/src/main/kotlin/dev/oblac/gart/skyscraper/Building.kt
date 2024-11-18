@@ -1,6 +1,7 @@
 package dev.oblac.gart.skyscraper
 
 import dev.oblac.gart.Dimension
+import dev.oblac.gart.angles.Degrees
 import dev.oblac.gart.gfx.RectIsometricLeft
 import dev.oblac.gart.gfx.RectIsometricRight
 import dev.oblac.gart.gfx.RectIsometricTop
@@ -16,7 +17,7 @@ data class Colors(
 	val leftWindowsColor: Int,
 	val rightWindowsColor: Int)
 
-class Building(x: Float, y: Float, a: Float, b: Float, alpha: Float, private val colors: Colors, private val d: Dimension) {
+class Building(x: Float, y: Float, a: Float, b: Float, alpha: Float, private val colors: Colors, d: Dimension) {
 
     val roofRect: RectIsometricTop
 	val rightRect: RectIsometricRight
@@ -28,11 +29,11 @@ class Building(x: Float, y: Float, a: Float, b: Float, alpha: Float, private val
 	val rightWindows: WindowsConsumer
 
 	init {
-		roofRect = RectIsometricTop(x, y, a, b, alpha)
-        rightRect = RectIsometricRight(roofRect.bottom.x, roofRect.bottom.y, d.h - y + a + 40, b, alpha)
+        roofRect = RectIsometricTop(x, y, a, b, Degrees(alpha))
+        rightRect = RectIsometricRight(roofRect.bottom.x, roofRect.bottom.y, d.h - y + a + 40, b, Degrees(alpha))
 
 		roof = roofRect.path()
-        leftSide = RectIsometricLeft(x, y, d.h - y, a, alpha).path()
+        leftSide = RectIsometricLeft(x, y, d.h - y, a, Degrees(alpha)).path()
 		rightSide = rightRect.path()
 
 		val useNarrowWindows = Random.nextInt(10) < 3

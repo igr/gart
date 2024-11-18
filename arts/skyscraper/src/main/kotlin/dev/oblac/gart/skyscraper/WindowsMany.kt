@@ -1,5 +1,6 @@
 package dev.oblac.gart.skyscraper
 
+import dev.oblac.gart.angles.Degrees
 import dev.oblac.gart.gfx.RectIsometric
 import dev.oblac.gart.gfx.RectIsometricLeft
 import dev.oblac.gart.math.toRadian
@@ -56,7 +57,7 @@ class WindowsMany(
 				val w = rowX - x
 				rowY = y + gapEdge + w * sin(beta.toRadian()) / cos(beta.toRadian())
                 if (Random.nextInt(10) > windowRandThreshold) {
-                    fn(RectIsometricLeft(rowX, rowY, windowSize, windowSize, beta))
+                    fn(RectIsometricLeft(rowX, rowY, windowSize, windowSize, Degrees(beta)))
                 }
 				rowX += windowSize + gapX
 			}

@@ -1,5 +1,6 @@
 package dev.oblac.gart.skyscraper
 
+import dev.oblac.gart.angles.Degrees
 import dev.oblac.gart.gfx.RectIsometric
 import dev.oblac.gart.gfx.RectIsometricLeft
 import dev.oblac.gart.math.toRadian
@@ -23,7 +24,7 @@ class WindowsOne(
 
 		var y = left.y + gap + gap * sin(beta.toRadian())
 		while (true) {
-			val r = RectIsometricLeft(x, y, windowSize, b, beta)
+            val r = RectIsometricLeft(x, y, windowSize, b, Degrees(beta))
 			fn(r)
 			y += gap + windowSize
 			if (y > edge && r.right.y > edge) {
