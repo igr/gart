@@ -1,18 +1,48 @@
 package dev.oblac.gart.gfx
 
+import dev.oblac.gart.math.dist
 import org.jetbrains.skia.Canvas
 import org.jetbrains.skia.Paint
 import org.jetbrains.skia.Path
 import org.jetbrains.skia.Point
+import kotlin.math.pow
+import kotlin.math.sqrt
 
-data class Triangle(val p1: Point, val p2: Point, val p3: Point) {
-    fun points() = arrayOf(p1, p2, p3)
-
+data class Triangle(val a: Point, val b: Point, val c: Point) {
+    fun points() = arrayOf(a, b, c)
     val path = Path()
-        .moveTo(p1)
-        .lineTo(p2)
-        .lineTo(p3)
+        .moveTo(a)
+        .lineTo(b)
+        .lineTo(c)
         .closePath()
+
+    fun contains(point: Point): Boolean {
+        val circumcircle = calculateCircumcircle()
+        val distance = dist(point, circumcircle.center)
+        return distance < circumcircle.radius
+    }
+
+    fun calculateCircumcircle(): Circle {
+        val ax = a.x
+        val ay = a.y
+        val bx = b.x
+        val by = b.y
+        val cx = c.x
+        val cy = c.y
+
+        val d = 2 * (ax * (by - cy) + bx * (cy - ay) + cx * (ay - by))
+        val ux = ((ax.pow(2) + ay.pow(2)) * (by - cy) +
+            (bx.pow(2) + by.pow(2)) * (cy - ay) +
+            (cx.pow(2) + cy.pow(2)) * (ay - by)) / d
+        val uy = ((ax.pow(2) + ay.pow(2)) * (cx - bx) +
+            (bx.pow(2) + by.pow(2)) * (ax - cx) +
+            (cx.pow(2) + cy.pow(2)) * (bx - ax)) / d
+
+        val center = Point(ux, uy)
+        val radius = sqrt((ax - ux).pow(2) + (ay - uy).pow(2))
+
+        return Circle.of(center, radius)
+    }
 }
 
 fun Canvas.drawTriangle(triangle: Triangle, paint: Paint) = this.drawPath(triangle.path, paint)

@@ -23,6 +23,7 @@ fun pathOf(list: List<Point>): Path {
 }
 
 fun List<Point>.toPath() = pathOf(this)
+fun List<Point>.toClosedPath() = pathOf(this).closePath()
 
 fun Point.pathTo(point: Point): Path = Path().moveTo(this).lineTo(point)
 

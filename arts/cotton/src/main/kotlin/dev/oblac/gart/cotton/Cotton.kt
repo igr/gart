@@ -4,6 +4,7 @@ import dev.oblac.gart.Gart
 import dev.oblac.gart.color.BgColors
 import dev.oblac.gart.color.Palettes
 import dev.oblac.gart.gfx.contains
+import dev.oblac.gart.gfx.fatLine
 import dev.oblac.gart.gfx.move
 import dev.oblac.gart.gfx.thirds
 import dev.oblac.gart.math.rndb
@@ -11,7 +12,6 @@ import dev.oblac.gart.math.rndf
 import dev.oblac.gart.math.rndi
 import dev.oblac.gart.noise.NoiseColor
 import dev.oblac.gart.shader.toPaint
-import fatLine
 import org.jetbrains.skia.Canvas
 import org.jetbrains.skia.Paint
 import org.jetbrains.skia.Rect

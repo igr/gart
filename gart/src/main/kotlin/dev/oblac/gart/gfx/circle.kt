@@ -7,6 +7,10 @@ import org.jetbrains.skia.Point
 
 data class Circle(val x: Float, val y: Float, val radius: Float) {
     val center = Point(x, y)
+
+    companion object {
+        fun of(center: Point, radius: Number): Circle = Circle(center.x, center.y, radius.toFloat())
+    }
 }
 
 fun createCircle(center: Point, radius: Float, steps: Int): List<Point> {

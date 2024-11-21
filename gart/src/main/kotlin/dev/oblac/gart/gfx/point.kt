@@ -23,3 +23,7 @@ fun Point.Companion.random(d: Dimension): Point = randomPoint(d)
 
 fun Pair<Number, Number>.toPoint(): Point = Point(first.toFloat(), second.toFloat())
 fun Point(x: Number, y: Number): Point = Point(x.toFloat(), y.toFloat())
+
+fun Point.isCloseTo(other: Point, tolerance: Float): Boolean {
+    return distanceTo(other) < tolerance
+}

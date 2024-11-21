@@ -14,15 +14,15 @@ test {
 }
 
 dependencies {
-    api 'org.jetbrains.skiko:skiko-awt-runtime-macos-arm64:0.8.17'
+    api 'org.jetbrains.skiko:skiko-awt-runtime-macos-arm64:0.8.18'
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.9.0'
 
     implementation 'org.openrndr:openrndr-shape:0.4.4'
     implementation 'org.openrndr.extra:orx-noise-jvm:0.4.4'
     implementation 'org.openrndr.extra:orx-shapes:0.4.4'
 
-    implementation 'org.bytedeco:ffmpeg-platform:6.1.1-1.5.10'
-    implementation 'org.bytedeco:ffmpeg-platform-gpl:6.1.1-1.5.10'
+    implementation 'org.bytedeco:ffmpeg-platform:7.1-1.5.11'
+    implementation 'org.bytedeco:ffmpeg-platform-gpl:7.1-1.5.11'
 
     testImplementation 'org.jetbrains.kotlin:kotlin-test'
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'

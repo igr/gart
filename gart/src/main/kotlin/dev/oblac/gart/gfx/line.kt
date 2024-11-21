@@ -1,7 +1,14 @@
-import dev.oblac.gart.gfx.closedPathOf
+package dev.oblac.gart.gfx
+
+import org.jetbrains.skia.Canvas
+import org.jetbrains.skia.Paint
 import org.jetbrains.skia.Path
 import org.jetbrains.skia.Point
 import kotlin.math.sqrt
+
+data class Line(val a: Point, val b: Point)
+
+fun Canvas.drawLine(line: Line, color: Paint) = drawLine(line.a, line.b, color)
 
 // https://www.forbes.com/asap/2002/0624/044.html
 /**
