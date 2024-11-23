@@ -5,6 +5,7 @@ import org.jetbrains.skia.Canvas
 import org.jetbrains.skia.Paint
 import org.jetbrains.skia.Path
 import org.jetbrains.skia.Point
+import kotlin.math.abs
 import kotlin.math.pow
 import kotlin.math.sqrt
 
@@ -20,6 +21,16 @@ data class Triangle(val a: Point, val b: Point, val c: Point) {
         val circumcircle = calculateCircumcircle()
         val distance = dist(point, circumcircle.center)
         return distance < circumcircle.radius
+    }
+
+    fun calculateArea(): Double {
+        val x1 = a.x
+        val y1 = a.y
+        val x2 = b.x
+        val y2 = b.y
+        val x3 = c.x
+        val y3 = c.y
+        return 0.5 * abs(x1 * (y2 - y3) + x2 * (y3 - y1) + x3 * (y1 - y2))
     }
 
     fun calculateCircumcircle(): Circle {
