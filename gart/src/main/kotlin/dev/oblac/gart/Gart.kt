@@ -45,5 +45,6 @@ data class Gart(
 
     companion object {
         fun of(name: String, width: Int, height: Int, fps: Int = 60) = Gart(name, Dimension(width, height), fps)
+        fun of(name: String, d: Dimension, fps: Int = 60) = Gart(name, d, fps)
     }
 }

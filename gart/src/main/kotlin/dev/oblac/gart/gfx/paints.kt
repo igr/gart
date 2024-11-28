@@ -1,9 +1,7 @@
 package dev.oblac.gart.gfx
 
-import org.jetbrains.skia.Color
-import org.jetbrains.skia.Color4f
-import org.jetbrains.skia.Paint
-import org.jetbrains.skia.PaintMode
+import dev.oblac.gart.math.multiply
+import org.jetbrains.skia.*
 
 fun strokeOf(color: Color4f, width: Float) = Paint().apply {
     this.isAntiAlias = true
@@ -53,3 +51,24 @@ fun fillOfYellow() = fillOf(Color.YELLOW)
 fun fillOfRed() = fillOf(Color.RED)
 fun fillOfBlue() = fillOf(Color.BLUE)
 fun fillOfGreen() = fillOf(Color.GREEN)
+
+
+/**
+ * Returns a Paint object that represents a hatch (dotted) pattern.
+ */
+fun hatchPaint(color: Int, density: Float = 5f, dotWidth: Float = 1f, strokeWidth: Float = 3f) = Paint().apply {
+    val hatch = Path().addCircle(0f, 0f, dotWidth)
+    this.pathEffect = PathEffect.makePath2D(Matrix33.makeScale(density, density), hatch)
+    this.color = color
+    this.strokeWidth = strokeWidth
+}
+
+fun dashPaint(color: Int, density: Float = 6f, angle: Float = -45f, strokeWidth: Float = 2f) = Paint().apply {
+    val diagLinesPath = PathEffect.makeLine2D(strokeWidth, Matrix33.multiply(Matrix33.makeScale(density, density), Matrix33.makeRotate(angle)))
+    val paint = Paint().apply {
+        this.color = color
+        this.strokeWidth = strokeWidth
+        this.pathEffect = diagLinesPath
+    }
+    return paint
+}
