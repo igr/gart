@@ -21,6 +21,8 @@ data class Gart(
     val fps: Int,
 ) {
 
+    fun gg() = GartGG(this, gartvas())
+
     fun gartvas(dimension: Dimension = this.d) = Gartvas(dimension)
 
     fun gartmap(gartvas: Gartvas) = Gartmap(gartvas)
@@ -44,7 +46,7 @@ data class Gart(
     }
 
     companion object {
-        fun of(name: String, width: Int, height: Int, fps: Int = 60) = Gart(name, Dimension(width, height), fps)
+        fun of(name: String, width: Number, height: Number, fps: Int = 60) = Gart(name, Dimension(width.toInt(), height.toInt()), fps)
         fun of(name: String, d: Dimension, fps: Int = 60) = Gart(name, d, fps)
     }
 }

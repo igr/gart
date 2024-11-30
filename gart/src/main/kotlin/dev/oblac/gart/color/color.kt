@@ -68,3 +68,5 @@ fun Number.toColor4f(): Color4f = Color4f(this.toInt())
 
 fun Int.toFillPaint(): Paint = fillOf(this)
 fun Int.toStrokePaint(width: Float): Paint = strokeOf(this, width)
+
+fun Long.toIntColor(): Int = alpha(this.toInt(), 255)
