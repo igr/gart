@@ -22,7 +22,7 @@ fun main() {
     g.draw { c, _ -> draw(c) }
 
     val gg2 = borderize(gg, 20, 0xfffadd4a.toIntColor())
-    //gg2.saveImage()
+    gg2.saveImage()
     gg2.showImage()
 }
 

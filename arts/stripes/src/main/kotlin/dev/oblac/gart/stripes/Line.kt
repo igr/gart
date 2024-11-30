@@ -11,9 +11,9 @@ import kotlin.random.Random
 
 const val segments = 50
 val gap = gart.d.w / segments
-val gauss = GaussianFunction(150, segments / 2, 12)
+val gauss = GaussianFunction(160, segments / 2, 14)
 fun gaussianCurve(x: Number) = gauss(x)
-const val variety = 0.08f
+const val variety = 0.03f
 val perlin = PerlinNoise()
 
 class Line(private val offsetY: Float) {
