@@ -81,6 +81,8 @@ Follow: [Instagram](https://www.instagram.com/gart_173)
 <img src="arts/flowforce/Spring_thumb.png" align="left">
 <img src="arts/flowforce/Eclectic_thumb.png" align="left">
 <img src="arts/flowforce/emergence_thumb.png" align="left">
+<img src="arts/flowforce/Eclectic2_thumb.png" align="left">
+<img src="arts/flowforce/interruption_thumb.png" align="left">
 </p>
 
 <br clear="both">
@@ -147,3 +149,37 @@ Follow: [Instagram](https://www.instagram.com/gart_173)
 </p>
 
 <br clear="both">
+
+⭐️ [Legoo](arts/legoo/README.md)
+<p align="center">
+<img src="arts/legoo/Legoo12_thumb.png" align="left">
+</p>
+
+<br clear="both">
+
+⭐️ [RectAPart](arts/rectapart/README.md)
+<p align="center">
+<img src="arts/rectapart/rectApart_thumb.png" align="left">
+</p>
+
+<br clear="both">
+
+⭐️ [SwitchBoard](arts/switchboard/README.md)
+<p align="center">
+<img src="arts/switchboard/switchboard_thumb.png" align="left">
+</p>
+
+<br clear="both">
+
+⭐️ [Triangular](arts/triangular/README.md)
+<p align="center">
+<img src="arts/triangular/Triage_thumb.png" align="left">
+<img src="arts/triangular/SaharaDiamond_thumb.png" align="left">
+</p>
+
+<br clear="both">
+
+⭐️ [Stripes](arts/stripes/README.md)
+<p align="center">
+<img src="arts/stripes/stripes_thumb.png" align="left">
+</p>

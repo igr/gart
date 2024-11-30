@@ -1,0 +1,3 @@
+# Stripes
+
+![](stripes.png)
