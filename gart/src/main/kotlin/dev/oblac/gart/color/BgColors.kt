@@ -28,5 +28,7 @@ object BgColors {
     val elegantDark = 0xFF212121.toInt()
     val elegant = 0xFF2E2E2E.toInt()
 
+    val coolDark = 0xFF1a1a1a.toInt()
+    val coolGray = 0xFFe5e5e5.toInt()
 
 }
