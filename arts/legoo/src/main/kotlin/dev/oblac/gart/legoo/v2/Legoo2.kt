@@ -1,6 +1,8 @@
 package dev.oblac.gart.legoo.v2
 
 import dev.oblac.gart.Gart
+import dev.oblac.gart.Gartvas
+import dev.oblac.gart.Key
 import dev.oblac.gart.angles.Degrees
 import dev.oblac.gart.color.BgColors
 import dev.oblac.gart.color.Palettes
@@ -9,7 +11,9 @@ import dev.oblac.gart.gfx.RectIsometricRight
 import dev.oblac.gart.gfx.RectIsometricTop
 import dev.oblac.gart.gfx.fillOf
 import dev.oblac.gart.math.rndf
+import dev.oblac.gart.math.rndi
 import org.jetbrains.skia.Canvas
+import org.jetbrains.skia.PaintMode
 import org.jetbrains.skia.Rect
 
 const val a = 100f
@@ -24,57 +28,74 @@ fun main() {
     // main canvas
     val g = gart.gartvas()
 
-    // offset for
-    var leftOff = 0
-    var rightOff = 0
+    draw(g)
 
-    // draw on canvas
+    // show image
+    gart.window().showImage(g).onKey {
+        when (it) {
+            Key.KEY_UP -> {
+                pindex++
+                p = Palettes.coolPalette(pindex)
+                draw(g)
+            }
+
+            Key.KEY_DOWN -> {
+                pindex--
+                p = Palettes.coolPalette(pindex)
+                draw(g)
+            }
+
+            Key.KEY_D -> {
+                draw(g)
+            }
+
+            Key.KEY_S -> {
+                gart.saveImage(g)
+                println("Image saved.")
+            }
+
+            else -> {}
+        }
+        println("Palette: $pindex")
+
+
+    }
+}
+
+fun draw(g: Gartvas) {
     g.draw { c, d ->
         c.drawRect(Rect(0f, 0f, d.wf, d.hf), fillOf(BgColors.elegantDark))
 
-        // 1
-        val x = d.cx - sc // top-center
-        val y = 100f
-        kocka(x, y, c)
+        val randomRow = rndi(2, 6)
+        val randomCol = rndi(2, 6)
 
-        // 2
-        var xl = x
-        var xr = x
-        var yl = y
-        var yr = y
-
-        for (i in 1..5) {
-            xl -= sc
-            xr += sc
-            yl += 50f
-            yr += 50f
-            kocka(xl + offf(), yl + offf(), c)
-            if (i < 2) {
-                kocka(xr + offf(), yr + offf(), c)
+        for (row in 0..10) {
+            val x = d.cx - sc // top-center
+            val y = 0f + row * 100f
+            for (k in -8..8) {
+                kocka(x + offf() + k * sc, y + offf(), c)
+                if (row == randomRow && randomCol == k) {
+                    c.drawCircle(x + k * sc + sc / 2, y + sc / 2, 120f, fillOf(0xFFc53a32))
+                }
             }
         }
-        for (i in 5 downTo -5 step 1) {
-            xl += sc
-            xr -= sc
-            yl += 50f
-            yr += 50f
-            kocka(xl + offf(), yl + offf(), c)
-            kocka(xr + offf(), yr + offf(), c)
-        }
-
     }
-
-    gart.saveImage(g)
-
-    // show image
-    gart.window().showImage(g)
 }
 
 
+var pindex = 1
+var p = Palettes.coolPalette(pindex)
+
 private fun kocka(x: Float, y: Float, c: Canvas) {
-    RectIsometricTop(x, y, a, a, angle).path().let { c.drawPath(it, fillOf(Palettes.cool10.random()).also { it.alpha = 210 }) }
-    RectIsometricLeft(x, y, a, a, angle).path().let { c.drawPath(it, fillOf(Palettes.cool10.random()).also { it.alpha = 210 }) }
-    RectIsometricRight(x + sc, y + a / 2, a, a, angle).path().let { c.drawPath(it, fillOf(Palettes.cool10.random()).also { it.alpha = 210 }) }
+    val alpha = rndi(120, 250)
+    val fill = fillOf(p.random()).also {
+        it.alpha = alpha
+        it.mode = PaintMode.STROKE_AND_FILL
+        it.strokeWidth = 1f
+    }
+    RectIsometricTop(x, y, a, a, angle).path().let { c.drawPath(it, fill) }
+    RectIsometricLeft(x, y, a, a, angle).path().let { c.drawPath(it, fill) }
+    RectIsometricRight(x + sc, y + a / 2, a, a, angle).path().let { c.drawPath(it, fill) }
 }
 
 private fun offf(): Int {

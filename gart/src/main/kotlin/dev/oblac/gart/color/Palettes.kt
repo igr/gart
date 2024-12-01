@@ -37,6 +37,13 @@ object Palettes {
     val cool34 = Palette(0xffc200fb, 0xffd704b2, 0xffe2068d, 0xffec0868, 0xfff41c34, 0xfffc2f00, 0xfff45608, 0xffec7d10, 0xfff69d0d, 0xffffbc0a)
     val cool35 = Palette(0xff0450b4, 0xff046dc8, 0xff1184a7, 0xff15a2a2, 0xff6fb1a0, 0xffb4418e, 0xffd94a8c, 0xffea515f, 0xfffe7434, 0xfffea802)
     val cool36 = Palette(0xff641220, 0xff6e1423, 0xff85182a, 0xffa11d33, 0xffa71e34, 0xffb21e35, 0xffbd1f36, 0xffc71f37, 0xffda1e37, 0xffe01e37)
+    val cool37 = Palette(0xfff8f9fa, 0xffe9ecef, 0xffdee2e6, 0xffced4da, 0xffadb5bd, 0xff6c757d, 0xff495057, 0xff343a40, 0xff212529)
+    val cool38 = Palette(0xffFEF3E2, 0xffFAB12F, 0xffFA812F, 0xffFA4032)
+    val cool39 = Palette(0xff07beb8, 0xff3dccc7, 0xff68d8d6, 0xff9ceaef, 0xffc4fff9)
+    val cool40 = Palette(0xFFf8f9fb, 0xFFe1ecf7, 0xFFaecbeb, 0xFF83b0e1, 0xFF71a5de)
+    val cool41 = Palette(0xFF012a4a, 0xFF013a63, 0xFF01497c, 0xFF014f86, 0xFF2a6f97, 0xFF2c7da0, 0xFF468faf, 0xFF61a5c2, 0xFF89c2d9, 0xFFa9d6e5)
+    val cool42 = Palette(0xffd9ed92, 0xffb5e48c, 0xff99d98c, 0xff76c893, 0xff52b69a, 0xff34a0a4, 0xff168aad, 0xff1a759f, 0xff1e6091, 0xff184e77)
+    val cool43 = Palette(0xff03045e, 0xff023e8a, 0xff0077b6, 0xff0096c7, 0xff00b4d8, 0xff48cae4, 0xff90e0ef, 0xffade8f4, 0xffcaf0f8)
 
     val rainbow1 = Palette(0xffFF0000, 0xffFF7F00, 0xffFFFF00, 0xff00FF00, 0xff0000FF, 0xff4B0082, 0xff9400D3, 0xff8B008B, 0xffFF1493, 0xffFF69B4, 0xffFFC0CB, 0xffFFD700, 0xffFF4500, 0xffFF8C00)
     val rainbow2 = Palette(0xff421d3b, 0xff692542, 0xff8d2345, 0xffa7423d, 0xffc25934, 0xffe0782f, 0xffcd8c2e, 0xffab8e3e, 0xff88854e, 0xff5f795c, 0xff37615e, 0xff0c484c, 0xff0e373f, 0xff0e2837, 0xff113a4f, 0xff0c4b5e, 0xff376780, 0xff5c849b)
@@ -76,5 +83,53 @@ object Palettes {
         colors[steps - 1] = colorTo
 
         return Palette(colors)
+    }
+    fun coolPalette(num: Int): Palette {
+        return when (num) {
+            1 -> cool1
+            2 -> cool2
+            3 -> cool3
+            4 -> cool4
+            5 -> cool5
+            6 -> cool6
+            7 -> cool7
+            8 -> cool8
+            9 -> cool9
+            10 -> cool10
+            11 -> cool11
+            12 -> cool12
+            13 -> cool13
+            14 -> cool14
+            15 -> cool15
+            16 -> cool16
+            17 -> cool17
+            18 -> cool18
+            19 -> cool19
+            20 -> cool20
+            21 -> cool21
+            22 -> cool22
+            23 -> cool23
+            24 -> cool24
+            25 -> cool25
+            26 -> cool26
+            27 -> cool27
+            28 -> cool28
+            29 -> cool29
+            30 -> cool30
+            31 -> cool31
+            32 -> cool32
+            33 -> cool33
+            34 -> cool34
+            35 -> cool35
+            36 -> cool36
+            37 -> cool37
+            38 -> cool38
+            39 -> cool39
+            40 -> cool40
+            41 -> cool41
+            42 -> cool42
+            43 -> cool43
+            else -> throw IllegalArgumentException("Unknown cool palette number: $num")
+        }
     }
 }
