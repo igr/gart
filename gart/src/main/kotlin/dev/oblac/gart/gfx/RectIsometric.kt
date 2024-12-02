@@ -28,9 +28,9 @@ sealed class RectIsometric(x: Float, y: Float, a: Float, b: Float, alpha: Degree
         val bh = b * sin(beta)
         val bw = b * cos(beta)
 
-        bottom = Point(x + aw, y + ah)
-        right = Point(bottom.x + bw, bottom.y - bh)
-        top = Point(x + bw, y - bh)
+        bottom = pointOf(x + aw, y + ah)
+        right = pointOf(bottom.x + bw, bottom.y - bh)
+        top = pointOf(x + bw, y - bh)
     }
 
     fun path(): Path {

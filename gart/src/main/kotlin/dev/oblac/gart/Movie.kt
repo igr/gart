@@ -6,7 +6,12 @@ import org.jetbrains.skia.Image
 /**
  * Movie is just a simple buffer of snapshot images.
  */
-class Movie(val d: Dimension, private val name: String, startRecording: Boolean = true) {
+class Movie(
+    val d: Dimension,
+    private val name: String,
+    startRecording: Boolean = true,
+    val format: MovieFormat = MovieFormat.MP4
+) {
     private val allFrames = mutableListOf<Image>()
     private val gartvas = Gartvas(d)
     private val bitmap = gartvas.createBitmap()
@@ -48,6 +53,8 @@ class Movie(val d: Dimension, private val name: String, startRecording: Boolean 
     fun forEachFrame(consumer: (Int, Image) -> Unit) = allFrames.forEachIndexed(consumer)
 
     fun totalFrames() = allFrames.size
+
+    operator fun get(index: Int) = allFrames[index]
 
     /**
      * Decorates window with movie recording.

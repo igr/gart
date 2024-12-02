@@ -20,7 +20,7 @@ fun createCircle(center: Point, radius: Float, steps: Int): List<Point> {
         val angle = deltaAngle * i
         val x = center.x + radius * cos(angle)
         val y = center.y - radius * sin(angle)
-        points.add(Point(x, y))
+        points.add(pointOf(x, y))
     }
     return points
 }

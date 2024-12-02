@@ -33,13 +33,15 @@ data class Gart(
 
     fun movie(d: Dimension = this.d, name: String = "${this.name}.mp4") = Movie(d, name)
 
+    fun movieGif(d: Dimension = this.d, name: String = "${this.name}.gif") = Movie(d, name, format = MovieFormat.GIF)
+
     fun saveImage(gartvas: Gartvas, name: String = "${this.name}.png") = saveImageToFile(gartvas, name)
 
     fun saveImage(canvas: Canvas, d: Dimension = this.d, name: String = "${this.name}.png") = saveImageToFile(canvas, d, name)
 
     fun saveImage(image: Image, name: String = "${this.name}.png") = saveImageToFile(image, name)
 
-    fun saveMovie(movie: Movie, fps: Int = this.fps, name: String = "${this.name}.mp4") = saveMovieToFile(movie, fps, name)
+    fun saveMovie(movie: Movie, fps: Int = this.fps, name: String = this.name) = saveMovieToFile(movie, fps, name)
 
     override fun toString(): String {
         return "gȧrt! • $name"

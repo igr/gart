@@ -15,8 +15,8 @@ class Palette(internal val colors: IntArray) {
         return colors[position]
     }
 
-    fun safe(position: Int): Int {
-        return colors[abs(position) % size]
+    fun safe(position: Number): Int {
+        return colors[abs(position.toInt()) % size]
     }
 
     fun relative(offset: Float): Int {
