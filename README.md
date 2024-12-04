@@ -1,6 +1,19 @@
 # gȧrt
 
-🧧 gënérative ȧrt made by pragmatic kotlin [micro-framework](gart/README.md)
+🧧 gënérative ȧrt made by pragmatic kotlin micro-framework.
+
+**Gȧrt** is pragmatical framework and set of utilities for generating and rendering **still images** and **movies**.
+
++ uses [Skiko](https://github.com/JetBrains/skiko) (by JetBrains) for [Skia](https://skia.org) binding.
++ minor RNDR use for formulas only.
++ ffmpeg for video encoding.
+
+### [Example](arts/example/README.md)
+
+![](../arts/example/example.png)
+
+⚠️️ As the library grows, it changes. Some examples may need to be updated. I don't have time to maintain everything.
+🤷‍♂️
 
 Follow: [Instagram](https://www.instagram.com/gart_173)
 

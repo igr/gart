@@ -34,6 +34,8 @@ interface Frames {
      */
     val frametime: Long
 
+    val frametimeSeconds: Float
+
     /**
      * Current frame, i.e. total number of elapsed frames.
      */
@@ -92,6 +94,7 @@ interface Frames {
  */
 internal class FrameCounter(override val fps: Int) : Frames {
     override val frametime = 1000000000L / fps   // frame time in nanoseconds
+    override val frametimeSeconds = 1f / fps    // frame time in seconds
     private var totalFrames: Long = 0
     override val frame get() = totalFrames
     private var drawNew: Boolean = false

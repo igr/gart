@@ -5,6 +5,7 @@ import kotlin.random.Random
 fun rndi(max: Int): Int = Random.nextInt(max)
 fun rndi(min: Int, max: Int): Int = Random.nextInt(min, max)
 
+fun rndf() = Random.nextFloat()
 fun rndf(max: Float): Float = Random.nextFloat() * max
 fun rndf(max: Number): Float = Random.nextFloat() * max.toFloat()
 fun rndf(min: Float, max: Float): Float = (Random.nextFloat() * (max - min) + min)
