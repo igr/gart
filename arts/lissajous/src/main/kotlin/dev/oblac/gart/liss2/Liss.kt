@@ -74,6 +74,15 @@ val params = Params(
     a1 = 10,
     a2 = 7
 )
+val params2 = Params(
+    lx = 6,
+    ly = 6,
+    coef = 12,
+    divAngle = 6,
+    numP = 40,
+    a1 = 10,
+    a2 = 10
+)
 
 fun select(configs: List<Config>, params: Params) {
     // 6, 12, 17
