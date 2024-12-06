@@ -1,9 +1,6 @@
 package dev.oblac.gart
 
-import org.jetbrains.skia.Bitmap
-import org.jetbrains.skia.Image
-import org.jetbrains.skia.ImageInfo
-import org.jetbrains.skia.Surface
+import org.jetbrains.skia.*
 
 /**
  * In-memory, slow canvas.
@@ -40,6 +37,13 @@ class Gartvas(val d: Dimension) {
 
     fun writeBitmap(bitmap: Bitmap) {
         surface.writePixels(bitmap, 0, 0)
+    }
+
+    /**
+     * Copies the content of this canvas to another canvas.
+     */
+    fun snapshotTo(c: Canvas) {
+        c.drawImage(snapshot(), 0f, 0f)
     }
 
 }

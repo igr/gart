@@ -31,6 +31,8 @@ open class Window(val d: Dimension, val fps: Int, internal val printFps: Boolean
 
     /**
      * Shows the windows.
+     * There is no guarantee that the drawFrame will be called at the exact fps rate.
+     * The drawFrame is called on each repaint, that may happen multiple times per frame.
      */
     open fun show(drawFrame: DrawFrame): WindowView {
         val view = GartView(d, drawFrame, fps, printFps)

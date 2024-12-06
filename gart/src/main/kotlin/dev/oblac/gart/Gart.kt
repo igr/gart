@@ -43,6 +43,8 @@ data class Gart(
 
     fun saveMovie(movie: Movie, fps: Int = this.fps, name: String = this.name) = saveMovieToFile(movie, fps, name)
 
+    fun snapshot() = GartSnapshot(this)
+
     override fun toString(): String {
         return "gȧrt! • $name"
     }

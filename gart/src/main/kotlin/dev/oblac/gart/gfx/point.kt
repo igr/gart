@@ -8,6 +8,8 @@ import kotlin.math.sin
 
 fun randomPoint(d: Dimension) = Point(rndf(0f, d.wf), rndf(0f, d.hf))
 
+fun randomPoints(d: Dimension, count: Int) = List(count) { randomPoint(d) }
+
 /**
  * Random point in radius.
  */
