@@ -166,6 +166,7 @@ Follow: [Instagram](https://www.instagram.com/gart_173)
 ⭐️ [Legoo](arts/legoo/README.md)
 <p align="center">
 <img src="arts/legoo/Legoo12_thumb.png" align="left">
+<img src="arts/legoo/Legoo2_thumb.png" align="left">
 </p>
 
 <br clear="both">
@@ -195,4 +196,11 @@ Follow: [Instagram](https://www.instagram.com/gart_173)
 ⭐️ [Stripes](arts/stripes/README.md)
 <p align="center">
 <img src="arts/stripes/stripes_thumb.png" align="left">
+</p>
+
+<br clear="both">
+
+⭐️ [sea](arts/sea/README.md)
+<p align="center">
+<img src="arts/sea/sea_thumb.png" align="left">
 </p>
