@@ -30,10 +30,10 @@ class Gartmap(private val g: Gartvas) : Pixels {
      * Draws bitmap to the canvas.
      * PIXELBYTES -> BITMAP -> CANVAS
      */
-    fun drawToCanvas() {
+    fun drawToCanvas(g: Gartvas = this.g) {
         g.surface.writePixels(updateBitmapFromPixels(), 0, 0)
     }
-
+    
     /**
      * Returns an updated bitmap.
      * PIXELBYTES -> BITMAP
