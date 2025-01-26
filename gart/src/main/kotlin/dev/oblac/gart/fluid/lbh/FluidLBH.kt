@@ -3,7 +3,7 @@ package dev.oblac.gart.fluid.lbh
 import dev.oblac.gart.math.hypotFast
 
 // Define the lattice Boltzmann weights
-val WEIGHTS = floatArrayOf(
+private val WEIGHTS = floatArrayOf(
     4.0f / 9,
     1.0f / 9,
     1.0f / 9,
@@ -15,9 +15,9 @@ val WEIGHTS = floatArrayOf(
     1.0f / 36
 )
 
-data class Direction(val x: Int, val y: Int)
+private data class Direction(val x: Int, val y: Int)
 
-val DIRECTIONS = arrayOf(
+private val DIRECTIONS = arrayOf(
     Direction(0, 0),
     Direction(1, 0),
     Direction(0, 1),
@@ -30,8 +30,6 @@ val DIRECTIONS = arrayOf(
 )
 
 data class Lattice(
-    val x: Int,
-    val y: Int,
     var density: Float = 0.0f,
     var velocityX: Float = 0.0f,
     var velocityY: Float = 0.0f,
@@ -50,13 +48,13 @@ class LatticeBoltzmannFluidSimulation(
     private val viscosity: Float = 0.01f,
     private val relaxationParam: Float = 1 / (3 * viscosity + 0.5f)
 ) {
-    private val lattices: Array<Array<Lattice>> = Array(width) { x -> Array(height) { y -> Lattice(x, y) } }
+    private val lattices: Array<Array<Lattice>> = Array(width) { Array(height) { Lattice() } }
 
-    fun init(latticeInitConsumer: (Lattice) -> Unit) {
+    fun init(latticeInitConsumer: (Lattice, Int, Int) -> Unit) {
         for (x in 0 until width) {
             for (y in 0 until height) {
                 val lattice = lattices[x][y]
-                latticeInitConsumer(lattice)
+                latticeInitConsumer(lattice, x, y)
                 for (j in 0 until 9) {
                     lattice.f[j] = WEIGHTS[j] * lattice.density
                     lattice.fEq[j] = WEIGHTS[j] * lattice.density
@@ -91,7 +89,7 @@ class LatticeBoltzmannFluidSimulation(
 
     // Perform a streaming step
     private fun stream() {
-        val newLattice = Array(width) { x -> Array(height) { y -> Lattice(x, y) } }
+        val newLattice = Array(width) { Array(height) { Lattice() } }
 
         for (x in 0 until width) {
             for (y in 0 until height) {
@@ -136,5 +134,11 @@ class LatticeBoltzmannFluidSimulation(
         update()
     }
 
-    fun latices() = lattices.flatten()
+    fun lattices(latticeConsumer: (lattice: Lattice, x: Int, y: Int) -> Unit) {
+        for (x in 0 until width) {
+            for (y in 0 until height) {
+                latticeConsumer(lattices[x][y], x, y)
+            }
+        }
+    }
 }

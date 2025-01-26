@@ -16,10 +16,10 @@ fun main() {
     val m = gart.movieGif()
 
     val lbf = LatticeBoltzmannFluidSimulation(1024, 1024)
-    lbf.init {
-        it.density = sin(it.y.toFloat() / 512) + sin(it.x.toFloat() / 512) - 1f
-        it.velocityX = 0.3f
-        it.velocityY = 0.0f
+    lbf.init { l, x, y ->
+        l.density = sin(y / 512f) + sin(x / 512f) - 1f
+        l.velocityX = 0.3f
+        l.velocityY = 0.0f
     }
 
     val bitmap = gart.gartmap(g)
@@ -28,10 +28,10 @@ fun main() {
     //w.show { c, _, f ->
         c.clear(Colors.white)
         lbf.simulate()
-        lbf.latices().forEach {
-            val a = abs(it.density % 1f)
+        lbf.lattices { l, x, y ->
+            val a = abs(l.density % 1f)
             val clr = p.safe(a * p.size)
-            bitmap[it.x, it.y] = clr
+            bitmap[x, y] = clr
         }
 
         c.drawImage(bitmap.image(), 0f, 0f)
