@@ -80,4 +80,5 @@ fun Rect.topLeftPoint(): Point {
 }
 
 fun Rect.Companion.ofPWH(left: Float, top: Float, w: Float, h: Float): Rect = Rect(left, top, left + w, top + h)
+fun Rect.Companion.ofPWH(left: Number, top: Number, w: Number, h: Number): Rect = Rect.makeXYWH(left.toFloat(), top.toFloat(), w.toFloat(), h.toFloat())
 fun Rect.Companion.of(x0: Number, y0: Number, x1: Number, y1: Number): Rect = Rect(x0.toFloat(), y0.toFloat(), x1.toFloat(), y1.toFloat())
