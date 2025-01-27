@@ -42,7 +42,7 @@ data class Lattice(
     fun velocity() = hypotFast(velocityX, velocityY)
 }
 
-class LatticeBoltzmannFluidSimulation(
+class LatticeBoltzmannSimpleFluid(
     val width: Int,
     val height: Int,
     private val viscosity: Float = 0.01f,
