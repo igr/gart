@@ -329,4 +329,12 @@ class BoltzmannFluid(
             }
         }
     }
+
+    fun resetSolids() {
+        for (x in 0..<rows) {
+            for (y in 0..<cols) {
+                solid[x][y] = false
+            }
+        }
+    }
 }
