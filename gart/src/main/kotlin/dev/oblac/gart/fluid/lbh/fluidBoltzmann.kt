@@ -19,7 +19,7 @@ class BoltzmannFluid(
     private val velocitySouthWest: Array<FloatArray> = Array(rows) { FloatArray(cols) }
     private val velocitySouthEast: Array<FloatArray> = Array(rows) { FloatArray(cols) }
 
-    val solid: Array<BooleanArray> = Array(rows) { BooleanArray(cols) } //indicates if a solid boundary is present
+    private val solid: Array<BooleanArray> = Array(rows) { BooleanArray(cols) } //indicates if a solid boundary is present
 
     //for UI purposes; not used in calculations
     private val density: Array<FloatArray> = Array(rows) { FloatArray(cols) }
@@ -298,15 +298,35 @@ class BoltzmannFluid(
         solid[r][c] = true
     }
 
-    fun solid(r: Int, c: Int): Boolean {
-        return solid[r][c]
-    }
+    fun solid(r: Int, c: Int) = solid[r][c]
 
-    fun velocity(r: Int, c: Int): Float {
-        return vSquared[r][c]
-    }
+    /**
+     * Returns velocity value.
+     * When no overallVelocity is specified,
+     * the velocity value is e.g., 1E-5 or 1E-6.
+     */
+    fun velocity(r: Int, c: Int) = vSquared[r][c]
 
-    fun density(r: Int, c: Int): Float {
-        return density[r][c]
+    /**
+     * Returns density value. The stable density is 1.0
+     */
+    fun density(r: Int, c: Int) = density[r][c]
+
+    /**
+     * Iterates over all lattices.
+     */
+    fun forEach(
+        consumer: (
+            x: Int, y: Int,
+            solid: Boolean,
+            density: Float,
+            velocity: Float,
+        ) -> Unit
+    ) {
+        for (x in 0..<rows) {
+            for (y in 0..<cols) {
+                consumer(x, y, solid(x, y), density(x, y), velocity(x, y))
+            }
+        }
     }
 }
