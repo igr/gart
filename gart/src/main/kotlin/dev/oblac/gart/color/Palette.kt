@@ -19,6 +19,15 @@ class Palette(internal val colors: IntArray) {
         return colors[abs(position.toInt()) % size]
     }
 
+    fun bound(position: Number): Int {
+        val index = position.toInt()
+        return when {
+            index < 0 -> colors[0]
+            index >= size -> colors[size - 1]
+            else -> colors[index]
+        }
+    }
+
     fun relative(offset: Float): Int {
         val index = (offset * size).toInt()
         return colors[index % size]
