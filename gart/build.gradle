@@ -21,8 +21,8 @@ dependencies {
     implementation 'org.openrndr.extra:orx-noise-jvm:0.4.4'
     implementation 'org.openrndr.extra:orx-shapes:0.4.4'
 
-    implementation 'org.bytedeco:ffmpeg-platform:7.1-1.5.11'
-    implementation 'org.bytedeco:ffmpeg-platform-gpl:7.1-1.5.11'
+    api 'org.bytedeco:ffmpeg-platform:7.1-1.5.11'
+    api 'org.bytedeco:ffmpeg-platform-gpl:7.1-1.5.11'
 
     testImplementation 'org.jetbrains.kotlin:kotlin-test'
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
