@@ -18,7 +18,7 @@ class BoltzmannFluidSimulation(rows: Int, cols: Int) {
 
     init {
         fluid = BoltzmannFluid(
-            overallVelocity = 0.0f,
+            overallVelocity = 0.1f,
             viscosity = 0.001f,
             r, c
         )
@@ -50,7 +50,7 @@ class BoltzmannFluidSimulation(rows: Int, cols: Int) {
     }
 
     fun renderDensity(c: Canvas) {
-        fluid.forEach { x, y, s, d, _ ->
+        fluid.forEach { x, y, s, d, vx, vy, _ ->
             val colorNdx = map(d, 0.998f, 1.011f, 0, p.size).toInt()
             val color = p.bound(colorNdx)
             if (s) {

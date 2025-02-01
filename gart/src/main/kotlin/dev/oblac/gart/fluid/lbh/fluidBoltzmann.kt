@@ -25,6 +25,8 @@ class BoltzmannFluid(
     private val density: Array<FloatArray> = Array(rows) { FloatArray(cols) }
     //for UI purposes; not used in calculations
     private val vSquared: Array<FloatArray> = Array(rows) { FloatArray(cols) }
+    private val vX: Array<FloatArray> = Array(rows) { FloatArray(cols) }
+    private val vY: Array<FloatArray> = Array(rows) { FloatArray(cols) }
 
     init {
         // initiate fluid with discretized velocity vectors
@@ -121,6 +123,8 @@ class BoltzmannFluid(
                     val sumSquares = xVelocitySquared + yVelocitySquared
 
                     vSquared[x][y] = sumSquares
+                    vX[x][y] = xVelocity
+                    vY[x][y] = yVelocity
 
                     // Easy replacement for the magnitude of the curl, which is more difficult to calculate
 
@@ -307,6 +311,9 @@ class BoltzmannFluid(
      */
     fun velocity(r: Int, c: Int) = vSquared[r][c]
 
+    fun velocityX(r: Int, c: Int) = vX[r][c]
+    fun velocityY(r: Int, c: Int) = vY[r][c]
+
     /**
      * Returns density value. The stable density is 1.0
      */
@@ -320,12 +327,19 @@ class BoltzmannFluid(
             x: Int, y: Int,
             solid: Boolean,
             density: Float,
+            vx: Float,
+            vy: Float,
             velocity: Float,
         ) -> Unit
     ) {
         for (x in 0..<rows) {
             for (y in 0..<cols) {
-                consumer(x, y, solid(x, y), density(x, y), velocity(x, y))
+                consumer(
+                    x, y, solid(x, y), density(x, y),
+                    velocityX(x, y),
+                    velocityY(x, y),
+                    velocity(x, y)
+                )
             }
         }
     }
