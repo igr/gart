@@ -15,11 +15,10 @@ fun main() {
     w.show { c, _, f ->
         c.clear(Colors.white)
         lbf.iterate()
-        lbf.renderDensity(c)
-//        lbf.renderByVelocity(c)
+        lbf.render(c)
 
         f.onFrame(theEnd) {
-            gart.saveImage(c)
+            //gart.saveImage(c)
         }
 
         f.onFrame(20) {
