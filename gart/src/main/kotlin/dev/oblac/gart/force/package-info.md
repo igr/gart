@@ -10,3 +10,8 @@ val flow = Flow(Radians.of(PI), 1.0)
 val point = Point(0.0, 0.0)
 val movedPoint = flow(point)
 ```
+
+`VecForce` is a real vector force. It has a starting point and a direction, and follows math rules for vector addition.
+
+`ForceField` is a field of forces, where every point has a `Force`.
+The field can be applied to list of points to move them.

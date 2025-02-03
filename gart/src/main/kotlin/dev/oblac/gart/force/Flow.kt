@@ -8,8 +8,10 @@ import dev.oblac.gart.math.Vector2
 import org.jetbrains.skia.Point
 
 /**
- * Flow is a vector that represents the direction and magnitude of a flow.
+ * Flow is a force represented with the direction and _scalar_ magnitude of a flow.
  * Flow magnitude is the speed of the flow.
+ * It is not a math vector!
+ * For real vector force, see [VecForce].
  *
  * @param direction in radians, indicates the direction of the flow. The angle is measured from the negative x-axis.
  * 0 is up, PI/2 is right, PI is down, 3PI/2 is left.
