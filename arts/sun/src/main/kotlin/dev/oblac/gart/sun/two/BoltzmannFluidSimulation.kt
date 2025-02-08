@@ -18,8 +18,8 @@ class BoltzmannFluidSimulation(rows: Int, cols: Int) {
 
     init {
         fluid = BoltzmannFluid(
-            overallVelocity = 0.1f,
-            viscosity = 0.001f,
+            overallVelocity = 0.1,
+            viscosity = 0.001,
             r, c
         )
     }

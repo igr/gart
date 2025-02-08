@@ -3,16 +3,16 @@ package dev.oblac.gart.fluid.lbh
 import dev.oblac.gart.math.hypotFast
 
 // Define the lattice Boltzmann weights
-private val WEIGHTS = floatArrayOf(
-    4.0f / 9,
-    1.0f / 9,
-    1.0f / 9,
-    1.0f / 9,
-    1.0f / 9,
-    1.0f / 36,
-    1.0f / 36,
-    1.0f / 36,
-    1.0f / 36
+private val WEIGHTS = doubleArrayOf(
+    4.0 / 9,
+    1.0 / 9,
+    1.0 / 9,
+    1.0 / 9,
+    1.0 / 9,
+    1.0 / 36,
+    1.0 / 36,
+    1.0 / 36,
+    1.0 / 36
 )
 
 private data class Direction(val x: Int, val y: Int)
@@ -30,11 +30,11 @@ private val DIRECTIONS = arrayOf(
 )
 
 data class Lattice(
-    var density: Float = 0.0f,
-    var velocityX: Float = 0.0f,
-    var velocityY: Float = 0.0f,
-    val f: FloatArray = FloatArray(9) { 0.0f },
-    val fEq: FloatArray = FloatArray(9) { 0.0f }
+    var density: Double = 0.0,
+    var velocityX: Double = 0.0,
+    var velocityY: Double = 0.0,
+    val f: DoubleArray = DoubleArray(9) { 0.0 },
+    val fEq: DoubleArray = DoubleArray(9) { 0.0 }
 ) {
     /**
      * Calculates velocity of the lattice.
@@ -45,8 +45,8 @@ data class Lattice(
 class LatticeBoltzmannSimpleFluid(
     val width: Int,
     val height: Int,
-    private val viscosity: Float = 0.01f,
-    private val relaxationParam: Float = 1 / (3 * viscosity + 0.5f)
+    private val viscosity: Double = 0.01,
+    private val relaxationParam: Double = 1 / (3 * viscosity + 0.5f)
 ) {
     private val lattices: Array<Array<Lattice>> = Array(width) { Array(height) { Lattice() } }
 
@@ -112,9 +112,9 @@ class LatticeBoltzmannSimpleFluid(
     private fun update() {
         for (x in 0 until width) {
             for (y in 0 until height) {
-                lattices[x][y].density = 0.0f
-                lattices[x][y].velocityX = 0.0f
-                lattices[x][y].velocityY = 0.0f
+                lattices[x][y].density = 0.0
+                lattices[x][y].velocityX = 0.0
+                lattices[x][y].velocityY = 0.0
 
                 for (j in 0 until 9) {
                     lattices[x][y].density += lattices[x][y].f[j]

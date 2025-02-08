@@ -7,3 +7,6 @@ fun Float.format(digits: Int) = "%.${digits}f".format(this)
 fun hypotFast(a: Float, b: Float): Float {
     return fastSqrt(a * a + b * b)
 }
+fun hypotFast(a: Double, b: Double): Double {
+    return fastSqrt(a * a + b * b)
+}

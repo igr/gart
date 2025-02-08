@@ -17,9 +17,9 @@ fun main() {
 
     val lbf = LatticeBoltzmannSimpleFluid(1024, 1024)
     lbf.init { l, x, y ->
-        l.density = sin(y / 512f) + sin(x / 512f) - 1f
-        l.velocityX = 0.3f
-        l.velocityY = 0.0f
+        l.density = sin(y / 512.0) + sin(x / 512.0) - 1.0
+        l.velocityX = 0.3
+        l.velocityY = 0.0
     }
 
     val bitmap = gart.gartmap(g)
