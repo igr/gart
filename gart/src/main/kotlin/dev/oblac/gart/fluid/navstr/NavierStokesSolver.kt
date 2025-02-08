@@ -12,34 +12,34 @@ import kotlin.math.min
 class NavierStokesSolver(
     val nx: Int,
     val ny: Int,
-    val dt: Float = 1f,     // time step
-    val viscocity: Float = 0f, // viscosity
-    val fadeSpeed: Float = 0f,  // how quickly the fluid dye dissipates and fades out
+    val dt: Double = 1.0,     // time step
+    val viscocity: Double = 0.0, // viscosity
+    val fadeSpeed: Double = 0.0,  // how quickly the fluid dye dissipates and fades out
     val solverIterations: Int = 10 // number of iterations for solver (higher is slower but more accurate)
 ) {
     val width = nx + 2
     val height = ny + 2
 
-    private val invWidth = 1.0f / nx
-    private val invHeight = 1.0f / ny
+    private val invWidth = 1.0 / nx
+    private val invHeight = 1.0 / ny
 
     val numCells = (nx + 2) * (ny + 2)  // Total number of cells
 
-    private val invNx = 1.0f / nx
-    private val invNy = 1.0f / ny
-    private val invNumCells = 1.0f / numCells
+    private val invNx = 1.0 / nx
+    private val invNy = 1.0 / ny
+    private val invNumCells = 1.0 / numCells
 
-    var r = FloatArray(numCells)
-    var u = FloatArray(numCells)
-    var v = FloatArray(numCells)
+    var r = DoubleArray(numCells)
+    var u = DoubleArray(numCells)
+    var v = DoubleArray(numCells)
 
-    var rOld = FloatArray(numCells)
-    var uOld = FloatArray(numCells)
-    var vOld = FloatArray(numCells)
+    var rOld = DoubleArray(numCells)
+    var uOld = DoubleArray(numCells)
+    var vOld = DoubleArray(numCells)
 
-    private var avgDensity = 0f // Average density of fluid
-    private var avgUniformity = 0f // average uniformity (distribution of densities and dye)
-    private var avgSpeed = 0f    // average speed of fluid (how uniform the colors is)
+    private var avgDensity = 0.0 // Average density of fluid
+    private var avgUniformity = 0.0 // average uniformity (distribution of densities and dye)
+    private var avgSpeed = 0.0    // average speed of fluid (how uniform the colors is)
 
     /**
      * Randomize dye (useful for debugging).
@@ -48,7 +48,7 @@ class NavierStokesSolver(
         for (i in 0..<width) {
             for (j in 0..<height) {
                 val index = fluidIX(i, j)
-                rOld[index] = Math.random().toFloat()
+                rOld[index] = Math.random().toDouble()
                 r[index] = rOld[index]
             }
         }
@@ -79,21 +79,21 @@ class NavierStokesSolver(
      * @param y 0...1 normalized y position
      * @return cell index (to be used in r, u, v arrays)
      */
-    fun indexForNormalizedPosition(x: Float, y: Float): Int {
+    fun indexForNormalizedPosition(x: Double, y: Double): Int {
         return indexForCellPosition(
             floor((x * (nx + 2))).toInt(),
             floor((y * (ny + 2))).toInt()
         )
     }
 
-    fun addForceAtPos(x: Float, y: Float, vx: Float, vy: Float) {
+    fun addForceAtPos(x: Double, y: Double, vx: Double, vy: Double) {
         val i = (x * nx + 1)
         val j = (y * ny + 1)
         if (i < 0 || i > x + 1 || j < 0 || j > y + 1) return;
         addForceAtCell(i.toInt(), j.toInt(), vx, vy);
     }
 
-    fun addForceAtCell(i: Int, j: Int, vx: Float, vy: Float) {
+    fun addForceAtCell(i: Int, j: Int, vx: Double, vy: Double) {
         val index = fluidIX(i, j)
         uOld[index] += vx * nx
         vOld[index] += vy * ny
@@ -125,7 +125,7 @@ class NavierStokesSolver(
         addSource(r, rOld)
         swapR()
 
-        diffuse(0, r, rOld, 0f)
+        diffuse(0, r, rOld, 0.0)
         swapR()
 
         advect(0, r, rOld, u, v)
@@ -141,19 +141,19 @@ class NavierStokesSolver(
         // screen currently is
         val holdAmount = 1 - fadeSpeed
 
-        avgDensity = 0f
-        avgSpeed = 0f
+        avgDensity = 0.0
+        avgSpeed = 0.0
 
-        var totalDeviations = 0f
-        var currentDeviation: Float
+        var totalDeviations = 0.0
+        var currentDeviation: Double
 
         // float uniformityMult = uniformity * 0.05f;
-        avgSpeed = 0f
+        avgSpeed = 0.0
         for (i in 0..<numCells) {
             // clear old values
-            vOld[i] = 0f
+            vOld[i] = 0.0
             uOld[i] = vOld[i]
-            rOld[i] = 0f
+            rOld[i] = 0.0
 
             // gOld[i] = bOld[i] = 0;
 
@@ -161,7 +161,7 @@ class NavierStokesSolver(
             avgSpeed += u[i] * u[i] + v[i] * v[i]
 
             // calc avg density
-            r[i] = min(1.0, r[i].toDouble()).toFloat()
+            r[i] = min(1.0, r[i].toDouble()).toDouble()
             // float density = Math.max(r[i], Math.max(g[i], b[i]));
             val density = r[i]
             avgDensity += density // add it up
@@ -177,7 +177,7 @@ class NavierStokesSolver(
 
         // _avgSpeed *= _invNumCells;
 
-        avgUniformity = 1.0f / (1 + totalDeviations * invNumCells)
+        avgUniformity = 1.0 / (1 + totalDeviations * invNumCells)
         // 0: very wide distribution
         // 1: very uniform
     }
@@ -189,13 +189,13 @@ class NavierStokesSolver(
         }
     }
 
-    private fun addSource(x: FloatArray, x0: FloatArray) {
+    private fun addSource(x: DoubleArray, x0: DoubleArray) {
         for (i in 0..<numCells) {
             x[i] += dt * x0[i]
         }
     }
 
-    private fun advect(b: Int, d: FloatArray, d0: FloatArray, du: FloatArray, dv: FloatArray) {
+    private fun advect(b: Int, d: DoubleArray, d0: DoubleArray, du: DoubleArray, dv: DoubleArray) {
         val dt0 = dt * nx
 
         for (i in 1..nx) {
@@ -203,14 +203,14 @@ class NavierStokesSolver(
                 var x = i - dt0 * du[fluidIX(i, j)]
                 var y = j - dt0 * dv[fluidIX(i, j)]
 
-                if (x > nx + 0.5) x = nx + 0.5f
-                if (x < 0.5) x = 0.5f
+                if (x > nx + 0.5) x = nx + 0.5
+                if (x < 0.5) x = 0.5
 
                 val i0 = x.toInt()
                 val i1 = i0 + 1
 
-                if (y > ny + 0.5) y = ny + 0.5f
-                if (y < 0.5) y = 0.5f
+                if (y > ny + 0.5) y = ny + 0.5
+                if (y < 0.5) y = 0.5
 
                 val j0 = y.toInt()
                 val j1 = j0 + 1
@@ -227,34 +227,34 @@ class NavierStokesSolver(
         setBoundary(b, d)
     }
 
-    private fun diffuse(b: Int, c: FloatArray, c0: FloatArray, diff: Float) {
+    private fun diffuse(b: Int, c: DoubleArray, c0: DoubleArray, diff: Double) {
         val a = dt * diff * nx * ny
-        linearSolver(b, c, c0, a, 1.0f + 4 * a)
+        linearSolver(b, c, c0, a, 1.0 + 4 * a)
     }
 
-    private fun diffuseUV(b: Int, diff: Float) {
+    private fun diffuseUV(b: Int, diff: Double) {
         val a = dt * diff * nx * ny
-        linearSolverUV(b, a, 1.0f + 4 * a)
+        linearSolverUV(b, a, 1.0 + 4 * a)
     }
 
-    private fun project(x: FloatArray, y: FloatArray, p: FloatArray, div: FloatArray) {
+    private fun project(x: DoubleArray, y: DoubleArray, p: DoubleArray, div: DoubleArray) {
         for (i in 1..nx) {
             for (j in 1..ny) {
                 div[fluidIX(i, j)] = (x[fluidIX(i + 1, j)] - x[fluidIX(i - 1, j)]
                     + y[fluidIX(i, j + 1)] - y[fluidIX(i, j - 1)]) * -0.5f / nx
-                p[fluidIX(i, j)] = 0f
+                p[fluidIX(i, j)] = 0.0
             }
         }
 
         setBoundary(0, div)
         setBoundary(0, p)
 
-        linearSolver(0, p, div, 1f, 4f)
+        linearSolver(0, p, div, 1.0, 4.0)
 
         for (i in 1..nx) {
             for (j in 1..ny) {
-                x[fluidIX(i, j)] -= 0.5f * nx * (p[fluidIX(i + 1, j)] - p[fluidIX(i - 1, j)])
-                y[fluidIX(i, j)] -= 0.5f * nx * (p[fluidIX(i, j + 1)] - p[fluidIX(i, j - 1)])
+                x[fluidIX(i, j)] -= 0.5 * nx * (p[fluidIX(i + 1, j)] - p[fluidIX(i - 1, j)])
+                y[fluidIX(i, j)] -= 0.5 * nx * (p[fluidIX(i, j + 1)] - p[fluidIX(i, j - 1)])
             }
         }
 
@@ -262,7 +262,7 @@ class NavierStokesSolver(
         setBoundary(2, y)
     }
 
-    private fun linearSolver(b: Int, x: FloatArray, x0: FloatArray, a: Float, c: Float) {
+    private fun linearSolver(b: Int, x: DoubleArray, x0: DoubleArray, a: Double, c: Double) {
         for (k in 0..<solverIterations) {
             for (i in 1..nx) {
                 for (j in 1..ny) {
@@ -278,7 +278,7 @@ class NavierStokesSolver(
         }
     }
 
-    private fun linearSolverUV(bound: Int, a: Float, c: Float) {
+    private fun linearSolverUV(bound: Int, a: Double, c: Double) {
         for (k in 0..<solverIterations) { // MEMO
             for (i in 1..nx) {
                 for (j in 1..ny) {
@@ -299,7 +299,7 @@ class NavierStokesSolver(
         }
     }
 
-    private fun setBoundary(b: Int, x: FloatArray) {
+    private fun setBoundary(b: Int, x: DoubleArray) {
         // return;
         for (i in 1..nx) {
             if (i <= ny) {

@@ -18,13 +18,13 @@ fun main() {
 
     val ns = NavierStokesSolver(
         fluidWidth, fluidHeight,
-        dt = 1/10f,
-        fadeSpeed = 0f,
-        viscocity = 0.00001f
+        dt = 1.0 / 10,
+        fadeSpeed = 0.0,
+        viscocity = 0.00001
     )
 
-    addForce(ns, 0.4f, 0.4f, 1f, 0f)
-    addForce(ns, 0.6f, 0.6f, -1f, 1f)
+    addForce(ns, 0.4, 0.4, 1.0, 0.0)
+    addForce(ns, 0.6, 0.6, -1.0, 1.0)
 
     val bitmap = gart.gartmap(g)
     w.show { c, _, f ->
@@ -47,18 +47,18 @@ fun main() {
 }
 
 
-fun addForce(s: NavierStokesSolver, xx: Float, yy: Float, dx: Float, dy: Float) {
+fun addForce(s: NavierStokesSolver, xx: Double, yy: Double, dx: Double, dy: Double) {
     var x = xx
     var y = yy
     val aspectRatio = 1f
     val speed = dx * dx + dy * dy * aspectRatio // balance the x and y
     if (speed > 0) {
-        if (x < 0) x = 0f
-        else if (x > 1) x = 1f
-        if (y < 0) y = 0f
-        else if (y > 1) y = 1f
+        if (x < 0) x = 0.0
+        else if (x > 1) x = 1.0
+        if (y < 0) y = 0.0
+        else if (y > 1) y = 1.0
 
-        val velocityMult = 150.0f
+        val velocityMult = 150.0
 
         val index = s.indexForNormalizedPosition(x, y)
 
