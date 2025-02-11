@@ -1,6 +1,7 @@
 package dev.oblac.gart.gfx
 
 import dev.oblac.gart.Dimension
+import dev.oblac.gart.Gartmap
 import org.jetbrains.skia.Canvas
 import org.jetbrains.skia.Paint
 import org.jetbrains.skia.Point
@@ -27,3 +28,5 @@ fun Canvas.drawBorder(d: Dimension, stroke: Paint) {
 fun Canvas.drawPoint(p: Point, stroke: Paint) = this.drawPoint(p.x, p.y, stroke)
 
 fun Canvas.drawCircle(p: Point, r: Float, fill: Paint) = this.drawCircle(p.x, p.y, r, fill)
+
+fun Canvas.drawBitmap(b: Gartmap) = this.drawImage(b.image(), 0f, 0f)

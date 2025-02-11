@@ -4,7 +4,7 @@ import org.jetbrains.skia.Bitmap
 import org.jetbrains.skia.Image
 
 /**
- * In-memory bitmap.
+ * In-memory bitmap backed by a Gartvas canvas.
  */
 class Gartmap(private val g: Gartvas) : Pixels {
     override val d = g.d

@@ -67,4 +67,16 @@ interface Pixels {
             }
         }
     }
+
+    fun copyPixelsFrom(bitmap: Pixels) {
+        bitmap.pixelBytes.bytes.copyInto(this.pixelBytes.bytes)
+    }
+}
+
+class MemPixels(
+    override val d: Dimension
+) : Pixels {
+
+    override var pixelBytes: PixelBytes = PixelBytes(ByteArray(d.area * 4), d.w)
+
 }
