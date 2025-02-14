@@ -13,7 +13,7 @@ class Gartmap(private val g: Gartvas) : Pixels {
     val bitmap = g.createBitmap()
 
     init {
-        this.pixelBytes = PixelBytes(byteArrayOf(), 0)  // initial state
+        this.pixelBytes = PixelBytes(byteArrayOf(), 0, 0)  // initial state
         updatePixelsFromCanvas()
     }
 
@@ -23,7 +23,7 @@ class Gartmap(private val g: Gartvas) : Pixels {
      */
     fun updatePixelsFromCanvas() {
         g.surface.readPixels(bitmap, 0, 0)
-        this.pixelBytes = PixelBytes(bitmap.peekPixels()!!.buffer.bytes, d.w)
+        this.pixelBytes = PixelBytes(bitmap.peekPixels()!!.buffer.bytes, d.w, d.h)
     }
 
     /**
