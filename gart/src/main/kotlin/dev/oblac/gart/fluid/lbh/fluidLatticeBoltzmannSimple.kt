@@ -141,4 +141,6 @@ class LatticeBoltzmannSimpleFluid(
             }
         }
     }
+
+    operator fun get(x: Int, y: Int) = lattices[x][y]
 }
