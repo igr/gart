@@ -21,7 +21,7 @@ fun main() {
         }
     }
 
-    s2.setVel(133, 133, 1.9, true)
+    s2.setVelocity(133, 133, 1.9, true)
 
     val bitmap = gart.gartmap(g)
     //w.show { c, _, f ->
