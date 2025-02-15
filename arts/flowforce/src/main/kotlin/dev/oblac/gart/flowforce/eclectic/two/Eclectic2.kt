@@ -24,7 +24,7 @@ const val TRAIL_LEN = 300
 const val MAX_WIDTH = 30f
 const val MAX_DISTANCE = 50f
 
-data class TrailPath(
+private data class TrailPath(
     val trail: PointsTrail,
     val width: Float,
     var active: Boolean = true,    // indicates if the trail still can grow
@@ -54,7 +54,7 @@ fun main() {
     gart.window().showImage(g)
 }
 
-fun ff(): ForceField {
+private fun ff(): ForceField {
     val noise = PerlinNoise()
     val smooth = 600
     val step = 10
@@ -69,11 +69,11 @@ fun ff(): ForceField {
     return ff
 }
 
-val ff = ff()
+private val ff = ff()
 
 private fun drawww(c: Canvas, color: Int, index: Int) {
     //val ff = ff()
-    val tps = Array(TRAILS) { PointsTrail(TRAIL_LEN).apply { add(randomPoint(Dimension(1200, 1200))) } }
+    val tps = Array(TRAILS) { PointsTrail(randomPoint(Dimension(1200, 1200)), TRAIL_LEN) }
         .map { TrailPath(it, rndf(-26f, MAX_WIDTH)) }
         .toMutableList()
     repeat(TRAIL_LEN) {

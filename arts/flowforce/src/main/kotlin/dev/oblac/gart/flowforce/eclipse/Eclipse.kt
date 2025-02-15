@@ -13,7 +13,10 @@ import dev.oblac.gart.math.PIf
 import dev.oblac.gart.math.rndf
 import dev.oblac.gart.shader.createMarbledFilter
 import dev.oblac.gart.util.loop
-import org.jetbrains.skia.*
+import org.jetbrains.skia.Canvas
+import org.jetbrains.skia.FilterTileMode
+import org.jetbrains.skia.ImageFilter
+import org.jetbrains.skia.Paint
 import java.util.*
 import kotlin.math.atan2
 import kotlin.math.cos
@@ -82,14 +85,12 @@ fun drawRays(c: Canvas, d: Dimension, moonR: Float) {
     val ff = ForceField.of(gart.d) { x, y -> flow(x, y) }
 
     val rayPoints = Array(500) {
-        PointsTrail(1).apply {
-            val angle = (if (rnd.nextBoolean()) 330f else 0f) + rnd.nextGaussian() / 2f
+        val angle = (if (rnd.nextBoolean()) 330f else 0f) + rnd.nextGaussian() / 2f
 
-            val r = rndf(10f, moonR)
-            val x = d.cx + r * cos(angle)
-            val y = d.cy + r * sin(angle)
-            add(Point(x.toFloat(), y.toFloat()))
-        }
+        val r = rndf(10f, moonR)
+        val x = d.cx + r * cos(angle)
+        val y = d.cy + r * sin(angle)
+        PointsTrail(Point(x, y), 1)
     }.toList()
 
     val rayPaint = Paint().apply {

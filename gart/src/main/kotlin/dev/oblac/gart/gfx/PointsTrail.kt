@@ -6,13 +6,17 @@ import org.jetbrains.skia.Point
 /**
  * Just a queue of points.
  */
-class PointsTrail(val size: Int) {
+class PointsTrail(start: Point, val size: Int) {
     private val points = ArrayDeque<Point>(size)
+
+    init {
+        this.add(start)
+    }
 
     /**
      * Adds a point to the trail.
      */
-    fun add(p: Point) {
+    private fun add(p: Point) {
         if (points.size == size) {
             points.removeFirst()
         }

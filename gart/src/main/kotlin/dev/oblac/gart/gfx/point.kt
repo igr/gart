@@ -29,3 +29,5 @@ fun pointOf(x: Number, y: Number): Point = Point(x.toFloat(), y.toFloat())
 fun Point.isCloseTo(other: Point, tolerance: Float): Boolean {
     return distanceTo(other) < tolerance
 }
+
+fun Point(x: Double, y: Double) = Point(x.toFloat(), y.toFloat())

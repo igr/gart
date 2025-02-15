@@ -78,10 +78,8 @@ private fun u(it: Point, d: Dimension) =
         null
     }
 
-private fun newTrail(): PointsTrail = PointsTrail(TRAIL_LEN).apply {
-    add(randomPoint(d))
-}
+private fun newTrail(): PointsTrail = PointsTrail(randomPoint(d), TRAIL_LEN)
 
-private fun newTrail2(): PointsTrail = PointsTrail(TRAIL_LEN).apply {
-    add(randomPoint(Dimension(d.w, d.cy.toInt())).offset(0f, d.cy))
-}
+private fun newTrail2(): PointsTrail = PointsTrail(
+    randomPoint(Dimension(d.w, d.cy.toInt())).offset(0f, d.cy), TRAIL_LEN
+)
