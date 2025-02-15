@@ -21,4 +21,6 @@ class Lissajous(
         t += delta
         return p
     }
+
+    fun position() = p
 }

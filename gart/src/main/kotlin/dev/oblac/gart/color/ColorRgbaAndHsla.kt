@@ -14,6 +14,17 @@ data class ColorRGBA(val r: Float, val g: Float, val b: Float, val a: Float) {
     fun toRGB(): RGBA {
         return RGBA((r * 255).toInt(), (g * 255).toInt(), (b * 255).toInt(), (a * 255).toInt())
     }
+
+    companion object {
+        fun ofColor(color: Int): ColorRGBA {
+            return ColorRGBA(
+                red(color) / 255f,
+                green(color) / 255f,
+                blue(color) / 255f,
+                alpha(color) / 255f
+            )
+        }
+    }
 }
 
 data class ColorHSLA(val h: Float, val s: Float, val l: Float, val a: Float) {
