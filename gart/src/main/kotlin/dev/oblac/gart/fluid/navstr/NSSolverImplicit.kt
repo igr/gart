@@ -523,7 +523,7 @@ class NSSolverImplicit(
         wall[i][j] = true
     }
 
-    fun setVel(i: Int, j: Int, vel: Double, udir: Boolean) {
+    fun setVelocity(i: Int, j: Int, vel: Double, udir: Boolean) {
         if (udir) {
             u[i][j] = vel
             uPrev[i][j] = vel
