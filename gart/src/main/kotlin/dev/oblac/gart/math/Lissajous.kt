@@ -9,10 +9,10 @@ class Lissajous(
     private val a: Float,
     private val b: Float,
     private val dx: Float = 0f,
-    private val dy: Float = 0f
+    private val dy: Float = 0f,
+    var t: Float = 0f
 ) {
     private var p = Point(center.x, center.y)
-    private var t = 0f
 
     fun step(delta: Float): Point {
         val x = A * kotlin.math.sin(a * t + dx)

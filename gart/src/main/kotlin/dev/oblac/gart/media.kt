@@ -37,8 +37,8 @@ enum class MovieFormat {
 
 internal fun saveMovieToFile(movie: Movie, fps: Int, name: String) {
     when (movie.format) {
-        MovieFormat.MP4 -> saveMp4ToFile(movie, fps, "$name.mp4")
-        MovieFormat.GIF -> saveGifToFile(movie, fps, "$name.gif")
+        MovieFormat.MP4 -> saveMp4ToFile(movie, fps, name)
+        MovieFormat.GIF -> saveGifToFile(movie, fps, name)
     }
 }
 

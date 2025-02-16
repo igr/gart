@@ -31,3 +31,16 @@ fun Point.isCloseTo(other: Point, tolerance: Float): Boolean {
 }
 
 fun Point(x: Double, y: Double) = Point(x.toFloat(), y.toFloat())
+
+
+/**
+ * Move point towards destination by given amount.
+ */
+fun Point.moveTowards(destination: Point, amount: Float): Point {
+    val dx = destination.x - x
+    val dy = destination.y - y
+    val angle = kotlin.math.atan2(dy.toDouble(), dx.toDouble())
+    val x = this.x + cos(angle) * amount
+    val y = this.y + sin(angle) * amount
+    return Point(x.toFloat(), y.toFloat())
+}
