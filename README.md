@@ -72,6 +72,8 @@ Follow: [Instagram](https://www.instagram.com/gart_173)
 ⭐️ [Organic. Mesh. Web.](arts/lissajous/README.md)
 
 <img src="arts/lissajous/lissajous_thumb.png">
+<img src="arts/lissajous/moire_thumb.png">
+
 
 ⭐️ [Har. Mon. Ich.](arts/harmongraph/README.md)
 
@@ -203,4 +205,19 @@ Follow: [Instagram](https://www.instagram.com/gart_173)
 ⭐️ [sea](arts/sea/README.md)
 <p align="center">
 <img src="arts/sea/sea_thumb.png" align="left">
+</p>
+
+<br clear="both">
+
+⭐️ [blob](arts/blob/README.md)
+<p align="center">
+<img src="arts/blob/blob_thumb.jpg" align="left">
+</p>
+
+<br clear="both">
+
+⭐️ [sun](arts/sun/README.md)
+<p align="center">
+<img src="arts/sun/echoes2_thumb.png" align="left">
+<img src="arts/sun/sunNS1_thumb.png" align="left">
 </p>

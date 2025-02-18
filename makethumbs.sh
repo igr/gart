@@ -1,3 +1,4 @@
 #!/usr/bin/env bash
 
 fd -g '*.png' arts/* -x nconvert -ratio -resize 0 240 -overwrite -o {.}_thumb.png {}
+fd -g '*.jpg' arts/* -x nconvert -ratio -resize 0 240 -overwrite -o {.}_thumb.png {}
