@@ -6,7 +6,6 @@ import kotlin.math.sqrt
 
 /**
  * Represents a virtual dimensions.
- * todo: migrate w/h to float
  */
 data class Dimension(val w: Int, val h: Int) {
     val wf = w.toFloat()
@@ -33,6 +32,8 @@ data class Dimension(val w: Int, val h: Int) {
      * Third of the width.
      */
     val w3 = w / 3f
+
+    val w3x2 = w3 * 2f
 
     /**
      * Third of the height.
