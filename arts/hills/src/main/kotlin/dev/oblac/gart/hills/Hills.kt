@@ -9,7 +9,6 @@ import dev.oblac.gart.math.rndb
 import dev.oblac.gart.math.rndf
 import dev.oblac.gart.noise.poissonDiskSamplingNoise
 import org.jetbrains.skia.Canvas
-import org.jetbrains.skia.Paint
 import org.jetbrains.skia.Path
 import org.jetbrains.skia.Point
 import kotlin.math.cos
@@ -109,6 +108,3 @@ fun drawSun(c: Canvas, d: Dimension) {
         }
 }
 
-
-fun Point.isInside(circle: Circle) = circle.center.distanceTo(this) < circle.radius
-fun Canvas.drawCircle(c: Circle, p: Paint) = drawCircle(c.x, c.y, c.radius, p)

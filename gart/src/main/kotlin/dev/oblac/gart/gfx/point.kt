@@ -44,3 +44,6 @@ fun Point.moveTowards(destination: Point, amount: Float): Point {
     val y = this.y + sin(angle) * amount
     return Point(x.toFloat(), y.toFloat())
 }
+
+
+fun Point.isInside(circle: Circle) = circle.center.distanceTo(this) < circle.radius
