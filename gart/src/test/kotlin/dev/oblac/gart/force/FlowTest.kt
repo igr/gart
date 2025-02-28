@@ -13,7 +13,7 @@ class FlowTest {
 
         val result = right + left
 
-        assertEquals(Math.PI.toFloat() / 2, result.direction)
+        assertEquals(Math.PI.toFloat() / 2, result.direction.toFloat())
         assertEquals(1f, result.magnitude)
     }
 }

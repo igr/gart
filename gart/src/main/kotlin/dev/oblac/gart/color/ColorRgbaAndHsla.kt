@@ -8,7 +8,7 @@ data class ColorRGBA(val r: Float, val g: Float, val b: Float, val a: Float) {
 
     fun toHSLA(): ColorHSLA {
         val hsla = c.toHSLa()
-        return ColorHSLA(hsla.h.toFloat(), hsla.s.toFloat(), hsla.l.toFloat(), hsla.a.toFloat())
+        return ColorHSLA(hsla.h.toFloat(), hsla.s.toFloat(), hsla.l.toFloat(), hsla.alpha.toFloat())
     }
 
     fun toRGB(): RGBA {
@@ -32,17 +32,17 @@ data class ColorHSLA(val h: Float, val s: Float, val l: Float, val a: Float) {
 
     fun toRGBA(): ColorRGBA {
         val rgba = c.toRGBa()
-        return ColorRGBA(rgba.r.toFloat(), rgba.g.toFloat(), rgba.b.toFloat(), rgba.a.toFloat())
+        return ColorRGBA(rgba.r.toFloat(), rgba.g.toFloat(), rgba.b.toFloat(), rgba.alpha.toFloat())
     }
 
     fun shade(factor: Float): ColorHSLA {
         val c2 = c.shade(factor.toDouble())
-        return ColorHSLA(c2.h.toFloat(), c2.s.toFloat(), c2.l.toFloat(), c2.a.toFloat())
+        return ColorHSLA(c2.h.toFloat(), c2.s.toFloat(), c2.l.toFloat(), c2.alpha.toFloat())
     }
 
     fun saturate(factor: Float): ColorHSLA {
         val c2 = c.saturate(factor.toDouble())
-        return ColorHSLA(c2.h.toFloat(), c2.s.toFloat(), c2.l.toFloat(), c2.a.toFloat())
+        return ColorHSLA(c2.h.toFloat(), c2.s.toFloat(), c2.l.toFloat(), c2.alpha.toFloat())
     }
 }
 
