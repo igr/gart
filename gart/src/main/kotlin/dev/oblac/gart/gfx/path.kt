@@ -3,6 +3,7 @@ package dev.oblac.gart.gfx
 import org.jetbrains.skia.Path
 import org.jetbrains.skia.PathMeasure
 import org.jetbrains.skia.Point
+import org.jetbrains.skia.Region
 
 fun pathOf(first: Point, vararg points: Point): Path {
     val path = Path().moveTo(first)
@@ -69,3 +70,10 @@ fun pointsOn(path: Path, pointsCount: Int, ease: EaseFn = EaseFn.Linear): List<P
     return points
 }
 
+fun Path.toRegion(): Region {
+    val region = Region()
+    val clipRegion = Region()
+    clipRegion.setRect(this.bounds.toIRect())
+    region.setPath(this, clipRegion)
+    return region
+}

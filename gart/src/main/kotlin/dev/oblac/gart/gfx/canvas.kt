@@ -2,10 +2,7 @@ package dev.oblac.gart.gfx
 
 import dev.oblac.gart.Dimension
 import dev.oblac.gart.Gartmap
-import org.jetbrains.skia.Canvas
-import org.jetbrains.skia.Image
-import org.jetbrains.skia.Paint
-import org.jetbrains.skia.Point
+import org.jetbrains.skia.*
 
 fun Canvas.drawPoints(points: Collection<Point>, stroke: Paint) = this.drawPoints(points.toTypedArray(), stroke)
 
@@ -24,6 +21,15 @@ fun Canvas.drawBorder(d: Dimension, stroke: Paint) {
     this.drawLine(w2, w2, w2, d.hf - w2, stroke)
     this.drawLine(d.wf - w2, w2, d.wf - w2, d.hf - w2, stroke)
     this.drawLine(0f, d.hf - w2, d.wf, d.hf - w2, stroke)
+}
+
+fun Canvas.drawRoundBorder(d: Dimension, radius: Float = 10f, width: Float = 20f, color: Int) {
+    val x = width / 2
+    val rr = RRect.makeXYWH(x, x, d.wf - x * 2, d.hf - x * 2, radius, radius)
+    this.save()
+    this.clipRRect(rr, ClipMode.DIFFERENCE, true)
+    this.clear(color)
+    this.restore()
 }
 
 fun Canvas.drawPoint(p: Point, stroke: Paint) = this.drawPoint(p.x, p.y, stroke)
