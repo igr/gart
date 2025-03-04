@@ -1,6 +1,7 @@
 package dev.oblac.gart.math
 
 import dev.oblac.gart.gfx.Circle
+import dev.oblac.gart.gfx.Line
 import org.jetbrains.skia.Point
 import kotlin.math.*
 
@@ -10,11 +11,13 @@ enum class TangentType {
 
 data class Tangent(
     val type: TangentType,
-    val alpha: Float,
-    val line: Triple<Float, Float, Float>,
+    val alpha: Float, // the angle (in radians) for the unit normal n
+    val line: Triple<Float, Float, Float>, //  a tuple (a, b, c) representing the line a*x + b*y = c
     val point1: Point,
     val point2: Point
-)
+) {
+    fun toLine(): Line = Line(point1, point2)
+}
 
 fun circleTangents(circle0: Circle, circle1: Circle): List<Tangent> {
     val x0: Float = circle0.x

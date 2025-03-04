@@ -15,6 +15,9 @@ fun Point.ifInside(dimension: Dimension): Point? = if (isInside(dimension)) this
 fun Point.isInside(rect: Rect) =
     ((x >= rect.left) && (x < rect.right)) && ((y >= rect.top) && (y < rect.bottom))
 
+fun Point.isInside(triangle: Triangle) =
+    triangle.contains(this)
+
 fun Point.offset(vec: Vector2) = this.offset(vec.x, vec.y)
 
 fun Point.fromCenter(d: Dimension, fl: Float = 1f): Point {
@@ -50,3 +53,6 @@ fun randomPointBetween(p1: Point, p2: Point): Point {
     }
     return Point(p1.x, rndf(p1.y, p2.y))
 }
+
+fun collinear(point1: Point, point2: Point, point3: Point) =
+    (point2.x - point1.x) * (point3.y - point1.y) == (point2.y - point1.y) * (point3.x - point1.x)

@@ -6,7 +6,9 @@ import org.jetbrains.skia.Path
 import org.jetbrains.skia.Point
 import kotlin.math.sqrt
 
-data class Line(val a: Point, val b: Point)
+data class Line(val a: Point, val b: Point) {
+    fun centerPoint() = Point((a.x + b.x) / 2, (a.y + b.y) / 2)
+}
 
 fun Canvas.drawLine(line: Line, color: Paint) = drawLine(line.a, line.b, color)
 
