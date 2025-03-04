@@ -7,8 +7,6 @@ import org.jetbrains.skia.Canvas
 import org.jetbrains.skia.Paint
 import org.jetbrains.skia.Point
 
-fun Canvas.drawCircle(circle: Circle, paint: Paint) = drawCircle(circle.center.x, circle.center.y, circle.radius, paint)
-
 data class Circle(val x: Float, val y: Float, val radius: Float) {
     val center = Point(x, y)
 
@@ -16,6 +14,8 @@ data class Circle(val x: Float, val y: Float, val radius: Float) {
         fun of(center: Point, radius: Number): Circle = Circle(center.x, center.y, radius.toFloat())
     }
 }
+
+fun Canvas.drawCircle(circle: Circle, paint: Paint) = drawCircle(circle.center.x, circle.center.y, circle.radius, paint)
 
 fun createCircle(center: Point, radius: Float, steps: Int): List<Point> {
     val points = mutableListOf<Point>()
