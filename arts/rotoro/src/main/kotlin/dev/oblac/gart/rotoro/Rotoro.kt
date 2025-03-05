@@ -22,11 +22,15 @@ fun main() {
 val background = NipponColors.col234_GOFUN
 val whitePaint = fillOfWhite()
 val blackPaint = fillOfBlack()
+
 val accentPaint = fillOf(NipponColors.col099_TAMAGO)
+//val accentPaint = fillOf(NipponColors.col176_MIZU)
+//val accentPaint = fillOf(NipponColors.col011_NAKABENI)
+
 val strokePaint = Paint().apply {
     color = Color.BLACK
     mode = PaintMode.STROKE
-    strokeWidth = 8f
+    strokeWidth = 20f
     strokeCap = PaintStrokeCap.ROUND
 }
 
@@ -50,8 +54,8 @@ fun draw(canvas: Canvas, canvasWidth: Int) {
 
             // Draw filled circle with appropriate color
             val fillPaint = when (rndi(11)) {
-                in 0..4 -> whitePaint
-                in 5..8 -> blackPaint
+                in 0..6 -> whitePaint
+                in 7..8 -> blackPaint
                 else -> accentPaint
             }
 
@@ -68,13 +72,16 @@ fun draw(canvas: Canvas, canvasWidth: Int) {
     val tape = tape(canvas, cells, circles)
 
     val paths = tape.flatMap { it.allPaths() }.sortedBy { it.size }.reversed()
-    /*val fullPaths = paths.filter { it.size == cells.size + 1 }
-    fullPaths.random().drop(1).apply {
-        this.forEach { canvas.drawLine(it, strokePaint) }
-    }*/
+
+    // Draw the longest path
     paths.first().drop(1).apply {   // the first line is root tree, not correct
         forEach { canvas.drawLine(it, strokePaint) }
     }
+
+    // draw random path
+//    paths.filter { it.size > 10 }.random().drop(1).apply {
+//        forEach { canvas.drawLine(it, strokePaint) }
+//    }
 }
 
 fun tape(canvas: Canvas, cells: List<Cell>, circles: List<Circle>): List<TreeNode<Line>> {
