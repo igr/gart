@@ -2,9 +2,15 @@ package dev.oblac.gart.bubbles.stripe
 
 import dev.oblac.gart.Dimension
 import dev.oblac.gart.Gart
+import dev.oblac.gart.Key
+import dev.oblac.gart.angles.Radians
+import dev.oblac.gart.angles.cos
+import dev.oblac.gart.angles.sin
 import dev.oblac.gart.color.NipponColors
 import dev.oblac.gart.gfx.*
 import dev.oblac.gart.math.GOLDEN_RATIO
+import dev.oblac.gart.math.PIf
+import dev.oblac.gart.math.rndf
 import dev.oblac.gart.noise.PoissonDiskSamplingNoise
 import dev.oblac.gart.pack.CirclePacker
 import org.jetbrains.skia.Point
@@ -35,9 +41,44 @@ fun main() {
 
     c.drawBorder(d, strokeOf(fillBack.color, 40f))
 
-    gart.saveImage(g)
+    //gart.saveImage(g)
+    //w.showImage(g)
 
-    w.showImage(g)
+    // create all different periods
+    data class Period(val circle: Circle, val offset: Float, val amplitude: Float, val frequency: Float)
+
+    val bigs = bigBubbles.map {
+        Period(it, rndf(0, PIf), rndf(10, 25), rndf(0.04f, 0.1f))
+    }
+
+    val smalls = smallBubbles.map {
+        Period(it, rndf(0, PIf), rndf(2, 8), rndf(0.1f, 0.2f))
+    }
+
+    val m = gart.movie()
+//    w.show { c, _, f ->
+    m.record(w).show { c, _, f ->
+        c.clear(fillBack.color)
+
+        bigs.forEach {
+            val circle = it.circle
+            val offsetX = sin(Radians(it.offset + f.frame * it.frequency)) * it.amplitude
+            val offsetY = cos(Radians(it.offset + f.frame * it.frequency)) * it.amplitude
+            c.drawCircle(circle.x + offsetX.toFloat(), circle.y + offsetY.toFloat(), circle.radius, fillOfBlack())
+        }
+        smalls.forEach {
+            val circle = it.circle
+            val offset = sin(Radians(it.offset + f.frame * it.frequency)) * it.amplitude
+            c.drawCircle(circle.x, circle.y, circle.radius - 2 + offset.toFloat(), fillBack)
+        }
+
+        c.drawBorder(d, strokeOf(fillBack.color, 40f))
+    }.onKey {
+        when (it) {
+            Key.KEY_S -> m.stopRecording()
+            else -> println("Key: $it")
+        }
+    }
 }
 
 private fun packBigCircles(dimension: Dimension): List<Circle> {
