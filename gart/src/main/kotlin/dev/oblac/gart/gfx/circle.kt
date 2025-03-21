@@ -13,6 +13,18 @@ data class Circle(val x: Float, val y: Float, val radius: Float) {
     companion object {
         fun of(center: Point, radius: Number): Circle = Circle(center.x, center.y, radius.toFloat())
     }
+
+    fun contains(x: Float, y: Float): Boolean {
+        val dx = x - this.x
+        val dy = y - this.y
+        return dx * dx + dy * dy <= radius * radius
+    }
+
+    fun contains(p: Point): Boolean {
+        val dx = p.x - this.x
+        val dy = p.y - this.y
+        return dx * dx + dy * dy <= radius * radius
+    }
 }
 
 fun Canvas.drawCircle(circle: Circle, paint: Paint) = drawCircle(circle.center.x, circle.center.y, circle.radius, paint)
