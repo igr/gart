@@ -44,6 +44,7 @@ fun strokeOfWhite(width: Number) = strokeOf(Color.WHITE, width.toFloat())
 fun strokeOfRed(width: Number) = strokeOf(Color.RED, width.toFloat())
 fun strokeOfGreen(width: Number) = strokeOf(Color.GREEN, width.toFloat())
 fun strokeOfBlue(width: Number) = strokeOf(Color.BLUE, width.toFloat())
+fun strokeOfYellow(width: Number) = strokeOf(Color.YELLOW, width.toFloat())
 
 fun fillOfBlack() = fillOf(Color.BLACK)
 fun fillOfWhite() = fillOf(0xFFFFFFFF)

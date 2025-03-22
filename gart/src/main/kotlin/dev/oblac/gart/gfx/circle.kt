@@ -6,6 +6,7 @@ import dev.oblac.gart.angles.sin
 import org.jetbrains.skia.Canvas
 import org.jetbrains.skia.Paint
 import org.jetbrains.skia.Point
+import org.jetbrains.skia.Rect
 
 data class Circle(val x: Float, val y: Float, val radius: Float) {
     val center = Point(x, y)
@@ -25,6 +26,8 @@ data class Circle(val x: Float, val y: Float, val radius: Float) {
         val dy = p.y - this.y
         return dx * dx + dy * dy <= radius * radius
     }
+
+    fun rect() = Rect(x - radius, y - radius, x + radius, y + radius)
 }
 
 fun Canvas.drawCircle(circle: Circle, paint: Paint) = drawCircle(circle.center.x, circle.center.y, circle.radius, paint)

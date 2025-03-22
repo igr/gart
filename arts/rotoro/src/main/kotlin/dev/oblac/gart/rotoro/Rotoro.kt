@@ -19,22 +19,22 @@ fun main() {
     gart.window().showImage(g)
 }
 
-val background = NipponColors.col234_GOFUN
-val whitePaint = fillOfWhite()
-val blackPaint = fillOfBlack()
+private val background = NipponColors.col234_GOFUN
+private val whitePaint = fillOfWhite()
+private val blackPaint = fillOfBlack()
 
-val accentPaint = fillOf(NipponColors.col099_TAMAGO)
+private val accentPaint = fillOf(NipponColors.col099_TAMAGO)
 //val accentPaint = fillOf(NipponColors.col176_MIZU)
 //val accentPaint = fillOf(NipponColors.col011_NAKABENI)
 
-val strokePaint = Paint().apply {
+private val strokePaint = Paint().apply {
     color = Color.BLACK
     mode = PaintMode.STROKE
     strokeWidth = 20f
     strokeCap = PaintStrokeCap.ROUND
 }
 
-fun draw(canvas: Canvas, canvasWidth: Int) {
+private fun draw(canvas: Canvas, canvasWidth: Int) {
     canvas.clear(background)
 
     // Calculate dimensions based on canvas size
@@ -140,7 +140,7 @@ fun tape2(tIn: Line, tOuts: List<Line>, previousCircle: Circle, circle: Circle, 
 }
 
 // returns a line that has A point closer to the circle
-private fun Line.pointACloserTo(circle: Circle): Line {
+internal fun Line.pointACloserTo(circle: Circle): Line {
     return if (a.distanceTo(circle.center) < b.distanceTo(circle.center)) {
         this
     } else {
