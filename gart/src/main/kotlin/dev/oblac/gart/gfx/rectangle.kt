@@ -3,6 +3,7 @@ package dev.oblac.gart.gfx
 import dev.oblac.gart.Dimension
 import org.jetbrains.skia.Path
 import org.jetbrains.skia.Point
+import org.jetbrains.skia.RRect
 import org.jetbrains.skia.Rect
 
 /**
@@ -71,14 +72,15 @@ fun Rect.grow(delta: Float) =
 /**
  * Returns dimensions of the rectangle.
  */
-fun Rect.dimension(): Dimension {
-    return Dimension(this.width.toInt(), this.height.toInt())
-}
+fun Rect.dimension() =
+    Dimension(this.width.toInt(), this.height.toInt())
 
-fun Rect.topLeftPoint(): Point {
-    return Point(this.left, this.top)
-}
+fun Rect.topLeftPoint() = Point(this.left, this.top)
 
 fun Rect.Companion.ofPWH(left: Float, top: Float, w: Float, h: Float): Rect = Rect(left, top, left + w, top + h)
 fun Rect.Companion.ofPWH(left: Number, top: Number, w: Number, h: Number): Rect = Rect.makeXYWH(left.toFloat(), top.toFloat(), w.toFloat(), h.toFloat())
 fun Rect.Companion.of(x0: Number, y0: Number, x1: Number, y1: Number): Rect = Rect(x0.toFloat(), y0.toFloat(), x1.toFloat(), y1.toFloat())
+
+
+fun Rect.toRRect(round: Float) =
+    RRect.makeLTRB(this.left, this.top, this.right, this.bottom, round, round, round, round)
