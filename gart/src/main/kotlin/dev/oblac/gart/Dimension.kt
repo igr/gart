@@ -92,6 +92,7 @@ data class Dimension(val w: Int, val h: Int) {
 
     companion object {
         val DESKTOP_FULL_HD = Dimension(1920, 1080)
+        val DESKTOP_FULL__LANDSCAPE_HD = Dimension(1080, 1920)
         val LAPTOP_FULL_HD = Dimension(1366, 768)
     }
 }

@@ -17,8 +17,11 @@ private val fonts = mutableMapOf<F, Font>()
 
 enum class FontFamily(internal val typeface: Typeface) {
     JetBrainsMonoBold(Typeface.makeFromData(loadResourceAsData("/fonts/JetBrainsMono-Bold.ttf"))),
+    IBMPlexMono(Typeface.makeFromData(loadResourceAsData("/fonts/IBMPlexMono-Regular.ttf"))),
     IBMPlexMonoBold(Typeface.makeFromData(loadResourceAsData("/fonts/IBMPlexMono-Bold.ttf"))),
-    OdibeeSans(Typeface.makeFromData(loadResourceAsData("/fonts/OdibeeSans-Regular.ttf")));
+    OdibeeSans(Typeface.makeFromData(loadResourceAsData("/fonts/OdibeeSans-Regular.ttf"))),
+    NotoSans(Typeface.makeFromData(loadResourceAsData("/fonts/NotoSans-Regular.ttf"))),
+    NotoSansBold(Typeface.makeFromData(loadResourceAsData("/fonts/NotoSans-Bold.ttf"))),
 }
 
 fun font(family: FontFamily, size: Float): Font {

@@ -1,7 +1,7 @@
 package dev.oblac.gart.stripes
 
 import dev.oblac.gart.Gart
-import dev.oblac.gart.borderize
+import dev.oblac.gart.fx.borderize
 import dev.oblac.gart.color.Colors
 import dev.oblac.gart.color.toIntColor
 import dev.oblac.gart.gfx.fillOfBlack

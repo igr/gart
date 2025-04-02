@@ -1,5 +1,6 @@
-package dev.oblac.gart
+package dev.oblac.gart.fx
 
+import dev.oblac.gart.Gartvas
 import org.jetbrains.skia.FilterTileMode
 import org.jetbrains.skia.ImageFilter
 import org.jetbrains.skia.Paint
