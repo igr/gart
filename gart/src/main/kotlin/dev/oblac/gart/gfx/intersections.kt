@@ -1,7 +1,6 @@
-package dev.oblac.gart.math
+package dev.oblac.gart.gfx
 
-import dev.oblac.gart.gfx.Circle
-import dev.oblac.gart.gfx.Line
+import dev.oblac.gart.math.fastSqrt
 import org.jetbrains.skia.Point
 
 fun intersectionsOf(
@@ -43,4 +42,38 @@ fun intersectionsOf(
     }
 
     return intersections.toTypedArray()
+}
+
+fun intersectionOf(
+    line1: Line,
+    line2: Line
+): Point? {
+    val x1 = line1.a.x
+    val y1 = line1.a.y
+    val x2 = line1.b.x
+    val y2 = line1.b.y
+    val x3 = line2.a.x
+    val y3 = line2.a.y
+    val x4 = line2.b.x
+    val y4 = line2.b.y
+
+    // Calculate the determinants
+    val denom = (x1 - x2) * (y3 - y4) - (y1 - y2) * (x3 - x4)
+    if (denom == 0f) return null // Lines are parallel
+
+    val tNum = (x1 - x3) * (y3 - y4) - (y1 - y3) * (x3 - x4)
+    val uNum = (x1 - x3) * (y1 - y2) - (y1 - y3) * (x1 - x2)
+
+    // Normalize parameters
+    val t = tNum / denom
+    val u = uNum / denom
+
+    // Ensure intersection is within segment bounds
+    if (t in 0f..1f && u in 0f..1f) {
+        val intersectionX = x1 + t * (x2 - x1)
+        val intersectionY = y1 + t * (y2 - y1)
+        return Point(intersectionX, intersectionY)
+    }
+
+    return null // No intersection within the segments
 }

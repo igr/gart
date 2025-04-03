@@ -1,13 +1,13 @@
 package dev.oblac.gart.gfx
 
+import dev.oblac.gart.math.PIf
 import dev.oblac.gart.math.dist
+import dev.oblac.gart.math.rnd
 import org.jetbrains.skia.Canvas
 import org.jetbrains.skia.Paint
 import org.jetbrains.skia.Path
 import org.jetbrains.skia.Point
-import kotlin.math.abs
-import kotlin.math.pow
-import kotlin.math.sqrt
+import kotlin.math.*
 
 data class Triangle(val a: Point, val b: Point, val c: Point) {
     fun points() = arrayOf(a, b, c)
@@ -58,3 +58,21 @@ data class Triangle(val a: Point, val b: Point, val c: Point) {
 
 fun Canvas.drawTriangle(triangle: Triangle, paint: Paint) = this.drawPath(triangle.path, paint)
 
+fun randomEquilateralTriangle(c: Point, sideLength: Float): Triangle {
+    val centerX = c.x
+    val centerY = c.y
+    val angle = rnd(0.0, 360.0) // Random rotation in degrees
+    val radians = Math.toRadians(angle).toFloat()
+
+    // Calculate the 3 vertices
+    val x1 = centerX + cos(radians) * sideLength / 2
+    val y1 = centerY + sin(radians) * sideLength / 2
+
+    val x2 = centerX + cos(radians + 2 * PIf / 3) * sideLength / 2
+    val y2 = centerY + sin(radians + 2 * PIf / 3) * sideLength / 2
+
+    val x3 = centerX + cos(radians + 4 * PIf / 3) * sideLength / 2
+    val y3 = centerY + sin(radians + 4 * PIf / 3) * sideLength / 2
+
+    return Triangle(Point(x1, y1), Point(x2, y2), Point(x3, y3))
+}

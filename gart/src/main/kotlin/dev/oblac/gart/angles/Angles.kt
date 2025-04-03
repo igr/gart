@@ -46,14 +46,19 @@ value class Radians(internal val value: Float) {
         val PI_HALF = Radians(HALF_PIf)
         val PI = Radians(PIf)
         val TWO_PI = Radians(DOUBLE_PIf)
+        fun of(value: Number): Radians = Radians(value.toFloat())
     }
 }
 
 fun cos(r: Radians) =
     kotlin.math.cos(r.value.toDouble())
+fun cosf(r: Radians) =
+    kotlin.math.cos(r.value.toDouble()).toFloat()
 
 fun sin(r: Radians) =
     kotlin.math.sin(r.value.toDouble())
+fun sinf(r: Radians) =
+    kotlin.math.sin(r.value.toDouble()).toFloat()
 
 /**
  * Calculates the middle angle between two angles.
@@ -106,11 +111,17 @@ value class Degrees(internal val value: Float) {
         val D90 = Degrees(90f)
         val D180 = Degrees(180f)
         val D360 = Degrees(360f)
+        fun of(value: Number): Degrees = Degrees(value.toFloat())
     }
 }
 
 fun cos(d: Degrees): Double =
     kotlin.math.cos(d.radians().value.toDouble())
+fun cosf(d: Degrees): Float =
+    kotlin.math.cos(d.radians().value.toDouble()).toFloat()
+
 
 fun sin(d: Degrees): Double =
     kotlin.math.sin(d.radians().value.toDouble())
+fun sinf(d: Degrees): Float =
+    kotlin.math.sin(d.radians().value.toDouble()).toFloat()

@@ -23,6 +23,15 @@ fun pathOf(list: List<Point>): Path {
     return path
 }
 
+fun List<Point>.toQuadPath(): Path {
+    val path = Path()
+    path.moveTo(this[0])
+    for (i in 1 until this.size - 1 step 2) {
+        path.quadTo(this[i], this[i + 1])
+    }
+    path.lineTo(this.last())
+    return path
+}
 fun List<Point>.toPath() = pathOf(this)
 fun List<Point>.toClosedPath() = pathOf(this).closePath()
 
@@ -34,6 +43,9 @@ fun closedPathOf(first: Point, vararg points: Point): Path {
     points.forEach { path.lineTo(it) }
     return path.closePath()
 }
+
+fun Path.toPoints(pointsCount: Int) = pointsOn(this, pointsCount)
+fun Path.toPoints(pointsCount: Int, ease: EaseFn) = pointsOn(this, pointsCount, ease)
 
 /**
  * Returns a list of [count] points on the path.

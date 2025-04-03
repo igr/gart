@@ -3,7 +3,7 @@ package dev.oblac.gart.rotoro
 import dev.oblac.gart.Gart
 import dev.oblac.gart.color.NipponColors
 import dev.oblac.gart.gfx.*
-import dev.oblac.gart.math.intersectionsOf
+import dev.oblac.gart.gfx.intersectionsOf
 import dev.oblac.gart.math.rndb
 import org.jetbrains.skia.*
 
