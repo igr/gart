@@ -39,9 +39,9 @@ fun main() {
     }
 }
 
-const val POINTS: Int = 1000
-val ppp = Palettes.cool37
-val palette = (ppp + ppp.reversed()).expand(POINTS)
+private const val POINTS: Int = 1000
+private val ppp = Palettes.cool37
+private val palette = (ppp + ppp.reversed()).expand(POINTS)
 
 private fun draw(c: Canvas, d: Dimension, paletteOffset: Int) {
     val xo = 600f + sin(paletteOffset.toFloat() / 100) * 90f
@@ -93,7 +93,7 @@ private fun drawRay(c: Canvas, from: Point, len: Int, angle: Degrees, o: Obstacl
 /**
  * Line that goes around the obstacle.
  */
-private fun calcWayAround(line: Line, obstacle: Obstacle, intersectionPoint: Point): List<Point> {
+internal fun calcWayAround(line: Line, obstacle: Obstacle, intersectionPoint: Point, symmetrical: Boolean = true): List<Point> {
     val points = mutableListOf<Point>()
     points.add(line.a)
 
@@ -111,9 +111,14 @@ private fun calcWayAround(line: Line, obstacle: Obstacle, intersectionPoint: Poi
     val b_ix = intersectionPoint.distanceTo(obstacle.b)
     val ix_len = obstacle.line.length()
 
-    val closestObstaclePoint = if (dA < dB) {
-        val delta = a_ix / ix_len
-        obstacle.a.moveTowards(obstacle.b, delta * 50f)
+    val closestObstaclePoint = if (symmetrical) {
+        if (dA < dB) {
+            val delta = a_ix / ix_len
+            obstacle.a.moveTowards(obstacle.b, delta * 50f)
+        } else {
+            val delta = b_ix / ix_len
+            obstacle.b.moveTowards(obstacle.a, delta * 50f)
+        }
     } else {
         val delta = b_ix / ix_len
         obstacle.b.moveTowards(obstacle.a, delta * 50f)
