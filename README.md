@@ -51,13 +51,21 @@ Follow: [Instagram](https://www.instagram.com/gart_173)
 
 ⭐️ [Bub. Ll. Es.](arts/bubbles/README.md)
 
-<img src="arts/bubbles/Bubbles2_thumb.png">
-<img src="arts/bubbles/BubbleStripe_thumb.png">
+<p align="center">
+<img src="arts/bubbles/Bubbles2_thumb.png" align="left">
+<img src="arts/bubbles/BubbleStripe_thumb.png" align="left">
+</p>
+
+<br clear="both">
 
 ⭐️ [Letter. Pattern. Repeat.](arts/lettero/README.md)
 
-<img src="arts/lettero/LetterO_thumb.png">
-<img src="arts/lettero/LetterO2_thumb.png">
+<p align="center">
+<img src="arts/lettero/LetterO_thumb.png" align="left">
+<img src="arts/lettero/LetterO2_thumb.png" align="left">
+</p>
+
+<br clear="both">
 
 ⭐️ [Round. Rect. Rotate.](arts/roundrects/README.md)
 
@@ -73,9 +81,12 @@ Follow: [Instagram](https://www.instagram.com/gart_173)
 
 ⭐️ [Organic. Mesh. Web.](arts/lissajous/README.md)
 
-<img src="arts/lissajous/lissajous_thumb.png">
-<img src="arts/lissajous/moire_thumb.png">
+<p align="center">
+<img src="arts/lissajous/lissajous_thumb.png" align="left">
+<img src="arts/lissajous/moire_thumb.png" align="left">
+</p>
 
+<br clear="both">
 
 ⭐️ [Har. Mon. Ich.](arts/harmongraph/README.md)
 
@@ -250,6 +261,8 @@ Follow: [Instagram](https://www.instagram.com/gart_173)
 <img src="arts/rayz/rayz2-3_thumb.png" align="left">
 <img src="arts/rayz/rayz_thumb.png" align="left">
 </p>
+
+<br clear="both">
 
 ⭐️ [rotoro](arts/rotoro/README.md)
 <p align="center">
