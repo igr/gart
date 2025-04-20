@@ -77,10 +77,10 @@ fun Rect.dimension() =
 
 fun Rect.topLeftPoint() = Point(this.left, this.top)
 
-fun Rect.Companion.ofPWH(left: Float, top: Float, w: Float, h: Float): Rect = Rect(left, top, left + w, top + h)
-fun Rect.Companion.ofPWH(left: Float, top: Float, d: Dimension): Rect = Rect(left, top, left + d.w, top + d.h)
-fun Rect.Companion.ofPWH(left: Number, top: Number, w: Number, h: Number): Rect = Rect.makeXYWH(left.toFloat(), top.toFloat(), w.toFloat(), h.toFloat())
-fun Rect.Companion.ofPWH(p: Point, w: Number, h: Number): Rect = Rect.makeXYWH(p.x, p.y, w.toFloat(), h.toFloat())
+fun Rect.Companion.ofXYWH(left: Float, top: Float, w: Float, h: Float): Rect = Rect(left, top, left + w, top + h)
+fun Rect.Companion.ofXYWH(left: Float, top: Float, d: Dimension): Rect = Rect(left, top, left + d.w, top + d.h)
+fun Rect.Companion.ofXYWH(left: Number, top: Number, w: Number, h: Number): Rect = Rect.makeXYWH(left.toFloat(), top.toFloat(), w.toFloat(), h.toFloat())
+fun Rect.Companion.ofXYWH(p: Point, w: Number, h: Number): Rect = Rect.makeXYWH(p.x, p.y, w.toFloat(), h.toFloat())
 fun Rect.Companion.of(x0: Number, y0: Number, x1: Number, y1: Number): Rect = Rect(x0.toFloat(), y0.toFloat(), x1.toFloat(), y1.toFloat())
 fun Rect.Companion.ofCenter(center: Point, width: Float, height: Float) = makeXYWH(
     center.x - width / 2,

@@ -3,7 +3,7 @@ package dev.oblac.gart.sun.two
 import dev.oblac.gart.color.Palettes
 import dev.oblac.gart.fluid.lbh.BoltzmannFluid
 import dev.oblac.gart.gfx.fillOf
-import dev.oblac.gart.gfx.ofPWH
+import dev.oblac.gart.gfx.ofXYWH
 import dev.oblac.gart.math.map
 import org.jetbrains.skia.Canvas
 import org.jetbrains.skia.Rect
@@ -54,9 +54,9 @@ class BoltzmannFluidSimulation(rows: Int, cols: Int) {
             val colorNdx = map(d, 0.998f, 1.011f, 0, p.size).toInt()
             val color = p.bound(colorNdx)
             if (s) {
-                c.drawRect(Rect.ofPWH(x * m, y * m, m, m), fillOf(p[0]))
+                c.drawRect(Rect.ofXYWH(x * m, y * m, m, m), fillOf(p[0]))
             } else {
-                c.drawRect(Rect.ofPWH(x * m, y * m, m, m), fillOf(color))
+                c.drawRect(Rect.ofXYWH(x * m, y * m, m, m), fillOf(color))
             }
         }
     }

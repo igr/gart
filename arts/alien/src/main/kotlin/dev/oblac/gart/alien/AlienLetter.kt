@@ -5,7 +5,7 @@ import dev.oblac.gart.color.NipponColors
 import dev.oblac.gart.color.Palette
 import dev.oblac.gart.color.Palettes
 import dev.oblac.gart.gfx.fillOf
-import dev.oblac.gart.gfx.ofPWH
+import dev.oblac.gart.gfx.ofXYWH
 import dev.oblac.gart.gfx.toRRect
 import dev.oblac.gart.math.GOLDEN_RATIO
 import dev.oblac.gart.math.rndi
@@ -35,7 +35,7 @@ fun main() {
 
     val x0 = (gart.d.wf - fullWidth) / 2
     val y0 = (gart.d.hf - fullHeight) / 2
-    val rect = Rect.ofPWH(x0, y0, fullWidth.toFloat(), fullHeight.toFloat())
+    val rect = Rect.ofXYWH(x0, y0, fullWidth.toFloat(), fullHeight.toFloat())
 
     val letterBoxes = tileRect(rect, ww, hh, gap)
 
@@ -85,7 +85,7 @@ private fun tileRect(r: Rect, wCount: Int, hCount: Int, gap: Int): Array<Rect> {
         for (j in 0 until hCount) {
             val x = r.left + i * (width + gap)
             val y = r.top + j * (height + gap)
-            rects.add(Rect.ofPWH(x, y, width, height))
+            rects.add(Rect.ofXYWH(x, y, width, height))
         }
     }
     return rects.toTypedArray()
@@ -104,10 +104,10 @@ private fun letterfy(r: Rect, letterCounts: Int = 3): List<Rect> {
 
 private fun expand(rect: Rect, gap: Int): Rect {
     return when (rndi(4)) {
-        0 -> return Rect.ofPWH(rect.left - gap - rect.width, rect.top, rect.width * 2 + gap, rect.height)
-        1 -> return Rect.ofPWH(rect.left, rect.top - gap - rect.height, rect.width, rect.height * 2 + gap)
-        2 -> return Rect.ofPWH(rect.left, rect.top, rect.width * 2 + gap, rect.height)
-        3 -> return Rect.ofPWH(rect.left, rect.top, rect.width, rect.height * 2 + gap)
+        0 -> return Rect.ofXYWH(rect.left - gap - rect.width, rect.top, rect.width * 2 + gap, rect.height)
+        1 -> return Rect.ofXYWH(rect.left, rect.top - gap - rect.height, rect.width, rect.height * 2 + gap)
+        2 -> return Rect.ofXYWH(rect.left, rect.top, rect.width * 2 + gap, rect.height)
+        3 -> return Rect.ofXYWH(rect.left, rect.top, rect.width, rect.height * 2 + gap)
         else -> rect
     }
 }
