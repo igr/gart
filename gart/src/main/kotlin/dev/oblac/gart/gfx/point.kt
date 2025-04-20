@@ -1,6 +1,9 @@
 package dev.oblac.gart.gfx
 
 import dev.oblac.gart.Dimension
+import dev.oblac.gart.angles.Radians
+import dev.oblac.gart.angles.cosf
+import dev.oblac.gart.angles.sinf
 import dev.oblac.gart.math.rndf
 import org.jetbrains.skia.Point
 import kotlin.math.cos
@@ -30,7 +33,7 @@ fun Point.isCloseTo(other: Point, tolerance: Float): Boolean {
     return distanceTo(other) < tolerance
 }
 
-fun Point(x: Double, y: Double) = Point(x.toFloat(), y.toFloat())
+fun Point(x: Number, y: Number) = Point(x.toFloat(), y.toFloat())
 
 
 /**
@@ -45,5 +48,17 @@ fun Point.moveTowards(destination: Point, amount: Float): Point {
     return Point(x.toFloat(), y.toFloat())
 }
 
+fun Point.rotate(angle: Radians, rx: Float, ry: Float): Point {
+    val cos = cosf(angle)
+    val sin = sinf(angle)
+
+    val translatedX = this.x - rx
+    val translatedY = this.y - ry
+
+    val x = translatedX * cos - translatedY * sin + rx
+    val y = translatedX * sin + translatedY * cos + ry
+
+    return Point(x, y)
+}
 
 fun Point.isInside(circle: Circle) = circle.center.distanceTo(this) < circle.radius

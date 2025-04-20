@@ -14,7 +14,7 @@ class Gartvas(val d: Dimension) {
     val canvas = surface.canvas
 
     /**
-     * Makes a snapshot Image of a canvas
+     * Makes a snapshot Image of a canvas.
      */
     fun snapshot(): Image {
         return surface.makeImageSnapshot()
@@ -45,5 +45,10 @@ class Gartvas(val d: Dimension) {
     fun snapshotTo(c: Canvas) {
         c.drawImage(snapshot(), 0f, 0f)
     }
+
+    /**
+     * Creates a sprite image from this canvas.
+     */
+    fun sprite(): Sprite = Sprite.of(this)
 
 }

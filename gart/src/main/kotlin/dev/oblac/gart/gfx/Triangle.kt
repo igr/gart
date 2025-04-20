@@ -1,5 +1,6 @@
 package dev.oblac.gart.gfx
 
+import dev.oblac.gart.angles.Degrees
 import dev.oblac.gart.math.PIf
 import dev.oblac.gart.math.dist
 import dev.oblac.gart.math.rnd
@@ -54,6 +55,16 @@ data class Triangle(val a: Point, val b: Point, val c: Point) {
 
         return Circle.of(center, radius)
     }
+
+    companion object {
+        /**
+         * Creates an equilateral triangle with a given center, radius, and angle.
+         * Radius is the radius of the circle within which the triangle is inscribed.
+         * All corners of the triangle are on the circle, i.e., radius is the distance
+         * from the center to any corner.
+         */
+        fun equilateral(c: Point, radius: Float, angle: Degrees) = equilateralTriangle(c, radius, angle)
+    }
 }
 
 fun Canvas.drawTriangle(triangle: Triangle, paint: Paint) = this.drawPath(triangle.path, paint)
@@ -73,6 +84,25 @@ fun randomEquilateralTriangle(c: Point, sideLength: Float): Triangle {
 
     val x3 = centerX + cos(radians + 4 * PIf / 3) * sideLength / 2
     val y3 = centerY + sin(radians + 4 * PIf / 3) * sideLength / 2
+
+    return Triangle(Point(x1, y1), Point(x2, y2), Point(x3, y3))
+}
+
+
+private fun equilateralTriangle(c: Point, radius: Float, angle: Degrees): Triangle {
+    val cx = c.x
+    val cy = c.y
+    val radians = angle.radians().toFloat()
+
+    // Calculate the 3 vertices
+    val x1 = cx + cos(radians) * radius
+    val y1 = cy + sin(radians) * radius
+
+    val x2 = cx + cos(radians + 2 * PIf / 3) * radius
+    val y2 = cy + sin(radians + 2 * PIf / 3) * radius
+
+    val x3 = cx + cos(radians + 4 * PIf / 3) * radius
+    val y3 = cy + sin(radians + 4 * PIf / 3) * radius
 
     return Triangle(Point(x1, y1), Point(x2, y2), Point(x3, y3))
 }

@@ -4,9 +4,11 @@ import dev.oblac.gart.math.DOUBLE_PIf
 import dev.oblac.gart.math.HALF_PIf
 import dev.oblac.gart.math.PIf
 
+private const val RADIANS_TO_DEGREES = 180f / PIf
+
 @JvmInline
 value class Radians(internal val value: Float) {
-    fun degrees() = Degrees(value * 180 / PIf)
+    fun degrees() = Degrees(value * RADIANS_TO_DEGREES)
 
     operator fun plus(r: Radians) =
         Radians(value + r.value)
@@ -79,10 +81,13 @@ fun middleAngle(a: Radians, b: Radians): Radians {
 
 // --- DEGREES ---
 
+private const val DEGREES_TO_RADIANS = PIf / 180f
 
 @JvmInline
 value class Degrees(internal val value: Float) {
-    fun radians() = Radians(value * PIf / 180)
+    fun toFloat() = value
+
+    fun radians() = Radians(value * DEGREES_TO_RADIANS)
 
     operator fun plus(delta: Degrees): Degrees =
         Degrees(value + delta.value)
