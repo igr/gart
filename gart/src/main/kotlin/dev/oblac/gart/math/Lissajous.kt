@@ -4,9 +4,21 @@ import org.jetbrains.skia.Point
 
 class Lissajous(
     private val center: Point,
+    /**
+     * Amplitude in X direction
+     */
     private val A: Float,
+    /**
+     * Amplitude in Y direction
+     */
     private val B: Float,
+    /**
+     * Frequency in X direction
+     */
     private val a: Float,
+    /**
+     * Frequency in Y direction
+     */
     private val b: Float,
     private val dx: Float = 0f,
     private val dy: Float = 0f,

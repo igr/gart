@@ -1,19 +1,17 @@
 package dev.oblac.gart.kaleidoscope
 
-import dev.oblac.gart.Dimension
-import dev.oblac.gart.Gart
-import dev.oblac.gart.Sprite
+import dev.oblac.gart.*
 import dev.oblac.gart.angles.Radians
 import dev.oblac.gart.angles.sinf
 import dev.oblac.gart.color.Colors
 import dev.oblac.gart.color.NipponColors
 import dev.oblac.gart.color.Palettes
-import dev.oblac.gart.drawSprite
 import dev.oblac.gart.gfx.drawCircle
 import dev.oblac.gart.gfx.fillOf
 import dev.oblac.gart.gfx.strokeOf
 import org.jetbrains.skia.Canvas
 import org.jetbrains.skia.Path
+import org.jetbrains.skia.Point
 
 fun main() {
     val gart = Gart.Companion.of("kaleidoscope", 1024, 1024)
@@ -33,15 +31,32 @@ fun main() {
 
     val tSize = 300f
 
-    val sprite = g.sprite().cropTriangle(d.center, tSize).let {
+    val sprite = makeTriangleSprite(g, d.center, tSize)
+
+    c.clear(Colors.white)
+
+    drawSpriteAsKaleidoscope(c, d, sprite, tSize)
+
+    gart.saveImage(g)
+    w.showImage(g)
+}
+
+private fun makeTriangleSprite(g: Gartvas, point: Point, tSize: Float): Sprite {
+    val sprite = g.sprite().cropTriangle(point, tSize).let {
         val hypotenuse = tSize / 2 * 1.5f
         val side = hypotenuse * 2 / 1.73f
         val gap = (tSize - side) / 2
         it.cropRect(gap, 0f, tSize - gap * 2, tSize * 1.5f / 2)
     }
+    return sprite
+}
 
-    c.clear(Colors.white)
-
+internal fun drawSpriteAsKaleidoscope(
+    c: Canvas,
+    d: Dimension,
+    sprite: Sprite,
+    tSize: Float
+) {
     val max = ((d.w / tSize * 2) + 1).toInt()
     for (j in -max..max) {
         for (i in -max..max) {
@@ -50,10 +65,6 @@ fun main() {
             drawRosetta(c, sprite, x, y)
         }
     }
-
-    gart.saveImage(g)
-    w.showImage(g)
-
 }
 
 private fun drawTemplateImage(c: Canvas, d: Dimension) {
