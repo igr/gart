@@ -51,4 +51,9 @@ class Gartvas(val d: Dimension) {
      */
     fun sprite(): Sprite = Sprite.of(this)
 
+    companion object {
+        fun of(width: Number, height: Number) =
+            Gartvas(Dimension(width.toInt(), height.toInt()))
+    }
+
 }

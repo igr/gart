@@ -1,16 +1,15 @@
 package dev.oblac.gart.lettero3
 
-import dev.oblac.gart.Dimension
-import dev.oblac.gart.Gart
-import dev.oblac.gart.Gartvas
+import dev.oblac.gart.*
 import dev.oblac.gart.color.Colors
 import dev.oblac.gart.color.NipponColors
+import dev.oblac.gart.color.Palette
 import dev.oblac.gart.color.Palettes
-import dev.oblac.gart.drawSprite
 import dev.oblac.gart.font.FontFamily
 import dev.oblac.gart.font.font
 import dev.oblac.gart.gfx.fillOf
 import org.jetbrains.skia.Canvas
+import org.jetbrains.skia.Font
 import org.jetbrains.skia.TextLine
 import java.nio.file.Files
 import java.nio.file.Paths
@@ -25,24 +24,39 @@ val text = Files.readString(
 private fun draw(c: Canvas, d: Dimension) {
     val font = font(FontFamily.IBMPlexMono, 50f)
     val textLines = mutableMapOf<Char, TextLine>()
+    val sprites = mutableMapOf<Char, Sprite>()
     var index = 0
-    val amp = 20
-    val off = 10
-    val frequency = 1 / 80f
     val palette = Palettes.cool37
+    val magic = true
+
+    fun makeSpriteForChar(
+        ch: Char, font: Font, palette: Palette, index: Int
+    ): Sprite {
+        val tlc = textLines.computeIfAbsent(ch) { TextLine.make("$it", font) }
+        val gg = Gartvas.of(tlc.width, tlc.height)
+        gg.canvas.clear(Colors.transparent)
+        gg.canvas.drawTextLine(tlc, 0f, tlc.capHeight, fillOf(palette.safe(index)))
+        return gg.sprite()
+    }
 
     c.clear(NipponColors.col248_SUMI)
     for (y in 0 until d.h step 50) {
         var x = 10.0
         while (x < d.w - 5) {
             val char = text[index]
-            val width = 30 + amp * sin(x * frequency + y + off)
-            val tlc = textLines.computeIfAbsent(char) { TextLine.make("$it", font) }
-            val sprite = Gartvas.of(tlc.width, tlc.height)
-            sprite.canvas.clear(Colors.transparent)
-            sprite.canvas.drawTextLine(tlc, 0f, tlc.capHeight, fillOf(palette.safe(index)))
+            val width = if (magic) {
+                30 + 20 * sin(x / 80f + y + 0.4)
+            } else {
+                30 + 20 * sin(x / 84f + y + 10)
+            }
 
-            c.drawSprite(sprite.sprite()) { it.scaleX(width / tlc.width).at(x, y - 10f) }
+            val sprite = if (magic) {
+                sprites.computeIfAbsent(char) { makeSpriteForChar(it, font, palette, index) }
+            } else {
+                makeSpriteForChar(char, font, palette, index)
+            }
+
+            c.drawSprite(sprite) { it.scaleX(width / sprite.d.w).at(x, y - 10f) }
 
             index++
             x += width

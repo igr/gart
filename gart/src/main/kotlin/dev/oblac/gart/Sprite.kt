@@ -16,11 +16,13 @@ class Sprite(surface: Surface) {
         val g = Gartvas(Dimension(w, h))
 
         val target = g.canvas
+        target.save()
         target.clear(Colors.transparent)
         target.translate(-x, -y)
         target.clipRect(Rect.makeXYWH(x, y, width, height))
 
         target.drawImage(image, 0f, 0f)
+        target.restore()
         return of(g)
     }
 
@@ -33,13 +35,15 @@ class Sprite(surface: Surface) {
         val sprite = Gartvas(Dimension(w, h))
 
         val target = sprite.canvas
+        target.save()
         target.clear(Colors.transparent)
         target.translate(-p.x + radius, -p.y + radius)
-        target.rotate(angle.toFloat() + 30f, p.x, p.y)
+        target.rotate(-angle.toFloat() + 30f, p.x, p.y) // to keep the triangle upright
         target.clipPath(triangle.path)
 
         // Draw the source image onto the target canvas
         target.drawImage(image, 0f, 0f)
+        target.restore()
 
         return of(sprite)
     }
@@ -106,6 +110,13 @@ data class SpriteTransformations(
             it.translate(sprite.d.wf, c.y)
             it.scale(1f, -1f)
             it.translate(-sprite.d.wf, -c.y)
+        }
+        return this
+    }
+
+    fun scaleX(scale: Number): SpriteTransformations {
+        transformations.add {
+            it.scale(scale.toFloat(), 1f)
         }
         return this
     }
