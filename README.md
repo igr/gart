@@ -8,7 +8,7 @@
 + minor RNDR use for formulas only.
 + ffmpeg for video encoding.
 
-### [Example](arts/example/README.md)
+### [Examples](arts/example/README.md)
 
 ![](../arts/example/example.png)
 
