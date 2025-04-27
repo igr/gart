@@ -8,10 +8,11 @@ import org.jetbrains.skia.Image
  */
 class Movie(
     val d: Dimension,
-    private val name: String,
+    val name: String,
     startRecording: Boolean = true,
     val format: MovieFormat = MovieFormat.MP4
 ) {
+    internal var saved: Boolean = false
     private val allFrames = mutableListOf<Image>()
     private val gartvas = Gartvas(d)
     private val bitmap = gartvas.createBitmap()
@@ -73,7 +74,9 @@ class Movie(
 
             override fun onClose() {
                 super.onClose()
-                saveMovieToFile(this@Movie, window.fps, name)
+                if (!saved) {
+                    saveMovieToFile(this@Movie, window.fps, name)
+                }
             }
         }
     }

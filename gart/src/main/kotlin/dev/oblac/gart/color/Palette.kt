@@ -7,6 +7,9 @@ class Palette(internal val colors: IntArray) {
 
     val size = colors.size
 
+    val indices: IntRange
+        get() = colors.indices
+
 	operator fun get(position: Int): Int {
 		return colors[position]
 	}

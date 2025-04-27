@@ -41,7 +41,7 @@ data class Gart(
 
     fun saveImage(image: Image, name: String = "${this.name}.png") = saveImageToFile(image, name)
 
-    fun saveMovie(movie: Movie, fps: Int = this.fps, name: String = this.name) = saveMovieToFile(movie, fps, name)
+    fun saveMovie(movie: Movie, fps: Int = this.fps, name: String = movie.name) = saveMovieToFile(movie, fps, name)
 
     fun snapshot() = GartSnapshot(this)
 

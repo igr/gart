@@ -40,6 +40,7 @@ internal fun saveMovieToFile(movie: Movie, fps: Int, name: String) {
         MovieFormat.MP4 -> saveMp4ToFile(movie, fps, name)
         MovieFormat.GIF -> saveGifToFile(movie, fps, name)
     }
+    movie.saved = true
 }
 
 private fun saveGifToFile(movie: Movie, fps: Int, name: String) {
