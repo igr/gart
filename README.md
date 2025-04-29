@@ -19,37 +19,37 @@ Follow: [Instagram](https://www.instagram.com/gart_173)
 
 ## 🍭 Gȧlléry
 
-⭐️ [Zen. Plasma. Watter.](arts/plasma/README.md)
+⭐️ [Plasma](arts/plasma/README.md)
 
 <img src="arts/plasma/plasma_thumb.png">
 
-⭐️ [Dots. Wave. Flash.](arts/circledots/README.md)
+⭐️ [Circle Dots](arts/circledots/README.md)
 
 <img src="arts/circledots/circledots_thumb.png">
 <img src="arts/circledots/circledots2_thumb.png">
 
-⭐️ [Love. Tear. Apart.](arts/joydiv/README.md)
+⭐️ [Joy Division](arts/joydiv/README.md)
 
 <img src="arts/joydiv/joydiv_thumb.png">
 
-⭐️ [City. High. Sky.](arts/skyscraper/README.md)
+⭐️ [Skyscraper](arts/skyscraper/README.md)
 
 <img src="arts/skyscraper/skyscraper_thumb.png">
 <img src="arts/skyscraper/skyscraper2_thumb.png">
 
-⭐️ [Line. Line. Falls.](arts/falllines/README.md)
+⭐️ [Fall lines](arts/falllines/README.md)
 
 <img src="arts/falllines/falllines_thumb.png">
 
-⭐️ [Twist.Color. Turn.](arts/kaleiircle/README.md)
+⭐️ [Kaleidoscopics](arts/kaleiircle/README.md)
 
 <img src="arts/kaleiircle/kaleiircle_thumb.png">
 
-⭐️ [Tick. Tile. Tock.](arts/ticktiletock/README.md)
+⭐️ [Tick Tile Tock](arts/ticktiletock/README.md)
 
 <img src="arts/ticktiletock/ticktiletock_thumb.png">
 
-⭐️ [Bub. Ll. Es.](arts/bubbles/README.md)
+⭐️ [Bubbles](arts/bubbles/README.md)
 
 <p align="center">
 <img src="arts/bubbles/Bubbles2_thumb.png" align="left">
@@ -58,7 +58,7 @@ Follow: [Instagram](https://www.instagram.com/gart_173)
 
 <br clear="both">
 
-⭐️ [Letter. Pattern. Repeat.](arts/lettero/README.md)
+⭐️ [Lettero](arts/lettero/README.md)
 
 <p align="center">
 <img src="arts/lettero/LetterO_thumb.png" align="left">
@@ -67,19 +67,19 @@ Follow: [Instagram](https://www.instagram.com/gart_173)
 
 <br clear="both">
 
-⭐️ [Round. Rect. Rotate.](arts/roundrects/README.md)
+⭐️ [Round Rects](arts/roundrects/README.md)
 
 <img src="arts/roundrects/roundrects_thumb.png">
 
-⭐️ [Pale. Uneasy. Tremble.](arts/palecircles/README.md)
+⭐️ [Pale Circles](arts/palecircles/README.md)
 
 <img src="arts/palecircles/palecircles_thumb.png">
 
-⭐️ [Chaos. Order. Lights.](arts/spiral/README.md)
+⭐️ [Spiral](arts/spiral/README.md)
 
 <img src="arts/spiral/spiral_thumb.png">
 
-⭐️ [Organic. Mesh. Web.](arts/lissajous/README.md)
+⭐️ [Lissajous](arts/lissajous/README.md)
 
 <p align="center">
 <img src="arts/lissajous/lissajous_thumb.png" align="left">
@@ -88,7 +88,7 @@ Follow: [Instagram](https://www.instagram.com/gart_173)
 
 <br clear="both">
 
-⭐️ [Har. Mon. Ich.](arts/harmongraph/README.md)
+⭐️ [Harmongraph](arts/harmongraph/README.md)
 
 <p align="center">
 <img src="arts/harmongraph/harmongraph0_thumb.png" align="left">
@@ -98,7 +98,7 @@ Follow: [Instagram](https://www.instagram.com/gart_173)
 
 <br clear="both">
 
-⭐️ [Solitude. Solace. Serenity.](arts/flowforce/README.md)
+⭐️ [flowforce](arts/flowforce/README.md)
 
 <p align="center">
 <img src="arts/flowforce/flowforce1_thumb.png" align="left">
@@ -115,7 +115,7 @@ Follow: [Instagram](https://www.instagram.com/gart_173)
 
 <br clear="both">
 
-⭐️ [Repe. Repeti. Repetition.](arts/repetition/README.md)
+⭐️ [Repetition](arts/repetition/README.md)
 
 <p align="center">
 <img src="arts/repetition/Repetition1_thumb.png" align="left">
@@ -124,7 +124,7 @@ Follow: [Instagram](https://www.instagram.com/gart_173)
 
 <br clear="both">
 
-⭐️ [Rect. Rect. Rect](arts/rects/README.md)
+⭐️ [Rects](arts/rects/README.md)
 
 <p align="center">
 <img src="arts/rects/rects1_thumb.png" align="left">
@@ -215,7 +215,7 @@ Follow: [Instagram](https://www.instagram.com/gart_173)
 
 <br clear="both">
 
-⭐️ [sea](arts/sea/README.md)
+⭐️ [Sea](arts/sea/README.md)
 <p align="center">
 <img src="arts/sea/sea_thumb.png" align="left">
 </p>
@@ -237,7 +237,7 @@ Follow: [Instagram](https://www.instagram.com/gart_173)
 
 <br clear="both">
 
-⭐️ [sun](arts/alien/README.md)
+⭐️ [Alien Letters](arts/alien/README.md)
 <p align="center">
 <img src="arts/alien/alien-letters-v1_thumb.png" align="left">
 <img src="arts/alien/alien-letters-v2_thumb.png" align="left">
