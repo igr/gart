@@ -1,5 +1,6 @@
 package dev.oblac.gart.gfx
 
+import dev.oblac.gart.angles.Degrees
 import dev.oblac.gart.angles.Radians
 import dev.oblac.gart.angles.cos
 import dev.oblac.gart.angles.sin
@@ -42,4 +43,57 @@ fun createCircle(center: Point, radius: Float, steps: Int): List<Point> {
         points.add(pointOf(x, y))
     }
     return points
+}
+
+
+fun Canvas.drawCircleArc(
+    x: Float,
+    y: Float,
+    radius: Float,
+    paint: Paint,
+    start: Degrees = Degrees.ZERO,
+    sweep: Degrees = Degrees.D180
+) {
+    val left = x - radius
+    val top = y - radius
+    val right = x + radius
+    val bottom = y + radius
+
+    // Draw a arc starting at `angleDegrees`
+    this.drawArc(
+        left,
+        top,
+        right,
+        bottom,
+        start.value,    // start angle in degrees
+        sweep.value,    // sweep angle
+        false,          // don't create PIE shape with center
+        paint
+    )
+}
+
+fun Canvas.drawCirclePie(
+    x: Float,
+    y: Float,
+    radius: Float,
+    paint: Paint,
+    start: Degrees = Degrees.ZERO,
+    sweep: Degrees = Degrees.D180
+) {
+    val left = x - radius
+    val top = y - radius
+    val right = x + radius
+    val bottom = y + radius
+
+    // Draw a arc starting at `angleDegrees`
+    this.drawArc(
+        left,
+        top,
+        right,
+        bottom,
+        start.value,    // start angle in degrees
+        sweep.value,    // sweep angle
+        true,           // create PIE shape with center
+        paint
+    )
 }
