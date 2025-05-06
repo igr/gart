@@ -1,5 +1,7 @@
 package dev.oblac.gart.color
 
+import dev.oblac.gart.color.palettes.*
+
 
 object Palettes {
     val cool1 = Palette(0xff001219, 0xff005f73, 0xff0a9396, 0xff94d2bd, 0xffe9d8a6, 0xffee9b00, 0xffca6702, 0xffbb3e03, 0xffae2012, 0xff9b2226)
@@ -94,6 +96,140 @@ object Palettes {
     val mix13 = Palette(0xFF2b2821, 0xFF624c3c, 0xFFd9ac8b, 0xFFe3cfb4, 0xFF243d5c, 0xFF5d7275, 0xFF5c8b93, 0xFFb1a58d, 0xFFb03a48, 0xFFd4804d, 0xFFe0c872, 0xFF3e6958)
     val mix14 = Palette(0xFFFFFFFF, 0xFF6df7c1, 0xFF11adc1, 0xFF606c81, 0xFF393457, 0xFF1e8875, 0xFF5bb361, 0xFFa1e55a, 0xFFf7e476, 0xFFf99252, 0xFFcb4d68, 0xFF6a3771, 0xFFc92464, 0xFFf48cb6, 0xFFf7b69e, 0xFF9b9c82)
     val mix15 = Palette(0xFFd1b187, 0xFFc77b58, 0xFFae5d40, 0xFF79444a, 0xFF4b3d44, 0xFFba9158, 0xFF927441, 0xFF4d4539, 0xFF77743b, 0xFFb3a555, 0xFFd2c9a5, 0xFF8caba1, 0xFF4b726e, 0xFF574852, 0xFF847875, 0xFFab9b8e)
+
+    val colormap001 = CARTO_Antique
+    val colormap002 = CARTO_ArmyRose
+    val colormap003 = CARTO_BluGrn
+    val colormap004 = CARTO_BluYl
+    val colormap005 = CARTO_Bold
+    val colormap006 = CARTO_BrwnYl
+    val colormap007 = CARTO_Burg
+    val colormap008 = CARTO_BurgYl
+    val colormap009 = CARTO_DarkMint
+    val colormap010 = CARTO_Earth
+    val colormap011 = CARTO_Emrld
+    val colormap012 = CARTO_Fall
+    val colormap013 = CARTO_Geyser
+    val colormap014 = CARTO_Magenta
+    val colormap015 = CARTO_Mint
+    val colormap016 = CARTO_OrYel
+    val colormap017 = CARTO_Pastel
+    val colormap018 = CARTO_Peach
+    val colormap019 = CARTO_PinkYl
+    val colormap020 = CARTO_Prism
+    val colormap021 = CARTO_Purp
+    val colormap022 = CARTO_PurpOr
+    val colormap023 = CARTO_RedOr
+    val colormap024 = CARTO_Safe
+    val colormap025 = CARTO_Sunset
+    val colormap026 = CARTO_SunsetDark
+    val colormap027 = CARTO_Teal
+    val colormap028 = CARTO_TealGrn
+    val colormap029 = CARTO_TealRose
+    val colormap030 = CARTO_Temps
+    val colormap031 = CARTO_Tropic
+    val colormap032 = CARTO_Vivid
+    val colormap033 = CET_KovesiBGYW
+    val colormap034 = CET_KovesiKRYW
+    val colormap035 = CET_MRYBM
+    val colormap036 = CET_MYGBM
+    val colormap037 = ColorBrewer_Accent
+    val colormap038 = ColorBrewer_Blues
+    val colormap039 = ColorBrewer_BrBG
+    val colormap040 = ColorBrewer_BuGn
+    val colormap041 = ColorBrewer_BuPu
+    val colormap042 = ColorBrewer_Dark2
+    val colormap043 = ColorBrewer_GnBu
+    val colormap044 = ColorBrewer_Greens
+    val colormap045 = ColorBrewer_Greys
+    val colormap046 = ColorBrewer_Oranges
+    val colormap047 = ColorBrewer_OrRd
+    val colormap048 = ColorBrewer_Paired
+    val colormap049 = ColorBrewer_Pastel1
+    val colormap050 = ColorBrewer_Pastel2
+    val colormap051 = ColorBrewer_PiYG
+    val colormap052 = ColorBrewer_PRGn
+    val colormap053 = ColorBrewer_PuBu
+    val colormap054 = ColorBrewer_PuBuGn
+    val colormap055 = ColorBrewer_PuOr
+    val colormap056 = ColorBrewer_PuRd
+    val colormap057 = ColorBrewer_Purples
+    val colormap058 = ColorBrewer_RdBu
+    val colormap059 = ColorBrewer_RdGy
+    val colormap060 = ColorBrewer_RdPu
+    val colormap061 = ColorBrewer_RdYlBu
+    val colormap062 = ColorBrewer_RdYlGn
+    val colormap063 = ColorBrewer_Reds
+    val colormap064 = ColorBrewer_Set1
+    val colormap065 = ColorBrewer_Set2
+    val colormap066 = ColorBrewer_Set3
+    val colormap067 = ColorBrewer_Spectral
+    val colormap068 = ColorBrewer_YlGn
+    val colormap069 = ColorBrewer_YlGnBu
+    val colormap070 = ColorBrewer_YlOrBr
+    val colormap071 = ColorBrewer_YlOrRd
+    val colormap072 = D3_D3
+    val colormap073 = Google_AI_Turbo
+    val colormap074 = misc_HSV
+    val colormap075 = misc_Jet
+    val colormap076 = Kenneth_Moreland_BentCoolWarm
+    val colormap077 = Kenneth_Moreland_BlackBody
+    val colormap078 = Kenneth_Moreland_BlackBodyExtended
+    val colormap079 = Kenneth_Moreland_SmoothCoolWarm
+    val colormap080 = Kindlmann_et_al_Kindlmann
+    val colormap081 = Kindlmann_et_al_KindlmannExtended
+    val colormap082 = Matplotlib_Cividis
+    val colormap083 = Matplotlib_Inferno
+    val colormap084 = Matplotlib_Magma
+    val colormap085 = Matplotlib_Plasma
+    val colormap086 = Matplotlib_Twilight
+    val colormap087 = Matplotlib_Viridis
+    val colormap088 = MyCarta_CubeYF
+    val colormap089 = Ocean_Algae
+    val colormap090 = Ocean_Amp
+    val colormap091 = Ocean_Balance
+    val colormap092 = Ocean_Curl
+    val colormap093 = Ocean_Deep
+    val colormap094 = Ocean_Delta
+    val colormap095 = Ocean_Dense
+    val colormap096 = Ocean_Diff
+    val colormap097 = Ocean_Gray
+    val colormap098 = Ocean_Haline
+    val colormap099 = Ocean_Ice
+    val colormap100 = Ocean_Matter
+    val colormap101 = Ocean_Oxy
+    val colormap102 = Ocean_Phase
+    val colormap103 = Ocean_Rain
+    val colormap104 = Ocean_Solar
+    val colormap105 = Ocean_Speed
+    val colormap106 = Ocean_Tarn
+    val colormap107 = Ocean_Tempo
+    val colormap108 = Ocean_Thermal
+    val colormap109 = Ocean_Topo
+    val colormap110 = Ocean_Turbid
+    val colormap111 = ParaView_Edge
+    val colormap112 = ParaView_IceFire
+    val colormap113 = Peter_Karpov_Hesperia
+    val colormap114 = Peter_Karpov_Lacerta
+    val colormap115 = Peter_Karpov_Laguna
+    val colormap116 = Peter_Karpov_PlasmaModified
+    val colormap117 = Plotly_AgGrnYl
+    val colormap118 = Plotly_AgSunset
+    val colormap119 = Plotly_BlackbodyAlt
+    val colormap120 = Plotly_Electric
+    val colormap121 = Plotly_G10
+    val colormap122 = Plotly_Hot
+    val colormap123 = Plotly_Picnic
+    val colormap124 = Plotly_Plotly
+    val colormap125 = Plotly_Plotly3
+    val colormap126 = Plotly_Portland
+    val colormap127 = Plotly_T10
+    val colormap128 = Polychrome_Alphabet
+    val colormap129 = Polychrome_Dark24
+    val colormap130 = Polychrome_Light24
+    val colormap131 = Tableau_Tab10
+    val colormap132 = Tableau_Tab20b
+    val colormap133 = Tableau_Tab20c
 
     fun gradient(colorFrom: Long, colorTo: Long, steps: Int): Palette = gradient(colorFrom.toInt(), colorTo.toInt(), steps)
     fun gradient(colorFrom: Int, colorTo: Int, steps: Int): Palette {
@@ -234,4 +370,6 @@ object Palettes {
             else -> throw IllegalArgumentException("Unknown COOL palette number: $num")
         }
     }
+
+
 }

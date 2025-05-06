@@ -1,5 +1,6 @@
 package dev.oblac.gart.color
 
+import org.jetbrains.skia.Color4f
 import kotlin.math.abs
 
 class Palette(internal val colors: IntArray) {
@@ -89,4 +90,9 @@ class Palette(internal val colors: IntArray) {
     }
 
     fun sequence(): Sequence<Int> = colors.asSequence()
+
+    companion object {
+        fun of(vararg values: Color4f) = Palette(values.map { it.toColor() }.toIntArray())
+        fun of(vararg values: java.awt.Color) = Palette(values.map { rgb(it.red, it.blue, it.green) }.toIntArray())
+    }
 }

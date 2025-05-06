@@ -11,7 +11,7 @@ data class ColorRGBA(val r: Float, val g: Float, val b: Float, val a: Float) {
         return ColorHSLA(hsla.h.toFloat(), hsla.s.toFloat(), hsla.l.toFloat(), hsla.alpha.toFloat())
     }
 
-    fun toRGB(): RGBA {
+    fun toRGBA(): RGBA {
         return RGBA((r * 255).toInt(), (g * 255).toInt(), (b * 255).toInt(), (a * 255).toInt())
     }
 

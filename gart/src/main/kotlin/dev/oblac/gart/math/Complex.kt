@@ -1,5 +1,7 @@
 package dev.oblac.gart.math
 
+import dev.oblac.gart.math.Complex.Companion.ONE
+import dev.oblac.gart.math.Complex.Companion.ZERO
 import java.util.*
 import kotlin.math.*
 
@@ -63,9 +65,36 @@ fun cot(c: Complex) = cos(c) / sin(c)
 fun sec(c: Complex) = Complex.ONE / cos(c)
 
 /**
- * The natural logarithm on the principal branch.
+ * The natural logarithm.
  */
 fun ln(c: Complex) = Complex(ln(c.abs()), c.phase())
+
+/**
+ * Square Root.
+ */
+fun sqrt(z: Complex): Complex {
+    return when (z) {
+        ZERO -> ZERO
+        else -> {
+            val t: Double = sqrt((abs(z.real) + z.mod()) / 2)
+            if (z.real >= 0) {
+                Complex(t, z.imag / (2 * t))
+            } else {
+                Complex(abs(z.imag) / (2 * t), 1.0.withSign(z.imag) * t)
+            }
+        }
+    }
+}
+
+/**
+ * Inverse hyperbolic sine is defined as:
+ * ln(z + sqrt(z^2 + 1))
+ */
+fun arcsinh(z: Complex): Complex {
+    val inner = z + sqrt((z * z + ONE))
+    return ln(inner)
+}
+
 
 /**
  * Roots of unity.
@@ -83,6 +112,7 @@ operator fun Number.div(c: Complex) = Complex.ONE / c
 
 /**
  * Defines complex numbers and their algebraic operations.
+ *
  * @param real the real component
  * @param imag the imaginary component
  */
@@ -133,15 +163,20 @@ class Complex(val real: Double, val imag: Double) {
 
     fun normSquared() = real * real + imag * imag
 
+    fun norm() = sqrt(real * real + imag * imag)
+    fun mod() = norm()
+
     fun abs(): Double = sqrt(this.normSquared())
 
-    fun phase(): Double = atan(imag / real)
+    //    fun phase(): Double = atan(imag / real)
+    fun phase(): Double = atan2(imag, real)
 
     fun pow(a: Double) = exp(ln(this) * a)
 
     fun pow(a: Number) = exp(ln(this) * a)
 
     fun pow(a: Complex) = exp(ln(this) * a)
+
 
     override fun toString(): String {
         return when {
@@ -164,6 +199,11 @@ class Complex(val real: Double, val imag: Double) {
          * Complex 1 = 1 + 0i
          */
         val ONE = Complex(1.0, 0.0)
+
+        /**
+         * Complex 1i = 0 + 1i
+         */
+        val i = Complex(0.0, 1.0)
 
         const val DEFAULT_TOLERANCE = 1.0E-15
 
@@ -196,23 +236,5 @@ class Complex(val real: Double, val imag: Double) {
     infix fun to(exponent: Complex) = this.pow(exponent)
 
     infix fun to(exponent: Number) = this.pow(exponent)
-
-    fun asinh(): Complex {
-        val i = Complex(0.0, 1.0)
-        val inner = i * this + (Complex(1.0, 0.0) - this * this).sqrt()
-        return -i * inner.log()
-    }
-
-    fun sqrt(): Complex {
-        val r = hypot(real, imag)
-        val theta = atan2(imag, real) / 2
-        return Complex(sqrt(r) * cos(theta), sqrt(r) * sin(theta))
-    }
-
-    fun log(): Complex {
-        val r = hypot(real, imag)
-        val theta = atan2(imag, real)
-        return Complex(ln(r), theta)
-    }
 
 }
