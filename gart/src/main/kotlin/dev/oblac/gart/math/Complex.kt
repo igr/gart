@@ -211,6 +211,9 @@ class Complex(val real: Double, val imag: Double) {
 
         fun fromPolar(radius: Double, theta: Double): Complex = radius * exp(i * theta)
 
+        fun real(n: Number) = Complex(n.toDouble(), 0.0)
+        fun imag(n: Number) = Complex(0.0, n.toDouble())
+
     }
 
     /**
