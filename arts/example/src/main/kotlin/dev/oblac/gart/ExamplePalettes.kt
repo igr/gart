@@ -9,9 +9,12 @@ import org.jetbrains.skia.Rect
 
 private val coolPalette: (Int) -> Palette = { Palettes.coolPalette(it) }
 private val mixPalette: (Int) -> Palette = { Palettes.mixPalette(it) }
+private val colormapPalette: (Int) -> Palette = { Palettes.colormapPalette(it) }
+
 private fun paletteOf(type: Int) = when (type) {
     1 -> coolPalette
     2 -> mixPalette
+    3 -> colormapPalette
     else -> throw IllegalArgumentException("Unknown palette type: $type")
 }
 
@@ -55,13 +58,22 @@ fun main() {
             }
 
             Key.KEY_SPACE -> {
-                type = 1 + (type % 2)
+                type++
+                if (type == 4) {
+                    type = 1
+                }
                 index = 1
             }
 
             else -> {}
         }
-        println("index: $index")
+        val typeString = when (type) {
+            1 -> "cool"
+            2 -> "mix"
+            3 -> "colormap"
+            else -> throw IllegalArgumentException("Unknown palette type: $type")
+        }
+        println("$typeString[$index]")
     }
 }
 
