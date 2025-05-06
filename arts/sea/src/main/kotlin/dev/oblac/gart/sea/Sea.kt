@@ -164,7 +164,7 @@ val complexField = ComplexField.of(gart.d) { x, y ->
     fnz(Complex(x, y))
 }
 val ff = ForceField.from(gart.d) { x, y ->
-    complexField[x, y].let { c -> Vector2(c.real, c.img) }
+    complexField[x, y].let { c -> Vector2(c.real, c.imag) }
 }
 
 var points = Array(1000) {

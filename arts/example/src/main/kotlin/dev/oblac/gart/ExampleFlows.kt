@@ -34,7 +34,7 @@ fun main() {
         ComplexFunctions.simple(z)
     }
     val forceField6 = ForceField.from(gart.d) { x, y ->
-        complexField[x, y].let { c -> Vector2(c.real, c.img) }
+        complexField[x, y].let { c -> Vector2(c.real, c.imag) }
     }
 
     var ff = forceField1

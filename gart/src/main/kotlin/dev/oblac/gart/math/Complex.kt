@@ -14,7 +14,7 @@ val i = Complex(0.0, 1.0)
  */
 fun exp(c: Complex): Complex {
     val e = exp(c.real)
-    return Complex(e * cos(c.img), e * sin(c.img))
+    return Complex(e * cos(c.imag), e * sin(c.imag))
 }
 
 /**
@@ -73,46 +73,46 @@ fun ln(c: Complex) = Complex(ln(c.abs()), c.phase())
 fun roots(n: Int) =
     (1..n).map { exp(i * 2 * PI * it / n) }
 
-operator fun Number.plus(c: Complex) = Complex(this.toDouble() + c.real, c.img)
+operator fun Number.plus(c: Complex) = Complex(this.toDouble() + c.real, c.imag)
 
-operator fun Number.minus(c: Complex) = Complex(this.toDouble() - c.real, -c.img)
+operator fun Number.minus(c: Complex) = Complex(this.toDouble() - c.real, -c.imag)
 
-operator fun Number.times(c: Complex) = Complex(this.toDouble() * c.real, this.toDouble() * c.img)
+operator fun Number.times(c: Complex) = Complex(this.toDouble() * c.real, this.toDouble() * c.imag)
 
 operator fun Number.div(c: Complex) = Complex.ONE / c
 
 /**
  * Defines complex numbers and their algebraic operations.
  * @param real the real component
- * @param img the imaginary component
+ * @param imag the imaginary component
  */
-class Complex(val real: Double, val img: Double) {
+class Complex(val real: Double, val imag: Double) {
 
     constructor(real: Number, img: Number) : this(real.toDouble(), img.toDouble())
 
     override fun equals(other: Any?): Boolean {
-        return (other is Complex && real == other.real && img == other.img)
+        return (other is Complex && real == other.real && imag == other.imag)
     }
 
     override fun hashCode(): Int {
-        return Objects.hash(real, img)
+        return Objects.hash(real, imag)
     }
 
-    operator fun unaryMinus() = Complex(-real, -img)
+    operator fun unaryMinus() = Complex(-real, -imag)
 
-    operator fun plus(c: Complex) = Complex(real + c.real, img + c.img)
+    operator fun plus(c: Complex) = Complex(real + c.real, imag + c.imag)
 
-    operator fun plus(n: Number) = Complex(real + n.toDouble(), img)
+    operator fun plus(n: Number) = Complex(real + n.toDouble(), imag)
 
-    operator fun minus(c: Complex) = Complex(real - c.real, img - c.img)
+    operator fun minus(c: Complex) = Complex(real - c.real, imag - c.imag)
 
-    operator fun minus(n: Number) = Complex(real - n.toDouble(), img)
+    operator fun minus(n: Number) = Complex(real - n.toDouble(), imag)
 
-    operator fun times(c: Complex) = Complex(real * c.real - img * c.img, real * c.img + img * c.real)
+    operator fun times(c: Complex) = Complex(real * c.real - imag * c.imag, real * c.imag + imag * c.real)
 
-    operator fun times(n: Number) = Complex(n.toDouble() * real, n.toDouble() * img)
+    operator fun times(n: Number) = Complex(n.toDouble() * real, n.toDouble() * imag)
 
-    operator fun div(n: Number) = Complex(real / n.toDouble(), img / n.toDouble())
+    operator fun div(n: Number) = Complex(real / n.toDouble(), imag / n.toDouble())
 
     operator fun div(c: Complex): Complex {
         val den = c.normSquared()
@@ -124,18 +124,18 @@ class Complex(val real: Double, val img: Double) {
     }
 
     operator fun component1() = real
-    operator fun component2() = img
+    operator fun component2() = imag
 
     /**
      * Complex conjugate = x-y*i.
      */
-    fun conjugate() = Complex(real, -img)
+    fun conjugate() = Complex(real, -imag)
 
-    fun normSquared() = real * real + img * img
+    fun normSquared() = real * real + imag * imag
 
     fun abs(): Double = sqrt(this.normSquared())
 
-    fun phase(): Double = atan(img / real)
+    fun phase(): Double = atan(imag / real)
 
     fun pow(a: Double) = exp(ln(this) * a)
 
@@ -145,10 +145,10 @@ class Complex(val real: Double, val img: Double) {
 
     override fun toString(): String {
         return when {
-            isPracticallyZero(img) -> "$real"
-            isPracticallyZero(real) -> "${img}i"
-            img < 0 -> "$real-${-img}i"
-            else -> "${real}+${img}i"
+            isPracticallyZero(imag) -> "$real"
+            isPracticallyZero(real) -> "${imag}i"
+            imag < 0 -> "$real-${-imag}i"
+            else -> "${real}+${imag}i"
         }
     }
 
@@ -196,4 +196,23 @@ class Complex(val real: Double, val img: Double) {
     infix fun to(exponent: Complex) = this.pow(exponent)
 
     infix fun to(exponent: Number) = this.pow(exponent)
+
+    fun asinh(): Complex {
+        val i = Complex(0.0, 1.0)
+        val inner = i * this + (Complex(1.0, 0.0) - this * this).sqrt()
+        return -i * inner.log()
+    }
+
+    fun sqrt(): Complex {
+        val r = hypot(real, imag)
+        val theta = atan2(imag, real) / 2
+        return Complex(sqrt(r) * cos(theta), sqrt(r) * sin(theta))
+    }
+
+    fun log(): Complex {
+        val r = hypot(real, imag)
+        val theta = atan2(imag, real)
+        return Complex(ln(r), theta)
+    }
+
 }
