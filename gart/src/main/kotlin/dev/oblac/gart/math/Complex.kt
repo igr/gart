@@ -66,8 +66,11 @@ fun sec(c: Complex) = Complex.ONE / cos(c)
 
 /**
  * The natural logarithm.
+ * \ln(z) = \ln|z| + i\arg(z)
  */
 fun ln(c: Complex) = Complex(ln(c.abs()), c.phase())
+
+fun floor(z: Complex) = Complex(floor(z.real), floor(z.imag))
 
 /**
  * Square Root.
@@ -175,7 +178,6 @@ class Complex(val real: Double, val imag: Double) {
     fun pow(a: Number) = exp(ln(this) * a)
 
     fun pow(a: Complex) = exp(ln(this) * a)
-
 
     override fun toString(): String {
         return when {
