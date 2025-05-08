@@ -9,13 +9,15 @@ import dev.oblac.gart.color.Palettes
 import dev.oblac.gart.gfx.drawBorder
 import dev.oblac.gart.gfx.drawImage
 import dev.oblac.gart.gfx.fillOf
-import dev.oblac.gart.math.Complex
+import dev.oblac.gart.math.Complex.Companion.imag
+import dev.oblac.gart.math.Complex.Companion.real
+import dev.oblac.gart.math.ln
 import dev.oblac.gart.math.map
-import dev.oblac.gart.math.sin
 import org.jetbrains.skia.Canvas
+import kotlin.math.floor
 
 fun main() {
-    val gart = Gart.of("z3", 1024, 1024)
+    val gart = Gart.of("z4", 1024, 1024)
     println(gart)
 
     val d = gart.d
@@ -35,38 +37,42 @@ fun main() {
             Key.KEY_S -> ndx--
             else -> {}
         }
-        p = Palettes.colormapPalette(ndx)
+        p = Palettes.colormapPalette(ndx).expand(256)
         println(ndx)
         draw(c, d)
     }
 }
 
-private var ndx = 1
+private var ndx = 4
 
-private var p = Palettes.colormap093.expand(128)
+private var p = Palettes.colormap060.expand(256)
+private var p2 = Palettes.colormap038.expand(256)
 
 private fun draw(c: Canvas, d: Dimension) {
     c.clear(Colors.black)
-//    c.rotate(-90f, d.cx, d.cy)
+    //c.rotate(-180f, d.cx, d.cy)
 
     for (j in 0 until d.h) {
-        val y = map(j, 0, d.h, -4, 2)
+        val y = map(j, 0, d.h, -1, 1)
         for (i in 0 until d.w) {
-            val x = map(i, 0, d.w, -4, 2)
+            val x = map(i, 0, d.w, -2, 0)
 
             // formula
-            val z1 = sin(Complex(x, y)) / Complex(x, y)
-
+            val z = real(floor(6 * y + x*2)) + ln(imag(4 * x * x))
             // draw
-            val z3 = z1
-//            val r = z3.norm() + (x - 2 * y) + (z3.phase() / 4)
-            val r = z3.norm() + (z3.phase() / 4)
-            val v = r / 2
+            val r = z.real
+            val v = r / 1.6 + z.phase()
 
-            val color = p.safe((v * 255).toInt())
+            val color =
+                if (z.phase() < 0.55) {
+                    p2.safe((v * 255).toInt())
+                } else {
+                    p.safe((v * 255).toInt())
+                }
 
-            c.drawPoint(i.toFloat(), j.toFloat(), fillOf(color))
+//            c.drawPoint(i.toFloat(), j.toFloat(), fillOf(color))
+            c.drawCircle(i.toFloat(), j.toFloat(), 2f, fillOf(color))
         }
     }
-    c.drawBorder(d, 20f, BgColors.elegantDark)
+    c.drawBorder(d, 20f, BgColors.clottedCream)
 }
