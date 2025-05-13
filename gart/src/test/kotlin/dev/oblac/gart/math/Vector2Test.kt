@@ -8,9 +8,9 @@ class Vector2Test {
 
     @Test
     fun testAngle() {
-        assertEquals(Radians.ZERO.toFloat(), Vector2(1f, 0f).angle.toFloat(), 0.0001f)
-        assertEquals(Radians.PI_HALF.toFloat(), Vector2(0f, 1f).angle.toFloat(), 0.0001f)
-        assertEquals(Radians.PI.toFloat(), Vector2(-1f, 0f).angle.toFloat(), 0.0001f)
-        assertEquals(Radians(-PIf / 2).toFloat(), Vector2(0f, -1f).angle.toFloat(), 0.0001f)
+        assertEquals(Radians.ZERO.value, Vector2(1f, 0f).angle.radians(), 0.0001f)
+        assertEquals(Radians.PI_HALF.value, Vector2(0f, 1f).angle.radians(), 0.0001f)
+        assertEquals(Radians.PI.value, Vector2(-1f, 0f).angle.radians(), 0.0001f)
+        assertEquals(Radians(-PIf / 2).value, Vector2(0f, -1f).angle.radians(), 0.0001f)
     }
 }

@@ -25,7 +25,7 @@ data class Vector2(val x: Float, val y: Float) {
     /**
      * Returns the angle of the vector in radians.
      */
-    val angle by lazy { Radians(atan2(y, x)) }
+    val angle by lazy { Radians.of(atan2(y, x)) }
 
     companion object {
         val ZERO = Vector2(0f, 0f)

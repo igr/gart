@@ -1,7 +1,7 @@
 package dev.oblac.gart.gfx
 
+import dev.oblac.gart.angles.Angle
 import dev.oblac.gart.angles.Degrees
-import dev.oblac.gart.angles.Radians
 import dev.oblac.gart.angles.cos
 import dev.oblac.gart.angles.sin
 import org.jetbrains.skia.Point
@@ -14,12 +14,12 @@ import org.jetbrains.skia.Point
  * @param offset the initial offset of the spiral
  * @param loop the number of times the spiral loops around, default 1
  */
-fun createSpiral(center: Point, radius: Float, steps: Int, offset: Radians, loop: Int = 1): List<Point> {
+fun createSpiral(center: Point, radius: Float, steps: Int, offset: Angle, loop: Int = 1): List<Point> {
     val points = mutableListOf<Point>()
     var angle = offset
     var r = 0f
     val deltaR = radius / steps
-    val deltaAngle = Degrees(loop * 360f).radians() / steps
+    val deltaAngle = Degrees.of(loop * 360f) / steps
     for (i in 0 until steps) {
         // create spiral with polar coordinates
         val x = center.x + r * cos(angle)
@@ -28,7 +28,6 @@ fun createSpiral(center: Point, radius: Float, steps: Int, offset: Radians, loop
         angle += deltaAngle
         r += deltaR
     }
-
 
     return points
 }

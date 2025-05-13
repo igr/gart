@@ -13,7 +13,6 @@ val gart = Gart.of(
     w, h, 1
 )
 
-
 typealias BuildingFunction = (x: Float, y: Float) -> Building
 
 fun towerBuilding(side: Float, clr: Colors): BuildingFunction = { x, y ->

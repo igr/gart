@@ -1,5 +1,6 @@
 package dev.oblac.gart
 
+import dev.oblac.gart.angles.Angle
 import dev.oblac.gart.angles.Degrees
 import dev.oblac.gart.color.Colors
 import dev.oblac.gart.gfx.Triangle
@@ -26,7 +27,7 @@ class Sprite(surface: Surface) {
         return of(g)
     }
 
-    fun cropTriangle(p: Point, size: Float, angle: Degrees = Degrees.ZERO): Sprite {
+    fun cropTriangle(p: Point, size: Float, angle: Angle = Degrees.ZERO): Sprite {
         val radius = size / 2
         val triangle = Triangle.equilateral(p, radius, angle)
 
@@ -38,7 +39,7 @@ class Sprite(surface: Surface) {
         target.save()
         target.clear(Colors.transparent)
         target.translate(-p.x + radius, -p.y + radius)
-        target.rotate(-angle.toFloat() + 30f, p.x, p.y) // to keep the triangle upright
+        target.rotate(-angle.degrees() + 30f, p.x, p.y) // to keep the triangle upright
         target.clipPath(triangle.path)
 
         // Draw the source image onto the target canvas

@@ -1,6 +1,6 @@
 package dev.oblac.gart.gfx
 
-import dev.oblac.gart.angles.Degrees
+import dev.oblac.gart.angles.Angle
 import dev.oblac.gart.math.PIf
 import dev.oblac.gart.math.dist
 import dev.oblac.gart.math.rnd
@@ -63,7 +63,7 @@ data class Triangle(val a: Point, val b: Point, val c: Point) {
          * All corners of the triangle are on the circle, i.e., radius is the distance
          * from the center to any corner.
          */
-        fun equilateral(c: Point, radius: Float, angle: Degrees) = equilateralTriangle(c, radius, angle)
+        fun equilateral(c: Point, radius: Float, angle: Angle) = equilateralTriangle(c, radius, angle)
     }
 }
 
@@ -89,10 +89,10 @@ fun randomEquilateralTriangle(c: Point, sideLength: Float): Triangle {
 }
 
 
-private fun equilateralTriangle(c: Point, radius: Float, angle: Degrees): Triangle {
+private fun equilateralTriangle(c: Point, radius: Float, angle: Angle): Triangle {
     val cx = c.x
     val cy = c.y
-    val radians = angle.radians().toFloat()
+    val radians = angle.radians()
 
     // Calculate the 3 vertices
     val x1 = cx + cos(radians) * radius

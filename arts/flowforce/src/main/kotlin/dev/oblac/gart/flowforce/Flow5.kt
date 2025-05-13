@@ -11,7 +11,6 @@ import dev.oblac.gart.force.ForceField
 import dev.oblac.gart.force.VecForce
 import dev.oblac.gart.gfx.*
 import dev.oblac.gart.math.HALF_PIf
-import dev.oblac.gart.math.PIf
 import dev.oblac.gart.math.rndf
 import dev.oblac.gart.toFrames
 import org.jetbrains.skia.Color
@@ -38,7 +37,7 @@ fun main() {
                 return@of VecForce(Radians(HALF_PIf), 0f)
             }
         }
-        VecForce(Radians(PIf) + Degrees(x * y).radians(), 2f)
+        VecForce(Radians.PI + Degrees(x * y), 2f)
     }
 
     // prepare points

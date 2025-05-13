@@ -4,6 +4,7 @@ import dev.oblac.gart.Dimension
 import dev.oblac.gart.Gart
 import dev.oblac.gart.Gartvas
 import dev.oblac.gart.Sprite
+import dev.oblac.gart.angles.Angle
 import dev.oblac.gart.angles.Degrees
 import dev.oblac.gart.color.BgColors
 import dev.oblac.gart.color.Palettes
@@ -35,18 +36,18 @@ fun main() {
 
     val l = Lissajous(d.center, 20f, 20f, 0.1f, 0.2f)
 
-    var angle = Degrees.ZERO
+    var angle: Angle = Degrees.ZERO
 
     val d1 = Dimension(d.w - 4, d.h - 4)
     val m = gart.movieGif()
 
     m.record(w).show { c, d, f ->
-        c.rotate(angle.toFloat(), d.cx, d.cy)
+        c.rotate(angle.degrees(), d.cx, d.cy)
         l.step(0.1f)
 
         angle += Degrees(0.1f)
 
-        val tSize = round(280f + sin(angle.toFloat() * 0.1f) * 100f)
+        val tSize = round(280f + sin(angle.degrees() * 0.1f) * 100f)
         val sprite = makeTriangleSprite(g, l.position(), tSize, angle)
         // we need to draw the whole thing twice to remove the occasional "see-through"
         // between the triangles
@@ -80,7 +81,7 @@ private fun drawTemplateImage(c: Canvas, d: Dimension) {
     c.drawBorder(d, 20f, BgColors.coolDark)
 }
 
-private fun makeTriangleSprite(g: Gartvas, point: Point, tSize: Float, angle: Degrees): Sprite {
+private fun makeTriangleSprite(g: Gartvas, point: Point, tSize: Float, angle: Angle): Sprite {
     val sprite = g.sprite().cropTriangle(point, tSize, angle).let {
         val hypotenuse = tSize / 2 * 1.5f
         val side = hypotenuse * 2 / 1.73f

@@ -2,6 +2,7 @@ package dev.oblac.gart.rayz
 
 import dev.oblac.gart.Dimension
 import dev.oblac.gart.Gart
+import dev.oblac.gart.angles.Angle
 import dev.oblac.gart.angles.Degrees
 import dev.oblac.gart.angles.cosf
 import dev.oblac.gart.angles.sinf
@@ -68,7 +69,7 @@ private fun drawSun(c: Canvas, d: Dimension, safe: Int): Point {
 }
 
 
-private fun drawRay(c: Canvas, from: Point, len: Int, angle: Degrees, o: Obstacle, paletteOffset: Int) {
+private fun drawRay(c: Canvas, from: Point, len: Int, angle: Angle, o: Obstacle, paletteOffset: Int) {
     val center = from
     val length = len
     val endX = center.x + length * cosf(angle)

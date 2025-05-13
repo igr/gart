@@ -5,7 +5,9 @@ import dev.oblac.gart.Gart
 import dev.oblac.gart.Gartvas
 import dev.oblac.gart.Sprite
 import dev.oblac.gart.Sprite.Companion.of
+import dev.oblac.gart.angles.Angle
 import dev.oblac.gart.angles.Degrees
+import dev.oblac.gart.angles.degrees
 import dev.oblac.gart.color.BgColors
 import dev.oblac.gart.color.Colors
 import dev.oblac.gart.color.Palettes
@@ -35,7 +37,7 @@ fun main() {
     val tSize = 450f
 
     val l = Lissajous(d.center, 1f, 1f, 1f, 2f)
-    var angle = Degrees.ZERO + Degrees.of(30f)
+    var angle = Degrees.ZERO + 30f.degrees()
 
     val sprite = makeTriangleSprite(g, l.position(), tSize, angle)
 
@@ -62,7 +64,7 @@ private fun drawTemplateImage(c: Canvas, d: Dimension) {
     c.drawBorder(d, 20f, BgColors.coolDark)
 }
 
-private fun makeTriangleSprite(g: Gartvas, point: Point, tSize: Float, angle: Degrees): Sprite {
+private fun makeTriangleSprite(g: Gartvas, point: Point, tSize: Float, angle: Angle): Sprite {
     val sprite = customCropTriangle(g.snapshot(), point, tSize, angle).let {
         val hypotenuse = tSize / 2 * 1.5f
         val side = hypotenuse * 2 / 1.73f
@@ -72,7 +74,7 @@ private fun makeTriangleSprite(g: Gartvas, point: Point, tSize: Float, angle: De
     return sprite
 }
 
-private fun customCropTriangle(image: Image, p: Point, size: Float, angle: Degrees = Degrees.ZERO): Sprite {
+private fun customCropTriangle(image: Image, p: Point, size: Float, angle: Angle = Degrees.ZERO): Sprite {
     val radius = size / 2
     val triangle = Triangle.equilateral(p, radius, angle)
 
@@ -84,7 +86,7 @@ private fun customCropTriangle(image: Image, p: Point, size: Float, angle: Degre
     target.save()
     target.clear(Colors.transparent)
     target.translate(-p.x + radius, -p.y + radius)
-    target.rotate(angle.toFloat() + 30f, p.x, p.y)
+    target.rotate(angle.degrees() + 30f, p.x, p.y)
     target.clipPath(triangle.path)
 
     target.restore()    // this is the important part, custom made chaos!!!!!!!!!!

@@ -1,5 +1,6 @@
 package dev.oblac.gart.gfx
 
+import dev.oblac.gart.angles.Angle
 import dev.oblac.gart.angles.Degrees
 import dev.oblac.gart.angles.cos
 import dev.oblac.gart.angles.sin
@@ -16,7 +17,7 @@ import org.jetbrains.skia.Point
  * @param alpha angle of the 'a'
  * @param beta angle of the `b`
  */
-sealed class RectIsometric(x: Float, y: Float, a: Float, b: Float, alpha: Degrees, beta: Degrees) {
+sealed class RectIsometric(x: Float, y: Float, a: Float, b: Float, alpha: Angle, beta: Angle) {
     val left = Point(x, y)
     val bottom: Point
     val right: Point
@@ -46,7 +47,7 @@ sealed class RectIsometric(x: Float, y: Float, a: Float, b: Float, alpha: Degree
 /**
  * Isometric top rectangular.
  */
-class RectIsometricTop(x: Float, y: Float, a: Float, b: Float, alpha: Degrees) : RectIsometric(x, y, a, b, alpha, alpha)
-class RectIsometricRight(x: Float, y: Float, a: Float, b: Float, beta: Degrees) : RectIsometric(x, y, a, b, Degrees.D90, beta)
-class RectIsometricLeft(x: Float, y: Float, a: Float, b: Float, beta: Degrees) : RectIsometric(x, y, a, b, Degrees.D90, -beta)
+class RectIsometricTop(x: Float, y: Float, a: Float, b: Float, alpha: Angle) : RectIsometric(x, y, a, b, alpha, alpha)
+class RectIsometricRight(x: Float, y: Float, a: Float, b: Float, beta: Angle) : RectIsometric(x, y, a, b, Degrees.D90, beta)
+class RectIsometricLeft(x: Float, y: Float, a: Float, b: Float, beta: Angle) : RectIsometric(x, y, a, b, Degrees.D90, -beta)
 
