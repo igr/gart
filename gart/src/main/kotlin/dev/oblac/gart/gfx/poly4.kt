@@ -28,7 +28,7 @@ data class Poly4(
             val centerX = c.x
             val centerY = c.y
 
-            val radians = angle.radians()
+            val radians = angle.radians
 
             val halfSize = sideLength / 2
 

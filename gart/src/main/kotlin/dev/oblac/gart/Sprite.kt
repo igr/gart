@@ -39,7 +39,7 @@ class Sprite(surface: Surface) {
         target.save()
         target.clear(Colors.transparent)
         target.translate(-p.x + radius, -p.y + radius)
-        target.rotate(-angle.degrees() + 30f, p.x, p.y) // to keep the triangle upright
+        target.rotate(-angle.degrees + 30f, p.x, p.y) // to keep the triangle upright
         target.clipPath(triangle.path)
 
         // Draw the source image onto the target canvas

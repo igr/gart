@@ -7,7 +7,6 @@ import dev.oblac.gart.Sprite
 import dev.oblac.gart.Sprite.Companion.of
 import dev.oblac.gart.angles.Angle
 import dev.oblac.gart.angles.Degrees
-import dev.oblac.gart.angles.degrees
 import dev.oblac.gart.color.BgColors
 import dev.oblac.gart.color.Colors
 import dev.oblac.gart.color.Palettes
@@ -37,7 +36,7 @@ fun main() {
     val tSize = 450f
 
     val l = Lissajous(d.center, 1f, 1f, 1f, 2f)
-    var angle = Degrees.ZERO + 30f.degrees()
+    var angle = Degrees.ZERO + Degrees.of(30f)
 
     val sprite = makeTriangleSprite(g, l.position(), tSize, angle)
 
@@ -86,7 +85,7 @@ private fun customCropTriangle(image: Image, p: Point, size: Float, angle: Angle
     target.save()
     target.clear(Colors.transparent)
     target.translate(-p.x + radius, -p.y + radius)
-    target.rotate(angle.degrees() + 30f, p.x, p.y)
+    target.rotate(angle.degrees + 30f, p.x, p.y)
     target.clipPath(triangle.path)
 
     target.restore()    // this is the important part, custom made chaos!!!!!!!!!!

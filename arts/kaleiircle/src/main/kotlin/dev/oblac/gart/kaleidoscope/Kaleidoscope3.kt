@@ -42,12 +42,12 @@ fun main() {
     val m = gart.movieGif()
 
     m.record(w).show { c, d, f ->
-        c.rotate(angle.degrees(), d.cx, d.cy)
+        c.rotate(angle.degrees, d.cx, d.cy)
         l.step(0.1f)
 
         angle += Degrees(0.1f)
 
-        val tSize = round(280f + sin(angle.degrees() * 0.1f) * 100f)
+        val tSize = round(280f + sin(angle.degrees * 0.1f) * 100f)
         val sprite = makeTriangleSprite(g, l.position(), tSize, angle)
         // we need to draw the whole thing twice to remove the occasional "see-through"
         // between the triangles

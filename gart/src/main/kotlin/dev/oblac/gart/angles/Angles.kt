@@ -8,64 +8,63 @@ private const val RADIANS_TO_DEGREES = 180f / PIf
 
 sealed interface Angle {
     /**
-     * Returns value in radians.
+     * Value in radians.
      */
-    fun radians(): Float
+    val radians: Float
 
     /**
-     * Returns value in degrees.
+     * Value in degrees.
      */
-    fun degrees(): Float
+    val degrees: Float
 
     operator fun plus(angle: Angle): Angle {
         return when (this) {
-            is Radians -> Radians(radians() + angle.radians())
-            is Degrees -> Degrees(degrees() + angle.degrees())
+            is Radians -> Radians(radians + angle.radians)
+            is Degrees -> Degrees(degrees + angle.degrees)
         }
     }
 
     operator fun minus(angle: Angle): Angle {
         return when (this) {
-            is Radians -> Radians(radians() - angle.radians())
-            is Degrees -> Degrees(degrees() - angle.degrees())
+            is Radians -> Radians(radians - angle.radians)
+            is Degrees -> Degrees(degrees - angle.degrees)
         }
     }
 
     operator fun times(scale: Number): Angle {
         return when (this) {
-            is Radians -> Radians(radians() * scale.toFloat())
-            is Degrees -> Degrees(degrees() * scale.toFloat())
+            is Radians -> Radians(radians * scale.toFloat())
+            is Degrees -> Degrees(degrees * scale.toFloat())
         }
     }
 
     operator fun div(scale: Number): Angle {
         return when (this) {
-            is Radians -> Radians(radians() / scale.toFloat())
-            is Degrees -> Degrees(degrees() / scale.toFloat())
+            is Radians -> Radians(radians / scale.toFloat())
+            is Degrees -> Degrees(degrees / scale.toFloat())
         }
     }
 
     operator fun unaryMinus(): Angle {
         return when (this) {
-            is Radians -> Radians(-radians())
-            is Degrees -> Degrees(-degrees())
+            is Radians -> Radians(-radians)
+            is Degrees -> Degrees(-degrees)
         }
     }
 
     operator fun compareTo(other: Angle): Int {
         return when (this) {
-            is Radians -> radians().compareTo(other.radians())
-            is Degrees -> degrees().compareTo(other.degrees())
+            is Radians -> radians.compareTo(other.radians)
+            is Degrees -> degrees.compareTo(other.degrees)
         }
     }
 
     fun normalize(): Angle
 }
 
-@JvmInline
-value class Radians(val value: Float) : Angle {
-    override fun radians() = value
-    override fun degrees() = value * RADIANS_TO_DEGREES
+data class Radians(val value: Float) : Angle {
+    override val radians = value
+    override val degrees by lazy { value * RADIANS_TO_DEGREES }
 
     override fun normalize(): Radians {
         var result = value
@@ -91,10 +90,9 @@ value class Radians(val value: Float) : Angle {
 
 private const val DEGREES_TO_RADIANS = PIf / 180f
 
-@JvmInline
-value class Degrees(val value: Float) : Angle {
-    override fun radians() = value * DEGREES_TO_RADIANS
-    override fun degrees() = value
+data class Degrees(val value: Float) : Angle {
+    override val radians by lazy { value * DEGREES_TO_RADIANS }
+    override val degrees = value
 
     override fun normalize(): Degrees {
         var result = value
@@ -118,17 +116,17 @@ value class Degrees(val value: Float) : Angle {
 }
 
 fun cos(a: Angle): Double =
-    kotlin.math.cos(a.radians().toDouble())
+    kotlin.math.cos(a.radians.toDouble())
 
 fun cosf(a: Angle): Float =
-    kotlin.math.cos(a.radians().toDouble()).toFloat()
+    kotlin.math.cos(a.radians.toDouble()).toFloat()
 
 
 fun sin(a: Angle): Double =
-    kotlin.math.sin(a.radians().toDouble())
+    kotlin.math.sin(a.radians.toDouble())
 
 fun sinf(a: Angle): Float =
-    kotlin.math.sin(a.radians().toDouble()).toFloat()
+    kotlin.math.sin(a.radians.toDouble()).toFloat()
 
 /**
  * Calculates the middle angle between two angles.
@@ -136,16 +134,13 @@ fun sinf(a: Angle): Float =
  * This means that the result is always the shortest angle between the two angles.
  */
 fun middleAngle(a: Angle, b: Angle): Angle {
-    val diff = (b - a).radians()
-    return when (diff) {
-        in -PIf..PIf -> (a + (diff / 2).radians()).normalize()
-        in PIf..DOUBLE_PIf -> (a + (diff / 2 - PIf).radians()).normalize()
-        in -DOUBLE_PIf..-PIf -> (a + (diff / 2 + PIf).radians()).normalize()
-        in DOUBLE_PIf..2 * DOUBLE_PIf -> (a + ((diff - DOUBLE_PIf) / 2).radians()).normalize()
-        in -2 * DOUBLE_PIf..-DOUBLE_PIf -> (a + ((diff + DOUBLE_PIf) / 2).radians()).normalize()
+    val diff = (b - a)
+    return when (diff.radians) {
+        in -PIf..PIf -> (a + diff / 2).normalize()
+        in PIf..DOUBLE_PIf -> (a + diff / 2 - Radians.PI).normalize()
+        in -DOUBLE_PIf..-PIf -> (a + diff / 2 + Radians.PI).normalize()
+        in DOUBLE_PIf..2 * DOUBLE_PIf -> (a + (diff - Radians.TWO_PI) / 2).normalize()
+        in -2 * DOUBLE_PIf..-DOUBLE_PIf -> (a + (diff + Radians.TWO_PI / 2)).normalize()
         else -> throw IllegalStateException("Unexpected angle difference: $diff")
     }
 }
-
-fun Number.radians(): Radians = Radians(this.toFloat())
-fun Number.degrees(): Degrees = Degrees(this.toFloat())

@@ -27,7 +27,7 @@ fun main() {
     val c = g.canvas
     draw(c, d)
 
-    //gart.saveImage(g)
+    gart.saveImage(g)
     w.show { c, d, _ ->
         c.drawImage(g.snapshot())
     }.onKey {
@@ -44,30 +44,36 @@ fun main() {
 
 private var ndx = 4
 
-private var p = Palettes.colormap004.expand(256)
+private var p = Palettes.colormap029
+    .expandReversed()
+    .expand(256)
 
 private fun draw(c: Canvas, d: Dimension) {
     c.clear(Colors.black)
-    c.rotate(-180f, d.cx, d.cy)
+    c.save()
+    c.rotate(0f, d.cx, d.cy)
 
-    for (j in 0 until d.h) {
-        val y = map(j, 0, d.h, -1, 1)
-        for (i in 0 until d.w) {
-            val x = map(i, 0, d.w, -1, 1)
+    for (j in 0 until d.h step 20) {
+        val y = map(j, 0, d.h, -0.8, 0.2)
+        for (i in 0 until d.w step 20) {
+            val x = map(i, 0, d.w, -0.8, 0.2)
 
             // formula
-            val z = real(floor(6 * y + x * 2)) + ln(imag(4 * x * x))
+            val z = real(floor(6 * y + x * 4)) + ln(imag(4 * x * y))
             // draw
-            val r = z.pow(1.3).real
-            val v = r / 1.6 + z.phase()
+            val r = z.real
+            val v = r + z.phase()
 
-            val color = p.safe(v * 20)
-            //c.drawPoint(i.toFloat(), j.toFloat(), fillOf(color))
+            val color = p.safe(v * 255)
+//            c.drawCircle(i.toFloat(), j.toFloat(), 20f, fillOf(color))
 
-            val p4 = Poly4.squareAroundPoint(Point(x, y), 10f, Radians.of(z.phase()))
+            val p4 = Poly4.squareAroundPoint(
+                Point(i, j), 60f * (x + y), Radians.of(z.phase() * 80)
+            )
             c.drawPoly4(p4, fillOf(color))
-
         }
     }
+    c.restore()
+
     c.drawBorder(d, 20f, BgColors.clottedCream)
 }

@@ -92,7 +92,7 @@ fun randomEquilateralTriangle(c: Point, sideLength: Float): Triangle {
 private fun equilateralTriangle(c: Point, radius: Float, angle: Angle): Triangle {
     val cx = c.x
     val cy = c.y
-    val radians = angle.radians()
+    val radians = angle.radians
 
     // Calculate the 3 vertices
     val x1 = cx + cos(radians) * radius

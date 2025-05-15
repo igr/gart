@@ -91,6 +91,8 @@ class Palette(internal val colors: IntArray) {
 
     fun sequence(): Sequence<Int> = colors.asSequence()
 
+    fun expandReversed() = this + this.reversed()
+
     companion object {
         fun of(vararg values: Color4f) = Palette(values.map { it.toColor() }.toIntArray())
         fun of(vararg values: java.awt.Color) = Palette(values.map { rgb(it.red, it.blue, it.green) }.toIntArray())
