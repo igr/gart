@@ -19,6 +19,9 @@ data class Tangent(
     fun toLine(): Line = Line(point1, point2)
 }
 
+/**
+ * Calculate the tangents between two circles.
+ */
 fun circleTangents(circle0: Circle, circle1: Circle): List<Tangent> {
     val x0: Float = circle0.x
     val y0: Float = circle0.y
