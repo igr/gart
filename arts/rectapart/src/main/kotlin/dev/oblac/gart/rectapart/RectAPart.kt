@@ -2,7 +2,7 @@ package dev.oblac.gart.rectapart
 
 import dev.oblac.gart.Gart
 import dev.oblac.gart.color.Colors
-import dev.oblac.gart.gfx.createCircle
+import dev.oblac.gart.gfx.createCircleOfPoints
 import dev.oblac.gart.gfx.randomPointBetween
 import dev.oblac.gart.gfx.strokeOfWhite
 import dev.oblac.gart.gfx.toPath
@@ -38,7 +38,7 @@ fun main() {
 }
 
 private fun draw(c: Canvas, type: Int) {
-    val shape = createCircle(Point(512f, 512f), 480f, type)
+    val shape = createCircleOfPoints(Point(512f, 512f), 480f, type)
 
     var s = shape
     repeat(20) {

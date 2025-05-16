@@ -1,19 +1,22 @@
 package dev.oblac.gart.gfx
 
+import dev.oblac.gart.angles.Angle
 import dev.oblac.gart.angles.Degrees
-import dev.oblac.gart.angles.Radians
 import dev.oblac.gart.angles.cos
 import dev.oblac.gart.angles.sin
 import org.jetbrains.skia.Canvas
 import org.jetbrains.skia.Paint
 import org.jetbrains.skia.Point
 import org.jetbrains.skia.Rect
+import kotlin.math.pow
+import kotlin.math.sqrt
 
 data class Circle(val x: Float, val y: Float, val radius: Float) {
     val center = Point(x, y)
 
     companion object {
-        fun of(center: Point, radius: Number): Circle = Circle(center.x, center.y, radius.toFloat())
+        fun of(center: Point, radius: Number) = Circle(center.x, center.y, radius.toFloat())
+        fun of(a: Point, b: Point, c: Point) = circleFrom3Points(a, b, c)
     }
 
     fun contains(x: Float, y: Float): Boolean {
@@ -29,13 +32,55 @@ data class Circle(val x: Float, val y: Float, val radius: Float) {
     }
 
     fun rect() = Rect(x - radius, y - radius, x + radius, y + radius)
+
+    fun tangentAtPoint(pointOnCircle: Point): DLine {
+        // Vector from center to point
+        val vx = pointOnCircle.x - x
+        val vy = pointOnCircle.y - y
+
+        // Tangent is perpendicular to radius → rotate by 90°: (-vy, vx)
+        val rawDx = -vy
+        val rawDy = vx
+
+        // Normalize (optional)
+        val length = sqrt(rawDx * rawDx + rawDy * rawDy)
+        val dx = rawDx / length
+        val dy = rawDy / length
+
+        return DLine(pointOnCircle, DirectionVector(dx, dy))
+    }
+
+    fun pointOnCircle(angleRad: Angle): Point {
+        val x = x + radius * cos(angleRad)
+        val y = y + radius * sin(angleRad)
+        return Point(x, y)
+    }
+
+    fun movePointAlongCircle(point: Point, angleRadians: Angle): Point {
+        // vector from center to point
+        val dx = point.x - x
+        val dy = point.y - y
+
+        // rotate vector by angle
+        val cosA = cos(angleRadians)
+        val sinA = sin(angleRadians)
+
+        val rotatedX = dx * cosA - dy * sinA
+        val rotatedY = dx * sinA + dy * cosA
+
+        // translate back to absolute position
+        return Point(
+            x = x + rotatedX,
+            y = y + rotatedY
+        )
+    }
 }
 
 fun Canvas.drawCircle(circle: Circle, paint: Paint) = drawCircle(circle.center.x, circle.center.y, circle.radius, paint)
 
-fun createCircle(center: Point, radius: Float, steps: Int): List<Point> {
+fun createCircleOfPoints(center: Point, radius: Float, steps: Int): List<Point> {
     val points = mutableListOf<Point>()
-    val deltaAngle = Radians(360f / steps)
+    val deltaAngle = Degrees(360f / steps)
     for (i in 0 until steps) {
         val angle = deltaAngle * i
         val x = center.x + radius * cos(angle)
@@ -96,4 +141,41 @@ fun Canvas.drawCirclePie(
         true,           // create PIE shape with center
         paint
     )
+}
+
+
+fun circleFrom3Points(a: Point, b: Point, c: Point): Circle {
+    // Calculate the midpoints of AB and BC
+    val midAB = Point((a.x + b.x) / 2f, (a.y + b.y) / 2f)
+    val midBC = Point((b.x + c.x) / 2f, (b.y + c.y) / 2f)
+
+    // Slopes of AB and BC
+    val dxAB = b.x - a.x
+    val dyAB = b.y - a.y
+    val dxBC = c.x - b.x
+    val dyBC = c.y - b.y
+
+    // Perpendicular slopes (handle vertical lines)
+    val slopeAB = if (dyAB == 0f) Float.POSITIVE_INFINITY else -dxAB / dyAB
+    val slopeBC = if (dyBC == 0f) Float.POSITIVE_INFINITY else -dxBC / dyBC
+
+    val center = if (slopeAB.isInfinite()) {
+        // AB is horizontal, so perpendicular is vertical
+        val x = midAB.x
+        val y = slopeBC * (x - midBC.x) + midBC.y
+        Point(x, y)
+    } else if (slopeBC.isInfinite()) {
+        // BC is horizontal, so perpendicular is vertical
+        val x = midBC.x
+        val y = slopeAB * (x - midAB.x) + midAB.y
+        Point(x, y)
+    } else {
+        // General case: intersect the two perpendicular bisectors
+        val x = (slopeAB * midAB.x - slopeBC * midBC.x + midBC.y - midAB.y) / (slopeAB - slopeBC)
+        val y = slopeAB * (x - midAB.x) + midAB.y
+        Point(x, y)
+    }
+
+    val radius = sqrt((center.x - a.x).pow(2) + (center.y - a.y).pow(2))
+    return Circle.of(center, radius)
 }

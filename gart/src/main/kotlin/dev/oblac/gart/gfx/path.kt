@@ -1,9 +1,6 @@
 package dev.oblac.gart.gfx
 
-import org.jetbrains.skia.Path
-import org.jetbrains.skia.PathMeasure
-import org.jetbrains.skia.Point
-import org.jetbrains.skia.Region
+import org.jetbrains.skia.*
 
 fun pathOf(first: Point, vararg points: Point): Path {
     val path = Path().moveTo(first)
@@ -88,4 +85,47 @@ fun Path.toRegion(): Region {
     clipRegion.setRect(this.bounds.toIRect())
     region.setPath(this, clipRegion)
     return region
+}
+
+fun combinePathsByAppending(vararg paths: Path): Path {
+    val resultPath = Path()
+    for (path in paths) {
+        resultPath.addPath(path)
+    }
+    return resultPath
+}
+
+fun combinePathsWithOp(operation: PathOp, vararg paths: Path): Path {
+    if (paths.isEmpty()) {
+        // Or return Path() if that's preferred for empty input
+        throw IllegalArgumentException("At least one path must be provided for boolean operations.")
+    }
+    if (paths.size == 1) {
+        return paths[0]
+    }
+
+    var currentResultPath: Path = Path().addPath(paths[0]) // Start with a clone of the first path
+
+    for (i in 1 until paths.size) {
+        val nextPath = paths[i]
+        val newResultPath = Path.makeCombining(currentResultPath, nextPath, operation)
+
+        // Close the previous currentResultPath if it's not the initial cloned path
+        // and a new path was successfully created.
+        // This is important because Path.op creates new native Path objects.
+        if (currentResultPath !== paths[0] && currentResultPath !== newResultPath) {
+            currentResultPath.close()
+        }
+
+        if (newResultPath == null) {
+            // Operation failed or resulted in an empty path.
+            // Close the currentResultPath if it was a temporary one.
+            if (currentResultPath !== paths[0]) { // if it was a temp path, not the initial clone
+                currentResultPath.close()
+            }
+            return Path() // Return an empty path
+        }
+        currentResultPath = newResultPath
+    }
+    return currentResultPath // This is the final combined path
 }
