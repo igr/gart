@@ -35,7 +35,7 @@ fun main() {
         }
 }
 
-fun random(c: Canvas, d: Dimension) {
+private fun random(c: Canvas, d: Dimension) {
     c.clear(Colors.white)
     for (i in 0 until POINTS) {
         val p = Point.random(d)
@@ -43,7 +43,7 @@ fun random(c: Canvas, d: Dimension) {
     }
 }
 
-fun halton(c: Canvas, d: Dimension) {
+private fun halton(c: Canvas, d: Dimension) {
     c.clear(Colors.white)
     val halton = HaltonSequenceGenerator(2)
     for (i in 0 until POINTS) {
@@ -55,7 +55,7 @@ fun halton(c: Canvas, d: Dimension) {
     }
 }
 
-fun perlin(c: Canvas, d: Dimension) {
+private fun perlin(c: Canvas, d: Dimension) {
     c.clear(Colors.white)
     val perlin = PerlinNoise(8)
     for (i in 0 until POINTS) {
@@ -67,7 +67,7 @@ fun perlin(c: Canvas, d: Dimension) {
     }
 }
 
-fun perlin2(c: Canvas, d: Dimension) {
+private fun perlin2(c: Canvas, d: Dimension) {
     c.clear(Colors.white)
     for (i in 0 until POINTS) {
         val x = Perlin.noise()
@@ -78,7 +78,7 @@ fun perlin2(c: Canvas, d: Dimension) {
     }
 }
 
-fun poissonDiskSampling(c: Canvas, d: Dimension) {
+private fun poissonDiskSampling(c: Canvas, d: Dimension) {
     c.clear(Colors.white)
     val noise = PoissonDiskSamplingNoise()
     val samples = noise.generate(0.0, 0.0, d.w.toDouble(), d.h.toDouble(), POINTS)
@@ -87,7 +87,7 @@ fun poissonDiskSampling(c: Canvas, d: Dimension) {
     }
 }
 
-fun poissonDiskSampling2(c: Canvas, d: Dimension) {
+private fun poissonDiskSampling2(c: Canvas, d: Dimension) {
     c.clear(Colors.white)
     poissonDiskSamplingNoise(d, 10.0).forEach {
         c.drawPoint(it, color)
