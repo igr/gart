@@ -25,7 +25,7 @@ fun Rect.path(): Path {
         lineTo(points[1])
         lineTo(points[2])
         lineTo(points[3])
-        close()
+        closePath()
     }
 }
 
