@@ -38,7 +38,16 @@
 
 ⭐️ [Kaleidoscopics](arts/kaleiircle/README.md)
 
-<img src="arts/kaleiircle/kaleiircle_thumb.png">
+<p align="center">
+<img src="arts/kaleiircle/kaleiircle_thumb.png" align="left">
+<img src="arts/kaleiircle/kaleidoscope_thumb.png" align="center">
+<img src="arts/kaleiircle/kaleidoscope2_thumb.png" align="center">
+<img src="arts/kaleiircle/kaleidoscope2-1_thumb.png" align="center">
+<img src="arts/kaleiircle/kaleidoscope2-2_thumb.png" align="center">
+<img src="arts/kaleiircle/kaleidoscope3_thumb.png" align="center">
+</p>
+
+<br clear="both">
 
 ⭐️ [Tick Tile Tock](arts/ticktiletock/README.md)
 
@@ -58,6 +67,7 @@
 <p align="center">
 <img src="arts/lettero/LetterO_thumb.png" align="left">
 <img src="arts/lettero/LetterO2_thumb.png" align="left">
+<img src="arts/lettero/lettero3_thumb.png" align="left">
 </p>
 
 <br clear="both">
@@ -72,7 +82,13 @@
 
 ⭐️ [Spiral](arts/spiral/README.md)
 
-<img src="arts/spiral/spiral_thumb.png">
+<p align="center">
+<img src="arts/spiral/spiral_thumb.png" align="left">
+<img src="arts/spiral/spiral2_thumb.png" align="left">
+<img src="arts/spiral/spiral3_thumb.png" align="left">
+</p>
+
+<br clear="both">
 
 ⭐️ [Lissajous](arts/lissajous/README.md)
 
@@ -267,4 +283,23 @@
 <img src="arts/rotoro/rotoro2-0_thumb.png" align="left">
 <img src="arts/rotoro/rotoro2-1_thumb.png" align="left">
 <img src="arts/rotoro/rotoro2-2_thumb.png" align="left">
+</p>
+
+<br clear="both">
+
+⭐️ [z](arts/z/README.md)
+<p align="center">
+<img src="arts/z/z1_thumb.png" align="left">
+<img src="arts/z/z2_thumb.png" align="left">
+<img src="arts/z/z3_thumb.png" align="left">
+<img src="arts/z/z4_thumb.png" align="left">
+<img src="arts/z/z5_thumb.png" align="left">
+</p>
+
+<br clear="both">
+
+⭐️ [spiro](arts/spirograph/README.md)
+
+<p align="center">
+<img src="arts/spirograph/spirograph1_thumb.png" align="left">
 </p>
