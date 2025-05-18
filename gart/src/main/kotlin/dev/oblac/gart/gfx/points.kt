@@ -54,5 +54,5 @@ fun randomPointBetween(p1: Point, p2: Point): Point {
     return Point(p1.x, rndf(p1.y, p2.y))
 }
 
-fun collinear(point1: Point, point2: Point, point3: Point) =
+fun isCollinear(point1: Point, point2: Point, point3: Point) =
     (point2.x - point1.x) * (point3.y - point1.y) == (point2.y - point1.y) * (point3.x - point1.x)

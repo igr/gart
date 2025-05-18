@@ -31,13 +31,15 @@ data class DirectionVector(val dx: Float, val dy: Float) {
     }
 }
 
-data class DLine(val a: Point, val dvec: DirectionVector) {
+data class DLine(val p: Point, val dvec: DirectionVector) {
     fun pointFromStart(t: Float): Point {
-        return Point(a.x + t * dvec.dx, a.y + t * dvec.dy)
+        val dir = dvec.normalize()
+        return Point(p.x + t * dir.dx, p.y + t * dir.dy)
     }
 
     fun pointFromEnd(t: Float): Point {
-        return Point(a.x - t * dvec.dx, a.y - t * dvec.dy)
+        val dir = dvec.normalize()
+        return Point(p.x - t * dir.dx, p.y - t * dir.dy)
     }
 
     fun perpendicularDLine(): DLine {
@@ -45,7 +47,7 @@ data class DLine(val a: Point, val dvec: DirectionVector) {
             dx = -dvec.dy,
             dy = dvec.dx
         )
-        return DLine(a = a, dvec = perpDVec)
+        return DLine(p = p, dvec = perpDVec)
     }
 
     fun toLine(start: Point, distance: Float): Line {
@@ -64,6 +66,18 @@ data class DLine(val a: Point, val dvec: DirectionVector) {
                 y = start.y + uy * distance
             )
         )
+    }
+
+    companion object {
+        fun of(prev: Point, current: Point, next: Point): DLine {
+            return DLine(
+                p = current,
+                dvec = DirectionVector(
+                    dx = (next.x - prev.x) / 2,
+                    dy = (next.y - prev.y) / 2
+                )
+            )
+        }
     }
 }
 

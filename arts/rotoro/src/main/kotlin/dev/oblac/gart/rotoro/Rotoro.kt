@@ -122,7 +122,7 @@ fun tape(canvas: Canvas, cells: List<Cell>, circles: List<Circle>, index: Int, t
 
 fun tape2(tIn: Line, tOuts: List<Line>, previousCircle: Circle, circle: Circle, nextCircle: Circle): List<Line> {
     // there are 2 cases
-    if (collinear(previousCircle.center, circle.center, nextCircle.center)) {
+    if (isCollinear(previousCircle.center, circle.center, nextCircle.center)) {
         // 1) when prev, current and next circles are aligned
         // continue with two closest next tangents
         val sorted = tOuts.sortedBy { tIn.b.distanceTo(it.a) }

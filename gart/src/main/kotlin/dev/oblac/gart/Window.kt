@@ -14,8 +14,8 @@ open class Window(val d: Dimension, val fps: Int, internal val printFps: Boolean
     }
 
     /**
-     * Shows the gartvas image.
-     * Usually used for static images already generated.
+     * Shows the Gartvas image.
+     * Usually used for static images that are already generated.
      */
     fun showImage(gartvas: Gartvas): WindowView {
         val snapshot = gartvas.snapshot()
@@ -27,6 +27,12 @@ open class Window(val d: Dimension, val fps: Int, internal val printFps: Boolean
     fun showImage(image: Image): WindowView {
         return show { c, _, _ ->
             c.drawImage(image, 0f, 0f)
+        }
+    }
+
+    fun showImage(image: () -> Image): WindowView {
+        return show { c, _, _ ->
+            c.drawImage(image(), 0f, 0f)
         }
     }
 
