@@ -93,6 +93,12 @@ class Palette(internal val colors: IntArray) {
 
     fun expandReversed() = this + this.reversed()
 
+    fun shuffle(): Palette {
+        val clone = colors.clone()
+        clone.shuffle()
+        return Palette(clone)
+    }
+
     companion object {
         fun of(vararg values: Color4f) = Palette(values.map { it.toColor() }.toIntArray())
         fun of(vararg values: java.awt.Color) = Palette(values.map { rgb(it.red, it.blue, it.green) }.toIntArray())
