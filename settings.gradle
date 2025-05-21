@@ -1,3 +1,7 @@
+plugins {
+    id 'org.gradle.toolchains.foojay-resolver-convention' version '1.0.0'
+}
+
 include 'gart'
 include 'gart-box2d'
 
@@ -39,3 +43,4 @@ include 'arts:alien'
 include 'arts:rayz'
 include 'arts:z'
 include 'arts:spirograph'
+include 'arts:sf'
