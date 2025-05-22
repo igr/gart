@@ -28,11 +28,10 @@ private val colorBack = RetroColors.black01
 private val colorLine = RetroColors.white01
 private val colorSun = RetroColors.red01
 
-//private val colorSun = 0xFFcb4d23
 private fun draw(c: Canvas, d: Dimension) {
     c.clear(colorBack)
 
-    // diagonal lines starting from right corner of the image
+    // diagonal lines starting from the right corner of the image
     val paths = mutableListOf<Line>()
     var gap = 110f
     val steps = 24
@@ -41,7 +40,7 @@ private fun draw(c: Canvas, d: Dimension) {
         val pointRight = Point(d.wf, d.hf - i * gap * 0.5f) // angle
 
         val line = Line(pointRight, pointBottom)
-        val longerLine = Line(line.pointFromStartLen(-50f), line.pointFromEndLen(-50f))
+        val longerLine = line.shortenLen(-50f)
 
         paths.add(longerLine)
 

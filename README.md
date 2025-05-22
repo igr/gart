@@ -222,6 +222,7 @@
 ⭐️ [Stripes](arts/stripes/README.md)
 <p align="center">
 <img src="arts/stripes/stripes_thumb.png" align="left">
+<img src="arts/stripes/tolerance_thumb.png" align="left">
 </p>
 
 <br clear="both">
@@ -302,4 +303,13 @@
 
 <p align="center">
 <img src="arts/spirograph/spirograph1_thumb.png" align="left">
+<img src="arts/spirograph/spirograph2_thumb.png" align="left">
+</p>
+
+<br clear="both">
+
+⭐️ [SF](arts/sf/README.md)
+
+<p align="center">
+<img src="arts/sf/sf1_thumb.png" align="left">
 </p>

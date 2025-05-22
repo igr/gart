@@ -15,6 +15,14 @@ data class Line(val a: Point, val b: Point) {
         return Point(a.x + t * dx, a.y + t * dy)
     }
 
+    /**
+     * Returns a new line that is shorter or longer for the given length.
+     * Positive length means shorter (!), negative longer.
+     * (to match the other functions)
+     */
+    fun shortenLen(len: Float) =
+        Line(this.pointFromStartLen(len), this.pointFromEndLen(len))
+
     fun pointFromStartLen(len: Float): Point {
         val ratio = len / length()
         return pointFromStart(ratio)
