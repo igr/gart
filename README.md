@@ -312,4 +312,6 @@
 
 <p align="center">
 <img src="arts/sf/sf1_thumb.png" align="left">
+<img src="arts/sf/sf2_thumb.png" align="left">
+<img src="arts/sf/sf3_thumb.png" align="left">
 </p>
