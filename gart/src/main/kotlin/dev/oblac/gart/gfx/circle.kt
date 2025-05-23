@@ -12,6 +12,7 @@ import kotlin.math.pow
 import kotlin.math.sqrt
 
 data class Circle(val x: Float, val y: Float, val radius: Float) {
+    constructor(center: Point, radius: Number) : this(center.x, center.y, radius.toFloat())
     val center = Point(x, y)
 
     companion object {
