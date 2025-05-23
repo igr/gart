@@ -38,18 +38,22 @@ private fun draw(c: Canvas, d: Dimension) {
     for (i in 1..10) {
         rings.add(
             createDrawRing(
-            c,
-            center.offset(-40f * i, 0f),
-            180f + i * 80,
-            100f + i * 50,
-            30f, 10f,
-            Degrees(-50f), colorInk
+                c,
+                center.offset(-50f * i, 0f),
+                180f + i * 80,
+                100f + i * 50,
+                10f,
+                30f,
+                3f,
+                Degrees(-50f), colorInk
             )
         )
     }
 
     rings.map { it.first }.forEach { it() }
-    c.drawCircle(center.offset(-40f, 0f), 180f, fillOf(colorBold))
+    c.drawCircle(center.offset(-40f, 0f), 180f, fillOf(colorBold).apply {
+        //this.imageFilter = ImageFilter.makeBlur(10f, 10f, FilterTileMode.DECAL)
+    })
     rings.map { it.second }.forEach { it() }
 
 }

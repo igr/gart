@@ -12,17 +12,18 @@ typealias RingDrawFns = Pair<() -> Unit, () -> Unit>
 fun createDrawRing(
     c: Canvas,
     center: Point,
-    radius: Float,
-    radius2: Float,
-    width1: Float,
-    width2: Float,
+    radius: Float,  // first radius of the ellipse
+    radius2: Float, // second radius of the ellipse
+    width1: Float,  // width of the polar part
+    width2: Float,  // width of the closer part
+    width3: Float,  // width of the distant part
     angle: Angle,
     colorBold: Int,
 ): RingDrawFns {
     // Draw back part first (bottom half)
     val fnBack = {
         drawRingPart(
-            c, center, radius, radius2, width1, width2, angle, colorBold,
+            c, center, radius, radius2, width1, width3, angle, colorBold,
             startAngle = 0f, sweepAngle = 180f, isBack = true
         )
     }
