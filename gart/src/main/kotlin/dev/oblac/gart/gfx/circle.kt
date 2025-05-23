@@ -75,6 +75,8 @@ data class Circle(val x: Float, val y: Float, val radius: Float) {
             y = y + rotatedY
         )
     }
+
+    fun points(count: Int) = createCircleOfPoints(center, radius, count)
 }
 
 fun Canvas.drawCircle(circle: Circle, paint: Paint) = drawCircle(circle.center.x, circle.center.y, circle.radius, paint)
