@@ -1,40 +1,48 @@
+package dev.oblac.gart.gfx
+
 import dev.oblac.gart.angles.Angle
-import dev.oblac.gart.gfx.fillOf
-import org.jetbrains.skia.Canvas
-import org.jetbrains.skia.Path
-import org.jetbrains.skia.Point
-import org.jetbrains.skia.Rect
+import org.jetbrains.skia.*
 import kotlin.math.cos
 import kotlin.math.sin
 
-typealias RingDrawFns = Pair<() -> Unit, () -> Unit>
+typealias DrawRing = (Canvas, Paint) -> Unit
 
+/**
+ * Creates two functions to draw a ring.
+ * The first function draws the back part of the ring and should be used first.
+ * The second function draws the front part of the ring and should be used second.
+ * @param center The center point of the ring.
+ * @param radius The first radius of the ellipse (horizontal).
+ * @param radius2 The second radius of the ellipse (vertical).
+ * @param width1 The width of the right & left parts of the ring line.
+ * @param width2 The width of the closer part of the ring line.
+ * @param width3 The width of the distant part of the ring line.
+ * @param angle The angle to rotate the ring.
+ */
 fun createDrawRing(
-    c: Canvas,
     center: Point,
-    radius: Float,  // first radius of the ellipse
-    radius2: Float, // second radius of the ellipse
-    width1: Float,  // width of the polar part
-    width2: Float,  // width of the closer part
-    width3: Float,  // width of the distant part
+    radius: Float,
+    radius2: Float,
+    width1: Float,
+    width2: Float,
+    width3: Float,
     angle: Angle,
-    colorBold: Int,
-): RingDrawFns {
+): Pair<DrawRing, DrawRing> {
     // Draw back part first (bottom half)
-    val fnBack = {
+    val fnBack = { canvas: Canvas, paint: Paint ->
         drawRingPart(
-            c, center, radius, radius2, width1, width3, angle, colorBold,
+            canvas, center, radius, radius2, width1, width3, angle, paint,
             startAngle = 0f, sweepAngle = 180f, isBack = true
         )
     }
 
-    // Draw front part second (top half)
-    val fnFront = {
+    val fnFront = { canvas: Canvas, paint: Paint ->
         drawRingPart(
-            c, center, radius, radius2, width1, width2, angle, colorBold,
+            canvas, center, radius, radius2, width1, width2, angle, paint,
             startAngle = 180f, sweepAngle = 180f, isBack = false
         )
     }
+
     return Pair(fnBack, fnFront)
 }
 
@@ -46,7 +54,7 @@ private fun drawRingPart(
     width1: Float,
     width2: Float,
     angle: Angle,
-    colorBold: Int,
+    paint: Paint,
     startAngle: Float,
     sweepAngle: Float,
     isBack: Boolean
@@ -97,7 +105,9 @@ private fun drawRingPart(
 
     path.closePath()
 
-    c.drawPath(path, fillOf(colorBold))
+    c.drawPath(path, paint)
 
     c.restore()
 }
+
+
