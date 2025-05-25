@@ -4,6 +4,7 @@ import dev.oblac.gart.Dimension
 import dev.oblac.gart.Draw
 import org.jetbrains.skia.*
 import kotlin.math.abs
+import kotlin.math.round
 
 /**
  * Moon phase drawing.
@@ -20,19 +21,20 @@ data class Moon(
         val cy = circle.center.y
         val radius = circle.radius
         val moonPhaseAbs = abs(moonPhase)
+        val moonPhaseAbsPerct = round(moonPhaseAbs * 100f).toInt() // we round to avoid floating point precision issues
         val sign = if (moonPhase < 0) -1f else 1f
 
         when {
-            moonPhaseAbs == 0f -> { // full moon
+            moonPhaseAbsPerct == 0 -> { // full moon
                 canvas.drawCircle(circle, moonPaint)
             }
 
-            moonPhaseAbs < 0.5f -> {
+            moonPhaseAbsPerct < 50 -> {
                 canvas.drawCircle(circle, shadowPaint)
                 drawMoonPhase(canvas, cx, cy, radius, moonPhaseAbs, sign, ClipMode.INTERSECT)
             }
 
-            moonPhaseAbs > 0.5f -> {
+            moonPhaseAbsPerct > 50 -> {
                 canvas.drawCircle(circle, shadowPaint)
                 drawMoonPhase(canvas, cx, cy, radius, moonPhaseAbs, sign, ClipMode.DIFFERENCE)
             }
@@ -44,7 +46,11 @@ data class Moon(
                 canvas.save()
 
                 val mainPath = Path()
-                mainPath.addRect(Rect(cx - radius, cy - radius, cx, cy + radius))
+                if (sign > 0) {
+                    mainPath.addRect(Rect(cx - radius, cy - radius, cx, cy + radius))
+                } else {
+                    mainPath.addRect(Rect(cx, cy - radius, cx + radius, cy + radius))
+                }
                 canvas.clipPath(mainPath, ClipMode.DIFFERENCE)
                 canvas.drawCircle(circle, moonPaint)
 
