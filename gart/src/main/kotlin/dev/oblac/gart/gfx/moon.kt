@@ -8,7 +8,7 @@ import kotlin.math.round
 
 /**
  * Moon phase drawing.
- * @param moonPhase -1.0f to 1.0f, where -1.0f is new moon, 0.0f is full moon, and 1.0f is new moon again.
+ * @param moonPhase -1.0f to 1.0f, where -1.0f is the new moon, 0.0f is the full moon, and 1.0f is the new moon again (other side).
  */
 data class Moon(
     val circle: Circle,
