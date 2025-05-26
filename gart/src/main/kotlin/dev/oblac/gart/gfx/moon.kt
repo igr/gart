@@ -21,20 +21,20 @@ data class Moon(
         val cy = circle.center.y
         val radius = circle.radius
         val moonPhaseAbs = abs(moonPhase)
-        val moonPhaseAbsPerct = round(moonPhaseAbs * 100f).toInt() // we round to avoid floating point precision issues
+        val moonPhaseAbsPercentage = round(moonPhaseAbs * 100f).toInt() // round to avoid floating point precision issues
         val sign = if (moonPhase < 0) -1f else 1f
 
         when {
-            moonPhaseAbsPerct == 0 -> { // full moon
+            moonPhaseAbsPercentage == 0 -> { // full moon
                 canvas.drawCircle(circle, moonPaint)
             }
 
-            moonPhaseAbsPerct < 50 -> {
+            moonPhaseAbsPercentage < 50 -> {
                 canvas.drawCircle(circle, shadowPaint)
                 drawMoonPhase(canvas, cx, cy, radius, moonPhaseAbs, sign, ClipMode.INTERSECT)
             }
 
-            moonPhaseAbsPerct > 50 -> {
+            moonPhaseAbsPercentage > 50 -> {
                 canvas.drawCircle(circle, shadowPaint)
                 drawMoonPhase(canvas, cx, cy, radius, moonPhaseAbs, sign, ClipMode.DIFFERENCE)
             }
@@ -42,7 +42,7 @@ data class Moon(
             else -> {
                 canvas.drawCircle(circle, shadowPaint)
 
-                // half moon
+                // half-moon
                 canvas.save()
 
                 val mainPath = Path()
@@ -69,7 +69,6 @@ data class Moon(
         sign: Float,
         clipMode: ClipMode
     ) {
-        // left side: arc. right side: full
         val top = Point(cx, cy - radius)
         val left = Point(cx + sign * (moonPhaseAbs - 0.5f) * 2 * radius, cy)
         val bottom = Point(cx, cy + radius)
