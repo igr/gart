@@ -2,14 +2,15 @@
 
 🧧 gënérative ȧrt made by pragmatic kotlin micro-framework.
 
-❤️ Follow: [Instagram](https://www.instagram.com/gart_173)
+> ❤️ Follow: [Instagram](https://www.instagram.com/gart_173)
 
 ⭐️ **Gȧrt** is a pragmatical framework and set of utilities for generating and rendering
 **still images** and **movies**.
 
 + uses [Skiko](https://github.com/JetBrains/skiko) (by JetBrains) for [Skia](https://skia.org) binding.
-+ minor _internal_ RNDR use for formulas only.
-+ ffmpeg for video encoding.
++ minor _internal_ `RNDR` use for formulas only.
++ `box-2d` for physics simulation.
++ `ffmpeg` for video encoding.
 
 
 ## 🍭 Gȧlléry
