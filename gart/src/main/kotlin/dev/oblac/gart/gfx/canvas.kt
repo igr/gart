@@ -39,3 +39,7 @@ fun Canvas.drawCircle(p: Point, r: Float, fill: Paint) = this.drawCircle(p.x, p.
 fun Canvas.drawBitmap(b: Gartmap) = this.drawImage(b.image(), 0f, 0f)
 
 fun Canvas.drawImage(image: Image) = drawImage(image, 0f, 0f)
+
+fun Canvas.drawArc(rect: Rect, startAngle: Float, sweepAngle: Float, includeCenter: Boolean, paint: Paint) {
+    this.drawArc(rect.left, rect.top, rect.right, rect.bottom, startAngle, sweepAngle, includeCenter, paint)
+}

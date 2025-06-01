@@ -1,5 +1,6 @@
 package dev.oblac.gart.gfx
 
+import dev.oblac.gart.math.rndGaussian
 import org.jetbrains.skia.*
 
 fun pathOf(first: Point, vararg points: Point): Path {
@@ -130,4 +131,39 @@ fun combinePathsWithOp(operation: PathOp, vararg paths: Path): Path {
         currentResultPath = newResultPath
     }
     return currentResultPath // This is the final combined path
+}
+
+/**
+ * Deforms a path by adding random points along its segments.
+ */
+fun deformPath(points: List<Point>, offsetStdDev: Float = 15f): List<Point> {
+    if (points.isEmpty()) return points
+
+    val deformedPoints = mutableListOf<Point>()
+
+    // for each line segment
+    for (i in 0 until points.size) {
+        val currentPoint = points[i]
+        val nextPoint = points[(i + 1) % points.size] // wrap around for closed path
+
+        deformedPoints.add(currentPoint)
+
+        // Find a random point along the line using Gaussian distribution
+        val t = rndGaussian(0.5f, 0.15f).coerceIn(0.1f, 0.9f) // Keep it away from endpoints
+        val randomX = currentPoint.x + t * (nextPoint.x - currentPoint.x)
+        val randomY = currentPoint.y + t * (nextPoint.y - currentPoint.y)
+
+        // Create offset using Gaussian random values
+        val offsetX = rndGaussian(0f, offsetStdDev)
+        val offsetY = rndGaussian(0f, offsetStdDev)
+
+        val deformedPoint = org.jetbrains.skia.Point(
+            randomX + offsetX,
+            randomY + offsetY
+        )
+
+        deformedPoints.add(deformedPoint)
+    }
+
+    return deformedPoints
 }

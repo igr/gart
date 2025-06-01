@@ -427,7 +427,7 @@ object Colors {
     const val yellowGreen = 0xFF9ACD32.toInt()
     val yellowGreenColor = Color4f(yellowGreen)
 
-    const val transparent = 0x00FFFFFF.toInt()
+    const val transparent = 0x00000000
     val transparentColor = Color4f(transparent)
 
     const val warmBlack1 = 0xFF181716.toInt()
