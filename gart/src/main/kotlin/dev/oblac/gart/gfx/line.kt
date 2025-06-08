@@ -112,6 +112,12 @@ data class Line(val a: Point, val b: Point) {
         path.lineTo(b.x, b.y)
         return path
     }
+
+    companion object {
+        fun of(x1: Float, y1: Float, x2: Float, y2: Float): Line {
+            return Line(Point(x1, y1), Point(x2, y2))
+        }
+    }
 }
 
 fun Canvas.drawLine(line: Line, color: Paint) = drawLine(line.a, line.b, color)

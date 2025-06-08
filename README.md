@@ -224,6 +224,7 @@
 <p align="center">
 <img src="arts/stripes/stripes_thumb.png" align="left">
 <img src="arts/stripes/tolerance_thumb.png" align="left">
+<img src="arts/stripes/stripes1_thumb.png" align="left">
 </p>
 
 <br clear="both">
@@ -316,4 +317,8 @@
 <img src="arts/sf/sf2_thumb.png" align="left">
 <img src="arts/sf/sf3_thumb.png" align="left">
 <img src="arts/sf/sf4_thumb.png" align="left">
+<img src="arts/sf/sf5_thumb.png" align="left">
+<img src="arts/sf/sf6_thumb.png" align="left">
+<img src="arts/sf/sf7_thumb.png" align="left">
+<img src="arts/sf/sf8_thumb.png" align="left">
 </p>
