@@ -13,6 +13,11 @@ data class Dimension(val w: Int, val h: Int) {
     val wd = w.toDouble()
     val hd = h.toDouble()
 
+    val rightBottom = Point(w.toFloat(), h.toFloat())
+    val leftTop = Point(0f, 0f)
+    val leftBottom = Point(0f, h.toFloat())
+    val rightTop = Point(w.toFloat(), 0f)
+
     /**
      * Center X.
      */
