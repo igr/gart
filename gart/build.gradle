@@ -14,8 +14,8 @@ test {
 }
 
 dependencies {
-    api 'org.jetbrains.skiko:skiko-awt-runtime-macos-arm64:0.9.17'
-    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.10.1'
+    api 'org.jetbrains.skiko:skiko-awt-runtime-macos-arm64:0.9.18'
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.10.2'
 
     implementation 'org.openrndr:openrndr-shape:0.4.4'
     implementation 'org.openrndr.extra:orx-noise-jvm:0.4.4'
