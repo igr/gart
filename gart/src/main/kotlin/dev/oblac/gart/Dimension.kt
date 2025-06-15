@@ -45,6 +45,8 @@ data class Dimension(val w: Int, val h: Int) {
      */
     val h3 = h / 3f
 
+    val h3x2 = h3 * 2f
+
     val rect = Rect(0f, 0f, wf, hf)
 
     /**
