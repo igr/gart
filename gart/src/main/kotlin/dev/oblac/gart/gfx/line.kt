@@ -113,6 +113,15 @@ data class Line(val a: Point, val b: Point) {
         return path
     }
 
+
+    fun points(count: Int): List<Point> {
+        val step = this.length() / (count - 1)
+        return (0 until count).map { i ->
+            val t = i * step
+            this.pointFromStartLen(t)
+        }
+    }
+
     companion object {
         fun of(x1: Float, y1: Float, x2: Float, y2: Float): Line {
             return Line(Point(x1, y1), Point(x2, y2))

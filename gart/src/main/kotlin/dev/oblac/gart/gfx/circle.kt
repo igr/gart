@@ -138,8 +138,8 @@ fun Canvas.drawCirclePie(
     y: Float,
     radius: Float,
     paint: Paint,
-    start: Degrees = Degrees.ZERO,
-    sweep: Degrees = Degrees.D180
+    start: Angle = Degrees.ZERO,
+    sweep: Angle = Degrees.D180
 ) {
     val left = x - radius
     val top = y - radius
@@ -152,9 +152,9 @@ fun Canvas.drawCirclePie(
         top,
         right,
         bottom,
-        start.value,    // start angle in degrees
-        sweep.value,    // sweep angle
-        true,           // create PIE shape with center
+        start.degrees,    // start angle in degrees
+        sweep.degrees,    // sweep angle
+        true,             // create PIE shape with center
         paint
     )
 }
