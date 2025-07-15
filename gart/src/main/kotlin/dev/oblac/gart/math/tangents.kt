@@ -74,3 +74,60 @@ fun circleTangents(circle0: Circle, circle1: Circle): List<Tangent> {
 
     return tangents
 }
+
+/**
+ * Calculate the tangent lines from an external point to a circle.
+ * Returns a list of tangent lines (usually 2) from the point to the circle.
+ */
+fun pointToCircleTangents(point: Point, circle: Circle): List<Line> {
+    val px = point.x
+    val py = point.y
+    val cx = circle.x
+    val cy = circle.y
+    val r = circle.radius
+
+    // Vector from external point to circle center
+    val dx = cx - px
+    val dy = cy - py
+    val d = hypot(dx, dy)
+
+    // If point is inside the circle, no tangents exist
+    if (d <= r) return emptyList()
+
+    // If point is on the circle, only one tangent exists
+    if (abs(d - r) < 0.001f) {
+        val tangentLine = circle.tangentAtPoint(point)
+        // Convert DLine to Line by extending it
+        val start = tangentLine.pointFromEnd(100f)
+        val end = tangentLine.pointFromStart(100f)
+        return listOf(Line(start, end))
+    }
+
+    // Calculate the tangent points using the correct geometric formula
+    // Based on the fact that tangent is perpendicular to radius at point of tangency
+
+    // Distance squared from external point to center
+    val dSquared = d * d
+    val rSquared = r * r
+
+    // Calculate the two tangent points on the circle
+    // Using the formula for external tangents to a circle
+    val a = rSquared / dSquared
+    val b = r * sqrt(dSquared - rSquared) / dSquared
+
+    // First tangent point
+    val t1x = cx + a * (px - cx) + b * (py - cy)
+    val t1y = cy + a * (py - cy) - b * (px - cx)
+    val tangentPoint1 = Point(t1x, t1y)
+
+    // Second tangent point
+    val t2x = cx + a * (px - cx) - b * (py - cy)
+    val t2y = cy + a * (py - cy) + b * (px - cx)
+    val tangentPoint2 = Point(t2x, t2y)
+
+    // Create tangent lines from external point to tangent points
+    return listOf(
+        Line(point, tangentPoint1),
+        Line(point, tangentPoint2)
+    )
+}
