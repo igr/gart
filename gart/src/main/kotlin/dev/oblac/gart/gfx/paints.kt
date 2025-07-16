@@ -16,6 +16,7 @@ fun strokeOf(color: Long, width: Float) = Paint().apply {
     this.mode = PaintMode.STROKE
     this.strokeWidth = width
 }
+fun strokeOf(width: Float, color: Long) = strokeOf(color, width)
 
 fun strokeOf(color: Int, width: Float) = Paint().apply {
     this.isAntiAlias = true
@@ -23,6 +24,7 @@ fun strokeOf(color: Int, width: Float) = Paint().apply {
     this.mode = PaintMode.STROKE
     this.strokeWidth = width
 }
+fun strokeOf(width: Float, color: Int) = strokeOf(color, width)
 
 fun fillOf(color: Color4f) = Paint().apply {
     this.isAntiAlias = true

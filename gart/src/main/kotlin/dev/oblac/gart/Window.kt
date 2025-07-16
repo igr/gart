@@ -44,6 +44,8 @@ open class Window(val d: Dimension, val fps: Int, internal val printFps: Boolean
     open fun show(drawFrame: DrawFrame): WindowView {
         val view = GartView(d, drawFrame, fps, printFps)
         val windowView = WindowView(this, view)
+//        Application.getApplication().dockIconImage =
+//            ImageIcon(object {}.javaClass.getResource("/g.png")).getImage()
         SwingUtilities.invokeLater {
             val frame = JFrame()
             frame.title = "gȧrt!"
