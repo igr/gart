@@ -17,6 +17,9 @@ data class Triangle(val a: Point, val b: Point, val c: Point) {
         .lineTo(b)
         .lineTo(c)
         .closePath()
+    val edges = arrayOf(
+        Line(a, b), Line(b, c), Line(c, a)
+    )
 
     fun contains(point: Point): Boolean {
         val circumcircle = calculateCircumcircle()
@@ -54,6 +57,23 @@ data class Triangle(val a: Point, val b: Point, val c: Point) {
         val radius = sqrt((ax - ux).pow(2) + (ay - uy).pow(2))
 
         return Circle.of(center, radius)
+    }
+
+    /**
+     * Returns true if the two triangles intersect.
+     * Had to use my own implementation, as there is an issue in Skiko.
+     * https://youtrack.jetbrains.com/issue/SKIKO-1038
+     */
+    fun intersect(triangle: Triangle): Boolean {
+        for (edge in edges) {
+            for (edge2 in triangle.edges) {
+                if (intersectionOf(edge, edge2) != null) {
+                    return true
+                }
+            }
+        }
+        // Check if one triangle is completely inside the other
+        return this.contains(triangle.a) || triangle.contains(this.a)
     }
 
     companion object {
