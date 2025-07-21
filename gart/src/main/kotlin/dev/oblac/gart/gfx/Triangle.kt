@@ -72,8 +72,7 @@ data class Triangle(val a: Point, val b: Point, val c: Point) {
                 }
             }
         }
-        // Check if one triangle is completely inside the other
-        return this.contains(triangle.a) || triangle.contains(this.a)
+        return false
     }
 
     companion object {
