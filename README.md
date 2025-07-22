@@ -123,6 +123,7 @@
 <img src="arts/flowforce/emergence_thumb.png" align="left">
 <img src="arts/flowforce/Eclectic2_thumb.png" align="left">
 <img src="arts/flowforce/interruption_thumb.png" align="left">
+<img src="arts/flowforce/circlex_thumb.png" align="left">
 </p>
 
 <br clear="both">
@@ -247,6 +248,7 @@
 <p align="center">
 <img src="arts/sun/echoes2_thumb.png" align="left">
 <img src="arts/sun/sunNS1_thumb.png" align="left">
+<img src="arts/sun/sunlines_thumb.png" align="left">
 </p>
 
 <br clear="both">
@@ -321,4 +323,26 @@
 <img src="arts/sf/sf6_thumb.png" align="left">
 <img src="arts/sf/sf7_thumb.png" align="left">
 <img src="arts/sf/sf8_thumb.png" align="left">
+<img src="arts/sf/sf9_thumb.png" align="left">
+<img src="arts/sf/sf10_thumb.png" align="left">
 </p>
+
+<br clear="both">
+
+⭐️ [Lines](arts/lines/README.md)
+
+<p align="center">
+<img src="arts/lines/citymap_thumb.png" align="left">
+<img src="arts/lines/triangles_thumb.png" align="left">
+</p>
+
+<br clear="both">
+
+⭐️ [Monet](arts/monet/README.md)
+
+<p align="center">
+<img src="arts/monet/monet1-0_thumb.png" align="left">
+<img src="arts/monet/monet1_thumb.png" align="left">
+<img src="arts/monet/monet2_thumb.png" align="left">
+</p>
+
