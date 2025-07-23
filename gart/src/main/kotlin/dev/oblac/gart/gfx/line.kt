@@ -1,7 +1,11 @@
 package dev.oblac.gart.gfx
 
+import dev.oblac.gart.angles.Angle
+import dev.oblac.gart.angles.Radians
 import dev.oblac.gart.math.fastSqrt
 import org.jetbrains.skia.*
+import kotlin.math.abs
+import kotlin.math.atan2
 import kotlin.math.sqrt
 
 data class Line(val a: Point, val b: Point) {
@@ -126,6 +130,52 @@ data class Line(val a: Point, val b: Point) {
         fun of(x1: Float, y1: Float, x2: Float, y2: Float): Line {
             return Line(Point(x1, y1), Point(x2, y2))
         }
+
+        /**
+         * Creates a line from a point to the closest point on the given line segment.
+         * If the line segment is a point, it returns a line from the point to itself.
+         */
+        fun fromPointToLine(p: Point, it: Line): Line {
+            val dx = it.b.x - it.a.x
+            val dy = it.b.y - it.a.y
+            val lengthSquared = dx * dx + dy * dy
+
+            if (lengthSquared == 0f) {
+                return Line(p, p)   // Line is a point
+            }
+
+            val t = ((p.x - it.a.x) * dx + (p.y - it.a.y) * dy) / lengthSquared
+            val clampedT = t.coerceIn(0f, 1f)
+
+            val closestPoint = Point(
+                it.a.x + clampedT * dx,
+                it.a.y + clampedT * dy
+            )
+            return Line(p, closestPoint)
+        }
+    }
+
+    fun isPointOnLine(point: Point, tolerance: Float = 1f): Boolean {
+        val crossProduct = (point.y - a.y) * (b.x - a.x) - (point.x - a.x) * (b.y - a.y)
+        if (abs(crossProduct) > tolerance) return false
+
+        val dotProduct = (point.x - a.x) * (b.x - a.x) + (point.y - a.y) * (b.y - a.y)
+        if (dotProduct < 0) return false
+
+        val squaredLength = this.length() * this.length()
+        if (dotProduct > squaredLength) return false
+
+        return true
+    }
+
+    /**
+     * Returns the angle of the line.
+     * The angle is measured from the positive x-axis, counter-clockwise.
+     */
+    fun angle(): Angle {
+        val dx = b.x - a.x
+        val dy = b.y - a.y
+        return Radians(atan2(dy.toDouble(), dx.toDouble()).toFloat())
     }
 }
 

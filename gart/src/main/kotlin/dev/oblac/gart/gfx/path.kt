@@ -167,3 +167,9 @@ fun deformPath(points: List<Point>, offsetStdDev: Float = 15f): List<Point> {
 
     return deformedPoints
 }
+
+@JvmName("linesToPath")
+fun List<Line>.toPath() = pathOf(this.flatMap { it.points(2) })
+
+@JvmName("linesToClosedPath")
+fun List<Line>.toClosedPath() = pathOf(this.flatMap { it.points(2) }).closePath()
