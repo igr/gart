@@ -58,8 +58,8 @@ class CellularAutomata(
     }
 }
 
-interface CellularAutomataRules {
-    fun computeNextState(x: Int, y: Int, currentState: Int, neighbors: List<Int>): Int
-    fun validateState(state: Int): Int
-    fun initialState(x: Int, y: Int, width: Int, height: Int): Int
-}
+data class CellularAutomataRules(
+    val computeNextState: (x: Int, y: Int, currentState: Int, neighbors: List<Int>) -> Int,
+    val validateState: (state: Int) -> Int = { it },
+    val initialState: (x: Int, y: Int, width: Int, height: Int) -> Int = { _, _, _, _ -> 0 }
+)
