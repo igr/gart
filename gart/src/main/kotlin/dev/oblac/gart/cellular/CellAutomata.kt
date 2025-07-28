@@ -56,6 +56,14 @@ class CellularAutomata(
             }
         }
     }
+    
+    fun cells(): List<Cell> {
+        return List(width * height) { index ->
+            val x = index / height
+            val y = index % height
+            Cell(x, y, grid[x][y])
+        }
+    }
 }
 
 data class CellularAutomataRules(
@@ -63,3 +71,5 @@ data class CellularAutomataRules(
     val validateState: (state: Int) -> Int = { it },
     val initialState: (x: Int, y: Int, width: Int, height: Int) -> Int = { _, _, _, _ -> 0 }
 )
+
+data class Cell(val x: Int, val y: Int, val state: Int)
