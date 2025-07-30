@@ -40,9 +40,9 @@ fun main() {
     }
 }
 
-var deltaPhase = 0f
+private var deltaPhase = 0f
 
-fun draw(canvas: Canvas, tick: Frames, drawing: Int) {
+private fun draw(canvas: Canvas, tick: Frames, drawing: Int) {
     val d = gart.d
 
     val backTriangle1 = Triangle(
@@ -102,7 +102,7 @@ fun draw(canvas: Canvas, tick: Frames, drawing: Int) {
     deltaPhase = sinDeg(tick.frame / 2.5f) / 4
 }
 
-fun drawHarmongraph(
+private fun drawHarmongraph(
     canvas: Canvas,
     cx: Float,
     cy: Float,
@@ -125,7 +125,7 @@ fun drawHarmongraph(
     val dots = mutableListOf<Dot>()
 
     var t = 0.0f
-    for (i in 0..iterations) {
+    repeat(iterations) {
         val x = A * sin(a * t + p1) * exp(-d1 * t)
         val y = B * sin(b * t + p2) * exp(-d2 * t)
 
@@ -136,10 +136,10 @@ fun drawHarmongraph(
     drawConnectDots(canvas, dots)
 }
 
-data class Dot(val x: Float, val y: Float)
+private data class Dot(val x: Float, val y: Float)
 
-fun drawConnectDots(canvas: Canvas, dots: List<Dot>) =
-    dots.forEachIndexed() { index, dot ->
+private fun drawConnectDots(canvas: Canvas, dots: List<Dot>) =
+    dots.forEachIndexed { index, dot ->
         val nextDot = dots.getOrNull(index + 1)
         if (nextDot != null) {
             val color = if (dot.x > dot.y) {

@@ -64,3 +64,15 @@ fun Point.rotate(angle: Radians, rx: Float, ry: Float): Point {
 
 fun Point.isInside(circle: Circle) = circle.center.distanceTo(this) < circle.radius
 fun Point.isOnLine(line: Line) = line.isPointOnLine(this)
+
+operator fun Point.plus(other: Point): Point {
+    return Point(this.x + other.x, this.y + other.y)
+}
+
+operator fun Point.minus(other: Point): Point {
+    return Point(this.x - other.x, this.y - other.y)
+}
+
+operator fun Point.times(number: Number): Point {
+    return Point(this.x * number.toFloat(), this.y * number.toFloat())
+}
