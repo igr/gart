@@ -13,4 +13,6 @@ object RetroColors {
     val teal01 = 0xFF237C6B.toIntColor()
     val pink01 = 0xFFB8236B.toIntColor()
     val gray01 = 0xFF6B6B5D.toIntColor()
+    val maroon01 = 0xFF7C2333.toIntColor()
+    val amber01 = 0xFFCAA023.toIntColor()
 }
