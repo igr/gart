@@ -1,4 +1,4 @@
-package dev.oblac.gart.gfx
+package dev.oblac.gart.harmongraph
 
 import org.jetbrains.skia.Point
 import kotlin.math.exp

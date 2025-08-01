@@ -3,8 +3,8 @@ package dev.oblac.gart.harmongraph.formulas
 import dev.oblac.gart.Dimension
 import dev.oblac.gart.Gart
 import dev.oblac.gart.color.RetroColors
-import dev.oblac.gart.gfx.harmongraph2
 import dev.oblac.gart.gfx.plus
+import dev.oblac.gart.harmongraph.harmongraph2
 import org.jetbrains.skia.Canvas
 
 fun main() {
