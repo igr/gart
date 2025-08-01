@@ -1,4 +1,4 @@
-package dev.oblac.gart.gfx
+package dev.oblac.gart.midpoint
 
 import dev.oblac.gart.math.rndb
 import org.jetbrains.skia.Point

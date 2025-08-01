@@ -7,6 +7,7 @@ import dev.oblac.gart.color.Palettes
 import dev.oblac.gart.gfx.*
 import dev.oblac.gart.math.GOLDEN_RATIO
 import dev.oblac.gart.math.rndf
+import dev.oblac.gart.midpoint.midpointDisplacementY
 import org.jetbrains.skia.Canvas
 
 val pal = Palettes.cool32.expand(30)
