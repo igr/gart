@@ -2,6 +2,7 @@ package dev.oblac.gart.gfx
 
 import dev.oblac.gart.Dimension
 import dev.oblac.gart.Gartmap
+import dev.oblac.gart.Gartvas
 import org.jetbrains.skia.*
 
 fun Canvas.drawPoints(points: Collection<Point>, stroke: Paint) = this.drawPoints(points.toTypedArray(), stroke)
@@ -43,3 +44,8 @@ fun Canvas.drawImage(image: Image) = drawImage(image, 0f, 0f)
 fun Canvas.drawArc(rect: Rect, startAngle: Float, sweepAngle: Float, includeCenter: Boolean, paint: Paint) {
     this.drawArc(rect.left, rect.top, rect.right, rect.bottom, startAngle, sweepAngle, includeCenter, paint)
 }
+
+/**
+ * Draws the Gartvas image to the canvas.
+ */
+fun Canvas.draw(g: Gartvas) = drawImage(g.snapshot(), 0f, 0f)
