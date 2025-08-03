@@ -7,7 +7,7 @@ import javax.swing.JFrame
 
 class GartView(
     private val d: Dimension,
-    private val drawFrame: DrawFrame,
+    private var drawFrame: DrawFrame,
     fps: Int,
     printFps: Boolean,
 ) : SkikoRenderDelegate {
@@ -34,4 +34,14 @@ class GartView(
     internal fun attachTo(frame: JFrame) {
         frame.contentPane.add(skiaLayer)
     }
+
+    /**
+     * Replaces the view with new DrawFrame.
+     */
+    fun replace(drawFrame: DrawFrame): GartView {
+        this.drawFrame = drawFrame
+        return this
+    }
+
+    fun drawFrame() = drawFrame
 }

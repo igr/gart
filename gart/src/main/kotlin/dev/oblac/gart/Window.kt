@@ -1,5 +1,6 @@
 package dev.oblac.gart
 
+import dev.oblac.gart.hotreload.DrawFrameReloader
 import org.jetbrains.skia.Image
 import java.awt.Toolkit
 import java.awt.event.*
@@ -52,6 +53,7 @@ open class Window(val d: Dimension, val fps: Int, internal val printFps: Boolean
             frame.defaultCloseOperation = JFrame.DISPOSE_ON_CLOSE
             frame.isResizable = false
             frame.isVisible = true
+            frame.isAlwaysOnTop = true
             val density = frame.graphicsConfiguration.defaultTransform.scaleX
             println("Window fps: $fps • density: $density")
             val d = Dimension((d.w / density).toInt(), (d.h / density).toInt())
@@ -81,15 +83,16 @@ open class Window(val d: Dimension, val fps: Int, internal val printFps: Boolean
         return windowView
     }
 
-    internal var onCloseHandler: () -> Unit = {
+    internal val onCloseHandlers: MutableList<() -> Unit> = mutableListOf({
         println("Window closing")
-    }
+    })
 
     /**
      * Called when the window is closing.
+     * Invokes all close handlers in reversed order.
      */
     protected open fun onClose() {
-        onCloseHandler()
+        onCloseHandlers.reversed().forEach { it() }
     }
 }
 
@@ -146,7 +149,33 @@ class WindowView(private val w: Window, private val v: GartView) {
     }
 
     fun onClose(onClose: () -> Unit) {
-        w.onCloseHandler = onClose
+        w.onCloseHandlers.add(onClose)
+    }
+
+    /**
+     * Reloads the view with new DrawFrame.
+     */
+    internal fun reload(drawFrame: DrawFrame) {
+        v.replace(drawFrame)
+        v.repaint()
+    }
+
+    /**
+     * Returns the current draw frame.
+     */
+    internal fun drawFrame(): DrawFrame {
+        return v.drawFrame()
+    }
+
+    /**
+     * Enables hot reload for the window.
+     * This is experimental feature.
+     */
+    fun hotReload(g: Gartvas, projectRoot: String = System.getProperty("user.dir")) {
+        val hotReloadWindowsView = DrawFrameReloader(g, this, projectRoot)
+        this.onClose {
+            hotReloadWindowsView.shutdown()
+        }
     }
 
 }
