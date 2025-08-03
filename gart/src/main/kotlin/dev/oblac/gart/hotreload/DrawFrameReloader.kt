@@ -4,6 +4,7 @@ import dev.oblac.gart.DrawFrame
 import dev.oblac.gart.Gartvas
 import dev.oblac.gart.WindowView
 import java.nio.file.Path
+import java.time.LocalDateTime
 import javax.swing.SwingUtilities
 
 class DrawFrameReloader(
@@ -90,13 +91,13 @@ class DrawFrameReloader(
             if (drawFrameClass != null && DrawFrame::class.java.isAssignableFrom(drawFrameClass)) {
                 try {
                     // Try to create new instance with single arg constructor
-                    val newDrawFrame = drawFrameClass
-                        .getDeclaredConstructor(Gartvas::class.java)
-                        .newInstance(gartvas) as DrawFrame
+                    val constructor = drawFrameClass.getDeclaredConstructor(Gartvas::class.java)
+                    constructor.isAccessible = true
+                    val newDrawFrame = constructor.newInstance(gartvas) as DrawFrame
 
                     wv.reload(newDrawFrame)
 
-                    println("✅ Successfully hot-reloaded DrawFrame: $drawFrameClassName")
+                    println("✅ Successfully hot-reloaded: $drawFrameClassName at ${LocalDateTime.now()}")
                 } catch (e: Exception) {
                     println("❌ Could not create new instance of $drawFrameClassName: ${e.message}")
                     e.printStackTrace()

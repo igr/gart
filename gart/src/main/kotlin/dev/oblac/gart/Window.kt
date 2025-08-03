@@ -98,12 +98,12 @@ open class Window(val d: Dimension, val fps: Int, internal val printFps: Boolean
 
 class WindowView(private val w: Window, private val v: GartView) {
 
-    private var keyboardHandler: (Key) -> Unit = {}
+    private val keyboardHandlers: MutableList<(Key) -> Unit> = mutableListOf()
     /**
      * Defines a keyboard handler.
      */
     fun onKey(keyboardHandler: (Key) -> Unit): WindowView {
-        this.keyboardHandler = keyboardHandler
+        keyboardHandlers.add(keyboardHandler)
         return this
     }
 
@@ -112,20 +112,28 @@ class WindowView(private val w: Window, private val v: GartView) {
         }
 
         override fun keyPressed(e: KeyEvent) {
-            keyboardHandler(Key.valueOf(e.keyCode))
+            keyboardHandlers.forEach { it(Key.valueOf(e.keyCode)) }
         }
 
         override fun keyReleased(e: KeyEvent) {
         }
     }
 
-    private val mouseHandler: (MouseEvent) -> Unit = {
+    private val mouseHandlers: MutableList<(MouseEvent) -> Unit> = mutableListOf({
         println("(${it.x},${it.y})")
+    })
+
+    /**
+     * Defines a mouse handler.
+     */
+    fun onMouse(mouseHandler: (MouseEvent) -> Unit): WindowView {
+        mouseHandlers.add(mouseHandler)
+        return this
     }
 
     internal val mouseListener = object : MouseListener {
         override fun mouseClicked(e: MouseEvent) {
-            mouseHandler(e)
+            mouseHandlers.forEach { it(e) }
         }
 
         override fun mousePressed(e: MouseEvent) {
@@ -177,5 +185,11 @@ class WindowView(private val w: Window, private val v: GartView) {
             hotReloadWindowsView.shutdown()
         }
     }
+}
 
+object KeyboardHandlers {
+    /**
+     * Prints the key to the console.
+     */
+    val showKey: (Key) -> Unit = { println("Key: $it") }
 }

@@ -24,6 +24,7 @@ class Gartvas(val d: Dimension) {
      * Draw on this canvas.
      */
     fun draw(draw: Draw) = draw(canvas, d)
+    fun draw(draw: Drawing) = draw(canvas, d, FrameCounter(60))
 
     /**
      * Creates a bitmap compatible with the canvas.

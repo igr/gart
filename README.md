@@ -12,6 +12,11 @@
 + `box-2d` for physics simulation.
 + `ffmpeg` for video encoding.
 
+Continuous build for HotReload:
+
+```shell
+./gradlew compileKotlin --continuous -Dorg.gradle.continuous.quietperiod=100
+```
 
 ## 🍭 Gȧlléry
 
