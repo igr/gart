@@ -10,3 +10,8 @@ fun hypotFast(a: Float, b: Float): Float {
 fun hypotFast(a: Double, b: Double): Double {
     return fastSqrt(a * a + b * b)
 }
+
+fun mod(a: Double, b: Double) = ((a % b) + b) % b
+fun mod(a: Int, b: Int) = ((a % b) + b) % b
+fun mod(a: Float, b: Float) = ((a % b) + b) % b
+fun mod(a: Long, b: Long) = ((a % b) + b) % b

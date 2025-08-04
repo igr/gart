@@ -1,6 +1,7 @@
 package dev.oblac.gart
 
 import dev.oblac.gart.color.Colors
+import dev.oblac.gart.gfx.drawImage
 import dev.oblac.gart.gfx.drawPoint
 import dev.oblac.gart.gfx.random
 import dev.oblac.gart.gfx.strokeOf
@@ -8,7 +9,7 @@ import dev.oblac.gart.noise.*
 import org.jetbrains.skia.Canvas
 import org.jetbrains.skia.Point
 
-val color = strokeOf(Colors.black, 2f)
+private val color = strokeOf(Colors.black, 2f)
 const val POINTS = 10000
 
 fun main() {
@@ -21,7 +22,10 @@ fun main() {
 
     // show image
     gart.window()
-        .showImage(g)
+        .show { cc, _, _ ->
+            cc.drawImage(g.snapshot())
+        }
+        .onKey(KeyHandlers.showKey)
         .onKey {
             when (it) {
                 Key.KEY_1 -> random(c, d)
@@ -37,7 +41,7 @@ fun main() {
 
 private fun random(c: Canvas, d: Dimension) {
     c.clear(Colors.white)
-    for (i in 0 until POINTS) {
+    repeat(POINTS) {
         val p = Point.random(d)
         c.drawPoint(p, color)
     }
@@ -46,7 +50,7 @@ private fun random(c: Canvas, d: Dimension) {
 private fun halton(c: Canvas, d: Dimension) {
     c.clear(Colors.white)
     val halton = HaltonSequenceGenerator(2)
-    for (i in 0 until POINTS) {
+    repeat(POINTS) {
         halton.get().toList().zipWithNext().forEach { (x, y) ->
             val a = x.toFloat() * d.wf
             val b = y.toFloat() * d.hf
@@ -58,7 +62,7 @@ private fun halton(c: Canvas, d: Dimension) {
 private fun perlin(c: Canvas, d: Dimension) {
     c.clear(Colors.white)
     val perlin = PerlinNoise(8)
-    for (i in 0 until POINTS) {
+    repeat(POINTS) { i ->
         val x = perlin.noise(i.toDouble(), 0.0)
         val y = perlin.noise(0.0, i.toDouble())
         val a = x * d.wf
@@ -69,7 +73,7 @@ private fun perlin(c: Canvas, d: Dimension) {
 
 private fun perlin2(c: Canvas, d: Dimension) {
     c.clear(Colors.white)
-    for (i in 0 until POINTS) {
+    repeat(POINTS) {
         val x = Perlin.noise()
         val y = Perlin.noise()
         val a = x * d.wf

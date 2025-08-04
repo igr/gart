@@ -21,8 +21,7 @@ very thin layer on top of Skia. It is actively maintained by JetBrains, which wa
 Another plus for Kotlin is a big JVM ecosystem. There are a lot of libraries available, and it is easy to find what you
 need, if you get stuck. For example, there is a gif creation library, or a ffmpeg wrapper, etc.
 
-From the 3rd party libraries, I use `box-2d` for physics simulation, `openrndr` for only a few math functions and
-geometry.
+From the 3rd party libraries, I use `box-2d` for physics simulation.
 
 ## Functional Enough
 

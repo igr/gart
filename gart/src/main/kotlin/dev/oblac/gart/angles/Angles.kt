@@ -94,6 +94,7 @@ data class Degrees(val value: Float) : Angle {
     override val radians by lazy { value * DEGREES_TO_RADIANS }
     override val degrees = value
 
+    // todo use math abs instead of while, eg. Degrees.of(mod(theta.degrees, 360.0f)),
     override fun normalize(): Degrees {
         var result = value
         while (result < 0) {

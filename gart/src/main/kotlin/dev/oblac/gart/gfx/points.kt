@@ -3,6 +3,7 @@ package dev.oblac.gart.gfx
 import dev.oblac.gart.Dimension
 import dev.oblac.gart.math.Vector2
 import dev.oblac.gart.math.dist
+import dev.oblac.gart.math.distSquared
 import dev.oblac.gart.math.rndf
 import org.jetbrains.skia.Point
 import org.jetbrains.skia.Rect
@@ -30,9 +31,8 @@ fun Point.fromCenter(d: Dimension, fl: Float = 1f): Point {
  * Returns the distance between two points.
  * @see dist
  */
-fun Point.distanceTo(p: Point): Float {
-    return dist(this, p)
-}
+fun Point.distanceTo(p: Point) = dist(this, p)
+fun Point.squaredDistanceTo(p: Point) = distSquared(this, p)
 
 /**
  * Returns the point between two points.

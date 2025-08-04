@@ -6,8 +6,11 @@ import dev.oblac.gart.angles.cosf
 import dev.oblac.gart.angles.sinf
 import dev.oblac.gart.math.rndf
 import org.jetbrains.skia.Point
+import kotlin.math.atan2
 import kotlin.math.cos
 import kotlin.math.sin
+
+fun Point.copy() = Point(this.x, this.y)
 
 fun randomPoint(d: Dimension) = Point(rndf(0f, d.wf), rndf(0f, d.hf))
 
@@ -23,6 +26,8 @@ fun randomPoint(cx: Float, cy: Float, rmax: Float, rmin: Float = rmax): Point {
     val y = cy + r * sin(angle)
     return Point(x, y)
 }
+
+fun randomPoint(min: Point, max: Point) = Point(rndf(min.x, max.x), rndf(min.y, max.y))
 
 fun Point.Companion.random(d: Dimension): Point = randomPoint(d)
 fun Point.Companion.random(w: Number, h: Number): Point = Point(rndf(0f, w.toFloat()), rndf(0f, h.toFloat()))
@@ -43,7 +48,7 @@ fun Point(x: Number, y: Number) = Point(x.toFloat(), y.toFloat())
 fun Point.moveTowards(destination: Point, amount: Float): Point {
     val dx = destination.x - x
     val dy = destination.y - y
-    val angle = kotlin.math.atan2(dy.toDouble(), dx.toDouble())
+    val angle = atan2(dy.toDouble(), dx.toDouble())
     val x = this.x + cos(angle) * amount
     val y = this.y + sin(angle) * amount
     return Point(x.toFloat(), y.toFloat())

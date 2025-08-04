@@ -48,6 +48,10 @@ fun Rect.contains(rect: Rect): Boolean {
     return this.left <= rect.left && this.top <= rect.top && this.right >= rect.right && this.bottom >= rect.bottom
 }
 
+fun Rect.contains(point: Point): Boolean {
+    return this.left <= point.x && this.top <= point.y && this.right >= point.x && this.bottom >= point.y
+}
+
 /**
  * Returns a rectangle that is a third of the given rectangle.
  * Useful for dividing the rectangle into thirds.

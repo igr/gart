@@ -8,11 +8,10 @@
 **still images** and **movies**.
 
 + uses [Skiko](https://github.com/JetBrains/skiko) (by JetBrains) for [Skia](https://skia.org) binding.
-+ minor _internal_ `RNDR` use for formulas only.
 + `box-2d` for physics simulation.
 + `ffmpeg` for video encoding.
 
-Continuous build for HotReload:
+Continuous build for **Hot Reload**:
 
 ```shell
 ./gradlew compileKotlin --continuous -Dorg.gradle.continuous.quietperiod=100

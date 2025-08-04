@@ -187,7 +187,7 @@ class WindowView(private val w: Window, private val v: GartView) {
     }
 }
 
-object KeyboardHandlers {
+object KeyHandlers {
     /**
      * Prints the key to the console.
      */
