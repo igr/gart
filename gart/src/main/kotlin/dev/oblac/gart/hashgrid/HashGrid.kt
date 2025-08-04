@@ -1,5 +1,6 @@
 package dev.oblac.gart.hashgrid
 
+import dev.oblac.gart.gfx.EMPTY
 import dev.oblac.gart.gfx.ofXYWH
 import dev.oblac.gart.gfx.squaredDistanceTo
 import org.jetbrains.skia.Point
@@ -10,9 +11,6 @@ import kotlin.math.min
 import kotlin.math.sqrt
 import kotlin.random.Random
 
-private val Rect.Companion.EMPTY: Rect
-    get() = Rect(0.0f, 0.0f, 0.0f, 0.0f)
-
 private fun Float.fastFloor(): Int {
     return if (this >= 0) this.toInt() else this.toInt() - 1
 }
@@ -21,7 +19,7 @@ private data class GridCoords(val x: Int, val y: Int) {
     fun offset(i: Int, j: Int): GridCoords = copy(x = x + i, y = y + j)
 }
 
-class Cell(val x: Int, val y: Int, val cellSize: Float) {
+internal class Cell(val x: Int, val y: Int, val cellSize: Float) {
     var xMin = Float.POSITIVE_INFINITY
         private set
     var xMax = Float.NEGATIVE_INFINITY
@@ -74,7 +72,7 @@ class Cell(val x: Int, val y: Int, val cellSize: Float) {
 
 class HashGrid(val radius: Float) {
     private val cells = mutableMapOf<GridCoords, Cell>()
-    fun cells() = sequence {
+    internal fun cells() = sequence {
         for (cell in cells.values) {
             yield(cell)
         }
@@ -109,7 +107,7 @@ class HashGrid(val radius: Float) {
         size += 1
     }
 
-    fun cell(query: Point): Cell? = cells[coords(query)]
+    internal fun cell(query: Point): Cell? = cells[coords(query)]
 
     fun isFree(query: Point, ignoreOwners: Set<Any> = emptySet()): Boolean {
         val c = coords(query)

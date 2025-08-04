@@ -95,3 +95,6 @@ fun Rect.Companion.ofCenter(center: Point, width: Float, height: Float) = makeXY
 
 fun Rect.toRRect(round: Float) =
     RRect.makeLTRB(this.left, this.top, this.right, this.bottom, round, round, round, round)
+
+val Rect.Companion.EMPTY: Rect
+    get() = Rect(0.0f, 0.0f, 0.0f, 0.0f)
