@@ -4,11 +4,14 @@ import dev.oblac.gart.angles.Angle
 import dev.oblac.gart.angles.Radians
 import dev.oblac.gart.math.fastSqrt
 import org.jetbrains.skia.*
-import kotlin.math.abs
-import kotlin.math.atan2
-import kotlin.math.sqrt
+import kotlin.math.*
 
 data class Line(val a: Point, val b: Point) {
+    val x1 get() = a.x
+    val y1 get() = a.y
+    val x2 get() = b.x
+    val y2 get() = b.y
+
     fun centerPoint() = Point((a.x + b.x) / 2, (a.y + b.y) / 2)
 
     fun length() = fastSqrt((b.x - a.x) * (b.x - a.x) + (b.y - a.y) * (b.y - a.y))
@@ -131,6 +134,25 @@ data class Line(val a: Point, val b: Point) {
             return Line(Point(x1, y1), Point(x2, y2))
         }
 
+        fun parallelTo(target: Line, point: Point): Line {
+            val dx = target.b.x - target.a.x
+            val dy = target.b.y - target.a.y
+            val lengthSquared = dx * dx + dy * dy
+
+            if (lengthSquared == 0f) {
+                return Line(point, point)   // Target line is a point, return a point
+            }
+
+            // Create a parallel line by using the same direction vector as the target line
+            // The parallel line passes through the given point and has the same direction
+            val endPoint = Point(
+                point.x - dx,
+                point.y - dy
+            )
+
+            return Line(point, endPoint)
+        }
+
         /**
          * Creates a line from a point to the closest point on the given line segment.
          * If the line segment is a point, it returns a line from the point to itself.
@@ -153,6 +175,19 @@ data class Line(val a: Point, val b: Point) {
             )
             return Line(p, closestPoint)
         }
+
+        /**
+         * Creates a line at a given angle from a starting point with a specified length.
+         */
+        fun fromPointAtAngle(startingPoint: Point, angle: Angle, length: Float): Line {
+            val a = startingPoint
+            val b = org.jetbrains.skia.Point(
+                a.x + length * cos(angle.radians),
+                a.y + length * sin(angle.radians)
+            )
+            return Line(a, b)
+        }
+
     }
 
     fun isPointOnLine(point: Point, tolerance: Float = 1f): Boolean {
@@ -177,6 +212,11 @@ data class Line(val a: Point, val b: Point) {
         val dy = b.y - a.y
         return Radians(atan2(dy.toDouble(), dx.toDouble()).toFloat())
     }
+
+    fun toFatLine(thickness: Float): Path {
+        return fatLine(a.x, a.y, b.x, b.y, thickness)
+    }
+
 }
 
 fun Canvas.drawLine(line: Line, color: Paint) = drawLine(line.a, line.b, color)
@@ -202,8 +242,4 @@ fun fatLine(x0: Float, y0: Float, x1: Float, y1: Float, thickness: Float): Path 
         Point(x1 - px, y1 - py),
         Point(x1 + px, y1 + py),
     )
-}
-
-fun Line.toFatLine(thickness: Float): Path {
-    return fatLine(a.x, a.y, b.x, b.y, thickness)
 }

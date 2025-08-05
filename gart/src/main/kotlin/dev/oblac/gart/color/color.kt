@@ -70,3 +70,17 @@ fun Int.toFillPaint(): Paint = fillOf(this)
 fun Int.toStrokePaint(width: Float): Paint = strokeOf(this, width)
 
 fun Long.toIntColor(): Int = alpha(this.toInt(), 255)
+
+fun blendColors(front: Int, back: Int): Int {
+    val frontAlpha = alpha(front)
+    val backAlpha = alpha(back)
+    val alphaFactor = frontAlpha / 255f
+    val invAlphaFactor = 1f - alphaFactor
+
+    val blendedR = (red(front) * alphaFactor + red(back) * invAlphaFactor).toInt()
+    val blendedG = (green(front) * alphaFactor + green(back) * invAlphaFactor).toInt()
+    val blendedB = (blue(front) * alphaFactor + blue(back) * invAlphaFactor).toInt()
+    val blendedA = (frontAlpha + backAlpha * invAlphaFactor).toInt()
+
+    return argb(blendedA, blendedR, blendedG, blendedB)
+}

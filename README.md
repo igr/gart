@@ -11,10 +11,13 @@
 + `box-2d` for physics simulation.
 + `ffmpeg` for video encoding.
 
+TBH, the framework is made for my own needs; so it has some rough edges and not-great namings.
+🤷‍♂️
+
 Continuous build for **Hot Reload**:
 
 ```shell
-./gradlew compileKotlin --continuous -Dorg.gradle.continuous.quietperiod=100
+just hotReload
 ```
 
 ## 🍭 Gȧlléry

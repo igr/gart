@@ -9,3 +9,5 @@ fun IntArray.sortRange(start: Int, end: Int, selector: (Int) -> Int) {
         for (i in subList.indices) this[start + i] = subList[i]
     }
 }
+
+operator fun <T> Array<T>.rem(i: Int) = this.elementAt(i % this.size)

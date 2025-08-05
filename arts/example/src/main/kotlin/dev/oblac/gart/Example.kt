@@ -13,26 +13,25 @@ import org.jetbrains.skiko.toImage
 import javax.imageio.ImageIO
 
 
-@OptIn(ExperimentalStdlibApi::class)
 fun main() {
     val gart = Gart.of("example", 662, 600)
     println(gart)
 
     // ✅ second canvas
 
-    val d2 = gart.dimension(10, 10)
-    val g2 = gart.gartvas(d2)
+    val d2 = Dimension(10, 10)
+    val g2 = Gartvas(d2)
 
-    // ✅ draw on canvas
+    // ✅ draw on canvas #2
     g2.canvas.drawCircle(5f, 5f, 5f, fillOf(Colors.coral))
     val snapshot2 = g2.snapshot()
 
     // ✅ main canvas
 
-    val d1 = gart.dimension(662, 600)
-    val g1 = gart.gartvas(d1)
+    val d1 = Dimension(662, 600)
+    val g1 = Gartvas(d1)
 
-    // ✅ draw on canvas
+    // ✅ draw on canvas #1
     g1.draw { c, d ->
         c.drawRect(Rect(0f, 0f, d.wf, d.hf), fillOf(0xFF174185))
         c.drawCircle(d.w / 2f, d.h / 2f, 30f, fillOfRed())
@@ -40,9 +39,9 @@ fun main() {
         c.drawImage(snapshot2, 30f, 50f)
     }
 
-    // ✅ bitmap
+    // ✅ bitmap #1
 
-    val b = gart.gartmap(g1)
+    val b = Gartmap(g1)
     println(b[0, 0].toHexString())
 
     b.forEach { x, y, v ->
@@ -56,7 +55,7 @@ fun main() {
     // add bitmap noise
 
     val halton = HaltonSequenceGenerator(2)
-    for (i in 1 until 10_000) {
+    repeat(10_000) {
         halton.get().toList().zipWithNext().forEach {
             val (x, y) = it
             val x1 = (x * b.d.w).toInt()

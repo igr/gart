@@ -87,6 +87,16 @@ interface Frames {
             callback()
         }
     }
+
+    companion object {
+        val ZERO = object : Frames {
+            override val fps = 0
+            override val frametime = 0L
+            override val frametimeSeconds = 0f
+            override val frame = 0L
+            override val new = false
+        }
+    }
 }
 
 /**

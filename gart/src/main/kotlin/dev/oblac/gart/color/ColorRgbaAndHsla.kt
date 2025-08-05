@@ -1,6 +1,6 @@
 package dev.oblac.gart.color
 
-data class ColorRGBA(val r: Float, val g: Float, val b: Float, val a: Float) {
+data class ColorRGBA(val r: Float, val g: Float, val b: Float, val a: Float = 1f) {
 
     fun toHSLA(): ColorHSLA {
         val max = maxOf(r, g, b)

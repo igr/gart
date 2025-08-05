@@ -33,4 +33,5 @@ fun frac(value: Float): Float = value - floor(value)
 fun frac(value: Double): Double = value - floor(value)
 
 // Helper function for linear interpolation (equivalent to lerp in shader)
-fun lerp(a: Float, b: Float, t: Float): Float = a + t * (b - a)
+fun lerp(a: Float, b: Float, t: Float) = a + t * (b - a)
+fun lerp(a: Double, b: Double, t: Double) = a + t * (b - a)

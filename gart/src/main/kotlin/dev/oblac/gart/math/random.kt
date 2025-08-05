@@ -5,6 +5,7 @@ import kotlin.math.ln
 import kotlin.math.sqrt
 import kotlin.random.Random
 
+fun rndi(): Int = Random.nextInt()
 fun rndi(max: Int): Int = Random.nextInt(max)
 fun rndi(min: Int, max: Int): Int = Random.nextInt(min, max)
 
