@@ -6,6 +6,8 @@ import kotlin.math.cos
 import kotlin.math.sin
 import kotlin.math.sqrt
 
+typealias Vec2 = Vector2
+
 data class Vector2(val x: Float, val y: Float) {
     constructor(x: Number, y: Number) : this(x.toFloat(), y.toFloat())
 
@@ -34,6 +36,8 @@ data class Vector2(val x: Float, val y: Float) {
     }
 }
 
+typealias Vec3 = Vector3
+
 data class Vector3(val x: Float, val y: Float, val z: Float) {
     operator fun plus(other: Vector3) = Vector3(x + other.x, y + other.y, z + other.z)
     operator fun minus(other: Vector3) = Vector3(x - other.x, y - other.y, z - other.z)
@@ -43,6 +47,8 @@ data class Vector3(val x: Float, val y: Float, val z: Float) {
     fun normalize() = this * (1.0f / length())
     fun dot(other: Vector3) = x * other.x + y * other.y + z * other.z
 }
+
+typealias Mtx2 = Matrix2
 
 data class Matrix2(val a: Float, val b: Float, val c: Float, val d: Float) {
     operator fun times(v: Vector2) = Vector2(a * v.x + b * v.y, c * v.x + d * v.y)

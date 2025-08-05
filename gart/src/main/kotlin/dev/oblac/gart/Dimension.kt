@@ -84,13 +84,15 @@ data class Dimension(val w: Int, val h: Int) {
     /**
      * Iterates over the all elements of the rectangle dimension.
      */
-    fun forEach(consumer: (x: Int, y: Int) -> Unit) {
-        for (j in 0 until h) {
-            for (i in 0 until w) {
+    fun forEach(step: Int = 1, consumer: (x: Int, y: Int) -> Unit) {
+        for (j in 0 until h step step) {
+            for (i in 0 until w step step) {
                 consumer(i, j)
             }
         }
     }
+
+    fun loop(step: Int = 1, consumer: (x: Int, y: Int) -> Unit) = forEach(step, consumer)
 
     /**
      * Grows the dimension by the factor.

@@ -78,6 +78,16 @@ operator fun Point.minus(other: Point): Point {
     return Point(this.x - other.x, this.y - other.y)
 }
 
+operator fun Point.plus(number: Number): Point {
+    return Point(this.x + number.toFloat(), this.y + number.toFloat())
+}
+
 operator fun Point.times(number: Number): Point {
     return Point(this.x * number.toFloat(), this.y * number.toFloat())
 }
+
+// dot product
+fun dot(a: Point, b: Point): Float = a.x * b.x + a.y * b.y
+
+@JvmName("pointDot")
+fun Point.dot(b: Point): Float = dot(this, b)
