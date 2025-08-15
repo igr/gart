@@ -12,6 +12,8 @@ data class Line(val a: Point, val b: Point) {
     val x2 get() = b.x
     val y2 get() = b.y
 
+    fun reversed() = Line(b, a)
+
     fun centerPoint() = Point((a.x + b.x) / 2, (a.y + b.y) / 2)
 
     fun length() = fastSqrt((b.x - a.x) * (b.x - a.x) + (b.y - a.y) * (b.y - a.y))

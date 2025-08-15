@@ -10,6 +10,12 @@ import org.jetbrains.skia.PathDirection
 import org.jetbrains.skia.PathEllipseArc
 import org.jetbrains.skia.Point
 
+/**
+ * Gravitron binds the lines that hit the circle.
+ * The input line is transformed to a circular arc.
+ * Returns the line that "continues" the arc, so that
+ * it can be used for further processing.
+ */
 data class Gravitron(
     val x: Float,
     val y: Float,
@@ -35,24 +41,62 @@ data class Gravitron(
         path.lineTo(pointB)
 
         // end point
-        val rotatedPoint = Transform.rotate(c, angle)(pointB)
+        val rotatedPoint = if (line.a.x < x) {
+            if (pointB.y < y) {
+                Transform.rotate(c, angle)(pointB)
+            } else {
+                Transform.rotate(c, -angle)(pointB)
+            }
+        } else {
+            if (pointB.y < y) {
+                Transform.rotate(c, -angle)(pointB)
+            } else {
+                Transform.rotate(c, angle)(pointB)
+            }
+        }
+
         // figure the path direction:
         val direction = if (line.a.x < x) {
-            PathDirection.CLOCKWISE
+            // the line is coming from the left side of the circle
+            if (pointB.y < y) {
+                PathDirection.CLOCKWISE
+            } else {
+                PathDirection.COUNTER_CLOCKWISE
+            }
         } else {
-            PathDirection.COUNTER_CLOCKWISE
+            // the line is coming from the right side of the circle
+            if (pointB.y < y) {
+                PathDirection.COUNTER_CLOCKWISE
+            } else {
+                PathDirection.CLOCKWISE
+            }
         }
-        path.ellipticalArcTo(radi, radi, angle.degrees, PathEllipseArc.SMALLER, direction, rotatedPoint.x, rotatedPoint.y)
+        path.ellipticalArcTo(
+            radi, radi,
+            angle.degrees,
+            PathEllipseArc.SMALLER,
+            direction,
+            rotatedPoint.x, rotatedPoint.y
+        )
 
         // find line that is parallel to the original line, but staring from the rotated point
 //        val parallelLine = Line.parallelTo(line, rotatedPoint)
 //        return parallelLine
 
         // continue the line in the direction of the arc
-        return if (direction == PathDirection.CLOCKWISE) {
-            Line.fromPointAtAngle(rotatedPoint, angle, line.length())
+        val lineAngle = line.angle()
+        return if (line.a.x < x) {
+            if (pointB.y < y) {
+                Line.fromPointAtAngle(rotatedPoint, angle + lineAngle, line.length())
+            } else {
+                Line.fromPointAtAngle(rotatedPoint, -angle + lineAngle, line.length())
+            }
         } else {
-            Line.fromPointAtAngle(rotatedPoint, angle + Degrees.D180, line.length())
+            if (pointB.y < y) {
+                Line.fromPointAtAngle(rotatedPoint, -angle + lineAngle, line.length())
+            } else {
+                Line.fromPointAtAngle(rotatedPoint, angle + lineAngle, line.length())
+            }
         }
     }
 
