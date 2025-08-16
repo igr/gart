@@ -1,6 +1,6 @@
 # gȧrt
 
-🧧 gënérative ȧrt made by pragmatic kotlin micro-framework.
+🧧 gënérative ȧrt made by pragmatic [kotlin](WhyKotlin.md) micro-framework.
 
 > ❤️ Follow: [Instagram](https://www.instagram.com/gart_173)
 
@@ -24,7 +24,14 @@ just hotReload
 
 ⭐️ [Plasma](arts/plasma/README.md)
 
+<p align="center">
 <img src="arts/plasma/plasma_thumb.png">
+<img src="arts/plasma/plasma2_thumb.png">
+<img src="arts/plasma/plasma3_thumb.png">
+<img src="arts/plasma/plasma4_thumb.png">
+</p>
+
+<br clear="both">
 
 ⭐️ [Circle Dots](arts/circledots/README.md)
 
@@ -112,6 +119,14 @@ just hotReload
 <img src="arts/harmongraph/harmongraph0_thumb.png" align="left">
 <img src="arts/harmongraph/harmongraph1_thumb.png" align="left">
 <img src="arts/harmongraph/harmongraph2_thumb.png" align="left">
+<img src="arts/harmongraph/hA_thumb.png" align="left">
+<img src="arts/harmongraph/hB_thumb.png" align="left">
+<img src="arts/harmongraph/hC_thumb.png" align="left">
+<img src="arts/harmongraph/hD_thumb.png" align="left">
+<img src="arts/harmongraph/hE_thumb.png" align="left">
+<img src="arts/harmongraph/hF_thumb.png" align="left">
+<img src="arts/harmongraph/hG_thumb.png" align="left">
+<img src="arts/harmongraph/hH_thumb.png" align="left">
 </p>
 
 <br clear="both">
@@ -130,6 +145,7 @@ just hotReload
 <img src="arts/flowforce/Eclectic2_thumb.png" align="left">
 <img src="arts/flowforce/interruption_thumb.png" align="left">
 <img src="arts/flowforce/circlex_thumb.png" align="left">
+<img src="arts/flowforce/vorflow_thumb.png" align="left">
 </p>
 
 <br clear="both">
@@ -272,6 +288,7 @@ just hotReload
 <p align="center">
 <img src="arts/hills/february_thumb.png" align="left">
 <img src="arts/hills/hills_thumb.png" align="left">
+<img src="arts/hills/horizons_thumb.png" align="left">
 </p>
 
 <br clear="both">
@@ -340,6 +357,9 @@ just hotReload
 <p align="center">
 <img src="arts/lines/citymap_thumb.png" align="left">
 <img src="arts/lines/triangles_thumb.png" align="left">
+<img src="arts/lines/swing_thumb.png" align="left">
+<img src="arts/lines/swing2_thumb.png" align="left">
+<img src="arts/lines/swing3_thumb.png" align="left">
 </p>
 
 <br clear="both">
@@ -350,5 +370,13 @@ just hotReload
 <img src="arts/monet/monet1-0_thumb.png" align="left">
 <img src="arts/monet/monet1_thumb.png" align="left">
 <img src="arts/monet/monet2_thumb.png" align="left">
+</p>
+
+<br clear="both">
+
+⭐️ [Cell](arts/cell/README.md)
+
+<p align="center">
+<img src="arts/cell/cell1_thumb.png" align="left">
 </p>
 
