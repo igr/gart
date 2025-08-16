@@ -25,10 +25,10 @@ just hotReload
 ⭐️ [Plasma](arts/plasma/README.md)
 
 <p align="center">
-<img src="arts/plasma/plasma_thumb.png">
-<img src="arts/plasma/plasma2_thumb.png">
-<img src="arts/plasma/plasma3_thumb.png">
-<img src="arts/plasma/plasma4_thumb.png">
+<img src="arts/plasma/plasma_thumb.png" align="left">
+<img src="arts/plasma/plasma2_thumb.png" align="left">
+<img src="arts/plasma/plasma3_thumb.png" align="left">
+<img src="arts/plasma/plasma4_thumb.png" align="left">
 </p>
 
 <br clear="both">
