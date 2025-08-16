@@ -74,7 +74,7 @@ data class Gravitron(
         path.ellipticalArcTo(
             radi, radi,
             angle.degrees,
-            PathEllipseArc.SMALLER,
+            if (angle.degrees <= 180f) PathEllipseArc.SMALLER else PathEllipseArc.LARGER,
             direction,
             rotatedPoint.x, rotatedPoint.y
         )
