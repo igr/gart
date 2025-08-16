@@ -5,11 +5,11 @@ import dev.oblac.gart.gfx.fillOfWhite
 import dev.oblac.gart.toFrames
 import org.jetbrains.skia.Canvas
 import org.jetbrains.skia.Rect
-import kotlin.time.Duration.Companion.seconds
+import kotlin.time.Duration.Companion.milliseconds
 
 private val gart = Gart.of(
     "CircleDots",
-    640, 640, 50
+    640, 640, 30
 )
 
 private const val rowCount = 25
@@ -48,24 +48,15 @@ fun main() {
     var tick = 0
 
     val w = gart.window()
-    val m = gart.movie()
-
-    val everySecond = 1.seconds.toFrames(w.fps)
-    val end = 8L * w.fps
-
-    m.record(w).show { c, _, f ->
+    val everySecond = 500.milliseconds.toFrames(w.fps)
+    w.show { c, _, f ->
         f.onEveryFrame(everySecond) {
             tick++
+            for (circle in circles) {
+                circle.tick()
+            }
         }
-
         drawAll(c, tick.mod(2) == 0)
-
-        f.onFrame(end) {
-            m.stopRecording()
-        }
-        f.onFrame(1) {
-            gart.saveImage(c)
-        }
     }
 }
 

@@ -29,7 +29,6 @@ just hotReload
 ⭐️ [Circle Dots](arts/circledots/README.md)
 
 <img src="arts/circledots/circledots_thumb.png">
-<img src="arts/circledots/circledots2_thumb.png">
 
 ⭐️ [Joy Division](arts/joydiv/README.md)
 
