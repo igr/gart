@@ -78,6 +78,11 @@ class DrawFrameReloader(
         try {
             Thread.currentThread().contextClassLoader = hotReloadClassLoader
 
+            if (drawFrameClassName.contains("\$\$Lambda/")) {
+                println("❌ Lambda detected: use `Drawing` instance instead of lambda!")
+                return
+            }
+
             // Try to reload the DrawFrame with the new classloader
             // We MUST load it with the new classloader even if it hasn't changed,
             // so it can access updated dependencies

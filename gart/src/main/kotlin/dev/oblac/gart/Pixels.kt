@@ -1,8 +1,10 @@
 package dev.oblac.gart
 
+import dev.oblac.gart.color.*
 import java.nio.ByteBuffer
 import java.nio.ByteOrder
 import java.nio.IntBuffer
+import kotlin.math.min
 
 /**
  * Actual pixels memory storage.
@@ -85,6 +87,87 @@ interface Pixels {
 
     operator fun set(offset: Int, value: Long) {
         pixelBytes.set(offset, value.toInt())
+    }
+
+    /**
+     * Sets a block of pixels to a specific color.
+     */
+    fun setBlock(
+        x: Int, y: Int,
+        pixelSize: Int,
+        color: Int
+    ) {
+        for (dy in 0 until min(pixelSize, d.h - y)) {
+            for (dx in 0 until min(pixelSize, d.w - x)) {
+                this[x + dx, y + dy] = color
+            }
+        }
+    }
+
+    /**
+     * Sets a block of pixels to a specific color.
+     */
+    fun setBlock(
+        x: Int, y: Int,
+        pixelSize: Int,
+        color: RGBA
+    ) = setBlock(
+        x, y, pixelSize, color.value
+    )
+
+    fun calcAverageBlockColor(
+        x: Int, y: Int,
+        pixelSize: Int,
+    ): Int {
+        var totalR = 0
+        var totalG = 0
+        var totalB = 0
+        var totalA = 0
+        var count = 0
+
+        if (pixelSize == 1) {
+            return this[x, y]
+        }
+
+        for (dy in 0 until min(pixelSize, d.h - y)) {
+            for (dx in 0 until min(pixelSize, d.w - x)) {
+                val pixel = this[x + dx, y + dy]
+                totalR += red(pixel)
+                totalG += green(pixel)
+                totalB += blue(pixel)
+                totalA += alpha(pixel)
+                count++
+            }
+        }
+        return argb(totalA / count, totalR / count, totalG / count, totalB / count)
+    }
+
+    fun addBlockColor(
+        x: Int,
+        y: Int,
+        pixelSize: Int,
+        deltaR: Int,
+        deltaG: Int,
+        deltaB: Int
+    ) {
+        for (dy in 0 until min(pixelSize, d.h - y)) {
+            for (dx in 0 until min(pixelSize, d.w - x)) {
+                if (x + dx < d.w && y + dy < d.h) {
+                    val currentPixel = this[x + dx, y + dy]
+
+                    val currentR = red(currentPixel)
+                    val currentG = green(currentPixel)
+                    val currentB = blue(currentPixel)
+                    val currentA = alpha(currentPixel)
+
+                    val newR = (currentR + deltaR).coerceIn(0, 255)
+                    val newG = (currentG + deltaG).coerceIn(0, 255)
+                    val newB = (currentB + deltaB).coerceIn(0, 255)
+
+                    this[x + dx, y + dy] = argb(currentA, newR, newG, newB)
+                }
+            }
+        }
     }
 
     /**

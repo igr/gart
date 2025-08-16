@@ -3,7 +3,7 @@ package dev.oblac.gart.math
 import kotlin.math.floor
 
 fun Double.f() = toFloat()
-fun Integer.f() = toFloat()
+fun Int.f() = toFloat()
 
 fun Int.isEven() = this % 2 == 0
 fun Int.isOdd() = this % 2 == 1

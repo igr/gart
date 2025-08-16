@@ -76,3 +76,11 @@ fun dashPaint(color: Int, density: Float = 6f, angle: Float = -45f, strokeWidth:
     }
     return paint
 }
+
+/**
+ * Creates a Paint object with anti-aliasing enabled.
+ * This is a common utility function to create a Paint object with default settings.
+ */
+fun paint() = Paint().apply {
+    this.isAntiAlias = true
+}
