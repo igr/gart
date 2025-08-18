@@ -8,9 +8,8 @@ import dev.oblac.gart.gfx.fillOf
 import dev.oblac.gart.gfx.fillOfRed
 import dev.oblac.gart.noise.HaltonSequenceGenerator
 import dev.oblac.gart.pixels.pixelSorter
+import dev.oblac.gart.util.loadResourceAsImage
 import org.jetbrains.skia.Rect
-import org.jetbrains.skiko.toImage
-import javax.imageio.ImageIO
 
 
 fun main() {
@@ -88,8 +87,7 @@ fun main() {
     b.drawToCanvas()
 
     // ✅ load sprite
-    val stream = object {}.javaClass.getResourceAsStream("/nature.jpg")
-    val sprite = ImageIO.read(stream).toImage()
+    val sprite = loadResourceAsImage("/nature.jpg")
     g1.canvas.drawImage(sprite, 0f, 350f)
 
     // ✅ pixel sorter
