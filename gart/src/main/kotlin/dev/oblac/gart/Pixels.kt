@@ -181,6 +181,14 @@ interface Pixels {
         }
     }
 
+    fun fill(color: Int) {
+        for (j in 0 until d.h) {
+            for (i in 0 until d.w) {
+                set(i, j, color)
+            }
+        }
+    }
+
     fun copyPixelsFrom(bitmap: Pixels) {
         bitmap.pixelBytes.bytes.copyInto(this.pixelBytes.bytes)
     }
