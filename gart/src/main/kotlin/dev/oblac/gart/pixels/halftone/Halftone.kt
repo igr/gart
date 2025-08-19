@@ -124,22 +124,58 @@ private fun drawCircle(
 ) {
     val cx = centerX.toInt()
     val cy = centerY.toInt()
-    val r = radius.toInt()
+    val bound = (radius + 2.0).toInt()
 
-    // Use Bresenham-like approach for filled circle
-    for (dy in -r..r) {
-        for (dx in -r..r) {
+    // Anti-aliased circle with coverage calculation
+    for (dy in -bound..bound) {
+        for (dx in -bound..bound) {
             val x = cx + dx
             val y = cy + dy
 
             // Check if point is within canvas bounds
             if (x >= 0 && y >= 0 && x < pixels.d.w && y < pixels.d.h) {
-                // Check if point is inside circle
                 val distance = sqrt((dx * dx + dy * dy).toDouble())
-                if (distance <= radius) {
-                    pixels[x, y] = color.value
+                
+                if (distance <= radius + 1.0) {
+                    val coverage = when {
+                        distance <= radius - 1.0 -> 1.0
+                        distance >= radius + 1.0 -> 0.0
+                        else -> {
+                            // Simple anti-aliasing: linear falloff in edge region
+                            val edgeDistance = kotlin.math.abs(distance - radius)
+                            1.0 - edgeDistance
+                        }
+                    }
+                    
+                    if (coverage > 0.0) {
+                        // Apply coverage-based alpha blending
+                        val existingPixel = pixels[x, y]
+                        val blendedColor = blendWithCoverage(existingPixel, color.value, coverage)
+                        pixels[x, y] = blendedColor
+                    }
                 }
             }
         }
     }
+}
+
+private fun blendWithCoverage(background: Int, foreground: Int, coverage: Double): Int {
+    val alpha = coverage.toFloat()
+    
+    val bgA = (background ushr 24) and 0xFF
+    val bgR = (background ushr 16) and 0xFF
+    val bgG = (background ushr 8) and 0xFF
+    val bgB = background and 0xFF
+    
+    val fgA = (foreground ushr 24) and 0xFF
+    val fgR = (foreground ushr 16) and 0xFF
+    val fgG = (foreground ushr 8) and 0xFF
+    val fgB = foreground and 0xFF
+    
+    val finalA = (fgA * alpha + bgA * (1f - alpha)).toInt().coerceIn(0, 255)
+    val finalR = (fgR * alpha + bgR * (1f - alpha)).toInt().coerceIn(0, 255)
+    val finalG = (fgG * alpha + bgG * (1f - alpha)).toInt().coerceIn(0, 255)
+    val finalB = (fgB * alpha + bgB * (1f - alpha)).toInt().coerceIn(0, 255)
+    
+    return (finalA shl 24) or (finalR shl 16) or (finalG shl 8) or finalB
 }
