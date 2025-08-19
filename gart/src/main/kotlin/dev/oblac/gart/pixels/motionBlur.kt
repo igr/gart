@@ -5,7 +5,11 @@ import dev.oblac.gart.MemPixels
 import dev.oblac.gart.angles.Angle
 import dev.oblac.gart.angles.cos
 import dev.oblac.gart.angles.sin
-import dev.oblac.gart.color.*
+import dev.oblac.gart.color.alpha
+import dev.oblac.gart.color.blue
+import dev.oblac.gart.color.green
+import dev.oblac.gart.color.red
+import dev.oblac.gart.color.space.RGBA
 
 /**
  * Apply motion blur effect to simulate movement in a specific direction.

@@ -2,7 +2,11 @@ package dev.oblac.gart.pixels
 
 import dev.oblac.gart.Gartmap
 import dev.oblac.gart.MemPixels
-import dev.oblac.gart.color.*
+import dev.oblac.gart.color.alpha
+import dev.oblac.gart.color.blue
+import dev.oblac.gart.color.green
+import dev.oblac.gart.color.red
+import dev.oblac.gart.color.space.RGBA
 
 /**
  * Anti-aliased bitmap using a 3x3 Gaussian blur filter.

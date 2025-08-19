@@ -1,5 +1,7 @@
 package dev.oblac.gart.color
 
+import dev.oblac.gart.color.space.ColorHSLA
+import dev.oblac.gart.color.space.ColorRGBA
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 

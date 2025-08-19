@@ -1,8 +1,5 @@
 package dev.oblac.gart.color.space
 
-import dev.oblac.gart.color.ColorRGBA
-import dev.oblac.gart.color.RGBA
-
 /**
  * CMYK color representation (Cyan, Magenta, Yellow, Key/Black).
  * Values are normalized to 0.0-1.0 range.

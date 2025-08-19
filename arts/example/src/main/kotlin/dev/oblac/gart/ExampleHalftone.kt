@@ -1,10 +1,10 @@
 package dev.oblac.gart
 
 import dev.oblac.gart.color.Colors
-import dev.oblac.gart.color.RGBA.Companion.BLACK
-import dev.oblac.gart.color.RGBA.Companion.CYAN
-import dev.oblac.gart.color.RGBA.Companion.MAGENTA
-import dev.oblac.gart.color.RGBA.Companion.YELLOW
+import dev.oblac.gart.color.space.RGBA.Companion.BLACK
+import dev.oblac.gart.color.space.RGBA.Companion.CYAN
+import dev.oblac.gart.color.space.RGBA.Companion.MAGENTA
+import dev.oblac.gart.color.space.RGBA.Companion.YELLOW
 import dev.oblac.gart.gfx.draw
 import dev.oblac.gart.gfx.drawImage
 import dev.oblac.gart.gfx.fillOfRed

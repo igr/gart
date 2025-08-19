@@ -1,5 +1,6 @@
-package dev.oblac.gart.color
+package dev.oblac.gart.color.space
 
+import dev.oblac.gart.color.*
 import kotlin.math.roundToInt
 
 data class ColorRGBA(val r: Float, val g: Float, val b: Float, val a: Float = 1f) {

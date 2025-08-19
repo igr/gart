@@ -1,7 +1,7 @@
 package dev.oblac.gart.pixels.dither
 
 import dev.oblac.gart.Pixels
-import dev.oblac.gart.color.RGBA
+import dev.oblac.gart.color.space.RGBA
 import dev.oblac.gart.pixels.roundToNearestQuantization
 
 fun ditherStucki(bitmap: Pixels, pixelSize: Int = 1, colorCount: Int = 256) {

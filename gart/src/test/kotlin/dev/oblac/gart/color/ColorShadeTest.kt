@@ -1,5 +1,6 @@
 package dev.oblac.gart.color
 
+import dev.oblac.gart.color.space.ColorHSLA
 import org.junit.jupiter.api.Test
 import kotlin.test.assertEquals
 

@@ -2,10 +2,10 @@ package dev.oblac.gart.pixels.halftone
 
 import dev.oblac.gart.Pixels
 import dev.oblac.gart.color.Colors
-import dev.oblac.gart.color.RGBA
-import dev.oblac.gart.color.RGBA.Companion.BLACK
 import dev.oblac.gart.color.alpha
 import dev.oblac.gart.color.red
+import dev.oblac.gart.color.space.RGBA
+import dev.oblac.gart.color.space.RGBA.Companion.BLACK
 import kotlin.math.PI
 import kotlin.math.sqrt
 

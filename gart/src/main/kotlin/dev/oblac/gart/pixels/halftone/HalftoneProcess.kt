@@ -3,9 +3,9 @@ package dev.oblac.gart.pixels.halftone
 import dev.oblac.gart.MemPixels
 import dev.oblac.gart.Pixels
 import dev.oblac.gart.color.Colors
-import dev.oblac.gart.color.RGBA.Companion.BLACK
 import dev.oblac.gart.color.red
 import dev.oblac.gart.color.space.ColorCMYK
+import dev.oblac.gart.color.space.RGBA.Companion.BLACK
 
 /**
  * Processes an input image to create a CMYK halftone effect.

@@ -2,7 +2,7 @@ package dev.oblac.gart.plasma.four
 
 import dev.oblac.gart.*
 import dev.oblac.gart.color.Palettes
-import dev.oblac.gart.color.RGBA
+import dev.oblac.gart.color.space.RGBA
 import dev.oblac.gart.math.lerp
 import org.jetbrains.skia.Canvas
 import kotlin.math.floor

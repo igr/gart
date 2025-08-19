@@ -1,7 +1,7 @@
 package dev.oblac.gart.pixels
 
 import dev.oblac.gart.Pixels
-import dev.oblac.gart.color.RGBA
+import dev.oblac.gart.color.space.RGBA
 import dev.oblac.gart.math.fastSqrt
 import org.jetbrains.skia.Point
 

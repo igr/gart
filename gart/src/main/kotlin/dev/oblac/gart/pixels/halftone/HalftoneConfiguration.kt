@@ -1,6 +1,6 @@
 package dev.oblac.gart.pixels.halftone
 
-import dev.oblac.gart.color.RGBA
+import dev.oblac.gart.color.space.RGBA
 
 /**
  * Configuration for halftone rendering.

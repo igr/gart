@@ -1,6 +1,7 @@
 package dev.oblac.gart
 
 import dev.oblac.gart.color.*
+import dev.oblac.gart.color.space.RGBA
 import java.nio.ByteBuffer
 import java.nio.ByteOrder
 import java.nio.IntBuffer
