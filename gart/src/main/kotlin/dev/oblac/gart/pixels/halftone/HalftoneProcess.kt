@@ -51,7 +51,7 @@ private fun processSingleChannel(
         angle = channel.angle,
         dotSize = dotSize,
         dotResolution = dotResolution,
-        color = channel.color,
+        color = BLACK, // Always use black dots to represent ink density
         isLayer = !isFirstChannel
     )
 
