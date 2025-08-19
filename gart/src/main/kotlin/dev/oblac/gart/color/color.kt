@@ -5,6 +5,7 @@ import dev.oblac.gart.gfx.strokeOf
 import org.jetbrains.skia.Color
 import org.jetbrains.skia.Color4f
 import org.jetbrains.skia.Paint
+import kotlin.math.min
 
 fun alpha(color: Int): Int {
     return color shr 24 and 0xFF
@@ -81,6 +82,29 @@ fun blendColors(front: Int, back: Int): Int {
     val blendedG = (green(front) * alphaFactor + green(back) * invAlphaFactor).toInt()
     val blendedB = (blue(front) * alphaFactor + blue(back) * invAlphaFactor).toInt()
     val blendedA = (frontAlpha + backAlpha * invAlphaFactor).toInt()
+
+    return argb(blendedA, blendedR, blendedG, blendedB)
+}
+
+
+fun blendDarken(existingColor: Int, newColor: Int): Int {
+    val existingR = red(existingColor)
+    val existingG = green(existingColor)
+    val existingB = blue(existingColor)
+    val existingA = alpha(existingColor)
+
+    val newR = red(newColor)
+    val newG = green(newColor)
+    val newB = blue(newColor)
+    val newA = alpha(newColor)
+
+    // Darken blend mode: take minimum of each channel
+    val blendedR = min(existingR, newR)
+    val blendedG = min(existingG, newG)
+    val blendedB = min(existingB, newB)
+
+    // Alpha compositing
+    val blendedA = existingA + newA * (255 - existingA) / 255
 
     return argb(blendedA, blendedR, blendedG, blendedB)
 }

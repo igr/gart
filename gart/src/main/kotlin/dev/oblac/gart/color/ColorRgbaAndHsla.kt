@@ -198,6 +198,12 @@ data class RGBA(
             b = b.coerceIn(0, 255),
             a = a.coerceIn(0, 255)
         )
+
+        val WHITE = RGBA(255, 255, 255)
+        val BLACK = RGBA(0, 0, 0)
+        val YELLOW = RGBA(255, 255, 0)
+        val CYAN = RGBA(0, 255, 255)
+        val MAGENTA = RGBA(255, 0, 255)
 	}
 
 }

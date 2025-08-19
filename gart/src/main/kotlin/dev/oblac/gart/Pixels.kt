@@ -181,6 +181,7 @@ interface Pixels {
         }
     }
 
+    // todo make it faster: fill the inner int buffer
     fun fill(color: Int) {
         for (j in 0 until d.h) {
             for (i in 0 until d.w) {
