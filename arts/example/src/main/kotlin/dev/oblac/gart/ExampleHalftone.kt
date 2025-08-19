@@ -23,10 +23,10 @@ private var dotSize = 10
 private var dotResolution = 5
 
 // CMYK angle variables
-private var yellowAngle = 2.0
-private var cyanAngle = 15.0
-private var magentaAngle = 75.0
-private var keyAngle = 45.0
+private var yellowAngle = 2.0f
+private var cyanAngle = 15.0f
+private var magentaAngle = 75.0f
+private var keyAngle = 45.0f
 
 private val corgi = loadResourceAsImage("/corgi.png")
 
@@ -106,41 +106,41 @@ fun main() {
             
             // Yellow angle controls
             Key.KEY_P -> {
-                yellowAngle += 5.0
+                yellowAngle += 5.0f
                 println("Yellow angle: $yellowAngle")
             }
             Key.KEY_L -> {
-                yellowAngle -= 5.0
+                yellowAngle -= 5.0f
                 println("Yellow angle: $yellowAngle")
             }
             
             // Cyan angle controls
             Key.KEY_O -> {
-                cyanAngle += 5.0
+                cyanAngle += 5.0f
                 println("Cyan angle: $cyanAngle")
             }
             Key.KEY_K -> {
-                cyanAngle -= 5.0
+                cyanAngle -= 5.0f
                 println("Cyan angle: $cyanAngle")
             }
             
             // Magenta angle controls
             Key.KEY_I -> {
-                magentaAngle += 5.0
+                magentaAngle += 5.0f
                 println("Magenta angle: $magentaAngle")
             }
             Key.KEY_J -> {
-                magentaAngle -= 5.0
+                magentaAngle -= 5.0f
                 println("Magenta angle: $magentaAngle")
             }
             
             // Key (black) angle controls
             Key.KEY_U -> {
-                keyAngle += 5.0
+                keyAngle += 5.0f
                 println("Key angle: $keyAngle")
             }
             Key.KEY_H -> {
-                keyAngle -= 5.0
+                keyAngle -= 5.0f
                 println("Key angle: $keyAngle")
             }
 
@@ -170,19 +170,17 @@ fun main() {
 private fun config() = HalftoneConfiguration(
     dotSize = dotSize,
     dotResolution = dotResolution,
-    YellowChannel(yellowAngle),
-    CyanChannel(cyanAngle),
-    MagentaChannel(magentaAngle),
-    KeyChannel(keyAngle),
+    yellowAngle,
+    cyanAngle,
+    magentaAngle,
+    keyAngle,
 )
 
 private fun halftoneJoin(gartmap: Gartmap) {
-    val config = config()
-
-    val yellowChannel = extractColorChannel(gartmap, config.yellowChannel)
-    val magentaChannel = extractColorChannel(gartmap,config.magentaChannel)
-    val cyanChannel = extractColorChannel(gartmap, config.cyanChannel)
-    val keyChannel = extractColorChannel(gartmap, config.keyChannel)
+    val yellowChannel = extractColorChannel(gartmap, ColorChannel.YELLOW)
+    val magentaChannel = extractColorChannel(gartmap, ColorChannel.MAGENTA)
+    val cyanChannel = extractColorChannel(gartmap, ColorChannel.CYAN)
+    val keyChannel = extractColorChannel(gartmap, ColorChannel.KEY)
 
     val mem = MemPixels(gartmap.d)
     joinGrayscaleCMYKChannels(cyanChannel, magentaChannel, yellowChannel, keyChannel, mem)
@@ -197,7 +195,6 @@ private fun defaultHalftone2(gartmap: Gartmap) {
 
 private fun defaultHalftone(gartmap: Gartmap) {
     val config = config()
-
     val mem = processHalftoneWithJoin(
         gartmap,
         config = config,
@@ -207,62 +204,58 @@ private fun defaultHalftone(gartmap: Gartmap) {
 
 private fun halftoneYellow(gartmap: Gartmap) {
     val config = config()
-    val yellowChannel = extractColorChannel(gartmap, config.yellowChannel)
-
-    val mem4 = MemPixels(gartmap.d)
+    val yellowChannel = extractColorChannel(gartmap, ColorChannel.YELLOW)
+    val mem = MemPixels(gartmap.d)
     renderHalftone(
-        yellowChannel, mem4,
+        yellowChannel, mem,
         angle = yellowAngle,
         dotSize = config.dotSize,
         dotResolution = config.dotResolution,
         color = YELLOW
     )
-    gartmap.copyPixelsFrom(mem4)
+    gartmap.copyPixelsFrom(mem)
 }
 
 private fun halftoneCyan(gartmap: Gartmap) {
     val config = config()
-    val cyanChannel = extractColorChannel(gartmap, config.cyanChannel)
-
-    val mem1 = MemPixels(gartmap.d)
+    val cyanChannel = extractColorChannel(gartmap, ColorChannel.CYAN)
+    val mem = MemPixels(gartmap.d)
     renderHalftone(
-        cyanChannel, mem1,
+        cyanChannel, mem,
         angle = cyanAngle,
         dotSize = config.dotSize,
         dotResolution = config.dotResolution,
         color = CYAN
     )
-    gartmap.copyPixelsFrom(mem1)
+    gartmap.copyPixelsFrom(mem)
 }
 
 private fun halftoneMagenta(gartmap: Gartmap) {
     val config = config()
-
-    val magentaChannel = extractColorChannel(gartmap, config.magentaChannel)
-
-    val mem3 = MemPixels(gartmap.d)
+    val magentaChannel = extractColorChannel(gartmap, ColorChannel.MAGENTA)
+    val mem = MemPixels(gartmap.d)
     renderHalftone(
-        magentaChannel, mem3,
+        magentaChannel, mem,
         angle = magentaAngle,
         dotSize = config.dotSize,
         dotResolution = config.dotResolution,
         color = MAGENTA
     )
-    gartmap.copyPixelsFrom(mem3)
+    gartmap.copyPixelsFrom(mem)
 }
 
 private fun halftoneKey(gartmap: Gartmap) {
     val config = config()
-    val keyChannel = extractColorChannel(gartmap, config.keyChannel)
-    val mem2 = MemPixels(gartmap.d)
+    val keyChannel = extractColorChannel(gartmap, ColorChannel.KEY)
+    val mem = MemPixels(gartmap.d)
     renderHalftone(
-        keyChannel, mem2,
+        keyChannel, mem,
         angle = magentaAngle,
         dotSize = config.dotSize,
         dotResolution = config.dotResolution,
         color = BLACK
     )
-    gartmap.copyPixelsFrom(mem2)
+    gartmap.copyPixelsFrom(mem)
 }
 
 private fun draw1(c: Canvas, d: Dimension) {

@@ -1,48 +1,14 @@
 package dev.oblac.gart.pixels.halftone
 
-import dev.oblac.gart.color.space.RGBA
-
 /**
  * Configuration for halftone rendering.
+ * Uses TV defaults for angles.
  */
 data class HalftoneConfiguration(
     val dotSize: Int = 10,
     val dotResolution: Int = 5,
-    val yellowChannel: YellowChannel = YellowChannel(82.5),
-    val cyanChannel: CyanChannel = CyanChannel(112.5),
-    val magentaChannel: MagentaChannel = MagentaChannel(52.5),
-    val keyChannel: KeyChannel = KeyChannel(22.5),
+    val yellowAngle: Float = 82.5f,
+    val cyanAngle: Float = 112.5f,
+    val magentaAngle: Float = 52.5f,
+    val keyAngle: Float = 22.5f,
 )
-
-data class YellowChannel(
-    override val angle: Double,
-) : ColorChannel {
-    override val color: RGBA = RGBA.YELLOW
-}
-
-data class CyanChannel(
-    override val angle: Double,
-) : ColorChannel {
-    override val color: RGBA = RGBA.CYAN
-}
-
-data class MagentaChannel(
-    override val angle: Double,
-) : ColorChannel {
-    override val color: RGBA = RGBA.MAGENTA
-}
-
-data class KeyChannel(
-    override val angle: Double,
-) : ColorChannel {
-    override val color: RGBA = RGBA.BLACK
-}
-
-/**
- * Color channel information for CMYK processing.
- */
-sealed interface ColorChannel {
-    val angle: Double
-    val color: RGBA
-}
-

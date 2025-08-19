@@ -16,7 +16,7 @@ import kotlin.math.sqrt
 fun renderHalftone(
     source: Pixels,
     target: Pixels,
-    angle: Double,
+    angle: Float,
     dotSize: Int,
     dotResolution: Int,
     color: RGBA = BLACK,

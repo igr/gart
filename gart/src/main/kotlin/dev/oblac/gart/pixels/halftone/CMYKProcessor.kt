@@ -7,6 +7,7 @@ import dev.oblac.gart.color.blue
 import dev.oblac.gart.color.green
 import dev.oblac.gart.color.red
 import dev.oblac.gart.color.space.ColorCMYK
+import dev.oblac.gart.color.space.RGBA
 import kotlin.math.max
 
 /**
@@ -92,5 +93,35 @@ fun joinGrayscaleCMYKChannels(cyanChannel: Pixels, magentaChannel: Pixels, yello
         val value = colorCMYK.toPureInk().value
 
         target[x, y] = value
+    }
+}
+
+class YellowChannel() : ColorChannel {
+    override val color: RGBA = RGBA.YELLOW
+}
+
+class CyanChannel() : ColorChannel {
+    override val color: RGBA = RGBA.CYAN
+}
+
+class MagentaChannel : ColorChannel {
+    override val color: RGBA = RGBA.MAGENTA
+}
+
+class KeyChannel : ColorChannel {
+    override val color: RGBA = RGBA.BLACK
+}
+
+/**
+ * Color channel information for CMYK processing.
+ */
+sealed interface ColorChannel {
+    val color: RGBA
+
+    companion object {
+        val YELLOW = YellowChannel()
+        val CYAN = CyanChannel()
+        val MAGENTA = MagentaChannel()
+        val KEY = KeyChannel()
     }
 }

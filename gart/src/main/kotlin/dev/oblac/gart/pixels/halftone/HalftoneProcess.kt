@@ -18,10 +18,10 @@ fun halftoneProcess(source: Pixels, config: HalftoneConfiguration = HalftoneConf
     val target = MemPixels(source.d)
     target.fill(Colors.white) // Initialize with white background for CMYK processing
     with(config) {
-        processSingleChannel(source, target, dotSize, dotResolution, yellowChannel, true)
-        processSingleChannel(source, target, dotSize, dotResolution, magentaChannel, false)
-        processSingleChannel(source, target, dotSize, dotResolution, cyanChannel, false)
-        processSingleChannel(source, target, dotSize, dotResolution, keyChannel, false)
+        processSingleChannel(source, target, dotSize, dotResolution, yellowAngle, ColorChannel.YELLOW, true)
+        processSingleChannel(source, target, dotSize, dotResolution, magentaAngle, ColorChannel.MAGENTA, false)
+        processSingleChannel(source, target, dotSize, dotResolution, cyanAngle, ColorChannel.CYAN, false)
+        processSingleChannel(source, target, dotSize, dotResolution, keyAngle, ColorChannel.KEY, false)
     }
     return target
 }
@@ -34,6 +34,7 @@ private fun processSingleChannel(
     target: Pixels,
     dotSize: Int,
     dotResolution: Int,
+    angle: Float,
     channel: ColorChannel,
     isFirstChannel: Boolean
 ) {
@@ -48,7 +49,7 @@ private fun processSingleChannel(
     renderHalftone(
         source = channelPixels,
         target = channelHalftone,
-        angle = channel.angle,
+        angle = angle,
         dotSize = dotSize,
         dotResolution = dotResolution,
         color = BLACK, // Always use black dots to represent ink density
@@ -90,15 +91,15 @@ private fun combineChannelWithResult(
  * and then joins them at the end.
  */
 fun processHalftoneWithJoin(source: Pixels, config: HalftoneConfiguration = HalftoneConfiguration()): Pixels {
-    val yellowChannel = extractColorChannel(source, config.yellowChannel)
-    val magentaChannel = extractColorChannel(source, config.magentaChannel)
-    val cyanChannel = extractColorChannel(source, config.cyanChannel)
-    val keyChannel = extractColorChannel(source, config.keyChannel)
+    val yellowChannel = extractColorChannel(source, ColorChannel.YELLOW)
+    val magentaChannel = extractColorChannel(source, ColorChannel.MAGENTA)
+    val cyanChannel = extractColorChannel(source, ColorChannel.CYAN)
+    val keyChannel = extractColorChannel(source, ColorChannel.KEY)
 
     val memC = MemPixels(source.d)
     renderHalftone(
         cyanChannel, memC,
-        angle = config.cyanChannel.angle,
+        angle = config.cyanAngle,
         dotSize = config.dotSize,
         dotResolution = config.dotResolution,
         color = BLACK
@@ -106,7 +107,7 @@ fun processHalftoneWithJoin(source: Pixels, config: HalftoneConfiguration = Half
     val memK = MemPixels(source.d)
     renderHalftone(
         keyChannel, memK,
-        angle = config.keyChannel.angle,
+        angle = config.keyAngle,
         dotSize = config.dotSize,
         dotResolution = config.dotResolution,
         color = BLACK
@@ -114,7 +115,7 @@ fun processHalftoneWithJoin(source: Pixels, config: HalftoneConfiguration = Half
     val memM = MemPixels(source.d)
     renderHalftone(
         magentaChannel, memM,
-        angle = config.magentaChannel.angle,
+        angle = config.magentaAngle,
         dotSize = config.dotSize,
         dotResolution = config.dotResolution,
         color = BLACK
@@ -122,7 +123,7 @@ fun processHalftoneWithJoin(source: Pixels, config: HalftoneConfiguration = Half
     val memY = MemPixels(source.d)
     renderHalftone(
         yellowChannel, memY,
-        angle = config.yellowChannel.angle,
+        angle = config.yellowAngle,
         dotSize = config.dotSize,
         dotResolution = config.dotResolution,
         color = BLACK
