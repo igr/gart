@@ -1,6 +1,7 @@
 package dev.oblac.gart.util
 
 import java.lang.Math.floorMod
+import kotlin.math.abs
 
 /**
  * Returns a random element from the list, except the one provided.
@@ -58,4 +59,8 @@ fun <T> List<T>.circular(): List<T> {
             return this@circular.subList(fromIndex, toIndex)
         }
     }
+}
+
+operator fun <T> List<T>.rem(index: Int): T {
+    return this[abs(index % this.size)]
 }
