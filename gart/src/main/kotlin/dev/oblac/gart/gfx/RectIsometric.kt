@@ -42,6 +42,14 @@ sealed class RectIsometric(x: Float, y: Float, a: Float, b: Float, alpha: Angle,
             .lineTo(top)
             .closePath()
     }
+
+    fun width(): Float {
+        return right.x - left.x
+    }
+
+    fun height(): Float {
+        return bottom.y - top.y
+    }
 }
 
 /**
