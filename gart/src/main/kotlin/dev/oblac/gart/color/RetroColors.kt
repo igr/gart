@@ -15,4 +15,9 @@ object RetroColors {
     val gray01 = 0xFF6B6B5D.toIntColor()
     val maroon01 = 0xFF7C2333.toIntColor()
     val amber01 = 0xFFCAA023.toIntColor()
+
+    val allColors = listOf(
+        black01, white01, red01, green01, blue01, yellow01, orange01,
+        purple01, brown01, teal01, pink01, gray01, maroon01, amber01
+    )
 }
