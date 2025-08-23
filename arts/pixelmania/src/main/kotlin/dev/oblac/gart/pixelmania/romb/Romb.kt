@@ -25,9 +25,9 @@ private class MyDraw(val g: Gartvas) : Drawing(g) {
     val b = Gartmap(g)
     override fun draw(c: Canvas, d: Dimension, f: Frames) {
         draw(g.canvas, d)
-//        b.updatePixelsFromCanvas()
-//        ditherOrdered4By4Bayer(b, 4, 12)
-//        b.drawToCanvas()
+        //b.updatePixelsFromCanvas()
+        //liquify(b, Circle(d.w * 0.8f, d.h.toFloat(), min(d.w, d.h).toFloat()), 0.7f)
+        //b.drawToCanvas()
         c.draw(g)
     }
 }
