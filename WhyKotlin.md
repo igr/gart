@@ -1,31 +1,33 @@
 # Why Kotlin?
 
-Since I am getting this question a lot, here is my answer.
+Since I'm getting this question frequently, here's my reasoning behind the choices.
 
 ## Just a Canvas: Skiko
 
-My first intention is to have bare minimum canvas abstraction - one that you can simply draw on. I wanted only basics:
-to draw lines, circles, paths, colors, pixels, etc. My goal is to build everything else on top of it. I want to learn
-about
-algorithms, have fun with math formulas, experiment, make mistakes and just play with the code.
+My primary goal was to start with a **bare minimum canvas abstraction** — essentially a blank slate I could draw on. I
+wanted only the fundamentals: drawing and filling lines, circles, paths, handling colors and pixels. Nothing beyond the
+basics.
 
-I didn't want to be bounded with any existing framework. Instead, I wanted to
-learn how things work under the hood, and understand the math behind the algorithms. Finally, I wanted to have fun.
+The plan was to build everything else from the ground up. I wanted to learn algorithms, experiment with mathematical
+formulas, make mistakes, and simply have fun coding. Rather than being constrained by existing frameworks, I was
+determined to understand how things work under the hood and grasp the mathematics behind the algorithms.
 
-It happens that there is a [Skiko](https://github.com/JetBrains/skiko) library that provides a canvas abstraction on top
-of [Skia](https://skia.org) - one of the best graphics libraries out there, used by Chrome, Android, etc. Skiko is a
-very thin layer on top of Skia. It is actively maintained by JetBrains, which was important for my decision.
+This led me to [Skiko](https://github.com/JetBrains/skiko), a library that provides a canvas abstraction
+over [Skia](https://skia.org) — one of the industry's premier graphics libraries, powering Chrome, Android, and many
+other applications. Skiko is essentially a thin wrapper around Skia, and importantly, it's actively maintained by
+JetBrains.
 
-## Big Ecosystem
+## Rich Ecosystem
 
-Another plus for Kotlin is a big JVM ecosystem. There are a lot of libraries available, and it is easy to find what you
-need, if you get stuck. For example, there is a gif creation library, or a ffmpeg wrapper, etc.
+Kotlin's access to the entire JVM ecosystem was another significant advantage. There's an abundance of libraries
+available, making it easy to find solutions when you hit roadblocks. Need GIF creation? There's a library for that.
+FFmpeg wrapper? Covered.
 
 From the 3rd party libraries, I use `box-2d` for physics simulation.
 
-## Functional Enough
+## Functionally Pragmatic
 
-I also consider Kotlin as a Minimal Valuable Functional programming language (the coinage is mine:) I used to think in
-functional way, so Kotlin naturally fits my way of thinking. It is also not strict (lazy) as e.g. Haskell, and that is
-pragmatic in this case as I don't have much time for this passion project. The code is type-safe (enough) and I can be
-quite fluent with it.  
+I also appreciate Kotlin as what I call a "Minimally Viable Functional" programming language. Having a functional
+mindset, Kotlin feels natural to work with. Unlike stricter functional languages like Haskell, Kotlin offers the
+pragmatism I need for a passion project with limited time constraints. The code remains type-safe while allowing me to
+be productive and expressive.
