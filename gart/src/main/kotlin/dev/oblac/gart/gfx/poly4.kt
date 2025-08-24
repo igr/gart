@@ -15,6 +15,11 @@ data class Poly4(
     val c: Point,
     val d: Point
 ) {
+    fun center() = Point(
+        (a.x + b.x + c.x + d.x) / 4,
+        (a.y + b.y + c.y + d.y) / 4
+    )
+
     val path = Path().apply {
         moveTo(a.x, a.y)
         lineTo(b.x, b.y)

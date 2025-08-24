@@ -24,7 +24,7 @@ fun main() {
 private class MyDraw(val g: Gartvas) : Drawing(g) {
     val b = Gartmap(g)
     override fun draw(c: Canvas, d: Dimension, f: Frames) {
-        draw(c, d)
+        draw(g.canvas, d)
         //b.updatePixelsFromCanvas()
         // draw pixels
         //b.drawToCanvas()
