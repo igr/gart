@@ -30,6 +30,9 @@ fun humanLinePoints(x: Point, y: Point, delta: Int = 50, maxOffset: Float = 5f):
     }
 }
 
+fun humanLinePoints(line: Line, delta: Int = 50, maxOffset: Float = 5f) =
+    humanLinePoints(line.a, line.b, delta, maxOffset)
+
 
 fun Canvas.drawHumanRect(r: Rect, color: Paint) {
     val p = r.points()

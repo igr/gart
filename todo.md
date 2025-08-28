@@ -1,5 +1,6 @@
 # TODO ✅
 
++ [ ] Add `Points` - abstraction for a collection of points, to unify the use of `List<Point>` and `Array<Point>`.
 + [ ] Add projection of 3D space to a plane (e.g. for attractor), i.e. `Point3` to `Point2`
 
 ## Shaders

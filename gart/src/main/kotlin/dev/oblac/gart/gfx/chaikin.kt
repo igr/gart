@@ -93,3 +93,9 @@ tailrec fun chaikinSmooth(
     }
     return chaikinSmooth(result, iterations - 1, closed, bias)
 }
+
+fun List<Point>.toChaikinSmooth(
+    iterations: Int = 1,
+    closed: Boolean = false,
+    bias: Double = 0.25
+) = chaikinSmooth(this, iterations, closed, bias).toPath().closePath()
