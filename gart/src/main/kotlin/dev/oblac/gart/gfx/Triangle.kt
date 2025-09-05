@@ -2,23 +2,32 @@ package dev.oblac.gart.gfx
 
 import dev.oblac.gart.angles.Angle
 import dev.oblac.gart.math.PIf
+import dev.oblac.gart.math.Transform
 import dev.oblac.gart.math.dist
 import dev.oblac.gart.math.rnd
 import org.jetbrains.skia.Canvas
 import org.jetbrains.skia.Paint
 import org.jetbrains.skia.Path
 import org.jetbrains.skia.Point
+import org.jetbrains.skia.Rect
 import kotlin.math.*
 
 data class Triangle(val a: Point, val b: Point, val c: Point) {
     fun points() = arrayOf(a, b, c)
+
     val path = Path()
         .moveTo(a)
         .lineTo(b)
         .lineTo(c)
         .closePath()
+
     val edges = arrayOf(
         Line(a, b), Line(b, c), Line(c, a)
+    )
+
+    val centroid = Point(
+        (a.x + b.x + c.x) / 3,
+        (a.y + b.y + c.y) / 3
     )
 
     fun contains(point: Point): Boolean {
@@ -74,6 +83,58 @@ data class Triangle(val a: Point, val b: Point, val c: Point) {
         }
         return false
     }
+
+    /**
+     * Returns a new triangle scaled by a factor `f` from its centroid.
+     * For example, if `f` is 0.5, the triangle will be half its original size,
+     * and if `f` is 2.0, it will be double its original size.
+     */
+    fun scaled(f: Float): Triangle {
+        val center = centroid
+        val scalePoint = { p: Point ->
+            Point(
+                center.x + (p.x - center.x) * f,
+                center.y + (p.y - center.y) * f
+            )
+        }
+        return Triangle(
+            scalePoint(a),
+            scalePoint(b),
+            scalePoint(c)
+        )
+    }
+
+    fun rotateAround(midPoint: Point, angle: Angle): Triangle {
+        val rotationTransform = Transform.rotate(midPoint, angle)
+        return Triangle(
+            rotationTransform(a),
+            rotationTransform(b),
+            rotationTransform(c)
+        )
+    }
+
+    /**
+     * Reflects the triangle across the given line (edge).
+     * This creates a mirrored triangle on the opposite side of the line.
+     */
+    fun flipAcross(line: Line): Triangle {
+        val reflectPoint = { p: Point ->
+            // Formula for reflecting point across a line
+            val dx = line.b.x - line.a.x
+            val dy = line.b.y - line.a.y
+            val t = ((p.x - line.a.x) * dx + (p.y - line.a.y) * dy) / (dx * dx + dy * dy)
+            val closestPoint = Point(line.a.x + t * dx, line.a.y + t * dy)
+            Point(2 * closestPoint.x - p.x, 2 * closestPoint.y - p.y)
+        }
+
+        return Triangle(
+            reflectPoint(a),
+            reflectPoint(b),
+            reflectPoint(c)
+        )
+    }
+    
+    fun isInRect(r: Rect) = r.contains(a) && r.contains(b) && r.contains(c)
 
     companion object {
         /**

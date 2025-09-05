@@ -219,6 +219,10 @@ data class Line(val a: Point, val b: Point) {
         return fatLine(a.x, a.y, b.x, b.y, thickness)
     }
 
+    /**
+     * Returns the midpoint of the line.
+     */
+    fun midPoint() = Point((a.x + b.x) / 2, (a.y + b.y) / 2)
 }
 
 fun Canvas.drawLine(line: Line, color: Paint) = drawLine(line.a, line.b, color)

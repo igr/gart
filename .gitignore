@@ -4,4 +4,4 @@ out.*
 out
 build
 .DS_Store
-*.local.json
+.claude
