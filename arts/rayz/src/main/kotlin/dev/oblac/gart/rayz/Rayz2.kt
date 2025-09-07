@@ -13,6 +13,7 @@ import dev.oblac.gart.color.Palette
 import dev.oblac.gart.color.Palettes
 import dev.oblac.gart.gfx.*
 import dev.oblac.gart.math.rndi
+import dev.oblac.gart.smooth.chaikinSmooth
 import org.jetbrains.skia.Canvas
 import org.jetbrains.skia.Point
 

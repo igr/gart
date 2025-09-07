@@ -1,5 +1,7 @@
-package dev.oblac.gart.gfx
+package dev.oblac.gart.smooth
 
+import dev.oblac.gart.gfx.copy
+import dev.oblac.gart.gfx.toPath
 import org.jetbrains.skia.Point
 
 /**
@@ -44,13 +46,13 @@ tailrec fun chaikinSmooth(
 
             result.apply {
                 add(
-                    Point(
+                    dev.oblac.gart.gfx.Point(
                         biasInv * p0x + bias * p1x,
                         biasInv * p0y + bias * p1y
                     )
                 )
                 add(
-                    Point(
+                    dev.oblac.gart.gfx.Point(
                         bias * p0x + biasInv * p1x,
                         bias * p0y + biasInv * p1y
                     )
@@ -74,13 +76,13 @@ tailrec fun chaikinSmooth(
 
             result.apply {
                 add(
-                    Point(
+                    dev.oblac.gart.gfx.Point(
                         biasInv * p0x + bias * p1x,
                         biasInv * p0y + bias * p1y
                     )
                 )
                 add(
-                    Point(
+                    dev.oblac.gart.gfx.Point(
                         bias * p0x + biasInv * p1x,
                         bias * p0y + biasInv * p1y
                     )

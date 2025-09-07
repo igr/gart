@@ -6,6 +6,7 @@ import dev.oblac.gart.color.RetroColors
 import dev.oblac.gart.gfx.*
 import dev.oblac.gart.math.rndGaussian
 import dev.oblac.gart.math.rndf
+import dev.oblac.gart.smooth.chaikinSmooth
 import org.jetbrains.skia.Canvas
 import org.jetbrains.skia.Point
 

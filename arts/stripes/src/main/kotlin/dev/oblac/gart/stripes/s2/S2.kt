@@ -6,6 +6,7 @@ import dev.oblac.gart.color.Palettes
 import dev.oblac.gart.gfx.*
 import dev.oblac.gart.math.map
 import dev.oblac.gart.math.rndf
+import dev.oblac.gart.smooth.toChaikinSmooth
 import org.jetbrains.skia.Canvas
 import org.jetbrains.skia.Color
 import org.jetbrains.skia.Path

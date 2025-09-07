@@ -12,6 +12,7 @@ import dev.oblac.gart.math.GOLDEN_RATIO
 import dev.oblac.gart.math.rndb
 import dev.oblac.gart.math.rndf
 import dev.oblac.gart.noise.poissonDiskSamplingNoise
+import dev.oblac.gart.smooth.chaikinSmooth
 import org.jetbrains.skia.Canvas
 import org.jetbrains.skia.Point
 import org.jetbrains.skia.Rect

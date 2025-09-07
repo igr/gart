@@ -9,6 +9,7 @@ import dev.oblac.gart.gfx.*
 import dev.oblac.gart.math.Matrix
 import dev.oblac.gart.math.rndb
 import dev.oblac.gart.math.rndi
+import dev.oblac.gart.smooth.chaikinSmooth
 import org.jetbrains.skia.*
 
 val gart = Gart.of("switchboard", Dimension.DESKTOP_FULL_HD)
