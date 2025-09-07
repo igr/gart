@@ -1,7 +1,7 @@
 package dev.oblac.gart.rects.rubik
 
 import dev.oblac.gart.*
-import dev.oblac.gart.angles.Degrees
+import dev.oblac.gart.angle.Degrees
 import dev.oblac.gart.color.RetroColors
 import dev.oblac.gart.gfx.*
 import dev.oblac.gart.shader.createNoiseGrainFilter

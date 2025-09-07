@@ -3,10 +3,10 @@ package dev.oblac.gart.rayz
 import dev.oblac.gart.Dimension
 import dev.oblac.gart.Gart
 import dev.oblac.gart.Key
-import dev.oblac.gart.angles.Angle
-import dev.oblac.gart.angles.Degrees
-import dev.oblac.gart.angles.cosf
-import dev.oblac.gart.angles.sinf
+import dev.oblac.gart.angle.Angle
+import dev.oblac.gart.angle.Degrees
+import dev.oblac.gart.angle.cosf
+import dev.oblac.gart.angle.sinf
 import dev.oblac.gart.color.BgColors
 import dev.oblac.gart.color.NipponColors
 import dev.oblac.gart.color.Palette

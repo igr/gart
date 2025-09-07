@@ -1,8 +1,8 @@
 package dev.oblac.gart.flowforce
 
 import dev.oblac.gart.Gart
-import dev.oblac.gart.angles.Degrees
-import dev.oblac.gart.angles.Radians
+import dev.oblac.gart.angle.Degrees
+import dev.oblac.gart.angle.Radians
 import dev.oblac.gart.color.BgColors
 import dev.oblac.gart.color.Colors
 import dev.oblac.gart.color.Palettes

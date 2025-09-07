@@ -1,7 +1,7 @@
 package dev.oblac.gart.plasma.three
 
 import dev.oblac.gart.*
-import dev.oblac.gart.angles.Degrees
+import dev.oblac.gart.angle.Degrees
 import dev.oblac.gart.color.Palettes
 import dev.oblac.gart.color.alpha
 import dev.oblac.gart.color.blendColors

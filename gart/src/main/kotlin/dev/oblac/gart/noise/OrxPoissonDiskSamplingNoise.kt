@@ -1,7 +1,7 @@
 package dev.oblac.gart.noise
 
 import dev.oblac.gart.Dimension
-import dev.oblac.gart.angles.Degrees
+import dev.oblac.gart.angle.Degrees
 import dev.oblac.gart.gfx.*
 import dev.oblac.gart.hashgrid.HashGrid
 import dev.oblac.gart.math.Polar

@@ -1,8 +1,8 @@
 package dev.oblac.gart.kaleidoscope
 
 import dev.oblac.gart.*
-import dev.oblac.gart.angles.Radians
-import dev.oblac.gart.angles.sinf
+import dev.oblac.gart.angle.Radians
+import dev.oblac.gart.angle.sinf
 import dev.oblac.gart.color.Colors
 import dev.oblac.gart.color.NipponColors
 import dev.oblac.gart.color.Palettes

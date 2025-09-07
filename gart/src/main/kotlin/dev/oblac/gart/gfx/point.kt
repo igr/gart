@@ -1,9 +1,9 @@
 package dev.oblac.gart.gfx
 
 import dev.oblac.gart.Dimension
-import dev.oblac.gart.angles.Radians
-import dev.oblac.gart.angles.cosf
-import dev.oblac.gart.angles.sinf
+import dev.oblac.gart.angle.Radians
+import dev.oblac.gart.angle.cosf
+import dev.oblac.gart.angle.sinf
 import dev.oblac.gart.math.rndf
 import org.jetbrains.skia.Point
 import kotlin.math.atan2

@@ -1,6 +1,6 @@
 package dev.oblac.gart.force
 
-import dev.oblac.gart.angles.Radians
+import dev.oblac.gart.angle.Radians
 import dev.oblac.gart.math.PIf
 import dev.oblac.gart.math.RotationDirection
 import dev.oblac.gart.math.RotationDirection.CW

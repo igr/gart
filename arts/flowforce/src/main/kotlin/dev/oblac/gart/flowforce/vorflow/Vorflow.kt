@@ -2,7 +2,7 @@ package dev.oblac.gart.flowforce.vorflow
 
 import dev.oblac.gart.Dimension
 import dev.oblac.gart.Gart
-import dev.oblac.gart.angles.Radians
+import dev.oblac.gart.angle.Radians
 import dev.oblac.gart.color.RetroColors
 import dev.oblac.gart.flowforce.spring.gart
 import dev.oblac.gart.force.ForceField

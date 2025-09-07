@@ -1,7 +1,7 @@
 package dev.oblac.gart.gfx
 
-import dev.oblac.gart.angles.Degrees
-import dev.oblac.gart.angles.Radians
+import dev.oblac.gart.angle.Degrees
+import dev.oblac.gart.angle.Radians
 import org.jetbrains.skia.Canvas
 import org.jetbrains.skia.Paint
 import org.jetbrains.skia.Point

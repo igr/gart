@@ -1,6 +1,6 @@
 package dev.oblac.gart.gfx
 
-import dev.oblac.gart.angles.Angle
+import dev.oblac.gart.angle.Angle
 import dev.oblac.gart.math.PIf
 import dev.oblac.gart.math.Transform
 import dev.oblac.gart.math.dist
@@ -133,7 +133,7 @@ data class Triangle(val a: Point, val b: Point, val c: Point) {
             reflectPoint(c)
         )
     }
-    
+
     fun isInRect(r: Rect) = r.contains(a) && r.contains(b) && r.contains(c)
 
     companion object {

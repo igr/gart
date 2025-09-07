@@ -1,6 +1,6 @@
 package dev.oblac.gart.math
 
-import dev.oblac.gart.angles.Radians
+import dev.oblac.gart.angle.Radians
 import kotlin.math.atan2
 import kotlin.math.cos
 import kotlin.math.sin

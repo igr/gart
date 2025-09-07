@@ -1,6 +1,6 @@
 package dev.oblac.gart.math
 
-import dev.oblac.gart.angles.Radians
+import dev.oblac.gart.angle.Radians
 import org.junit.jupiter.api.Test
 import kotlin.test.assertEquals
 

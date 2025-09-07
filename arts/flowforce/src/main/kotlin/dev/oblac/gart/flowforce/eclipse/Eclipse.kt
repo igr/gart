@@ -2,7 +2,7 @@ package dev.oblac.gart.flowforce.eclipse
 
 import dev.oblac.gart.Dimension
 import dev.oblac.gart.Gart
-import dev.oblac.gart.angles.Radians
+import dev.oblac.gart.angle.Radians
 import dev.oblac.gart.color.BgColors
 import dev.oblac.gart.color.Colors
 import dev.oblac.gart.force.Flow

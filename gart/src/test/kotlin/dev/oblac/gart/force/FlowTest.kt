@@ -1,6 +1,6 @@
 package dev.oblac.gart.force
 
-import dev.oblac.gart.angles.Radians
+import dev.oblac.gart.angle.Radians
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 

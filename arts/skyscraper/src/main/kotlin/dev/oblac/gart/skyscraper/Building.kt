@@ -1,7 +1,7 @@
 package dev.oblac.gart.skyscraper
 
 import dev.oblac.gart.Dimension
-import dev.oblac.gart.angles.Degrees
+import dev.oblac.gart.angle.Degrees
 import dev.oblac.gart.gfx.RectIsometricLeft
 import dev.oblac.gart.gfx.RectIsometricRight
 import dev.oblac.gart.gfx.RectIsometricTop

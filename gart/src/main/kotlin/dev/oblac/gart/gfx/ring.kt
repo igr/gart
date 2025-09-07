@@ -1,6 +1,6 @@
 package dev.oblac.gart.gfx
 
-import dev.oblac.gart.angles.Angle
+import dev.oblac.gart.angle.Angle
 import org.jetbrains.skia.*
 import kotlin.math.cos
 import kotlin.math.sin

@@ -1,7 +1,7 @@
 package dev.oblac.gart.gravitron
 
-import dev.oblac.gart.angles.Angle
-import dev.oblac.gart.angles.Degrees
+import dev.oblac.gart.angle.Angle
+import dev.oblac.gart.angle.Degrees
 import dev.oblac.gart.gfx.Circle
 import dev.oblac.gart.gfx.Line
 import dev.oblac.gart.math.Transform

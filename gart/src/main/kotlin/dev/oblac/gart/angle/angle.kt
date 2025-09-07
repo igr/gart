@@ -1,4 +1,4 @@
-package dev.oblac.gart.angles
+package dev.oblac.gart.angle
 
 import dev.oblac.gart.math.DOUBLE_PIf
 import dev.oblac.gart.math.HALF_PIf

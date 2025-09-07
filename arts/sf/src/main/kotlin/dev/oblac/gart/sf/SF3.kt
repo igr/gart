@@ -2,7 +2,7 @@ package dev.oblac.gart.sf
 
 import dev.oblac.gart.Dimension
 import dev.oblac.gart.Gart
-import dev.oblac.gart.angles.Degrees
+import dev.oblac.gart.angle.Degrees
 import dev.oblac.gart.color.RetroColors
 import dev.oblac.gart.gfx.DrawRing
 import dev.oblac.gart.gfx.createDrawRing

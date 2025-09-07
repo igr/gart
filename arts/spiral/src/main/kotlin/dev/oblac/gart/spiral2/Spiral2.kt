@@ -1,7 +1,7 @@
 package dev.oblac.gart.spiral2
 
 import dev.oblac.gart.*
-import dev.oblac.gart.angles.Degrees
+import dev.oblac.gart.angle.Degrees
 import dev.oblac.gart.color.Palettes
 import dev.oblac.gart.gfx.drawCircleArc
 import dev.oblac.gart.gfx.fillOf

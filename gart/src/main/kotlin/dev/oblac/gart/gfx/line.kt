@@ -1,7 +1,7 @@
 package dev.oblac.gart.gfx
 
-import dev.oblac.gart.angles.Angle
-import dev.oblac.gart.angles.Radians
+import dev.oblac.gart.angle.Angle
+import dev.oblac.gart.angle.Radians
 import dev.oblac.gart.math.fastSqrt
 import org.jetbrains.skia.*
 import kotlin.math.*

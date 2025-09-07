@@ -1,6 +1,6 @@
 package dev.oblac.gart
 
-import dev.oblac.gart.angles.Degrees
+import dev.oblac.gart.angle.Degrees
 import dev.oblac.gart.color.Colors
 import dev.oblac.gart.gfx.*
 import dev.oblac.gart.gravitron.Gravitron

@@ -1,8 +1,8 @@
 package dev.oblac.gart.math
 
-import dev.oblac.gart.angles.Angle
-import dev.oblac.gart.angles.cos
-import dev.oblac.gart.angles.sin
+import dev.oblac.gart.angle.Angle
+import dev.oblac.gart.angle.cos
+import dev.oblac.gart.angle.sin
 import dev.oblac.gart.gfx.pointOf
 import org.jetbrains.skia.Point
 

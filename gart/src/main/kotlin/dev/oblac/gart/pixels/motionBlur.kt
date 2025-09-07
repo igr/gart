@@ -2,9 +2,9 @@ package dev.oblac.gart.pixels
 
 import dev.oblac.gart.Gartmap
 import dev.oblac.gart.MemPixels
-import dev.oblac.gart.angles.Angle
-import dev.oblac.gart.angles.cos
-import dev.oblac.gart.angles.sin
+import dev.oblac.gart.angle.Angle
+import dev.oblac.gart.angle.cos
+import dev.oblac.gart.angle.sin
 import dev.oblac.gart.color.alpha
 import dev.oblac.gart.color.blue
 import dev.oblac.gart.color.green

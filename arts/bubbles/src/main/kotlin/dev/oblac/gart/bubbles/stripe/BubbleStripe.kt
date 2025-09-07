@@ -3,9 +3,9 @@ package dev.oblac.gart.bubbles.stripe
 import dev.oblac.gart.Dimension
 import dev.oblac.gart.Gart
 import dev.oblac.gart.Key
-import dev.oblac.gart.angles.Radians
-import dev.oblac.gart.angles.cos
-import dev.oblac.gart.angles.sin
+import dev.oblac.gart.angle.Radians
+import dev.oblac.gart.angle.cos
+import dev.oblac.gart.angle.sin
 import dev.oblac.gart.color.NipponColors
 import dev.oblac.gart.gfx.*
 import dev.oblac.gart.math.GOLDEN_RATIO

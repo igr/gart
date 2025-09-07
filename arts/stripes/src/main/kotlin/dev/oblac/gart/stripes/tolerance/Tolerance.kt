@@ -2,9 +2,9 @@ package dev.oblac.gart.stripes.tolerance
 
 import dev.oblac.gart.Dimension
 import dev.oblac.gart.Gart
-import dev.oblac.gart.angles.Degrees
-import dev.oblac.gart.angles.cosf
-import dev.oblac.gart.angles.sinf
+import dev.oblac.gart.angle.Degrees
+import dev.oblac.gart.angle.cosf
+import dev.oblac.gart.angle.sinf
 import dev.oblac.gart.color.BgColors
 import dev.oblac.gart.color.Palettes
 import dev.oblac.gart.gfx.fillOf

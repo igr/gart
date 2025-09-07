@@ -2,8 +2,8 @@ package dev.oblac.gart.spirograph
 
 import dev.oblac.gart.Dimension
 import dev.oblac.gart.Gart
-import dev.oblac.gart.angles.Angle
-import dev.oblac.gart.angles.Degrees
+import dev.oblac.gart.angle.Angle
+import dev.oblac.gart.angle.Degrees
 import dev.oblac.gart.color.BgColors
 import dev.oblac.gart.color.Palettes
 import dev.oblac.gart.gfx.*
