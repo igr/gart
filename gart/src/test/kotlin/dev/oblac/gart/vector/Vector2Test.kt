@@ -1,7 +1,7 @@
-package dev.oblac.gart.math
+package dev.oblac.gart.vector
 
 import dev.oblac.gart.angle.Radians
-import dev.oblac.gart.vector.Vector2
+import dev.oblac.gart.math.PIf
 import org.junit.jupiter.api.Test
 import kotlin.test.assertEquals
 
