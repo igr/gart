@@ -87,7 +87,7 @@ fun createSpirograph(
             val newCircle = Circle.of(center, radius)
             //c.drawPoint(newCircle.center, strokeOfRed(3f))
 
-            val currentAngle = tan.dvec.toRadians() - Degrees.of(90f)
+            val currentAngle = tan.dvec.angle - Degrees.of(90f)
             val point = newCircle.pointOnCircle(currentAngle)
             val point2 = newCircle.pointOnCircle(currentAngle + Degrees.of(180f))
 

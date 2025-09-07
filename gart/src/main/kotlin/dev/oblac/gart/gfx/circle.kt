@@ -4,6 +4,7 @@ import dev.oblac.gart.angle.Angle
 import dev.oblac.gart.angle.Degrees
 import dev.oblac.gart.angle.cos
 import dev.oblac.gart.angle.sin
+import dev.oblac.gart.vector.Vector2
 import org.jetbrains.skia.Canvas
 import org.jetbrains.skia.Paint
 import org.jetbrains.skia.Path
@@ -49,7 +50,7 @@ data class Circle(val x: Float, val y: Float, val radius: Float) {
         val dx = rawDx / length
         val dy = rawDy / length
 
-        return DLine(pointOnCircle, DirectionVector(dx, dy))
+        return DLine(pointOnCircle, Vector2(dx, dy))
     }
 
     fun pointOnCircle(angleRad: Angle): Point {

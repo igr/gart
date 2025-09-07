@@ -2,6 +2,7 @@ package dev.oblac.gart.gfx
 
 import dev.oblac.gart.angle.Degrees
 import dev.oblac.gart.angle.Radians
+import dev.oblac.gart.vector.Vector2
 import org.jetbrains.skia.Canvas
 import org.jetbrains.skia.Paint
 import org.jetbrains.skia.Point
@@ -9,6 +10,7 @@ import org.jetbrains.skia.Point
 /**
  * A vector that represents a direction and distance.
  */
+@Deprecated("Use Vector2 instead", ReplaceWith("Vector2(dx, dy)"))
 data class DirectionVector(val dx: Float, val dy: Float) {
     val length: Float
         get() = kotlin.math.sqrt(dx * dx + dy * dy)
@@ -31,33 +33,37 @@ data class DirectionVector(val dx: Float, val dy: Float) {
     }
 }
 
-data class DLine(val p: Point, val dvec: DirectionVector) {
+/**
+ * This is a parametric line defined by a point and a direction vector.
+ * The line extends infinitely in both directions from the point `p`.
+ */
+data class DLine(val p: Point, val dvec: Vector2) {
     fun pointFromStart(t: Float): Point {
         val dir = dvec.normalize()
-        return Point(p.x + t * dir.dx, p.y + t * dir.dy)
+        return Point(p.x + t * dir.x, p.y + t * dir.y)
     }
 
     fun pointFromEnd(t: Float): Point {
         val dir = dvec.normalize()
-        return Point(p.x - t * dir.dx, p.y - t * dir.dy)
+        return Point(p.x - t * dir.x, p.y - t * dir.y)
     }
 
     fun perpendicularDLine(): DLine {
-        val perpDVec = DirectionVector(
-            dx = -dvec.dy,
-            dy = dvec.dx
+        val perpDVec = Vector2(
+            x = -dvec.y,
+            y = dvec.x
         )
         return DLine(p = p, dvec = perpDVec)
     }
 
     fun toLine(start: Point, distance: Float): Line {
-        val vectorLength = dvec.length
+        val vectorLength = dvec.length()
         if (vectorLength == 0f) {
             throw IllegalArgumentException("Direction vector cannot be zero.")
         }
 
-        val ux = dvec.dx / vectorLength
-        val uy = dvec.dy / vectorLength
+        val ux = dvec.x / vectorLength
+        val uy = dvec.y / vectorLength
 
         return Line(
             start,
@@ -72,9 +78,9 @@ data class DLine(val p: Point, val dvec: DirectionVector) {
         fun of(prev: Point, current: Point, next: Point): DLine {
             return DLine(
                 p = current,
-                dvec = DirectionVector(
-                    dx = (next.x - prev.x) / 2,
-                    dy = (next.y - prev.y) / 2
+                dvec = Vector2(
+                    x = (next.x - prev.x) / 2,
+                    y = (next.y - prev.y) / 2
                 )
             )
         }

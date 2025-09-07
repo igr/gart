@@ -1,10 +1,10 @@
 package dev.oblac.gart.vector
 
+import dev.oblac.gart.angle.Angle
 import dev.oblac.gart.angle.Radians
-import dev.oblac.gart.math.fastSqrt
+import dev.oblac.gart.angle.cos
+import dev.oblac.gart.angle.sin
 import kotlin.math.atan2
-import kotlin.math.cos
-import kotlin.math.sin
 import kotlin.math.sqrt
 
 typealias Vec2 = Vector2
@@ -17,12 +17,22 @@ data class Vector2(val x: Float, val y: Float) {
     operator fun times(scalar: Number) = Vector2(x * scalar.toFloat(), y * scalar.toFloat())
     operator fun times(other: Vector2) = Vector2(x * other.x, y * other.y)
     operator fun div(scalar: Float) = Vector2(x / scalar, y / scalar)
+
     fun dot(other: Vector2) = x * other.x + y * other.y
     fun cross(other: Vector2) = x * other.y - y * other.x
+
     fun length() = sqrt(x * x + y * y)
-    val magnitude by lazy { fastSqrt(x * x + y * y) }
-    fun normalize() = this / magnitude
-    fun rotate(angle: Float) = Vector2(
+    val magnitude by lazy { length() }
+
+    fun normalize(): Vector2 {
+        return if (magnitude == 0f) this
+        else this / magnitude
+    }
+
+    /**
+     * Returns a new vector that is the result of rotating this vector by the given angle.
+     */
+    fun rotate(angle: Angle) = Vector2(
         x * cos(angle) - y * sin(angle),
         x * sin(angle) + y * cos(angle)
     )
@@ -31,7 +41,7 @@ data class Vector2(val x: Float, val y: Float) {
      * Returns the angle of the vector in radians.
      */
     val angle by lazy { Radians.of(atan2(y, x)) }
-
+    
     companion object {
         val ZERO = Vector2(0f, 0f)
     }
