@@ -41,6 +41,11 @@ fun Point.isCloseTo(other: Point, tolerance: Float): Boolean {
 
 fun Point(x: Number, y: Number) = Point(x.toFloat(), y.toFloat())
 
+/**
+ * Creates relative point based on given dimension.
+ */
+fun Point.Companion.relative(x: Float, y: Float, d: Dimension) = Point(d.ofW(x), d.ofH(y))
+
 
 /**
  * Move point towards destination by given amount.

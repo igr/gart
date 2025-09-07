@@ -99,6 +99,16 @@ data class Dimension(val w: Int, val h: Int) {
      */
     operator fun times(factor: Number) = Dimension((w * factor.toFloat()).toInt(), (h * factor.toFloat()).toInt())
 
+    /**
+     * Returns relative width for given factor.
+     */
+    fun ofW(x: Float) = wf * x
+
+    /**
+     * Returns relative height for given factor.
+     */
+    fun ofH(y: Float) = hf * y
+
     companion object {
         val DESKTOP_FULL_HD = Dimension(1920, 1080)
         val DESKTOP_FULL__LANDSCAPE_HD = Dimension(1080, 1920)
