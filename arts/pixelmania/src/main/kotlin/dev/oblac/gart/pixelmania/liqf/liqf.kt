@@ -6,7 +6,7 @@ import dev.oblac.gart.color.RetroColors
 import dev.oblac.gart.gfx.*
 import dev.oblac.gart.math.dist
 import dev.oblac.gart.pixels.liquify
-import dev.oblac.gart.util.sequenceLoop
+import dev.oblac.gart.util.countSequence
 import org.jetbrains.skia.Canvas
 import kotlin.math.min
 
@@ -46,7 +46,7 @@ private fun draw(c: Canvas, d: Dimension) {
     val maxSize = 1024 * 1.4f
     val inc = 20f
 
-    sequenceLoop(1, numSquares)
+    countSequence(1, numSquares)
         .map { i ->
             val reverseIndex = numSquares - 1 - i
             val size = maxSize - reverseIndex * inc
