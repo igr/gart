@@ -1,7 +1,6 @@
 package dev.oblac.gart.gfx
 
-import dev.oblac.gart.angle.Degrees
-import dev.oblac.gart.angle.Radians
+import dev.oblac.gart.angle.*
 import dev.oblac.gart.vector.Vector2
 import org.jetbrains.skia.Canvas
 import org.jetbrains.skia.Paint
@@ -75,6 +74,9 @@ data class DLine(val p: Point, val dvec: Vector2) {
     }
 
     companion object {
+        /**
+         * Creates a DLine that passes through `current` point and is directed from `prev` to `next` point.
+         */
         fun of(prev: Point, current: Point, next: Point): DLine {
             return DLine(
                 p = current,
@@ -84,9 +86,25 @@ data class DLine(val p: Point, val dvec: Vector2) {
                 )
             )
         }
+
+        /**
+         * Creates a DLine that starts at `point` and goes in the direction of `current` angle.
+         */
+        fun of(point: Point, current: Angle): DLine {
+            return DLine(
+                p = point,
+                dvec = Vector2(
+                    x = cos(current),
+                    y = sin(current)
+                )
+            )
+        }
     }
 }
 
+/**
+ * Draws a line segment from the DLine's point `p` in both directions by `len/2`.
+ */
 fun Canvas.drawDLine(dLine: DLine, len: Float, paint: Paint) {
     val start = dLine.pointFromEnd(len / 2)
     val end = dLine.pointFromStart(len / 2)
