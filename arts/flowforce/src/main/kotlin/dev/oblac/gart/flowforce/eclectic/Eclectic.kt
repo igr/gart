@@ -6,9 +6,9 @@ import dev.oblac.gart.color.Palettes
 import dev.oblac.gart.force.Force
 import dev.oblac.gart.force.ForceField
 import dev.oblac.gart.gfx.*
-import dev.oblac.gart.math.Vector2
 import dev.oblac.gart.math.rndf
 import dev.oblac.gart.noise.PerlinNoise
+import dev.oblac.gart.vector.Vector2
 import org.jetbrains.skia.Canvas
 import org.jetbrains.skia.PaintStrokeCap
 import org.jetbrains.skia.Point

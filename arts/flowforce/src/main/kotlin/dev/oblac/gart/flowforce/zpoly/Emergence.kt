@@ -7,6 +7,7 @@ import dev.oblac.gart.force.ForceField
 import dev.oblac.gart.gfx.drawPoint
 import dev.oblac.gart.gfx.strokeOf
 import dev.oblac.gart.math.*
+import dev.oblac.gart.vector.Vector2
 import org.jetbrains.skia.PaintStrokeCap
 import org.jetbrains.skia.Point
 import kotlin.math.cos

@@ -1,10 +1,10 @@
 package dev.oblac.gart.gfx
 
 import dev.oblac.gart.Dimension
-import dev.oblac.gart.math.Vector2
 import dev.oblac.gart.math.dist
 import dev.oblac.gart.math.distSquared
 import dev.oblac.gart.math.rndf
+import dev.oblac.gart.vector.Vector2
 import org.jetbrains.skia.Point
 import org.jetbrains.skia.Rect
 

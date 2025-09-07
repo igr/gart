@@ -9,6 +9,7 @@ import dev.oblac.gart.force.ForceField
 import dev.oblac.gart.gfx.*
 import dev.oblac.gart.math.*
 import dev.oblac.gart.toFrames
+import dev.oblac.gart.vector.Vector2
 import org.jetbrains.skia.Image
 import org.jetbrains.skia.Point
 import org.jetbrains.skia.Rect

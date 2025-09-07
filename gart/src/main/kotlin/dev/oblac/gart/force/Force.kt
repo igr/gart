@@ -5,7 +5,7 @@ import dev.oblac.gart.gfx.isInside
 import dev.oblac.gart.gfx.offset
 import dev.oblac.gart.gfx.strokeOfBlue
 import dev.oblac.gart.gfx.strokeOfRed
-import dev.oblac.gart.math.Vector2
+import dev.oblac.gart.vector.Vector2
 import org.jetbrains.skia.Canvas
 import org.jetbrains.skia.Point
 

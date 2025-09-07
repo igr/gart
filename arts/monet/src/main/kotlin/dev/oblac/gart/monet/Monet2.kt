@@ -8,6 +8,7 @@ import dev.oblac.gart.color.alpha
 import dev.oblac.gart.force.ForceField
 import dev.oblac.gart.gfx.*
 import dev.oblac.gart.math.*
+import dev.oblac.gart.vector.Vector2
 import org.jetbrains.skia.Canvas
 import org.jetbrains.skia.Path
 import org.jetbrains.skia.Point

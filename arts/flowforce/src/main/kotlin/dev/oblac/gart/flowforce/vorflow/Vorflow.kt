@@ -8,12 +8,12 @@ import dev.oblac.gart.flowforce.spring.gart
 import dev.oblac.gart.force.ForceField
 import dev.oblac.gart.force.VecForce
 import dev.oblac.gart.gfx.*
-import dev.oblac.gart.math.Vector2
 import dev.oblac.gart.math.rndGaussian
 import dev.oblac.gart.math.rndf
 import dev.oblac.gart.noise.PoissonDiskSamplingNoise
 import dev.oblac.gart.triangulation.Delaunator
 import dev.oblac.gart.triangulation.delaunayToVoronoi
+import dev.oblac.gart.vector.Vector2
 import org.jetbrains.skia.Canvas
 
 fun main() {

@@ -4,8 +4,8 @@ import dev.oblac.gart.angle.Angle
 import dev.oblac.gart.angle.Radians
 import dev.oblac.gart.angle.cos
 import dev.oblac.gart.angle.sin
-import dev.oblac.gart.math.Vector2
 import dev.oblac.gart.math.fastSqrt
+import dev.oblac.gart.vector.Vector2
 import org.jetbrains.skia.Point
 import kotlin.math.atan2
 

@@ -1,6 +1,7 @@
-package dev.oblac.gart.math
+package dev.oblac.gart.vector
 
 import dev.oblac.gart.angle.Radians
+import dev.oblac.gart.math.fastSqrt
 import kotlin.math.atan2
 import kotlin.math.cos
 import kotlin.math.sin
@@ -35,22 +36,3 @@ data class Vector2(val x: Float, val y: Float) {
         val ZERO = Vector2(0f, 0f)
     }
 }
-
-typealias Vec3 = Vector3
-
-data class Vector3(val x: Float, val y: Float, val z: Float) {
-    operator fun plus(other: Vector3) = Vector3(x + other.x, y + other.y, z + other.z)
-    operator fun minus(other: Vector3) = Vector3(x - other.x, y - other.y, z - other.z)
-    operator fun times(scalar: Number) = Vector3(x * scalar.toFloat(), y * scalar.toFloat(), z * scalar.toFloat())
-    operator fun times(other: Vector3) = Vector3(x * other.x, y * other.y, z * other.z)
-    fun length() = sqrt(x * x + y * y + z * z)
-    fun normalize() = this * (1.0f / length())
-    fun dot(other: Vector3) = x * other.x + y * other.y + z * other.z
-}
-
-typealias Mtx2 = Matrix2
-
-data class Matrix2(val a: Float, val b: Float, val c: Float, val d: Float) {
-    operator fun times(v: Vector2) = Vector2(a * v.x + b * v.y, c * v.x + d * v.y)
-}
-
