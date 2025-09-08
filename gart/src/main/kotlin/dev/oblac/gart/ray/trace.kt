@@ -8,15 +8,14 @@ fun traceRayWithReflections(ray: Ray, mirrors: List<Mirror>, maxReflections: Int
     var currentRay = ray
     var currentFrom = ray.dline.p
 
-    repeat(maxReflections + 1) { iteration ->
+    for (iteration in 0..(maxReflections)) {
         // Find the closest mirror that intersects with the current ray
         var closestMirror: Mirror? = null
         var closestIntersection: Point? = null
         var shortestDistance = Float.MAX_VALUE
 
         mirrors.forEach { mirror ->
-            val rayLine = currentRay.dline.toLine(currentRay.dline.p, 10000f)
-            val intersection = intersectionOf(rayLine, mirror.line)
+            val intersection = intersectionOf(currentRay.dline, mirror.line)
 
             if (intersection != null) {
                 // Calculate distance from ray origin to intersection
@@ -49,10 +48,10 @@ fun traceRayWithReflections(ray: Ray, mirrors: List<Mirror>, maxReflections: Int
                 currentRay = reflectedRay
                 currentFrom = closestIntersection
             } else {
-                return@repeat // Stop tracing if ray is too weak
+                break // Stop tracing if ray is too weak
             }
         } else {
-            return@repeat // Stop tracing if no intersection found or max reflections reached
+            break // Stop tracing if no intersection found or max reflections reached
         }
     }
 

@@ -77,3 +77,12 @@ fun intersectionOf(
 
     return null // No intersection within the segments
 }
+
+// todo calculate intersection point directly without creating a temporary line (!)
+fun intersectionOf(
+    dline: DLine,
+    line2: Line
+): Point? {
+    val rayLine = dline.toLine(dline.p, 10_000f)    // grow in both directions
+    return intersectionOf(rayLine, line2)
+}

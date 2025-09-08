@@ -1,9 +1,6 @@
 package dev.oblac.gart.vector
 
-import dev.oblac.gart.angle.Angle
-import dev.oblac.gart.angle.Radians
-import dev.oblac.gart.angle.cos
-import dev.oblac.gart.angle.sin
+import dev.oblac.gart.angle.*
 import kotlin.math.atan2
 import kotlin.math.sqrt
 
@@ -41,8 +38,12 @@ data class Vector2(val x: Float, val y: Float) {
      * Returns the angle of the vector in radians.
      */
     val angle by lazy { Radians.of(atan2(y, x)) }
-    
+
     companion object {
         val ZERO = Vector2(0f, 0f)
+
+        fun of(angle: Angle): Vector2 {
+            return Vector2(cosf(angle), sinf(angle))
+        }
     }
 }

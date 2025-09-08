@@ -99,6 +99,33 @@ class Palette(internal val colors: IntArray) {
         return Palette(clone)
     }
 
+    /**
+     * Splits the palette into [numberOfSplits] smaller palettes.
+     * If the palette can't be split evenly, the last palette will have less colors.
+     */
+    fun split(numberOfSplits: Int): Array<Palette> {
+        if (numberOfSplits == 1) {
+            return arrayOf(this)
+        }
+
+        val baseSize = size / numberOfSplits
+        val remainder = size % numberOfSplits
+
+        return Array(numberOfSplits) { splitIndex ->
+            val start = splitIndex * baseSize + minOf(splitIndex, remainder)
+            val end = start + baseSize + if (splitIndex < remainder) 1 else 0
+            Palette(colors.sliceArray(start until end))
+        }
+    }
+
+    /**
+     * Splits the palette into [numberOfPalettes] and returns them as a list for easier access.
+     * This is a convenience method that calls split() and converts the result to a list.
+     */
+    fun splitIn(numberOfPalettes: Int): List<Palette> {
+        return split(numberOfPalettes).toList()
+    }
+
     companion object {
         fun of(vararg values: Color4f) = Palette(values.map { it.toColor() }.toIntArray())
         fun of(vararg values: java.awt.Color) = Palette(values.map { rgb(it.red, it.blue, it.green) }.toIntArray())

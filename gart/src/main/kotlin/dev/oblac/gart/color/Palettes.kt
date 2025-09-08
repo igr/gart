@@ -509,4 +509,5 @@ object Palettes {
         }
     }
 
+    fun navigator() = PalettesNavigator()
 }

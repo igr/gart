@@ -2,11 +2,31 @@ package dev.oblac.gart.rayz.mirror
 
 import dev.oblac.gart.*
 import dev.oblac.gart.angle.Degrees
+import dev.oblac.gart.color.Palettes
+import dev.oblac.gart.color.PalettesNavigator
 import dev.oblac.gart.color.RetroColors
 import dev.oblac.gart.gfx.*
-import dev.oblac.gart.vector.Vector2
+import dev.oblac.gart.ray.Mirror
+import dev.oblac.gart.ray.Ray
+import dev.oblac.gart.ray.RayTrace
+import dev.oblac.gart.ray.traceRayWithReflections
 import org.jetbrains.skia.Canvas
+import org.jetbrains.skia.PaintStrokeCap
 import org.jetbrains.skia.Point
+import kotlin.math.cos
+import kotlin.math.sin
+
+private val pn = PalettesNavigator()
+
+private var pls = Palettes.cool47.expand(100).split(MAX_REFLECTIONS + 1)
+
+//private var pls = Palettes.colormap097.expand(100).split(MAX_REFLECTIONS + 1)
+private var redraw = false
+private fun applyPalette() {
+    pls = pn.palette().expand(100).split(MAX_REFLECTIONS + 1)
+    println("Palette: ${pn.name()}")
+    redraw = true
+}
 
 fun main() {
     val gart = Gart.of("mirrorz", 1024, 1024)
@@ -17,19 +37,55 @@ fun main() {
     val draw = MyDraw(g)
 
     // save image
-    //g.draw(draw)
-    //gart.saveImage(g)
+    g.draw(draw)
+    gart.saveImage(g)
 
-    w.show(draw).hotReload(g)
+    w.show(draw).onKey {
+        when (it) {
+            Key.KEY_Q -> {
+                pn.previousSet()
+                applyPalette()
+            }
+
+            Key.KEY_E -> {
+                pn.nextSet()
+                applyPalette()
+            }
+
+            Key.KEY_W -> {
+                pn.previousPalette()
+                applyPalette()
+            }
+
+            Key.KEY_S -> {
+                pn.nextPalette()
+                applyPalette()
+            }
+
+            else -> { /* no-op */
+            }
+        }
+    }.hotReload(g)
 }
-
 /**
  * Hot reload requires a real class to be created, not a lambda.
  */
 private class MyDraw(val g: Gartvas) : Drawing(g) {
-    val b = Gartmap(g)
+    //val b = Gartmap(g)
+    var lightSource = Point.relative(0.50f, 0.5f, g.d)
+
+    init {
+        draw(g.canvas, g.d, lightSource)
+    }
     override fun draw(c: Canvas, d: Dimension, f: Frames) {
-        draw(g.canvas, d)
+//        f.onEveryFrame(3) {
+//            lightSource = lightSource.offset(0f, 2f)
+//            redraw = true
+//        }
+        if (redraw) {
+            draw(g.canvas, g.d, lightSource)
+            redraw = false
+        }
         //b.updatePixelsFromCanvas()
         // draw pixels
         //b.drawToCanvas()
@@ -37,135 +93,91 @@ private class MyDraw(val g: Gartvas) : Drawing(g) {
     }
 }
 
+private const val MAX_REFLECTIONS = 4
 
-private fun draw(c: Canvas, d: Dimension) {
+private fun draw(c: Canvas, d: Dimension, lightSource: Point) {
     c.clear(RetroColors.black01)
 
+    val total = 7
+    val mirrors = mirrors(total, Point.relative(0.50f, 0.5f, d), radius = 0.2f, mirrorLength = 0.075f, d)
 
-    val lightSource = Point(d.w3x2, d.h3x2)
-    val rays = List(100) {
-        val angle = it * (360f / 100f)
-        Ray(DLine.of(lightSource, Degrees.of(angle)))
-    }
-
-    val mirrors = listOf(
-        Mirror(Point(d.w / 4f, d.h / 4f), Point(d.w3x2, d.h / 4f)), // top
-    )
-
-    // Draw mirrors
-    debugDrawMirrors(c, mirrors)
+    val rays = generateSequence(0f) { it + 0.25f }.take(360 * 4).map {
+        Ray(DLine.of(lightSource, Degrees.of(it)))
+    }.toList()
 
     // Trace rays with reflections
-    val allRays = mutableListOf<Ray>()
+    val allRayTraces = mutableListOf<RayTrace>()
     rays.forEach { ray ->
-        allRays.addAll(traceRayWithReflections(ray, mirrors, maxReflections = 1))
+        allRayTraces.addAll(
+            traceRayWithReflections(ray, mirrors, MAX_REFLECTIONS)
+        )
     }
 
-    // Draw all rays (original and reflected)
-    debugDrawRays(c, allRays)
+    drawRayTraces(c, allRayTraces)
+    // Draw mirrors
+    //debugDrawMirrors(c, mirrors)
 }
 
-private fun debugDrawRays(c: Canvas, rays: List<Ray>) {
-    rays.forEach { ray ->
-        val alpha = (ray.intensity * 255).toInt().coerceIn(0, 255)
-        val color = strokeOfWhite(1f).apply { this.alpha = alpha }
-        c.drawLine(ray.dline.toLine(ray.dline.p, 1000f), color)
+private fun mirrors(
+    total: Int,
+    center: Point,
+    radius: Float = 0.3f,           // distance from light source
+    mirrorLength: Float = 0.08f,    // length of each mirror segment
+    d: Dimension
+): List<Mirror> = List(total) { i ->
+    // Create circular arrangement around lightSource with a gap
+    val angleStep = 360f / total
+    val gapAngle = 60f // gap in degrees
+    val startAngle = gapAngle / 2f // start after half the gap
+
+    val angle1 = startAngle + i * angleStep
+    val angle2 = angle1 + angleStep - (gapAngle / total)
+
+    // Calculate positions relative to light source
+    val centerAngle = (angle1 + angle2) / 2f
+    val centerX = center.x + radius * cos(Math.toRadians(centerAngle.toDouble())).toFloat() * d.w
+    val centerY = center.y + radius * sin(Math.toRadians(centerAngle.toDouble())).toFloat() * d.h
+
+    // Mirror endpoints perpendicular to radius
+    val perpAngle = centerAngle + 90f
+    val halfLength = mirrorLength / 2f
+    val dx = halfLength * cos(Math.toRadians(perpAngle.toDouble())).toFloat() * d.w
+    val dy = halfLength * sin(Math.toRadians(perpAngle.toDouble())).toFloat() * d.h
+
+    Mirror(
+        Point(centerX - dx, centerY - dy),
+        Point(centerX + dx, centerY + dy),
+        0.7f
+    )
+}
+
+private fun drawRayTraces(c: Canvas, rayTraces: List<RayTrace>) {
+    repeat(MAX_REFLECTIONS + 1) { iteration ->
+        val palette = pls[iteration]
+        rayTraces
+            .filter { it.iteration == iteration }
+            .forEach { rayTrace ->
+                val ray = rayTrace.ray
+                val alpha = (ray.intensity * 255).toInt().coerceIn(0, 255)
+
+                // Draw from 'from' point to 'to' point if 'to' exists, otherwise draw a long line
+                val line = if (rayTrace.to != null) {
+                    Line(rayTrace.from, rayTrace.to!!)
+                } else {
+                    ray.dline.toLine(rayTrace.from, 2000f)
+                }
+                val color = palette.random()
+                c.drawLine(line, strokeOf(color, 5f + iteration * 8f).apply {
+                    this.alpha = alpha
+                    this.strokeCap = PaintStrokeCap.ROUND
+                })
+            }
     }
+
 }
 
 private fun debugDrawMirrors(c: Canvas, mirrors: List<Mirror>) {
     mirrors.forEach { mirror ->
-        c.drawLine(mirror.line, strokeOfRed(4f))
+        //c.drawLine(mirror.line, strokeOfWhite(4f))
     }
 }
-
-private fun traceRayWithReflections(ray: Ray, mirrors: List<Mirror>, maxReflections: Int): List<Ray> {
-    val result = mutableListOf<Ray>()
-    var currentRay = ray
-    
-    result.add(currentRay) // Add the original ray
-    
-    repeat(maxReflections) {
-        // Find the closest mirror that intersects with the current ray
-        var closestMirror: Mirror? = null
-        var shortestDistance = Float.MAX_VALUE
-        
-        mirrors.forEach { mirror ->
-            val rayLine = currentRay.dline.toLine(currentRay.dline.p, 10000f)
-            val intersection = intersectionOf(rayLine, mirror.line)
-            
-            if (intersection != null) {
-                // Calculate distance from ray origin to intersection
-                val dx = intersection.x - currentRay.dline.p.x
-                val dy = intersection.y - currentRay.dline.p.y
-                val distance = dx * dx + dy * dy // squared distance for comparison
-                
-                if (distance > 1f && distance < shortestDistance) { // > 1f to avoid self-intersection
-                    shortestDistance = distance
-                    closestMirror = mirror
-                }
-            }
-        }
-        
-        // If we found a mirror to reflect off, create the reflected ray
-        closestMirror?.let { mirror ->
-            val reflected = mirror.reflect(currentRay)
-            val reflectedRay = reflected?.second
-            if (reflectedRay != null && reflectedRay.intensity > 0.01) { // Minimum intensity threshold
-                result.add(reflectedRay)
-                currentRay = reflectedRay
-            } else {
-                return@repeat // Stop tracing if ray is too weak
-            }
-        } ?: return@repeat // Stop tracing if no intersection found
-    }
-    
-    return result
-}
-
-private data class Mirror(
-    val p1: Point,
-    val p2: Point,
-    val reflectivity: Double = 1.0
-) {
-    val line = Line(p1, p2)
-
-    fun reflect(ray: Ray): Pair<Point, Ray>? {
-        // Convert the ray's DLine to a Line for intersection calculation
-        // Use a large distance to simulate an infinite ray
-        val rayLine = ray.dline.toLine(ray.dline.p, 10000f)
-        
-        // Find intersection point between ray and mirror
-        val intersectionPoint = intersectionOf(rayLine, line) ?: return null
-        
-        // Calculate mirror normal vector (perpendicular to mirror line)
-        val mirrorVector = Vector2(line.b.x - line.a.x, line.b.y - line.a.y).normalize()
-        val normalVector = Vector2(-mirrorVector.y, mirrorVector.x) // Perpendicular to mirror
-        
-        // Get incident ray direction (normalized)
-        val incidentDirection = ray.dline.dvec.normalize()
-        
-        // Calculate reflected direction using: R = I - 2(I·N)N
-        // where I is incident direction, N is normal, R is reflected direction
-        val dotProduct = incidentDirection.dot(normalVector)
-        val reflectedDirection = incidentDirection - (normalVector * (2f * dotProduct))
-        
-        // Create new reflected ray starting from intersection point
-        val reflectedRay = Ray(
-            dline = DLine(intersectionPoint, reflectedDirection),
-            intensity = ray.intensity * reflectivity
-        )
-        
-        return intersectionPoint to reflectedRay
-    }
-}
-
-private data class Ray(
-    val dline: DLine,
-    val intensity: Double = 1.0
-)
-private data class RayTrace(
-    val ray: Ray,
-    val from: Point,
-    val to: Point?
-)

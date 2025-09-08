@@ -3,6 +3,7 @@ package dev.oblac.gart.gfx
 import dev.oblac.gart.angle.Angle
 import dev.oblac.gart.angle.Radians
 import dev.oblac.gart.math.fastSqrt
+import dev.oblac.gart.vector.Vector2
 import org.jetbrains.skia.*
 import kotlin.math.*
 
@@ -120,6 +121,14 @@ data class Line(val a: Point, val b: Point) {
         path.moveTo(a.x, a.y)
         path.lineTo(b.x, b.y)
         return path
+    }
+
+    /**
+     * Converts this line to a DLine (directional line) representation.
+     */
+    fun toDline(): DLine {
+        val angle = angle()
+        return DLine(a, Vector2.of(angle))
     }
 
 

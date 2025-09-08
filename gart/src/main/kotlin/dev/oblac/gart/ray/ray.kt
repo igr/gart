@@ -5,7 +5,7 @@ import org.jetbrains.skia.Point
 
 data class Ray(
     val dline: DLine,
-    val intensity: Double = 1.0
+    val intensity: Float = 1.0f
 )
 
 data class RayTrace(
