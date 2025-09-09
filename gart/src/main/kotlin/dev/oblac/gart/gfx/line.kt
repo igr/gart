@@ -232,6 +232,11 @@ data class Line(val a: Point, val b: Point) {
      * Returns the midpoint of the line.
      */
     fun midPoint() = Point((a.x + b.x) / 2, (a.y + b.y) / 2)
+
+    fun lineFromStartLen(length: Float): Line {
+        val newEnd = pointFromStartLen(length)
+        return Line(a, newEnd)
+    }
 }
 
 fun Canvas.drawLine(line: Line, color: Paint) = drawLine(line.a, line.b, color)
