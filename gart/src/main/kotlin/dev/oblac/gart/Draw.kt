@@ -13,12 +13,14 @@ fun interface DrawFrame {
 /**
  * Base class for drawing, used mostly with the Hot Reload feature.
  */
-abstract class Drawing(private val g: Gartvas) : DrawFrame {
-    override fun invoke(canvas: Canvas, dimension: Dimension, frames: Frames) {
+abstract class Drawing(private val g: Gartvas? = null) : DrawFrame {
+    final override fun invoke(canvas: Canvas, dimension: Dimension, frames: Frames) {
         draw(canvas, dimension, frames)
+
+        if (g == null) return
         val snapshot = g.snapshot()
         canvas.drawImage(snapshot, 0f, 0f)
     }
 
-    abstract fun draw(canvas: Canvas, dimension: Dimension, frames: Frames)
+    open fun draw(canvas: Canvas, dimension: Dimension, frames: Frames) {}
 }
