@@ -50,6 +50,7 @@ private fun findAllThumbnails(artsDirectory: Path): Map<String, List<ThumbnailIn
             stream
                 .filter { it.isDirectory() }
                 .filter { !it.fileName.toString().startsWith(".") }
+                .filter { it.fileName.toString() != "example" }
                 .sorted()
                 .toList()
                 .associate { folder ->
@@ -125,7 +126,7 @@ private fun generateMarkdown(thumbnailsByFolder: Map<String, List<ThumbnailInfo>
             // Create HTML img list
             appendLine("<p align=\"left\">")
             thumbnails.forEach { thumbnail ->
-                appendLine("    <img src=\"${thumbnail.relativePath}\" hspace=\"10\" align=\"left\">")
+                appendLine("    <img src=\"${thumbnail.relativePath}\" hspace=\"10\" vspace=\"10\" align=\"left\">")
             }
             appendLine("</p>")
             appendLine("<br clear=\"both\">")
@@ -139,7 +140,7 @@ private fun generateMarkdown(thumbnailsByFolder: Map<String, List<ThumbnailInfo>
 
         appendLine("---")
         appendLine()
-        appendLine("**Total: $totalThumbnails thumbnails across $totalFolders art collections**")
+        appendLine("**Total: $totalThumbnails works across $totalFolders collections**")
     }
 }
 
