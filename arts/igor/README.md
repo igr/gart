@@ -1,3 +1,0 @@
-# gȧrt : IGOR
-
-![](igor.png)

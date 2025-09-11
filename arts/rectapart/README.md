@@ -1,3 +1,0 @@
-# RectAPart
-
-![](rectapart.png)

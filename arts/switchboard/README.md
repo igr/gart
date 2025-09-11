@@ -1,3 +1,0 @@
-# switcboard
-
-![](switchboard.png)

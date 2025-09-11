@@ -1,3 +1,0 @@
-# Blob
-
-![](blob.jpg)
