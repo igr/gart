@@ -122,15 +122,12 @@ private fun generateMarkdown(thumbnailsByFolder: Map<String, List<ThumbnailInfo>
             appendLine("## ${generateDisplayName(folderName)}")
             appendLine()
 
-            // Create a grid layout for thumbnails
-            thumbnails.chunked(3).forEach { row ->
-                val cells = row.map { "[![${it.displayName}](${it.relativePath})](${it.relativePath})" }.toMutableList()
-                // Fill empty cells to maintain table structure
-                while (cells.size < 3) {
-                    cells.add("")
-                }
-                appendLine("| " + cells.joinToString(" | ") + " |")
+            // Create HTML img list
+            appendLine("<p>")
+            thumbnails.forEach { thumbnail ->
+                appendLine("    <img src=\"${thumbnail.relativePath}\" hspace=\"10\" align=\"left\">")
             }
+            appendLine("</p>")
 
             appendLine()
         }

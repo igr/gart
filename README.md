@@ -28,187 +28,341 @@ A collection of generative art pieces (ordered by name).
 
 ## Alien
 
-| [![Alien Letters V1](arts/alien/alien-letters-v1_thumb.png)](arts/alien/alien-letters-v1_thumb.png) | [![Alien Letters V2](arts/alien/alien-letters-v2_thumb.png)](arts/alien/alien-letters-v2_thumb.png) | [![Alien Letters V3](arts/alien/alien-letters-v3_thumb.png)](arts/alien/alien-letters-v3_thumb.png) |
+<p>
+    <img src="arts/alien/alien-letters-v1_thumb.png" hspace="10" align="left">
+    <img src="arts/alien/alien-letters-v2_thumb.png" hspace="10" align="left">
+    <img src="arts/alien/alien-letters-v3_thumb.png" hspace="10" align="left">
+</p>
 
 ## Blob
 
-| [![Blob](arts/blob/blob_thumb.jpg)](arts/blob/blob_thumb.jpg) |  |  |
+<p>
+    <img src="arts/blob/blob_thumb.jpg" hspace="10" align="left">
+</p>
 
 ## Bubbles
 
-| [![BubbleStripe](arts/bubbles/BubbleStripe_thumb.png)](arts/bubbles/BubbleStripe_thumb.png) | [![Bubbles2](arts/bubbles/Bubbles2_thumb.png)](arts/bubbles/Bubbles2_thumb.png) |  |
+<p>
+    <img src="arts/bubbles/BubbleStripe_thumb.png" hspace="10" align="left">
+    <img src="arts/bubbles/Bubbles2_thumb.png" hspace="10" align="left">
+</p>
 
 ## Cell
 
-| [![Cell1](arts/cell/cell1_thumb.png)](arts/cell/cell1_thumb.png) |  |  |
+<p>
+    <img src="arts/cell/cell1_thumb.png" hspace="10" align="left">
+</p>
 
 ## Circledots
 
-| [![Circledots](arts/circledots/circledots_thumb.png)](arts/circledots/circledots_thumb.png) |  |  |
+<p>
+    <img src="arts/circledots/circledots_thumb.png" hspace="10" align="left">
+</p>
 
 ## Cotton
 
-| [![Cotton Circles2](arts/cotton/cotton-circles2_thumb.png)](arts/cotton/cotton-circles2_thumb.png) | [![Cotton Circles](arts/cotton/cotton-circles_thumb.png)](arts/cotton/cotton-circles_thumb.png) | [![Cotton1](arts/cotton/cotton1_thumb.png)](arts/cotton/cotton1_thumb.png) |
-| [![Cotton2](arts/cotton/cotton2_thumb.png)](arts/cotton/cotton2_thumb.png) | [![Cotton3](arts/cotton/cotton3_thumb.png)](arts/cotton/cotton3_thumb.png) |  |
+<p>
+    <img src="arts/cotton/cotton-circles2_thumb.png" hspace="10" align="left">
+    <img src="arts/cotton/cotton-circles_thumb.png" hspace="10" align="left">
+    <img src="arts/cotton/cotton1_thumb.png" hspace="10" align="left">
+    <img src="arts/cotton/cotton2_thumb.png" hspace="10" align="left">
+    <img src="arts/cotton/cotton3_thumb.png" hspace="10" align="left">
+</p>
 
 ## Example
 
-| [![Example](arts/example/example_thumb.png)](arts/example/example_thumb.png) |  |  |
+<p>
+    <img src="arts/example/example_thumb.png" hspace="10" align="left">
+</p>
 
 ## Falllines
 
-| [![Falllines](arts/falllines/falllines_thumb.png)](arts/falllines/falllines_thumb.png) |  |  |
+<p>
+    <img src="arts/falllines/falllines_thumb.png" hspace="10" align="left">
+</p>
 
 ## Flamebrush
 
-| [![Flamebrush1](arts/flamebrush/flamebrush1_thumb.png)](arts/flamebrush/flamebrush1_thumb.png) |  |  |
+<p>
+    <img src="arts/flamebrush/flamebrush1_thumb.png" hspace="10" align="left">
+</p>
 
 ## Flowforce
 
-| [![Eclectic2](arts/flowforce/Eclectic2_thumb.png)](arts/flowforce/Eclectic2_thumb.png) | [![Eclectic](arts/flowforce/Eclectic_thumb.png)](arts/flowforce/Eclectic_thumb.png) | [![Eclipse](arts/flowforce/Eclipse_thumb.png)](arts/flowforce/Eclipse_thumb.png) |
-| [![Spring](arts/flowforce/Spring_thumb.png)](arts/flowforce/Spring_thumb.png) | [![Circlex](arts/flowforce/circlex_thumb.png)](arts/flowforce/circlex_thumb.png) | [![Emergence](arts/flowforce/emergence_thumb.png)](arts/flowforce/emergence_thumb.png) |
-| [![Flowforce1](arts/flowforce/flowforce1_thumb.png)](arts/flowforce/flowforce1_thumb.png) | [![Flowforce2](arts/flowforce/flowforce2_thumb.png)](arts/flowforce/flowforce2_thumb.png) | [![Flowforce3](arts/flowforce/flowforce3_thumb.png)](arts/flowforce/flowforce3_thumb.png) |
-| [![Flowforce4](arts/flowforce/flowforce4_thumb.png)](arts/flowforce/flowforce4_thumb.png) | [![Interruption](arts/flowforce/interruption_thumb.png)](arts/flowforce/interruption_thumb.png) | [![Vorflow](arts/flowforce/vorflow_thumb.png)](arts/flowforce/vorflow_thumb.png) |
+<p>
+    <img src="arts/flowforce/Eclectic2_thumb.png" hspace="10" align="left">
+    <img src="arts/flowforce/Eclectic_thumb.png" hspace="10" align="left">
+    <img src="arts/flowforce/Eclipse_thumb.png" hspace="10" align="left">
+    <img src="arts/flowforce/Spring_thumb.png" hspace="10" align="left">
+    <img src="arts/flowforce/circlex_thumb.png" hspace="10" align="left">
+    <img src="arts/flowforce/emergence_thumb.png" hspace="10" align="left">
+    <img src="arts/flowforce/flowforce1_thumb.png" hspace="10" align="left">
+    <img src="arts/flowforce/flowforce2_thumb.png" hspace="10" align="left">
+    <img src="arts/flowforce/flowforce3_thumb.png" hspace="10" align="left">
+    <img src="arts/flowforce/flowforce4_thumb.png" hspace="10" align="left">
+    <img src="arts/flowforce/interruption_thumb.png" hspace="10" align="left">
+    <img src="arts/flowforce/vorflow_thumb.png" hspace="10" align="left">
+</p>
 
 ## Harmongraph
 
-| [![HA](arts/harmongraph/hA_thumb.png)](arts/harmongraph/hA_thumb.png) | [![HB](arts/harmongraph/hB_thumb.png)](arts/harmongraph/hB_thumb.png) | [![HC](arts/harmongraph/hC_thumb.png)](arts/harmongraph/hC_thumb.png) |
-| [![HD](arts/harmongraph/hD_thumb.png)](arts/harmongraph/hD_thumb.png) | [![HE](arts/harmongraph/hE_thumb.png)](arts/harmongraph/hE_thumb.png) | [![HF](arts/harmongraph/hF_thumb.png)](arts/harmongraph/hF_thumb.png) |
-| [![HG](arts/harmongraph/hG_thumb.png)](arts/harmongraph/hG_thumb.png) | [![HH](arts/harmongraph/hH_thumb.png)](arts/harmongraph/hH_thumb.png) | [![Harmongraph0](arts/harmongraph/harmongraph0_thumb.png)](arts/harmongraph/harmongraph0_thumb.png) |
-| [![Harmongraph1](arts/harmongraph/harmongraph1_thumb.png)](arts/harmongraph/harmongraph1_thumb.png) | [![Harmongraph2](arts/harmongraph/harmongraph2_thumb.png)](arts/harmongraph/harmongraph2_thumb.png) |  |
+<p>
+    <img src="arts/harmongraph/hA_thumb.png" hspace="10" align="left">
+    <img src="arts/harmongraph/hB_thumb.png" hspace="10" align="left">
+    <img src="arts/harmongraph/hC_thumb.png" hspace="10" align="left">
+    <img src="arts/harmongraph/hD_thumb.png" hspace="10" align="left">
+    <img src="arts/harmongraph/hE_thumb.png" hspace="10" align="left">
+    <img src="arts/harmongraph/hF_thumb.png" hspace="10" align="left">
+    <img src="arts/harmongraph/hG_thumb.png" hspace="10" align="left">
+    <img src="arts/harmongraph/hH_thumb.png" hspace="10" align="left">
+    <img src="arts/harmongraph/harmongraph0_thumb.png" hspace="10" align="left">
+    <img src="arts/harmongraph/harmongraph1_thumb.png" hspace="10" align="left">
+    <img src="arts/harmongraph/harmongraph2_thumb.png" hspace="10" align="left">
+</p>
 
 ## Hills
 
-| [![February](arts/hills/february_thumb.png)](arts/hills/february_thumb.png) | [![Hills](arts/hills/hills_thumb.png)](arts/hills/hills_thumb.png) | [![Horizons](arts/hills/horizons_thumb.png)](arts/hills/horizons_thumb.png) |
+<p>
+    <img src="arts/hills/february_thumb.png" hspace="10" align="left">
+    <img src="arts/hills/hills_thumb.png" hspace="10" align="left">
+    <img src="arts/hills/horizons_thumb.png" hspace="10" align="left">
+</p>
 
 ## Igor
 
-| [![Igor](arts/igor/igor_thumb.png)](arts/igor/igor_thumb.png) |  |  |
+<p>
+    <img src="arts/igor/igor_thumb.png" hspace="10" align="left">
+</p>
 
 ## Joydiv
 
-| [![Joydiv](arts/joydiv/joydiv_thumb.png)](arts/joydiv/joydiv_thumb.png) |  |  |
+<p>
+    <img src="arts/joydiv/joydiv_thumb.png" hspace="10" align="left">
+</p>
 
 ## Kaleiircle
 
-| [![Kaleidoscope2 1](arts/kaleiircle/kaleidoscope2-1_thumb.png)](arts/kaleiircle/kaleidoscope2-1_thumb.png) | [![Kaleidoscope2 2](arts/kaleiircle/kaleidoscope2-2_thumb.png)](arts/kaleiircle/kaleidoscope2-2_thumb.png) | [![Kaleidoscope2](arts/kaleiircle/kaleidoscope2_thumb.png)](arts/kaleiircle/kaleidoscope2_thumb.png) |
-| [![Kaleidoscope3](arts/kaleiircle/kaleidoscope3_thumb.png)](arts/kaleiircle/kaleidoscope3_thumb.png) | [![Kaleidoscope](arts/kaleiircle/kaleidoscope_thumb.png)](arts/kaleiircle/kaleidoscope_thumb.png) | [![Kaleiircle](arts/kaleiircle/kaleiircle_thumb.png)](arts/kaleiircle/kaleiircle_thumb.png) |
+<p>
+    <img src="arts/kaleiircle/kaleidoscope2-1_thumb.png" hspace="10" align="left">
+    <img src="arts/kaleiircle/kaleidoscope2-2_thumb.png" hspace="10" align="left">
+    <img src="arts/kaleiircle/kaleidoscope2_thumb.png" hspace="10" align="left">
+    <img src="arts/kaleiircle/kaleidoscope3_thumb.png" hspace="10" align="left">
+    <img src="arts/kaleiircle/kaleidoscope_thumb.png" hspace="10" align="left">
+    <img src="arts/kaleiircle/kaleiircle_thumb.png" hspace="10" align="left">
+</p>
 
 ## Legoo
 
-| [![Legoo12](arts/legoo/Legoo12_thumb.png)](arts/legoo/Legoo12_thumb.png) | [![Legoo1](arts/legoo/Legoo1_thumb.png)](arts/legoo/Legoo1_thumb.png) | [![Legoo2](arts/legoo/Legoo2_thumb.png)](arts/legoo/Legoo2_thumb.png) |
+<p>
+    <img src="arts/legoo/Legoo12_thumb.png" hspace="10" align="left">
+    <img src="arts/legoo/Legoo1_thumb.png" hspace="10" align="left">
+    <img src="arts/legoo/Legoo2_thumb.png" hspace="10" align="left">
+</p>
 
 ## Lettero
 
-| [![LetterO](arts/lettero/LetterO_thumb.png)](arts/lettero/LetterO_thumb.png) | [![Lettero2](arts/lettero/lettero2_thumb.png)](arts/lettero/lettero2_thumb.png) | [![Lettero3 1](arts/lettero/lettero3-1_thumb.png)](arts/lettero/lettero3-1_thumb.png) |
-| [![Lettero3 2](arts/lettero/lettero3-2_thumb.png)](arts/lettero/lettero3-2_thumb.png) | [![Lettero3](arts/lettero/lettero3_thumb.png)](arts/lettero/lettero3_thumb.png) |  |
+<p>
+    <img src="arts/lettero/LetterO_thumb.png" hspace="10" align="left">
+    <img src="arts/lettero/lettero2_thumb.png" hspace="10" align="left">
+    <img src="arts/lettero/lettero3-1_thumb.png" hspace="10" align="left">
+    <img src="arts/lettero/lettero3-2_thumb.png" hspace="10" align="left">
+    <img src="arts/lettero/lettero3_thumb.png" hspace="10" align="left">
+</p>
 
 ## Lines
 
-| [![Citymap](arts/lines/citymap_thumb.png)](arts/lines/citymap_thumb.png) | [![Swing2](arts/lines/swing2_thumb.png)](arts/lines/swing2_thumb.png) | [![Swing3](arts/lines/swing3_thumb.png)](arts/lines/swing3_thumb.png) |
-| [![Swing](arts/lines/swing_thumb.png)](arts/lines/swing_thumb.png) | [![Triangles](arts/lines/triangles_thumb.png)](arts/lines/triangles_thumb.png) |  |
+<p>
+    <img src="arts/lines/citymap_thumb.png" hspace="10" align="left">
+    <img src="arts/lines/swing2_thumb.png" hspace="10" align="left">
+    <img src="arts/lines/swing3_thumb.png" hspace="10" align="left">
+    <img src="arts/lines/swing_thumb.png" hspace="10" align="left">
+    <img src="arts/lines/triangles_thumb.png" hspace="10" align="left">
+</p>
 
 ## Lissajous
 
-| [![Lissajous](arts/lissajous/lissajous_thumb.png)](arts/lissajous/lissajous_thumb.png) | [![Moire](arts/lissajous/moire_thumb.png)](arts/lissajous/moire_thumb.png) |  |
+<p>
+    <img src="arts/lissajous/lissajous_thumb.png" hspace="10" align="left">
+    <img src="arts/lissajous/moire_thumb.png" hspace="10" align="left">
+</p>
 
 ## Metro
 
-| [![Metro2](arts/metro/metro2_thumb.png)](arts/metro/metro2_thumb.png) | [![Metro](arts/metro/metro_thumb.png)](arts/metro/metro_thumb.png) |  |
+<p>
+    <img src="arts/metro/metro2_thumb.png" hspace="10" align="left">
+    <img src="arts/metro/metro_thumb.png" hspace="10" align="left">
+</p>
 
 ## Monet
 
-| [![Monet1 0](arts/monet/monet1-0_thumb.png)](arts/monet/monet1-0_thumb.png) | [![Monet1](arts/monet/monet1_thumb.png)](arts/monet/monet1_thumb.png) | [![Monet2](arts/monet/monet2_thumb.png)](arts/monet/monet2_thumb.png) |
+<p>
+    <img src="arts/monet/monet1-0_thumb.png" hspace="10" align="left">
+    <img src="arts/monet/monet1_thumb.png" hspace="10" align="left">
+    <img src="arts/monet/monet2_thumb.png" hspace="10" align="left">
+</p>
 
 ## Palecircles
 
-| [![Palecircles](arts/palecircles/palecircles_thumb.png)](arts/palecircles/palecircles_thumb.png) |  |  |
+<p>
+    <img src="arts/palecircles/palecircles_thumb.png" hspace="10" align="left">
+</p>
 
 ## Plasma
 
-| [![Plasma2](arts/plasma/plasma2_thumb.png)](arts/plasma/plasma2_thumb.png) | [![Plasma3](arts/plasma/plasma3_thumb.png)](arts/plasma/plasma3_thumb.png) | [![Plasma4](arts/plasma/plasma4_thumb.png)](arts/plasma/plasma4_thumb.png) |
-| [![Plasma](arts/plasma/plasma_thumb.png)](arts/plasma/plasma_thumb.png) |  |  |
+<p>
+    <img src="arts/plasma/plasma2_thumb.png" hspace="10" align="left">
+    <img src="arts/plasma/plasma3_thumb.png" hspace="10" align="left">
+    <img src="arts/plasma/plasma4_thumb.png" hspace="10" align="left">
+    <img src="arts/plasma/plasma_thumb.png" hspace="10" align="left">
+</p>
 
 ## Rayz
 
-| [![Rayz2 1](arts/rayz/rayz2-1_thumb.png)](arts/rayz/rayz2-1_thumb.png) | [![Rayz2 2](arts/rayz/rayz2-2_thumb.png)](arts/rayz/rayz2-2_thumb.png) | [![Rayz2 3](arts/rayz/rayz2-3_thumb.png)](arts/rayz/rayz2-3_thumb.png) |
-| [![Rayz](arts/rayz/rayz_thumb.png)](arts/rayz/rayz_thumb.png) |  |  |
+<p>
+    <img src="arts/rayz/rayz2-1_thumb.png" hspace="10" align="left">
+    <img src="arts/rayz/rayz2-2_thumb.png" hspace="10" align="left">
+    <img src="arts/rayz/rayz2-3_thumb.png" hspace="10" align="left">
+    <img src="arts/rayz/rayz_thumb.png" hspace="10" align="left">
+</p>
 
 ## Rectapart
 
-| [![RectApart](arts/rectapart/rectApart_thumb.png)](arts/rectapart/rectApart_thumb.png) |  |  |
+<p>
+    <img src="arts/rectapart/rectApart_thumb.png" hspace="10" align="left">
+</p>
 
 ## Rects
 
-| [![Cells](arts/rects/cells_thumb.png)](arts/rects/cells_thumb.png) | [![Divine Divide](arts/rects/divine-divide_thumb.png)](arts/rects/divine-divide_thumb.png) | [![Mondrian 01](arts/rects/mondrian-01_thumb.png)](arts/rects/mondrian-01_thumb.png) |
-| [![Mondrian 02](arts/rects/mondrian-02_thumb.png)](arts/rects/mondrian-02_thumb.png) | [![Mondrian 03](arts/rects/mondrian-03_thumb.png)](arts/rects/mondrian-03_thumb.png) | [![Rects Over](arts/rects/rects-over_thumb.png)](arts/rects/rects-over_thumb.png) |
-| [![Rects1](arts/rects/rects1_thumb.png)](arts/rects/rects1_thumb.png) | [![Rects2](arts/rects/rects2_thumb.png)](arts/rects/rects2_thumb.png) |  |
+<p>
+    <img src="arts/rects/cells_thumb.png" hspace="10" align="left">
+    <img src="arts/rects/divine-divide_thumb.png" hspace="10" align="left">
+    <img src="arts/rects/mondrian-01_thumb.png" hspace="10" align="left">
+    <img src="arts/rects/mondrian-02_thumb.png" hspace="10" align="left">
+    <img src="arts/rects/mondrian-03_thumb.png" hspace="10" align="left">
+    <img src="arts/rects/rects-over_thumb.png" hspace="10" align="left">
+    <img src="arts/rects/rects1_thumb.png" hspace="10" align="left">
+    <img src="arts/rects/rects2_thumb.png" hspace="10" align="left">
+</p>
 
 ## Repetition
 
-| [![Repetition1](arts/repetition/Repetition1_thumb.png)](arts/repetition/Repetition1_thumb.png) | [![Repetition2](arts/repetition/Repetition2_thumb.png)](arts/repetition/Repetition2_thumb.png) |  |
+<p>
+    <img src="arts/repetition/Repetition1_thumb.png" hspace="10" align="left">
+    <img src="arts/repetition/Repetition2_thumb.png" hspace="10" align="left">
+</p>
 
 ## Rotoro
 
-| [![Rotoro1](arts/rotoro/rotoro1_thumb.png)](arts/rotoro/rotoro1_thumb.png) | [![Rotoro2 0](arts/rotoro/rotoro2-0_thumb.png)](arts/rotoro/rotoro2-0_thumb.png) | [![Rotoro2 1](arts/rotoro/rotoro2-1_thumb.png)](arts/rotoro/rotoro2-1_thumb.png) |
-| [![Rotoro2 2](arts/rotoro/rotoro2-2_thumb.png)](arts/rotoro/rotoro2-2_thumb.png) | [![Rotoro2](arts/rotoro/rotoro2_thumb.png)](arts/rotoro/rotoro2_thumb.png) | [![Rotoro3](arts/rotoro/rotoro3_thumb.png)](arts/rotoro/rotoro3_thumb.png) |
+<p>
+    <img src="arts/rotoro/rotoro1_thumb.png" hspace="10" align="left">
+    <img src="arts/rotoro/rotoro2-0_thumb.png" hspace="10" align="left">
+    <img src="arts/rotoro/rotoro2-1_thumb.png" hspace="10" align="left">
+    <img src="arts/rotoro/rotoro2-2_thumb.png" hspace="10" align="left">
+    <img src="arts/rotoro/rotoro2_thumb.png" hspace="10" align="left">
+    <img src="arts/rotoro/rotoro3_thumb.png" hspace="10" align="left">
+</p>
 
 ## Roundrects
 
-| [![Roundrects](arts/roundrects/roundrects_thumb.png)](arts/roundrects/roundrects_thumb.png) |  |  |
+<p>
+    <img src="arts/roundrects/roundrects_thumb.png" hspace="10" align="left">
+</p>
 
 ## Sea
 
-| [![Sea](arts/sea/sea_thumb.png)](arts/sea/sea_thumb.png) |  |  |
+<p>
+    <img src="arts/sea/sea_thumb.png" hspace="10" align="left">
+</p>
 
 ## Sf
 
-| [![Sf10](arts/sf/sf10_thumb.png)](arts/sf/sf10_thumb.png) | [![Sf1](arts/sf/sf1_thumb.png)](arts/sf/sf1_thumb.png) | [![Sf2](arts/sf/sf2_thumb.png)](arts/sf/sf2_thumb.png) |
-| [![Sf3](arts/sf/sf3_thumb.png)](arts/sf/sf3_thumb.png) | [![Sf4](arts/sf/sf4_thumb.png)](arts/sf/sf4_thumb.png) | [![Sf5](arts/sf/sf5_thumb.png)](arts/sf/sf5_thumb.png) |
-| [![Sf6](arts/sf/sf6_thumb.png)](arts/sf/sf6_thumb.png) | [![Sf7](arts/sf/sf7_thumb.png)](arts/sf/sf7_thumb.png) | [![Sf8](arts/sf/sf8_thumb.png)](arts/sf/sf8_thumb.png) |
-| [![Sf9](arts/sf/sf9_thumb.png)](arts/sf/sf9_thumb.png) |  |  |
+<p>
+    <img src="arts/sf/sf10_thumb.png" hspace="10" align="left">
+    <img src="arts/sf/sf1_thumb.png" hspace="10" align="left">
+    <img src="arts/sf/sf2_thumb.png" hspace="10" align="left">
+    <img src="arts/sf/sf3_thumb.png" hspace="10" align="left">
+    <img src="arts/sf/sf4_thumb.png" hspace="10" align="left">
+    <img src="arts/sf/sf5_thumb.png" hspace="10" align="left">
+    <img src="arts/sf/sf6_thumb.png" hspace="10" align="left">
+    <img src="arts/sf/sf7_thumb.png" hspace="10" align="left">
+    <img src="arts/sf/sf8_thumb.png" hspace="10" align="left">
+    <img src="arts/sf/sf9_thumb.png" hspace="10" align="left">
+</p>
 
 ## Skyscraper
 
-| [![Skyscraper2](arts/skyscraper/skyscraper2_thumb.png)](arts/skyscraper/skyscraper2_thumb.png) | [![Skyscraper](arts/skyscraper/skyscraper_thumb.png)](arts/skyscraper/skyscraper_thumb.png) |  |
+<p>
+    <img src="arts/skyscraper/skyscraper2_thumb.png" hspace="10" align="left">
+    <img src="arts/skyscraper/skyscraper_thumb.png" hspace="10" align="left">
+</p>
 
 ## Spiral
 
-| [![Spiral2](arts/spiral/spiral2_thumb.png)](arts/spiral/spiral2_thumb.png) | [![Spiral3](arts/spiral/spiral3_thumb.png)](arts/spiral/spiral3_thumb.png) | [![Spiral](arts/spiral/spiral_thumb.png)](arts/spiral/spiral_thumb.png) |
+<p>
+    <img src="arts/spiral/spiral2_thumb.png" hspace="10" align="left">
+    <img src="arts/spiral/spiral3_thumb.png" hspace="10" align="left">
+    <img src="arts/spiral/spiral_thumb.png" hspace="10" align="left">
+</p>
 
 ## Spirograph
 
-| [![Spirograph1](arts/spirograph/spirograph1_thumb.png)](arts/spirograph/spirograph1_thumb.png) | [![Spirograph2](arts/spirograph/spirograph2_thumb.png)](arts/spirograph/spirograph2_thumb.png) |  |
+<p>
+    <img src="arts/spirograph/spirograph1_thumb.png" hspace="10" align="left">
+    <img src="arts/spirograph/spirograph2_thumb.png" hspace="10" align="left">
+</p>
 
 ## Stripes
 
-| [![Stripes1](arts/stripes/stripes1_thumb.png)](arts/stripes/stripes1_thumb.png) | [![Stripes](arts/stripes/stripes_thumb.png)](arts/stripes/stripes_thumb.png) | [![Tolerance](arts/stripes/tolerance_thumb.png)](arts/stripes/tolerance_thumb.png) |
+<p>
+    <img src="arts/stripes/stripes1_thumb.png" hspace="10" align="left">
+    <img src="arts/stripes/stripes_thumb.png" hspace="10" align="left">
+    <img src="arts/stripes/tolerance_thumb.png" hspace="10" align="left">
+</p>
 
 ## Sun
 
-| [![Echoes1](arts/sun/echoes1_thumb.png)](arts/sun/echoes1_thumb.png) | [![Echoes2](arts/sun/echoes2_thumb.png)](arts/sun/echoes2_thumb.png) | [![SunNS1](arts/sun/sunNS1_thumb.png)](arts/sun/sunNS1_thumb.png) |
-| [![Sunlines](arts/sun/sunlines_thumb.png)](arts/sun/sunlines_thumb.png) |  |  |
+<p>
+    <img src="arts/sun/echoes1_thumb.png" hspace="10" align="left">
+    <img src="arts/sun/echoes2_thumb.png" hspace="10" align="left">
+    <img src="arts/sun/sunNS1_thumb.png" hspace="10" align="left">
+    <img src="arts/sun/sunlines_thumb.png" hspace="10" align="left">
+</p>
 
 ## Switchboard
 
-| [![Switchboard](arts/switchboard/switchboard_thumb.png)](arts/switchboard/switchboard_thumb.png) |  |  |
+<p>
+    <img src="arts/switchboard/switchboard_thumb.png" hspace="10" align="left">
+</p>
 
 ## Thre3
 
-| [![Noisepads](arts/thre3/noisepads_thumb.png)](arts/thre3/noisepads_thumb.png) | [![Surfing](arts/thre3/surfing_thumb.png)](arts/thre3/surfing_thumb.png) |  |
+<p>
+    <img src="arts/thre3/noisepads_thumb.png" hspace="10" align="left">
+    <img src="arts/thre3/surfing_thumb.png" hspace="10" align="left">
+</p>
 
 ## Ticktiletock
 
-| [![Ticktiletock](arts/ticktiletock/ticktiletock_thumb.png)](arts/ticktiletock/ticktiletock_thumb.png) |  |  |
+<p>
+    <img src="arts/ticktiletock/ticktiletock_thumb.png" hspace="10" align="left">
+</p>
 
 ## Triangular
 
-| [![SaharaDiamond](arts/triangular/SaharaDiamond_thumb.png)](arts/triangular/SaharaDiamond_thumb.png) | [![Triage](arts/triangular/Triage_thumb.png)](arts/triangular/Triage_thumb.png) |  |
+<p>
+    <img src="arts/triangular/SaharaDiamond_thumb.png" hspace="10" align="left">
+    <img src="arts/triangular/Triage_thumb.png" hspace="10" align="left">
+</p>
 
 ## Z
 
-| [![Z1](arts/z/z1_thumb.png)](arts/z/z1_thumb.png) | [![Z2](arts/z/z2_thumb.png)](arts/z/z2_thumb.png) | [![Z3](arts/z/z3_thumb.png)](arts/z/z3_thumb.png) |
-| [![Z4](arts/z/z4_thumb.png)](arts/z/z4_thumb.png) | [![Z5](arts/z/z5_thumb.png)](arts/z/z5_thumb.png) |  |
+<p>
+    <img src="arts/z/z1_thumb.png" hspace="10" align="left">
+    <img src="arts/z/z2_thumb.png" hspace="10" align="left">
+    <img src="arts/z/z3_thumb.png" hspace="10" align="left">
+    <img src="arts/z/z4_thumb.png" hspace="10" align="left">
+    <img src="arts/z/z5_thumb.png" hspace="10" align="left">
+</p>
 
 ---
 
