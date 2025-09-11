@@ -28,68 +28,77 @@ A collection of generative art pieces (ordered by name).
 
 ## Alien
 
-<p>
+<p align="left">
     <img src="arts/alien/alien-letters-v1_thumb.png" hspace="10" align="left">
     <img src="arts/alien/alien-letters-v2_thumb.png" hspace="10" align="left">
     <img src="arts/alien/alien-letters-v3_thumb.png" hspace="10" align="left">
 </p>
+<br clear="both">
 
 ## Blob
 
-<p>
+<p align="left">
     <img src="arts/blob/blob_thumb.jpg" hspace="10" align="left">
 </p>
+<br clear="both">
 
 ## Bubbles
 
-<p>
+<p align="left">
     <img src="arts/bubbles/BubbleStripe_thumb.png" hspace="10" align="left">
     <img src="arts/bubbles/Bubbles2_thumb.png" hspace="10" align="left">
 </p>
+<br clear="both">
 
 ## Cell
 
-<p>
+<p align="left">
     <img src="arts/cell/cell1_thumb.png" hspace="10" align="left">
 </p>
+<br clear="both">
 
 ## Circledots
 
-<p>
+<p align="left">
     <img src="arts/circledots/circledots_thumb.png" hspace="10" align="left">
 </p>
+<br clear="both">
 
 ## Cotton
 
-<p>
+<p align="left">
     <img src="arts/cotton/cotton-circles2_thumb.png" hspace="10" align="left">
     <img src="arts/cotton/cotton-circles_thumb.png" hspace="10" align="left">
     <img src="arts/cotton/cotton1_thumb.png" hspace="10" align="left">
     <img src="arts/cotton/cotton2_thumb.png" hspace="10" align="left">
     <img src="arts/cotton/cotton3_thumb.png" hspace="10" align="left">
 </p>
+<br clear="both">
 
 ## Example
 
-<p>
+<p align="left">
     <img src="arts/example/example_thumb.png" hspace="10" align="left">
 </p>
+<br clear="both">
 
 ## Falllines
 
-<p>
+<p align="left">
     <img src="arts/falllines/falllines_thumb.png" hspace="10" align="left">
 </p>
+<br clear="both">
 
 ## Flamebrush
 
-<p>
+<p align="left">
     <img src="arts/flamebrush/flamebrush1_thumb.png" hspace="10" align="left">
 </p>
+<br clear="both">
 
 ## Flowforce
 
-<p>
+<p align="left">
     <img src="arts/flowforce/Eclectic2_thumb.png" hspace="10" align="left">
     <img src="arts/flowforce/Eclectic_thumb.png" hspace="10" align="left">
     <img src="arts/flowforce/Eclipse_thumb.png" hspace="10" align="left">
@@ -103,10 +112,11 @@ A collection of generative art pieces (ordered by name).
     <img src="arts/flowforce/interruption_thumb.png" hspace="10" align="left">
     <img src="arts/flowforce/vorflow_thumb.png" hspace="10" align="left">
 </p>
+<br clear="both">
 
 ## Harmongraph
 
-<p>
+<p align="left">
     <img src="arts/harmongraph/hA_thumb.png" hspace="10" align="left">
     <img src="arts/harmongraph/hB_thumb.png" hspace="10" align="left">
     <img src="arts/harmongraph/hC_thumb.png" hspace="10" align="left">
@@ -119,30 +129,34 @@ A collection of generative art pieces (ordered by name).
     <img src="arts/harmongraph/harmongraph1_thumb.png" hspace="10" align="left">
     <img src="arts/harmongraph/harmongraph2_thumb.png" hspace="10" align="left">
 </p>
+<br clear="both">
 
 ## Hills
 
-<p>
+<p align="left">
     <img src="arts/hills/february_thumb.png" hspace="10" align="left">
     <img src="arts/hills/hills_thumb.png" hspace="10" align="left">
     <img src="arts/hills/horizons_thumb.png" hspace="10" align="left">
 </p>
+<br clear="both">
 
 ## Igor
 
-<p>
+<p align="left">
     <img src="arts/igor/igor_thumb.png" hspace="10" align="left">
 </p>
+<br clear="both">
 
 ## Joydiv
 
-<p>
+<p align="left">
     <img src="arts/joydiv/joydiv_thumb.png" hspace="10" align="left">
 </p>
+<br clear="both">
 
 ## Kaleiircle
 
-<p>
+<p align="left">
     <img src="arts/kaleiircle/kaleidoscope2-1_thumb.png" hspace="10" align="left">
     <img src="arts/kaleiircle/kaleidoscope2-2_thumb.png" hspace="10" align="left">
     <img src="arts/kaleiircle/kaleidoscope2_thumb.png" hspace="10" align="left">
@@ -150,90 +164,101 @@ A collection of generative art pieces (ordered by name).
     <img src="arts/kaleiircle/kaleidoscope_thumb.png" hspace="10" align="left">
     <img src="arts/kaleiircle/kaleiircle_thumb.png" hspace="10" align="left">
 </p>
+<br clear="both">
 
 ## Legoo
 
-<p>
+<p align="left">
     <img src="arts/legoo/Legoo12_thumb.png" hspace="10" align="left">
     <img src="arts/legoo/Legoo1_thumb.png" hspace="10" align="left">
     <img src="arts/legoo/Legoo2_thumb.png" hspace="10" align="left">
 </p>
+<br clear="both">
 
 ## Lettero
 
-<p>
+<p align="left">
     <img src="arts/lettero/LetterO_thumb.png" hspace="10" align="left">
     <img src="arts/lettero/lettero2_thumb.png" hspace="10" align="left">
     <img src="arts/lettero/lettero3-1_thumb.png" hspace="10" align="left">
     <img src="arts/lettero/lettero3-2_thumb.png" hspace="10" align="left">
     <img src="arts/lettero/lettero3_thumb.png" hspace="10" align="left">
 </p>
+<br clear="both">
 
 ## Lines
 
-<p>
+<p align="left">
     <img src="arts/lines/citymap_thumb.png" hspace="10" align="left">
     <img src="arts/lines/swing2_thumb.png" hspace="10" align="left">
     <img src="arts/lines/swing3_thumb.png" hspace="10" align="left">
     <img src="arts/lines/swing_thumb.png" hspace="10" align="left">
     <img src="arts/lines/triangles_thumb.png" hspace="10" align="left">
 </p>
+<br clear="both">
 
 ## Lissajous
 
-<p>
+<p align="left">
     <img src="arts/lissajous/lissajous_thumb.png" hspace="10" align="left">
     <img src="arts/lissajous/moire_thumb.png" hspace="10" align="left">
 </p>
+<br clear="both">
 
 ## Metro
 
-<p>
+<p align="left">
     <img src="arts/metro/metro2_thumb.png" hspace="10" align="left">
     <img src="arts/metro/metro_thumb.png" hspace="10" align="left">
 </p>
+<br clear="both">
 
 ## Monet
 
-<p>
+<p align="left">
     <img src="arts/monet/monet1-0_thumb.png" hspace="10" align="left">
     <img src="arts/monet/monet1_thumb.png" hspace="10" align="left">
     <img src="arts/monet/monet2_thumb.png" hspace="10" align="left">
 </p>
+<br clear="both">
 
 ## Palecircles
 
-<p>
+<p align="left">
     <img src="arts/palecircles/palecircles_thumb.png" hspace="10" align="left">
 </p>
+<br clear="both">
 
 ## Plasma
 
-<p>
+<p align="left">
     <img src="arts/plasma/plasma2_thumb.png" hspace="10" align="left">
     <img src="arts/plasma/plasma3_thumb.png" hspace="10" align="left">
     <img src="arts/plasma/plasma4_thumb.png" hspace="10" align="left">
     <img src="arts/plasma/plasma_thumb.png" hspace="10" align="left">
 </p>
+<br clear="both">
 
 ## Rayz
 
-<p>
+<p align="left">
     <img src="arts/rayz/rayz2-1_thumb.png" hspace="10" align="left">
     <img src="arts/rayz/rayz2-2_thumb.png" hspace="10" align="left">
     <img src="arts/rayz/rayz2-3_thumb.png" hspace="10" align="left">
     <img src="arts/rayz/rayz_thumb.png" hspace="10" align="left">
 </p>
+<br clear="both">
 
 ## Rectapart
 
-<p>
+<p align="left">
     <img src="arts/rectapart/rectApart_thumb.png" hspace="10" align="left">
 </p>
+<br clear="both">
 
 ## Rects
 
-<p>
+<p align="left">
     <img src="arts/rects/cells_thumb.png" hspace="10" align="left">
     <img src="arts/rects/divine-divide_thumb.png" hspace="10" align="left">
     <img src="arts/rects/mondrian-01_thumb.png" hspace="10" align="left">
@@ -243,17 +268,19 @@ A collection of generative art pieces (ordered by name).
     <img src="arts/rects/rects1_thumb.png" hspace="10" align="left">
     <img src="arts/rects/rects2_thumb.png" hspace="10" align="left">
 </p>
+<br clear="both">
 
 ## Repetition
 
-<p>
+<p align="left">
     <img src="arts/repetition/Repetition1_thumb.png" hspace="10" align="left">
     <img src="arts/repetition/Repetition2_thumb.png" hspace="10" align="left">
 </p>
+<br clear="both">
 
 ## Rotoro
 
-<p>
+<p align="left">
     <img src="arts/rotoro/rotoro1_thumb.png" hspace="10" align="left">
     <img src="arts/rotoro/rotoro2-0_thumb.png" hspace="10" align="left">
     <img src="arts/rotoro/rotoro2-1_thumb.png" hspace="10" align="left">
@@ -261,22 +288,25 @@ A collection of generative art pieces (ordered by name).
     <img src="arts/rotoro/rotoro2_thumb.png" hspace="10" align="left">
     <img src="arts/rotoro/rotoro3_thumb.png" hspace="10" align="left">
 </p>
+<br clear="both">
 
 ## Roundrects
 
-<p>
+<p align="left">
     <img src="arts/roundrects/roundrects_thumb.png" hspace="10" align="left">
 </p>
+<br clear="both">
 
 ## Sea
 
-<p>
+<p align="left">
     <img src="arts/sea/sea_thumb.png" hspace="10" align="left">
 </p>
+<br clear="both">
 
 ## Sf
 
-<p>
+<p align="left">
     <img src="arts/sf/sf10_thumb.png" hspace="10" align="left">
     <img src="arts/sf/sf1_thumb.png" hspace="10" align="left">
     <img src="arts/sf/sf2_thumb.png" hspace="10" align="left">
@@ -288,81 +318,92 @@ A collection of generative art pieces (ordered by name).
     <img src="arts/sf/sf8_thumb.png" hspace="10" align="left">
     <img src="arts/sf/sf9_thumb.png" hspace="10" align="left">
 </p>
+<br clear="both">
 
 ## Skyscraper
 
-<p>
+<p align="left">
     <img src="arts/skyscraper/skyscraper2_thumb.png" hspace="10" align="left">
     <img src="arts/skyscraper/skyscraper_thumb.png" hspace="10" align="left">
 </p>
+<br clear="both">
 
 ## Spiral
 
-<p>
+<p align="left">
     <img src="arts/spiral/spiral2_thumb.png" hspace="10" align="left">
     <img src="arts/spiral/spiral3_thumb.png" hspace="10" align="left">
     <img src="arts/spiral/spiral_thumb.png" hspace="10" align="left">
 </p>
+<br clear="both">
 
 ## Spirograph
 
-<p>
+<p align="left">
     <img src="arts/spirograph/spirograph1_thumb.png" hspace="10" align="left">
     <img src="arts/spirograph/spirograph2_thumb.png" hspace="10" align="left">
 </p>
+<br clear="both">
 
 ## Stripes
 
-<p>
+<p align="left">
     <img src="arts/stripes/stripes1_thumb.png" hspace="10" align="left">
     <img src="arts/stripes/stripes_thumb.png" hspace="10" align="left">
     <img src="arts/stripes/tolerance_thumb.png" hspace="10" align="left">
 </p>
+<br clear="both">
 
 ## Sun
 
-<p>
+<p align="left">
     <img src="arts/sun/echoes1_thumb.png" hspace="10" align="left">
     <img src="arts/sun/echoes2_thumb.png" hspace="10" align="left">
     <img src="arts/sun/sunNS1_thumb.png" hspace="10" align="left">
     <img src="arts/sun/sunlines_thumb.png" hspace="10" align="left">
 </p>
+<br clear="both">
 
 ## Switchboard
 
-<p>
+<p align="left">
     <img src="arts/switchboard/switchboard_thumb.png" hspace="10" align="left">
 </p>
+<br clear="both">
 
 ## Thre3
 
-<p>
+<p align="left">
     <img src="arts/thre3/noisepads_thumb.png" hspace="10" align="left">
     <img src="arts/thre3/surfing_thumb.png" hspace="10" align="left">
 </p>
+<br clear="both">
 
 ## Ticktiletock
 
-<p>
+<p align="left">
     <img src="arts/ticktiletock/ticktiletock_thumb.png" hspace="10" align="left">
 </p>
+<br clear="both">
 
 ## Triangular
 
-<p>
+<p align="left">
     <img src="arts/triangular/SaharaDiamond_thumb.png" hspace="10" align="left">
     <img src="arts/triangular/Triage_thumb.png" hspace="10" align="left">
 </p>
+<br clear="both">
 
 ## Z
 
-<p>
+<p align="left">
     <img src="arts/z/z1_thumb.png" hspace="10" align="left">
     <img src="arts/z/z2_thumb.png" hspace="10" align="left">
     <img src="arts/z/z3_thumb.png" hspace="10" align="left">
     <img src="arts/z/z4_thumb.png" hspace="10" align="left">
     <img src="arts/z/z5_thumb.png" hspace="10" align="left">
 </p>
+<br clear="both">
 
 ---
 
