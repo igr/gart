@@ -183,10 +183,13 @@ A collection of generative art pieces (ordered by name).
 
 <p align="left">
     <img src="arts/lines/citymap_thumb.png" hspace="2" vspace="2" align="left">
+    <img src="arts/lines/ngons_thumb.png" hspace="2" vspace="2" align="left">
     <img src="arts/lines/swing2_thumb.png" hspace="2" vspace="2" align="left">
     <img src="arts/lines/swing3_thumb.png" hspace="2" vspace="2" align="left">
     <img src="arts/lines/swing_thumb.png" hspace="2" vspace="2" align="left">
+    <img src="arts/lines/triadance2_thumb.png" hspace="2" vspace="2" align="left">
     <img src="arts/lines/triangles_thumb.png" hspace="2" vspace="2" align="left">
+    <img src="arts/lines/tridance_thumb.png" hspace="2" vspace="2" align="left">
 </p>
 <br clear="both">
 
@@ -222,6 +225,16 @@ A collection of generative art pieces (ordered by name).
 </p>
 <br clear="both">
 
+## Pixelmania
+
+<p align="left">
+    <img src="arts/pixelmania/liqf_thumb.png" hspace="2" vspace="2" align="left">
+    <img src="arts/pixelmania/rastersin_thumb.png" hspace="2" vspace="2" align="left">
+    <img src="arts/pixelmania/romb_thumb.png" hspace="2" vspace="2" align="left">
+    <img src="arts/pixelmania/stripo_thumb.png" hspace="2" vspace="2" align="left">
+</p>
+<br clear="both">
+
 ## Plasma
 
 <p align="left">
@@ -235,6 +248,8 @@ A collection of generative art pieces (ordered by name).
 ## Rayz
 
 <p align="left">
+    <img src="arts/rayz/mirrorz2_thumb.png" hspace="2" vspace="2" align="left">
+    <img src="arts/rayz/mirrorz_thumb.png" hspace="2" vspace="2" align="left">
     <img src="arts/rayz/rayz2-1_thumb.png" hspace="2" vspace="2" align="left">
     <img src="arts/rayz/rayz2-2_thumb.png" hspace="2" vspace="2" align="left">
     <img src="arts/rayz/rayz2-3_thumb.png" hspace="2" vspace="2" align="left">
@@ -254,6 +269,9 @@ A collection of generative art pieces (ordered by name).
 <p align="left">
     <img src="arts/rects/cells_thumb.png" hspace="2" vspace="2" align="left">
     <img src="arts/rects/divine-divide_thumb.png" hspace="2" vspace="2" align="left">
+    <img src="arts/rects/impossible-rubik-one_thumb.png" hspace="2" vspace="2" align="left">
+    <img src="arts/rects/impossible-rubik-three_thumb.png" hspace="2" vspace="2" align="left">
+    <img src="arts/rects/impossible-rubik-two_thumb.png" hspace="2" vspace="2" align="left">
     <img src="arts/rects/mondrian-01_thumb.png" hspace="2" vspace="2" align="left">
     <img src="arts/rects/mondrian-02_thumb.png" hspace="2" vspace="2" align="left">
     <img src="arts/rects/mondrian-03_thumb.png" hspace="2" vspace="2" align="left">
@@ -341,6 +359,7 @@ A collection of generative art pieces (ordered by name).
 ## Stripes
 
 <p align="left">
+    <img src="arts/stripes/s2_thumb.png" hspace="2" vspace="2" align="left">
     <img src="arts/stripes/stripes1_thumb.png" hspace="2" vspace="2" align="left">
     <img src="arts/stripes/stripes_thumb.png" hspace="2" vspace="2" align="left">
     <img src="arts/stripes/tolerance_thumb.png" hspace="2" vspace="2" align="left">
@@ -400,4 +419,4 @@ A collection of generative art pieces (ordered by name).
 
 ---
 
-**Total: 132 works across 40 collections**
+**Total: 145 works across 41 collections**
