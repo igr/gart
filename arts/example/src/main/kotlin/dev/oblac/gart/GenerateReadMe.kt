@@ -126,7 +126,7 @@ private fun generateMarkdown(thumbnailsByFolder: Map<String, List<ThumbnailInfo>
             // Create HTML img list
             appendLine("<p align=\"left\">")
             thumbnails.forEach { thumbnail ->
-                appendLine("    <img src=\"${thumbnail.relativePath}\" hspace=\"10\" vspace=\"10\" align=\"left\">")
+                appendLine("    <img src=\"${thumbnail.relativePath}\" hspace=\"2\" vspace=\"2\" align=\"left\">")
             }
             appendLine("</p>")
             appendLine("<br clear=\"both\">")
