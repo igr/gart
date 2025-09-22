@@ -237,6 +237,19 @@ data class Line(val a: Point, val b: Point) {
         val newEnd = pointFromStartLen(length)
         return Line(a, newEnd)
     }
+
+    /**
+     * Returns the smallest angle between this line and another line.
+     * The result is in the range [-π, π].
+     */
+    fun angleTo(line2: Line): Angle {
+        val angle1 = this.angle()
+        val angle2 = line2.angle()
+        var angleDiff = (angle2 - angle1)
+        while (angleDiff <= -Radians.PI) angleDiff = (angleDiff + Radians.TWO_PI)
+        while (angleDiff > Radians.PI) angleDiff = (angleDiff - Radians.TWO_PI)
+        return angleDiff
+    }
 }
 
 fun Canvas.drawLine(line: Line, color: Paint) = drawLine(line.a, line.b, color)
