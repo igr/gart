@@ -79,7 +79,7 @@ private fun findThumbnailsInFolder(folder: Path): List<ThumbnailInfo> {
                     val relativePath = "arts/${folder.fileName}/${thumbnailPath.fileName}"
                     ThumbnailInfo(
                         name = thumbnailPath.nameWithoutExtension,
-                        relativePath = relativePath.replace("_thumb", ""),
+                        relativePath = relativePath,
                         displayName = generateDisplayName(thumbnailPath.nameWithoutExtension)
                     )
                 }
@@ -126,7 +126,7 @@ private fun generateMarkdown(thumbnailsByFolder: Map<String, List<ThumbnailInfo>
             // Create HTML img list
             appendLine("<p align=\"left\">")
             thumbnails.forEach { thumbnail ->
-                appendLine("    <img src=\"${thumbnail.relativePath}\" hspace=\"2\" vspace=\"2\" align=\"left\">")
+                appendLine("    [<img src=\"${thumbnail.relativePath}\" hspace=\"2\" vspace=\"2\" align=\"left\">](${thumbnail.relativePath.replace("_thumb", "")})")
             }
             appendLine("</p>")
             appendLine("<br clear=\"both\">")
