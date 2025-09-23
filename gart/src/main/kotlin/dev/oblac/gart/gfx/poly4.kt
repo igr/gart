@@ -20,6 +20,18 @@ data class Poly4(
         (a.y + b.y + c.y + d.y) / 4
     )
 
+    /**
+     * Returns the 4 edges of the polygon as lines.
+     */
+    fun lines(): List<Line> {
+        return listOf(
+            Line(a, b),
+            Line(b, c),
+            Line(c, d),
+            Line(d, a)
+        )
+    }
+
     val path = Path().apply {
         moveTo(a.x, a.y)
         lineTo(b.x, b.y)
