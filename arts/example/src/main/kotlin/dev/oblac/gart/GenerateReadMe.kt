@@ -79,7 +79,7 @@ private fun findThumbnailsInFolder(folder: Path): List<ThumbnailInfo> {
                     val relativePath = "arts/${folder.fileName}/${thumbnailPath.fileName}"
                     ThumbnailInfo(
                         name = thumbnailPath.nameWithoutExtension,
-                        relativePath = relativePath,
+                        relativePath = relativePath.replace("_thumb", ""),
                         displayName = generateDisplayName(thumbnailPath.nameWithoutExtension)
                     )
                 }
