@@ -78,6 +78,16 @@ data class Circle(val x: Float, val y: Float, val radius: Float) {
         )
     }
 
+    fun isInsideOf(other: Circle): Boolean {
+        val distanceCenters = center.distanceTo(other.center)
+        return distanceCenters + radius <= other.radius
+    }
+
+    fun isInsideOf(rect: Rect): Boolean {
+        return (x - radius >= rect.left) && (x + radius <= rect.right) &&
+            (y - radius >= rect.top) && (y + radius <= rect.bottom)
+    }
+
     fun points(count: Int) = createCircleOfPoints(center, radius, count)
 
     fun points(count: Int, startAngle: Angle, sweepAngle: Angle): List<Point> {

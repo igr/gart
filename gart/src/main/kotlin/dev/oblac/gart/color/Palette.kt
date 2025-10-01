@@ -53,6 +53,15 @@ class Palette(internal val colors: IntArray) {
         return colors.random()
     }
 
+    fun randomExclude(vararg color: Int): Int {
+        val filtered = colors.filter { it !in color }
+        if (filtered.isEmpty()) {
+            throw IllegalArgumentException("No colors left in the palette after excluding the given colors.")
+        }
+        return filtered.random()
+    }
+
+
     fun <R> map(transform: (Int) -> R): List<R> {
         return colors.map(transform)
     }
