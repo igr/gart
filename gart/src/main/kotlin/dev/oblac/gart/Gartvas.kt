@@ -21,6 +21,13 @@ class Gartvas(val d: Dimension) {
     }
 
     /**
+     * Makes a snapshot Image of a canvas.
+     */
+    fun snapshot(rect: Rect): Image? {
+        return surface.makeImageSnapshot(rect.toIRect())
+    }
+
+    /**
      * Draw on this canvas.
      */
     fun draw(draw: Draw) = draw(canvas, d)
