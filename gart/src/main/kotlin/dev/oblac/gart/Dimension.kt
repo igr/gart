@@ -6,6 +6,7 @@ import kotlin.math.sqrt
 
 /**
  * Represents a virtual dimensions.
+ * todo w/h should be floats
  */
 data class Dimension(val w: Int, val h: Int) {
     val wf = w.toFloat()
@@ -113,5 +114,6 @@ data class Dimension(val w: Int, val h: Int) {
         val DESKTOP_FULL_HD = Dimension(1920, 1080)
         val DESKTOP_FULL__LANDSCAPE_HD = Dimension(1080, 1920)
         val LAPTOP_FULL_HD = Dimension(1366, 768)
+        fun of(w: Float, h: Float) = Dimension(w.toInt(), h.toInt())
     }
 }
