@@ -136,6 +136,8 @@ class Palette(internal val colors: IntArray) {
     }
 
     companion object {
+        fun of(values: Collection<Int>) = Palette(values.toIntArray())
+        fun of(vararg values: Int) = Palette(values)
         fun of(vararg values: Color4f) = Palette(values.map { it.toColor() }.toIntArray())
         fun of(vararg values: java.awt.Color) = Palette(values.map { rgb(it.red, it.blue, it.green) }.toIntArray())
     }
