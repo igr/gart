@@ -167,15 +167,8 @@ private fun cell8(g: Gartvas, p: Palette) {
 
     c.clear(p[0])
 
-    val step = d.wf / 4f
-    for (i in 1..3) {
-        val x = i * step
-        c.drawLine(Point(x, 0f), Point(x, d.hf), strokeOf(p[1], LW))
-    }
-    for (i in 1..3) {
-        val y = i * step
-        c.drawLine(Point(0f, y), Point(d.wf, y), strokeOf(p[2], LW))
-    }
+    c.drawRect(Rect.makeXYWH(d.wf * 0.25f, d.hf * 0.25f, d.wf * 0.5f, d.hf * 0.5f), fillOf(p[1]))
+    c.drawRect(Rect.makeXYWH(d.wf * 0.25f, d.hf * 0.25f, d.wf * 0.25f, d.hf * 0.25f), fillOf(p[2]))
 }
 
 private fun cell9(g: Gartvas, p: Palette) {
