@@ -5,6 +5,7 @@ import dev.oblac.gart.angle.Degrees
 import dev.oblac.gart.color.Palette
 import dev.oblac.gart.gfx.*
 import dev.oblac.gart.math.GOLDEN_RATIOf
+import org.jetbrains.skia.RRect
 import org.jetbrains.skia.Rect
 
 
@@ -26,6 +27,7 @@ internal val cells = listOf(
     ::cell13,
     ::cell14,
     ::cell15,
+    ::cell16,
 )
 
 private const val RATIO = 1f / GOLDEN_RATIOf
@@ -262,7 +264,6 @@ private fun cell15(g: Gartvas, p: Palette) {
 
     c.clear(p[0])
 
-    // Draw four triangles pointing outward from center (cross/star pattern)
     val halfSize = d.wf * 0.5f
 
     // Top triangle
@@ -310,3 +311,18 @@ private fun cell15(g: Gartvas, p: Palette) {
     c.drawCircle(d.center, size / 2, fillOf(p[2]))
 }
 
+private fun cell16(g: Gartvas, p: Palette) {
+    val d = g.d
+    val c = g.canvas
+
+    c.clear(p[0])
+
+    val dff = d.wf / 4
+
+    val rect = RRect.makeXYWH(-d.wf, 0f, d.wf * 2, d.hf * 2, d.wf)
+    c.drawRRect(rect, fillOf(p[1]))
+    val rect2 = RRect.makeXYWH(-d.wf, dff, d.wf * 2, d.hf * 2 - dff, d.wf - dff)
+    c.drawRRect(rect2, fillOf(p[2]))
+    val rect3 = RRect.makeXYWH(-d.wf, dff * 2, d.wf * 2, d.hf * 2 - dff * 2, d.wf - dff * 2)
+    c.drawRRect(rect3, fillOf(p[3]))
+}

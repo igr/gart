@@ -6,7 +6,7 @@ import dev.oblac.gart.Gart
 import dev.oblac.gart.Gartvas
 import dev.oblac.gart.color.Colors
 import dev.oblac.gart.color.Palette
-import dev.oblac.gart.color.RetroColors
+import dev.oblac.gart.color.PalettesOf4
 import dev.oblac.gart.gfx.drawWhiteText
 import dev.oblac.gart.math.doubleLoop
 import dev.oblac.gart.sixsix.Cell.CellColor
@@ -43,6 +43,11 @@ private class MyDraw3(g: Gartvas) : Drawing(g) {
     }
 }
 
+//private val pal4 = PalettesOf4.q01
+private val pal4 = PalettesOf4.q16
+//private val pal4 = PalettesOf4.q18
+//private val pal4 = PalettesOf4.q19
+
 private fun draw(c: Canvas, d: Dimension) {
     c.clear(Colors.white)
 
@@ -67,13 +72,6 @@ private fun draw(c: Canvas, d: Dimension) {
         print(cell.packToString())
     }
 }
-
-private val pal4 = Palette.of(
-    RetroColors.black01,
-    RetroColors.white01,
-    RetroColors.red01,
-    RetroColors.amber01,
-)
 
 private data class Cell(
     val ndx: Int = 0,
