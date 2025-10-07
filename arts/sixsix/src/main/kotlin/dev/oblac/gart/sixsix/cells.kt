@@ -36,6 +36,7 @@ internal val cells = listOf(
     ::cell22,
     ::cell23,
     ::cell24,
+    ::cell25,
 )
 
 private const val RATIO = 1f / GOLDEN_RATIOf
@@ -437,4 +438,14 @@ private fun cell24(g: Gartvas, p: Palette) {
     c.drawCircle(d.leftBottom, d.hf, fillOf(p[1]))
 
     c.drawCircle(d.w3, d.h3x2, d.hf * RATIO / 4, fillOf(p[2]))
+}
+
+private fun cell25(g: Gartvas, p: Palette) {
+    val d = g.d
+    val c = g.canvas
+
+    c.clear(p[0])
+
+    c.drawRect(Rect.ofXYWH(0f, 0f, d.wf, d.cy), fillOf(p[1]))
+    c.drawRect(Rect.ofCenter(d.center, d.wf * RATIO / 2, d.hf * RATIO / 2), fillOf(p[2]))
 }
