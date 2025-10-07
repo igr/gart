@@ -108,3 +108,27 @@ fun blendDarken(existingColor: Int, newColor: Int): Int {
 
     return argb(blendedA, blendedR, blendedG, blendedB)
 }
+
+fun String.parseColor(): Int {
+    if (!this.startsWith("#")) {
+        throw IllegalArgumentException("Color string must start with '#'")
+    }
+    return when (this.length) {
+        7 -> { // #RRGGBB
+            val r = this.substring(1, 3).toInt(16)
+            val g = this.substring(3, 5).toInt(16)
+            val b = this.substring(5, 7).toInt(16)
+            rgb(r, g, b)
+        }
+
+        9 -> { // #AARRGGBB
+            val a = this.substring(1, 3).toInt(16)
+            val r = this.substring(3, 5).toInt(16)
+            val g = this.substring(5, 7).toInt(16)
+            val b = this.substring(7, 9).toInt(16)
+            argb(a, r, g, b)
+        }
+
+        else -> throw IllegalArgumentException("Color string must be in format #RRGGBB or #AARRGGBB")
+    }
+}
