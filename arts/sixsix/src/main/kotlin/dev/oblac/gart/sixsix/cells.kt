@@ -29,6 +29,9 @@ internal val cells = listOf(
     ::cell15,
     ::cell16,
     ::cell17,
+    ::cell18,
+    ::cell19,
+    ::cell20,
 )
 
 private const val RATIO = 1f / GOLDEN_RATIOf
@@ -347,4 +350,43 @@ private fun cell17(g: Gartvas, p: Palette) {
 
     val size = d.wf.coerceAtMost(d.hf) * RATIO / 2
     c.drawCircle(d.center, size / 2, fillOf(p[3]))
+}
+
+private fun cell18(g: Gartvas, p: Palette) {
+    val d = g.d
+    val c = g.canvas
+
+    c.clear(p[0])
+
+    // Four overlapping circles in corners
+    val radius = d.w3
+
+    c.drawCircle(d.leftTop, radius, fillOf(p[1]))
+    c.drawCircle(d.rightTop, radius * 2, fillOf(p[2]))
+    c.drawCircle(d.leftBottom, radius * 2, fillOf(p[3]))
+    c.drawCircle(d.rightBottom, radius, fillOf(p[1]))
+}
+
+private fun cell19(g: Gartvas, p: Palette) {
+    val d = g.d
+    val c = g.canvas
+
+    c.clear(p[0])
+
+    c.drawRect(Rect.ofXYWH(Point(0, d.h / 4), d.w * 0.75f, d.hf * 0.75f), fillOf(p[1]))
+    c.drawRect(Rect.ofXYWH(Point(0, d.h / 2), d.w * 0.5f, d.hf * 0.5f), fillOf(p[2]))
+    c.drawRect(Rect.ofXYWH(Point(0, d.h * 0.75f), d.w * 0.25f, d.hf * 0.25f), fillOf(p[3]))
+}
+
+private fun cell20(g: Gartvas, p: Palette) {
+    val d = g.d
+    val c = g.canvas
+
+    c.clear(p[0])
+
+    c.drawCircle(d.rightTop, d.hf, fillOf(p[1]))
+    c.save()
+    c.clipPath(Circle.of(d.rightTop, d.hf).toPath())
+    c.drawCircle(d.leftBottom, d.hf * RATIO, fillOf(p[2]))
+    c.restore()
 }
