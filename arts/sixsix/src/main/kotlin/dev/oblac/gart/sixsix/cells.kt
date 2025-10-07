@@ -24,6 +24,8 @@ internal val cells = listOf(
     ::cell11,
     ::cell12,
     ::cell13,
+    ::cell14,
+    ::cell15,
 )
 
 private const val RATIO = 1f / GOLDEN_RATIOf
@@ -238,5 +240,73 @@ private fun cell13(g: Gartvas, p: Palette) {
     c.translate(d.cx, d.cy)
     c.drawRect(Rect.makeXYWH(-smallerSize / 2, -smallerSize / 2, smallerSize, smallerSize), fillOf(p[2]))
     c.restore()
+}
+
+private fun cell14(g: Gartvas, p: Palette) {
+    val d = g.d
+    val c = g.canvas
+
+    c.clear(p[0])
+
+    val radius = d.wf.coerceAtMost(d.hf) * RATIO / 2
+
+    c.drawCircle(Point(d.cx - radius / 2, d.cy), radius, fillOf(p[3]))
+    c.drawCircle(Point(d.cx + radius / 2, d.cy), radius, fillOf(p[1]))
+
+    c.drawCircle(d.center, radius / 2, fillOf(p[2]))
+}
+
+private fun cell15(g: Gartvas, p: Palette) {
+    val d = g.d
+    val c = g.canvas
+
+    c.clear(p[0])
+
+    // Draw four triangles pointing outward from center (cross/star pattern)
+    val halfSize = d.wf * 0.5f
+
+    // Top triangle
+    c.drawTriangle(
+        Triangle(
+            Point(d.cx - halfSize, d.cy),
+            Point(d.cx + halfSize, d.cy),
+            Point(d.cx, d.cy - halfSize)
+        ),
+        fillOf(p[1])
+    )
+
+    // Right triangle
+    c.drawTriangle(
+        Triangle(
+            Point(d.cx, d.cy - halfSize),
+            Point(d.cx, d.cy + halfSize),
+            Point(d.cx + halfSize, d.cy)
+        ),
+        fillOf(p[2])
+    )
+
+    // Bottom triangle
+    c.drawTriangle(
+        Triangle(
+            Point(d.cx - halfSize, d.cy),
+            Point(d.cx + halfSize, d.cy),
+            Point(d.cx, d.cy + halfSize)
+        ),
+        fillOf(p[3])
+    )
+
+    // Left triangle
+    c.drawTriangle(
+        Triangle(
+            Point(d.cx, d.cy - halfSize),
+            Point(d.cx, d.cy + halfSize),
+            Point(d.cx - halfSize, d.cy)
+        ),
+        fillOf(p[1])
+    )
+
+    // Center circle
+    val size = d.wf.coerceAtMost(d.hf) * RATIO / 2
+    c.drawCircle(d.center, size / 2, fillOf(p[2]))
 }
 
