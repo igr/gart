@@ -22,6 +22,8 @@ internal val cells = listOf(
     ::cell9,
     ::cell10,
     ::cell11,
+    ::cell12,
+    ::cell13,
 )
 
 private const val RATIO = 1f / GOLDEN_RATIOf
@@ -78,7 +80,7 @@ private fun cell3(g: Gartvas, p: Palette) {
     // Draw two half-circles
     val centerX = d.cx
     val centerY = d.cy
-    val radius = d.wf.coerceAtMost(d.hf * RATIO) / 2f
+    val radius = d.wf.coerceAtMost(d.hf * 0.25f)
 
     c.save()
     c.translate(0f, centerY)
@@ -200,6 +202,41 @@ private fun cell11(g: Gartvas, p: Palette) {
     c.clear(p[0])
 
     c.drawTriangle(Triangle(d.leftBottom, d.rightTop, d.rightBottom), fillOf(p[1]))
-    c.drawTriangle(Triangle(Point(d.w3, d.h), Point(d.w, d.h3), d.rightBottom), fillOf(p[2]))
-    c.drawTriangle(Triangle(Point(d.w3x2, d.h), Point(d.w, d.h3x2), d.rightBottom), fillOf(p[3]))
+    c.drawTriangle(Triangle(Point(d.wf / 4, d.h), Point(d.w, d.hf / 4), d.rightBottom), fillOf(p[2]))
+    c.drawTriangle(Triangle(Point(d.wf / 2, d.h), Point(d.w, d.hf / 2), d.rightBottom), fillOf(p[3]))
+    c.drawTriangle(Triangle(Point(d.wf * 0.75f, d.h), Point(d.w, d.hf * 0.75f), d.rightBottom), fillOf(p[0]))
 }
+
+private fun cell12(g: Gartvas, p: Palette) {
+    val d = g.d
+    val c = g.canvas
+
+    c.clear(p[0])
+
+    val r1 = (d.cx / RATIO) / 4f
+    c.drawCircle(Point(d.w3, d.h3), r1, fillOf(p[1]))
+    val r2 = (d.cx / RATIO) / 6f
+    c.drawCircle(Point(d.w3x2, d.h3x2), r2, fillOf(p[2]))
+}
+
+private fun cell13(g: Gartvas, p: Palette) {
+    val d = g.d
+    val c = g.canvas
+
+    c.clear(p[0])
+
+    val size = d.wf.coerceAtMost(d.hf) * RATIO
+
+    c.save()
+    c.translate(d.cx, d.cy)
+    c.rotate(45f)
+    c.drawRect(Rect.makeXYWH(-size / 2, -size / 2, size, size), fillOf(p[1]))
+    c.restore()
+
+    val smallerSize = size * 0.6f
+    c.save()
+    c.translate(d.cx, d.cy)
+    c.drawRect(Rect.makeXYWH(-smallerSize / 2, -smallerSize / 2, smallerSize, smallerSize), fillOf(p[2]))
+    c.restore()
+}
+
