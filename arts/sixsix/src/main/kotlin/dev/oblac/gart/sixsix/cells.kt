@@ -414,7 +414,7 @@ private fun cell22(g: Gartvas, p: Palette) {
     c.clear(p[0])
     c.drawCircle(d.leftBottom, d.hf, fillOf(p[1]))
 
-    c.drawCircle(d.leftBottom, d.hf * RATIO, fillOf(p[2]))
+    c.drawCircle(d.leftBottom, d.hf * 0.5f, fillOf(p[2]))
 }
 
 private fun cell23(g: Gartvas, p: Palette) {
