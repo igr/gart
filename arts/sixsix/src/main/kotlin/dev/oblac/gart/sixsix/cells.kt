@@ -28,6 +28,7 @@ internal val cells = listOf(
     ::cell14,
     ::cell15,
     ::cell16,
+    ::cell17,
 )
 
 private const val RATIO = 1f / GOLDEN_RATIOf
@@ -325,4 +326,25 @@ private fun cell16(g: Gartvas, p: Palette) {
     c.drawRRect(rect2, fillOf(p[2]))
     val rect3 = RRect.makeXYWH(-d.wf, dff * 2, d.wf * 2, d.hf * 2 - dff * 2, d.wf - dff * 2)
     c.drawRRect(rect3, fillOf(p[3]))
+}
+
+private fun cell17(g: Gartvas, p: Palette) {
+    val d = g.d
+    val c = g.canvas
+
+    c.clear(p[0])
+
+    val rect = RRect.makeXYWH(-d.wf, 0f, d.wf * 2, d.hf * 2, d.wf / RATIO)
+    c.drawRRect(rect, fillOf(p[1]))
+
+    c.drawTriangle(Triangle(d.leftTop, d.rightBottom, d.leftBottom), fillOf(p[2]))
+
+    val rect2 = RRect.makeXYWH(0f, -d.hf, d.hf * 2, d.wf * 2, d.hf / RATIO)
+    c.save()
+    c.clipPath(Triangle(d.leftTop, d.rightBottom, d.leftBottom).path)
+    c.drawRRect(rect2, fillOf(p[1]))
+    c.restore()
+
+    val size = d.wf.coerceAtMost(d.hf) * RATIO / 2
+    c.drawCircle(d.center, size / 2, fillOf(p[3]))
 }
