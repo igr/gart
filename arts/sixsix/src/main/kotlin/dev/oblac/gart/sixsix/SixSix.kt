@@ -1,19 +1,17 @@
 package dev.oblac.gart.sixsix
 
-import dev.oblac.gart.Dimension
-import dev.oblac.gart.Drawing
-import dev.oblac.gart.Gart
-import dev.oblac.gart.Gartvas
+import dev.oblac.gart.*
 import dev.oblac.gart.color.Colors
 import dev.oblac.gart.color.Palette
 import dev.oblac.gart.color.PalettesOf4
-import dev.oblac.gart.gfx.drawWhiteText
 import dev.oblac.gart.math.doubleLoop
 import dev.oblac.gart.sixsix.Cell.CellColor
 import org.jetbrains.skia.Canvas
 import org.jetbrains.skia.Image
 import java.util.*
 
+//1) G95RcsRS1SHNBgEb4hLdhpbHGJsHuRybHrnZIcIkhceU8Qzb2mELXkYOwNjDWA8eio1f4xe2EjYIuaNTSXIQp85hIF5h8tNk
+//2) wiFYoyDnCK3WUlqOhhPfRtfJBCfcoZQcj80i3oX0Cyce+SP2UbhBjhse0kkZtl14k/QVuQ4ngI0h7YMNDBvNUkpyiYdHY1AL
 fun main() {
     val gart = Gart.of("sixsix", 1080, 1080)
     println(gart)
@@ -27,7 +25,19 @@ fun main() {
     g.draw(draw)
     gart.saveImage(g)
 
-    w.show(draw).hotReload(g)
+    w.show(draw).onKey {
+        when (it) {
+            Key.KEY_S -> {
+                gart.saveImage(g)
+            }
+
+            Key.KEY_SPACE -> {
+                draw(g.canvas, g.d)
+            }
+
+            else -> {}
+        }
+    }
 }
 
 /**
@@ -35,11 +45,7 @@ fun main() {
  */
 private class MyDraw3(g: Gartvas) : Drawing(g) {
     init {
-//        val b = Gartmap(g)
         draw(g.canvas, g.d)
-//        b.updatePixelsFromCanvas()
-//        ditherSierra(b, 10)
-//        b.drawToCanvas()
     }
 }
 
@@ -59,7 +65,7 @@ private fun draw(c: Canvas, d: Dimension) {
             colors = CellColor.entries.shuffled(),
             rotation = Cell.Rotation.entries.random()
         )
-    }//.shuffled()
+    }.shuffled()
 
     val bitset = BitSet(16 * 6 * 6)
     doubleLoop(6, 6) { (row, col) ->
@@ -69,7 +75,7 @@ private fun draw(c: Canvas, d: Dimension) {
         val x = col * cellWidth
         val y = row * cellHeight
         c.drawImage(cellImage, x, y)
-        c.drawWhiteText("${index + 1}", x + 10f, y + 20f)
+        //c.drawWhiteText("${index + 1}", x + 10f, y + 20f)
         val cellBits = cell.pack()
         for (i in 0 until 16) {
             bitset.set((row * 6 + col) * 16 + i, cellBits[i])
@@ -111,7 +117,7 @@ private data class Cell(
             .let { Palette.of(it) }
 
         val c = gartvas.canvas
-        //c.rotate(rotation.degrees, d.cx, d.cy)
+        c.rotate(rotation.degrees, d.cx, d.cy)
         draw(gartvas, p)
         return gartvas.snapshot()
     }
