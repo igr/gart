@@ -42,6 +42,8 @@ internal val cells = listOf(
     ::cell28,
     ::cell29,
     ::cell30,
+    ::cell31,
+    ::cell32,
 )
 
 private const val RATIO = 1f / GOLDEN_RATIOf
@@ -529,4 +531,29 @@ private fun cell30(g: Gartvas, p: Palette) {
     c.clipRect(Rect.makeXYWH(d.w3, 0f, centerX, d.hf))
     c.drawCircle(centerX, centerY, radius, fillOf(p[3]))
     c.restore()
+}
+
+private fun cell31(g: Gartvas, p: Palette) {
+    val d = g.d
+    val c = g.canvas
+
+    c.clear(p[0])
+    c.drawCircle(d.leftBottom, d.cy, fillOf(p[1]))
+    c.drawCircle(d.rightBottom, d.cy, fillOf(p[1]))
+}
+
+private fun cell32(g: Gartvas, p: Palette) {
+    val d = g.d
+    val c = g.canvas
+
+    c.clear(p[0])
+
+    c.drawCircle(Point(d.cx, d.hf), d.cx, fillOf(p[1]))
+    c.drawCircle(Point(d.cx, d.hf), d.cx * RATIO, fillOf(p[0]))
+
+    c.drawCircle(Point(0f, 0f), d.cx, fillOf(p[1]))
+    c.drawCircle(Point(0f, 0f), d.cx * RATIO, fillOf(p[0]))
+
+    c.drawCircle(Point(d.wf, 0f), d.cx, fillOf(p[1]))
+    c.drawCircle(Point(d.wf, 0f), d.cx * RATIO, fillOf(p[0]))
 }
