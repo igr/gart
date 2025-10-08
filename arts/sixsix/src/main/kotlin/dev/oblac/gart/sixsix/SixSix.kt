@@ -79,7 +79,7 @@ private data class Cell(
     val rotation: Rotation = Rotation.R0,
 ) {
     init {
-        require(ndx < 32)
+        require(ndx < 64)
         require(ndx in cells.indices)
         require(colors.size == 4)
     }
@@ -109,12 +109,12 @@ private data class Cell(
 
     fun pack(): ByteArray {
         val bitset = BitSet()
-        // Convert ndx to 5 bits (0-32)
-        for (i in 0 until 5) {
+        // Convert ndx to 6 bits (0-64)
+        for (i in 0 until 6) {
             bitset.set(i, (ndx and (1 shl i)) != 0)
         }
         // Convert colors to bits (2 bits per color, 4 colors = 8 bits)
-        var bitIndex = 5
+        var bitIndex = 6
         for (color in colors) {
             val colorValue = color.toByte().toInt()
             for (i in 0 until 2) {

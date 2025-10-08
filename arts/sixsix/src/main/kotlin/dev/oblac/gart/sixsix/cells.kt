@@ -44,6 +44,7 @@ internal val cells = listOf(
     ::cell30,
     ::cell31,
     ::cell32,
+    ::cell33,
 )
 
 private const val RATIO = 1f / GOLDEN_RATIOf
@@ -398,10 +399,8 @@ private fun cell21(g: Gartvas, p: Palette) {
 
     c.clear(p[0])
 
-    // Draw two half-circles
     val radius = d.wf.coerceAtMost(d.hf * RATIO) / 2f
 
-    c.save()
     c.drawCircle(d.w3x2, 0f, radius, fillOf(p[1]))
     c.drawRect(Rect.makeXYWH(0f, 0f, d.w3x2, radius), fillOf(p[1]))
     c.drawRect(Rect.makeXYWH(0f, 0f, radius, d.h3x2), fillOf(p[2]))
@@ -556,4 +555,27 @@ private fun cell32(g: Gartvas, p: Palette) {
 
     c.drawCircle(Point(d.wf, 0f), d.cx, fillOf(p[1]))
     c.drawCircle(Point(d.wf, 0f), d.cx * RATIO, fillOf(p[0]))
+}
+
+private fun cell33(g: Gartvas, p: Palette) {
+    val d = g.d
+    val c = g.canvas
+
+    c.clear(p[0])
+
+    val radius = d.wf.coerceAtMost(d.hf * RATIO) / 2f
+
+    val top = d.cy - radius
+    c.drawRect(Rect.makeXYWH(d.w3x2, top, d.w3, radius), fillOf(p[1]))
+    c.save()
+    c.clipPath(Rect.makeXYWH(0f, top, d.wf, radius).path())
+    c.drawCircle(d.w3x2, top + radius, radius, fillOf(p[1]))
+    c.restore()
+
+    val bottom = d.cy + radius
+    c.drawRect(Rect.makeXYWH(0f, d.cy, d.w3, radius), fillOf(p[2]))
+    c.save()
+    c.clipPath(Rect.makeXYWH(d.w3, d.cy, d.wf, radius).path())
+    c.drawCircle(d.w3, bottom - radius, radius, fillOf(p[2]))
+    c.restore()
 }
