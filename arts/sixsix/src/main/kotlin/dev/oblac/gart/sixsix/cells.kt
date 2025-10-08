@@ -40,6 +40,7 @@ internal val cells = listOf(
     ::cell26,
     ::cell27,
     ::cell28,
+    ::cell29,
 )
 
 private const val RATIO = 1f / GOLDEN_RATIOf
@@ -242,11 +243,7 @@ private fun cell13(g: Gartvas, p: Palette) {
     c.drawRect(Rect.makeXYWH(-size / 2, -size / 2, size, size), fillOf(p[1]))
     c.restore()
 
-    val smallerSize = size * 0.6f
-    c.save()
-    c.translate(d.cx, d.cy)
-    c.drawRect(Rect.makeXYWH(-smallerSize / 2, -smallerSize / 2, smallerSize, smallerSize), fillOf(p[2]))
-    c.restore()
+    c.drawCircle(d.center, size * RATIO / 2, fillOf(p[2]))
 }
 
 private fun cell14(g: Gartvas, p: Palette) {
@@ -485,8 +482,26 @@ private fun cell28(g: Gartvas, p: Palette) {
     c.clear(p[0])
 
     val pd = Point(d.wf, d.cy)
-    
+
     c.drawTriangle(Triangle(d.leftTop, d.rightTop, pd), fillOf(p[1]))
     c.drawCircle(d.leftBottom, d.hf * 0.5f, fillOf(p[2]))
+}
+
+private fun cell29(g: Gartvas, p: Palette) {
+    val d = g.d
+    val c = g.canvas
+
+    c.clear(p[0])
+
+    val rect = RRect.makeXYWH(-d.wf, 0f, d.wf * 2, d.hf * 2, d.h3x2)
+    c.drawRRect(rect, fillOf(p[1]))
+
+    c.drawTriangle(Triangle(d.leftTop, d.rightBottom, d.leftBottom), fillOf(p[2]))
+
+    val rect2 = RRect.makeXYWH(0f, -d.hf, d.hf * 2, d.wf * 2, d.h3x2)
+    c.save()
+    c.clipPath(Triangle(d.leftTop, d.rightBottom, d.leftBottom).path)
+    c.drawRRect(rect2, fillOf(p[1]))
+    c.restore()
 }
 
