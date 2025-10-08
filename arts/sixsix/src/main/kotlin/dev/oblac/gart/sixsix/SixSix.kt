@@ -7,6 +7,7 @@ import dev.oblac.gart.Gartvas
 import dev.oblac.gart.color.Colors
 import dev.oblac.gart.color.Palette
 import dev.oblac.gart.color.PalettesOf4
+import dev.oblac.gart.gfx.drawWhiteText
 import dev.oblac.gart.math.doubleLoop
 import dev.oblac.gart.sixsix.Cell.CellColor
 import org.jetbrains.skia.Canvas
@@ -58,7 +59,7 @@ private fun draw(c: Canvas, d: Dimension) {
             colors = CellColor.entries.shuffled(),
             rotation = Cell.Rotation.entries.random()
         )
-    }.shuffled()
+    }//.shuffled()
 
     val bitset = BitSet(16 * 6 * 6)
     doubleLoop(6, 6) { (row, col) ->
@@ -68,7 +69,7 @@ private fun draw(c: Canvas, d: Dimension) {
         val x = col * cellWidth
         val y = row * cellHeight
         c.drawImage(cellImage, x, y)
-        //c.drawWhiteText("${index+1}", x + 10f, y + 20f)
+        c.drawWhiteText("${index + 1}", x + 10f, y + 20f)
         val cellBits = cell.pack()
         for (i in 0 until 16) {
             bitset.set((row * 6 + col) * 16 + i, cellBits[i])

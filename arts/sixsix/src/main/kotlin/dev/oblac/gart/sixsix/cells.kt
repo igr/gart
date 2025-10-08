@@ -509,7 +509,7 @@ private fun cell29(g: Gartvas, p: Palette) {
 
     val rect2 = RRect.makeXYWH(0f, -d.hf, d.hf * 2, d.wf * 2, d.h3x2)
     c.save()
-    c.clipPath(Triangle(d.leftTop, d.rightBottom, d.leftBottom).path)
+    c.clipPath(Triangle(d.leftTop.offset(-1f, -1f), d.rightBottom, d.leftBottom).path)
     c.drawRRect(rect2, fillOf(p[1]))
     c.restore()
 }
@@ -555,13 +555,13 @@ private fun cell32(g: Gartvas, p: Palette) {
     c.clear(p[0])
 
     c.drawCircle(Point(d.cx, d.hf), d.cx, fillOf(p[1]))
-    c.drawCircle(Point(d.cx, d.hf), d.cx * RATIO, fillOf(p[0]))
+    c.drawCircle(Point(d.cx, d.hf), d.cx * 0.5f, fillOf(p[0]))
 
     c.drawCircle(Point(0f, 0f), d.cx, fillOf(p[1]))
-    c.drawCircle(Point(0f, 0f), d.cx * RATIO, fillOf(p[0]))
+    c.drawCircle(Point(0f, 0f), d.cx * 0.5f, fillOf(p[0]))
 
     c.drawCircle(Point(d.wf, 0f), d.cx, fillOf(p[1]))
-    c.drawCircle(Point(d.wf, 0f), d.cx * RATIO, fillOf(p[0]))
+    c.drawCircle(Point(d.wf, 0f), d.cx * 0.5f, fillOf(p[0]))
 }
 
 private fun cell33(g: Gartvas, p: Palette) {
@@ -639,6 +639,20 @@ private fun cell36(g: Gartvas, p: Palette) {
 
     c.clear(p[0])
 
-    val path = createNtagonPoints(5, d.cx, d.cy, d.wf.coerceAtMost(d.hf * RATIO) / 2f).toPath()
-    c.drawPath(path, fillOf(p[1]))
+    // Draw stairs
+    val steps = 4
+    val stepWidth = d.wf / steps
+    val stepHeight = d.hf / steps
+
+    for (i in 0 until steps) {
+        c.drawRect(
+            Rect.makeXYWH(
+                0f,
+                d.hf - (i + 1) * stepHeight,
+                (i + 1) * stepWidth,
+                stepHeight
+            ),
+            fillOf(p[(i % 3) + 1])
+        )
+    }
 }
