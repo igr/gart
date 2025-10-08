@@ -7,7 +7,6 @@ import dev.oblac.gart.Gartvas
 import dev.oblac.gart.color.Colors
 import dev.oblac.gart.color.Palette
 import dev.oblac.gart.color.PalettesOf4
-import dev.oblac.gart.gfx.drawWhiteText
 import dev.oblac.gart.math.doubleLoop
 import dev.oblac.gart.sixsix.Cell.CellColor
 import org.jetbrains.skia.Canvas
@@ -24,8 +23,8 @@ fun main() {
     val draw = MyDraw3(g)
 
     // save image
-//    g.draw(draw)
-//    gart.saveImage(g)
+    g.draw(draw)
+    gart.saveImage(g)
 
     w.show(draw).hotReload(g)
 }
@@ -59,8 +58,9 @@ private fun draw(c: Canvas, d: Dimension) {
             colors = CellColor.entries.shuffled(),
             rotation = Cell.Rotation.entries.random()
         )
-    }
+    }.shuffled()
 
+    val bitset = BitSet(16 * 6 * 6)
     doubleLoop(6, 6) { (row, col) ->
         val index = (row * 6 + col) % allCells.size
         val cell = allCells[index]
@@ -68,9 +68,16 @@ private fun draw(c: Canvas, d: Dimension) {
         val x = col * cellWidth
         val y = row * cellHeight
         c.drawImage(cellImage, x, y)
-        c.drawWhiteText("${index+1}", x + 10f, y + 20f)
-        print(cell.packToString())
+        //c.drawWhiteText("${index+1}", x + 10f, y + 20f)
+        val cellBits = cell.pack()
+        for (i in 0 until 16) {
+            bitset.set((row * 6 + col) * 16 + i, cellBits[i])
+        }
     }
+    // print based64 of bitset
+    val byteArray = bitset.toByteArray()
+    val base64 = Base64.getEncoder().encodeToString(byteArray)
+    println("#: $base64")
 }
 
 private data class Cell(
@@ -101,13 +108,14 @@ private data class Cell(
             .map { pal4[it] }
             .toList()
             .let { Palette.of(it) }
-        draw(gartvas, p)
+
         val c = gartvas.canvas
         c.rotate(rotation.degrees, d.cx, d.cy)
+        draw(gartvas, p)
         return gartvas.snapshot()
     }
 
-    fun pack(): ByteArray {
+    fun pack(): BitSet {
         val bitset = BitSet()
         // Convert ndx to 6 bits (0-64)
         for (i in 0 until 6) {
@@ -126,11 +134,6 @@ private data class Cell(
         for (i in 0 until 2) {
             bitset.set(bitIndex++, (rotationValue and (1 shl i)) != 0)
         }
-        return bitset.toByteArray()
-    }
-
-    fun packToString(): String {
-        val byteArray = pack()
-        return Base64.getEncoder().encodeToString(byteArray)
+        return bitset
     }
 }

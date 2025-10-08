@@ -5,6 +5,7 @@ import dev.oblac.gart.angle.Degrees
 import dev.oblac.gart.color.Palette
 import dev.oblac.gart.gfx.*
 import dev.oblac.gart.math.GOLDEN_RATIOf
+import org.jetbrains.skia.Point
 import org.jetbrains.skia.RRect
 import org.jetbrains.skia.Rect
 
@@ -46,6 +47,8 @@ internal val cells = listOf(
     ::cell32,
     ::cell33,
     ::cell34,
+    ::cell35,
+    ::cell36,
 )
 
 private const val RATIO = 1f / GOLDEN_RATIOf
@@ -240,15 +243,18 @@ private fun cell13(g: Gartvas, p: Palette) {
 
     c.clear(p[0])
 
-    val size = d.wf.coerceAtMost(d.hf) * RATIO
+    val path = listOf(
+        Point(0, d.cy),
+        Point(d.cx, 0),
+        Point(d.wf, d.cy),
+        Point(d.cx, d.hf),
+    ).toClosedPath()
+    //c.drawRect(Rect.makeXYWH(-size / 2, -size / 2, size, size), fillOf(p[1]))
+    c.drawPath(path, fillOf(p[1]))
 
-    c.save()
-    c.translate(d.cx, d.cy)
-    c.rotate(45f)
-    c.drawRect(Rect.makeXYWH(-size / 2, -size / 2, size, size), fillOf(p[1]))
-    c.restore()
-
-    c.drawCircle(d.center, size * RATIO / 2, fillOf(p[2]))
+    val size = d.wf.coerceAtMost(d.hf)
+    c.drawCircle(d.rightBottom, size / 2, fillOf(p[2]))
+    c.drawCircle(d.leftTop, size / 2, fillOf(p[3]))
 }
 
 private fun cell14(g: Gartvas, p: Palette) {
@@ -598,4 +604,41 @@ private fun cell34(g: Gartvas, p: Palette) {
     c.clipRect(Rect.ofXYWH(d.cx, d.cy, d.cx, d.cy))
     c.drawCircle(Point(d.cx, d.hf), d.cx, fillOf(p[2]))
     c.restore()
+}
+
+private fun cell35(g: Gartvas, p: Palette) {
+    val d = g.d
+    val c = g.canvas
+
+    c.clear(p[0])
+
+    // Draw pentagram (5-pointed star)
+    val radius = d.wf.coerceAtMost(d.hf * RATIO) / 2f
+    val innerRadius = radius * 0.382f // Golden ratio for pentagram
+
+    val path = org.jetbrains.skia.Path()
+    for (i in 0 until 10) {
+        val angle = (i * 36f - 90f) * Math.PI.toFloat() / 180f
+        val r = if (i % 2 == 0) radius else innerRadius
+        val x = d.cx + r * kotlin.math.cos(angle)
+        val y = d.cy + r * kotlin.math.sin(angle)
+
+        if (i == 0) {
+            path.moveTo(x, y)
+        } else {
+            path.lineTo(x, y)
+        }
+    }
+    path.closePath()
+    c.drawPath(path, fillOf(p[1]))
+}
+
+private fun cell36(g: Gartvas, p: Palette) {
+    val d = g.d
+    val c = g.canvas
+
+    c.clear(p[0])
+
+    val path = createNtagonPoints(5, d.cx, d.cy, d.wf.coerceAtMost(d.hf * RATIO) / 2f).toPath()
+    c.drawPath(path, fillOf(p[1]))
 }
