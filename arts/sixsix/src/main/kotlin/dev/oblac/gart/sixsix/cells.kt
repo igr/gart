@@ -219,10 +219,16 @@ private fun cell11(g: Gartvas, p: Palette) {
 
     c.clear(p[0])
 
-    c.drawTriangle(Triangle(d.leftBottom, d.rightTop, d.rightBottom), fillOf(p[1]))
-    c.drawTriangle(Triangle(Point(d.wf / 4, d.h), Point(d.w, d.hf / 4), d.rightBottom), fillOf(p[2]))
-    c.drawTriangle(Triangle(Point(d.wf / 2, d.h), Point(d.w, d.hf / 2), d.rightBottom), fillOf(p[3]))
-    c.drawTriangle(Triangle(Point(d.wf * 0.75f, d.h), Point(d.w, d.hf * 0.75f), d.rightBottom), fillOf(p[0]))
+    c.save()
+    c.clipRect(Rect.ofXYWH(0f, d.cy, d.wf, d.hf))
+    c.drawCircle(Point(0f, d.cy), d.cx, fillOf(p[1]))
+    c.drawCircle(Point(0f, d.cy), d.cx * 0.5f, fillOf(p[0]))
+
+    c.drawCircle(Point(d.wf, d.cy), d.cx, fillOf(p[1]))
+    c.drawCircle(Point(d.wf, d.cy), d.cx * 0.5f, fillOf(p[0]))
+    c.restore()
+
+    c.drawRect(Rect.ofXYWH(d.cx * 0.5f, 0f, d.cx, d.cy), fillOf(p[1]))
 }
 
 private fun cell12(g: Gartvas, p: Palette) {
@@ -356,6 +362,9 @@ private fun cell17(g: Gartvas, p: Palette) {
     c.clipPath(Triangle(d.leftTop, d.rightBottom, d.leftBottom).path)
     c.drawRRect(rect2, fillOf(p[1]))
     c.restore()
+
+    // fix clip
+    c.drawLine(d.leftTop, d.rightBottom, strokeOf(p[1], 10f))
 
     val size = d.wf.coerceAtMost(d.hf) * RATIO / 2
     c.drawCircle(d.center, size / 2, fillOf(p[3]))
@@ -509,9 +518,10 @@ private fun cell29(g: Gartvas, p: Palette) {
 
     val rect2 = RRect.makeXYWH(0f, -d.hf, d.hf * 2, d.wf * 2, d.h3x2)
     c.save()
-    c.clipPath(Triangle(d.leftTop.offset(-1f, -1f), d.rightBottom, d.leftBottom).path)
+    c.clipPath(Triangle(d.leftTop, d.rightBottom, d.leftBottom).path)
     c.drawRRect(rect2, fillOf(p[1]))
     c.restore()
+    c.drawLine(d.leftTop, d.rightBottom, strokeOf(p[1], 10f))
 }
 
 private fun cell30(g: Gartvas, p: Palette) {

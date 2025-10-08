@@ -111,7 +111,7 @@ private data class Cell(
             .let { Palette.of(it) }
 
         val c = gartvas.canvas
-        c.rotate(rotation.degrees, d.cx, d.cy)
+        //c.rotate(rotation.degrees, d.cx, d.cy)
         draw(gartvas, p)
         return gartvas.snapshot()
     }
