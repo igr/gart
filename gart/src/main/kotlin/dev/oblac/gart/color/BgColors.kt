@@ -27,6 +27,12 @@ object BgColors {
     val dark02 = 0xFF242526.toInt()
     val elegantDark = 0xFF212121.toInt()
     val elegant = 0xFF2E2E2E.toInt()
+    val darkSlateGray = 0xFF191919.toInt()
+    val outerSpace = 0xFF252525.toInt()
+    val obsidian = 0xFF081215.toInt()
+    val richBlack = 0xFF0A0A0A.toInt()
+    val coffeeBean = 0xFF1B1B1B.toInt()
+    val charcoalGray = 0xFF121212.toInt()
 
     val coolDark = 0xFF1a1a1a.toInt()
     val coolGray = 0xFFe5e5e5.toInt()
