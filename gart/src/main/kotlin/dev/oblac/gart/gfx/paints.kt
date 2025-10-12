@@ -84,3 +84,8 @@ fun dashPaint(color: Int, density: Float = 6f, angle: Float = -45f, strokeWidth:
 fun paint() = Paint().apply {
     this.isAntiAlias = true
 }
+
+fun Paint.alpha(a: Int): Paint {
+    this.alpha = a
+    return this
+}
