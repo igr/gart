@@ -42,6 +42,7 @@ A collection of generative art pieces (ordered by name).
 
 [<img src="arts/bubbles/BubbleStripe_thumb.png" hspace="2" vspace="2" align="left">](arts/bubbles/BubbleStripe.png)
 [<img src="arts/bubbles/Bubbles2_thumb.png" hspace="2" vspace="2" align="left">](arts/bubbles/Bubbles2.png)
+[<img src="arts/bubbles/bubbub_thumb.png" hspace="2" vspace="2" align="left">](arts/bubbles/bubbub.png)
 <br clear="both">
 
 ## Cell
@@ -151,9 +152,13 @@ A collection of generative art pieces (ordered by name).
 
 [<img src="arts/lines/citymap_thumb.png" hspace="2" vspace="2" align="left">](arts/lines/citymap.png)
 [<img src="arts/lines/ngons_thumb.png" hspace="2" vspace="2" align="left">](arts/lines/ngons.png)
+[<img src="arts/lines/stripes1_thumb.png" hspace="2" vspace="2" align="left">](arts/lines/stripes1.png)
+[<img src="arts/lines/stripes2_thumb.png" hspace="2" vspace="2" align="left">](arts/lines/stripes2.png)
 [<img src="arts/lines/swing2_thumb.png" hspace="2" vspace="2" align="left">](arts/lines/swing2.png)
 [<img src="arts/lines/swing3_thumb.png" hspace="2" vspace="2" align="left">](arts/lines/swing3.png)
 [<img src="arts/lines/swing_thumb.png" hspace="2" vspace="2" align="left">](arts/lines/swing.png)
+[<img src="arts/lines/tapesA_thumb.png" hspace="2" vspace="2" align="left">](arts/lines/tapesA.png)
+[<img src="arts/lines/tapesB_thumb.png" hspace="2" vspace="2" align="left">](arts/lines/tapesB.png)
 [<img src="arts/lines/triadance2_thumb.png" hspace="2" vspace="2" align="left">](arts/lines/triadance2.png)
 [<img src="arts/lines/triangles_thumb.png" hspace="2" vspace="2" align="left">](arts/lines/triangles.png)
 [<img src="arts/lines/tridance_thumb.png" hspace="2" vspace="2" align="left">](arts/lines/tridance.png)
@@ -250,6 +255,12 @@ A collection of generative art pieces (ordered by name).
 [<img src="arts/roundrects/roundrects_thumb.png" hspace="2" vspace="2" align="left">](arts/roundrects/roundrects.png)
 <br clear="both">
 
+## Rule
+
+[<img src="arts/rule/rulez01_thumb.png" hspace="2" vspace="2" align="left">](arts/rule/rulez01.png)
+[<img src="arts/rule/rulez02_thumb.png" hspace="2" vspace="2" align="left">](arts/rule/rulez02.png)
+<br clear="both">
+
 ## Sea
 
 [<img src="arts/sea/sea_thumb.png" hspace="2" vspace="2" align="left">](arts/sea/sea.png)
@@ -267,6 +278,13 @@ A collection of generative art pieces (ordered by name).
 [<img src="arts/sf/sf7_thumb.png" hspace="2" vspace="2" align="left">](arts/sf/sf7.png)
 [<img src="arts/sf/sf8_thumb.png" hspace="2" vspace="2" align="left">](arts/sf/sf8.png)
 [<img src="arts/sf/sf9_thumb.png" hspace="2" vspace="2" align="left">](arts/sf/sf9.png)
+<br clear="both">
+
+## Sixsix
+
+[<img src="arts/sixsix/six_0_thumb.png" hspace="2" vspace="2" align="left">](arts/sixsix/six_0.png)
+[<img src="arts/sixsix/sixsix_1_thumb.png" hspace="2" vspace="2" align="left">](arts/sixsix/sixsix_1.png)
+[<img src="arts/sixsix/sixsix_2_thumb.png" hspace="2" vspace="2" align="left">](arts/sixsix/sixsix_2.png)
 <br clear="both">
 
 ## Skyscraper
@@ -337,4 +355,4 @@ A collection of generative art pieces (ordered by name).
 
 ---
 
-**Total: 145 works across 41 collections**
+**Total: 155 works across 43 collections**
