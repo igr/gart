@@ -2,7 +2,7 @@
 
 🧧 gënérative ȧrt made by pragmatic [kotlin](WhyKotlin.md) micro-framework.
 
-> ❤️ Follow: [Instagram](https://www.instagram.com/gart_173)
+> ❤️ [Instagram](https://www.instagram.com/gart_173) / [Online Gallery](https://igo.rs/gart)
 
 ⭐️ **Gȧrt** is a pragmatical framework and set of utilities for generating and rendering
 **still images** and **movies**.
