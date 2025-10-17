@@ -106,6 +106,8 @@ data class Circle(val x: Float, val y: Float, val radius: Float) {
      * Scales the circle by the given factor, keeping the center point unchanged.
      */
     fun scale(value: Float) = Circle(x, y, radius * value)
+
+    fun resize(newRadius: Float) = Circle(x, y, newRadius)
 }
 
 fun Canvas.drawCircle(circle: Circle, paint: Paint) = drawCircle(circle.center.x, circle.center.y, circle.radius, paint)

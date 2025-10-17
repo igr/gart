@@ -6,10 +6,10 @@ import dev.oblac.gart.color.Palettes
 import dev.oblac.gart.gfx.*
 import dev.oblac.gart.pack.simpleCirclePacker
 
-val fillBack = fillOf(BgColors.elegantDark)
+private val fillBack = fillOf(BgColors.elegantDark)
 //val pal = Palettes.cool24
 //val pal = Palettes.cool28
-val pal = Palettes.cool35
+private val pal = Palettes.cool35
 
 fun main() {
     val gart = Gart.of("bubbub", 1024, 1024)
