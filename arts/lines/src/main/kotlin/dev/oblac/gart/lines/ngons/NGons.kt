@@ -47,7 +47,7 @@ private fun draw(c: Canvas, d: Dimension) {
     c.restore()
 }
 
-fun ntgon(c: Canvas, d: Dimension) {
+private fun ntgon(c: Canvas, d: Dimension) {
     sequenceOf(5, 49, 80, 106, 126, 142, 156, /*168*/).forEachIndexed { index, it ->
         it.ngon(c, index + 3)
     }
