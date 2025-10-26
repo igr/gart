@@ -33,6 +33,9 @@ data class Line(val a: Point, val b: Point) {
     fun shortenLen(len: Float) =
         Line(this.pointFromStartLen(len), this.pointFromEndLen(len))
 
+    fun extendBy(len: Float) =
+        Line(this.a, this.pointFromEndLen(-len))
+
     fun pointFromStartLen(len: Float): Point {
         val ratio = len / length()
         return pointFromStart(ratio)
