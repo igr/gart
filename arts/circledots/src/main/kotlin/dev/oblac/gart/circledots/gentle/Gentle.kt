@@ -1,11 +1,11 @@
-package dev.oblac.gart.circledots.connect
+package dev.oblac.gart.circledots.gentle
 
 import dev.oblac.gart.Dimension
 import dev.oblac.gart.Drawing
 import dev.oblac.gart.Gart
 import dev.oblac.gart.Gartvas
 import dev.oblac.gart.color.RetroColors
-import dev.oblac.gart.gfx.createSpiralBetweenPoints
+import dev.oblac.gart.gfx.createWaveBetweenPoints
 import dev.oblac.gart.gfx.strokeOf
 import dev.oblac.gart.math.f
 import dev.oblac.gart.math.rndf
@@ -46,7 +46,7 @@ private fun draw(c: Canvas, d: Dimension) {
 
     repeat(20) { lines ->
         val s = 80f
-        val rp = createSpiralBetweenPoints(
+        val rp = createWaveBetweenPoints(
             d.leftBottom.offset(0f, lines * s),
             d.rightTop.offset(0f, 40f + lines * s),
             steps = rndi(6, 18),
