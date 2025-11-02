@@ -66,7 +66,7 @@ private fun draw(c: Canvas, d: Dimension) {
     repeat(10) { layer ->
         matrix.forEach { i, j, point ->
             val distanceIndex = kotlin.math.max(kotlin.math.abs(i - nc), kotlin.math.abs(j - nc)) + 1f
-            val line = Line(d.center, point).extendBy(layer * distanceIndex)
+            val line = Line(d.center, point).extendByLen(layer * distanceIndex)
             val color = pal.safe(i + j * n)
             c.drawCircle(line.b, 20f, fillOf(color).apply {
                 alpha = 60

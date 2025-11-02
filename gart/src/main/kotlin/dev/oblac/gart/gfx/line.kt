@@ -30,11 +30,14 @@ data class Line(val a: Point, val b: Point) {
      * Positive length means shorter (!), negative longer.
      * (to match the other functions)
      */
-    fun shortenLen(len: Float) =
+    fun shortenByLen(len: Float) =
         Line(this.pointFromStartLen(len), this.pointFromEndLen(len))
 
-    fun extendBy(len: Float) =
+    fun extendByLen(len: Float) =
         Line(this.a, this.pointFromEndLen(-len))
+
+    fun extendBy(f: Float) =
+        Line(this.a, this.pointFromEnd(-f))
 
     fun pointFromStartLen(len: Float): Point {
         val ratio = len / length()

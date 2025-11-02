@@ -40,7 +40,7 @@ private fun draw(c: Canvas, d: Dimension) {
         val pointRight = Point(d.wf, d.hf - i * gap * 0.5f) // angle
 
         val line = Line(pointRight, pointBottom)
-        val longerLine = line.shortenLen(-50f)
+        val longerLine = line.shortenByLen(-50f)
 
         paths.add(longerLine)
 
