@@ -42,6 +42,7 @@ A collection of generative art pieces (ordered by name).
 
 [<img src="arts/bubbles/BubbleStripe_thumb.png" hspace="2" vspace="2" align="left">](arts/bubbles/BubbleStripe.png)
 [<img src="arts/bubbles/Bubbles2_thumb.png" hspace="2" vspace="2" align="left">](arts/bubbles/Bubbles2.png)
+[<img src="arts/bubbles/bubble-stripe-2_thumb.png" hspace="2" vspace="2" align="left">](arts/bubbles/bubble-stripe-2.png)
 [<img src="arts/bubbles/bubbub_thumb.png" hspace="2" vspace="2" align="left">](arts/bubbles/bubbub.png)
 <br clear="both">
 
@@ -52,7 +53,15 @@ A collection of generative art pieces (ordered by name).
 
 ## Circledots
 
+[<img src="arts/circledots/awaking_thumb.png" hspace="2" vspace="2" align="left">](arts/circledots/awaking.png)
 [<img src="arts/circledots/circledots_thumb.png" hspace="2" vspace="2" align="left">](arts/circledots/circledots.png)
+[<img src="arts/circledots/fbf1_thumb.png" hspace="2" vspace="2" align="left">](arts/circledots/fbf1.png)
+[<img src="arts/circledots/fbf2_thumb.png" hspace="2" vspace="2" align="left">](arts/circledots/fbf2.png)
+[<img src="arts/circledots/gentle_thumb.png" hspace="2" vspace="2" align="left">](arts/circledots/gentle.png)
+[<img src="arts/circledots/guzv_thumb.png" hspace="2" vspace="2" align="left">](arts/circledots/guzv.png)
+[<img src="arts/circledots/xy-1_thumb.png" hspace="2" vspace="2" align="left">](arts/circledots/xy-1.png)
+[<img src="arts/circledots/xy-2_thumb.png" hspace="2" vspace="2" align="left">](arts/circledots/xy-2.png)
+[<img src="arts/circledots/xy-3_thumb.png" hspace="2" vspace="2" align="left">](arts/circledots/xy-3.png)
 <br clear="both">
 
 ## Cotton
@@ -151,6 +160,7 @@ A collection of generative art pieces (ordered by name).
 ## Lines
 
 [<img src="arts/lines/citymap_thumb.png" hspace="2" vspace="2" align="left">](arts/lines/citymap.png)
+[<img src="arts/lines/heapspace_thumb.png" hspace="2" vspace="2" align="left">](arts/lines/heapspace.png)
 [<img src="arts/lines/ngons_thumb.png" hspace="2" vspace="2" align="left">](arts/lines/ngons.png)
 [<img src="arts/lines/stripes1_thumb.png" hspace="2" vspace="2" align="left">](arts/lines/stripes1.png)
 [<img src="arts/lines/stripes2_thumb.png" hspace="2" vspace="2" align="left">](arts/lines/stripes2.png)
@@ -282,6 +292,7 @@ A collection of generative art pieces (ordered by name).
 
 ## Sixsix
 
+[<img src="arts/sixsix/moon-over-window_thumb.png" hspace="2" vspace="2" align="left">](arts/sixsix/moon-over-window.png)
 [<img src="arts/sixsix/six_0_thumb.png" hspace="2" vspace="2" align="left">](arts/sixsix/six_0.png)
 [<img src="arts/sixsix/sixsix_1_thumb.png" hspace="2" vspace="2" align="left">](arts/sixsix/sixsix_1.png)
 [<img src="arts/sixsix/sixsix_2_thumb.png" hspace="2" vspace="2" align="left">](arts/sixsix/sixsix_2.png)
@@ -355,4 +366,4 @@ A collection of generative art pieces (ordered by name).
 
 ---
 
-**Total: 155 works across 43 collections**
+**Total: 166 works across 43 collections**
