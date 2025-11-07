@@ -173,3 +173,15 @@ fun List<Line>.toPath() = pathOf(this.flatMap { it.points(2) })
 
 @JvmName("linesToClosedPath")
 fun List<Line>.toClosedPath() = pathOf(this.flatMap { it.points(2) }).closePath()
+
+/**
+ * Checks if two paths overlap by computing their intersection.
+ * Returns true if the paths intersect and the intersection has non-zero area.
+ */
+fun pathsOverlap(c1: Path, c2: Path, minArea: Float = 1f): Boolean {
+    val intersect = Path.makeCombining(c1, c2, PathOp.INTERSECT)
+    if (intersect == null) return false
+
+    val bounds = intersect.bounds
+    return bounds.width >= minArea && bounds.height >= minArea
+}

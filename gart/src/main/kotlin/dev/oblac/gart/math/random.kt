@@ -24,6 +24,8 @@ fun rndb(success: Int, total: Int): Boolean = Math.random() < (success.toDouble(
 
 fun rndb(): Boolean = Math.random() < 0.5
 
+fun rndsgn(): Int = if (rndb()) 1 else -1
+
 /**
  * Generates a random number following a Gaussian (normal) distribution.
  * Uses the Box-Muller transform to convert uniform random numbers to Gaussian distribution.
