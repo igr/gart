@@ -4,4 +4,5 @@
 
 This subproject contains several examples of using the gȧrt framework. Most of them are interactive.
 
-The last example is a template of one common gart art project.
+Next to examples that demonstrate specific features of the framework, there are also templates for creating new
+projects.

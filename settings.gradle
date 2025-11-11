@@ -5,8 +5,9 @@ plugins {
 include 'gart'
 include 'gart-box2d'
 
+include 'example'
+
 include 'arts'
-include 'arts:example'
 include 'arts:plasma'
 include 'arts:circledots'
 include 'arts:joydiv'
