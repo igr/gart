@@ -3,23 +3,27 @@ package dev.oblac.gart
 import dev.oblac.gart.color.Colors
 import dev.oblac.gart.gfx.fillOfRed
 import dev.oblac.gart.shader.*
-import org.jetbrains.skia.FilterTileMode
-import org.jetbrains.skia.ImageFilter
-import org.jetbrains.skia.Paint
+import org.jetbrains.skia.*
+import org.jetbrains.skia.Shader.Companion.makeFractalNoise
+import org.jetbrains.skia.Shader.Companion.makeLinearGradient
+import org.jetbrains.skia.Shader.Companion.makeRadialGradient
+import org.jetbrains.skia.Shader.Companion.makeSweepGradient
+import org.jetbrains.skia.Shader.Companion.makeTwoPointConicalGradient
 
 
 fun main() {
-    val gart = Gart.of("ExampleShader", 400, 400, 60)
+    val gart = Gart.of("ExampleShader", 800, 800, 60)
     println(gart.name)
 
     val w = gart.window()
 
     var filter: ImageFilter? = null
     var fill = fillOfRed()
+    var shader: (Float) -> Shader = { tick -> createNeuroShader(tick, 0.1f) }
 
     var tick = 0f
     w.show { c, _, f ->
-        val p = createNeuroShader(tick, 0.1f).toPaint().also {
+        val p = shader(tick).toPaint().also {
             it.imageFilter = filter
         }
         c.drawPaint(p)
@@ -62,6 +66,8 @@ fun main() {
                 filter = null
             }
 
+            // filters
+
             Key.KEY_A -> {
                 fill = fillOfRed()
                 filter = createNoiseGrainFilter(-0.2f, gart.d)
@@ -71,6 +77,7 @@ fun main() {
                 fill = fillOfRed()
                 filter = createNoiseGrain2Filter(0.2f, gart.d)
             }
+
             Key.KEY_D -> {
                 fill = fillOfRed()
                 filter = createRisographFilter(0.1f, d = gart.d)
@@ -85,6 +92,78 @@ fun main() {
                 fill = fillOfRed()
                 filter = createSketchingPaperFilter(1.2f, 0.2f, 0.15f, gart.d)
             }
+
+            // Shaders
+
+            Key.KEY_Z -> {
+                shader = { tick ->
+                    createNeuroShader(tick, 0.1f)
+                }
+            }
+
+            Key.KEY_X -> {
+                shader = {
+                    makeLinearGradient(
+                        0f, 0f, gart.d.w.toFloat(), gart.d.h.toFloat(),
+                        intArrayOf(Colors.red, Colors.yellow, Colors.green, Colors.cyan, Colors.blue, Colors.magenta),
+                        floatArrayOf(0f, 0.2f, 0.4f, 0.6f, 0.8f, 1f),
+                        GradientStyle.DEFAULT
+                    )
+                }
+            }
+
+            Key.KEY_C -> {
+                shader = {
+                    makeRadialGradient(
+                        gart.d.wf / 2,
+                        gart.d.hf / 2,
+                        gart.d.wf / 2,
+                        intArrayOf(Colors.white, Colors.blue, Colors.black),
+                        floatArrayOf(0f, 0.5f, 1f),
+                        GradientStyle.DEFAULT
+                    )
+                }
+            }
+
+            Key.KEY_V -> {
+                shader = { tick ->
+                    makeTwoPointConicalGradient(
+                        gart.d.wf / 2,
+                        gart.d.hf / 2,
+                        50f + 30f * kotlin.math.sin(tick),
+                        gart.d.wf / 2,
+                        gart.d.hf / 2,
+                        gart.d.wf / 2,
+                        intArrayOf(Colors.yellow, Colors.red, Colors.magenta, Colors.blue, Colors.cyan, Colors.green, Colors.yellow),
+                        floatArrayOf(0f, 0.16f, 0.33f, 0.5f, 0.66f, 0.83f, 1f),
+                        GradientStyle.DEFAULT
+                    )
+                }
+            }
+
+            Key.KEY_B -> {
+                shader = {
+                    makeSweepGradient(
+                        gart.d.wf / 2,
+                        gart.d.hf / 2,
+                        intArrayOf(Colors.red, Colors.yellow, Colors.green, Colors.cyan, Colors.blue, Colors.magenta, Colors.red),
+                        floatArrayOf(0f, 0.16f, 0.33f, 0.5f, 0.66f, 0.83f, 1f),
+                        GradientStyle.DEFAULT
+                    )
+                }
+            }
+
+            Key.KEY_N -> {
+                shader = {
+                    makeFractalNoise(
+                        0.1f,
+                        0.1f,
+                        6,
+                        0.5f
+                    )
+                }
+            }
+
             else -> {}
         }
     }

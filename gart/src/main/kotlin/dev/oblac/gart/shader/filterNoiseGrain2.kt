@@ -3,9 +3,6 @@ package dev.oblac.gart.shader
 import dev.oblac.gart.Dimension
 import org.jetbrains.skia.ImageFilter
 
-class filterNoiseGrain2 {
-}
-
 private val sksl = """
 uniform float2 resolution;
 uniform shader image;
