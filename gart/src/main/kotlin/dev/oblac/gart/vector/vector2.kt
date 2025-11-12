@@ -14,6 +14,7 @@ data class Vector2(val x: Float, val y: Float) {
     operator fun times(scalar: Number) = Vector2(x * scalar.toFloat(), y * scalar.toFloat())
     operator fun times(other: Vector2) = Vector2(x * other.x, y * other.y)
     operator fun div(scalar: Float) = Vector2(x / scalar, y / scalar)
+    operator fun div(other: Vector2) = Vector2(x / other.x, y / other.y)
 
     fun dot(other: Vector2) = x * other.x + y * other.y
     fun cross(other: Vector2) = x * other.y - y * other.x

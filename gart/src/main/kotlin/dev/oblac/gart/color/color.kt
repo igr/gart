@@ -31,6 +31,14 @@ fun argb(a: Int, r: Int, g: Int, b: Int): Int {
     return Color.makeARGB(a, r, g, b)
 }
 
+fun argb(af: Float, rf: Float, gf: Float, bf: Float): Int {
+    val r = (rf * 255).toInt().coerceIn(0, 255)
+    val g = (gf * 255).toInt().coerceIn(0, 255)
+    val b = (bf * 255).toInt().coerceIn(0, 255)
+    val a = (af * 255).toInt().coerceIn(0, 255)
+    return Color.makeARGB(a, r, g, b)
+}
+
 @JvmName("setAlpha")
 fun alpha(color: Int, a: Int): Int {
     return a and 0xFF shl 24 or (color and 0x00FFFFFF)
