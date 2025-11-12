@@ -89,3 +89,8 @@ fun Paint.alpha(a: Int): Paint {
     this.alpha = a
     return this
 }
+
+fun paintOfImageFilter(imageFilter: ImageFilter) = Paint().apply {
+    this.isAntiAlias = true
+    this.imageFilter = imageFilter
+}

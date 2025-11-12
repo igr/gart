@@ -10,7 +10,11 @@ import org.jetbrains.skia.Shader.Companion.makeRadialGradient
 import org.jetbrains.skia.Shader.Companion.makeSweepGradient
 import org.jetbrains.skia.Shader.Companion.makeTwoPointConicalGradient
 
-
+/**
+ * Shaders are assigned to the entire canvas background.
+ * Shader creates image.
+ * Filter modifies the image.
+ */
 fun main() {
     val gart = Gart.of("ExampleShader", 800, 800, 60)
     println(gart.name)
@@ -66,34 +70,32 @@ fun main() {
                 filter = null
             }
 
-            // filters
+            // <editor-fold desc="Filters">
 
             Key.KEY_A -> {
                 fill = fillOfRed()
                 filter = createNoiseGrainFilter(-0.2f, gart.d)
             }
-
             Key.KEY_S -> {
                 fill = fillOfRed()
                 filter = createNoiseGrain2Filter(0.2f, gart.d)
             }
-
             Key.KEY_D -> {
                 fill = fillOfRed()
                 filter = createRisographFilter(0.1f, d = gart.d)
             }
-
             Key.KEY_F -> {
                 fill = fillOfRed()
                 filter = createMarbledFilter(0.1f, gart.d)
             }
-
             Key.KEY_G -> {
                 fill = fillOfRed()
                 filter = createSketchingPaperFilter(1.2f, 0.2f, 0.15f, gart.d)
             }
 
-            // Shaders
+            // </editor-fold>
+
+            // <editor-fold desc="Shaders">
 
             Key.KEY_Z -> {
                 shader = { tick ->
@@ -163,6 +165,7 @@ fun main() {
                     )
                 }
             }
+            // </editor-fold>
 
             else -> {}
         }

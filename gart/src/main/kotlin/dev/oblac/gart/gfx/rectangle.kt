@@ -80,7 +80,9 @@ fun Rect.dimension() =
     Dimension(this.width.toInt(), this.height.toInt())
 
 fun Rect.topLeftPoint() = Point(this.left, this.top)
+fun Rect.topRightPoint() = Point(this.right, this.top)
 fun Rect.bottomLeftPoint() = Point(this.left, this.bottom)
+fun Rect.bottomRightPoint() = Point(this.right, this.top)
 fun Rect.leftSide() = Line(this.topLeftPoint(), this.bottomLeftPoint())
 
 fun Rect.Companion.ofXYWH(left: Float, top: Float, w: Float, h: Float): Rect = Rect(left, top, left + w, top + h)

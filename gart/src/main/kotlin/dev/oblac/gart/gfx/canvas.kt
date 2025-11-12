@@ -49,3 +49,8 @@ fun Canvas.drawArc(rect: Rect, startAngle: Float, sweepAngle: Float, includeCent
  * Draws the Gartvas image to the canvas.
  */
 fun Canvas.draw(g: Gartvas) = drawImage(g.snapshot(), 0f, 0f)
+
+/**
+ * Saves a new layer with the specified image filter applied.
+ */
+fun Canvas.saveLayer(imageFilter: ImageFilter) = this.saveLayer(null, paintOfImageFilter(imageFilter))
