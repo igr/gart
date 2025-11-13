@@ -1,19 +1,24 @@
 package dev.oblac.gart.vector
 
 import dev.oblac.gart.angle.*
+import dev.oblac.gart.math.frac
 import kotlin.math.atan2
 import kotlin.math.sqrt
 
 typealias Vec2 = Vector2
 
+fun vec2(x: Number, y: Number) = Vector2(x, y)
+
 data class Vector2(val x: Float, val y: Float) {
     constructor(x: Number, y: Number) : this(x.toFloat(), y.toFloat())
 
     operator fun plus(other: Vector2) = Vector2(x + other.x, y + other.y)
+    operator fun plus(scalar: Number) = Vector2(x + scalar.toFloat(), y + scalar.toFloat())
     operator fun minus(other: Vector2) = Vector2(x - other.x, y - other.y)
+    operator fun minus(scalar: Number) = Vector2(x - scalar.toFloat(), y - scalar.toFloat())
     operator fun times(scalar: Number) = Vector2(x * scalar.toFloat(), y * scalar.toFloat())
     operator fun times(other: Vector2) = Vector2(x * other.x, y * other.y)
-    operator fun div(scalar: Float) = Vector2(x / scalar, y / scalar)
+    operator fun div(scalar: Number) = Vector2(x / scalar.toFloat(), y / scalar.toFloat())
     operator fun div(other: Vector2) = Vector2(x / other.x, y / other.y)
 
     fun dot(other: Vector2) = x * other.x + y * other.y
@@ -48,3 +53,6 @@ data class Vector2(val x: Float, val y: Float) {
         }
     }
 }
+
+fun frac(v: Vector2) = Vector2(frac(v.x), frac(v.y))
+fun length(v: Vector2) = sqrt(v.x * v.x + v.y * v.y)

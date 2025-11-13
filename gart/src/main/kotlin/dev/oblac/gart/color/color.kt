@@ -80,18 +80,38 @@ fun Int.toStrokePaint(width: Float): Paint = strokeOf(this, width)
 
 fun Long.toIntColor(): Int = alpha(this.toInt(), 255)
 
+/**
+ * Blends two colors considering their alpha channels.
+ * The 'front' color is drawn over the 'back' color.
+ * Integer only arithmetic for performance.
+ * Porter-Duff SRC_OVER.
+ */
 fun blendColors(front: Int, back: Int): Int {
-    val frontAlpha = alpha(front)
-    val backAlpha = alpha(back)
-    val alphaFactor = frontAlpha / 255f
-    val invAlphaFactor = 1f - alphaFactor
+    val af = alpha(front)
+    val ab = alpha(back)
+    val aOut = af + (ab * (255 - af) + 127) / 255  // rounded
 
-    val blendedR = (red(front) * alphaFactor + red(back) * invAlphaFactor).toInt()
-    val blendedG = (green(front) * alphaFactor + green(back) * invAlphaFactor).toInt()
-    val blendedB = (blue(front) * alphaFactor + blue(back) * invAlphaFactor).toInt()
-    val blendedA = (frontAlpha + backAlpha * invAlphaFactor).toInt()
+    if (aOut == 0) return argb(0, 0, 0, 0)
 
-    return argb(blendedA, blendedR, blendedG, blendedB)
+    val rOut = (
+        red(front) * af * 255 +
+            red(back) * ab * (255 - af) +
+            aOut / 2
+        ) / (aOut * 255)
+
+    val gOut = (
+        green(front) * af * 255 +
+            green(back) * ab * (255 - af) +
+            aOut / 2
+        ) / (aOut * 255)
+
+    val bOut = (
+        blue(front) * af * 255 +
+            blue(back) * ab * (255 - af) +
+            aOut / 2
+        ) / (aOut * 255)
+
+    return argb(aOut, rOut, gOut, bOut)
 }
 
 
