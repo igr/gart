@@ -6,7 +6,6 @@ import dev.oblac.gart.Gartmap
 import dev.oblac.gart.Gartvas
 import dev.oblac.gart.color.BgColors
 import dev.oblac.gart.gfx.draw
-import dev.oblac.gart.math.DOUBLE_PIf
 import dev.oblac.gart.pixader.pixdraw
 import dev.oblac.gart.vector.*
 import kotlinx.coroutines.*
@@ -59,7 +58,7 @@ private fun palette(t: Float): Vec3 {
     val b = Vec3(0.5f, 0.5f, 0.5f)
     val c = Vec3(1.0f, 1.0f, 1.0f)
     val d = Vec3(0.163f, 0.416f, 0.557f)
-    return a + b * cos(Vec3(DOUBLE_PIf, DOUBLE_PIf, DOUBLE_PIf) * (c * t + d))
+    return a + b * cos(Vec3.TWO_PI * (c * t + d))
 }
 
 private fun cross(fragCoord: Vec2, resolution: Vec2, time: Float): Vec4 {

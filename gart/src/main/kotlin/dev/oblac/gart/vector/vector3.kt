@@ -1,5 +1,6 @@
 package dev.oblac.gart.vector
 
+import dev.oblac.gart.math.DOUBLE_PIf
 import kotlin.math.cos
 import kotlin.math.sin
 import kotlin.math.sqrt
@@ -21,6 +22,7 @@ data class Vector3(val x: Float, val y: Float, val z: Float) {
     companion object {
         val ZERO = Vector3(0f, 0f, 0f)
         val ONE = Vector3(1f, 1f, 1f)
+        val TWO_PI = Vector3(DOUBLE_PIf, DOUBLE_PIf, DOUBLE_PIf)
     }
 }
 

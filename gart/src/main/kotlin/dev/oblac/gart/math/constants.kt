@@ -8,5 +8,6 @@ const val GOLDEN_RATIOf = 1.618034f
 const val PIf = Math.PI.toFloat()
 const val TAUf = 2 * PIf
 const val DOUBLE_PIf = 2 * Math.PI.toFloat()
+const val TWO_PIf = 2 * Math.PI.toFloat()
 const val HALF_PIf = PIf / 2
 const val QUARTER_PIf = PIf / 4
