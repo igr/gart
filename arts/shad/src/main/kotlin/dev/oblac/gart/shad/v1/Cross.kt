@@ -5,11 +5,11 @@ import dev.oblac.gart.Gart
 import dev.oblac.gart.Gartmap
 import dev.oblac.gart.Gartvas
 import dev.oblac.gart.color.BgColors
-import dev.oblac.gart.color.argb
-import dev.oblac.gart.color.blendColors
 import dev.oblac.gart.gfx.draw
 import dev.oblac.gart.math.DOUBLE_PIf
+import dev.oblac.gart.pixader.pixdraw
 import dev.oblac.gart.vector.*
+import kotlinx.coroutines.*
 import kotlin.math.*
 
 fun main() {
@@ -36,25 +36,20 @@ private class MyDraw(g: Gartvas) : Drawing(g) {
     val c = g.canvas
 
     init {
-        draw(b, Vec2(d.w.toFloat(), d.h.toFloat()), 111f)
+        c.clear(BgColors.outerSpace)
+        b.updatePixelsFromCanvas()
+        runBlocking {
+            draw(b, Vec2(d.w.toFloat(), d.h.toFloat()), 111f)
+        }
         b.drawToCanvas()
         c.draw(g)
     }
 }
 
-private fun draw(bmp: Gartmap, resolution: Vec2, time: Float) {
-    val d = bmp.d
-    val height = d.h
-    val width = d.w
-
-    for (y in 0 until height) {
-        for (x in 0 until width) {
-            val fragCoord = Vec2(x.toFloat(), y.toFloat())
-            val color = cross(fragCoord, resolution, time)
-            bmp[x, y] = blendColors(
-                argb(color.w, color.x, color.y, color.z),
-                BgColors.outerSpace
-            )
+private suspend fun draw(bmp: Gartmap, iResolution: Vec2, time: Float) = coroutineScope {
+    with(bmp) {
+        pixdraw(iResolution, time) { fragCoord, iRes, iTime ->
+            cross(fragCoord, iRes, iTime)
         }
     }
 }
@@ -64,7 +59,6 @@ private fun palette(t: Float): Vec3 {
     val b = Vec3(0.5f, 0.5f, 0.5f)
     val c = Vec3(1.0f, 1.0f, 1.0f)
     val d = Vec3(0.163f, 0.416f, 0.557f)
-
     return a + b * cos(Vec3(DOUBLE_PIf, DOUBLE_PIf, DOUBLE_PIf) * (c * t + d))
 }
 

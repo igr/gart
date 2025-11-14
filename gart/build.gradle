@@ -23,3 +23,9 @@ dependencies {
     testImplementation 'org.jetbrains.kotlin:kotlin-test'
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 }
+
+compileKotlin {
+    compilerOptions {
+        freeCompilerArgs.add("-Xcontext-parameters")
+    }
+}

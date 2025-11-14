@@ -3,4 +3,11 @@ plugins {
 }
 dependencies {
     implementation project(':gart')
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.8.0'
+}
+
+compileKotlin {
+    compilerOptions {
+        freeCompilerArgs.add("-Xcontext-parameters")
+    }
 }
