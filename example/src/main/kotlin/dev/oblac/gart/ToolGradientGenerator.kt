@@ -8,27 +8,9 @@ import dev.oblac.gart.gfx.strokeOfBlack
 import dev.oblac.gart.vector.Vec3
 import dev.oblac.gart.vector.Vector3
 import dev.oblac.gart.vector.cos
-import org.jetbrains.skia.Canvas
+import org.jetbrains.skia.*
 
-fun main() {
-    val gart = Gart.of("template2", 1024, 1024)
-    println(gart)
-
-    val w = gart.window()
-    val g = gart.gartvas()
-
-    val draw = DrawGG(g)
-
-    w.show(draw).hotReload(g)
-}
-
-private class DrawGG(g: Gartvas) : Drawing(g) {
-    init {
-        draw(g.canvas, g.d)
-    }
-}
-
-data class Waves(
+private data class Waves(
     val r: Wave,
     val g: Wave,
     val b: Wave,
@@ -41,14 +23,127 @@ data class Waves(
     fun b(): Vec3 = Vec3(r.amp, g.amp, b.amp)
     fun c(): Vec3 = Vec3(r.freq, g.freq, b.freq)
     fun d(): Vec3 = Vec3(r.phase, g.phase, b.phase)
+    fun values() {
+        val a = a()
+        val b = b()
+        val c = c()
+        val d = d()
+        print("a=[${a.x} ${a.y} ${a.z}] ")
+        print("b=[${b.x} ${b.y} ${b.z}] ")
+        print("c=[${c.x} ${c.y} ${c.z}] ")
+        print("d=[${d.x} ${d.y} ${d.z}]")
+        println()
+    }
 }
 
-data class Wave(
+private data class Wave(
     val dc: Float,
     val amp: Float,
     val freq: Float,
     val phase: Float,
 )
+
+private var waves: Waves = Waves(
+    Wave(0.5f, 0.5f, 1f, 0f),
+    Wave(0.5f, 0.5f, 1f, 0.33333f),
+    Wave(0.5f, 0.5f, 1f, 0.66666f),
+)
+
+// Function that selects a single wave, allowing modification of that wave and keeping others unchanged
+// returning the updated Waves object.
+private fun selectWave(
+    waves: Waves,
+    selector: (Waves) -> Wave
+): ((Wave) -> Wave) -> Waves {
+
+    return { modify ->
+        when (selector(waves)) {
+            waves.r -> waves.copy(r = modify(waves.r))
+            waves.g -> waves.copy(g = modify(waves.g))
+            waves.b -> waves.copy(b = modify(waves.b))
+            else -> waves
+        }
+    }
+}
+
+private var wave: (Waves) -> Wave = { it.r }
+
+fun main() {
+    val gart = Gart.of("template2", 1024, 1024)
+    println(gart)
+
+    val w = gart.window()
+    val g = gart.gartvas()
+
+    w.show(DrawGG(g)).onKey { key ->
+        var redraw = false
+        when (key) {
+            Key.KEY_R -> {
+                wave = { it.r }
+            }
+
+            Key.KEY_G -> {
+                wave = { it.g }
+            }
+
+            Key.KEY_B -> {
+                wave = { it.b }
+            }
+
+            Key.KEY_Q -> {
+                waves = selectWave(waves, wave)({ it.copy(dc = it.dc + 0.01f) })
+                redraw = true
+            }
+
+            Key.KEY_A -> {
+                waves = selectWave(waves, wave)({ it.copy(dc = it.dc - 0.01f) })
+                redraw = true
+            }
+
+            Key.KEY_W -> {
+                waves = selectWave(waves, wave)({ it.copy(amp = it.amp + 0.01f) })
+                redraw = true
+            }
+
+            Key.KEY_S -> {
+                waves = selectWave(waves, wave)({ it.copy(amp = it.amp - 0.01f) })
+                redraw = true
+            }
+
+            Key.KEY_E -> {
+                waves = selectWave(waves, wave)({ it.copy(freq = it.freq + 0.05f) })
+                redraw = true
+            }
+
+            Key.KEY_D -> {
+                waves = selectWave(waves, wave)({ it.copy(freq = it.freq - 0.05f) })
+                redraw = true
+            }
+
+            Key.KEY_Z -> {
+                waves = selectWave(waves, wave)({ it.copy(phase = it.phase - 0.01f) })
+                redraw = true
+            }
+
+            Key.KEY_X -> {
+                waves = selectWave(waves, wave)({ it.copy(phase = it.phase + 0.01f) })
+                redraw = true
+            }
+
+            else -> {}
+        }
+        if (redraw) {
+            draw(g.canvas, g.d)
+            println(waves.values())
+        }
+    }
+}
+
+private class DrawGG(g: Gartvas) : Drawing(g) {
+    init {
+        draw(g.canvas, g.d)
+    }
+}
 
 data class GGen(
     val gapA: Float,
@@ -57,47 +152,6 @@ data class GGen(
 
 private fun draw(c: Canvas, d: Dimension) {
     c.clear(Colors.white)
-
-
-    // 🔥
-    val wavesRainbow = Waves(
-        Wave(0.5f, 0.5f, 1f, 0f),
-        Wave(0.5f, 0.5f, 1f, 0.33333f),
-        Wave(0.5f, 0.5f, 1f, 0.66666f),
-    )
-    val waves2 = Waves(
-        Wave(0.5f, 0.5f, 1f, 0f),
-        Wave(0.5f, 0.5f, 1f, 0.10f),
-        Wave(0.5f, 0.5f, 1f, 0.20f),
-    )
-    val waves3 = Waves(
-        Wave(0.5f, 0.5f, 1f, 0.30f),
-        Wave(0.5f, 0.5f, 1f, 0.20f),
-        Wave(0.5f, 0.5f, 1f, 0.20f),
-    )
-    val waves4 = Waves(
-        Wave(0.5f, 0.5f, 1f, 0.80f),
-        Wave(0.5f, 0.5f, 1f, 0.90f),
-        Wave(0.5f, 0.5f, 0.5f, 0.30f),
-    )
-    val waves5 = Waves(
-        Wave(0.5f, 0.5f, 2f, 0.50f),
-        Wave(0.5f, 0.5f, 1f, 0.20f),
-        Wave(0.5f, 0.5f, 0f, 0.25f),
-    )
-    val waves6 = Waves(
-        Wave(0.8f, 0.2f, 2f, 0.0f),
-        Wave(0.5f, 0.4f, 1f, 0.25f),
-        Wave(0.4f, 0.2f, 1f, 0.25f),
-    )
-    var waves = wavesRainbow
-    waves = waves2
-    waves = waves3
-    waves = waves4
-    waves = waves5
-    waves = waves6
-    // 🔥
-
 
     val ggen = GGen(gapA = 50f, gapB = 180f)
     drawGrid(c, d, ggen)
@@ -123,8 +177,8 @@ private fun drawGrid(c: Canvas, d: Dimension, ggen: GGen) {
     val drawW = W - 2 * ggen.gapA
     val drawH = H - ggen.gapA - ggen.gapB
 
-    val gridPaint = org.jetbrains.skia.Paint().apply {
-        mode = org.jetbrains.skia.PaintMode.STROKE
+    val gridPaint = Paint().apply {
+        mode = PaintMode.STROKE
         strokeWidth = 1f
         color = 0xFF888888.toInt() // gray color for grid
         isAntiAlias = true
@@ -148,8 +202,8 @@ private fun drawGrid(c: Canvas, d: Dimension, ggen: GGen) {
     }
 
     // Draw X and Y axes (solid, darker lines)
-    val axisPaint = org.jetbrains.skia.Paint().apply {
-        mode = org.jetbrains.skia.PaintMode.STROKE
+    val axisPaint = Paint().apply {
+        mode = PaintMode.STROKE
         strokeWidth = 2f
         color = 0xFF000000.toInt() // black color for axes
         isAntiAlias = true
@@ -164,7 +218,7 @@ private fun drawGrid(c: Canvas, d: Dimension, ggen: GGen) {
     c.drawLine(yAxisX, drawY, yAxisX, drawY + drawH, axisPaint)
 
     // Draw axis labels
-    val textPaint = org.jetbrains.skia.Paint().apply {
+    val textPaint = Paint().apply {
         color = 0xFF000000.toInt() // black
         isAntiAlias = true
     }
@@ -196,8 +250,8 @@ private fun drawWavePlot(c: Canvas, d: Dimension, ggen: GGen, waves: Waves) {
     val drawW = W - 2 * ggen.gapA
     val drawH = H - ggen.gapA - ggen.gapB
 
-    val paint = org.jetbrains.skia.Paint().apply {
-        mode = org.jetbrains.skia.PaintMode.STROKE
+    val paint = Paint().apply {
+        mode = PaintMode.STROKE
         strokeWidth = 3f
         isAntiAlias = true
     }
@@ -213,7 +267,7 @@ private fun drawWavePlot(c: Canvas, d: Dimension, ggen: GGen, waves: Waves) {
             else -> Colors.black
         }
 
-        val path = org.jetbrains.skia.Path()
+        val path = Path()
 
         for (i in 0..samples) {
             // Normalized x coordinate (0 to 1)
@@ -222,17 +276,18 @@ private fun drawWavePlot(c: Canvas, d: Dimension, ggen: GGen, waves: Waves) {
             // Calculate y using cosine function: y = dc + amp * cos(2π * (freq * x + phase))
             val yNorm = wave.dc + wave.amp * kotlin.math.cos(
                 2f * Math.PI.toFloat() * (wave.freq * xNorm + wave.phase)
-            ).let {
-                when {
-                    it > 1f -> 1f
-                    it < -1f -> 0f
-                    else -> it
-                }
-            }
+            )
 
             // Convert normalized coordinates to screen coordinates
             val x = drawX + xNorm * drawW
-            val y = drawY + drawH - yNorm * drawH  // inverted for screen coordinates
+            val y = (drawY + drawH - yNorm * drawH).let {
+                // Clamp y to drawing area
+                when {
+                    it < drawY -> drawY
+                    it > drawY + drawH -> drawY + drawH
+                    else -> it
+                }
+            }
 
             if (i == 0) path.moveTo(x, y) else path.lineTo(x, y)
         }
@@ -251,11 +306,11 @@ private fun drawGradientBar(c: Canvas, d: Dimension, ggen: GGen, palette: (Float
     val barW = W - 2 * ggen.gapA
 
     // Draw border
-    c.drawRect(org.jetbrains.skia.Rect(barX, barY, barX + barW, barY + barHeight), strokeOfBlack(2f))
+    c.drawRect(Rect(barX, barY, barX + barW, barY + barHeight), strokeOfBlack(2f))
 
     // Fill with gradient using palette function
-    val paint = org.jetbrains.skia.Paint().apply {
-        mode = org.jetbrains.skia.PaintMode.STROKE
+    val paint = Paint().apply {
+        mode = PaintMode.STROKE
         strokeWidth = 1f
         isAntiAlias = true
     }
@@ -271,3 +326,35 @@ private fun drawGradientBar(c: Canvas, d: Dimension, ggen: GGen, palette: (Float
         c.drawLine(x, barY, x, barY + barHeight, paint)
     }
 }
+
+// 🔥
+private val wavesRainbow = Waves(
+    Wave(0.5f, 0.5f, 1f, 0f),
+    Wave(0.5f, 0.5f, 1f, 0.33333f),
+    Wave(0.5f, 0.5f, 1f, 0.66666f),
+)
+private val waves2 = Waves(
+    Wave(0.5f, 0.5f, 1f, 0f),
+    Wave(0.5f, 0.5f, 1f, 0.10f),
+    Wave(0.5f, 0.5f, 1f, 0.20f),
+)
+private val waves3 = Waves(
+    Wave(0.5f, 0.5f, 1f, 0.30f),
+    Wave(0.5f, 0.5f, 1f, 0.20f),
+    Wave(0.5f, 0.5f, 1f, 0.20f),
+)
+private val waves4 = Waves(
+    Wave(0.5f, 0.5f, 1f, 0.80f),
+    Wave(0.5f, 0.5f, 1f, 0.90f),
+    Wave(0.5f, 0.5f, 0.5f, 0.30f),
+)
+private val waves5 = Waves(
+    Wave(0.5f, 0.5f, 2f, 0.50f),
+    Wave(0.5f, 0.5f, 1f, 0.20f),
+    Wave(0.5f, 0.5f, 0f, 0.25f),
+)
+private val waves6 = Waves(
+    Wave(0.8f, 0.2f, 2f, 0.0f),
+    Wave(0.5f, 0.4f, 1f, 0.25f),
+    Wave(0.4f, 0.2f, 1f, 0.25f),
+)
