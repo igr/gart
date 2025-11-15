@@ -20,6 +20,16 @@ Continuous build for **Hot Reload**:
 just hotReload
 ```
 
+## Example
+
+Example folder contains several small projects demonstrating various features of the framework.
+
++ `Example*` - demonstrations of various features, usually interactive.
++ `Template` - minimal project template to start with.
++ `TemplateHotReload` - same as above, but with hot-reload enabled.
++ Tools:
+  + `GradientGenerator` - interactive gradient generator.
+
 ## 🍭 Gȧlléry
 
 
