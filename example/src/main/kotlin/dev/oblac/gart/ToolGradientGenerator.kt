@@ -69,7 +69,7 @@ private fun selectWave(
 private var wave: (Waves) -> Wave = { it.r }
 
 fun main() {
-    val gart = Gart.of("template2", 1024, 1024)
+    val gart = Gart.of("gradient-generator", 1024, 1024)
     println(gart)
 
     val w = gart.window()
