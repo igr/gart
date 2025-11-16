@@ -1,6 +1,6 @@
 package dev.oblac.gart.pixader
 
-import dev.oblac.gart.Gartmap
+import dev.oblac.gart.Pixels
 import dev.oblac.gart.color.argb
 import dev.oblac.gart.color.blendColors
 import dev.oblac.gart.math.doubleLoopSequence
@@ -18,12 +18,12 @@ typealias PixelFn = (fragCoord: Vec2, iResolution: Vec2, iTime: Float) -> Vec4
  * Draw pixels on the [bmp] using the provided [pixelFunction].
  */
 @OptIn(ExperimentalCoroutinesApi::class)
-context(bmp: Gartmap)
-suspend fun pixdraw(iResolution: Vec2, iTime: Float, maxConcurrency: Int? = null, pixelFunction: PixelFn) = coroutineScope {
+context(bmp: Pixels)
+suspend fun pixdraw(iResolution: Vec2, iTime: Float, maxConcurrency: Int = Runtime.getRuntime().availableProcessors(), pixelFunction: PixelFn) = coroutineScope {
     val width = iResolution.x.toInt()
     val height = iResolution.y.toInt()
 
-    val dispatcher = maxConcurrency?.let { Dispatchers.Default.limitedParallelism(it) } ?: Dispatchers.Default
+    val dispatcher = Dispatchers.Default.limitedParallelism(maxConcurrency)
 
     doubleLoopSequence(width, height).map { (x, y) ->
         async(dispatcher) {
