@@ -29,6 +29,7 @@ Example folder contains several small projects demonstrating various features of
 + `TemplateHotReload` - same as above, but with hot-reload enabled.
 + Tools:
   + `GradientGenerator` - interactive gradient palette generator.
+  + `FunGraph` - interactive function plotter.
 
 ## 🍭 Gȧlléry
 

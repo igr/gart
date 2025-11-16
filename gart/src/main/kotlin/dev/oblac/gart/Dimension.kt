@@ -9,6 +9,8 @@ import kotlin.math.sqrt
  * todo w/h should be floats
  */
 data class Dimension(val w: Int, val h: Int) {
+    val width = w.toFloat()
+    val height = h.toFloat()
     val wf = w.toFloat()
     val hf = h.toFloat()
     val wd = w.toDouble()
