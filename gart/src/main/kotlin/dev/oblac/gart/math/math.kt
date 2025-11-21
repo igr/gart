@@ -28,6 +28,9 @@ fun smoothstep(edge0: Float, edge1: Float, x: Float): Float {
     return t * t * (3f - 2f * t)
 }
 
+fun step(threshold: Float, x: Float) =
+    if (x >= threshold) 1.0f else 0.0f
+
 // Helper function for fractional part (equivalent to frac in shader)
 fun frac(value: Float): Float = value - floor(value)
 fun frac(value: Double): Double = value - floor(value)

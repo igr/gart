@@ -48,6 +48,10 @@ fun main() {
             Key.KEY_D -> maxX += 0.1f
             Key.KEY_E -> timeResolution += 0.005f
             Key.KEY_Q -> timeResolution -= 0.005f
+            Key.KEY_2 -> {
+                maxX = 2f
+                maxY = 2f
+            }
             else -> {}
         }
     }
@@ -150,28 +154,36 @@ private fun drawGrid(c: Canvas, d: Dimension, maxX: Float, maxY: Float, maxGridL
         pathEffect = PathEffect.makeDash(floatArrayOf(3f, 3f), 0f)
     }
 
-    // Draw vertical grid lines
-    var x = -maxX
+    // Draw vertical grid lines - start from center and go in both directions
+    // Positive direction
+    var x = stepX.toFloat()
     while (x <= maxX) {
-        if (x == 0f) {
-            x += stepX
-            continue  // Skip the Y-axis, will draw it separately
-        }
         val pixelX = mathToPixelX(x)
         c.drawLine(pixelX, 0f, pixelX, d.hf, gridPaint)
         x += stepX
     }
+    // Negative direction
+    x = -stepX.toFloat()
+    while (x >= -maxX) {
+        val pixelX = mathToPixelX(x)
+        c.drawLine(pixelX, 0f, pixelX, d.hf, gridPaint)
+        x -= stepX
+    }
 
-    // Draw horizontal grid lines
-    var y = -maxY
+    // Draw horizontal grid lines - start from center and go in both directions
+    // Positive direction
+    var y = stepY.toFloat()
     while (y <= maxY) {
-        if (y == 0f) {
-            y += stepY
-            continue  // Skip the X-axis, will draw it separately
-        }
         val pixelY = mathToPixelY(y)
         c.drawLine(0f, pixelY, d.wf, pixelY, gridPaint)
         y += stepY
+    }
+    // Negative direction
+    y = -stepY.toFloat()
+    while (y >= -maxY) {
+        val pixelY = mathToPixelY(y)
+        c.drawLine(0f, pixelY, d.wf, pixelY, gridPaint)
+        y -= stepY
     }
 
     // Draw X and Y axes with thicker, solid lines

@@ -3,6 +3,7 @@ package dev.oblac.gart.vector
 import dev.oblac.gart.angle.*
 import dev.oblac.gart.math.frac
 import kotlin.math.atan2
+import kotlin.math.sin
 import kotlin.math.sqrt
 
 typealias Vec2 = Vector2
@@ -54,5 +55,6 @@ data class Vector2(val x: Float, val y: Float) {
     }
 }
 
+fun sin(v: Vector2) = Vector2(sin(v.x), sin(v.y))
 fun frac(v: Vector2) = Vector2(frac(v.x), frac(v.y))
 fun length(v: Vector2) = sqrt(v.x * v.x + v.y * v.y)
