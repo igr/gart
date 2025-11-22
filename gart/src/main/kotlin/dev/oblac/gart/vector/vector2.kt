@@ -1,8 +1,12 @@
 package dev.oblac.gart.vector
 
-import dev.oblac.gart.angle.*
+import dev.oblac.gart.angle.Angle
+import dev.oblac.gart.angle.Radians
+import dev.oblac.gart.angle.cosf
+import dev.oblac.gart.angle.sinf
 import dev.oblac.gart.math.frac
 import kotlin.math.atan2
+import kotlin.math.cos
 import kotlin.math.sin
 import kotlin.math.sqrt
 
@@ -36,10 +40,14 @@ data class Vector2(val x: Float, val y: Float) {
     /**
      * Returns a new vector that is the result of rotating this vector by the given angle.
      */
-    fun rotate(angle: Angle) = Vector2(
-        x * cos(angle) - y * sin(angle),
-        x * sin(angle) + y * cos(angle)
-    )
+    fun rotate(angle: Float): Vector2 {
+        val s = sin(angle)
+        val c = cos(angle)
+        return Vector2(
+            x * c - y * s,
+            x * s + y * c
+        )
+    }
 
     /**
      * Returns the angle of the vector in radians.
