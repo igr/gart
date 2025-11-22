@@ -21,7 +21,6 @@ hotreload:
 thumbs:
     fd -g '*.png' arts/* -x magick {} -thumbnail 240x240 -unsharp 0x0.75+0.75+0.008 {.}_thumb.png
     rm arts/z/etc/*_thumb.png
-    rm arts/example/*_thumb.png
     git restore .
 
 # Generates the README file.
