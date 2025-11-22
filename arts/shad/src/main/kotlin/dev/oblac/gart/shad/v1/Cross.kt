@@ -6,7 +6,7 @@ import dev.oblac.gart.Gartmap
 import dev.oblac.gart.Gartvas
 import dev.oblac.gart.color.BgColors
 import dev.oblac.gart.gfx.draw
-import dev.oblac.gart.pixader.pixdraw
+import dev.oblac.gart.pixader.pixdrawAsync
 import dev.oblac.gart.vector.*
 import kotlinx.coroutines.*
 import kotlin.math.*
@@ -47,7 +47,7 @@ private class MyDraw(g: Gartvas) : Drawing(g) {
 
 private suspend fun draw(bmp: Gartmap, iResolution: Vec2, time: Float) = coroutineScope {
     with(bmp) {
-        pixdraw(iResolution, time) { fragCoord, iRes, iTime ->
+        pixdrawAsync(iResolution, time) { fragCoord, iRes, iTime ->
             cross(fragCoord, iRes, iTime)
         }
     }

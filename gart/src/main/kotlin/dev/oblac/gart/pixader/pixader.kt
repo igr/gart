@@ -19,7 +19,7 @@ typealias PixelFn = (fragCoord: Vec2, iResolution: Vec2, iTime: Float) -> Vec4
  */
 @OptIn(ExperimentalCoroutinesApi::class)
 context(bmp: Pixels)
-suspend fun pixdraw(iResolution: Vec2, iTime: Float, maxConcurrency: Int = Runtime.getRuntime().availableProcessors(), pixelFunction: PixelFn) = coroutineScope {
+suspend fun pixdrawAsync(iResolution: Vec2, iTime: Float, maxConcurrency: Int = Runtime.getRuntime().availableProcessors(), pixelFunction: PixelFn) = coroutineScope {
     val width = iResolution.x.toInt()
     val height = iResolution.y.toInt()
 
@@ -36,4 +36,20 @@ suspend fun pixdraw(iResolution: Vec2, iTime: Float, maxConcurrency: Int = Runti
             )
         }
     }.toList().awaitAll()
+}
+
+context(bmp: Pixels)
+fun pixdraw(iResolution: Vec2, iTime: Float, pixelFunction: PixelFn) {
+    val width = iResolution.x.toInt()
+    val height = iResolution.y.toInt()
+
+    doubleLoopSequence(width, height).map { (x, y) ->
+        val fragCoord = Vec2(x.toFloat(), y.toFloat())
+        val color = pixelFunction(fragCoord, iResolution, iTime)
+
+        bmp[x, y] = blendColors(
+            argb(color.w, color.x, color.y, color.z),
+            bmp[x, y]
+        )
+    }.toList()
 }
