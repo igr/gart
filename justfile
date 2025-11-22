@@ -25,4 +25,4 @@ thumbs:
 
 # Generates the README file.
 readme:
-    ./gradlew :arts:example:run
+    ./gradlew :example:run

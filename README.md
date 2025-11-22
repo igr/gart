@@ -55,6 +55,8 @@ A collection of generative art pieces (ordered by name).
 [<img src="arts/bubbles/Bubbles2_thumb.png" hspace="2" vspace="2" align="left">](arts/bubbles/Bubbles2.png)
 [<img src="arts/bubbles/bubble-stripe-2_thumb.png" hspace="2" vspace="2" align="left">](arts/bubbles/bubble-stripe-2.png)
 [<img src="arts/bubbles/bubbub_thumb.png" hspace="2" vspace="2" align="left">](arts/bubbles/bubbub.png)
+[<img src="arts/bubbles/pebble1_thumb.png" hspace="2" vspace="2" align="left">](arts/bubbles/pebble1.png)
+[<img src="arts/bubbles/pebble2_thumb.png" hspace="2" vspace="2" align="left">](arts/bubbles/pebble2.png)
 <br clear="both">
 
 ## Cell
@@ -215,6 +217,7 @@ A collection of generative art pieces (ordered by name).
 [<img src="arts/pixelmania/rastersin_thumb.png" hspace="2" vspace="2" align="left">](arts/pixelmania/rastersin.png)
 [<img src="arts/pixelmania/romb_thumb.png" hspace="2" vspace="2" align="left">](arts/pixelmania/romb.png)
 [<img src="arts/pixelmania/stripo_thumb.png" hspace="2" vspace="2" align="left">](arts/pixelmania/stripo.png)
+[<img src="arts/pixelmania/tower01_thumb.png" hspace="2" vspace="2" align="left">](arts/pixelmania/tower01.png)
 <br clear="both">
 
 ## Plasma
@@ -301,6 +304,11 @@ A collection of generative art pieces (ordered by name).
 [<img src="arts/sf/sf9_thumb.png" hspace="2" vspace="2" align="left">](arts/sf/sf9.png)
 <br clear="both">
 
+## Shad
+
+[<img src="arts/shad/foo_thumb.png" hspace="2" vspace="2" align="left">](arts/shad/foo.png)
+<br clear="both">
+
 ## Sixsix
 
 [<img src="arts/sixsix/moon-over-window_thumb.png" hspace="2" vspace="2" align="left">](arts/sixsix/moon-over-window.png)
@@ -377,4 +385,4 @@ A collection of generative art pieces (ordered by name).
 
 ---
 
-**Total: 166 works across 43 collections**
+**Total: 170 works across 44 collections**
