@@ -1,6 +1,7 @@
 package dev.oblac.gart.gfx
 
 import dev.oblac.gart.angle.Angle
+import dev.oblac.gart.angle.Radians
 import dev.oblac.gart.math.PIf
 import dev.oblac.gart.math.Transform
 import dev.oblac.gart.math.dist
@@ -186,3 +187,38 @@ fun equilateralTriangle(c: Point, radius: Float, angle: Angle): Triangle {
 
     return Triangle(Point(x1, y1), Point(x2, y2), Point(x3, y3))
 }
+
+/**
+ * Creates an isosceles triangle with given center, base width, height, and rotation angle.
+ * The triangle points upward (apex at top) when angle is 0.
+ * The center is the centroid of the triangle.
+ *
+ * @param c Center point (centroid) of the triangle
+ * @param base Width of the base
+ * @param height Height from base to apex
+ * @param angle Rotation angle (0 = apex pointing up)
+ */
+fun isoscelesTriangle(c: Point, base: Float, height: Float, angle: Angle = Radians(0f)): Triangle {
+    val cx = c.x
+    val cy = c.y
+    val radians = angle.radians
+
+    // Centroid is at 1/3 height from base
+    val apexDist = height * 2f / 3f      // distance from centroid to apex
+    val baseDist = height / 3f           // distance from centroid to base
+
+    // Apex point (top)
+    val ax = cx + sin(radians) * apexDist
+    val ay = cy - cos(radians) * apexDist
+
+    // Base left point
+    val blx = cx - cos(radians) * base / 2 - sin(radians) * baseDist
+    val bly = cy - sin(radians) * base / 2 + cos(radians) * baseDist
+
+    // Base right point
+    val brx = cx + cos(radians) * base / 2 - sin(radians) * baseDist
+    val bry = cy + sin(radians) * base / 2 + cos(radians) * baseDist
+
+    return Triangle(Point(ax, ay), Point(blx, bly), Point(brx, bry))
+}
+

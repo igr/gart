@@ -13,3 +13,6 @@ fun countSequence(from: Int, count: Int, step: Int = 1) =
 
 fun forSequence(from: Int, to: Int, step: Int = 1) =
     generateSequence(from) { it + step }.take((to - from) / step)
+
+fun repeatSequence(times: Int) =
+    generateSequence(0) { it + 1 }.take(times)

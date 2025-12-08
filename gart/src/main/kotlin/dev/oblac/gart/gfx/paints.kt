@@ -1,5 +1,7 @@
 package dev.oblac.gart.gfx
 
+import dev.oblac.gart.angle.Angle
+import dev.oblac.gart.angle.Degrees
 import dev.oblac.gart.math.multiply
 import org.jetbrains.skia.*
 
@@ -67,8 +69,8 @@ fun hatchPaint(color: Int, density: Float = 5f, dotWidth: Float = 1f, strokeWidt
     this.strokeWidth = strokeWidth
 }
 
-fun dashPaint(color: Int, density: Float = 6f, angle: Float = -45f, strokeWidth: Float = 2f) = Paint().apply {
-    val diagLinesPath = PathEffect.makeLine2D(strokeWidth, Matrix33.multiply(Matrix33.makeScale(density, density), Matrix33.makeRotate(angle)))
+fun dashPaint(color: Int, density: Float = 6f, angle: Angle = Degrees(-45f), strokeWidth: Float = 2f) = Paint().apply {
+    val diagLinesPath = PathEffect.makeLine2D(strokeWidth, Matrix33.multiply(Matrix33.makeScale(density, density), Matrix33.makeRotate(angle.degrees)))
     val paint = Paint().apply {
         this.color = color
         this.strokeWidth = strokeWidth
@@ -93,4 +95,10 @@ fun Paint.alpha(a: Int): Paint {
 fun paintOfImageFilter(imageFilter: ImageFilter) = Paint().apply {
     this.isAntiAlias = true
     this.imageFilter = imageFilter
+}
+
+fun Paint.roundStroke(): Paint {
+    this.strokeCap = PaintStrokeCap.ROUND
+    this.strokeJoin = PaintStrokeJoin.ROUND
+    return this
 }
