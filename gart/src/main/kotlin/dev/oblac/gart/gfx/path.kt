@@ -58,8 +58,9 @@ fun pointsOn(path: Path, pointsCount: Int): List<Point> {
     val points = mutableListOf<Point>()
     for (i in 0..count) {
         val distance = i * step
-        val position = iter.getPosition(distance)!!
-        points.add(position)
+        iter.getPosition(distance)?.also {
+            points.add(it)
+        }
     }
     return points
 }
@@ -179,8 +180,7 @@ fun List<Line>.toClosedPath() = pathOf(this.flatMap { it.points(2) }).closePath(
  * Returns true if the paths intersect and the intersection has non-zero area.
  */
 fun pathsOverlap(c1: Path, c2: Path, minArea: Float = 1f): Boolean {
-    val intersect = Path.makeCombining(c1, c2, PathOp.INTERSECT)
-    if (intersect == null) return false
+    val intersect = Path.makeCombining(c1, c2, PathOp.INTERSECT) ?: return false
 
     val bounds = intersect.bounds
     return bounds.width >= minArea && bounds.height >= minArea

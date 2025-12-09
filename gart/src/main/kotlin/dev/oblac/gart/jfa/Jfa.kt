@@ -12,8 +12,6 @@ import kotlin.math.sqrt
  *
  * The JFA is an efficient algorithm for computing distance fields.
  * It works by propagating the nearest seed coordinates in O(log N) passes.
- *
- * This implementation runs entirely on the CPU without GPU shaders.
  */
 class Jfa(private val d: Dimension) {
 
