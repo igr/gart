@@ -22,6 +22,8 @@ enum class FontFamily(internal val typeface: Typeface) {
     OdibeeSans(Typeface.makeFromData(loadResourceAsData("/fonts/OdibeeSans-Regular.ttf"))),
     NotoSans(Typeface.makeFromData(loadResourceAsData("/fonts/NotoSans-Regular.ttf"))),
     NotoSansBold(Typeface.makeFromData(loadResourceAsData("/fonts/NotoSans-Bold.ttf"))),
+    SpaceMono(Typeface.makeFromData(loadResourceAsData("/fonts/SpaceMono-Regular.ttf"))),
+    SpaceMonoBold(Typeface.makeFromData(loadResourceAsData("/fonts/SpaceMono-Bold.ttf"))),
 }
 
 fun font(family: FontFamily, size: Float): Font {

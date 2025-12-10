@@ -25,3 +25,14 @@ fun drawTextOnPath(canvas: Canvas, path: Path, text: String, font: Font, paint: 
         distance += charSpacing
     }
 }
+
+fun Canvas.drawStringToRight(
+    text: String,
+    right: Float,
+    y: Float,
+    font: Font,
+    paint: Paint
+) {
+    val textWidth = font.measureText(text)
+    this.drawString(text, right - textWidth.width, y, font, paint)
+}

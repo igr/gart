@@ -112,6 +112,9 @@ data class Dimension(val w: Int, val h: Int) {
      */
     fun ofH(y: Float) = hf * y
 
+    fun normH(value: Float) = value / hf
+    fun normW(value: Float) = value / wf
+
     companion object {
         val DESKTOP_FULL_HD = Dimension(1920, 1080)
         val DESKTOP_FULL__LANDSCAPE_HD = Dimension(1080, 1920)
