@@ -175,6 +175,7 @@ A collection of generative art pieces (ordered by name).
 [<img src="arts/lines/citymap_thumb.png" hspace="2" vspace="2" align="left">](arts/lines/citymap.png)
 [<img src="arts/lines/heapspace_thumb.png" hspace="2" vspace="2" align="left">](arts/lines/heapspace.png)
 [<img src="arts/lines/ngons_thumb.png" hspace="2" vspace="2" align="left">](arts/lines/ngons.png)
+[<img src="arts/lines/outline_thumb.png" hspace="2" vspace="2" align="left">](arts/lines/outline.png)
 [<img src="arts/lines/stripes1_thumb.png" hspace="2" vspace="2" align="left">](arts/lines/stripes1.png)
 [<img src="arts/lines/stripes2_thumb.png" hspace="2" vspace="2" align="left">](arts/lines/stripes2.png)
 [<img src="arts/lines/swing2_thumb.png" hspace="2" vspace="2" align="left">](arts/lines/swing2.png)
@@ -206,13 +207,20 @@ A collection of generative art pieces (ordered by name).
 [<img src="arts/monet/monet2_thumb.png" hspace="2" vspace="2" align="left">](arts/monet/monet2.png)
 <br clear="both">
 
+## Neuromancer
+
+[<img src="arts/neuromancer/nm1_thumb.png" hspace="2" vspace="2" align="left">](arts/neuromancer/nm1.png)
+<br clear="both">
+
 ## Palecircles
 
+[<img src="arts/palecircles/all-circles_thumb.png" hspace="2" vspace="2" align="left">](arts/palecircles/all-circles.png)
 [<img src="arts/palecircles/palecircles_thumb.png" hspace="2" vspace="2" align="left">](arts/palecircles/palecircles.png)
 <br clear="both">
 
 ## Pixelmania
 
+[<img src="arts/pixelmania/circl_thumb.png" hspace="2" vspace="2" align="left">](arts/pixelmania/circl.png)
 [<img src="arts/pixelmania/liqf_thumb.png" hspace="2" vspace="2" align="left">](arts/pixelmania/liqf.png)
 [<img src="arts/pixelmania/rastersin_thumb.png" hspace="2" vspace="2" align="left">](arts/pixelmania/rastersin.png)
 [<img src="arts/pixelmania/romb_thumb.png" hspace="2" vspace="2" align="left">](arts/pixelmania/romb.png)
@@ -241,6 +249,8 @@ A collection of generative art pieces (ordered by name).
 ## Rectapart
 
 [<img src="arts/rectapart/rectApart_thumb.png" hspace="2" vspace="2" align="left">](arts/rectapart/rectApart.png)
+[<img src="arts/rectapart/rectpack1_thumb.png" hspace="2" vspace="2" align="left">](arts/rectapart/rectpack1.png)
+[<img src="arts/rectapart/rectpack2_thumb.png" hspace="2" vspace="2" align="left">](arts/rectapart/rectpack2.png)
 <br clear="both">
 
 ## Rects
@@ -306,6 +316,7 @@ A collection of generative art pieces (ordered by name).
 
 ## Shad
 
+[<img src="arts/shad/earth2_thumb.png" hspace="2" vspace="2" align="left">](arts/shad/earth2.png)
 [<img src="arts/shad/foo_thumb.png" hspace="2" vspace="2" align="left">](arts/shad/foo.png)
 <br clear="both">
 
@@ -385,4 +396,4 @@ A collection of generative art pieces (ordered by name).
 
 ---
 
-**Total: 170 works across 44 collections**
+**Total: 177 works across 45 collections**
