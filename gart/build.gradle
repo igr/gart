@@ -14,7 +14,7 @@ test {
 }
 
 dependencies {
-    api 'org.jetbrains.skiko:skiko-awt-runtime-macos-arm64:0.9.37'
+    api 'org.jetbrains.skiko:skiko-awt-runtime-macos-arm64:0.9.39'
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.10.2'
 
     api 'org.bytedeco:ffmpeg-platform:7.1.1-1.5.12'

@@ -2,6 +2,7 @@ package dev.oblac.gart.switchboard
 
 import dev.oblac.gart.Dimension
 import dev.oblac.gart.Gart
+import dev.oblac.gart.angle.Degrees
 import dev.oblac.gart.color.Colors
 import dev.oblac.gart.color.Palettes
 import dev.oblac.gart.color.toFillPaint
@@ -222,5 +223,5 @@ data class Switch(val x: Int, val y: Int, val type: SwitchType, val color: Int =
 
 val hatchPaint = hatchPaint(Colors.black, density = 4f, dotWidth = 1.4f)
 val dashPaint = dashPaint(Colors.black)
-val dashPaint2 = dashPaint(Colors.black, angle = 45f)
+val dashPaint2 = dashPaint(Colors.black, angle = Degrees.of(45f))
 val wire = strokeOfBlack(5).also { it.strokeCap = PaintStrokeCap.ROUND }
