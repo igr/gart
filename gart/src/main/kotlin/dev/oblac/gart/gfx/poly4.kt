@@ -15,10 +15,25 @@ data class Poly4(
     val c: Point,
     val d: Point
 ) {
+    /**
+     * Returns the 4 points of the polygon as a list.
+     */
+    fun points() = listOf(a, b, c, d)
+
+    /**
+     * Returns the center point of the polygon.
+     * Calculated as the average of the 4 corner points.
+     */
     fun center() = Point(
         (a.x + b.x + c.x + d.x) / 4,
         (a.y + b.y + c.y + d.y) / 4
     )
+
+    /**
+     * Returns the top point of the polygon.
+     * Finds the point with the smallest y-coordinate.
+     */
+    fun topPoint(): Point = points().minBy { it.y }
 
     /**
      * Returns the 4 edges of the polygon as lines.
@@ -38,6 +53,33 @@ data class Poly4(
         lineTo(c.x, c.y)
         lineTo(d.x, d.y)
         closePath()
+    }
+
+    fun shrink(factor: Float): Poly4 {
+        val center = center()
+        fun shrinkPoint(p: Point): Point {
+            val dirX = p.x - center.x
+            val dirY = p.y - center.y
+            return Point(
+                center.x + dirX * factor,
+                center.y + dirY * factor
+            )
+        }
+        return Poly4(
+            shrinkPoint(a),
+            shrinkPoint(b),
+            shrinkPoint(c),
+            shrinkPoint(d)
+        )
+    }
+
+    fun move(dx: Float, dy: Float): Poly4 {
+        return Poly4(
+            Point(a.x + dx, a.y + dy),
+            Point(b.x + dx, b.y + dy),
+            Point(c.x + dx, c.y + dy),
+            Point(d.x + dx, d.y + dy)
+        )
     }
 
     companion object {
