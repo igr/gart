@@ -135,6 +135,18 @@ class Palette(internal val colors: IntArray) {
         return split(numberOfPalettes).toList()
     }
 
+    /**
+     * Shifts the colors in the palette by the given number of [steps].
+     */
+    fun shifted(steps: Int): Palette {
+        val shiftedColors = IntArray(size)
+        for (i in colors.indices) {
+            val newIndex = (i + steps).mod(size)
+            shiftedColors[newIndex] = colors[i]
+        }
+        return Palette(shiftedColors)
+    }
+
     companion object {
         fun of(values: Collection<Int>) = Palette(values.toIntArray())
         fun of(vararg values: Int) = Palette(values)
