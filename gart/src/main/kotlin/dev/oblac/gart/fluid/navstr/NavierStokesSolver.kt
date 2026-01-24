@@ -48,7 +48,7 @@ class NavierStokesSolver(
         for (i in 0..<width) {
             for (j in 0..<height) {
                 val index = fluidIX(i, j)
-                rOld[index] = Math.random().toDouble()
+                rOld[index] = Math.random()
                 r[index] = rOld[index]
             }
         }

@@ -70,6 +70,7 @@ open class Window(val d: Dimension, val fps: Int, internal val printFps: Boolean
             // add keyboard listener
             frame.addKeyListener(windowView.keyListener)
             frame.addMouseListener(windowView.mouseListener)
+            frame.addMouseMotionListener(windowView.mouseMotionListener)
 
             // frame sizing
             frame.preferredSize = java.awt.Dimension(d.w, d.h + frame.insets.top)   // add title bar height
@@ -146,6 +147,26 @@ class WindowView(private val w: Window, private val v: GartView) {
         }
 
         override fun mouseExited(e: MouseEvent) {
+        }
+    }
+
+    private val mouseMotionHandlers: MutableList<(MouseEvent) -> Unit> = mutableListOf()
+
+    /**
+     * Defines a mouse motion handler.
+     */
+    fun onMouseMotion(mouseMotionHandler: (MouseEvent) -> Unit): WindowView {
+        mouseMotionHandlers.add(mouseMotionHandler)
+        return this
+    }
+
+    internal val mouseMotionListener = object : MouseMotionListener {
+        override fun mouseDragged(e: MouseEvent) {
+            mouseMotionHandlers.forEach { it(e) }
+        }
+
+        override fun mouseMoved(e: MouseEvent) {
+            mouseMotionHandlers.forEach { it(e) }
         }
     }
 

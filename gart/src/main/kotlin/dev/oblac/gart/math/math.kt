@@ -38,6 +38,7 @@ fun frac(value: Double): Double = value - floor(value)
 // Helper function for linear interpolation (equivalent to lerp in shader)
 fun lerp(a: Float, b: Float, t: Float) = a + t * (b - a)
 fun lerp(a: Double, b: Double, t: Double) = a + t * (b - a)
+fun lerp(a: Int, b: Int, t: Float): Float = a + (b - a) * t
 
 fun mix(a: Float, b: Float, t: Float) = a * (1f - t) + b * t
 
