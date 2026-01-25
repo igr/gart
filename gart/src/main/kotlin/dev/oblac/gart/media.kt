@@ -22,8 +22,13 @@ fun saveImageToFile(canvas: Canvas, d: Dimension, name: String) {
 }
 
 fun saveImageToFile(image: Image, name: String) {
+    val format = try {
+        EncodedImageFormat.valueOf(name.substringAfterLast('.').uppercase())
+    } catch (_: IllegalArgumentException) {
+        EncodedImageFormat.PNG
+    }
     image
-        .encodeToData(EncodedImageFormat.valueOf(name.substringAfterLast('.').uppercase()))
+        .encodeToData(format)
         .let { it!!.bytes }
         .also {
             File(name).writeBytes(it)

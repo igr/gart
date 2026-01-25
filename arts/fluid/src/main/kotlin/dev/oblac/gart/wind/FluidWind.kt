@@ -5,10 +5,14 @@ import dev.oblac.gart.color.Palettes
 import dev.oblac.gart.fluid.all.FluidParticles
 import dev.oblac.gart.fluid.all.FluidRenderer
 import dev.oblac.gart.fluid.all.FluidSolver
-import dev.oblac.gart.fluid.all.ParticleRendererPalette
+import dev.oblac.gart.fluid.all.ParticleRenderer
 import dev.oblac.gart.gfx.randomPoints
 import dev.oblac.gart.math.GOLDEN_RATIO
+import dev.oblac.gart.math.rndf
 import dev.oblac.gart.noise.PerlinNoise
+import dev.oblac.gart.saveImageToFile
+import org.jetbrains.skia.Paint
+import org.jetbrains.skia.PaintMode
 import kotlin.math.cos
 import kotlin.math.sin
 
@@ -58,8 +62,24 @@ fun main() {
             particles.update(solver)
         }
 
-        //renderer.renderFluid(ParticleRendererTwoColors(canvas))
-        // 15 22 54 56
-        renderer.renderFluid(ParticleRendererPalette(canvas, Palettes.cool56))
+        renderer.renderFluid(object : ParticleRenderer {
+            val expandedColors = Palettes.cool56.expand(256)
+            val paint = Paint().apply { mode = PaintMode.FILL }
+
+            override fun clear() {
+                canvas.clear(expandedColors[0])
+            }
+
+            override fun renderPixel(x: Int, y: Int, value: Float, blockSize: Float) {
+                val index = (value * 255).toInt().coerceIn(0, 255)
+                paint.color = expandedColors[index]
+                //canvas.drawCircle(x.toFloat(), y.toFloat(), blockSize / 2, paint)
+                canvas.drawCircle(x.toFloat(), y.toFloat(), blockSize * rndf(0.5f, 5f), paint)
+            }
+        })
+
+        if (frames.frame == 40L) {
+            saveImageToFile(canvas, d, "${gart.name}.png")
+        }
     }
 }
