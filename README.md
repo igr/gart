@@ -42,6 +42,7 @@ A collection of generative art pieces (ordered by name).
 [<img src="arts/alien/alien-letters-v1_thumb.png" hspace="2" vspace="2" align="left">](arts/alien/alien-letters-v1.png)
 [<img src="arts/alien/alien-letters-v2_thumb.png" hspace="2" vspace="2" align="left">](arts/alien/alien-letters-v2.png)
 [<img src="arts/alien/alien-letters-v3_thumb.png" hspace="2" vspace="2" align="left">](arts/alien/alien-letters-v3.png)
+[<img src="arts/alien/alien2_thumb.png" hspace="2" vspace="2" align="left">](arts/alien/alien2.png)
 <br clear="both">
 
 ## Blob
@@ -110,6 +111,12 @@ A collection of generative art pieces (ordered by name).
 [<img src="arts/flowforce/flowforce4_thumb.png" hspace="2" vspace="2" align="left">](arts/flowforce/flowforce4.png)
 [<img src="arts/flowforce/interruption_thumb.png" hspace="2" vspace="2" align="left">](arts/flowforce/interruption.png)
 [<img src="arts/flowforce/vorflow_thumb.png" hspace="2" vspace="2" align="left">](arts/flowforce/vorflow.png)
+<br clear="both">
+
+## Fluid
+
+[<img src="arts/fluid/fluid-pack_thumb.png" hspace="2" vspace="2" align="left">](arts/fluid/fluid-pack.png)
+[<img src="arts/fluid/fluid-wind_thumb.png" hspace="2" vspace="2" align="left">](arts/fluid/fluid-wind.png)
 <br clear="both">
 
 ## Harmongraph
@@ -210,6 +217,11 @@ A collection of generative art pieces (ordered by name).
 ## Neuromancer
 
 [<img src="arts/neuromancer/nm1_thumb.png" hspace="2" vspace="2" align="left">](arts/neuromancer/nm1.png)
+<br clear="both">
+
+## Orbitr
+
+[<img src="arts/orbitr/orbitr_thumb.png" hspace="2" vspace="2" align="left">](arts/orbitr/orbitr.png)
 <br clear="both">
 
 ## Palecircles
@@ -330,6 +342,9 @@ A collection of generative art pieces (ordered by name).
 
 ## Skyscraper
 
+[<img src="arts/skyscraper/dualcity_thumb.png" hspace="2" vspace="2" align="left">](arts/skyscraper/dualcity.png)
+[<img src="arts/skyscraper/perspective01_thumb.png" hspace="2" vspace="2" align="left">](arts/skyscraper/perspective01.png)
+[<img src="arts/skyscraper/perspective02_thumb.png" hspace="2" vspace="2" align="left">](arts/skyscraper/perspective02.png)
 [<img src="arts/skyscraper/skyscraper2_thumb.png" hspace="2" vspace="2" align="left">](arts/skyscraper/skyscraper2.png)
 [<img src="arts/skyscraper/skyscraper_thumb.png" hspace="2" vspace="2" align="left">](arts/skyscraper/skyscraper.png)
 <br clear="both">
@@ -396,4 +411,4 @@ A collection of generative art pieces (ordered by name).
 
 ---
 
-**Total: 177 works across 45 collections**
+**Total: 184 works across 47 collections**
