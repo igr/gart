@@ -1,0 +1,11 @@
+plugins {
+    id("org.jetbrains.kotlin.jvm")
+    id("application")
+}
+dependencies {
+    implementation(project(":gart"))
+}
+
+application {
+    mainClass = "dev.oblac.gart.GenerateReadMeKt"
+}
