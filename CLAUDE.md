@@ -15,13 +15,6 @@ just thumbs     # Generate thumbnail images
 just clean      # Clean build artifacts
 ```
 
-Direct Gradle commands:
-```bash
-./gradlew test                    # Run all tests
-./gradlew :gart:test              # Run tests for core module only
-./gradlew :example:compileKotlin  # Compile examples
-```
-
 ## Module Structure
 
 - **`gart`** - Core framework library (Skiko graphics, colors, math, noise, particles, etc.)
