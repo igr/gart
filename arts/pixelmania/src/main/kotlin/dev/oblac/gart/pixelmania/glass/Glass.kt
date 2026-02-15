@@ -4,9 +4,10 @@ import dev.oblac.gart.Dimension
 import dev.oblac.gart.Drawing
 import dev.oblac.gart.Gart
 import dev.oblac.gart.Gartvas
-import dev.oblac.gart.color.Palette
 import dev.oblac.gart.color.RetroColors
-import dev.oblac.gart.gfx.*
+import dev.oblac.gart.gfx.Point
+import dev.oblac.gart.gfx.fillOf
+import dev.oblac.gart.gfx.strokeOf
 import dev.oblac.gart.glass.drawGlassPath
 import org.jetbrains.skia.Path
 import org.jetbrains.skia.RRect
@@ -38,13 +39,6 @@ private class MyDraw3(g: Gartvas) : Drawing(g) {
     }
 }
 
-private val pal = Palette.of(
-    RetroColors.white01,
-    RetroColors.white01,
-    RetroColors.white01,
-)
-//private val pal = Palettes.cool48
-
 private fun draw(g: Gartvas, d: Dimension) {
     val c = g.canvas
     c.clear(RetroColors.black01)
@@ -57,9 +51,13 @@ private fun draw(g: Gartvas, d: Dimension) {
         val angle = Math.toRadians(i * 360.0 / n).toFloat()
         val x2 = p.x + cos(angle) * maxLen
         val y2 = p.y + sin(angle) * maxLen
-        c.drawLine(p.x, p.y, x2, y2, strokeOf(5f, pal.safe(i)))
+        if (i == 60 || i == 100) {
+            c.drawLine(p.x, p.y, x2, y2, strokeOf(30f, RetroColors.red01))
+        } else {
+            c.drawLine(p.x, p.y, x2, y2, strokeOf(5f, RetroColors.white01))
+        }
     }
-    c.drawCircle(p, 80f, fillOf(RetroColors.black01).alpha(200))
+    c.drawCircle(p.x - 2, p.y + 16, 24f, fillOf(RetroColors.red01))
 
     // Glass ball / water drop effect
 //    drawGlassBall(g, d.w3, d.h3x2, 260f, baseColor = RetroColors.black01, eta = 1.0 / 1.3)
