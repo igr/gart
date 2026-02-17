@@ -233,6 +233,7 @@ A collection of generative art pieces (ordered by name).
 ## Pixelmania
 
 [<img src="arts/pixelmania/circl_thumb.png" hspace="2" vspace="2" align="left">](arts/pixelmania/circl.png)
+[<img src="arts/pixelmania/glass_thumb.png" hspace="2" vspace="2" align="left">](arts/pixelmania/glass.png)
 [<img src="arts/pixelmania/liqf_thumb.png" hspace="2" vspace="2" align="left">](arts/pixelmania/liqf.png)
 [<img src="arts/pixelmania/rastersin_thumb.png" hspace="2" vspace="2" align="left">](arts/pixelmania/rastersin.png)
 [<img src="arts/pixelmania/romb_thumb.png" hspace="2" vspace="2" align="left">](arts/pixelmania/romb.png)
@@ -260,7 +261,9 @@ A collection of generative art pieces (ordered by name).
 
 ## Rectapart
 
+[<img src="arts/rectapart/fall-squares_thumb.png" hspace="2" vspace="2" align="left">](arts/rectapart/fall-squares.png)
 [<img src="arts/rectapart/rectApart_thumb.png" hspace="2" vspace="2" align="left">](arts/rectapart/rectApart.png)
+[<img src="arts/rectapart/rectapart3_thumb.png" hspace="2" vspace="2" align="left">](arts/rectapart/rectapart3.png)
 [<img src="arts/rectapart/rectpack1_thumb.png" hspace="2" vspace="2" align="left">](arts/rectapart/rectpack1.png)
 [<img src="arts/rectapart/rectpack2_thumb.png" hspace="2" vspace="2" align="left">](arts/rectapart/rectpack2.png)
 <br clear="both">
@@ -411,4 +414,4 @@ A collection of generative art pieces (ordered by name).
 
 ---
 
-**Total: 184 works across 47 collections**
+**Total: 187 works across 47 collections**
