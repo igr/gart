@@ -10,6 +10,12 @@ allprojects {
         mavenCentral()
         maven("https://redirector.kotlinlang.org/maven/compose-dev")
     }
+
+    tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
+        compilerOptions {
+            freeCompilerArgs.add("-Xcontext-parameters")
+        }
+    }
 }
 
 tasks.register<Delete>("clean") {

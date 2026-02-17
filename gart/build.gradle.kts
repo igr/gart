@@ -33,7 +33,7 @@ val target = "${targetOs}-${targetArch}"
 
 dependencies {
     api("org.jetbrains.skiko:skiko-awt-runtime-$target:$version")
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.10.2")
+    api("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.10.2")
 
     api("org.bytedeco:ffmpeg-platform:7.1.1-1.5.12")
     api("org.bytedeco:ffmpeg-platform-gpl:7.1.1-1.5.12")

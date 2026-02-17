@@ -62,7 +62,7 @@ private fun draw(d: Dimension, index: Int): Image {
     val gap = 10f
 
     val rRect = RRect.makeXYWH(gap, gap, d.wf - 2 * gap, d.hf - 2 * gap, 2 * gap, 2 * gap)
-    c.clipRRect(rRect)
+    c.clipRRect(rRect, true)
     c.drawRect(d.rect, fillOf(black))
 
 

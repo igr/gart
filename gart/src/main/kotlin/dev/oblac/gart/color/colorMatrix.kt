@@ -18,7 +18,7 @@ object ColorMatrices {
             r - r * sat, g - g * sat, b + (1 - b) * sat, 0f, 0f,
             0f, 0f, 0f, 1f, 0f
         )
-        return ColorMatrix(*arr)
+        return ColorMatrix(arr)
     }
 
     fun brightness(brightness: Float): ColorMatrix {
@@ -28,7 +28,7 @@ object ColorMatrices {
             0f, 0f, 1f, 0f, brightness * 255,
             0f, 0f, 0f, 1f, 0f
         )
-        return ColorMatrix(*arr)
+        return ColorMatrix(arr)
     }
 
     fun contrast(contrast: Float): ColorMatrix {
@@ -44,7 +44,7 @@ object ColorMatrices {
             0f, 0f, scale, 0f, translate,
             0f, 0f, 0f, 1f, 0f
         )
-        return ColorMatrix(*arr)
+        return ColorMatrix(arr)
     }
 
     fun grayscale(): ColorMatrix {
@@ -58,7 +58,7 @@ object ColorMatrices {
             r, g, b, 0f, 0f,
             0f, 0f, 0f, 1f, 0f
         )
-        return ColorMatrix(*arr)
+        return ColorMatrix(arr)
     }
 
     fun invert(): ColorMatrix {
@@ -68,7 +68,7 @@ object ColorMatrices {
             0f, 0f, -1f, 0f, 255f,
             0f, 0f, 0f, 1f, 0f
         )
-        return ColorMatrix(*arr)
+        return ColorMatrix(arr)
     }
 
     fun sepia(): ColorMatrix {
@@ -78,7 +78,7 @@ object ColorMatrices {
             0.272f, 0.534f, 0.131f, 0f, 0f,
             0f, 0f, 0f, 1f, 0f
         )
-        return ColorMatrix(*arr)
+        return ColorMatrix(arr)
     }
 
     fun hueRotate(degrees: Float): ColorMatrix {
@@ -96,7 +96,7 @@ object ColorMatrices {
             r + cosVal * (-r) + sinVal * (-(1 - r)), g + cosVal * (-g) + sinVal * (g), b + cosVal * (1 - b) + sinVal * (b), 0f, 0f,
             0f, 0f, 0f, 1f, 0f
         )
-        return ColorMatrix(*arr)
+        return ColorMatrix(arr)
     }
 }
 
@@ -117,7 +117,7 @@ fun ColorMatrix.concat(other: ColorMatrix): ColorMatrix {
         }
     }
 
-    return ColorMatrix(*result)
+    return ColorMatrix(result)
 }
 
 

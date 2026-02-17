@@ -51,7 +51,7 @@ private fun draw(c: Canvas, d: Dimension) {
     c.rotate(-45f, d.cx, d.cy)
 
     // middle line
-    val line0 = Line(d.leftMiddle, d.rightMiddle).shortenByLen(-200f)
+    val line0 = Line(d.leftMiddle, d.rightMiddle.offset(100f, 0f)).shortenByLen(-200f)
     line0.rectsOnLine(square, square, Degrees(0f), square).forEachIndexed { i, rect ->
         val color = pal.safe(i)
         c.drawPoly4(rect, fillOf(color))
