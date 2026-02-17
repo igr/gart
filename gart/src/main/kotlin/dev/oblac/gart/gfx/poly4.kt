@@ -83,6 +83,35 @@ data class Poly4(
     }
 
     companion object {
+        fun rectAroundPoint(c: Point, width: Float, height: Float, angle: Angle): Poly4 {
+            val centerX = c.x
+            val centerY = c.y
+            val radians = angle.radians
+            val halfW = width / 2
+            val halfH = height / 2
+            val cosA = cos(radians)
+            val sinA = sin(radians)
+
+            val x1 = centerX + cosA * halfW - sinA * halfH
+            val y1 = centerY + sinA * halfW + cosA * halfH
+
+            val x2 = centerX + cosA * halfW - sinA * -halfH
+            val y2 = centerY + sinA * halfW + cosA * -halfH
+
+            val x3 = centerX + cosA * -halfW - sinA * -halfH
+            val y3 = centerY + sinA * -halfW + cosA * -halfH
+
+            val x4 = centerX + cosA * -halfW - sinA * halfH
+            val y4 = centerY + sinA * -halfW + cosA * halfH
+
+            return Poly4(
+                Point(x1, y1),
+                Point(x2, y2),
+                Point(x3, y3),
+                Point(x4, y4)
+            )
+        }
+
         fun squareAroundPoint(c: Point, sideLength: Float, angle: Angle): Poly4 {
             val centerX = c.x
             val centerY = c.y

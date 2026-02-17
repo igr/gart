@@ -1,5 +1,6 @@
 package dev.oblac.gart
 
+import dev.oblac.gart.math.f
 import org.jetbrains.skia.Point
 import org.jetbrains.skia.Rect
 import kotlin.math.sqrt
@@ -18,8 +19,10 @@ data class Dimension(val w: Int, val h: Int) {
 
     val rightBottom = Point(w.toFloat(), h.toFloat())
     val leftTop = Point(0f, 0f)
-    val leftBottom = Point(0f, h.toFloat())
-    val rightTop = Point(w.toFloat(), 0f)
+    val leftBottom = Point(0f, h.f())
+    val rightTop = Point(w.f(), 0f)
+    val leftMiddle = Point(0f, h / 2f)
+    val rightMiddle = Point(w.f(), h / 2f)
 
     /**
      * Center X.
