@@ -87,7 +87,7 @@ private fun drawRingPart(
     c.rotate(angle.degrees, center.x, center.y)
 
     // Create a path for the ring segment
-    val path = Path()
+    val path = PathBuilder()
 
     // Add the outer arc
     path.addArc(outerRect, startAngle, sweepAngle)
@@ -105,7 +105,7 @@ private fun drawRingPart(
 
     path.closePath()
 
-    c.drawPath(path, paint)
+    c.drawPath(path.detach(), paint)
 
     c.restore()
 }

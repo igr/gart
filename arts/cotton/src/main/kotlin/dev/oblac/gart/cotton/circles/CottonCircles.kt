@@ -10,7 +10,7 @@ import dev.oblac.gart.util.loop
 import dev.oblac.gart.util.randomExcept
 import org.jetbrains.skia.Canvas
 import org.jetbrains.skia.Paint
-import org.jetbrains.skia.Path
+import org.jetbrains.skia.PathBuilder
 import org.jetbrains.skia.Rect
 
 val gart = Gart.of(
@@ -65,6 +65,6 @@ fun drawRectCircle(c: Canvas, x: Float, y: Float, delta: Int, colors: List<Paint
         else -> throw IllegalStateException()
     }
 
-    c.drawPath(Path().addArc(r, 90f * rnd, 180f).closePath(), circleFill)
+    c.drawPath(PathBuilder().addArc(r, 90f * rnd, 180f).closePath().detach(), circleFill)
 }
 

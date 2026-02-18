@@ -5,6 +5,7 @@ import dev.oblac.gart.angle.Degrees
 import dev.oblac.gart.angle.cos
 import dev.oblac.gart.angle.sin
 import org.jetbrains.skia.Path
+import org.jetbrains.skia.PathBuilder
 import org.jetbrains.skia.Point
 
 /**
@@ -35,12 +36,13 @@ sealed class RectIsometric(x: Float, y: Float, a: Float, b: Float, alpha: Angle,
     }
 
     fun path(): Path {
-        return Path()
+        return PathBuilder()
             .moveTo(left)
             .lineTo(bottom)
             .lineTo(right)
             .lineTo(top)
             .closePath()
+            .detach()
     }
 
     fun width(): Float {

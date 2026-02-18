@@ -2,6 +2,7 @@ package dev.oblac.gart.lines.tapes
 
 import dev.oblac.gart.gfx.Line
 import org.jetbrains.skia.Path
+import org.jetbrains.skia.PathBuilder
 import org.jetbrains.skia.Point
 import kotlin.math.PI
 import kotlin.math.cos
@@ -168,7 +169,7 @@ fun generateChaoticOverlappingPath(
         points.add(Point(x, y))
     }
 
-    val path = Path()
+    val path = PathBuilder()
     var currentIndex = random.nextInt(numPoints)
 
     // Start the path
@@ -199,5 +200,5 @@ fun generateChaoticOverlappingPath(
     // Close the path
     path.closePath()
 
-    return path
+    return path.detach()
 }

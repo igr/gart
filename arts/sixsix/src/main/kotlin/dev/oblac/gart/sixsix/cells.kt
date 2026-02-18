@@ -5,6 +5,7 @@ import dev.oblac.gart.angle.Degrees
 import dev.oblac.gart.color.Palette
 import dev.oblac.gart.gfx.*
 import dev.oblac.gart.math.GOLDEN_RATIOf
+import org.jetbrains.skia.PathBuilder
 import org.jetbrains.skia.Point
 import org.jetbrains.skia.RRect
 import org.jetbrains.skia.Rect
@@ -626,7 +627,7 @@ private fun cell35(g: Gartvas, p: Palette) {
     val radius = d.wf.coerceAtMost(d.hf * RATIO) / 2f
     val innerRadius = radius * 0.382f // Golden ratio for pentagram
 
-    val path = org.jetbrains.skia.Path()
+    val path = PathBuilder()
     for (i in 0 until 10) {
         val angle = (i * 36f - 90f) * Math.PI.toFloat() / 180f
         val r = if (i % 2 == 0) radius else innerRadius
@@ -640,7 +641,7 @@ private fun cell35(g: Gartvas, p: Palette) {
         }
     }
     path.closePath()
-    c.drawPath(path, fillOf(p[1]))
+    c.drawPath(path.detach(), fillOf(p[1]))
 }
 
 private fun cell36(g: Gartvas, p: Palette) {

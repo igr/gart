@@ -10,6 +10,7 @@ import dev.oblac.gart.math.rndf
 import dev.oblac.gart.noise.poissonDiskSamplingNoise
 import org.jetbrains.skia.Canvas
 import org.jetbrains.skia.Path
+import org.jetbrains.skia.PathBuilder
 import org.jetbrains.skia.Point
 import kotlin.math.cos
 import kotlin.math.sin
@@ -66,16 +67,19 @@ fun drawTriangle(c: Canvas) {
     val vY = -d * cos(alpha) + t.y
     val v = Point(vX, vY)
 
-    val p = Path()
+    val p = PathBuilder()
         .moveTo(b1)
         .lineTo(b2)
         .lineTo(v)
         .lineTo(b1)
         .closePath()
+        .detach()
 
     c.drawPath(p, fillOf(ship))
-    p.offset(16f, 16f)
-    c.drawPath(p, strokeOf(ship, 2f))
+    
+    val p2 = PathBuilder(p).offset(16f, 16f).detach()
+    //p.offset(16f, 16f)
+    c.drawPath(p2, strokeOf(ship, 2f))
 }
 
 fun drawStars(c: Canvas, d: Dimension) {
@@ -88,12 +92,18 @@ fun drawStars(c: Canvas, d: Dimension) {
 }
 
 fun drawHill(c: Canvas, p: Path) {
-    p.offset(-20f, 0f)  // the generation of the hill is shifted to the right by 40 pixels
+    // fixme 0.144.0
+    //p.offset(-20f, 0f)  // the generation of the hill is shifted to the right by 40 pixels
+    c.save()
+    c.translate(-20f, 0f)  // the generation of the hill is shifted to the right by 40 pixels
     for (off in 0..14) {
-        p.offset(rndf(-40, 40), off.toFloat() * 10)
+        // fixme 0.144.0
+        c.translate(rndf(-40, 40), off.toFloat() * 10)
+        //p.offset(rndf(-40, 40), off.toFloat() * 10)
         c.drawPath(p, fillOf(blue))
         c.drawPath(p, strokeOf(hill, 4f))
     }
+    c.restore()
 }
 
 fun drawSun(c: Canvas, d: Dimension) {

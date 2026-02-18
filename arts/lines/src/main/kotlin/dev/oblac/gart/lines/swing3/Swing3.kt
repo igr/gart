@@ -7,7 +7,7 @@ import dev.oblac.gart.color.RetroColors
 import dev.oblac.gart.gfx.*
 import dev.oblac.gart.gravitron.Gravitron
 import org.jetbrains.skia.Canvas
-import org.jetbrains.skia.Path
+import org.jetbrains.skia.PathBuilder
 
 fun main() {
     val gart = Gart.of("swing3", 1024, 1024)
@@ -64,7 +64,7 @@ private fun draw2(c: Canvas, d: Dimension) {
 }
 
 private fun drawSwingLine(c: Canvas,  d: Dimension, l: Line, i: Int) {
-    val p = Path()
+    val p = PathBuilder()
     p.moveTo(l.a.x, l.a.y)
 
     var currentLine = l
@@ -91,8 +91,9 @@ private fun drawSwingLine(c: Canvas,  d: Dimension, l: Line, i: Int) {
         p.lineTo(finalLine.b.x, finalLine.b.y)
     }
 
-    c.drawPointsAsCircles(p.toPoints(100).map {it.offset(0f,7f)}.subList(26, 51), strokeOf(RetroColors.white01, 10f))
-    c.drawPointsAsCircles(p.toPoints(100).map {it.offset(0f,7f)}.subList(26, 51), fillOfWhite())
-    c.drawPath(p, strokeOf(RetroColors.red01, 6f))
+    val pathD = p.detach()
+    c.drawPointsAsCircles(pathD.toPoints(100).map { it.offset(0f, 7f) }.subList(26, 51), strokeOf(RetroColors.white01, 10f))
+    c.drawPointsAsCircles(pathD.toPoints(100).map { it.offset(0f, 7f) }.subList(26, 51), fillOfWhite())
+    c.drawPath(pathD, strokeOf(RetroColors.red01, 6f))
 }
 

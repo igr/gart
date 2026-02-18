@@ -15,7 +15,7 @@ import dev.oblac.gart.math.rndf
 import dev.oblac.gart.math.rndi
 import dev.oblac.gart.text.drawTextOnPath
 import org.jetbrains.skia.Canvas
-import org.jetbrains.skia.Path
+import org.jetbrains.skia.PathBuilder
 
 fun main() {
     val gart = Gart.of(
@@ -43,7 +43,7 @@ private fun draw(c: Canvas, d: Dimension) {
     var i = 0
 
     for (y in 0 until d.h + gap step gap) {
-        val path = Path()
+        val path = PathBuilder()
         path.moveTo(0f, y.toFloat())
 
         val gapx = 20
@@ -59,7 +59,7 @@ private fun draw(c: Canvas, d: Dimension) {
             }
         }
 
-        drawTextOnPath(c, path, random01(30), font, fillOf(pal[i]))
+        drawTextOnPath(c, path.detach(), random01(30), font, fillOf(pal[i]))
         i++
     }
     c.drawBorder(d, strokeOfBlack(40f))

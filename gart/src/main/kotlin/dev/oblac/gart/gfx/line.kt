@@ -123,10 +123,10 @@ data class Line(val a: Point, val b: Point) {
     }
 
     fun toPath(): Path {
-        val path = Path()
+        val path = PathBuilder()
         path.moveTo(a.x, a.y)
         path.lineTo(b.x, b.y)
-        return path
+        return path.detach()
     }
 
     /**

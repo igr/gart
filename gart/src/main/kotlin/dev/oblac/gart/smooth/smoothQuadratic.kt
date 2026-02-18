@@ -2,6 +2,7 @@ package dev.oblac.gart.smooth
 
 import dev.oblac.gart.gfx.toPath
 import org.jetbrains.skia.Path
+import org.jetbrains.skia.PathBuilder
 import org.jetbrains.skia.Point
 
 fun List<Point>.toSmoothQuadraticPath() = drawSmoothQuadratic(this)
@@ -17,7 +18,7 @@ fun List<Point>.toSmoothQuadraticPath() = drawSmoothQuadratic(this)
 fun drawSmoothQuadratic(points: List<Point>): Path {
     if (points.size < 2) return points.toPath()
 
-    val path = Path()
+    val path = PathBuilder()
     path.moveTo(points[0].x, points[0].y)
 
     if (points.size == 2) {
@@ -44,5 +45,5 @@ fun drawSmoothQuadratic(points: List<Point>): Path {
         path.lineTo(points.last().x, points.last().y)
     }
 
-    return path
+    return path.detach()
 }

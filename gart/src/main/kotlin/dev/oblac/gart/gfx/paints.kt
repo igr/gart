@@ -63,8 +63,8 @@ fun fillOfGreen() = fillOf(Color.GREEN)
  * Returns a Paint object that represents a hatch (dotted) pattern.
  */
 fun hatchPaint(color: Int, density: Float = 5f, dotWidth: Float = 1f, strokeWidth: Float = 3f) = Paint().apply {
-    val hatch = Path().addCircle(0f, 0f, dotWidth)
-    this.pathEffect = PathEffect.makePath2D(Matrix33.makeScale(density, density), hatch)
+    val hatch = PathBuilder().addCircle(0f, 0f, dotWidth)
+    this.pathEffect = PathEffect.makePath2D(Matrix33.makeScale(density, density), hatch.detach())
     this.color = color
     this.strokeWidth = strokeWidth
 }

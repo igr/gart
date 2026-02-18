@@ -45,17 +45,16 @@ data class Moon(
                 // half-moon
                 canvas.save()
 
-                val mainPath = Path()
+                val mainPath = PathBuilder()
                 if (sign > 0) {
                     mainPath.addRect(Rect(cx - radius, cy - radius, cx, cy + radius))
                 } else {
                     mainPath.addRect(Rect(cx, cy - radius, cx + radius, cy + radius))
                 }
-                canvas.clipPath(mainPath, ClipMode.DIFFERENCE)
+                canvas.clipPath(mainPath.detach(), ClipMode.DIFFERENCE)
                 canvas.drawCircle(circle, moonPaint)
 
                 canvas.restore()
-
             }
         }
     }
@@ -76,9 +75,9 @@ data class Moon(
 
         canvas.save()
 
-        val mainPath = Path()
+        val mainPath = PathBuilder()
         mainPath.addCircle(c3)
-        canvas.clipPath(mainPath, clipMode)
+        canvas.clipPath(mainPath.detach(), clipMode)
         canvas.drawCircle(circle, moonPaint)
 
         canvas.restore()

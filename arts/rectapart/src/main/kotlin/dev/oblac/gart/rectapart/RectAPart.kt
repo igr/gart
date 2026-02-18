@@ -5,7 +5,7 @@ import dev.oblac.gart.color.Colors
 import dev.oblac.gart.gfx.createCircleOfPoints
 import dev.oblac.gart.gfx.randomPointBetween
 import dev.oblac.gart.gfx.strokeOfWhite
-import dev.oblac.gart.gfx.toPath
+import dev.oblac.gart.gfx.toClosedPath
 import org.jetbrains.skia.Canvas
 import org.jetbrains.skia.PathEffect
 import org.jetbrains.skia.Point
@@ -16,6 +16,9 @@ fun main() {
 
     val g = gart.gartvas()
 
+    // ⚠️ There was a bug in Skiko that produced that image.
+    // I am not able to reproduce anymore.
+
     // draw on canvas
     g.draw { c, _ ->
         c.clear(Colors.black)
@@ -23,8 +26,9 @@ fun main() {
 //        c.clipRect(Rect.makeWH(500f, 500f))
 //        c.save()
         repeat(40) {
+            draw(c, 3)
 //            draw(c, 10)
-            draw(c, 12)
+//            draw(c, 12)
 //            draw(c, 14)
 //            draw(c, 15)
         }
@@ -42,7 +46,7 @@ private fun draw(c: Canvas, type: Int) {
 
     var s = shape
     repeat(20) {
-        c.drawPath(s.toPath().closePath(), strokeOfWhite(0.5f).apply {
+        c.drawPath(s.toClosedPath(), strokeOfWhite(0.5f).apply {
             this.alpha = 100
             this.pathEffect = PathEffect.makeDiscrete(2f, 2f, 173)
         })

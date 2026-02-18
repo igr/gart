@@ -47,12 +47,13 @@ private fun drawRandomRect(canvas: Canvas, point: Point, r: Float, p: Paint) {
 }
 
 private fun pathOf(left: Point, bottom: Point, right: Point, top: Point): Path {
-    return Path()
+    return PathBuilder()
         .moveTo(left)
         .lineTo(bottom)
         .lineTo(right)
         .lineTo(top)
         .closePath()
+        .detach()
 }
 
 private fun rnd(delta: Float) = (Math.random() * 2 * delta).toFloat() - delta

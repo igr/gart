@@ -5,7 +5,7 @@ import dev.oblac.gart.Draw
 import dev.oblac.gart.gfx.strokeOf
 import dev.oblac.gart.math.cosDeg
 import dev.oblac.gart.math.sinDeg
-import org.jetbrains.skia.Path
+import org.jetbrains.skia.PathBuilder
 import org.jetbrains.skia.Point
 import kotlin.math.max
 
@@ -14,7 +14,7 @@ class MakeSpiral(private val d: Dimension) {
     operator fun invoke(dx: Float, dy: Float): Draw {
         val center = Point(d.cx + dx, d.cy + dy)
         val radius = max(d.w, d.h)
-        val path = Path()
+        val path = PathBuilder()
 
         for (angle in 0..3600) {
             val scaledRadius = radius * angle / 3600
@@ -28,6 +28,6 @@ class MakeSpiral(private val d: Dimension) {
             }
         }
 
-        return Draw { canvas, d -> canvas.drawPath(path, strokeOf(0x11000000, 4f)) }
+        return Draw { canvas, d -> canvas.drawPath(path.detach(), strokeOf(0x11000000, 4f)) }
     }
 }

@@ -5,6 +5,7 @@ import dev.oblac.gart.Gartvas
 import dev.oblac.gart.gfx.fillOf
 import org.jetbrains.skia.Color
 import org.jetbrains.skia.Path
+import org.jetbrains.skia.PathBuilder
 import kotlin.math.sqrt
 
 /**
@@ -191,7 +192,7 @@ class JfaResult(
     }
 
     private fun marchingSquares(field: FloatArray, width: Int, height: Int, threshold: Float): Path {
-        val path = Path()
+        val path = PathBuilder()
 
         fun getField(x: Int, y: Int): Float {
             if (x !in 0 until width || y !in 0 until height) return Float.MAX_VALUE
@@ -243,7 +244,7 @@ class JfaResult(
         }
 
         // Connect segments into paths
-        if (segments.isEmpty()) return path
+        if (segments.isEmpty()) return path.detach()
 
         val remaining = segments.toMutableList()
         while (remaining.isNotEmpty()) {
@@ -294,7 +295,7 @@ class JfaResult(
             }
         }
 
-        return path
+        return path.detach()
     }
 
     private fun dist(a: Pair<Float, Float>, b: Pair<Float, Float>): Float {

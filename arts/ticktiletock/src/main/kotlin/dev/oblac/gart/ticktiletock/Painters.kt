@@ -11,8 +11,8 @@ import kotlin.random.Random
 
 val paintTile2: (Tile) -> Draw = { tile ->
     val line = when (Random.nextBoolean()) {
-        false -> Path().moveTo(tile.x, tile.y).lineTo(tile.x + tile.d, tile.y + tile.d)
-        true -> Path().moveTo(tile.x, tile.y + tile.d).lineTo(tile.x + tile.d, tile.y)
+        false -> PathBuilder().moveTo(tile.x, tile.y).lineTo(tile.x + tile.d, tile.y + tile.d).detach()
+        true -> PathBuilder().moveTo(tile.x, tile.y + tile.d).lineTo(tile.x + tile.d, tile.y).detach()
     }
 
     val stroke = strokeOfBlack(4f).apply {
@@ -22,11 +22,11 @@ val paintTile2: (Tile) -> Draw = { tile ->
 }
 val paintTile4: (Tile) -> Draw = { tile ->
     val line = when (Random.nextInt(4)) {
-        0 -> Path().moveTo(tile.x, tile.y).lineTo(tile.x + tile.d, tile.y + tile.d)
-        1 -> Path().moveTo(tile.x, tile.y + tile.d).lineTo(tile.x + tile.d, tile.y)
-        2 -> Path().moveTo(tile.x, tile.y + tile.d / 2).lineTo(tile.x + tile.d, tile.y + tile.d / 2)
-        else -> Path().moveTo(tile.x + tile.d / 2, tile.y).lineTo(tile.x + tile.d / 2, tile.y + tile.d)
-    }
+        0 -> PathBuilder().moveTo(tile.x, tile.y).lineTo(tile.x + tile.d, tile.y + tile.d)
+        1 -> PathBuilder().moveTo(tile.x, tile.y + tile.d).lineTo(tile.x + tile.d, tile.y)
+        2 -> PathBuilder().moveTo(tile.x, tile.y + tile.d / 2).lineTo(tile.x + tile.d, tile.y + tile.d / 2)
+        else -> PathBuilder().moveTo(tile.x + tile.d / 2, tile.y).lineTo(tile.x + tile.d / 2, tile.y + tile.d)
+    }.detach()
 
     val stroke = strokeOf(Palettes.cool1.random(), 4f).apply {
         strokeCap = PaintStrokeCap.SQUARE
@@ -36,14 +36,14 @@ val paintTile4: (Tile) -> Draw = { tile ->
 }
 val paintCircle: (Tile) -> Draw = { tile ->
     val rnd = Random.nextInt(4)
-    val circle = Path().addCircle(tile.x + tile.d / 2, tile.y + tile.d / 2, rnd * tile.d / 8)
+    val circle = PathBuilder().addCircle(tile.x + tile.d / 2, tile.y + tile.d / 2, rnd * tile.d / 8).detach()
     val stroke = strokeOf(Palettes.cool1.random(), 4f)
 
     Draw { canvas, _ -> canvas.drawPath(circle, stroke) }
 }
 val paintCircleBW: (Tile) -> Draw = { tile ->
     val rnd = Random.nextInt(4)
-    val circle = Path().addCircle(tile.x + tile.d / 2, tile.y + tile.d / 2, rnd * tile.d / 8)
+    val circle = PathBuilder().addCircle(tile.x + tile.d / 2, tile.y + tile.d / 2, rnd * tile.d / 8).detach()
     val stroke = fillOfBlack()
 
     Draw { canvas, _ -> canvas.drawPath(circle, stroke) }

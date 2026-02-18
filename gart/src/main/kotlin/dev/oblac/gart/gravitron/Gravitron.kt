@@ -5,7 +5,7 @@ import dev.oblac.gart.angle.Degrees
 import dev.oblac.gart.gfx.Circle
 import dev.oblac.gart.gfx.Line
 import dev.oblac.gart.math.Transform
-import org.jetbrains.skia.Path
+import org.jetbrains.skia.PathBuilder
 import org.jetbrains.skia.PathDirection
 import org.jetbrains.skia.PathEllipseArc
 import org.jetbrains.skia.Point
@@ -26,7 +26,7 @@ data class Gravitron(
     val c = Point(x, y)
     val circle = Circle(x, y, radius)
 
-    fun applyTo(line: Line, path: Path): Line? {
+    fun applyTo(line: Line, path: PathBuilder): Line? {
         path.lineTo(line.a.x, line.a.y)
 
         // find perpendicular point on the line

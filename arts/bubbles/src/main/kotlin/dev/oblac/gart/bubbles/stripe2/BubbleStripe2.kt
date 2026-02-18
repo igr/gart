@@ -12,7 +12,7 @@ import dev.oblac.gart.math.rndf
 import dev.oblac.gart.pack.simpleCirclePacker
 import org.jetbrains.skia.Canvas
 import org.jetbrains.skia.ClipMode
-import org.jetbrains.skia.Path
+import org.jetbrains.skia.PathBuilder
 import org.jetbrains.skia.PathEffect
 
 fun main() {
@@ -30,7 +30,7 @@ fun main() {
     g.draw(draw)
     gart.saveImage(g)
 
-    w.show(draw).hotReload(g)
+    w.show(draw)//.hotReload(g)
 }
 
 private class MyDraw(g: Gartvas) : Drawing(g) {
@@ -47,7 +47,7 @@ private fun draw(c: Canvas, d: Dimension) {
     val r = d.rect
     val box = d.rect.shrink(40f)
 
-    val path = Path()
+    val path = PathBuilder()
     val templates = simpleCirclePacker(
         r,
         attempts = 100_000,
@@ -59,7 +59,7 @@ private fun draw(c: Canvas, d: Dimension) {
     templates.forEach {
         path.addCircle(it)
     }
-    c.clipPath(path, ClipMode.INTERSECT, true)
+    c.clipPath(path.detach(), ClipMode.INTERSECT, true)
 
     val bubbles = simpleCirclePacker(
         r,

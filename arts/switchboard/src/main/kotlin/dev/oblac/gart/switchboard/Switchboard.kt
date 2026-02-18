@@ -214,7 +214,7 @@ data class Switch(val x: Int, val y: Int, val type: SwitchType, val color: Int =
     ) {
         canvas.save()
         val rect = Rect.of(x0, y0, x1, y1)
-        val clipPath = Path().addRect(rect)
+        val clipPath = PathBuilder().addRect(rect).detach()
         canvas.clipPath(clipPath)
         canvas.drawRect(rect.grow(2f), if (rndb()) dashPaint else dashPaint2)
         canvas.restore()

@@ -4,7 +4,7 @@ import dev.oblac.gart.angle.Angle
 import dev.oblac.gart.math.rnd
 import org.jetbrains.skia.Canvas
 import org.jetbrains.skia.Paint
-import org.jetbrains.skia.Path
+import org.jetbrains.skia.PathBuilder
 import org.jetbrains.skia.Point
 import kotlin.math.cos
 import kotlin.math.sin
@@ -47,13 +47,13 @@ data class Poly4(
         )
     }
 
-    val path = Path().apply {
+    val path = PathBuilder().apply {
         moveTo(a.x, a.y)
         lineTo(b.x, b.y)
         lineTo(c.x, c.y)
         lineTo(d.x, d.y)
         closePath()
-    }
+    }.detach()
 
     fun shrink(factor: Float): Poly4 {
         val center = center()

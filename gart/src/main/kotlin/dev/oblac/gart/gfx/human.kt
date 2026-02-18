@@ -43,7 +43,7 @@ fun Canvas.drawHumanRect(r: Rect, color: Paint) {
             humanLinePoints(p[2], p[3]) +
             humanLinePoints(p[3], p[0])
 
-    val s = chaikinSmooth(path).toPath().closePath()
+    val s = chaikinSmooth(path).toClosedPath()
 
     this.drawPath(s, color)
 }

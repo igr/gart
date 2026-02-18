@@ -7,7 +7,7 @@ import dev.oblac.gart.angle.sin
 import dev.oblac.gart.vector.Vector2
 import org.jetbrains.skia.Canvas
 import org.jetbrains.skia.Paint
-import org.jetbrains.skia.Path
+import org.jetbrains.skia.PathBuilder
 import org.jetbrains.skia.Point
 import org.jetbrains.skia.Rect
 import kotlin.math.pow
@@ -100,7 +100,7 @@ data class Circle(val x: Float, val y: Float, val radius: Float) {
         return points
     }
 
-    fun toPath() = Path().addCircle(x, y, radius)
+    fun toPath() = PathBuilder().addCircle(x, y, radius).detach()
 
     /**
      * Scales the circle by the given factor, keeping the center point unchanged.

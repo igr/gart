@@ -82,7 +82,7 @@ private fun drawStripe(
         pointCount = pointCount - 20
     )
 
-    val path = (path1 + path2.reversed()).toPath().closePath()
+    val path = (path1 + path2.reversed()).toClosedPath()
     c.drawPath(path, fillOf(RetroColors.white01))
 
     c.drawPath(path1.toPath(), strokeOf(RetroColors.black01, 3f))

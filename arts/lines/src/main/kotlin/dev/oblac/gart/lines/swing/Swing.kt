@@ -5,6 +5,7 @@ import dev.oblac.gart.color.RetroColors
 import dev.oblac.gart.gfx.strokeOf
 import org.jetbrains.skia.Canvas
 import org.jetbrains.skia.Path
+import org.jetbrains.skia.PathBuilder
 import org.jetbrains.skia.Rect
 
 fun main() {
@@ -58,7 +59,7 @@ private data class Swing(
 )
 
 private fun topLevelPath(d: Dimension, swing: Swing): Path {
-    val path = Path()
+    val path = PathBuilder()
     val y = swing.y
     path.moveTo(0f, y)
     path.lineTo(swing.right, y)
@@ -68,6 +69,6 @@ private fun topLevelPath(d: Dimension, swing: Swing): Path {
     val lastY = middleY + swing.gap
     path.arcTo(Rect(swing.left - swing.gap, middleY, swing.left, lastY), 270f, -180f, false)
     path.lineTo(d.wf, lastY)
-    return path
+    return path.detach()
 }
 

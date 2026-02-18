@@ -83,18 +83,28 @@ private fun draw(c: Canvas, d: Dimension) {
     pebs.forEach {
         repeat(10) { ndx ->
             c.save()
-            val last = it.lastPt
+            val last = it.lastPt!!
             //c.translate(-last.x, -last.y)
-            val target = Path()
-            it.transform(
+            // alternative in 0.144.0:
+//            target.addPath(
+//                it,
+//                Matrix33.multiply(
+//                    Matrix33.multiply(
+//                        Matrix33.makeTranslate(last.x, last.y),
+//                        Matrix33.makeScale(1.2f - ndx * 0.01f)
+//                    ),
+//                    Matrix33.makeTranslate(-last.x, -last.y),
+//                )
+//            )
+            val target = PathBuilder(it).transform(
                 Matrix33.multiply(
                     Matrix33.multiply(
                         Matrix33.makeTranslate(last.x, last.y),
                         Matrix33.makeScale(1.2f - ndx * 0.01f)
                     ),
                     Matrix33.makeTranslate(-last.x, -last.y),
-                ), target
-            )
+                )
+            ).detach()
             c.drawPath(target, strokeOf(1.1f, RetroColors.red01).apply {
                 //this.pathEffect = PathEffect.makeDash(floatArrayOf(100f + rndf(10f, 20f), rndf(10f, 50f)), rndf(1f, 100f))
             })

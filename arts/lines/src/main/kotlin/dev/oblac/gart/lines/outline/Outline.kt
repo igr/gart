@@ -10,7 +10,7 @@ import dev.oblac.gart.gfx.*
 import dev.oblac.gart.jfa.Jfa
 import dev.oblac.gart.util.repeatSequence
 import org.jetbrains.skia.Canvas
-import org.jetbrains.skia.Path
+import org.jetbrains.skia.PathBuilder
 import org.jetbrains.skia.Point
 
 fun main() {
@@ -56,12 +56,12 @@ private fun draw(c: Canvas, d: Dimension) {
     val path2 = isoscelesTriangle(Point(d.cx + 300f, d.cy - 150f), 100f, 300f, Degrees.of(220)).path
     val path3 = createNtagonPoints(4, d.cx + 250f, d.cy + 250f, 80f, 10f).toPath()
     val path4 = isoscelesTriangle(Point(d.cx - 250f, d.cy + 250f), 100f, 250f, Degrees.of(20)).path
-    val path = Path().apply {
+    val path = PathBuilder().apply {
         addPath(path1)
         addPath(path2)
         addPath(path3)
         addPath(path4)
-    }
+    }.detach()
 
     val w = 25f
     val total = (1024 / (2 * w)).toInt() + 6

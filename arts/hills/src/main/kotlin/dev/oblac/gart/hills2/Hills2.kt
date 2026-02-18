@@ -10,6 +10,7 @@ import dev.oblac.gart.math.rndf
 import dev.oblac.gart.noise.poissonDiskSamplingNoise
 import org.jetbrains.skia.Canvas
 import org.jetbrains.skia.Path
+import org.jetbrains.skia.PathBuilder
 
 val back = NipponColors.col235_SHIRONEZUMI
 val border = NipponColors.col233_SHIRONERI
@@ -48,9 +49,11 @@ fun main() {
     w.showImage(g)
 }
 
-fun drawHill(c: Canvas, d: Dimension, p: Path, color1: Int, color2: Int) {
-    p.offset(-20f, 0f)  // the generation of the hill is shifted to the right by 40 pixels
-    c.drawPath(p, fillOf(color1))
+private fun drawHill(c: Canvas, d: Dimension, p: Path, color1: Int, color2: Int) {
+    // the generation of the hill is shifted to the right by 40 pixels
+    val p2 = PathBuilder(p).offset(-20f, 0f).detach()
+    //p.offset(-20f, 0f)
+    c.drawPath(p2, fillOf(color1))
     //c.drawPath(p, strokeOf(hill, 4f))
 
     val region = p.toRegion()

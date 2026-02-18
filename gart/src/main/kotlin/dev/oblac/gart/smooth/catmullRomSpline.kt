@@ -2,6 +2,7 @@ package dev.oblac.gart.smooth
 
 import dev.oblac.gart.gfx.toPath
 import org.jetbrains.skia.Path
+import org.jetbrains.skia.PathBuilder
 import org.jetbrains.skia.Point
 
 fun List<Point>.toCatmullRomSpline(segments: Int = 20) = catmullRomSpline(this, segments)
@@ -15,7 +16,7 @@ fun List<Point>.toCatmullRomSpline(segments: Int = 20) = catmullRomSpline(this, 
 fun catmullRomSpline(points: List<Point>, segments: Int = 20): Path {
     if (points.size < 2) return points.toPath()
 
-    val path = Path()
+    val path = PathBuilder()
     path.moveTo(points[0].x, points[0].y)
 
     for (i in 0 until points.size - 1) {
@@ -30,7 +31,7 @@ fun catmullRomSpline(points: List<Point>, segments: Int = 20): Path {
             path.lineTo(point.x, point.y)
         }
     }
-    return path
+    return path.detach()
 }
 
 private fun catmullRomPoint(p0: Point, p1: Point, p2: Point, p3: Point, t: Float): Point {

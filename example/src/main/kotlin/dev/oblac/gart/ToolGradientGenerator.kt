@@ -267,7 +267,7 @@ private fun drawWavePlot(c: Canvas, d: Dimension, ggen: GGen, waves: Waves) {
             else -> Colors.black
         }
 
-        val path = Path()
+        val path = PathBuilder()
 
         for (i in 0..samples) {
             // Normalized x coordinate (0 to 1)
@@ -292,7 +292,7 @@ private fun drawWavePlot(c: Canvas, d: Dimension, ggen: GGen, waves: Waves) {
             if (i == 0) path.moveTo(x, y) else path.lineTo(x, y)
         }
 
-        c.drawPath(path, paint)
+        c.drawPath(path.detach(), paint)
     }
 }
 

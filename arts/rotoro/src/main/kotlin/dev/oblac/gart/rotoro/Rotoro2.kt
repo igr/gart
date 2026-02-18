@@ -3,7 +3,6 @@ package dev.oblac.gart.rotoro
 import dev.oblac.gart.Gart
 import dev.oblac.gart.color.NipponColors
 import dev.oblac.gart.gfx.*
-import dev.oblac.gart.gfx.intersectionsOf
 import dev.oblac.gart.math.rndb
 import org.jetbrains.skia.*
 
@@ -67,7 +66,7 @@ private fun draw(canvas: Canvas, canvasWidth: Int) {
 
     // Draw the longest path
     val layer1 = paths[3].drop(1).dropLast(1)  // the first line is root tree, not correct
-    val p = Path()
+    val p = PathBuilder()
     layer1.forEachIndexed { ndx, line ->
         if (ndx == 0) {
             p.moveTo(line.a.x, line.a.y)
@@ -102,11 +101,12 @@ private fun draw(canvas: Canvas, canvasWidth: Int) {
     }
     p.closePath()
 
-    canvas.drawPath(p, strokePaint2)
+    val pathD = p.detach()
+    canvas.drawPath(pathD, strokePaint2)
 
     // Draw all circles
     circles.forEach {
-        val i = isCircleInPath(p, it)
+        val i = isCircleInPath(pathD, it)
         when (i) {
             IntersectionType.NONE -> canvas.drawCircle(it, if (rndb(3, 10)) accentPaint3 else strokePaint)
             IntersectionType.INTERSECT -> canvas.drawCircle(it, fillOfWhite())
@@ -125,9 +125,9 @@ private fun isCircleInPath(path: Path, circle: Circle): IntersectionType {
     val cy = circle.center.y
     val radius = circle.radius
 
-    val circlePath = Path().apply {
-        addOval(Rect(cx - radius, cy - radius, cx + radius, cy + radius))
-    }
+    val circlePath = PathBuilder()
+        .addOval(Rect(cx - radius, cy - radius, cx + radius, cy + radius))
+        .detach()
 
     val circleRegion = circlePath.toRegion()
 

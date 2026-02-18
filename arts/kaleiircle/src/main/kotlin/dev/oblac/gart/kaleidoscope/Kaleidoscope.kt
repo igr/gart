@@ -10,11 +10,11 @@ import dev.oblac.gart.gfx.drawCircle
 import dev.oblac.gart.gfx.fillOf
 import dev.oblac.gart.gfx.strokeOf
 import org.jetbrains.skia.Canvas
-import org.jetbrains.skia.Path
+import org.jetbrains.skia.PathBuilder
 import org.jetbrains.skia.Point
 
 fun main() {
-    val gart = Gart.Companion.of("kaleidoscope", 1024, 1024)
+    val gart = Gart.of("kaleidoscope", 1024, 1024)
     println(gart)
 
     val d = gart.d
@@ -81,7 +81,7 @@ private fun drawTemplateImage(c: Canvas, d: Dimension) {
         val amplitude = 20f
         val frequency = 0.05f
         val offset = 100f
-        val path = Path()
+        val path = PathBuilder()
         path.moveTo(0f, y)
         var x = 0f
         while (x <= d.wf) {
@@ -89,7 +89,7 @@ private fun drawTemplateImage(c: Canvas, d: Dimension) {
             path.lineTo(x, yy)
             x += step
         }
-        c.drawPath(path, strokeOf(pal.safe(y * 2), 8f))
+        c.drawPath(path.detach(), strokeOf(pal.safe(y * 2), 8f))
     }
 
 }
