@@ -28,7 +28,7 @@ val targetArch = when (osArch) {
     else -> error("Unsupported arch: $osArch")
 }
 
-val version = "0.9.47"
+val version = "0.144.1"
 val target = "${targetOs}-${targetArch}"
 
 dependencies {

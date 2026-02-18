@@ -8,7 +8,7 @@ import dev.oblac.gart.math.cosDeg
 import dev.oblac.gart.math.sinDeg
 import org.jetbrains.skia.ClipMode
 import org.jetbrains.skia.ImageFilter
-import org.jetbrains.skia.Path
+import org.jetbrains.skia.PathBuilder
 import org.jetbrains.skia.Rect
 
 class MakeShapeOfCircle(private val d: Dimension) {
@@ -24,37 +24,42 @@ class MakeShapeOfCircle(private val d: Dimension) {
 
         val rect = Rect(cx - r, cy - r, cx + r, cy + r)
         val rect2 = Rect(cx - r2, cy - r2, cx + r2, cy + r2)
-        val arc1 = Path()
+        val arc1 = PathBuilder()
             .addArc(rect, 180f - angle, 180f)
             .lineTo(cx + r2 * cosDeg(-angle), cy + r2 * sinDeg(-angle))
             .addArc(rect2, -angle, -180f)
-            .lineTo(cx - r * cosDeg(-angle), cy - r * sinDeg(-angle))
+            .lineTo(cx - r * cosDeg(-angle), cy - r * sinDeg(-angle)).detach()
 
-        val triangle1 = Path()
+        val triangle1 = PathBuilder()
             .moveTo(cx, cy)
             .lineTo(cx + r2prim * cosDeg(-angle - alfa), cy + r2prim * sinDeg(-angle - alfa))
             .lineTo(cx + r2prim * cosDeg(-angle + alfa), cy + r2prim * sinDeg(-angle + alfa))
             .closePath()
-        val triangle1_2 = Path()
+            .detach()
+        val triangle1_2 = PathBuilder()
             .moveTo(cx, cy)
             .lineTo(cx + r2prim * cosDeg(-angle), cy + r2prim * sinDeg(-angle))
             .lineTo(cx + r2prim * cosDeg(-angle + alfa), cy + r2prim * sinDeg(-angle + alfa))
             .closePath()
-        val arc2 = Path()
+            .detach()
+        val arc2 = PathBuilder()
             .addArc(rect, -angle, 180f)
             .lineTo(cx - r2 * cosDeg(-angle), cy - r2 * sinDeg(-angle))
             .addArc(rect2, 180f - angle, -180f)
             .lineTo(cx + r * cosDeg(-angle), cy + r * sinDeg(-angle))
-        val triangle2 = Path()
+            .detach()
+        val triangle2 = PathBuilder()
             .moveTo(cx, cy)
             .lineTo(cx - r2prim * cosDeg(-angle - alfa), cy - r2prim * sinDeg(-angle - alfa))
             .lineTo(cx - r2prim * cosDeg(-angle + alfa), cy - r2prim * sinDeg(-angle + alfa))
             .closePath()
-        val triangle2_2 = Path()
+            .detach()
+        val triangle2_2 = PathBuilder()
             .moveTo(cx, cy)
             .lineTo(cx - r2prim * cosDeg(-angle), cy - r2prim * sinDeg(-angle))
             .lineTo(cx - r2prim * cosDeg(-angle + alfa), cy - r2prim * sinDeg(-angle + alfa))
             .closePath()
+            .detach()
         val arc1Color = fillOf(circle.colors.first)
             .apply {
                 imageFilter = ImageFilter.makeDropShadow(

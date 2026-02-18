@@ -5,6 +5,7 @@ import dev.oblac.gart.math.GaussianFunction
 import dev.oblac.gart.math.map
 import dev.oblac.gart.noise.PerlinNoise
 import org.jetbrains.skia.Path
+import org.jetbrains.skia.PathBuilder
 import org.jetbrains.skia.PathFillMode
 import org.jetbrains.skia.Point
 import kotlin.math.abs
@@ -41,10 +42,7 @@ class Hill(private val dIn: Dimension, private val offsetY: Float) {
         noiseOffset = patternOffset
         dots = dots(tickOffset)
 
-        val path = Path()
-            .apply {
-                fillMode = PathFillMode.EVEN_ODD
-            }
+        val path = PathBuilder()
             .moveTo(0f, offsetY)
 
         for (i in 0 until segments) {
@@ -58,11 +56,13 @@ class Hill(private val dIn: Dimension, private val offsetY: Float) {
         }
 
 
-        path.lineTo(d.wf, offsetY)
+        return path.lineTo(d.wf, offsetY)
             .lineTo(d.wf, d.hf)
             .lineTo(0f, d.hf)
             .closePath()
-
-        return path
+            .detach()
+            .apply {
+                fillMode = PathFillMode.EVEN_ODD
+            }
     }
 }

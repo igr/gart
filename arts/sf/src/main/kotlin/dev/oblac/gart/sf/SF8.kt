@@ -64,11 +64,11 @@ private fun drawCloud(c: Canvas, d: Dimension) {
 //        c.drawCircle(Circle(it, rndf(120f, 150f)), fillOf(colorBold))
 //    }
 
-    val path = p.toPath()
+    val path = p.toPathBuilder()
     path.lineTo(d.rightBottom)
     path.lineTo(d.leftBottom)
     path.closePath()
-    c.drawPath(path, fillOf(colorInk))
+    c.drawPath(path.detach(), fillOf(colorInk))
 //    c.drawPath(path, strokeOf(colorInk, 2f))
 
 //    p.forEach {

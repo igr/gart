@@ -5,6 +5,7 @@ import dev.oblac.gart.Draw
 import dev.oblac.gart.math.sinDeg
 import org.jetbrains.skia.Paint
 import org.jetbrains.skia.Path
+import org.jetbrains.skia.PathBuilder
 
 class MakeWaves(private val d: Dimension) {
     fun invoke(angle: Float = 0f, amplitude: Float = 20f, gap: Float = 10f, speed: Float = 2f): Draw {
@@ -13,13 +14,13 @@ class MakeWaves(private val d: Dimension) {
         var y = -amplitude
         while (y < d.h + amplitude) {
             var x = 0f
-            val p = Path().moveTo(x, y)
+            val p = PathBuilder().moveTo(x, y)
             while (x < d.w) {
                 val dy = amplitude * sinDeg(x * speed)
                 x++
                 p.lineTo(x, y + dy)
             }
-            paths.add(p)
+            paths.add(p.detach())
             y += gap
         }
 

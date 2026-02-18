@@ -5,7 +5,7 @@ import dev.oblac.gart.Gart
 import dev.oblac.gart.color.RetroColors
 import dev.oblac.gart.gfx.*
 import org.jetbrains.skia.Canvas
-import org.jetbrains.skia.Path
+import org.jetbrains.skia.PathBuilder
 import org.jetbrains.skia.Point
 import kotlin.math.cos
 import kotlin.math.sin
@@ -56,12 +56,12 @@ private fun draw(c: Canvas, d: Dimension) {
             val nextLine = revs[index + 1]
 
             // draw path first
-            val path = Path()
+            val path = PathBuilder()
             path.moveTo(nextLine.a)
             path.lineTo(nextLine.b)
             path.lineTo(d.wf, d.hf)
             path.closePath()
-            c.drawPath(path, fillOf(colorBack))
+            c.drawPath(path.detach(), fillOf(colorBack))
 
             // draw the line
             c.drawLine(nextLine, strokeOf(colorLine, strokeWidth))

@@ -1,7 +1,7 @@
 package dev.oblac.gart.smooth
 
 import dev.oblac.gart.gfx.copy
-import dev.oblac.gart.gfx.toPath
+import dev.oblac.gart.gfx.toClosedPath
 import org.jetbrains.skia.Point
 
 /**
@@ -100,4 +100,4 @@ fun List<Point>.toChaikinSmooth(
     iterations: Int = 1,
     closed: Boolean = false,
     bias: Double = 0.25
-) = chaikinSmooth(this, iterations, closed, bias).toPath().closePath()
+) = chaikinSmooth(this, iterations, closed, bias).toClosedPath()

@@ -2,6 +2,7 @@ package dev.oblac.gart.smooth
 
 import dev.oblac.gart.gfx.toPath
 import org.jetbrains.skia.Path
+import org.jetbrains.skia.PathBuilder
 import org.jetbrains.skia.Point
 
 fun List<Point>.toCardinalSpline(tension: Float = 0.5f, segments: Int = 20) =
@@ -17,7 +18,7 @@ fun cardinalSpline(
 ): Path {
     if (points.size < 2) return points.toPath()
 
-    val path = Path()
+    val path = PathBuilder()
     path.moveTo(points[0].x, points[0].y)
 
     for (i in 0 until points.size - 1) {
@@ -50,5 +51,5 @@ fun cardinalSpline(
         }
     }
 
-    return path
+    return path.detach()
 }

@@ -7,7 +7,7 @@ import dev.oblac.gart.spirograph.Spirograph
 import dev.oblac.gart.spirograph.createSpirograph
 import dev.oblac.gart.util.circular
 import org.jetbrains.skia.Canvas
-import org.jetbrains.skia.Path
+import org.jetbrains.skia.PathBuilder
 import org.jetbrains.skia.PathOp
 import org.jetbrains.skia.Rect
 
@@ -40,15 +40,15 @@ private fun buildSpiro(): Spirograph {
             val centerY = canvasSize / 2
 
             // Position the circles to form a clover shape centered in the canvas
-            val circle1 = Path().apply {
+            val circle1 = PathBuilder().apply {
                 addOval(Rect.makeXYWH(centerX - radius, centerY - radius * 1.5f, radius * 2, radius * 2))
-            }
-            val circle2 = Path().apply {
+            }.detach()
+            val circle2 = PathBuilder().apply {
                 addOval(Rect.makeXYWH(centerX - radius * 1.2f, centerY - radius / 2f, radius * 2, radius * 2))
-            }
-            val circle3 = Path().apply {
+            }.detach()
+            val circle3 = PathBuilder().apply {
                 addOval(Rect.makeXYWH(centerX + radius * 0.5f, centerY - radius / 2f, radius * 2, radius * 2))
-            }
+            }.detach()
             val result = combinePathsWithOp(PathOp.UNION, circle1, circle2, circle3)
             result.toPoints(100).toClosedPath()
         }

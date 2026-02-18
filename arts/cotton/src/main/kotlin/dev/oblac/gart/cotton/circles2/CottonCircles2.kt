@@ -111,8 +111,8 @@ fun drawCCircle(
         val c2 = color2.makeClone().also { it.alpha = 255 - a * 50 }
 
         val xx = a * 40f
-        c.drawPath(Path().addArc(rect, angle + a * 20f, 180f + xx).closePath(), c1)
-        c.drawPath(Path().addArc(rect, angle + a * 20f + 180f, 180f - xx).closePath(), c2)
+        c.drawPath(PathBuilder().addArc(rect, angle + a * 20f, 180f + xx).closePath().detach(), c1)
+        c.drawPath(PathBuilder().addArc(rect, angle + a * 20f + 180f, 180f - xx).closePath().detach(), c2)
     }
 
 }

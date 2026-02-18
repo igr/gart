@@ -4,10 +4,19 @@ import dev.oblac.gart.*
 import dev.oblac.gart.angle.Degrees
 import dev.oblac.gart.color.Colors
 import dev.oblac.gart.color.RetroColors
-import dev.oblac.gart.gfx.*
+import dev.oblac.gart.gfx.Line
+import dev.oblac.gart.gfx.Point
+import dev.oblac.gart.gfx.fillOf
+import dev.oblac.gart.gfx.strokeOf
 import dev.oblac.gart.gravitron.Gravitron
 import org.jetbrains.skia.Canvas
-import org.jetbrains.skia.Path
+import org.jetbrains.skia.PathBuilder
+
+private class Swing2Draw(g: Gartvas) : Drawing(g) {
+    override fun draw(c: Canvas, d: Dimension, f: Frames) {
+        draw2(c, d)
+    }
+}
 
 fun main() {
     val gart = Gart.of("swing2", 1024, 1024)
@@ -15,18 +24,12 @@ fun main() {
 
     val w = gart.window()
     val g = gart.gartvas()
-    val draw = MyDraw(g)
+    val draw = Swing2Draw(g)
 
 //    g.draw(draw)
 //    gart.saveImage(g)
 
     w.show(draw).hotReload(g)
-}
-
-private class MyDraw(g: Gartvas) : Drawing(g) {
-    override fun draw(c: Canvas, d: Dimension, f: Frames) {
-        draw2(c, d)
-    }
 }
 
 private val g1 = Gravitron(
@@ -50,8 +53,8 @@ private val g2 = Gravitron(
 
 private fun draw2(c: Canvas, d: Dimension) {
     c.clear(Colors.black)
-    c.drawCircle(g1.circle, strokeOfGreen(2f))
-    c.drawCircle(g2.circle, strokeOfGreen(2f))
+//    c.drawCircle(g1.circle, strokeOfGreen(2f))
+//    c.drawCircle(g2.circle, strokeOfGreen(2f))
 
     c.drawCircle(750f, 810f, 130f, fillOf(RetroColors.white01))
 
@@ -76,7 +79,7 @@ private fun draw2(c: Canvas, d: Dimension) {
 }
 
 private fun drawSwingLine(c: Canvas, l: Line, color: Int, i: Int, delta: Int = 0) {
-    val p = Path()
+    val p = PathBuilder()
     p.moveTo(l.a.x, l.a.y)
 
     val l2 = g1.applyTo(l, p)
@@ -90,10 +93,10 @@ private fun drawSwingLine(c: Canvas, l: Line, color: Int, i: Int, delta: Int = 0
             p.lineTo(l2.b.x, l2.b.y)
         }
     }
-    c.drawPath(p, strokeOf(color, 10f + delta))
+    c.drawPath(p.detach(), strokeOf(color, 10f + delta))
 }
 private fun drawSwingLine2(c: Canvas, l: Line, color: Int, i: Int, delta: Int = 0) {
-    val p = Path()
+    val p = PathBuilder()
     p.moveTo(l.a.x, l.a.y)
 
     val l2 = g1Prim.applyTo(l, p)
@@ -107,5 +110,5 @@ private fun drawSwingLine2(c: Canvas, l: Line, color: Int, i: Int, delta: Int = 
             p.lineTo(l2.b.x, l2.b.y)
         }
     }
-    c.drawPath(p, strokeOf(color, 10f + delta))
+    c.drawPath(p.detach(), strokeOf(color, 10f + delta))
 }

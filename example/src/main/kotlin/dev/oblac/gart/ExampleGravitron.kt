@@ -5,7 +5,7 @@ import dev.oblac.gart.color.Colors
 import dev.oblac.gart.gfx.*
 import dev.oblac.gart.gravitron.Gravitron
 import org.jetbrains.skia.Canvas
-import org.jetbrains.skia.Path
+import org.jetbrains.skia.PathBuilder
 
 fun main() {
     val gart = Gart.of("ExampleGravitron", 1024, 1024)
@@ -35,10 +35,10 @@ private fun draw(c: Canvas, d: Dimension) {
         a = Point(0f, 500f),
         b = Point(d.cx, d.cy - 200f)
     ).let { line ->
-        val p = Path().moveTo(line.a)
+        val p = PathBuilder().moveTo(line.a)
         g.applyTo(line, p)
             ?.let { c.drawLine(it, strokeOfRed(2f)) }
-        c.drawPath(p, strokeOfRed(8f))
+        c.drawPath(p.detach(), strokeOfRed(8f))
     }
 
     // line: right to left, top to bottom
@@ -46,10 +46,10 @@ private fun draw(c: Canvas, d: Dimension) {
         a = Point(1024f, 500f),
         b = Point(d.cx, d.cy - 200f)
     ).let { line ->
-        val p = Path().moveTo(line.a)
+        val p = PathBuilder().moveTo(line.a)
         g.applyTo(line, p)
             ?.let { c.drawLine(it, strokeOfBlue(2f)) }
-        c.drawPath(p, strokeOfBlue(8f))
+        c.drawPath(p.detach(), strokeOfBlue(8f))
     }
 
     // line: left to right, bottom to top
@@ -57,10 +57,10 @@ private fun draw(c: Canvas, d: Dimension) {
         a = Point(0f, 500f),
         b = Point(d.cx, d.cy + 200f)
     ).let { line ->
-        val p = Path().moveTo(line.a)
+        val p = PathBuilder().moveTo(line.a)
         g.applyTo(line, p)
             ?.let { c.drawLine(it, strokeOfYellow(2f)) }
-        c.drawPath(p, strokeOfYellow(8f))
+        c.drawPath(p.detach(), strokeOfYellow(8f))
     }
 
     // line: right to left, bottom to top
@@ -68,9 +68,9 @@ private fun draw(c: Canvas, d: Dimension) {
         a = Point(1024f, 500f),
         b = Point(d.cx, d.cy + 200f)
     ).let { line ->
-        val p = Path().moveTo(line.a)
+        val p = PathBuilder().moveTo(line.a)
         g.applyTo(line, p)
             ?.let { c.drawLine(it, strokeOfMagenta(2f)) }
-        c.drawPath(p, strokeOfMagenta(8f))
+        c.drawPath(p.detach(), strokeOfMagenta(8f))
     }
 }

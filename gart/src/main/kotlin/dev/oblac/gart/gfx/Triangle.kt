@@ -8,7 +8,7 @@ import dev.oblac.gart.math.dist
 import dev.oblac.gart.math.rnd
 import org.jetbrains.skia.Canvas
 import org.jetbrains.skia.Paint
-import org.jetbrains.skia.Path
+import org.jetbrains.skia.PathBuilder
 import org.jetbrains.skia.Point
 import org.jetbrains.skia.Rect
 import kotlin.math.*
@@ -16,11 +16,12 @@ import kotlin.math.*
 data class Triangle(val a: Point, val b: Point, val c: Point) {
     fun points() = arrayOf(a, b, c)
 
-    val path = Path()
+    val path = PathBuilder()
         .moveTo(a)
         .lineTo(b)
         .lineTo(c)
         .closePath()
+        .detach()
 
     val edges = arrayOf(
         Line(a, b), Line(b, c), Line(c, a)

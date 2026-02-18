@@ -5,7 +5,10 @@ import dev.oblac.gart.gfx.strokeOfWhite
 import dev.oblac.gart.math.GaussianFunction
 import dev.oblac.gart.math.map
 import dev.oblac.gart.noise.PerlinNoise
-import org.jetbrains.skia.*
+import org.jetbrains.skia.Canvas
+import org.jetbrains.skia.PaintStrokeCap
+import org.jetbrains.skia.PathBuilder
+import org.jetbrains.skia.Point
 import kotlin.math.abs
 import kotlin.random.Random
 
@@ -42,10 +45,10 @@ class Line(private val offsetY: Float) {
 
         var left: Float? = null
 
-        val path = Path()
-            .apply {
-                fillMode = PathFillMode.EVEN_ODD
-            }
+        val path = PathBuilder()
+//            .apply {
+//                fillMode = PathFillMode.EVEN_ODD
+//            }
             .moveTo(0f, offsetY)
 
         for (i in 0 until segments) {

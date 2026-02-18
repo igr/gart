@@ -4,44 +4,44 @@ import dev.oblac.gart.math.rndGaussian
 import org.jetbrains.skia.*
 
 fun pathOf(first: Point, vararg points: Point): Path {
-    val path = Path().moveTo(first)
+    val path = PathBuilder().moveTo(first)
     points.forEach { path.lineTo(it) }
+    return path.detach()
+}
+
+fun pathOf(list: List<Point>) = pathBuilderOf(list).detach()
+
+fun pathBuilderOf(points: List<Point>): PathBuilder {
+    val path = PathBuilder()
+    path.moveTo(points.first())
+    for (i in 1 until points.size) path.lineTo(points[i])
     return path
 }
 
-fun pathOf(list: List<Point>): Path {
-    val path = Path()
-    list.forEachIndexed { index, point ->
-        if (index == 0) {
-            path.moveTo(point)
-        } else {
-            path.lineTo(point)
-        }
-    }
-    return path
+fun closedPathOf(points: List<Point>): Path {
+    return pathBuilderOf(points).closePath().detach()
 }
 
 fun List<Point>.toQuadPath(): Path {
-    val path = Path()
+    val path = PathBuilder()
     path.moveTo(this[0])
     for (i in 1 until this.size - 1 step 2) {
         path.quadTo(this[i], this[i + 1])
     }
     path.lineTo(this.last())
-    return path
+    return path.detach()
 }
 fun List<Point>.toPath() = pathOf(this)
-fun List<Point>.toClosedPath() = pathOf(this).closePath()
+fun List<Point>.toPathBuilder() = pathBuilderOf(this)
+fun List<Point>.toClosedPath() = closedPathOf(this)
 
-fun Point.pathTo(point: Point): Path = Path().moveTo(this).lineTo(point)
-
-fun Path.addCircle(circle: Circle) =
-    addCircle(circle.center.x, circle.center.y, circle.radius)
+fun Point.pathTo(point: Point): Path =
+    PathBuilder().moveTo(this).lineTo(point).detach()
 
 fun closedPathOf(first: Point, vararg points: Point): Path {
-    val path = Path().moveTo(first)
+    val path = PathBuilder().moveTo(first)
     points.forEach { path.lineTo(it) }
-    return path.closePath()
+    return path.closePath().detach()
 }
 
 fun Path.toPoints(pointsCount: Int) = pointsOn(this, pointsCount)
@@ -92,11 +92,11 @@ fun Path.toRegion(): Region {
 }
 
 fun combinePathsByAppending(vararg paths: Path): Path {
-    val resultPath = Path()
+    val resultPath = PathBuilder()
     for (path in paths) {
         resultPath.addPath(path)
     }
-    return resultPath
+    return resultPath.detach()
 }
 
 fun combinePathsWithOp(operation: PathOp, vararg paths: Path): Path {
@@ -108,7 +108,7 @@ fun combinePathsWithOp(operation: PathOp, vararg paths: Path): Path {
         return paths[0]
     }
 
-    var currentResultPath: Path = Path().addPath(paths[0]) // Start with a clone of the first path
+    var currentResultPath = PathBuilder().addPath(paths[0]).detach() // Start with a clone of the first path
 
     for (i in 1 until paths.size) {
         val nextPath = paths[i]
@@ -173,7 +173,7 @@ fun deformPath(points: List<Point>, offsetStdDev: Float = 15f): List<Point> {
 fun List<Line>.toPath() = pathOf(this.flatMap { it.points(2) })
 
 @JvmName("linesToClosedPath")
-fun List<Line>.toClosedPath() = pathOf(this.flatMap { it.points(2) }).closePath()
+fun List<Line>.toClosedPath() = closedPathOf(this.flatMap { it.points(2) })
 
 /**
  * Checks if two paths overlap by computing their intersection.

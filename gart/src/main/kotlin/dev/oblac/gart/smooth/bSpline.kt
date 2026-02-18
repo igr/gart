@@ -1,6 +1,7 @@
 package dev.oblac.gart.smooth
 
 import org.jetbrains.skia.Path
+import org.jetbrains.skia.PathBuilder
 import org.jetbrains.skia.Point
 
 fun List<Point>.toBSpline(segments: Int = 20) = bSpline(this, segments)
@@ -14,7 +15,7 @@ fun bSpline(points: List<Point>, segments: Int = 20): Path {
         throw IllegalArgumentException("The points need to have at least 4 points")
     }
 
-    val path = Path()
+    val path = PathBuilder()
 
     // Calculate first point
     val startPoint = bSplinePoint(points[0], points[0], points[1], points[2], 0f)
@@ -34,7 +35,7 @@ fun bSpline(points: List<Point>, segments: Int = 20): Path {
         }
     }
 
-    return path
+    return path.detach()
 }
 
 private fun bSplinePoint(p0: Point, p1: Point, p2: Point, p3: Point, t: Float): Point {

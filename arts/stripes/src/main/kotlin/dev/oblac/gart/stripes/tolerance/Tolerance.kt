@@ -8,7 +8,7 @@ import dev.oblac.gart.angle.sinf
 import dev.oblac.gart.color.BgColors
 import dev.oblac.gart.color.Palettes
 import dev.oblac.gart.gfx.fillOf
-import dev.oblac.gart.gfx.toPath
+import dev.oblac.gart.gfx.toPathBuilder
 import dev.oblac.gart.math.rndf
 import org.jetbrains.skia.Canvas
 import org.jetbrains.skia.Point
@@ -45,11 +45,11 @@ private fun draw(c: Canvas, d: Dimension) {
     }
 
     // draw white to the left
-    val path = ps.toPath()
+    val path = ps.toPathBuilder()
     path.lineTo(0f, d.h.toFloat())
     path.lineTo(0f, 0f)
     path.closePath()
-    c.drawPath(path, fillOf(BgColors.clottedCream))
+    c.drawPath(path.detach(), fillOf(BgColors.clottedCream))
 
     // draw rectangles
     val w = 200
