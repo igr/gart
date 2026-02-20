@@ -11,10 +11,10 @@
 + `box-2d` for physics simulation.
 + `ffmpeg` for video encoding.
 
-TBH, the framework is made for my own needs; so it has some rough edges and not-great namings.
-🤷‍♂️
+🤷‍♂️ Honestly, I put the framework together for my own needs, so it’s a bit rough around the edges and the naming isn’t
+great. It’s not how I normally write code.
 
-Continuous build for **Hot Reload**:
+♻️ Continuous build for **Hot Reload**:
 
 ```shell
 just hotReload

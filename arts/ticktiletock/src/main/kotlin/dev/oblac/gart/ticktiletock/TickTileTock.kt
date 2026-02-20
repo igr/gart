@@ -29,7 +29,7 @@ fun main() {
     }
 }
 
-fun makeMovie(d: Dimension, m: Gartmap) {
+private fun makeMovie(d: Dimension, m: Gartmap) {
     Scenes
         .add(4) { SceneX(d, 32, paintTile2) }
         .add(4) { SceneX(d, 64, paintTile2) }
