@@ -160,3 +160,21 @@ fun String.parseColor(): Int {
         else -> throw IllegalArgumentException("Color string must be in format #RRGGBB or #AARRGGBB")
     }
 }
+
+fun colorDistance(c1: Int, c2: Int): Int {
+    val dr = red(c1) - red(c2)
+    val dg = green(c1) - green(c2)
+    val db = blue(c1) - blue(c2)
+    return maxOf(kotlin.math.abs(dr), kotlin.math.abs(dg), kotlin.math.abs(db))
+}
+
+fun lerpColor(from: Int, to: Int, t: Float): Int {
+    val t1 = t.coerceIn(0f, 1f)
+    val t0 = 1f - t1
+    return argb(
+        (alpha(from) * t0 + alpha(to) * t1).toInt(),
+        (red(from) * t0 + red(to) * t1).toInt(),
+        (green(from) * t0 + green(to) * t1).toInt(),
+        (blue(from) * t0 + blue(to) * t1).toInt()
+    )
+}

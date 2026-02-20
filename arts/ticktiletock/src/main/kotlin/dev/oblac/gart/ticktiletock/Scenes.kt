@@ -8,7 +8,7 @@ import dev.oblac.gart.color.Colors
 import dev.oblac.gart.color.Palettes
 import dev.oblac.gart.math.rndi
 import dev.oblac.gart.pixels.floodFill
-import dev.oblac.gart.pixels.matchNotColor
+import dev.oblac.gart.pixels.matchSimilarColor
 import org.jetbrains.skia.Canvas
 
 private fun clear(canvas: Canvas) {
@@ -51,15 +51,13 @@ object Scenes {
 //}
 
 class SceneAWithFill2(private val d: Dimension, split: Int, private val m: Gartmap) : SceneX(d, split, paintTile2) {
-    private val r: Array<Pair<Pixel, Int>> = Array(24) { Pixel(rndi(d.w), rndi(d.h)) to Palettes.cool1.random() }
+    private val r: Array<Pair<Pixel, Int>> = Array(32) { Pixel(rndi(d.w), rndi(d.h)) to Palettes.cool9.random() }
     override fun invoke(canvas: Canvas, d: Dimension) {
         super.invoke(canvas, d)
         m.updatePixelsFromCanvas()
         r.forEach {
             floodFill(
-                m, it.first, fillColor = it.second,
-//                matchExactColor(Colors.white)
-                matchNotColor(Colors.black)
+                m, it.first, fillColor = it.second, matchSimilarColor(Colors.white, 160)
             )
         }
         m.drawToCanvas()
