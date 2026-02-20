@@ -219,3 +219,6 @@ fun IntBuffer.toIntArray(): IntArray {
         array
     }
 }
+
+
+data class Pixel(val x: Int, val y: Int)

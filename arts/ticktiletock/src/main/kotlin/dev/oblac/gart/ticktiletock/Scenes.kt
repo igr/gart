@@ -3,24 +3,30 @@ package dev.oblac.gart.ticktiletock
 import dev.oblac.gart.Dimension
 import dev.oblac.gart.Draw
 import dev.oblac.gart.Gartmap
+import dev.oblac.gart.Pixel
+import dev.oblac.gart.color.Colors
 import dev.oblac.gart.color.Palettes
+import dev.oblac.gart.math.rndi
+import dev.oblac.gart.pixels.floodFill
+import dev.oblac.gart.pixels.matchNotColor
 import org.jetbrains.skia.Canvas
-import kotlin.random.Random.Default.nextInt
 
 private fun clear(canvas: Canvas) {
-    canvas.clear(0xFFFFFFFF.toInt())
+    canvas.clear(Colors.white)
 }
 
 object Scenes {
     private val scenes = mutableListOf<Draw>()
 
     fun add(count: Int, scene: () -> Draw): Scenes {
-        repeat(count){ scenes.add(scene()) }
+        repeat(count) { scenes.add(scene()) }
         return this
     }
 
     fun tick() {
-        if (scenes.isNotEmpty()) {scenes.removeFirst()}
+        if (scenes.isNotEmpty()) {
+            scenes.removeFirst()
+        }
     }
 
     fun draw(canvas: Canvas, d: Dimension) {
@@ -34,28 +40,35 @@ object Scenes {
     }
 }
 
-class SceneAWithFill(private val d: Dimension, split: Int, private val m: Gartmap): SceneX(d, split, paintTile2) {
-    private val r: Array<Pixel> = Array(10){ Pixel(nextInt(d.w), nextInt(d.h)) }
-    override fun invoke(canvas: Canvas, d: Dimension) {
-        super.invoke(canvas, d)
-        m.updatePixelsFromCanvas()
-        r.forEach { floodFill(m, it, 0xFF000000.toInt()) }
-        m.drawToCanvas()
-    }
-}
+//class SceneAWithFill(private val d: Dimension, split: Int, private val m: Gartmap): SceneX(d, split, paintTile2) {
+//    private val r: Array<Pixel> = Array(10){ Pixel(nextInt(d.w), nextInt(d.h)) }
+//    override fun invoke(canvas: Canvas, d: Dimension) {
+//        super.invoke(canvas, d)
+//        m.updatePixelsFromCanvas()
+//        r.forEach { floodFill(m, it, 0xFF000000.toInt()) }
+//        m.drawToCanvas()
+//    }
+//}
 
-class SceneAWithFill2(private val d: Dimension, split: Int, private val m: Gartmap): SceneX(d, split, paintTile2) {
-    private val r: Array<Pair<Pixel, Int>> = Array(24){ Pixel(nextInt(d.w), nextInt(d.h)) to Palettes.cool1.random() }
+class SceneAWithFill2(private val d: Dimension, split: Int, private val m: Gartmap) : SceneX(d, split, paintTile2) {
+    private val r: Array<Pair<Pixel, Int>> = Array(24) { Pixel(rndi(d.w), rndi(d.h)) to Palettes.cool1.random() }
     override fun invoke(canvas: Canvas, d: Dimension) {
         super.invoke(canvas, d)
         m.updatePixelsFromCanvas()
-        r.forEach { floodFill(m, it.first, it.second, 0xFFFFFFFF.toInt()) }
+        r.forEach {
+            floodFill(
+                m, it.first, fillColor = it.second,
+//                matchExactColor(Colors.white)
+                matchNotColor(Colors.black)
+            )
+        }
         m.drawToCanvas()
     }
 }
 
 open class SceneX(d: Dimension, split: Int, tilePainter: (Tile) -> Draw) : Draw {
     private val drawable: Draw
+
     init {
         val matrix = splitBox(d, split)
         drawable = calcMatrix(matrix) { tilePainter(it) }

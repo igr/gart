@@ -25,24 +25,25 @@ fun main() {
 
         f.tick {
             Scenes.tick()
+            gart.saveImage(g.snapshot(), name = "ticktiletock-${f.frame}.png")
         }
     }
 }
 
 private fun makeMovie(d: Dimension, m: Gartmap) {
     Scenes
-        .add(4) { SceneX(d, 32, paintTile2) }
-        .add(4) { SceneX(d, 64, paintTile2) }
-        .add(4) { SceneAWithFill(d, 64, m) }
-        .add(2) { SceneX(d, 128, paintTile2) }
-        .add(2) { SceneX(d, 128, paintTile4) }
-        .add(2) { SceneX(d, 64, paintTile4) }
+//        .add(4) { SceneX(d, 32, paintTile2) }
+//        .add(4) { SceneX(d, 64, paintTile2) }
+//        .add(4) { SceneAWithFill(d, 64, m) }
+//        .add(2) { SceneX(d, 128, paintTile2) }
+//        .add(2) { SceneX(d, 128, paintTile4) }
+//        .add(2) { SceneX(d, 64, paintTile4) }
         .add(4) { SceneAWithFill2(d, 64, m) }
-        .add(2) { SceneX(d, 32, paintCircle) }
-        .add(2) { SceneX(d, 32, paintCircleBW) }
-        .add(4) { SceneX(d, 16, paintSquares) }
-        .add(2) { SceneX(d, 16, paintSquaresFill1) }
-        .add(2) { SceneX(d, 16, paintSquaresFill2) }
-        .add(1) { SceneX(d, 32, paintTile2) }
+//        .add(2) { SceneX(d, 32, paintCircle) }
+//        .add(2) { SceneX(d, 32, paintCircleBW) }
+//        .add(4) { SceneX(d, 16, paintSquares) }
+//        .add(2) { SceneX(d, 16, paintSquaresFill1) }
+//        .add(2) { SceneX(d, 16, paintSquaresFill2) }
+//        .add(1) { SceneX(d, 32, paintTile2) }
 }
 
