@@ -1,11 +1,8 @@
 package dev.oblac.gart.gfx
 
 import dev.oblac.gart.Dimension
-import org.jetbrains.skia.Path
-import org.jetbrains.skia.PathBuilder
+import org.jetbrains.skia.*
 import org.jetbrains.skia.Point
-import org.jetbrains.skia.RRect
-import org.jetbrains.skia.Rect
 
 /**
  * Converts rectangle to the list of four points.
@@ -103,3 +100,7 @@ fun Rect.toRRect(round: Float) =
 
 val Rect.Companion.EMPTY: Rect
     get() = Rect(0.0f, 0.0f, 0.0f, 0.0f)
+
+fun Canvas.drawRectWH(x: Float, y: Float, w: Float, h: Float, paint: Paint) {
+    this.drawRect(x, y, x + w, y + h, paint)
+}
