@@ -14,7 +14,7 @@ import org.jetbrains.skia.PaintStrokeCap
 import org.jetbrains.skia.PaintStrokeJoin
 
 fun main() {
-    val gart = Gart.Companion.of("ngons", 1024, 1024)
+    val gart = Gart.of("ngons", 1024, 1024)
     println(gart)
 
     val w = gart.window()

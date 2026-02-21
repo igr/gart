@@ -20,7 +20,7 @@ import org.jetbrains.skia.Image
 import org.jetbrains.skia.Point
 
 fun main() {
-    val gart = Gart.Companion.of("kaleidoscope2", 1024, 1024)
+    val gart = Gart.of("kaleidoscope2", 1024, 1024)
     println(gart)
 
     val d = gart.d
