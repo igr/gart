@@ -6,7 +6,7 @@ import dev.oblac.gart.math.rndf
 import org.jetbrains.skia.Canvas
 
 fun main() {
-    val gart = Gart.of("template2", 1024, 1024)
+    val gart = Gart.of("template2", 1280, 1280)
     println(gart)
 
     val w = gart.window()
