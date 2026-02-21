@@ -5,6 +5,8 @@ import dev.oblac.gart.angle.Radians
 import dev.oblac.gart.angle.cosf
 import dev.oblac.gart.angle.sinf
 import dev.oblac.gart.math.rndf
+import org.jetbrains.skia.Canvas
+import org.jetbrains.skia.Paint
 import org.jetbrains.skia.Point
 import kotlin.math.atan2
 import kotlin.math.cos
@@ -96,3 +98,7 @@ fun dot(a: Point, b: Point): Float = a.x * b.x + a.y * b.y
 
 @JvmName("pointDot")
 fun Point.dot(b: Point): Float = dot(this, b)
+fun Canvas.drawPoint(p: Point, stroke: Paint) = this.drawPoint(p.x, p.y, stroke)
+fun Canvas.drawPoints(points: Collection<Point>, stroke: Paint) = this.drawPoints(points.toTypedArray(), stroke)
+
+fun Canvas.drawPointsAsCircles(points: Collection<Point>, stroke: Paint, radius: Float = 2f) = points.forEach { this.drawCircle(it.x, it.y, radius, stroke) }

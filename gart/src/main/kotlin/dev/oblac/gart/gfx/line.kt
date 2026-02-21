@@ -282,3 +282,5 @@ fun fatLine(x0: Float, y0: Float, x1: Float, y1: Float, thickness: Float): Path 
         Point(x1 + px, y1 + py),
     )
 }
+
+fun Canvas.drawLine(p1: Point, p2: Point, stroke: Paint) = this.drawLine(p1.x, p1.y, p2.x, p2.y, stroke)

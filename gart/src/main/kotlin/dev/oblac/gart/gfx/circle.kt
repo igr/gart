@@ -215,3 +215,7 @@ fun circleFrom3Points(a: Point, b: Point, c: Point): Circle {
     val radius = sqrt((center.x - a.x).pow(2) + (center.y - a.y).pow(2))
     return Circle.of(center, radius)
 }
+
+fun Canvas.clipCircle(circle: Circle) = clipPath(circle.toPath())
+
+fun Canvas.drawCircle(p: Point, r: Float, fill: Paint) = this.drawCircle(p.x, p.y, r, fill)
