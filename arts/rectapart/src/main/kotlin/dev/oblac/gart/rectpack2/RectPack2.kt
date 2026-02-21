@@ -125,7 +125,7 @@ fun Line.pointsAtDistance(distance: Float): List<Point> {
  * @param angle The rotation angle around the center point
  * @param paint The paint to use for drawing
  */
-fun Canvas.drawRotatedRect(center: Point, width: Float, height: Float, angle: Angle, paint: Paint) {
+private fun Canvas.drawRotatedRect(center: Point, width: Float, height: Float, angle: Angle, paint: Paint) {
     this.save()
     this.rotate(angle.degrees, center.x, center.y)
     val rect = Rect.ofCenter(center, width, height)

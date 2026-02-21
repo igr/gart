@@ -4,14 +4,15 @@ import dev.oblac.gart.Dimension
 import dev.oblac.gart.Drawing
 import dev.oblac.gart.Gart
 import dev.oblac.gart.Gartvas
-import dev.oblac.gart.angle.*
+import dev.oblac.gart.angle.Degrees
+import dev.oblac.gart.angle.cosf
+import dev.oblac.gart.angle.sin
+import dev.oblac.gart.angle.sinf
 import dev.oblac.gart.color.RetroColors
 import dev.oblac.gart.gfx.*
 import dev.oblac.gart.math.f
 import org.jetbrains.skia.Canvas
-import org.jetbrains.skia.Paint
 import org.jetbrains.skia.Point
-import org.jetbrains.skia.Rect
 import kotlin.math.sqrt
 
 fun main() {
@@ -70,21 +71,4 @@ private fun draw(c: Canvas, d: Dimension) {
             c.drawRotatedRect(point, rectWidth + 4, rectHeight, lineAngle, rectPaint)
         }
     }
-}
-
-/**
- * Draws a rectangle centered at the given point, rotated by the specified angle.
- *
- * @param center The center point of the rectangle
- * @param width The width of the rectangle
- * @param height The height of the rectangle
- * @param angle The rotation angle around the center point
- * @param paint The paint to use for drawing
- */
-fun Canvas.drawRotatedRect(center: Point, width: Float, height: Float, angle: Angle, paint: Paint) {
-    this.save()
-    this.rotate(angle.degrees, center.x, center.y)
-    val rect = Rect.ofCenter(center, width, height)
-    this.drawRect(rect, paint)
-    this.restore()
 }

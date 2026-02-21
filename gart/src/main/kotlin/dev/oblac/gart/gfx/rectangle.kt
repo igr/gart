@@ -1,6 +1,7 @@
 package dev.oblac.gart.gfx
 
 import dev.oblac.gart.Dimension
+import dev.oblac.gart.angle.Angle
 import org.jetbrains.skia.*
 import org.jetbrains.skia.Point
 
@@ -103,4 +104,21 @@ val Rect.Companion.EMPTY: Rect
 
 fun Canvas.drawRectWH(x: Float, y: Float, w: Float, h: Float, paint: Paint) {
     this.drawRect(x, y, x + w, y + h, paint)
+}
+
+/**
+ * Draws a rectangle centered at the given point, rotated by the specified angle.
+ *
+ * @param center The center point of the rectangle
+ * @param width The width of the rectangle
+ * @param height The height of the rectangle
+ * @param angle The rotation angle around the center point
+ * @param paint The paint to use for drawing
+ */
+fun Canvas.drawRotatedRect(center: Point, width: Float, height: Float, angle: Angle, paint: Paint) {
+    this.save()
+    this.rotate(angle.degrees, center.x, center.y)
+    val rect = Rect.ofCenter(center, width, height)
+    this.drawRect(rect, paint)
+    this.restore()
 }
