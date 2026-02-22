@@ -68,7 +68,7 @@ fun main() {
         }
 
         // WATER ANIMATION that generates layers of water particles
-        world.step(f.frametimeSeconds, 4, 2)
+        world.step(f.frameDurationSeconds, 4, 2)
 
         // DRAW SCENE
         c.drawRect(Rect(0f, 0f, d.wf, 200f), topGradient)

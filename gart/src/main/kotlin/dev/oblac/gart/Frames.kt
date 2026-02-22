@@ -1,5 +1,6 @@
 package dev.oblac.gart
 
+import dev.oblac.gart.math.format
 import org.jetbrains.skiko.FPSCounter
 
 //data class FramesCount(val value: Long) {
@@ -25,16 +26,19 @@ import org.jetbrains.skiko.FPSCounter
 
 interface Frames {
     /**
-     * Frame rate i.e. Frames per second.
+     * Frame rate i.e. Frames per second (constant).
      */
     val fps: Int
 
     /**
-     * Time of the current frame in nanoseconds.
+     * Duration of the single frame in nanoseconds (constant).
      */
-    val frametime: Long
+    val frameDurationNanos: Long
 
-    val frametimeSeconds: Float
+    /**
+     * Duration of the single frame in seconds (constant).
+     */
+    val frameDurationSeconds: Float
 
     /**
      * Current frame, i.e. total number of elapsed frames.
@@ -50,7 +54,12 @@ interface Frames {
     /**
      * Calculates the time of the current frame, elapsed duration.
      */
-    val time get() = frame.toTime(frametime)
+    val time get() = frame.toTime(frameDurationNanos)
+
+    /**
+     * Calculates the time of the current frame in seconds, elapsed duration.
+     */
+    val timeSeconds get() = frame / fps.toFloat()
 
     /**
      * Called on each tick, with given FPS.
@@ -88,11 +97,18 @@ interface Frames {
         }
     }
 
+    /**
+     * Prints all frames info in one line, for debugging purposes.
+     */
+    fun print() {
+        print("frame: $frame | fps: $fps | time: ${time.toSeconds().format(3)} | new: $new | frametime: ${frameDurationSeconds.format(3)}s\r")
+    }
+
     companion object {
         val ZERO = object : Frames {
             override val fps = 0
-            override val frametime = 0L
-            override val frametimeSeconds = 0f
+            override val frameDurationNanos = 0L
+            override val frameDurationSeconds = 0f
             override val frame = 0L
             override val new = false
         }
@@ -103,8 +119,8 @@ interface Frames {
  * Simple frames counter for manually controlled movies.
  */
 internal class FrameCounter(override val fps: Int) : Frames {
-    override val frametime = 1000000000L / fps   // frame time in nanoseconds
-    override val frametimeSeconds = 1f / fps    // frame time in seconds
+    override val frameDurationNanos = 1000000000L / fps   // frame time in nanoseconds
+    override val frameDurationSeconds = 1f / fps    // frame time in seconds
     private var totalFrames: Long = 0
     override val frame get() = totalFrames
     private var drawNew: Boolean = false
@@ -143,7 +159,7 @@ internal class FpsGuard(fps: Int, private val printFps: Boolean = false) {
     fun withFps(now: Long) {
         fpsCounterMax.tick()
 
-        if (now - last > framesCounter.frametime) {
+        if (now - last > framesCounter.frameDurationNanos) {
             fpsCounterReal.tick()
             framesCounter.tick()
             last = now

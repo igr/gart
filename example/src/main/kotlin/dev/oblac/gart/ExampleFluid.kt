@@ -32,7 +32,7 @@ fun main() {
     val waterColor = fillOf(Colors.cyanColor)
 
     gart.window().show { c, _, f ->
-        world.step(f.frametimeSeconds, 4, 2)
+        world.step(f.frameDurationSeconds, 4, 2)
 
         c.clear(Colors.gray)
         balls.forEach {

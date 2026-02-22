@@ -127,7 +127,7 @@ fun main() {
     val m = gart.movie()
 
     m.record(w).show { c, _, f ->
-        val color = colors[f.frame.toTime(f.frametime).inWholeSeconds.mod(colors.size)]
+        val color = colors[f.frame.toTime(f.frameDurationNanos).inWholeSeconds.mod(colors.size)]
 
         rowTop(color).forEach { it(c) }
 
