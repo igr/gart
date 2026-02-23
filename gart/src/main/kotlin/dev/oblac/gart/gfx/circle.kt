@@ -16,6 +16,10 @@ import kotlin.math.sqrt
 data class Circle(val x: Float, val y: Float, val radius: Float) {
     constructor(center: Point, radius: Number) : this(center.x, center.y, radius.toFloat())
     val center = Point(x, y)
+    val topPoint = Point(x, y - radius)
+    val bottomPoint = Point(x, y + radius)
+    val leftPoint = Point(x - radius, y)
+    val rightPoint = Point(x + radius, y)
 
     companion object {
         fun of(center: Point, radius: Number) = Circle(center.x, center.y, radius.toFloat())
