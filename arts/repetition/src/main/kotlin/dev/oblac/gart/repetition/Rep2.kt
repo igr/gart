@@ -1,7 +1,8 @@
 package dev.oblac.gart.repetition
 
 import dev.oblac.gart.Gart
-import dev.oblac.gart.color.Colors
+import dev.oblac.gart.color.BgColors
+import dev.oblac.gart.color.CssColors
 import dev.oblac.gart.gfx.strokeOf
 import dev.oblac.gart.math.PIf
 import org.jetbrains.skia.BlendMode
@@ -61,13 +62,13 @@ private fun drawAll(canvas: Canvas, tick: Long) {
 
             val ddelta = 80
             offsetsB[i].let { (dx, dy) ->
-                canvas.drawCircle(x + dx + ddelta, y + dy + ddelta, w, strokeOf(Colors.blue, size).apply { blendMode = BlendMode.SCREEN })
+                canvas.drawCircle(x + dx + ddelta, y + dy + ddelta, w, strokeOf(CssColors.blue, size).apply { blendMode = BlendMode.SCREEN })
             }
             offsetsG[i].let { (dx, dy) ->
-                canvas.drawCircle(x + dx + ddelta, y + dy + ddelta, w, strokeOf(Colors.lime, size).apply { blendMode = BlendMode.SCREEN })
+                canvas.drawCircle(x + dx + ddelta, y + dy + ddelta, w, strokeOf(CssColors.lime, size).apply { blendMode = BlendMode.SCREEN })
             }
             offsetsR[i].let { (dx, dy) ->
-                canvas.drawCircle(x + dx + ddelta, y + dy + ddelta, w, strokeOf(Colors.red, size).apply { blendMode = BlendMode.SCREEN })
+                canvas.drawCircle(x + dx + ddelta, y + dy + ddelta, w, strokeOf(CssColors.red, size).apply { blendMode = BlendMode.SCREEN })
             }
         }
     }
@@ -78,7 +79,7 @@ fun main() {
     val g = gart.gartvas()
     val w = gart.window()
     val c = g.canvas
-    c.clear(Colors.warmBlack1)
+    c.clear(BgColors.warmBlack1)
     drawAll(c, 175)
 
     gart.saveImage(g)

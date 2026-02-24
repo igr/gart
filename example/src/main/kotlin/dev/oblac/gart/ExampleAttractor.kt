@@ -1,7 +1,7 @@
 package dev.oblac.gart
 
 import dev.oblac.gart.attractor.*
-import dev.oblac.gart.color.Colors
+import dev.oblac.gart.color.CssColors
 import dev.oblac.gart.gfx.drawPoints
 import dev.oblac.gart.gfx.fromCenter
 import dev.oblac.gart.gfx.strokeOfBlack
@@ -15,7 +15,7 @@ fun main() {
     var p = lorenzAttractor(gart.d)
 
     w.show { c, _, _ ->
-        c.clear(Colors.white)
+        c.clear(CssColors.white)
         c.drawPoints(p, strokeOfBlack(1f))
     }.onKey { k ->
         p = when (k) {

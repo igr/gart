@@ -3,7 +3,7 @@ package dev.oblac.gart.sun.lines
 import dev.oblac.gart.Dimension
 import dev.oblac.gart.Gart
 import dev.oblac.gart.angle.Degrees
-import dev.oblac.gart.color.Colors
+import dev.oblac.gart.color.CssColors
 import dev.oblac.gart.color.RetroColors
 import dev.oblac.gart.gfx.*
 import dev.oblac.gart.math.pointToCircleTangents
@@ -33,7 +33,7 @@ private val colorInk = RetroColors.white01
 private val colorBold = RetroColors.red01
 
 private fun draw(c: Canvas, d: Dimension) {
-    c.clear(Colors.black)
+    c.clear(CssColors.black)
 
     val circle = Circle(d.cx, d.cy, 300f)
 

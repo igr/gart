@@ -1,7 +1,7 @@
 package dev.oblac.gart
 
 import dev.oblac.gart.cellular.rule.generateRuleCellularAutomaton
-import dev.oblac.gart.color.Colors
+import dev.oblac.gart.color.CssColors
 import dev.oblac.gart.color.Palettes
 import dev.oblac.gart.gfx.dimension
 import dev.oblac.gart.gfx.fillOf
@@ -66,7 +66,7 @@ private val allRules = listOf(
 private val pal = Palettes.colormap072
 
 private fun draw(c: Canvas, d: Dimension) {
-    c.clear(Colors.white)
+    c.clear(CssColors.white)
 
     forSequence(0, 3)
         .fold(listOf(d.rect)) { acc, _ ->
@@ -89,8 +89,8 @@ private fun draw(c: Canvas, d: Dimension) {
 private fun generateImage(
     rule: () -> List<List<Boolean>>,
     d: Dimension,
-    falseColor: Int = Colors.white,
-    trueColor: Int = Colors.black
+    falseColor: Int = CssColors.white,
+    trueColor: Int = CssColors.black
 ): Image {
     val gartvas = Gartvas.of(1024, 1024)
     val c = gartvas.canvas

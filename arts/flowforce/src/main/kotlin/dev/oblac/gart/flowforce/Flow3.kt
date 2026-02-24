@@ -1,6 +1,6 @@
 package dev.oblac.gart.flowforce
 
-import dev.oblac.gart.color.Colors
+import dev.oblac.gart.color.CssColors
 import dev.oblac.gart.color.Palettes
 import dev.oblac.gart.color.alpha
 import dev.oblac.gart.force.ForceField
@@ -77,7 +77,7 @@ fun main() {
         }
         f.onAfterFrame(markerMiddle) {
             randomPoints2 = flowField2.apply(randomPoints2) { old, p ->
-                g.canvas.drawLine(-old.x, old.y, -p.x, p.y, strokeOf(Colors.white, 1f))
+                g.canvas.drawLine(-old.x, old.y, -p.x, p.y, strokeOf(CssColors.white, 1f))
             }
             image = g.snapshot()
         }

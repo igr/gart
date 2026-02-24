@@ -2,7 +2,7 @@ package dev.oblac.gart.hills3
 
 import dev.oblac.gart.Dimension
 import dev.oblac.gart.Gart
-import dev.oblac.gart.color.Colors
+import dev.oblac.gart.color.CssColors
 import dev.oblac.gart.color.Palettes
 import dev.oblac.gart.gfx.*
 import dev.oblac.gart.math.GOLDEN_RATIO
@@ -42,7 +42,7 @@ private fun draw(c: Canvas, d: Dimension) {
         }
         drawHill(c, d, y, gap, pal.safe(i))
     }
-    c.drawBorder(d, 20f, Colors.white)
+    c.drawBorder(d, 20f, CssColors.white)
 }
 
 private fun drawSun1(c: Canvas, d: Dimension, y: Float) {

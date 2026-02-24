@@ -2,7 +2,7 @@ package dev.oblac.gart.thre3.noise
 
 import dev.oblac.gart.Gart
 import dev.oblac.gart.color.BgColors
-import dev.oblac.gart.color.Colors
+import dev.oblac.gart.color.CssColors
 import dev.oblac.gart.force.ForceField
 import dev.oblac.gart.force.WaveFlow
 import dev.oblac.gart.gfx.*
@@ -36,7 +36,7 @@ fun main() {
         box(c, r, 20 - i * 5.0)
     }
 
-    c.drawBorder(d, 20f, Colors.white);
+    c.drawBorder(d, 20f, CssColors.white);
 
     c.rotate(-20f)
     c.translate(-80f, 0f)

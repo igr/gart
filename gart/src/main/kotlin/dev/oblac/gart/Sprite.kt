@@ -2,7 +2,7 @@ package dev.oblac.gart
 
 import dev.oblac.gart.angle.Angle
 import dev.oblac.gart.angle.Degrees
-import dev.oblac.gart.color.Colors
+import dev.oblac.gart.color.CssColors
 import dev.oblac.gart.gfx.Triangle
 import org.jetbrains.skia.*
 
@@ -18,7 +18,7 @@ class Sprite(surface: Surface) {
 
         val target = g.canvas
         target.save()
-        target.clear(Colors.transparent)
+        target.clear(CssColors.transparent)
         target.translate(-x, -y)
         target.clipRect(Rect.makeXYWH(x, y, width, height))
 
@@ -37,7 +37,7 @@ class Sprite(surface: Surface) {
 
         val target = sprite.canvas
         target.save()
-        target.clear(Colors.transparent)
+        target.clear(CssColors.transparent)
         target.translate(-p.x + radius, -p.y + radius)
         target.rotate(-angle.degrees + 30f, p.x, p.y) // to keep the triangle upright
         target.clipPath(triangle.path)

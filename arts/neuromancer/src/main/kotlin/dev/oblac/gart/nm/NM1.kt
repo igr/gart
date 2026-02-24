@@ -4,7 +4,7 @@ import dev.oblac.gart.Dimension
 import dev.oblac.gart.Drawing
 import dev.oblac.gart.Gart
 import dev.oblac.gart.Gartvas
-import dev.oblac.gart.color.Colors
+import dev.oblac.gart.color.CssColors
 import dev.oblac.gart.font.FontFamily
 import dev.oblac.gart.font.font
 import dev.oblac.gart.gfx.*
@@ -46,7 +46,7 @@ private class MyDrawNM1(g: Gartvas) : Drawing(g) {
 
 
 private fun draw(c: Canvas, d: Dimension) {
-    c.clear(Colors.white)
+    c.clear(CssColors.white)
 
     val n = 1000
     val mean = d.h * 0.8f
@@ -132,12 +132,12 @@ private fun drawRandomVerticalTowerRect(c: Canvas, d: Dimension) {
 
 private fun drawCircleCloud(c: Canvas, d: Dimension, circle: Circle) {
     val yRatio = d.normH(circle.center.y)
-    val fill = fillOf(Colors.black).apply {
+    val fill = fillOf(CssColors.black).apply {
         this.alpha = 200
         this.shader = Shader.makeLinearGradient(
             circle.center.offset(0f, -circle.radius),
             circle.center.offset(0f, +circle.radius - 100f * yRatio),
-            colors = intArrayOf(Colors.transparent, Colors.black),
+            colors = intArrayOf(CssColors.transparent, CssColors.black),
         )
     }
 
@@ -194,7 +194,7 @@ private fun rectTow(rect: Rect, angleDegrees: Float, f1: Float, f2: Float): Shad
     return makeLinearGradient(
         Point(startX, startY),
         Point(endX, endY),
-        intArrayOf(Colors.white, Colors.black),
+        intArrayOf(CssColors.white, CssColors.black),
         floatArrayOf(f1, f2),
     )
 }

@@ -1,7 +1,7 @@
 package dev.oblac.gart.rectapart
 
 import dev.oblac.gart.Gart
-import dev.oblac.gart.color.Colors
+import dev.oblac.gart.color.CssColors
 import dev.oblac.gart.gfx.createCircleOfPoints
 import dev.oblac.gart.gfx.randomPointBetween
 import dev.oblac.gart.gfx.strokeOfWhite
@@ -21,7 +21,7 @@ fun main() {
 
     // draw on canvas
     g.draw { c, _ ->
-        c.clear(Colors.black)
+        c.clear(CssColors.black)
 
 //        c.clipRect(Rect.makeWH(500f, 500f))
 //        c.save()

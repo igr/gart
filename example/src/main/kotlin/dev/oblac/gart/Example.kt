@@ -1,6 +1,6 @@
 package dev.oblac.gart
 
-import dev.oblac.gart.color.Colors
+import dev.oblac.gart.color.CssColors
 import dev.oblac.gart.color.blue
 import dev.oblac.gart.color.green
 import dev.oblac.gart.color.red
@@ -22,7 +22,7 @@ fun main() {
     val g2 = Gartvas(d2)
 
     // ✅ draw on canvas #2
-    g2.canvas.drawCircle(5f, 5f, 5f, fillOf(Colors.coral))
+    g2.canvas.drawCircle(5f, 5f, 5f, fillOf(CssColors.coral))
     val snapshot2 = g2.snapshot()
 
     // ✅ main canvas
@@ -59,7 +59,7 @@ fun main() {
             val (x, y) = it
             val x1 = (x * b.d.w).toInt()
             val y1 = (y * b.d.h).toInt()
-            b[x1, y1] = Colors.black
+            b[x1, y1] = CssColors.black
         }
     }
 
@@ -72,14 +72,14 @@ fun main() {
     // row
     val rowSix = b.row(50)
     for (i in 0 until 662) {
-        rowSix[i] = Colors.navy
+        rowSix[i] = CssColors.navy
     }
     b.row(50, rowSix)
 
     // column
     val columnSix = b.column(50)
     for (i in 0 until 600) {
-        columnSix[i] = Colors.navy
+        columnSix[i] = CssColors.navy
     }
     b.column(50, columnSix)
 

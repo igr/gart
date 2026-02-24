@@ -1,7 +1,7 @@
 package dev.oblac.gart.spiral3
 
 import dev.oblac.gart.*
-import dev.oblac.gart.color.Colors
+import dev.oblac.gart.color.CssColors
 import dev.oblac.gart.gfx.fillOf
 import dev.oblac.gart.gfx.strokeOf
 import dev.oblac.gart.gfx.strokeOfBlack
@@ -97,7 +97,7 @@ private fun makeCircles(d: Dimension, rotate: Float, ls: List<Lissajous>): Sprit
     l2.step(0.1f)
     val p2 = l2.position()
 
-    c.clear(Colors.black)
+    c.clear(CssColors.black)
     for (i in 0..8 step 2) {
 
         val pathEffect = when (i) {
@@ -110,19 +110,19 @@ private fun makeCircles(d: Dimension, rotate: Float, ls: List<Lissajous>): Sprit
 
         c.drawCircle(
             p0.x, p0.y, (i + 1) * width,
-            strokeOf(Colors.red, ws[i/2]).apply {
+            strokeOf(CssColors.red, ws[i / 2]).apply {
                 blendMode = BlendMode.SCREEN
                 this.pathEffect = pathEffect
             })
         c.drawCircle(
             p1.x, p1.y, (i + 1) * width,
-            strokeOf(Colors.blue, ws[i/2]).apply {
+            strokeOf(CssColors.blue, ws[i / 2]).apply {
                 blendMode = BlendMode.SCREEN
                 this.pathEffect = pathEffect
             })
         c.drawCircle(
             p2.x, p2.y, (i + 1) * width,
-            strokeOf(Colors.lime, ws[i/2]).apply {
+            strokeOf(CssColors.lime, ws[i / 2]).apply {
                 blendMode = BlendMode.SCREEN
                 this.pathEffect = pathEffect
             })

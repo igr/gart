@@ -2,9 +2,10 @@ package dev.oblac.gart.pixels.halftone
 
 import dev.oblac.gart.MemPixels
 import dev.oblac.gart.Pixels
-import dev.oblac.gart.color.Colors
+import dev.oblac.gart.color.CssColors
 import dev.oblac.gart.color.red
 import dev.oblac.gart.color.space.ColorCMYK
+import dev.oblac.gart.color.space.RGBA
 import dev.oblac.gart.color.space.RGBA.Companion.BLACK
 
 /**
@@ -16,7 +17,7 @@ import dev.oblac.gart.color.space.RGBA.Companion.BLACK
  */
 fun halftoneProcess(source: Pixels, config: HalftoneConfiguration = HalftoneConfiguration()): Pixels {
     val target = MemPixels(source.d)
-    target.fill(Colors.white) // Initialize with white background for CMYK processing
+    target.fill(CssColors.white) // Initialize with white background for CMYK processing
     with(config) {
         processSingleChannel(source, target, dotSize, dotResolution, yellowAngle, ColorChannel.YELLOW, true)
         processSingleChannel(source, target, dotSize, dotResolution, magentaAngle, ColorChannel.MAGENTA, false)
@@ -43,7 +44,7 @@ private fun processSingleChannel(
 
     // Create a separate buffer for this CMYK channel's halftone pattern
     val channelHalftone = MemPixels(source.d)
-    channelHalftone.fill(Colors.white)
+    channelHalftone.fill(CssColors.white)
 
     // Apply halftone pattern to this channel (always renders as black dots)
     renderHalftone(
@@ -73,14 +74,14 @@ private fun combineChannelWithResult(
 
         if (inkDensity > 0) {
             // Apply this channel's ink to the existing color
-            val currentCMYK = ColorCMYK.of(existingColor)
+            val currentCMYK = ColorCMYK.of(RGBA.of(existingColor).toColor4f())
             val newCMYK = when (channel) {
                 is KeyChannel -> currentCMYK.blendK(inkDensity)
                 is CyanChannel -> currentCMYK.blendC(inkDensity)
                 is MagentaChannel -> currentCMYK.blendM(inkDensity)
                 is YellowChannel -> currentCMYK.blendY(inkDensity)
             }
-            target[x, y] = newCMYK.toRGBA().value
+            target[x, y] = RGBA.of(newCMYK.toColor4f()).value
         }
     }
 }

@@ -2,7 +2,7 @@ package dev.oblac.gart.monet
 
 import dev.oblac.gart.Dimension
 import dev.oblac.gart.Gart
-import dev.oblac.gart.color.Colors
+import dev.oblac.gart.color.CssColors
 import dev.oblac.gart.color.Palettes
 import dev.oblac.gart.color.alpha
 import dev.oblac.gart.force.ForceField
@@ -37,7 +37,7 @@ private fun draw(c: Canvas, d: Dimension) {
         randomPoint(d)
     }.toList()
 
-    c.clear(Colors.white)
+    c.clear(CssColors.white)
 
     // line
     val line = mutableListOf<Point>()
@@ -77,7 +77,7 @@ private fun draw(c: Canvas, d: Dimension) {
         l = l
             .filter { it.isInside(d) }
             .map { forceField2[it.x.toInt(), it.y.toInt()].offset(it) }
-        c.drawPointsAsCircles(l, strokeOf(Colors.white.alpha(8), 1f))
+        c.drawPointsAsCircles(l, strokeOf(CssColors.white.alpha(8), 1f))
     }
     
 //    c.drawPath(line.toPath(), strokeOf(Colors.black, 2f))

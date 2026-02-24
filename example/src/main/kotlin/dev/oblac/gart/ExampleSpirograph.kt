@@ -1,7 +1,7 @@
 package dev.oblac.gart
 
 import dev.oblac.gart.angle.Degrees
-import dev.oblac.gart.color.Colors
+import dev.oblac.gart.color.CssColors
 import dev.oblac.gart.gfx.*
 import dev.oblac.gart.spirograph.Spirograph
 import dev.oblac.gart.spirograph.createSpirograph
@@ -107,7 +107,7 @@ fun main() {
 }
 
 private fun draw(c: Canvas, spiro: Spirograph) {
-    c.clear(Colors.black)
+    c.clear(CssColors.black)
     val ps = spiro.points.circular()
     ps.forEachIndexed { ndx, p ->
         val line = Line(ps[ndx - 1], p)

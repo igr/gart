@@ -1,9 +1,9 @@
 package dev.oblac.gart.stripes
 
 import dev.oblac.gart.Gart
-import dev.oblac.gart.fx.borderize
-import dev.oblac.gart.color.Colors
+import dev.oblac.gart.color.CssColors
 import dev.oblac.gart.color.toIntColor
+import dev.oblac.gart.fx.borderize
 import dev.oblac.gart.gfx.fillOfBlack
 import dev.oblac.gart.gfx.of
 import org.jetbrains.skia.Canvas
@@ -31,7 +31,7 @@ const val a = 60
 val stripesCount = gart.d.h / a
 
 fun draw(canvas: Canvas) {
-    canvas.clear(Colors.white)
+    canvas.clear(CssColors.white)
     for (i in 0 until stripesCount) {
         val y = i * a
         canvas.drawRect(Rect.of(0, y, gart.d.w, y + a / 2), fillOfBlack())

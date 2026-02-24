@@ -1,7 +1,7 @@
 package dev.oblac.gart.sixsix
 
 import dev.oblac.gart.*
-import dev.oblac.gart.color.Colors
+import dev.oblac.gart.color.CssColors
 import dev.oblac.gart.color.Palette
 import dev.oblac.gart.color.PalettesOf4
 import dev.oblac.gart.math.doubleLoop
@@ -55,7 +55,7 @@ private val pal4 = PalettesOf4.q16
 //private val pal4 = PalettesOf4.q19
 
 private fun draw(c: Canvas, d: Dimension) {
-    c.clear(Colors.white)
+    c.clear(CssColors.white)
 
     val cellWidth = d.wf / 6f
     val cellHeight = d.hf / 6f

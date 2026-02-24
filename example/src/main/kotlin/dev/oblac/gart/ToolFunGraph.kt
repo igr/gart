@@ -1,7 +1,7 @@
 package dev.oblac.gart
 
 import dev.oblac.gart.color.BgColors
-import dev.oblac.gart.color.Colors
+import dev.oblac.gart.color.CssColors
 import dev.oblac.gart.color.Palettes
 import dev.oblac.gart.font.FontFamily
 import dev.oblac.gart.font.font
@@ -197,7 +197,7 @@ private fun drawGrid(c: Canvas, d: Dimension, maxX: Float, maxY: Float, maxGridL
 
     // Draw labels at the bottom
     val textPaint = paint().apply {
-        color = Colors.white
+        color = CssColors.white
     }
 
     val labelY = d.cy + 20f

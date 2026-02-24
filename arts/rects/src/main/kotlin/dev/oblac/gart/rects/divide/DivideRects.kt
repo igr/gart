@@ -1,7 +1,8 @@
 package dev.oblac.gart.rects.divide
 
 import dev.oblac.gart.Gart
-import dev.oblac.gart.color.Colors
+import dev.oblac.gart.color.CssColors
+import dev.oblac.gart.color.space.of
 import dev.oblac.gart.gfx.*
 import dev.oblac.gart.math.rndi
 import dev.oblac.gart.shader.createNoiseGrainFilter
@@ -18,7 +19,7 @@ fun main() {
 
     val g = gart.gartvas()
     val c = g.canvas
-    c.clear(Colors.blackColor.toColor())
+    c.clear(CssColors.black)
 
     val gap = 40f       // we don't want any random
 
@@ -28,7 +29,7 @@ fun main() {
     }
 
     rects.forEach { rect ->
-        fillRect(c, rect, Colors.lightSalmonColor, Colors.lightSalmonColor)
+        fillRect(c, rect, Color4f.of(CssColors.lightSalmon), Color4f.of(CssColors.lightSalmon))
         c.drawRect(rect, strokeOfWhite(10f).also { it.strokeCap = PaintStrokeCap.ROUND })
     }
 

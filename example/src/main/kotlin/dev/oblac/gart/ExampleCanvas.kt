@@ -1,6 +1,6 @@
 package dev.oblac.gart
 
-import dev.oblac.gart.color.Colors
+import dev.oblac.gart.color.CssColors
 import dev.oblac.gart.gfx.Point
 import dev.oblac.gart.gfx.fillOfBlue
 import dev.oblac.gart.gfx.strokeOf
@@ -16,10 +16,10 @@ fun main() {
 
     val g = gart.gartvas()
     val c = g.canvas
-    c.clear(Colors.white)
+    c.clear(CssColors.white)
 
     // compose path effects
-    c.drawLine(0f, 0f, d.wf, d.hf, strokeOf(Colors.red, 5f).apply {
+    c.drawLine(0f, 0f, d.wf, d.hf, strokeOf(CssColors.red, 5f).apply {
         this.pathEffect = PathEffect.makeDash(floatArrayOf(10f, 10f), 10f)
             .makeCompose(PathEffect.makeDiscrete(4f, 4f, 20))
     })

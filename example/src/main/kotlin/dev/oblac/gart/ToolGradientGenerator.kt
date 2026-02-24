@@ -1,6 +1,6 @@
 package dev.oblac.gart
 
-import dev.oblac.gart.color.Colors
+import dev.oblac.gart.color.CssColors
 import dev.oblac.gart.color.argb
 import dev.oblac.gart.font.FontFamily
 import dev.oblac.gart.font.font
@@ -151,7 +151,7 @@ data class GGen(
 )
 
 private fun draw(c: Canvas, d: Dimension) {
-    c.clear(Colors.white)
+    c.clear(CssColors.white)
 
     val ggen = GGen(gapA = 50f, gapB = 180f)
     drawGrid(c, d, ggen)
@@ -261,10 +261,10 @@ private fun drawWavePlot(c: Canvas, d: Dimension, ggen: GGen, waves: Waves) {
 
     waves.forEach { index, wave ->
         paint.color = when (index) {
-            0 -> Colors.red
-            1 -> Colors.green
-            2 -> Colors.blue
-            else -> Colors.black
+            0 -> CssColors.red
+            1 -> CssColors.green
+            2 -> CssColors.blue
+            else -> CssColors.black
         }
 
         val path = PathBuilder()

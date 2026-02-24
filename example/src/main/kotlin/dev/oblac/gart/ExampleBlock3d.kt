@@ -1,6 +1,6 @@
 package dev.oblac.gart
 
-import dev.oblac.gart.color.Colors
+import dev.oblac.gart.color.CssColors
 import dev.oblac.gart.color.Palettes
 import dev.oblac.gart.color.toFillPaint
 import dev.oblac.gart.gfx.drawPoly4
@@ -14,7 +14,7 @@ fun main() {
 
     val g = gart.gartvas()
     val c = g.canvas
-    c.clear(Colors.white)
+    c.clear(CssColors.white)
 
     val pal = Palettes.cool5
 

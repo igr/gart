@@ -1,7 +1,7 @@
 package dev.oblac.gart.sun.two
 
 import dev.oblac.gart.Gart
-import dev.oblac.gart.color.Colors
+import dev.oblac.gart.color.CssColors
 
 fun main() {
     val gart = Gart.of("echoes", 1025, 1025, 20)
@@ -13,7 +13,7 @@ fun main() {
     //val bitmap = gart.gartmap(g)
     val theEnd = 108L
     w.show { c, _, f ->
-        c.clear(Colors.white)
+        c.clear(CssColors.white)
         lbf.iterate()
         lbf.render(c)
 

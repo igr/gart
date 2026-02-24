@@ -1,7 +1,7 @@
 package dev.oblac.gart.repetition
 
 import dev.oblac.gart.Gart
-import dev.oblac.gart.color.Colors
+import dev.oblac.gart.color.CssColors
 import dev.oblac.gart.gfx.strokeOf
 import dev.oblac.gart.math.PIf
 import org.jetbrains.skia.BlendMode
@@ -53,17 +53,17 @@ private fun drawAll(canvas: Canvas, tick: Long) {
 
             offsetsB[i].let { (dx, dy) ->
                 RRect.makeXYWH(x + dx, y + dy, w, h, 40f).let {
-                    canvas.drawRRect(it, strokeOf(Colors.blue, size).apply { blendMode = BlendMode.SCREEN })
+                    canvas.drawRRect(it, strokeOf(CssColors.blue, size).apply { blendMode = BlendMode.SCREEN })
                 }
             }
             offsetsG[i].let { (dx, dy) ->
                 RRect.makeXYWH(x + dx, y + dy, w, h, 40f).let {
-                    canvas.drawRRect(it, strokeOf(Colors.lime, size).apply { blendMode = BlendMode.SCREEN })
+                    canvas.drawRRect(it, strokeOf(CssColors.lime, size).apply { blendMode = BlendMode.SCREEN })
                 }
             }
             offsetsR[i].let { (dx, dy) ->
                 RRect.makeXYWH(x + dx, y + dy, w, h, 40f).let {
-                    canvas.drawRRect(it, strokeOf(Colors.red, size).apply { blendMode = BlendMode.SCREEN })
+                    canvas.drawRRect(it, strokeOf(CssColors.red, size).apply { blendMode = BlendMode.SCREEN })
                 }
             }
         }
@@ -74,7 +74,7 @@ fun main() {
     println(gart)
     val w = gart.window()
     w.show { c, _, f ->
-        c.clear(Colors.black)
+        c.clear(CssColors.black)
         drawAll(c, f.frame)
     }
 }

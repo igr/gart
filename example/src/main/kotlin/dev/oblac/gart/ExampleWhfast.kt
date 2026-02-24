@@ -1,6 +1,6 @@
 package dev.oblac.gart
 
-import dev.oblac.gart.color.Colors
+import dev.oblac.gart.color.CssColors
 import dev.oblac.gart.gfx.fillOfRed
 import dev.oblac.gart.whfast.NBodySystem2D
 import org.jetbrains.skia.Canvas
@@ -24,7 +24,7 @@ private class OrbitrDraw(g: Gartvas) : Drawing(g) {
 val system = NBodySystem2D.innerSolarSystem()
 
 private fun draw(c: Canvas, d: Dimension) {
-    c.clear(Colors.white)
+    c.clear(CssColors.white)
     repeat(1000) {
         system.step(0.01f)
         val bodies = system.bodies

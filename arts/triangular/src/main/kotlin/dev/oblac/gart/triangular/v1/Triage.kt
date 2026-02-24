@@ -1,7 +1,7 @@
 package dev.oblac.gart.triangular.v1
 
 import dev.oblac.gart.Gart
-import dev.oblac.gart.color.Colors
+import dev.oblac.gart.color.CssColors
 import dev.oblac.gart.color.Palettes
 import dev.oblac.gart.gfx.*
 import dev.oblac.gart.noise.PoissonDiskSamplingNoise
@@ -33,7 +33,7 @@ fun main() {
                 c.drawPath(it.toPath(), strokeOfBlack(2f))
             }
         }
-        c.drawBorder(d, 20f, Colors.black)
+        c.drawBorder(d, 20f, CssColors.black)
     }
 
     //gart.saveImage(g)

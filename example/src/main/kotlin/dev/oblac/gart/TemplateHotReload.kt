@@ -1,6 +1,6 @@
 package dev.oblac.gart
 
-import dev.oblac.gart.color.Colors
+import dev.oblac.gart.color.CssColors
 import dev.oblac.gart.gfx.fillOfGreen
 import dev.oblac.gart.math.rndf
 import org.jetbrains.skia.Canvas
@@ -67,6 +67,6 @@ private class MyDraw4(val g: Gartvas) : Drawing(g) {
 
 
 private fun draw(c: Canvas, d: Dimension) {
-    c.clear(Colors.white)
+    c.clear(CssColors.white)
     c.drawCircle(512f, 512f, rndf(300, 400), fillOfGreen())
 }

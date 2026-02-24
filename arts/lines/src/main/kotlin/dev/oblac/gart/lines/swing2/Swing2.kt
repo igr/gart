@@ -2,7 +2,7 @@ package dev.oblac.gart.lines.swing2
 
 import dev.oblac.gart.*
 import dev.oblac.gart.angle.Degrees
-import dev.oblac.gart.color.Colors
+import dev.oblac.gart.color.CssColors
 import dev.oblac.gart.color.RetroColors
 import dev.oblac.gart.gfx.Line
 import dev.oblac.gart.gfx.Point
@@ -52,7 +52,7 @@ private val g2 = Gravitron(
 )
 
 private fun draw2(c: Canvas, d: Dimension) {
-    c.clear(Colors.black)
+    c.clear(CssColors.black)
 //    c.drawCircle(g1.circle, strokeOfGreen(2f))
 //    c.drawCircle(g2.circle, strokeOfGreen(2f))
 

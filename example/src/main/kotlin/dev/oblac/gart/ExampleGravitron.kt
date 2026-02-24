@@ -1,7 +1,7 @@
 package dev.oblac.gart
 
 import dev.oblac.gart.angle.Degrees
-import dev.oblac.gart.color.Colors
+import dev.oblac.gart.color.CssColors
 import dev.oblac.gart.gfx.*
 import dev.oblac.gart.gravitron.Gravitron
 import org.jetbrains.skia.Canvas
@@ -19,7 +19,7 @@ fun main() {
 }
 
 private fun draw(c: Canvas, d: Dimension) {
-    c.clear(Colors.black)
+    c.clear(CssColors.black)
 
     val g = Gravitron(
         x = 512f,

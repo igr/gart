@@ -1,7 +1,8 @@
 package dev.oblac.gart.rects.rectover
 
 import dev.oblac.gart.Gart
-import dev.oblac.gart.color.Colors
+import dev.oblac.gart.color.BgColors
+import dev.oblac.gart.color.CssColors
 import dev.oblac.gart.color.Palettes
 import dev.oblac.gart.gfx.*
 import dev.oblac.gart.math.rndf
@@ -47,7 +48,7 @@ fun main() {
 
     // draw
     val c = g.canvas
-    c.clear(Colors.antiqueWhite)
+    c.clear(CssColors.antiqueWhite)
     allRectPaths.forEach { rect ->
         // first draw the rect
         val paint = fillOf(color(rect.bounds.topLeftPoint()))
@@ -67,7 +68,7 @@ fun main() {
             }
         }
     }
-    c.drawBorder(gart.d, 20f, Colors.warmBlack2)
+    c.drawBorder(gart.d, 20f, BgColors.warmBlack2)
     gart.window().showImage(g)
     gart.saveImage(g)
 }

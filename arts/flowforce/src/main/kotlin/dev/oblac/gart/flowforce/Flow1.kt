@@ -1,6 +1,6 @@
 package dev.oblac.gart.flowforce
 
-import dev.oblac.gart.color.Colors
+import dev.oblac.gart.color.CssColors
 import dev.oblac.gart.color.alpha
 import dev.oblac.gart.force.ForceField
 import dev.oblac.gart.force.SpiralVecForce
@@ -62,7 +62,7 @@ fun main() {
                     forceField[it.x, it.y]
                         .offset(it)
                         .also { p ->
-                            g.canvas.drawLine(it.x, it.y, p.x, p.y, strokeOf(Colors.black.alpha(0x28), 1f))
+                            g.canvas.drawLine(it.x, it.y, p.x, p.y, strokeOf(CssColors.black.alpha(0x28), 1f))
                         }
                 }
             image = g.snapshot()

@@ -4,7 +4,7 @@ import dev.oblac.gart.Dimension
 import dev.oblac.gart.Drawing
 import dev.oblac.gart.Gart
 import dev.oblac.gart.Gartvas
-import dev.oblac.gart.color.Colors
+import dev.oblac.gart.color.CssColors
 import dev.oblac.gart.color.Palettes
 import dev.oblac.gart.color.RetroColors
 import dev.oblac.gart.color.toFillPaint
@@ -54,7 +54,7 @@ private fun draw(c: Canvas, d: Dimension) {
     val vpLeft2 = Point(-600f, 1200f)
     val vpRight2 = Point(1400f, 1100f)
 
-    val topPaint = Colors.transparent.toFillPaint()
+    val topPaint = CssColors.transparent.toFillPaint()
 
     val blocks = doubleLoopSequence(3, 3)
         .map { (x, y) ->

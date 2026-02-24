@@ -2,7 +2,7 @@ package dev.oblac.gart.flamebrush
 
 import dev.oblac.gart.Dimension
 import dev.oblac.gart.Gart
-import dev.oblac.gart.color.Colors
+import dev.oblac.gart.color.CssColors
 import dev.oblac.gart.color.Palettes
 import dev.oblac.gart.gfx.*
 import dev.oblac.gart.math.dist
@@ -21,7 +21,7 @@ fun main() {
     val d = gart.d
     val c = g.canvas
 
-    c.clear(Colors.black)
+    c.clear(CssColors.black)
 
     // spirals
     for (i in 0 until 10) {

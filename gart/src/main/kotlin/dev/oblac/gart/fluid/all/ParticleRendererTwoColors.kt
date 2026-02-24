@@ -12,8 +12,8 @@ import org.jetbrains.skia.Rect
  */
 class ParticleRendererTwoColors(
     private val canvas: Canvas,
-    private val backgroundColor: Int = Colors.oldLace,
-    private val particleColor: Int = Colors.midnightBlue
+    private val backgroundColor: Int = CssColors.oldLace,
+    private val particleColor: Int = CssColors.midnightBlue
 ) : ParticleRenderer {
 
     private val paint = Paint().apply { mode = PaintMode.FILL }

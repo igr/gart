@@ -1,7 +1,7 @@
 package dev.oblac.gart.lettero3
 
 import dev.oblac.gart.*
-import dev.oblac.gart.color.Colors
+import dev.oblac.gart.color.CssColors
 import dev.oblac.gart.color.NipponColors
 import dev.oblac.gart.color.Palette
 import dev.oblac.gart.color.Palettes
@@ -34,7 +34,7 @@ private fun draw(c: Canvas, d: Dimension) {
     ): Sprite {
         val tlc = textLines.computeIfAbsent(ch) { TextLine.make("$it", font) }
         val gg = Gartvas.of(tlc.width, tlc.height)
-        gg.canvas.clear(Colors.transparent)
+        gg.canvas.clear(CssColors.transparent)
         gg.canvas.drawTextLine(tlc, 0f, tlc.capHeight, fillOf(palette.safe(index)))
         return gg.sprite()
     }

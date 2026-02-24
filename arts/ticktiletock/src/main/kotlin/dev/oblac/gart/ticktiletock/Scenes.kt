@@ -4,7 +4,7 @@ import dev.oblac.gart.Dimension
 import dev.oblac.gart.Draw
 import dev.oblac.gart.Gartmap
 import dev.oblac.gart.Pixel
-import dev.oblac.gart.color.Colors
+import dev.oblac.gart.color.CssColors
 import dev.oblac.gart.color.Palettes
 import dev.oblac.gart.math.rndi
 import dev.oblac.gart.pixels.floodFill
@@ -12,7 +12,7 @@ import dev.oblac.gart.pixels.matchSimilarColor
 import org.jetbrains.skia.Canvas
 
 private fun clear(canvas: Canvas) {
-    canvas.clear(Colors.white)
+    canvas.clear(CssColors.white)
 }
 
 object Scenes {
@@ -57,7 +57,7 @@ class SceneAWithFill2(private val d: Dimension, split: Int, private val m: Gartm
         m.updatePixelsFromCanvas()
         r.forEach {
             floodFill(
-                m, it.first, fillColor = it.second, matchSimilarColor(Colors.white, 160)
+                m, it.first, fillColor = it.second, matchSimilarColor(CssColors.white, 160)
             )
         }
         m.drawToCanvas()

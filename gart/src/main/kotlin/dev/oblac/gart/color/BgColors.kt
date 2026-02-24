@@ -37,4 +37,10 @@ object BgColors {
     val coolDark = 0xFF1a1a1a.toInt()
     val coolGray = 0xFFe5e5e5.toInt()
 
+    const val warmBlack1 = 0xFF181716.toInt()
+    const val warmBlack2 = 0xFF2a2727.toInt()
+    const val warmBlack3 = 0xFF393433.toInt()
+    const val warmBlack4 = 0xFF453f3d.toInt()
+    const val warmBlack5 = 0xFF57504d.toInt()
+
 }

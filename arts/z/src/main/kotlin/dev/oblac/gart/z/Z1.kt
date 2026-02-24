@@ -2,7 +2,7 @@ package dev.oblac.gart.z
 
 import dev.oblac.gart.Dimension
 import dev.oblac.gart.Gart
-import dev.oblac.gart.color.Colors
+import dev.oblac.gart.color.CssColors
 import dev.oblac.gart.color.Palettes
 import dev.oblac.gart.gfx.fillOf
 import dev.oblac.gart.math.Complex.Companion.imag
@@ -31,7 +31,7 @@ fun main() {
 private val p = Palettes.colormap092.expand(256)
 
 private fun draw(c: Canvas, d: Dimension) {
-    c.clear(Colors.black)
+    c.clear(CssColors.black)
 
     for (j in 0 until d.h) {
         val y = map(j, 0, d.h, -1, 1)

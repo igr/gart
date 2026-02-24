@@ -1,7 +1,7 @@
 package dev.oblac.gart.metro
 
 import dev.oblac.gart.Gart
-import dev.oblac.gart.color.Colors
+import dev.oblac.gart.color.CssColors
 import dev.oblac.gart.color.Palettes
 import dev.oblac.gart.gfx.fillOfBlack
 import dev.oblac.gart.gfx.strokeOf
@@ -80,7 +80,7 @@ fun main() {
     println(gart)
     val g = gart.gartvas()
 
-    g.canvas.clear(Colors.blackColor.toColor())
+    g.canvas.clear(CssColors.black)
 
     drawR3(g.canvas, polyG)
     drawR3(g.canvas, polyG2)

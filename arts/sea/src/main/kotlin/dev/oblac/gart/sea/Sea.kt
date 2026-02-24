@@ -9,7 +9,7 @@ import dev.obac.gart.box2d.createContainer
 import dev.oblac.gart.Gart
 import dev.oblac.gart.color.BgColors
 import dev.oblac.gart.color.Palettes
-import dev.oblac.gart.color.toColor4f
+import dev.oblac.gart.color.space.color4f
 import dev.oblac.gart.force.ForceField
 import dev.oblac.gart.gfx.*
 import dev.oblac.gart.math.*
@@ -22,7 +22,7 @@ const val ballRadius = 50f
 
 val ppp = Palettes.cool7.expand(100)
 val waterColors = ppp.map { fillOf(it) }
-val waterColorsInt = ppp.map { it.toColor4f() }.toTypedArray()
+val waterColorsInt = ppp.map { it.color4f() }.toTypedArray()
 val bbbColors = Palettes.cool36.map { fillOf(it) }
 
 val topGradient = Paint().apply {

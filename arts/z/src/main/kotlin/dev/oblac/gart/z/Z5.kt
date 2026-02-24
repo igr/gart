@@ -5,7 +5,7 @@ import dev.oblac.gart.Gart
 import dev.oblac.gart.Key
 import dev.oblac.gart.angle.Radians
 import dev.oblac.gart.color.BgColors
-import dev.oblac.gart.color.Colors
+import dev.oblac.gart.color.CssColors
 import dev.oblac.gart.color.Palettes
 import dev.oblac.gart.gfx.*
 import dev.oblac.gart.math.Complex.Companion.imag
@@ -49,7 +49,7 @@ private var p = Palettes.colormap029
     .expand(256)
 
 private fun draw(c: Canvas, d: Dimension) {
-    c.clear(Colors.black)
+    c.clear(CssColors.black)
     c.save()
     c.rotate(0f, d.cx, d.cy)
 

@@ -5,7 +5,7 @@ import de.pirckheimer_gymnasium.jbox2d.collision.shapes.PolygonShape
 import de.pirckheimer_gymnasium.jbox2d.common.Vec2
 import de.pirckheimer_gymnasium.jbox2d.dynamics.*
 import de.pirckheimer_gymnasium.jbox2d.particle.ParticleGroupDef
-import dev.oblac.gart.color.Colors
+import dev.oblac.gart.color.CssColors
 import dev.oblac.gart.gfx.fillOf
 import dev.oblac.gart.math.rndf
 
@@ -28,13 +28,13 @@ fun main() {
 
     createContainer(world, d)
 
-    val ballColor = fillOf(Colors.coral)
-    val waterColor = fillOf(Colors.cyanColor)
+    val ballColor = fillOf(CssColors.coral)
+    val waterColor = fillOf(CssColors.cyan)
 
     gart.window().show { c, _, f ->
         world.step(f.frameDurationSeconds, 4, 2)
 
-        c.clear(Colors.gray)
+        c.clear(CssColors.gray)
         balls.forEach {
             val pos = it.position
             c.drawCircle(pos.x, pos.y, 50f, ballColor)

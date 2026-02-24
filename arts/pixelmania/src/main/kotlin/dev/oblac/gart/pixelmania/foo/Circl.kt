@@ -4,7 +4,7 @@ import dev.oblac.gart.Dimension
 import dev.oblac.gart.Drawing
 import dev.oblac.gart.Gart
 import dev.oblac.gart.Gartvas
-import dev.oblac.gart.color.Colors
+import dev.oblac.gart.color.CssColors
 import dev.oblac.gart.gfx.*
 import dev.oblac.gart.shader.createNoiseGrain2Filter
 import org.jetbrains.skia.Canvas
@@ -31,7 +31,7 @@ private class MyDraw(g: Gartvas) : Drawing(g) {
 }
 
 private fun draw(c: Canvas, d: Dimension) {
-    c.clear(Colors.white)
+    c.clear(CssColors.white)
 
     val centerPoint = d.center
 
@@ -44,11 +44,11 @@ private fun draw(c: Canvas, d: Dimension) {
     val points = createCircleOfPoints(centerPoint, orbitRadius, numberOfPoints)
 
     // Draw a guide circle showing the orbit
-    c.drawCircle(centerPoint.x, centerPoint.y, orbitRadius, strokeOf(Colors.lightGray, 1f))
+    c.drawCircle(centerPoint.x, centerPoint.y, orbitRadius, strokeOf(CssColors.lightGray, 1f))
 
     // Draw circles at each calculated point
     points.forEachIndexed { index, point ->
-        val color = Colors.black
+        val color = CssColors.black
         val circle = Circle(point, circleRadius * (1f - index * 0.1f))
         c.save()
         c.clipCircle(circle)
@@ -57,7 +57,7 @@ private fun draw(c: Canvas, d: Dimension) {
             this.alpha = 200
             this.shader = makeSweepGradient(
                 center = point.offset(100f, 100f),
-                colors = intArrayOf(color, Colors.white, color),
+                colors = intArrayOf(color, CssColors.white, color),
                 positions = floatArrayOf(0.4f, 0.7f, 1f)
             )
         })

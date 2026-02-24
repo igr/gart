@@ -1,6 +1,6 @@
 package dev.oblac.gart
 
-import dev.oblac.gart.color.Colors
+import dev.oblac.gart.color.CssColors
 import dev.oblac.gart.gfx.draw
 import dev.oblac.gart.gfx.fillOfRed
 import dev.oblac.gart.pixels.dither.*
@@ -85,23 +85,23 @@ fun main() {
 }
 
 private fun draw1(c: Canvas, d: Dimension) {
-    c.clear(Colors.white)
+    c.clear(CssColors.white)
     c.drawCircle(d.cx, d.cy, 400f, fillOfRed().apply {
         this.shader = Shader.makeLinearGradient(
             x0 = d.cx, y0 = d.cy - 400f,
             x1 = d.cx, y1 = d.cy + 400f,
-            colors = arrayOf(Colors.white, Colors.red).toIntArray(),
+            colors = arrayOf(CssColors.white, CssColors.red).toIntArray(),
         )
         this.isDither = true
     })
 }
 private fun draw2(c: Canvas, d: Dimension) {
-    c.clear(Colors.white)
+    c.clear(CssColors.white)
     c.drawCircle(d.cx, d.cy, 400f, fillOfRed().apply {
         this.shader = Shader.makeLinearGradient(
             x0 = d.cx, y0 = d.cy - 400f,
             x1 = d.cx, y1 = d.cy + 400f,
-            colors = arrayOf(Colors.white, Colors.black).toIntArray(),
+            colors = arrayOf(CssColors.white, CssColors.black).toIntArray(),
         )
         this.isDither = true
     })

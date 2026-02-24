@@ -1,5 +1,6 @@
 package dev.oblac.gart.color
 
+import dev.oblac.gart.color.space.of
 import dev.oblac.gart.gfx.fillOf
 import dev.oblac.gart.gfx.strokeOf
 import org.jetbrains.skia.Color
@@ -73,8 +74,6 @@ fun Int.convertRGBAtoARGB(): Int {
 }
 
 
-fun Number.toColor4f(): Color4f = Color4f(this.toInt())
-
 fun Int.toFillPaint(): Paint = fillOf(this)
 fun Int.toStrokePaint(width: Float): Paint = strokeOf(this, width)
 
@@ -137,27 +136,31 @@ fun blendDarken(existingColor: Int, newColor: Int): Int {
     return argb(blendedA, blendedR, blendedG, blendedB)
 }
 
+fun String.parseColor4f() = Color4f.of(parseColor())
+
 fun String.parseColor(): Int {
-    if (!this.startsWith("#")) {
-        throw IllegalArgumentException("Color string must start with '#'")
+    val hex = when {
+        this.startsWith("#") -> this.substring(1)
+        this.startsWith("0x") || this.startsWith("0X") -> this.substring(2)
+        else -> throw IllegalArgumentException("Color string must start with '#' or '0x'")
     }
-    return when (this.length) {
-        7 -> { // #RRGGBB
-            val r = this.substring(1, 3).toInt(16)
-            val g = this.substring(3, 5).toInt(16)
-            val b = this.substring(5, 7).toInt(16)
+    return when (hex.length) {
+        6 -> { // RRGGBB
+            val r = hex.substring(0, 2).toInt(16)
+            val g = hex.substring(2, 4).toInt(16)
+            val b = hex.substring(4, 6).toInt(16)
             rgb(r, g, b)
         }
 
-        9 -> { // #AARRGGBB
-            val a = this.substring(1, 3).toInt(16)
-            val r = this.substring(3, 5).toInt(16)
-            val g = this.substring(5, 7).toInt(16)
-            val b = this.substring(7, 9).toInt(16)
+        8 -> { // AARRGGBB
+            val a = hex.substring(0, 2).toInt(16)
+            val r = hex.substring(2, 4).toInt(16)
+            val g = hex.substring(4, 6).toInt(16)
+            val b = hex.substring(6, 8).toInt(16)
             argb(a, r, g, b)
         }
 
-        else -> throw IllegalArgumentException("Color string must be in format #RRGGBB or #AARRGGBB")
+        else -> throw IllegalArgumentException("Color string must be in format #RRGGBB, #AARRGGBB, 0xRRGGBB, or 0xAARRGGBB")
     }
 }
 

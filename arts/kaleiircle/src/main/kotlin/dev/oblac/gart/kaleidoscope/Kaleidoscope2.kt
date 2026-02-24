@@ -8,7 +8,7 @@ import dev.oblac.gart.Sprite.Companion.of
 import dev.oblac.gart.angle.Angle
 import dev.oblac.gart.angle.Degrees
 import dev.oblac.gart.color.BgColors
-import dev.oblac.gart.color.Colors
+import dev.oblac.gart.color.CssColors
 import dev.oblac.gart.color.Palettes
 import dev.oblac.gart.gfx.*
 import dev.oblac.gart.math.Lissajous
@@ -83,7 +83,7 @@ private fun customCropTriangle(image: Image, p: Point, size: Float, angle: Angle
 
     val target = sprite.canvas
     target.save()
-    target.clear(Colors.transparent)
+    target.clear(CssColors.transparent)
     target.translate(-p.x + radius, -p.y + radius)
     target.rotate(angle.degrees + 30f, p.x, p.y)
     target.clipPath(triangle.path)

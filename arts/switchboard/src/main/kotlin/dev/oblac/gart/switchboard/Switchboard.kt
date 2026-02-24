@@ -3,7 +3,7 @@ package dev.oblac.gart.switchboard
 import dev.oblac.gart.Dimension
 import dev.oblac.gart.Gart
 import dev.oblac.gart.angle.Degrees
-import dev.oblac.gart.color.Colors
+import dev.oblac.gart.color.CssColors
 import dev.oblac.gart.color.Palettes
 import dev.oblac.gart.color.toFillPaint
 import dev.oblac.gart.gfx.*
@@ -129,7 +129,7 @@ fun randomSwitchType(x: Int, y: Int): SwitchType? {
     return null
 }
 
-data class Switch(val x: Int, val y: Int, val type: SwitchType, val color: Int = Colors.crimson) {
+data class Switch(val x: Int, val y: Int, val type: SwitchType, val color: Int = CssColors.crimson) {
     @Suppress("t")
     fun draw(canvas: Canvas): List<Point> {
         val x0 = x * a
@@ -221,7 +221,7 @@ data class Switch(val x: Int, val y: Int, val type: SwitchType, val color: Int =
     }
 }
 
-val hatchPaint = hatchPaint(Colors.black, density = 4f, dotWidth = 1.4f)
-val dashPaint = dashPaint(Colors.black)
-val dashPaint2 = dashPaint(Colors.black, angle = Degrees.of(45f))
+val hatchPaint = hatchPaint(CssColors.black, density = 4f, dotWidth = 1.4f)
+val dashPaint = dashPaint(CssColors.black)
+val dashPaint2 = dashPaint(CssColors.black, angle = Degrees.of(45f))
 val wire = strokeOfBlack(5).also { it.strokeCap = PaintStrokeCap.ROUND }

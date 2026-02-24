@@ -1,7 +1,7 @@
 package dev.oblac.gart.pixels.halftone
 
 import dev.oblac.gart.Pixels
-import dev.oblac.gart.color.Colors
+import dev.oblac.gart.color.CssColors
 import dev.oblac.gart.color.alpha
 import dev.oblac.gart.color.red
 import dev.oblac.gart.color.space.RGBA
@@ -28,7 +28,7 @@ fun renderHalftone(
 
     // Clear background if not a layer
     if (!isLayer) {
-        target.fill(Colors.white)
+        target.fill(CssColors.white)
     }
 
     // Calculate rotation boundaries to determine iteration range

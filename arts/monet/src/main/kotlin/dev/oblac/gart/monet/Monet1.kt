@@ -2,7 +2,7 @@ package dev.oblac.gart.monet
 
 import dev.oblac.gart.Dimension
 import dev.oblac.gart.Gart
-import dev.oblac.gart.color.Colors
+import dev.oblac.gart.color.CssColors
 import dev.oblac.gart.color.Palettes
 import dev.oblac.gart.gfx.*
 import dev.oblac.gart.math.rndf
@@ -27,7 +27,7 @@ fun main() {
 private val pal = Palettes.cool48
 
 private fun draw(c: Canvas, d: Dimension) {
-    c.clear(Colors.white)
+    c.clear(CssColors.white)
 
     // line
     val line = mutableListOf<Point>()

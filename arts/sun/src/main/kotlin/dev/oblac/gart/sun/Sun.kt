@@ -1,7 +1,7 @@
 package dev.oblac.gart.sun
 
 import dev.oblac.gart.Gart
-import dev.oblac.gart.color.Colors
+import dev.oblac.gart.color.CssColors
 import dev.oblac.gart.color.Palettes
 import dev.oblac.gart.fluid.lbh.LatticeBoltzmannSimpleFluid
 import kotlin.math.abs
@@ -26,7 +26,7 @@ fun main() {
     val movieEnds = 100L
     m.record(w).show { c, _, f ->
         //w.show { c, _, f ->
-        c.clear(Colors.white)
+        c.clear(CssColors.white)
         lbf.simulate()
         lbf.lattices { l, x, y ->
             val a = abs(l.density % 1f)

@@ -1,6 +1,6 @@
 package dev.oblac.gart
 
-import dev.oblac.gart.color.Colors
+import dev.oblac.gart.color.CssColors
 import dev.oblac.gart.color.space.RGBA.Companion.BLACK
 import dev.oblac.gart.color.space.RGBA.Companion.CYAN
 import dev.oblac.gart.color.space.RGBA.Companion.MAGENTA
@@ -263,26 +263,26 @@ private fun draw1(c: Canvas, d: Dimension) {
 }
 
 private fun draw2(c: Canvas, d: Dimension) {
-    c.clear(Colors.white)
+    c.clear(CssColors.white)
     c.drawCircle(d.cx, d.cy, 400f, fillOfRed().apply {
         this.shader = Shader.makeLinearGradient(
             x0 = d.cx, y0 = d.cy - 400f,
             x1 = d.cx, y1 = d.cy + 400f,
-            colors = arrayOf(Colors.white, Colors.black).toIntArray(),
+            colors = arrayOf(CssColors.white, CssColors.black).toIntArray(),
         )
         this.isDither = true
     })
 }
 
 private fun draw3(c: Canvas, d: Dimension) {
-    c.clear(Colors.white)
+    c.clear(CssColors.white)
     for (i in 0..3) {
         val x = d.w / 4 * i + d.w / 8
         val color = when (i) {
-            0 -> Colors.red
-            1 -> Colors.green  
-            2 -> Colors.blue
-            else -> Colors.yellow
+            0 -> CssColors.red
+            1 -> CssColors.green
+            2 -> CssColors.blue
+            else -> CssColors.yellow
         }
         c.drawCircle(x.toFloat(), d.cy, 100f, fillOfRed().apply {
             this.color = color

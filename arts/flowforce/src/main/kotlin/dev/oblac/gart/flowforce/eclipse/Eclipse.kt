@@ -4,7 +4,7 @@ import dev.oblac.gart.Dimension
 import dev.oblac.gart.Gart
 import dev.oblac.gart.angle.Radians
 import dev.oblac.gart.color.BgColors
-import dev.oblac.gart.color.Colors
+import dev.oblac.gart.color.CssColors
 import dev.oblac.gart.force.Flow
 import dev.oblac.gart.force.ForceField
 import dev.oblac.gart.force.ForceGenerator
@@ -94,7 +94,7 @@ fun drawRays(c: Canvas, d: Dimension, moonR: Float) {
     }.toList()
 
     val rayPaint = Paint().apply {
-        color = Colors.white
+        color = CssColors.white
         strokeWidth = 1f
         alpha = 30
     }

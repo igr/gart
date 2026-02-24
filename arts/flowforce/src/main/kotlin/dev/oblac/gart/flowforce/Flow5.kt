@@ -4,7 +4,7 @@ import dev.oblac.gart.Gart
 import dev.oblac.gart.angle.Degrees
 import dev.oblac.gart.angle.Radians
 import dev.oblac.gart.color.BgColors
-import dev.oblac.gart.color.Colors
+import dev.oblac.gart.color.CssColors
 import dev.oblac.gart.color.Palettes
 import dev.oblac.gart.color.alpha
 import dev.oblac.gart.force.ForceField
@@ -55,7 +55,7 @@ fun main() {
     // paint
 
     val stopDrawing = 6.seconds.toFrames(gart.fps)
-    val pal = Palettes.gradient(BgColors.elegantDark, Colors.crimson, 100)
+    val pal = Palettes.gradient(BgColors.elegantDark, CssColors.crimson, 100)
 
     val w = gart.window()
     var image = g.snapshot()

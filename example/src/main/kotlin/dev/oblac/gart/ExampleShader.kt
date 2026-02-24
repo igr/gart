@@ -1,6 +1,6 @@
 package dev.oblac.gart
 
-import dev.oblac.gart.color.Colors
+import dev.oblac.gart.color.CssColors
 import dev.oblac.gart.gfx.fillOfRed
 import dev.oblac.gart.shader.*
 import org.jetbrains.skia.*
@@ -46,7 +46,7 @@ fun main() {
             Key.KEY_2 -> {
                 fill = Paint().apply {
                     this.isAntiAlias = true
-                    this.color = Colors.red
+                    this.color = CssColors.red
                     this.imageFilter = ImageFilter.makeBlur(20f, 20f, FilterTileMode.DECAL)
                 }
                 filter = null
@@ -55,7 +55,7 @@ fun main() {
             Key.KEY_3 -> {
                 fill = Paint().apply {
                     this.isAntiAlias = true
-                    this.color = Colors.blue
+                    this.color = CssColors.blue
                     this.imageFilter = ImageFilter.makeDilate(20f, 20f, input = null, crop = null)
                 }
                 filter = null
@@ -64,8 +64,8 @@ fun main() {
             Key.KEY_4 -> {
                 fill = Paint().apply {
                     this.isAntiAlias = true
-                    this.color = Colors.darkGoldenrod
-                    this.imageFilter = ImageFilter.makeDropShadow(10f, 20f, 10f, 20f, Colors.black)
+                    this.color = CssColors.darkGoldenrod
+                    this.imageFilter = ImageFilter.makeDropShadow(10f, 20f, 10f, 20f, CssColors.black)
                 }
                 filter = null
             }
@@ -107,7 +107,7 @@ fun main() {
                 shader = {
                     makeLinearGradient(
                         0f, 0f, gart.d.w.toFloat(), gart.d.h.toFloat(),
-                        intArrayOf(Colors.red, Colors.yellow, Colors.green, Colors.cyan, Colors.blue, Colors.magenta),
+                        intArrayOf(CssColors.red, CssColors.yellow, CssColors.green, CssColors.cyan, CssColors.blue, CssColors.magenta),
                         floatArrayOf(0f, 0.2f, 0.4f, 0.6f, 0.8f, 1f),
                         GradientStyle.DEFAULT
                     )
@@ -120,7 +120,7 @@ fun main() {
                         gart.d.wf / 2,
                         gart.d.hf / 2,
                         gart.d.wf / 2,
-                        intArrayOf(Colors.white, Colors.blue, Colors.black),
+                        intArrayOf(CssColors.white, CssColors.blue, CssColors.black),
                         floatArrayOf(0f, 0.5f, 1f),
                         GradientStyle.DEFAULT
                     )
@@ -136,7 +136,7 @@ fun main() {
                         gart.d.wf / 2,
                         gart.d.hf / 2,
                         gart.d.wf / 2,
-                        intArrayOf(Colors.yellow, Colors.red, Colors.magenta, Colors.blue, Colors.cyan, Colors.green, Colors.yellow),
+                        intArrayOf(CssColors.yellow, CssColors.red, CssColors.magenta, CssColors.blue, CssColors.cyan, CssColors.green, CssColors.yellow),
                         floatArrayOf(0f, 0.16f, 0.33f, 0.5f, 0.66f, 0.83f, 1f),
                         GradientStyle.DEFAULT
                     )
@@ -148,7 +148,7 @@ fun main() {
                     makeSweepGradient(
                         gart.d.wf / 2,
                         gart.d.hf / 2,
-                        intArrayOf(Colors.red, Colors.yellow, Colors.green, Colors.cyan, Colors.blue, Colors.magenta, Colors.red),
+                        intArrayOf(CssColors.red, CssColors.yellow, CssColors.green, CssColors.cyan, CssColors.blue, CssColors.magenta, CssColors.red),
                         floatArrayOf(0f, 0.16f, 0.33f, 0.5f, 0.66f, 0.83f, 1f),
                         GradientStyle.DEFAULT
                     )

@@ -3,7 +3,7 @@ package dev.oblac.gart.legoo.v1
 import dev.oblac.gart.Gart
 import dev.oblac.gart.angle.Degrees
 import dev.oblac.gart.color.BgColors
-import dev.oblac.gart.color.Colors
+import dev.oblac.gart.color.CssColors
 import dev.oblac.gart.gfx.RectIsometricLeft
 import dev.oblac.gart.gfx.RectIsometricRight
 import dev.oblac.gart.gfx.RectIsometricTop
@@ -31,8 +31,8 @@ fun main() {
     // draw on canvas
     g.draw { c, d ->
         c.drawRect(Rect(0f, 0f, d.wf, d.hf), fillOf(BgColors.elegantDark))
-        c.drawCircle(d.cx, d.cy, 260f, fillOf(Colors.crimson))
-        c.drawCircle(d.cx + 100f, d.cy - 40f, 200f, fillOf(Colors.crimson))
+        c.drawCircle(d.cx, d.cy, 260f, fillOf(CssColors.crimson))
+        c.drawCircle(d.cx + 100f, d.cy - 40f, 200f, fillOf(CssColors.crimson))
 
         // 1
         val x = d.cx - sc // top-center

@@ -1,7 +1,7 @@
 package dev.oblac.gart.roundrects
 
 import dev.oblac.gart.Gart
-import dev.oblac.gart.color.Colors
+import dev.oblac.gart.color.CssColors
 import dev.oblac.gart.math.rndi
 import dev.oblac.gart.toFrames
 import kotlin.time.Duration.Companion.seconds
@@ -31,7 +31,7 @@ fun main() {
                 m.stopRecording()
             }
         }
-        c.clear(Colors.blackColor.toColor())
+        c.clear(CssColors.black)
         bigBox.allCells.forEach { it.draw(c, f.time) }
     }
 }

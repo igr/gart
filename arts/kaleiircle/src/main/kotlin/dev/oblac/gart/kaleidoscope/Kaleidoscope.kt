@@ -3,7 +3,7 @@ package dev.oblac.gart.kaleidoscope
 import dev.oblac.gart.*
 import dev.oblac.gart.angle.Radians
 import dev.oblac.gart.angle.sinf
-import dev.oblac.gart.color.Colors
+import dev.oblac.gart.color.CssColors
 import dev.oblac.gart.color.NipponColors
 import dev.oblac.gart.color.Palettes
 import dev.oblac.gart.gfx.drawCircle
@@ -33,7 +33,7 @@ fun main() {
 
     val sprite = makeTriangleSprite(g, d.center, tSize)
 
-    c.clear(Colors.white)
+    c.clear(CssColors.white)
 
     drawSpriteAsKaleidoscope(c, d, sprite, tSize)
 

@@ -1,7 +1,7 @@
 package dev.oblac.gart.rects.cells
 
 import dev.oblac.gart.Gart
-import dev.oblac.gart.color.Colors
+import dev.oblac.gart.color.CssColors
 import dev.oblac.gart.color.Palettes
 import dev.oblac.gart.gfx.closedPathOf
 import dev.oblac.gart.gfx.fillOf
@@ -24,7 +24,7 @@ val gart = Gart.of(
 fun main() {
     println(gart)
     val g = gart.gartvas()
-    g.canvas.clear(Colors.blackColor.toColor())
+    g.canvas.clear(CssColors.black)
 
     val rectW = 64f
     val xCount = (gart.d.rect.width / rectW).toInt() + 1

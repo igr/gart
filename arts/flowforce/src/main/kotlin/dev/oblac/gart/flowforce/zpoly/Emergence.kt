@@ -1,7 +1,7 @@
 package dev.oblac.gart.flowforce.zpoly
 
 import dev.oblac.gart.Gart
-import dev.oblac.gart.color.Colors
+import dev.oblac.gart.color.CssColors
 import dev.oblac.gart.color.Palettes
 import dev.oblac.gart.force.ForceField
 import dev.oblac.gart.gfx.drawPoint
@@ -45,7 +45,7 @@ fun main() {
 
 //    val m = gart.movie()
 
-    g.canvas.clear(Colors.black)
+    g.canvas.clear(CssColors.black)
     val pal = Palettes.cool34.expand(400)
     var rr = 100f
     repeat(400) {

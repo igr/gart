@@ -1,7 +1,7 @@
 package dev.oblac.gart.sun.ns1
 
 import dev.oblac.gart.Gart
-import dev.oblac.gart.color.Colors
+import dev.oblac.gart.color.CssColors
 import dev.oblac.gart.color.Palettes
 import dev.oblac.gart.fluid.navstr.NavierStokesSolver
 
@@ -28,7 +28,7 @@ fun main() {
 
     val bitmap = gart.gartmap(g)
     w.show { c, _, f ->
-        c.clear(Colors.white)
+        c.clear(CssColors.white)
 
         for (x in 0..<ns.nx) {
             for (y in 0..<ns.ny) {

@@ -2,7 +2,8 @@ package dev.oblac.gart.harmongraph
 
 import dev.oblac.gart.Frames
 import dev.oblac.gart.Gart
-import dev.oblac.gart.color.Colors
+import dev.oblac.gart.color.BgColors
+import dev.oblac.gart.color.CssColors
 import dev.oblac.gart.color.alpha
 import dev.oblac.gart.gfx.Triangle
 import dev.oblac.gart.gfx.drawTriangle
@@ -55,8 +56,8 @@ private fun draw(canvas: Canvas, tick: Frames, drawing: Int) {
         Point(0f, d.hf),
         Point(d.wf, d.hf)
     )
-    canvas.drawTriangle(backTriangle1, fillOf(Colors.warmBlack1))
-    canvas.drawTriangle(backTriangle2, fillOf(Colors.oldLace))
+    canvas.drawTriangle(backTriangle1, fillOf(BgColors.warmBlack1))
+    canvas.drawTriangle(backTriangle2, fillOf(CssColors.oldLace))
 
     when (drawing) {
         3 ->
@@ -96,8 +97,8 @@ private fun draw(canvas: Canvas, tick: Frames, drawing: Int) {
             )
     }
 
-    canvas.drawRect(Rect(0f, 0f, d.wf, d.hf), strokeOf(Colors.oldLace, 40f))
-    canvas.drawLine(0f, 0f, d.wf, d.hf, strokeOf(Colors.oldLace, 20f))
+    canvas.drawRect(Rect(0f, 0f, d.wf, d.hf), strokeOf(CssColors.oldLace, 40f))
+    canvas.drawLine(0f, 0f, d.wf, d.hf, strokeOf(CssColors.oldLace, 20f))
 
     deltaPhase = sinDeg(tick.frame / 2.5f) / 4
 }
@@ -143,9 +144,9 @@ private fun drawConnectDots(canvas: Canvas, dots: List<Dot>) =
         val nextDot = dots.getOrNull(index + 1)
         if (nextDot != null) {
             val color = if (dot.x > dot.y) {
-                Colors.white.alpha(0x66)
+                CssColors.white.alpha(0x66)
             } else {
-                Colors.black.alpha(0x66)
+                CssColors.black.alpha(0x66)
             }
             canvas.drawLine(dot.x, dot.y, nextDot.x, nextDot.y, strokeOf(color, 1.0f))
         }

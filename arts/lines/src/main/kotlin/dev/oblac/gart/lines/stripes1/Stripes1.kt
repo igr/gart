@@ -4,7 +4,7 @@ import dev.oblac.gart.Dimension
 import dev.oblac.gart.Drawing
 import dev.oblac.gart.Gart
 import dev.oblac.gart.Gartvas
-import dev.oblac.gart.color.Colors
+import dev.oblac.gart.color.CssColors
 import dev.oblac.gart.color.Palettes
 import dev.oblac.gart.gfx.drawBorder
 import dev.oblac.gart.gfx.drawCircle
@@ -48,7 +48,7 @@ private data class Stripe(
 )
 
 private fun draw(c: Canvas, d: Dimension) {
-    c.clear(Colors.black)
+    c.clear(CssColors.black)
 
     var prev = Stripe(
         xoff = -100f,
@@ -85,7 +85,7 @@ private fun draw(c: Canvas, d: Dimension) {
         prev = new
     }
 
-    c.drawBorder(d, 20f, Colors.white)
+    c.drawBorder(d, 20f, CssColors.white)
 }
 
 private fun drawStripe(

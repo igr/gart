@@ -83,24 +83,23 @@ fun joinGrayscaleCMYKChannels(cyanChannel: Pixels, magentaChannel: Pixels, yello
         // The extracted grayscale values represent the "darkness" for each CMYK component
         // We need to invert them to get the actual CMYK ink densities
         // Higher grayscale value = more ink needed for that component
-        val colorCMYK = ColorCMYK.of(
+        val colorCMYK = ColorCMYK(
             c = (255 - cyanIntensity) / 255f,      // Invert: dark areas need more cyan ink
             m = (255 - magentaIntensity) / 255f,   // Invert: dark areas need more magenta ink
             y = (255 - yellowIntensity) / 255f,    // Invert: dark areas need more yellow ink
             k = (255 - keyIntensity) / 255f        // Invert: dark areas need more black ink
         )
-        //val value = colorCMYK.toRGBA().value
-        val value = colorCMYK.toPureInk().value
+        val value = colorCMYK.toColor4f().toColor()
 
         target[x, y] = value
     }
 }
 
-class YellowChannel() : ColorChannel {
+class YellowChannel : ColorChannel {
     override val color: RGBA = RGBA.YELLOW
 }
 
-class CyanChannel() : ColorChannel {
+class CyanChannel : ColorChannel {
     override val color: RGBA = RGBA.CYAN
 }
 

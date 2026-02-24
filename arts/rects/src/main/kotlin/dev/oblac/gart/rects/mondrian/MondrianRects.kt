@@ -2,7 +2,7 @@ package dev.oblac.gart.rects.mondrian
 
 import dev.oblac.gart.Gart
 import dev.oblac.gart.Key
-import dev.oblac.gart.color.toColor4f
+import dev.oblac.gart.color.space.color4f
 import dev.oblac.gart.gfx.drawBorder
 import dev.oblac.gart.gfx.fillOf
 import dev.oblac.gart.gfx.strokeOf
@@ -48,7 +48,7 @@ fun drawAll(c: Canvas) {
     val colors = randomizeColors(rects)
 
     rects.forEachIndexed() { index, rect ->
-        fillRect(c, rect, colors[index].toColor4f())
+        fillRect(c, rect, colors[index].color4f())
         c.drawRect(rect, borderStroke)
     }
 

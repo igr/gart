@@ -1,5 +1,7 @@
 package dev.oblac.gart.color.space
 
+import org.jetbrains.skia.Color4f
+
 /**
  * CMYK color representation (Cyan, Magenta, Yellow, Key/Black).
  * Values are normalized to 0.0-1.0 range.
@@ -9,38 +11,33 @@ data class ColorCMYK(val c: Float, val m: Float, val y: Float, val k: Float) {
     /**
      * Converts CMYK to RGB color space.
      */
-    fun toColorRGB(): ColorRGBA {
+    fun toColor4f(): Color4f {
         // Standard CMYK to RGB conversion
         val r = (1f - c) * (1f - k)
         val g = (1f - m) * (1f - k)
         val b = (1f - y) * (1f - k)
 
-        return ColorRGBA(r, g, b, 1f)
+        return Color4f(r, g, b, 1f)
     }
 
     /**
      * Converts CMYK to RGBA with integer values (0-255).
      */
-    fun toRGBA() = toColorRGB().toRGBA()
+    private fun toRGBA() = toColor4f().let { RGBA.of(it) }
 
     /**
      * Converts to integer color value.
      */
-    val value: Int
+    private val value: Int
         get() = toRGBA().value
-
-    /**
-     * Creates a pure ink color for this CMYK component.
-     * Returns the color when only this component has ink.
-     */
-    fun toPureInk(): RGBA {
-        return when {
-            c > 0 && m == 0f && y == 0f && k == 0f -> RGBA((255 * (1 - c)).toInt(), 255, 255) // Cyan
-            m > 0 && c == 0f && y == 0f && k == 0f -> RGBA(255, (255 * (1 - m)).toInt(), 255) // Magenta
-            y > 0 && c == 0f && m == 0f && k == 0f -> RGBA(255, 255, (255 * (1 - y)).toInt()) // Yellow
-            k > 0 && c == 0f && m == 0f && y == 0f -> RGBA((255 * (1 - k)).toInt(), (255 * (1 - k)).toInt(), (255 * (1 - k)).toInt()) // Black
-            else -> toRGBA() // Mixed color
-        }
+    
+    fun mix(other: ColorCMYK, f: Float = 0.5f): ColorCMYK {
+        return ColorCMYK(
+            c = c + f * (other.c - c),
+            m = m + f * (other.m - m),
+            y = y + f * (other.y - y),
+            k = k + f * (other.k - k)
+        )
     }
 
     /**
@@ -91,10 +88,10 @@ data class ColorCMYK(val c: Float, val m: Float, val y: Float, val k: Float) {
         get() = c + m + y + k
 
     companion object {
-        fun of(rgba: RGBA): ColorCMYK {
-            val r = rgba.r / 255f
-            val g = rgba.g / 255f
-            val b = rgba.b / 255f
+        fun of(color4f: Color4f): ColorCMYK {
+            val r = color4f.r
+            val g = color4f.g
+            val b = color4f.b
 
             // Convert RGB to CMYK
             val k = 1f - maxOf(r, g, b)
@@ -108,19 +105,6 @@ data class ColorCMYK(val c: Float, val m: Float, val y: Float, val k: Float) {
             val y = (1f - b - k) / (1f - k)
 
             return ColorCMYK(c, m, y, k)
-        }
-
-        fun of(color: Int): ColorCMYK {
-            return of(RGBA.of(color))
-        }
-
-        fun of(c: Float, m: Float, y: Float, k: Float): ColorCMYK {
-            return ColorCMYK(
-                c.coerceIn(0f, 1f),
-                m.coerceIn(0f, 1f),
-                y.coerceIn(0f, 1f),
-                k.coerceIn(0f, 1f)
-            )
         }
 
         // Common CMYK colors

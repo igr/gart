@@ -1,6 +1,6 @@
 package dev.oblac.gart
 
-import dev.oblac.gart.color.Colors
+import dev.oblac.gart.color.CssColors
 import dev.oblac.gart.gfx.drawCircle
 import dev.oblac.gart.gfx.fillOfRed
 
@@ -14,7 +14,7 @@ fun main() {
     // window 1 - static image
     val g = gart.gartvas()
     val c = g.canvas
-    c.clear(Colors.navy)
+    c.clear(CssColors.navy)
     c.drawCircle(d.center, 100f, fillOfRed())
     w.showImage(g)
 
@@ -25,7 +25,7 @@ fun main() {
                 println("Frame: ${f.frame}")
             }
         }
-        c.clear(Colors.darkGreen)
+        c.clear(CssColors.darkGreen)
         c.drawCircle(d.center, 100f, fillOfRed())
     }
 }

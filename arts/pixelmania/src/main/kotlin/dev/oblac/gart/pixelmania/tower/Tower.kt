@@ -4,7 +4,7 @@ import dev.oblac.gart.Dimension
 import dev.oblac.gart.Drawing
 import dev.oblac.gart.Gart
 import dev.oblac.gart.Gartvas
-import dev.oblac.gart.color.Colors
+import dev.oblac.gart.color.CssColors
 import dev.oblac.gart.gfx.*
 import dev.oblac.gart.math.GaussianFunction
 import dev.oblac.gart.math.rndf
@@ -35,7 +35,7 @@ private class MyDraw(val g: Gartvas) : Drawing(g) {
 }
 
 private fun draw(c: Canvas, d: Dimension) {
-    c.clear(Colors.white)
+    c.clear(CssColors.white)
 
     val g = GaussianFunction(300, d.cx, 400)
     val n = 8
@@ -87,7 +87,7 @@ private fun rectTow(rect: Rect, angleDegrees: Float, f1: Float, f2: Float): Shad
     return makeLinearGradient(
         Point(startX, startY),
         Point(endX, endY),
-        intArrayOf(Colors.white, Colors.black),
+        intArrayOf(CssColors.white, CssColors.black),
         floatArrayOf(f1, f2),
     )
 }
