@@ -12,7 +12,7 @@
 + `ffmpeg` for video encoding.
 
 🤷‍♂️ Honestly, I put the framework together for my own needs, so it’s a bit rough around the edges and the naming isn’t
-great. It’s not how I normally write code.
+great. _It’s not how I normally write code._
 
 ♻️ Continuous build for **Hot Reload**:
 
