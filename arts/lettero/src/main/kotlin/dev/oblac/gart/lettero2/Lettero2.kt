@@ -59,7 +59,7 @@ private fun draw(c: Canvas, d: Dimension) {
             }
         }
 
-        drawTextOnPath(c, path.detach(), random01(30), font, fillOf(pal[i]))
+        c.drawTextOnPath(path.detach(), random01(30), font, fillOf(pal[i]))
         i++
     }
     c.drawBorder(d, strokeOfBlack(40f))
