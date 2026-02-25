@@ -9,7 +9,7 @@ class GartView(
     private val d: Dimension,
     private var drawFrame: DrawFrame,
     fps: Int,
-    printFps: Boolean,
+    printFps: Boolean
 ) : SkikoRenderDelegate {
 
     // github says to use SkiaLayer if swing inter-op is needed

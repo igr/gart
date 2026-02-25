@@ -20,6 +20,96 @@ great. _It’s not how I normally write code._
 just hotReload
 ```
 
+## 🚀 Features
+
+There is really **a lot of features**, and I’m not sure how to organize them, but here’s an attempt at categorization:
+
+Core Framework
+
+- Gart — Factory/entry point (Gart.of("name", w, h))
+- Gartvas — Canvas wrapper (Skia Surface)
+- Window / WindowView — Swing display with keyboard/mouse handlers
+- Movie — MP4/GIF video recording (FFmpeg + GifSequenceWriter)
+- Frames — Frame timing, FPS control
+- GartRand — Deterministic random with replay
+- Sprite — Image with chainable transforms (rotate, translate, scale, flip)
+
+Color
+
+- Color spaces: RGBA, HSL, HSV, HSI, LAB, LCH, OKLAB, OKLCH, CMYK
+- Palettes: 76 cool + 15 mix + 133 colormaps (Carto, CET, ColorBrewer, Matplotlib, Plotly, Tableau, etc.)
+- Named colors: CssColors, NipponColors, RetroColors, MidCenturyColors
+- Functions: blendColors, lerpColor, colorDistance, toFillPaint, toStrokePaint
+
+Geometry & Graphics
+
+- Primitives: Point, Line, DLine, Circle, Triangle, Poly4, Rect, GridRect, RectIsometric
+- Collections: Points, PointsTrail
+- Drawing: drawCircle, drawLine, drawPoly4, drawTriangle, drawRotatedRect, fatLine, n-gon, arc, ring, spiral, wave,
+  grid, border, moon, tree, human
+- Paint helpers: strokeOf, fillOf, hatchPaint, dashPaint
+
+Math & Vectors
+
+- Vectors: Vector2/3/4, Matrix2, dot/cross product
+- Complex numbers: Complex, ComplexField, ComplexPolynomial, transcendental functions
+- Curves: Lissajous, GaussianFunction
+- Utilities: clamp, map, lerp, smoothstep, frac, mod, distance, primes, fastSqrt
+- Angles: Radians, Degrees with trig functions
+
+Noise & Sampling
+
+- Noise: Perlin, multi-octave PerlinNoise, cell noise, FBM
+- Sampling: Halton sequence, Poisson disk sampling
+- NoiseColor — Noise-driven color generation
+
+Curve Smoothing
+
+- B-spline, Cardinal spline, Catmull-Rom spline, Chaikin, quadratic smoothing
+
+Physics & Simulation
+
+- Attractors (19): Lorenz, Clifford, Rössler, Duffing, Thomas, Chen, Sprott, etc.
+- N-body: BarnesHut simulation, QuadTree, GravityParticles (10^6+)
+- Orbital mechanics (WHFast): Wisdom-Holman integrator, Kepler solver, orbital elements
+- Fluid dynamics: Navier-Stokes solver, Lattice Boltzmann, FluidSolver with particle rendering
+- Cellular automata: Elementary rules, Belousov-Zhabotinsky reaction
+- Force fields: ForceField, Flow, ForceGenerator
+- Particles: Particle system, Gravitron
+
+Spatial & Triangulation
+
+- Delaunay triangulation (Mapbox Delaunator port)
+- Voronoi diagrams
+- HashGrid — Spatial hash for fast neighbor queries
+- Circle packing — CirclePacker
+- Jump Flooding Algorithm — Distance fields
+
+Pixel Processing
+
+- Filters: Gaussian blur, motion blur, grayscale, liquify, moiré, pixel sorting, flood fill, scaling
+- Dithering (12): Floyd-Steinberg, Bayer (2x2–8x8), Atkinson, Burkes, Jarvis-Judice-Ninke, Sierra, Stucki
+- Halftone: CMYK separation, configurable screening
+
+Shaders & Effects
+
+- Shaders: neuro, marbled texture, noise grain, risograph, sketching paper
+- FX: blur, borderize, pixelate, scale
+- Glass/refraction: glassBall, glassPath
+- Ray tracing: ray, trace, mirror
+- 3D perspective: block3d (two-point perspective)
+
+Generators
+
+- Spirograph, harmonograph, midpoint displacement (terrain)
+
+Utilities
+
+- Hot reload (file watcher + dynamic class loader)
+- Font loading, text rendering
+- Image conversion, resource loading
+- Array/list/loop/range/sequence helpers
+
 ## 🧪 Example
 
 Example folder contains several small projects demonstrating various features of the framework.
