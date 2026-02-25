@@ -31,6 +31,8 @@ data class Gart(
 
     fun window(d: Dimension = this.d, fps: Int = this.fps, printFps: Boolean = true) = Window(d, fps, printFps)
 
+    fun fullScreenWindow(d: Dimension = this.d, fps: Int = this.fps) = Window(d, fps, printFps = false, fullScreen = true)
+
     fun movie(d: Dimension = this.d, name: String = "${this.name}.mp4") = Movie(d, name)
 
     fun movieGif(d: Dimension = this.d, name: String = "${this.name}.gif") = Movie(d, name, format = MovieFormat.GIF)

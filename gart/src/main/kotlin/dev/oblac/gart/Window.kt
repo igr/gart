@@ -2,12 +2,19 @@ package dev.oblac.gart
 
 import dev.oblac.gart.hotreload.DrawFrameReloader
 import org.jetbrains.skia.Image
+import java.awt.GraphicsEnvironment
 import java.awt.Toolkit
 import java.awt.event.*
+import javax.swing.ImageIcon
 import javax.swing.JFrame
 import javax.swing.SwingUtilities
 
-open class Window(val d: Dimension, val fps: Int, internal val printFps: Boolean) {
+open class Window(
+    val d: Dimension,
+    val fps: Int,
+    internal val printFps: Boolean,
+    internal val fullScreen: Boolean = false
+) {
 
     init {
         JFrame.setDefaultLookAndFeelDecorated(true)
@@ -45,10 +52,14 @@ open class Window(val d: Dimension, val fps: Int, internal val printFps: Boolean
     open fun show(drawFrame: DrawFrame): WindowView {
         val view = GartView(d, drawFrame, fps, printFps)
         val windowView = WindowView(this, view)
-//        Application.getApplication().dockIconImage =
-//            ImageIcon(object {}.javaClass.getResource("/g.png")).getImage()
+        if (java.awt.Taskbar.isTaskbarSupported()) {
+            // set taskbar icon
+            val taskbar = java.awt.Taskbar.getTaskbar()
+            taskbar.iconImage = ImageIcon(object {}.javaClass.getResource("/g.png")).image
+        }
         SwingUtilities.invokeLater {
             val frame = JFrame()
+            this.frame = frame
             frame.title = "gȧrt!"
             frame.defaultCloseOperation = JFrame.DISPOSE_ON_CLOSE
             frame.isResizable = false
@@ -57,6 +68,15 @@ open class Window(val d: Dimension, val fps: Int, internal val printFps: Boolean
             val density = frame.graphicsConfiguration.defaultTransform.scaleX
             println("Window fps: $fps • density: $density")
             val d = Dimension((d.w / density).toInt(), (d.h / density).toInt())
+
+            if (fullScreen) {
+                frame.extendedState = frame.extendedState or JFrame.MAXIMIZED_BOTH
+                //frame.isUndecorated = true  // hide title bar (not working)
+
+                // exclusive full screen mode
+                val ge = GraphicsEnvironment.getLocalGraphicsEnvironment()
+                ge.defaultScreenDevice.setFullScreenWindow(frame)
+            }
 
             // skia
             view.attachTo(frame)
@@ -84,6 +104,8 @@ open class Window(val d: Dimension, val fps: Int, internal val printFps: Boolean
         return windowView
     }
 
+    protected var frame: JFrame? = null
+
     internal val onCloseHandlers: MutableList<() -> Unit> = mutableListOf({
         println("Window closing")
     })
@@ -94,6 +116,16 @@ open class Window(val d: Dimension, val fps: Int, internal val printFps: Boolean
      */
     protected open fun onClose() {
         onCloseHandlers.reversed().forEach { it() }
+    }
+
+    /**
+     * Explicitly closes the window.
+     * This is useful when you want to close the window from a keyboard handler or a mouse handler.
+     */
+    fun close() {
+        SwingUtilities.invokeLater {
+            frame?.dispatchEvent(WindowEvent(frame, WindowEvent.WINDOW_CLOSING))
+        }
     }
 }
 
