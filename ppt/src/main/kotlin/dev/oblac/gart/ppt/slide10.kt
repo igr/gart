@@ -18,6 +18,7 @@ import dev.oblac.gart.text.HorizontalAlign
 import dev.oblac.gart.text.drawStringInRect
 import dev.oblac.gart.text.drawTextOnPath
 import org.jetbrains.skia.*
+import org.jetbrains.skia.paragraph.*
 
 val slide10 = DrawFrame { c, d, f ->
     val labelFont = font(FontFamily.RethinkSans, screen.height * 0.020f)
@@ -76,21 +77,46 @@ val slide10 = DrawFrame { c, d, f ->
     //--- crs: 2
     c.drawLabel(g3, "Glyph positioning")
 
-    // 3. TextLine (shaped text)
+    // 3. Paragraph — rich text with mixed styles
     val g4 = grid[2].shrink(10f)
-    //--- src: 3 TextLine
-    val blobFont = font(FontFamily.NotoSansBold, screen.height * 0.044f)
-    val textLine1 = TextLine.make("TextLine: shaped", blobFont)
-    val textLine2 = TextLine.make("fi fl ff ffi ffl", blobFont)
-    val yBlob = g4.top + g4.height * 0.3f
-    c.drawTextLine(textLine1, g4.left + 20f, yBlob, coral.toFillPaint())
-    c.drawTextLine(textLine2, g4.left + 20f, yBlob + lineH, deepSkyBlue.toFillPaint())
-
-    // show TextLine metrics
-    val tlMetrics = "w=%.0f  cap=%.1f".format(textLine2.width, textLine2.capHeight)
-    c.drawString(tlMetrics, g4.left + 20f, yBlob + lineH * 2, tinyFont, gold.toFillPaint())
+    //--- src: 3 Paragraph
+    val tfp = TypefaceFontProvider()
+    tfp.registerTypeface(font(FontFamily.RethinkSans, 12f).typeface, "Sans")
+    tfp.registerTypeface(font(FontFamily.Literata, 12f).typeface, "Serif")
+    tfp.registerTypeface(font(FontFamily.IBMPlexMonoBold, 12f).typeface, "Mono")
+    val fc = FontCollection()
+    fc.setDefaultFontManager(FontMgr.default)
+    fc.setAssetFontManager(tfp)
+    val ps = ParagraphStyle().apply {
+        alignment = Alignment.LEFT
+    }
+    val fontSize = screen.height * 0.036f
+    val para = ParagraphBuilder(ps, fc).apply {
+        pushStyle(TextStyle().setFontFamily("Sans")
+            .setFontSize(fontSize).setColor(white))
+        addText("Mixed ")
+        popStyle()
+        pushStyle(TextStyle().setFontFamily("Serif")
+            .setFontSize(fontSize).setColor(coral))
+        addText("styles ")
+        popStyle()
+        pushStyle(TextStyle().setFontFamily("Mono")
+            .setFontSize(fontSize).setColor(deepSkyBlue))
+        addText("in one\n")
+        popStyle()
+        pushStyle(TextStyle().setFontFamily("Sans")
+            .setFontSize(fontSize).setColor(gold)
+            .setDecorationStyle(DecorationStyle(
+                true, false, false, true,
+                gold, DecorationLineStyle.WAVY, 2f
+            )))
+        addText("paragraph!")
+        popStyle()
+    }.build()
+    para.layout(g4.width - 40f)
+    para.paint(c, g4.left + 20f, g4.top + 20f)
     //--- crs: 3
-    c.drawLabel(g4, "TextLine (cached)")
+    c.drawLabel(g4, "Paragraph (rich text)")
 
     // 4. Text on path
     val g5 = grid[3].shrink(10f)
