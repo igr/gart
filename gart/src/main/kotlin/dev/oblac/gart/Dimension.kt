@@ -118,6 +118,11 @@ data class Dimension(val w: Int, val h: Int) {
     fun normH(value: Float) = value / hf
     fun normW(value: Float) = value / wf
 
+    /**
+     * Returns the smaller of width and height.
+     */
+    fun min() = if (w < h) w else h
+
     companion object {
         val DESKTOP_FULL_HD = Dimension(1920, 1080)
         val DESKTOP_FULL__LANDSCAPE_HD = Dimension(1080, 1920)
