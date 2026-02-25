@@ -13,6 +13,7 @@ include("gart")
 include("gart-box2d")
 
 include("example")
+include("ppt")
 
 include("arts")
 include("arts:plasma")

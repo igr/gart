@@ -24,6 +24,9 @@ enum class FontFamily(internal val typeface: Typeface) {
     NotoSansBold(Typeface.makeFromData(loadResourceAsData("/fonts/NotoSans-Bold.ttf"))),
     SpaceMono(Typeface.makeFromData(loadResourceAsData("/fonts/SpaceMono-Regular.ttf"))),
     SpaceMonoBold(Typeface.makeFromData(loadResourceAsData("/fonts/SpaceMono-Bold.ttf"))),
+    RethinkSans(Typeface.makeFromData(loadResourceAsData("/fonts/RethinkSans-Regular.ttf"))),
+    Alice(Typeface.makeFromData(loadResourceAsData("/fonts/Alice-Regular.ttf"))),
+    Literata(Typeface.makeFromData(loadResourceAsData("/fonts/Literata-Regular.ttf"))),
 }
 
 fun font(family: FontFamily, size: Float): Font {

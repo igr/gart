@@ -102,6 +102,32 @@ fun Rect.toRRect(round: Float) =
 val Rect.Companion.EMPTY: Rect
     get() = Rect(0.0f, 0.0f, 0.0f, 0.0f)
 
+/**
+ * Splits the rectangle into a grid of smaller rectangles.
+ *
+ * @param cols The number of columns in the grid
+ * @param rows The number of rows in the grid
+ * @return A list of rectangles representing the grid cells
+ */
+fun Rect.splitToGrid(cols: Int, rows: Int): List<Rect> {
+    val cellW = this.width / cols
+    val cellH = this.height / rows
+    return buildList(cols * rows) {
+        for (row in 0 until rows) {
+            for (col in 0 until cols) {
+                add(
+                    Rect(
+                        left + col * cellW,
+                        top + row * cellH,
+                        left + (col + 1) * cellW,
+                        top + (row + 1) * cellH
+                    )
+                )
+            }
+        }
+    }
+}
+
 fun Canvas.drawRectWH(x: Float, y: Float, w: Float, h: Float, paint: Paint) {
     this.drawRect(x, y, x + w, y + h, paint)
 }
@@ -122,3 +148,4 @@ fun Canvas.drawRotatedRect(center: Point, width: Float, height: Float, angle: An
     this.drawRect(rect, paint)
     this.restore()
 }
+
