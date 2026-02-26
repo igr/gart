@@ -17,6 +17,8 @@ data class Dimension(val w: Int, val h: Int) {
     val wd = w.toDouble()
     val hd = h.toDouble()
 
+    val aspectRatio = wf / hf
+
     val rightBottom = Point(w.toFloat(), h.toFloat())
     val leftTop = Point(0f, 0f)
     val leftBottom = Point(0f, h.f())

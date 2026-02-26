@@ -29,14 +29,31 @@ val slides = listOf(
 )
 
 val screen = Screen.dimension()
+const val aspectRatio = 1.55
 
-// The rectangle for the content of the presentation, excluding borders.
-val activeRect = Rect(
-    left = 200f,
-    right = screen.wf - 200f,
-    top = 200f,
-    bottom = screen.hf - 100f
-)
+// The rectangle for the content of the presentation, excluding borders,
+// keep the aspect ratio, and centered on the screen.
+val activeRect: Rect = run {
+    val borderH = 200f
+    val borderTop = 160f
+    val borderBottom = 100f
+    val availW = screen.wf - 2 * borderH
+    val availH = screen.hf - borderTop - borderBottom
+
+    val activeW: Float
+    val activeH: Float
+    if (availW / availH > aspectRatio) {
+        activeH = availH
+        activeW = (activeH * aspectRatio).toFloat()
+    } else {
+        activeW = availW
+        activeH = (activeW / aspectRatio).toFloat()
+    }
+
+    val left = (screen.wf - activeW) / 2f
+    val top = borderTop + (availH - activeH) / 2f
+    Rect(left, top, left + activeW, top + activeH)
+}
 
 val titleBox = Rect(
     activeRect.left,
