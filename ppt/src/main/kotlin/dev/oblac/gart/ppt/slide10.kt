@@ -57,6 +57,7 @@ val slide10 = DrawFrame { c, d, f ->
     val metrics = metricsFont.metrics
     val baseY = g3.top + g3.height * 0.5f
     val textX = g3.left + 30f
+    //--- crs: 2
 
     // baseline
     val guideStroke = white.toStrokePaint(1.5f).apply {
@@ -74,12 +75,10 @@ val slide10 = DrawFrame { c, d, f ->
     c.drawString("baseline", g3.right - 160f, baseY - 5f, tinyFont, lime.toFillPaint())
     c.drawString("ascent", g3.right - 160f, baseY + metrics.ascent - 5f, tinyFont, hotPink.toFillPaint())
     c.drawString("descent", g3.right - 160f, baseY + metrics.descent + 18f, tinyFont, hotPink.toFillPaint())
-    //--- crs: 2
     c.drawLabel(g3, "Glyph positioning")
 
     // 3. Paragraph — rich text with mixed styles
     val g4 = grid[2].shrink(10f)
-    //--- src: 3 Paragraph
     val tfp = TypefaceFontProvider()
     tfp.registerTypeface(font(FontFamily.RethinkSans, 12f).typeface, "Sans")
     tfp.registerTypeface(font(FontFamily.Literata, 12f).typeface, "Serif")
@@ -91,6 +90,7 @@ val slide10 = DrawFrame { c, d, f ->
         alignment = Alignment.LEFT
     }
     val fontSize = screen.height * 0.036f
+    //--- src: 3 Paragraph
     val para = ParagraphBuilder(ps, fc).apply {
         pushStyle(TextStyle().setFontFamily("Sans")
             .setFontSize(fontSize).setColor(white))

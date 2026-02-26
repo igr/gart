@@ -6,7 +6,8 @@ import dev.oblac.gart.color.CssColors.white
 import dev.oblac.gart.color.toFillPaint
 import dev.oblac.gart.font.FontFamily
 import dev.oblac.gart.font.font
-import dev.oblac.gart.gfx.*
+import dev.oblac.gart.gfx.shrink
+import dev.oblac.gart.gfx.splitToGrid
 import dev.oblac.gart.shader.sksl
 import dev.oblac.gart.text.HorizontalAlign
 import dev.oblac.gart.text.drawStringInRect
@@ -15,6 +16,7 @@ import org.jetbrains.skia.Paint
 import org.jetbrains.skia.Rect
 
 // Plasma - warm sunset palette (amber → magenta → deep purple)
+//--- src: 1 Plasma
 private val plasmaSksl = """
 uniform float time;
 uniform vec2 resolution;
@@ -35,8 +37,10 @@ half4 main(vec2 fragcoord) {
     return half4(col, 1.0);
 }
 """.sksl()
+//--- crs: 1
 
 // Ripple - concentric animated rings
+//--- src: 2 Ripple
 private val rippleSksl = """
 uniform float time;
 uniform vec2 resolution;
@@ -50,8 +54,10 @@ half4 main(vec2 fragcoord) {
     return half4(col, 1.0);
 }
 """.sksl()
+//--- crs: 2
 
 // Warp - ocean-green palette (teal → emerald → deep navy)
+//--- src: 3 Warp
 private val warpSksl = """
 uniform float time;
 uniform vec2 resolution;
@@ -71,6 +77,7 @@ half4 main(vec2 fragcoord) {
     return half4(col, 1.0);
 }
 """.sksl()
+//--- crs: 3
 
 // Voronoi - cell pattern
 private val voronoiSksl = """

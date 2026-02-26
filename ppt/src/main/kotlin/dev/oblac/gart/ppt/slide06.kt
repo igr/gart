@@ -6,12 +6,13 @@ import dev.oblac.gart.color.CssColors.white
 import dev.oblac.gart.color.toFillPaint
 import dev.oblac.gart.font.FontFamily
 import dev.oblac.gart.font.font
-import dev.oblac.gart.gfx.*
+import dev.oblac.gart.gfx.paint
+import dev.oblac.gart.gfx.shrink
+import dev.oblac.gart.gfx.splitToGrid
 import dev.oblac.gart.text.HorizontalAlign
 import dev.oblac.gart.text.drawStringInRect
 import org.jetbrains.skia.BlendMode
 import org.jetbrains.skia.Canvas
-import org.jetbrains.skia.Paint
 import org.jetbrains.skia.Rect
 
 val slide06 = DrawFrame { c, d, f ->
@@ -30,20 +31,17 @@ val slide06 = DrawFrame { c, d, f ->
         val offset = radius * 0.45f
 
         // red circle (base)
-        drawCircle(cx - offset, cy, radius, Paint().apply {
+        drawCircle(cx - offset, cy, radius, paint().apply {
             color = 0xFFE04040.toInt()
-            isAntiAlias = true
         })
         // green circle with blend mode
-        drawCircle(cx + offset, cy - offset, radius, Paint().apply {
+        drawCircle(cx + offset, cy - offset, radius, paint().apply {
             color = 0xFF40C040.toInt()
-            isAntiAlias = true
             blendMode = mode
         })
         // blue circle with blend mode
-        drawCircle(cx, cy + offset, radius, Paint().apply {
+        drawCircle(cx, cy + offset, radius, paint().apply {
             color = 0xFF4080E0.toInt()
-            isAntiAlias = true
             blendMode = mode
         })
     }

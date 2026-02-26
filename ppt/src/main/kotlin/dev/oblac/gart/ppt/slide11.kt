@@ -145,16 +145,16 @@ val slide11 = DrawFrame { c, d, f ->
     val cy6 = g6.center().y - 15f
     val r6 = g6.height * 0.18f
     // first: draw background circle
-    c.drawCircle(cx6, cy6, r6 * 1.8f, Paint().apply {
-        color = 0xFF334455.toInt(); isAntiAlias = true
+    c.drawCircle(cx6, cy6, r6 * 1.8f, paint().apply {
+        color = 0xFF334455.toInt();
     })
     // isolated layer: blend only within this layer
     c.save()
     c.clipRect(g6)
     c.saveLayer(null, null)
     c.drawCircle(cx6 - r6 * 0.5f, cy6, r6, coral.toFillPaint())
-    c.drawCircle(cx6 + r6 * 0.5f, cy6, r6, Paint().apply {
-        color = mediumSeaGreen; isAntiAlias = true
+    c.drawCircle(cx6 + r6 * 0.5f, cy6, r6, paint().apply {
+        color = mediumSeaGreen;
         blendMode = BlendMode.DIFFERENCE
     })
     c.restore() // layer composites onto background

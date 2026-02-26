@@ -18,6 +18,7 @@ import dev.oblac.gart.color.toStrokePaint
 import dev.oblac.gart.font.FontFamily
 import dev.oblac.gart.font.font
 import dev.oblac.gart.gfx.center
+import dev.oblac.gart.gfx.paint
 import dev.oblac.gart.gfx.shrink
 import dev.oblac.gart.gfx.splitToGrid
 import dev.oblac.gart.text.HorizontalAlign
@@ -42,9 +43,8 @@ val slide07 = DrawFrame { c, d, f ->
         drawStringInRect(text, labelRect, labelFont, labelPaint, HorizontalAlign.CENTER)
     }
 
-    fun shaderPaint(shader: Shader): Paint = Paint().apply {
+    fun shaderPaint(shader: Shader): Paint = paint().apply {
         this.shader = shader
-        isAntiAlias = true
     }
 
     fun Canvas.drawShaderCircle(rect: Rect, paint: Paint) {
@@ -62,9 +62,8 @@ val slide07 = DrawFrame { c, d, f ->
     // 1. Solid color
     val g1 = grid[0].shrink(10f)
     //--- src: 1 Solid color
-    val solidPaint = Paint().apply {
+    val solidPaint = paint().apply {
         color = CssColors.coral
-        isAntiAlias = true
     }
     c.drawShaderCircle(g1, solidPaint)
     //--- crs: 1

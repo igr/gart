@@ -2,6 +2,8 @@ package dev.oblac.gart.ppt
 
 import dev.oblac.gart.DrawFrame
 import dev.oblac.gart.color.CssColors
+import dev.oblac.gart.color.CssColors.darkTurquoise
+import dev.oblac.gart.color.CssColors.deepPink
 import dev.oblac.gart.color.CssColors.deepSkyBlue
 import dev.oblac.gart.color.CssColors.gold
 import dev.oblac.gart.color.CssColors.hotPink
@@ -130,7 +132,7 @@ val slide03 = DrawFrame { c, d, f ->
     val center = g6.center()
     c.save()
     c.rotate(angle, center.x, center.y)
-    c.drawPointsAsCircles(pts, CssColors.deepPink.toFillPaint(), 40f)
+    c.drawPointsAsCircles(pts, deepPink.toFillPaint(), 40f)
     c.drawPointsAsCircles(pts, white.toStrokePaint(4f), 40f)
     c.restore()
     //--- crs: 6
@@ -154,7 +156,7 @@ val slide03 = DrawFrame { c, d, f ->
             g7.left + g7.width * 0.9f, g7.top + g7.height * 0.5f,
         )
     }.detach()
-    c.drawPath(wavePath, CssColors.darkTurquoise.toStrokePaint(3f).apply {
+    c.drawPath(wavePath, darkTurquoise.toStrokePaint(3f).apply {
         pathEffect = PathEffect.makePath1D(
             stamp, 32f, 10f, PathEffect.Style.ROTATE
         )

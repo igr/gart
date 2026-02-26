@@ -14,6 +14,7 @@ import dev.oblac.gart.color.toColorFilter
 import dev.oblac.gart.color.toFillPaint
 import dev.oblac.gart.font.FontFamily
 import dev.oblac.gart.font.font
+import dev.oblac.gart.gfx.paint
 import dev.oblac.gart.gfx.shrink
 import dev.oblac.gart.gfx.splitToGrid
 import dev.oblac.gart.text.HorizontalAlign
@@ -134,9 +135,8 @@ val slide09 = DrawFrame { c, d, f ->
     val normalMask = MaskFilter.makeBlur(
         FilterBlurMode.NORMAL, 16f
     )
-    c.drawStar(mf1, Paint().apply {
+    c.drawStar(mf1, paint().apply {
         color = hotPink
-        isAntiAlias = true
         maskFilter = normalMask
     })
     //--- crs: 4
@@ -148,9 +148,8 @@ val slide09 = DrawFrame { c, d, f ->
     val outerMask = MaskFilter.makeBlur(
         FilterBlurMode.OUTER, 16f
     )
-    c.drawStar(mf2, Paint().apply {
+    c.drawStar(mf2, paint().apply {
         color = hotPink
-        isAntiAlias = true
         maskFilter = outerMask
     })
     //--- crs: 5
@@ -162,9 +161,8 @@ val slide09 = DrawFrame { c, d, f ->
     val innerMask = MaskFilter.makeBlur(
         FilterBlurMode.INNER, 16f
     )
-    c.drawStar(mf3, Paint().apply {
+    c.drawStar(mf3, paint().apply {
         color = hotPink
-        isAntiAlias = true
         maskFilter = innerMask
     })
     //--- crs: 6

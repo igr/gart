@@ -15,6 +15,7 @@ import dev.oblac.gart.font.FontFamily
 import dev.oblac.gart.font.font
 import dev.oblac.gart.gfx.shrink
 import dev.oblac.gart.gfx.splitToGrid
+import dev.oblac.gart.math.f
 import dev.oblac.gart.text.HorizontalAlign
 import dev.oblac.gart.text.drawStringInRect
 import dev.oblac.gart.tri3d.*
@@ -48,7 +49,7 @@ val slide13 = DrawFrame { c, d, f ->
     val vertColors = mutableListOf(white)
     val hexCols = intArrayOf(coral, deepSkyBlue, mediumSeaGreen, gold, coral, deepSkyBlue)
     for (i in 0 until 6) {
-        val a = (i.toFloat() / 6) * Math.PI.toFloat() * 2
+        val a = (i.toFloat() / 6) * Math.PI.f() * 2
         positions.add(cx1 + cos(a) * r1)
         positions.add(cy1 + sin(a) * r1)
         vertColors.add(hexCols[i])
@@ -71,7 +72,6 @@ val slide13 = DrawFrame { c, d, f ->
 
     // 2. drawTriangleStrip — alternating colors
     val g2 = grid[1].shrink(8f)
-    //--- src: 2 drawTriangleStrip colors
     val stripPts2 = mutableListOf<Point>()
     val n2 = 8
     for (i in 0..n2) {
@@ -83,6 +83,7 @@ val slide13 = DrawFrame { c, d, f ->
         stripPts2.add(Point(x, yMid - amp * 0.5f + wave))
         stripPts2.add(Point(x, yMid + amp * 0.5f + wave))
     }
+    //--- src: 2 drawTriangleStrip colors
     val stripArr = stripPts2.toTypedArray()
     val stripCols = intArrayOf(coral, mediumSeaGreen, deepSkyBlue, gold)
     for (i in 0 until stripArr.size - 2) {

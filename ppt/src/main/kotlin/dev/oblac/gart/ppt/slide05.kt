@@ -11,7 +11,9 @@ import dev.oblac.gart.color.toFillPaint
 import dev.oblac.gart.color.toStrokePaint
 import dev.oblac.gart.font.FontFamily
 import dev.oblac.gart.font.font
-import dev.oblac.gart.gfx.*
+import dev.oblac.gart.gfx.center
+import dev.oblac.gart.gfx.shrink
+import dev.oblac.gart.gfx.splitToGrid
 import dev.oblac.gart.math.multiply
 import dev.oblac.gart.text.HorizontalAlign
 import dev.oblac.gart.text.drawStringInRect
@@ -51,11 +53,12 @@ val slide05 = DrawFrame { c, d, f ->
 
     // 1. Translate
     val g1 = grid[0].shrink(10f)
-    //--- src: 1 translate
+
     val center1 = g1.center()
     // original (ghost)
     c.drawHouse(center1.x, center1.y, houseSize, white.toStrokePaint(2f))
     // translated
+    //--- src: 1 translate
     c.save()
     c.translate(g1.width * 0.2f, -g1.height * 0.15f)
     c.drawHouse(center1.x, center1.y, houseSize, coral.toFillPaint())
@@ -81,9 +84,9 @@ val slide05 = DrawFrame { c, d, f ->
 
     // 3. Rotate
     val g3 = grid[2].shrink(10f)
-    //--- src: 3 rotate
     val center3 = g3.center()
     c.drawHouse(center3.x, center3.y, houseSize, white.toStrokePaint(2f))
+    //--- src: 3 rotate
     c.save()
     c.rotate(25f, center3.x, center3.y)
     c.drawHouse(center3.x, center3.y, houseSize, gold.toFillPaint())
@@ -94,9 +97,9 @@ val slide05 = DrawFrame { c, d, f ->
 
     // 4. Skew
     val g4 = grid[3].shrink(10f)
-    //--- src: 4 skew
     val center4 = g4.center()
     c.drawHouse(center4.x, center4.y, houseSize, white.toStrokePaint(2f))
+    //--- src: 4 skew
     c.save()
     c.translate(center4.x, center4.y)
     c.skew(-0.3f, 0f)
@@ -130,6 +133,7 @@ val slide05 = DrawFrame { c, d, f ->
 
     // 6. Animated transform
     val g6 = grid[5].shrink(10f)
+    //--- src: 6 Animated transform
     val center6 = g6.center()
     val angle = f.timeSeconds * 30
     c.save()
@@ -137,5 +141,6 @@ val slide05 = DrawFrame { c, d, f ->
     c.drawHouse(center6.x, center6.y, houseSize, CssColors.tomato.toFillPaint())
     c.drawHouse(center6.x, center6.y, houseSize, white.toStrokePaint(3f))
     c.restore()
+    //--- crs: 6
     c.drawLabel(g6, "animated")
 }

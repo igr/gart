@@ -4,18 +4,12 @@ import dev.oblac.gart.Dimension
 import dev.oblac.gart.DrawFrame
 import dev.oblac.gart.Gartmap
 import dev.oblac.gart.Gartvas
-import dev.oblac.gart.color.CssColors
+import dev.oblac.gart.color.*
 import dev.oblac.gart.color.CssColors.coral
 import dev.oblac.gart.color.CssColors.deepSkyBlue
 import dev.oblac.gart.color.CssColors.gold
 import dev.oblac.gart.color.CssColors.mediumSeaGreen
 import dev.oblac.gart.color.CssColors.white
-import dev.oblac.gart.color.alpha
-import dev.oblac.gart.color.argb
-import dev.oblac.gart.color.blue
-import dev.oblac.gart.color.green
-import dev.oblac.gart.color.red
-import dev.oblac.gart.color.toFillPaint
 import dev.oblac.gart.font.FontFamily
 import dev.oblac.gart.font.font
 import dev.oblac.gart.fx.scaleImage
@@ -25,7 +19,9 @@ import dev.oblac.gart.pixels.dither.ditherFloydSteinberg
 import dev.oblac.gart.pixels.makeGray
 import dev.oblac.gart.text.HorizontalAlign
 import dev.oblac.gart.text.drawStringInRect
-import org.jetbrains.skia.*
+import org.jetbrains.skia.Canvas
+import org.jetbrains.skia.Image
+import org.jetbrains.skia.Rect
 
 val slide12 = DrawFrame { c, d, f ->
     val labelFont = font(FontFamily.RethinkSans, screen.height * 0.020f)
@@ -82,9 +78,9 @@ val slide12 = DrawFrame { c, d, f ->
 
     // 2. Pixel-level manipulation — invert colors via Pixels interface
     val g2 = grid[1].shrink(8f)
-    //--- src: 2 Pixel manipulation
     val gv2 = Gartvas(cellDim)
     drawSampleScene(gv2)
+    //--- src: 2 Pixel manipulation
     val bm2 = Gartmap(gv2)
     bm2.pixelBytes.let { pb ->
         for (y in 0 until cellDim.h) {

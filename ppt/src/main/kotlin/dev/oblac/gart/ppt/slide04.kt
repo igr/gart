@@ -84,7 +84,6 @@ val slide04 = DrawFrame { c, d, f ->
 
     // 4. clipPath (star)
     val g4 = grid[3].shrink(10f)
-    //--- src: 4 clipPath (star)
     val starPath = PathBuilder().apply {
         val cx = g4.center().x
         val cy = g4.center().y
@@ -99,6 +98,7 @@ val slide04 = DrawFrame { c, d, f ->
         }
         closePath()
     }.detach()
+    //--- src: 4 clipPath (star)
     c.save()
     c.clipPath(starPath)
     c.drawColorfulContent(g4)
