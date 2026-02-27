@@ -136,7 +136,7 @@ val slide13 = DrawFrame { c, d, f ->
         face.rotateY(t * 0.8f).rotateX(t * 0.5f)
     })
     val camera = Camera(cx4, cy4, size, 4f)
-    Scene.render(c, camera, rotated)
+    Scene.render(c, camera, rotated, d.w, d.h)
 
     // wireframe overlay
     val cubeVerts = arrayOf(
