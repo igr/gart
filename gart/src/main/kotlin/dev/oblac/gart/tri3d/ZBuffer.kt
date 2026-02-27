@@ -1,11 +1,10 @@
 package dev.oblac.gart.tri3d
 
-import org.jetbrains.skia.Bitmap
+import dev.oblac.gart.Dimension
+import dev.oblac.gart.Gartmap
+import dev.oblac.gart.Gartvas
 import org.jetbrains.skia.Canvas
-import org.jetbrains.skia.ColorAlphaType
-import org.jetbrains.skia.ColorType
 import org.jetbrains.skia.Image
-import org.jetbrains.skia.ImageInfo
 
 /**
  * Per-pixel depth buffer for accurate triangle visibility.
@@ -24,14 +23,15 @@ import org.jetbrains.skia.ImageInfo
 class ZBuffer(val width: Int, val height: Int) {
 
     private val depth = FloatArray(width * height)
-    private val color = IntArray(width * height)
+    private val gartvas = Gartvas(Dimension(width, height))
+    private val gartmap = Gartmap(gartvas)
 
     /**
-     * Clears the buffer: depth to +infinity, color to transparent.
+     * Clears the buffer: depth to +infinity, color to background.
      */
     fun clear(background: Int = 0) {
         depth.fill(Float.MAX_VALUE)
-        color.fill(background)
+        gartmap.fill(background)
     }
 
     /**
@@ -88,21 +88,17 @@ class ZBuffer(val width: Int, val height: Int) {
 
                 if (z < depth[idx]) {
                     depth[idx] = z
-                    color[idx] = face.color
+                    gartmap[idx] = face.color
                 }
             }
         }
     }
 
     /**
-     * Creates a Skia [Image] from the color buffer.
+     * Creates an [Image] from the color buffer.
      */
     fun toImage(): Image {
-        val bitmap = Bitmap()
-        val info = ImageInfo(width, height, ColorType.BGRA_8888, ColorAlphaType.PREMUL)
-        bitmap.allocPixels(info)
-        bitmap.installPixels(info, colorToBytes(), width * 4)
-        return Image.makeFromBitmap(bitmap)
+        return gartmap.image()
     }
 
     /**
@@ -110,19 +106,6 @@ class ZBuffer(val width: Int, val height: Int) {
      */
     fun drawTo(canvas: Canvas, x: Float = 0f, y: Float = 0f) {
         canvas.drawImage(toImage(), x, y)
-    }
-
-    private fun colorToBytes(): ByteArray {
-        val bytes = ByteArray(width * height * 4)
-        for (i in color.indices) {
-            val c = color[i]
-            val off = i * 4
-            bytes[off] = (c and 0xFF).toByte()              // B
-            bytes[off + 1] = ((c shr 8) and 0xFF).toByte()  // G
-            bytes[off + 2] = ((c shr 16) and 0xFF).toByte() // R
-            bytes[off + 3] = ((c shr 24) and 0xFF).toByte() // A
-        }
-        return bytes
     }
 
     private fun minOf(a: Float, b: Float, c: Float): Float = kotlin.math.min(a, kotlin.math.min(b, c))
