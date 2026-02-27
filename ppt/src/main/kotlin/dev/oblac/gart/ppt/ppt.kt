@@ -13,6 +13,7 @@ import org.jetbrains.skia.Canvas
 import org.jetbrains.skia.Rect
 
 val slides = listOf(
+    slide00,
     slide01,
     slide02,
     slide03,
@@ -68,6 +69,7 @@ val contentBox = Rect(
     activeRect.bottom
 )
 
+val introFont = font(FontFamily.Alice, screen.height * 0.4f)
 val titleFont = font(FontFamily.Alice, screen.height * 0.1f)
 const val titleColor = CssColors.white
 val textFont = font(FontFamily.RethinkSans, screen.height * 0.044f)

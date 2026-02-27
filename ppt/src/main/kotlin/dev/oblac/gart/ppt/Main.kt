@@ -11,7 +11,7 @@ import org.jetbrains.skia.Canvas
 import org.jetbrains.skia.Paint
 import java.io.File
 
-private var currentSlide = 1
+private var currentSlide = 0
 private var codeSnippet: Int? = null
 
 fun main() {
@@ -30,21 +30,21 @@ fun main() {
         if (snippet != null && readCodeSnippet(currentSlide, snippet) != null) {
             canvas.drawCode(currentSlide, snippet)
         } else {
-            slides[currentSlide - 1](canvas, draw, f)
+            slides[currentSlide](canvas, draw, f)
         }
     }.onKey {
         when (it) {
             Key.KEY_ESCAPE -> w.close()
             Key.KEY_SPACE, Key.KEY_RIGHT -> {
                 codeSnippet = null
-                if (currentSlide < slides.size) {
+                if (currentSlide < slides.size - 1) {
                     currentSlide++
                 }
             }
 
             Key.KEY_LEFT, Key.KEY_BACKSPACE -> {
                 codeSnippet = null
-                if (currentSlide > 1) {
+                if (currentSlide > 0) {
                     currentSlide--
                 }
             }
