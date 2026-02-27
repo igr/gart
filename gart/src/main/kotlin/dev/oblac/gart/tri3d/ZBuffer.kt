@@ -20,7 +20,7 @@ import org.jetbrains.skia.Image
  * zb.drawTo(canvas, x, y)
  * ```
  */
-class ZBuffer(val width: Int, val height: Int) {
+class ZBuffer(val width: Int, val height: Int, private val shading: Shading = Shading.flat) {
 
     private val depth = FloatArray(width * height)
     private val gartvas = Gartvas(Dimension(width, height))
@@ -52,6 +52,8 @@ class ZBuffer(val width: Int, val height: Int) {
         val za = camera.depth(face.a)
         val zb = camera.depth(face.b)
         val zc = camera.depth(face.c)
+
+        val faceColor = shading.color(face, face.normal())
 
         // bounding box, clipped to screen
         val minX = maxOf(0, minOf(pa.x, pb.x, pc.x).toInt())
@@ -88,7 +90,7 @@ class ZBuffer(val width: Int, val height: Int) {
 
                 if (z < depth[idx]) {
                     depth[idx] = z
-                    gartmap[idx] = face.color
+                    gartmap[idx] = faceColor
                 }
             }
         }

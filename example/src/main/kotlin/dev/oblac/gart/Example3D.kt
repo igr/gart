@@ -1,12 +1,8 @@
 package dev.oblac.gart
 
 import dev.oblac.gart.color.CssColors.darkSlateGray
-import dev.oblac.gart.tri3d.Camera
-import dev.oblac.gart.tri3d.Mesh
-import dev.oblac.gart.tri3d.Scene
-import dev.oblac.gart.tri3d.rotateX
-import dev.oblac.gart.tri3d.rotateY
-import dev.oblac.gart.tri3d.sphere
+import dev.oblac.gart.tri3d.*
+import dev.oblac.gart.vector.Vec3
 
 fun main() {
     val gart = Gart.of("Example3D", 800, 800)
@@ -34,7 +30,8 @@ fun main() {
         })
 
         val camera = Camera(d.cx, d.cy, d.hf * 0.35f, 4f)
-        Scene.render(c, camera, rotated, d.w, d.h)
+        val light = LightSource(Vec3(-2f, -3f, 2f))
+        Scene.render(c, camera, rotated, d.w, d.h, shading = Shading.diffuse(light))
     }.onKey { key ->
         when (key) {
             Key.KEY_LEFT -> angleY -= step
