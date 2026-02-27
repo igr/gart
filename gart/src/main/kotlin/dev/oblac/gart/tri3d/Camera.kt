@@ -9,6 +9,9 @@ class Camera(
     val scale: Float,
     val distance: Float,
 ) {
+
+    val focalLength = scale * distance
+
     fun project(v: Vec3): Point {
         val s = distance / (distance + v.z)
         return Point(screenCx + v.x * scale * s, screenCy + v.y * scale * s)
