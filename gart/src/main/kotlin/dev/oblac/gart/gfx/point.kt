@@ -102,3 +102,7 @@ fun Canvas.drawPoint(p: Point, stroke: Paint) = this.drawPoint(p.x, p.y, stroke)
 fun Canvas.drawPoints(points: Collection<Point>, stroke: Paint) = this.drawPoints(points.toTypedArray(), stroke)
 
 fun Canvas.drawPointsAsCircles(points: Collection<Point>, stroke: Paint, radius: Float = 2f) = points.forEach { this.drawCircle(it.x, it.y, radius, stroke) }
+
+
+operator fun Point.component1() = x
+operator fun Point.component2() = y

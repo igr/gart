@@ -172,6 +172,7 @@ class Complex(val real: Double, val imag: Double) {
     fun abs(): Double = sqrt(this.normSquared())
 
     fun phase(): Double = atan2(imag, real)
+    fun magnitude() = this.abs()
 
     fun pow(a: Double) = exp(ln(this) * a)
 
