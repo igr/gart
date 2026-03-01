@@ -12,7 +12,7 @@ class MathSinTest {
 
 		var deg = -720f
 		while (deg < 720f) {
-			val realSin = sin(deg.toRadian())
+			val realSin = sin(deg.toRadians())
 			val tableSin = msin[deg]
 
 			assertEquals(realSin, tableSin, 0.002f)

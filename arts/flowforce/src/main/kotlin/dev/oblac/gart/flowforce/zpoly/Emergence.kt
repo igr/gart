@@ -22,13 +22,13 @@ val g = gart.gartvas()
 
 val fnz = ComplexFunctions.polesAndHoles(
     poles = Array(10) {
-        val x = 0.4 * sin((rndf(0, 360)).toRadian())
-        val y = 0.4 * cos((rndf(0, 360)).toRadian())
+        val x = 0.4 * sin((rndf(0, 360)).toRadians())
+        val y = 0.4 * cos((rndf(0, 360)).toRadians())
         Complex(x, y)
     },
     holes = Array(20) {
-        val x = 0.2 * sin((rndf(0, 360)).toRadian())
-        val y = 0.2 * cos((rndf(0, 360)).toRadian())
+        val x = 0.2 * sin((rndf(0, 360)).toRadians())
+        val y = 0.2 * cos((rndf(0, 360)).toRadians())
         Complex(x, y)
     },
 )
@@ -64,8 +64,8 @@ fun main() {
 
 private fun drawww(r: Float, color: Int) {
     var randomPoints = Array(360) { i ->
-        val x = r * sin(i.toFloat().toRadian())
-        val y = r * cos(i.toFloat().toRadian())
+        val x = r * sin(i.toFloat().toRadians())
+        val y = r * cos(i.toFloat().toRadians())
         Point(d.cx + x, d.cy + y)
     }.toList()
 

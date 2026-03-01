@@ -151,13 +151,13 @@ private fun spawnBall(world: World, ballRadius: Float, x: Float, y: Float): Body
 // FIELD
 val fnz = ComplexFunctions.polesAndHoles(
     poles = Array(40) {
-        val x = 0.1 * kotlin.math.sin((rndf(0, 360)).toRadian())
-        val y = 0.1 * kotlin.math.cos((rndf(0, 360)).toRadian())
+        val x = 0.1 * kotlin.math.sin((rndf(0, 360)).toRadians())
+        val y = 0.1 * kotlin.math.cos((rndf(0, 360)).toRadians())
         Complex(x, y)
     },
     holes = Array(20) {
-        val x = 0.2 * kotlin.math.sin((rndf(0, 360)).toRadian())
-        val y = 0.2 * kotlin.math.cos((rndf(0, 360)).toRadian())
+        val x = 0.2 * kotlin.math.sin((rndf(0, 360)).toRadians())
+        val y = 0.2 * kotlin.math.cos((rndf(0, 360)).toRadians())
         Complex(x, y)
     },
 )

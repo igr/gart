@@ -1,6 +1,7 @@
 package dev.oblac.gart.gfx
 
 import dev.oblac.gart.angle.Angle
+import dev.oblac.gart.math.toRadians
 import org.jetbrains.skia.*
 import kotlin.math.cos
 import kotlin.math.sin
@@ -93,19 +94,33 @@ private fun drawRingPart(
     path.addArc(outerRect, startAngle, sweepAngle)
 
     // Add lines to connect to inner arc
-    val outerEndX = center.x + outerRadiusX * cos(Math.toRadians((startAngle + sweepAngle).toDouble())).toFloat()
-    val outerEndY = center.y + outerRadiusY * sin(Math.toRadians((startAngle + sweepAngle).toDouble())).toFloat()
-    val innerEndX = center.x + innerRadiusX * cos(Math.toRadians((startAngle + sweepAngle).toDouble())).toFloat()
-    val innerEndY = center.y + innerRadiusY * sin(Math.toRadians((startAngle + sweepAngle).toDouble())).toFloat()
+    val startAngleRad = startAngle.toRadians()
+    val outerStartX = center.x + outerRadiusX * cos(startAngleRad)
+    val outerStartY = center.y + outerRadiusY * sin(startAngleRad)
+    val innerStartX = center.x + innerRadiusX * cos(startAngleRad)
+    val innerStartY = center.y + innerRadiusY * sin(startAngleRad)
+
+    val endAngleRad = (startAngle + sweepAngle).toRadians()
+    val outerEndX = center.x + outerRadiusX * cos(endAngleRad)
+    val outerEndY = center.y + outerRadiusY * sin(endAngleRad)
+    val innerEndX = center.x + innerRadiusX * cos(endAngleRad)
+    val innerEndY = center.y + innerRadiusY * sin(endAngleRad)
 
     path.lineTo(innerEndX, innerEndY)
 
     // Add the inner arc (in reverse direction)
     path.addArc(innerRect, startAngle + sweepAngle, -sweepAngle)
 
+    // Connect back to the start of the outer arc, otherwise there will be dragons (!)
+    path.lineTo(outerStartX, outerStartY)
     path.closePath()
 
     c.drawPath(path.detach(), paint)
+
+    // draw the lines where ring parts connect, as the crack may be visible due to antialiasing
+    val linePaint = paint.apply { this.mode = PaintMode.STROKE; this.strokeWidth = 1f }
+    c.drawLine(outerStartX, outerStartY, innerStartX, innerStartY, linePaint)
+    c.drawLine(outerEndX, outerEndY, innerEndX, innerEndY, linePaint)
 
     c.restore()
 }

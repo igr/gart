@@ -11,7 +11,7 @@ class MathCosTest {
 
 		var deg = -720f
 		while (deg < 720f) {
-			val realCos = cos(deg.toRadian())
+			val realCos = cos(deg.toRadians())
 			val tableCos = mcos[deg]
 
 			assertEquals(realCos, tableCos, 0.002f)

@@ -8,7 +8,7 @@ import dev.oblac.gart.gfx.fillOfBlack
 import dev.oblac.gart.math.cosDeg
 import dev.oblac.gart.math.rndf
 import dev.oblac.gart.math.sinDeg
-import dev.oblac.gart.math.toDegree
+import dev.oblac.gart.math.toDegrees
 import org.jetbrains.skia.Canvas
 import org.jetbrains.skia.Paint
 import org.jetbrains.skia.Rect
@@ -166,7 +166,7 @@ data class Bubble(
             return null     // no collision
         }
 
-        var alpha = asin(abs(b.y - y) / d).toDegree()
+        var alpha = asin(abs(b.y - y) / d).toDegrees()
 
         alpha = if (x >= b.x) {
             // this bubble is right, so move to the right, i.e. the push is on the left

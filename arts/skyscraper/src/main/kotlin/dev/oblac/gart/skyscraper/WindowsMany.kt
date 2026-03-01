@@ -3,7 +3,7 @@ package dev.oblac.gart.skyscraper
 import dev.oblac.gart.angle.Degrees
 import dev.oblac.gart.gfx.RectIsometric
 import dev.oblac.gart.gfx.RectIsometricLeft
-import dev.oblac.gart.math.toRadian
+import dev.oblac.gart.math.toRadians
 import org.jetbrains.skia.Point
 import kotlin.math.cos
 import kotlin.math.floor
@@ -55,7 +55,7 @@ class WindowsMany(
 
 			while (rowX + windowSize < right.x) {
 				val w = rowX - x
-				rowY = y + gapEdge + w * sin(beta.toRadian()) / cos(beta.toRadian())
+				rowY = y + gapEdge + w * sin(beta.toRadians()) / cos(beta.toRadians())
                 if (Random.nextInt(10) > windowRandThreshold) {
                     fn(RectIsometricLeft(rowX, rowY, windowSize, windowSize, Degrees(beta)))
                 }

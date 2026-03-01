@@ -1,7 +1,7 @@
 package dev.oblac.gart.math
 
-fun Float.toRadian(): Float = (this / 180 * Math.PI).toFloat()
-fun Float.toDegree(): Float = (this * 180 / Math.PI).toFloat()
+fun Float.toRadians(): Float = (this / 180 * Math.PI).toFloat()
+fun Float.toDegrees(): Float = (this * 180 / Math.PI).toFloat()
 
 /**
  * Safe degrees' subtraction.
@@ -13,8 +13,8 @@ fun Float.subDeg(delta: Number) = normalizeDeg(this - delta.toFloat())
  */
 fun Float.addDeg(delta: Number) = normalizeDeg(this - delta.toFloat())
 
-fun sinDeg(degrees: Number) = kotlin.math.sin(degrees.toFloat().toRadian())
-fun cosDeg(degrees: Number) = kotlin.math.cos(degrees.toFloat().toRadian())
+fun sinDeg(degrees: Number) = kotlin.math.sin(degrees.toFloat().toRadians())
+fun cosDeg(degrees: Number) = kotlin.math.cos(degrees.toFloat().toRadians())
 
 fun normalizeRad(rad: Float): Float {
     var result = rad

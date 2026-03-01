@@ -38,11 +38,11 @@ sealed class MathPrecalcTable(
  * Precalculated cos values.
  */
 class MathCos(resolution: Float = 0.1f) : MathPrecalcTable(resolution, false, {
-	cos(it.toRadian())
+	cos(it.toRadians())
 })
 /**
  * Precalculated sin values.
  */
 class MathSin(resolution: Float = 0.1f) : MathPrecalcTable(resolution, true, {
-	sin(it.toRadian())
+	sin(it.toRadians())
 })
