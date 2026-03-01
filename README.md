@@ -261,6 +261,7 @@ A collection of generative art pieces (ordered by name).
 ## Lettero
 
 [<img src="arts/lettero/LetterO_thumb.png" hspace="2" vspace="2" align="left">](arts/lettero/LetterO.png)
+[<img src="arts/lettero/alpha-stripes_thumb.png" hspace="2" vspace="2" align="left">](arts/lettero/alpha-stripes.png)
 [<img src="arts/lettero/lettero2_thumb.png" hspace="2" vspace="2" align="left">](arts/lettero/lettero2.png)
 [<img src="arts/lettero/lettero3-1_thumb.png" hspace="2" vspace="2" align="left">](arts/lettero/lettero3-1.png)
 [<img src="arts/lettero/lettero3-2_thumb.png" hspace="2" vspace="2" align="left">](arts/lettero/lettero3-2.png)
@@ -317,7 +318,9 @@ A collection of generative art pieces (ordered by name).
 ## Palecircles
 
 [<img src="arts/palecircles/all-circles_thumb.png" hspace="2" vspace="2" align="left">](arts/palecircles/all-circles.png)
+[<img src="arts/palecircles/around_thumb.png" hspace="2" vspace="2" align="left">](arts/palecircles/around.png)
 [<img src="arts/palecircles/palecircles_thumb.png" hspace="2" vspace="2" align="left">](arts/palecircles/palecircles.png)
+[<img src="arts/palecircles/shad_thumb.png" hspace="2" vspace="2" align="left">](arts/palecircles/shad.png)
 <br clear="both">
 
 ## Pixelmania
@@ -354,6 +357,7 @@ A collection of generative art pieces (ordered by name).
 [<img src="arts/rectapart/fall-squares_thumb.png" hspace="2" vspace="2" align="left">](arts/rectapart/fall-squares.png)
 [<img src="arts/rectapart/rectApart_thumb.png" hspace="2" vspace="2" align="left">](arts/rectapart/rectApart.png)
 [<img src="arts/rectapart/rectapart3_thumb.png" hspace="2" vspace="2" align="left">](arts/rectapart/rectapart3.png)
+[<img src="arts/rectapart/rectaround_thumb.png" hspace="2" vspace="2" align="left">](arts/rectapart/rectaround.png)
 [<img src="arts/rectapart/rectpack1_thumb.png" hspace="2" vspace="2" align="left">](arts/rectapart/rectpack1.png)
 [<img src="arts/rectapart/rectpack2_thumb.png" hspace="2" vspace="2" align="left">](arts/rectapart/rectpack2.png)
 <br clear="both">
@@ -484,6 +488,7 @@ A collection of generative art pieces (ordered by name).
 
 ## Ticktiletock
 
+[<img src="arts/ticktiletock/ticktiletock-1_thumb.png" hspace="2" vspace="2" align="left">](arts/ticktiletock/ticktiletock-1.png)
 [<img src="arts/ticktiletock/ticktiletock_thumb.png" hspace="2" vspace="2" align="left">](arts/ticktiletock/ticktiletock.png)
 <br clear="both">
 
@@ -495,6 +500,8 @@ A collection of generative art pieces (ordered by name).
 
 ## Z
 
+[<img src="arts/z/z10_thumb.png" hspace="2" vspace="2" align="left">](arts/z/z10.png)
+[<img src="arts/z/z11_thumb.png" hspace="2" vspace="2" align="left">](arts/z/z11.png)
 [<img src="arts/z/z1_thumb.png" hspace="2" vspace="2" align="left">](arts/z/z1.png)
 [<img src="arts/z/z2_thumb.png" hspace="2" vspace="2" align="left">](arts/z/z2.png)
 [<img src="arts/z/z3_thumb.png" hspace="2" vspace="2" align="left">](arts/z/z3.png)
@@ -504,4 +511,4 @@ A collection of generative art pieces (ordered by name).
 
 ---
 
-**Total: 187 works across 47 collections**
+**Total: 194 works across 47 collections**
