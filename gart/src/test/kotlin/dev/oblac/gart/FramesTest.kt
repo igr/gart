@@ -11,8 +11,8 @@ class FramesTest {
         val fc = FrameCounter(25)
 
         assertEquals(0, fc.frame)
-        assertEquals(0, fc.time.inWholeMilliseconds)
-        assertEquals(0.seconds, fc.time)
+        assertEquals(0, fc.frameTime.inWholeMilliseconds)
+        assertEquals(0.seconds, fc.frameTime)
     }
 
     @Test
@@ -21,8 +21,8 @@ class FramesTest {
         repeat(1) { fc.tick() }
 
         assertEquals(1, fc.frame)
-        assertEquals(40, fc.time.inWholeMilliseconds)
-        assertEquals(0.04.seconds, fc.time)
+        assertEquals(40, fc.frameTime.inWholeMilliseconds)
+        assertEquals(0.04.seconds, fc.frameTime)
     }
 
     @Test
@@ -31,8 +31,8 @@ class FramesTest {
         repeat(24) { fc.tick() }
 
         assertEquals(24, fc.frame)
-        assertEquals(960, fc.time.inWholeMilliseconds)
-        assertEquals(0.96.seconds, fc.time)
+        assertEquals(960, fc.frameTime.inWholeMilliseconds)
+        assertEquals(0.96.seconds, fc.frameTime)
     }
 
     @Test
@@ -41,8 +41,8 @@ class FramesTest {
         repeat(25) { fc.tick() }
 
         assertEquals(25, fc.frame)
-        assertEquals(1000, fc.time.inWholeMilliseconds)
-        assertEquals(1.00.seconds, fc.time)
+        assertEquals(1000, fc.frameTime.inWholeMilliseconds)
+        assertEquals(1.00.seconds, fc.frameTime)
     }
 
 }

@@ -41,7 +41,7 @@ interface Frames {
     val frameDurationSeconds: Float
 
     /**
-     * Current frame, i.e. total number of elapsed frames.
+     * Current frame number, i.e. total number of elapsed frames.
      */
     val frame: Long
 
@@ -53,13 +53,17 @@ interface Frames {
 
     /**
      * Calculates the time of the current frame, elapsed duration.
+     * Depends on fhe frame count.
+     * @see frame
      */
-    val time get() = frame.toTime(frameDurationNanos)
+    val frameTime get() = frame.toTime(frameDurationNanos)
 
     /**
      * Calculates the time of the current frame in seconds, elapsed duration.
+     * Depends on fhe frame count.
+     * @see frame
      */
-    val timeSeconds get() = frame / fps.toFloat()
+    val frameTimeSeconds get() = frame / fps.toFloat()
 
     /**
      * Called on each tick, with given FPS.
@@ -101,7 +105,7 @@ interface Frames {
      * Prints all frames info in one line, for debugging purposes.
      */
     fun print() {
-        print("frame: $frame | fps: $fps | time: ${time.toSeconds().format(3)} | new: $new | frametime: ${frameDurationSeconds.format(3)}s\r")
+        print("frame: $frame | fps: $fps | time: ${frameTime.toSeconds().format(3)} | new: $new | frametime: ${frameDurationSeconds.format(3)}s\r")
     }
 
     companion object {
@@ -152,7 +156,15 @@ internal class FpsGuard(fps: Int, private val printFps: Boolean = false) {
 
     private var last = System.nanoTime()
 
+    /**
+     * Counts how many times the onRender was called (including the times when the frame was not drawn because of FPS guard).
+     */
     private val fpsCounterMax = FPSCounter()
+
+    /**
+     * Counts how many times the frame was actually drawn.
+     * It is expected to be close to the target FPS, but may be lower if the rendering is too heavy or higher if the rendering is very light and the system can keep up with the target FPS.
+     */
     private val fpsCounterReal = FPSCounter()
     private val activeTicker = ActiveTicker()
 

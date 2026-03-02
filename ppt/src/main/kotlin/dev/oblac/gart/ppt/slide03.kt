@@ -128,7 +128,7 @@ val slide03 = DrawFrame { c, d, f ->
         Point(g6.left + g6.width * 0.7f, g6.top + g6.height * 0.8f),
     )
     //--- src: 6 Draw Points
-    val angle = f.timeSeconds * 10
+    val angle = f.frameTimeSeconds * 10
     val center = g6.center()
     c.save()
     c.rotate(angle, center.x, center.y)

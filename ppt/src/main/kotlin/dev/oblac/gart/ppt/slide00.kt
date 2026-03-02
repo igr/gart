@@ -30,7 +30,7 @@ val slide00 = DrawFrame { c, d, f ->
         val step = 4
         val yDelta = (y - yForm)
         for (x in 0 until d.w step step) {
-            val py = y + amplitude * sin(frequency * x * 6 + (f.timeSeconds * yDelta * 0.01f) / 10 + i * 0.1f + yDelta * 0.2f)
+            val py = y + amplitude * sin(frequency * x * 6 + (f.frameTimeSeconds * yDelta * 0.01f) / 10 + i * 0.1f + yDelta * 0.2f)
             path.lineTo(Point(x.toFloat() * step, py))
         }
         val pd = path.detach()

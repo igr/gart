@@ -27,7 +27,7 @@ fun main() {
         c.drawRect(Rect.makeWH(d.width, d.height), bgPaint)
 
         // Draw rotating petals
-        val t = f.timeSeconds
+        val t = f.frameTimeSeconds
         val numPetals = 100
         for (i in 0 until numPetals) {
             val angle = t + i * (PIf * 2 / numPetals)

@@ -15,12 +15,12 @@ private var currentSlide = 0
 private var codeSnippet: Int? = null
 
 fun main() {
-    val gart = Gart.of("presentation", screen)
+    val gart = Gart.of("presentation", screen, 120)
     println(gart)
 
     val w = gart.fullScreenWindow()
 
-    w.show { canvas, draw, f ->
+    w.show { canvas, dimension, f ->
         if (f.new) {
             if (f.frame % 100 == 0L) {
                 println("Frame: ${f.frame}")
@@ -30,7 +30,7 @@ fun main() {
         if (snippet != null && readCodeSnippet(currentSlide, snippet) != null) {
             canvas.drawCode(currentSlide, snippet)
         } else {
-            slides[currentSlide](canvas, draw, f)
+            slides[currentSlide](canvas, dimension, f)
         }
     }.onKey {
         when (it) {

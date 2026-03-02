@@ -32,7 +32,7 @@ fun main() {
             }
         }
         c.clear(CssColors.black)
-        bigBox.allCells.forEach { it.draw(c, f.time) }
+        bigBox.allCells.forEach { it.draw(c, f.frameTime) }
     }
 }
 

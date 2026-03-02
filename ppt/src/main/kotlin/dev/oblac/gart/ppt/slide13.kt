@@ -128,7 +128,7 @@ val slide13 = DrawFrame { c, d, f ->
     val cy4 = g4.top + g4.height / 2 - 15f
     val size = g4.height * 0.28f
     //--- src: 4 3D cube
-    val t = f.timeSeconds
+    val t = f.frameTimeSeconds
     val cubeMesh = cube(
         intArrayOf(coral, deepSkyBlue, mediumSeaGreen, gold, mediumPurple, orange)
     )

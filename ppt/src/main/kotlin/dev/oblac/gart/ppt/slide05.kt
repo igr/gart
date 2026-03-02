@@ -135,7 +135,7 @@ val slide05 = DrawFrame { c, d, f ->
     val g6 = grid[5].shrink(10f)
     //--- src: 6 Animated transform
     val center6 = g6.center()
-    val angle = f.timeSeconds * 30
+    val angle = f.frameTimeSeconds * 30
     c.save()
     c.rotate(angle, center6.x, center6.y)
     c.drawHouse(center6.x, center6.y, houseSize, CssColors.tomato.toFillPaint())

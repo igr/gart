@@ -131,7 +131,7 @@ val slide08 = DrawFrame { c, d, f ->
     c.drawTitle("SkSL Shaders")
 
     val grid = contentBox.shrink(20f).splitToGrid(2, 2)
-    val time = f.timeSeconds
+    val time = f.frameTimeSeconds
 
     // 1. Plasma
     val g1 = grid[0].shrink(10f)
