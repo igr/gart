@@ -1,7 +1,9 @@
 package dev.oblac.gart
 
+import dev.oblac.gart.math.f
 import dev.oblac.gart.math.format
 import org.jetbrains.skiko.FPSCounter
+import org.jetbrains.skiko.currentNanoTime
 
 //data class FramesCount(val value: Long) {
 //    fun time(fps: Int) = (value * 1000 / fps).milliseconds
@@ -74,7 +76,7 @@ interface Frames {
      * Elapsed time in seconds since the start.
      * @see time
      */
-    val timeSeconds get() = time / 1_000_000_000f
+    val timeSeconds get() = (time / 1_000_000_000.0).f()
 
     /**
      * Called on each tick, with given FPS.
@@ -135,7 +137,7 @@ interface Frames {
  * Simple frames counter for manually controlled movies.
  */
 internal class FrameCounter(override val fps: Int) : Frames {
-    private var _time = 0L
+    private var startTime = currentNanoTime()
     override val frameDurationNanos = 1000000000L / fps   // frame time in nanoseconds
     override val frameDurationSeconds = 1f / fps    // frame time in seconds
     private var totalFrames: Long = 0
@@ -144,8 +146,9 @@ internal class FrameCounter(override val fps: Int) : Frames {
     override val new get() = drawNew
     override val time get() = _time
 
+    private var _time = 0L
     fun updateTime(now: Long) {
-        _time = now
+        _time = now - startTime
     }
 
     /**
