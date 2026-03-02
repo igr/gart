@@ -66,6 +66,17 @@ interface Frames {
     val frameTimeSeconds get() = frame / fps.toFloat()
 
     /**
+     * Elapsed time in nanoseconds since the start.
+     */
+    val time: Long
+
+    /**
+     * Elapsed time in seconds since the start.
+     * @see time
+     */
+    val timeSeconds get() = time / 1_000_000_000f
+
+    /**
      * Called on each tick, with given FPS.
      */
     fun tick(callback: () -> Unit) {
@@ -105,7 +116,7 @@ interface Frames {
      * Prints all frames info in one line, for debugging purposes.
      */
     fun print() {
-        print("frame: $frame | fps: $fps | time: ${frameTime.toSeconds().format(3)} | new: $new | frametime: ${frameDurationSeconds.format(3)}s\r")
+        print("frame: $frame | fps: $fps | frameTime: ${frameTime.toSeconds().format(3)} | new: $new | time: ${timeSeconds.format(3)}s\r")
     }
 
     companion object {
@@ -115,6 +126,7 @@ interface Frames {
             override val frameDurationSeconds = 0f
             override val frame = 0L
             override val new = false
+            override val time = 0L
         }
     }
 }
@@ -123,12 +135,18 @@ interface Frames {
  * Simple frames counter for manually controlled movies.
  */
 internal class FrameCounter(override val fps: Int) : Frames {
+    private var _time = 0L
     override val frameDurationNanos = 1000000000L / fps   // frame time in nanoseconds
     override val frameDurationSeconds = 1f / fps    // frame time in seconds
     private var totalFrames: Long = 0
     override val frame get() = totalFrames
     private var drawNew: Boolean = false
     override val new get() = drawNew
+    override val time get() = _time
+
+    fun updateTime(now: Long) {
+        _time = now
+    }
 
     /**
      * Increments frame counter.
@@ -170,6 +188,7 @@ internal class FpsGuard(fps: Int, private val printFps: Boolean = false) {
 
     fun withFps(now: Long) {
         fpsCounterMax.tick()
+        framesCounter.updateTime(now)
 
         if (now - last > framesCounter.frameDurationNanos) {
             fpsCounterReal.tick()
