@@ -4,9 +4,9 @@ import dev.oblac.gart.Dimension
 import dev.oblac.gart.Gart
 import dev.oblac.gart.angle.Radians
 import dev.oblac.gart.color.RetroColors
+import dev.oblac.gart.flow.ForceField
+import dev.oblac.gart.flow.VecForce
 import dev.oblac.gart.flowforce.spring.gart
-import dev.oblac.gart.force.ForceField
-import dev.oblac.gart.force.VecForce
 import dev.oblac.gart.gfx.*
 import dev.oblac.gart.math.rndGaussian
 import dev.oblac.gart.math.rndf

@@ -5,7 +5,7 @@ import dev.oblac.gart.Gart
 import dev.oblac.gart.color.BgColors
 import dev.oblac.gart.color.Palettes
 import dev.oblac.gart.color.alpha
-import dev.oblac.gart.force.ForceField
+import dev.oblac.gart.flow.ForceField
 import dev.oblac.gart.gfx.*
 import dev.oblac.gart.math.*
 import dev.oblac.gart.toFrames

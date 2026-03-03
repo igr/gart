@@ -5,8 +5,8 @@ import dev.oblac.gart.Frames
 import dev.oblac.gart.Gart
 import dev.oblac.gart.color.BgColors
 import dev.oblac.gart.color.Palettes
-import dev.oblac.gart.force.ForceField
-import dev.oblac.gart.force.WaveFlow
+import dev.oblac.gart.flow.ForceField
+import dev.oblac.gart.flow.WaveFlow
 import dev.oblac.gart.gfx.*
 import org.jetbrains.skia.Canvas
 import org.jetbrains.skia.Paint

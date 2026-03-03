@@ -2,8 +2,8 @@ package dev.oblac.gart.flowforce
 
 import dev.oblac.gart.color.CssColors
 import dev.oblac.gart.color.alpha
-import dev.oblac.gart.force.ForceField
-import dev.oblac.gart.force.SpiralVecForce
+import dev.oblac.gart.flow.ForceField
+import dev.oblac.gart.flow.SpiralVecForce
 import dev.oblac.gart.gfx.fillOfBlack
 import dev.oblac.gart.gfx.fillOfWhite
 import dev.oblac.gart.gfx.isInside

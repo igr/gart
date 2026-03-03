@@ -3,8 +3,8 @@ package dev.oblac.gart.thre3.noise
 import dev.oblac.gart.Gart
 import dev.oblac.gart.color.BgColors
 import dev.oblac.gart.color.CssColors
-import dev.oblac.gart.force.ForceField
-import dev.oblac.gart.force.WaveFlow
+import dev.oblac.gart.flow.ForceField
+import dev.oblac.gart.flow.WaveFlow
 import dev.oblac.gart.gfx.*
 import dev.oblac.gart.math.rndf
 import dev.oblac.gart.noise.poissonDiskSamplingNoise

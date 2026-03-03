@@ -3,8 +3,8 @@ package dev.oblac.gart.flowforce
 import dev.oblac.gart.color.BgColors
 import dev.oblac.gart.color.Palettes
 import dev.oblac.gart.color.alpha
-import dev.oblac.gart.force.ForceField
-import dev.oblac.gart.force.WaveFlow
+import dev.oblac.gart.flow.ForceField
+import dev.oblac.gart.flow.WaveFlow
 import dev.oblac.gart.gfx.shrink
 import dev.oblac.gart.gfx.strokeOf
 import dev.oblac.gart.toFrames

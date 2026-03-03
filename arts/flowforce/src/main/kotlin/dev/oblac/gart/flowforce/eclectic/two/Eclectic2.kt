@@ -4,8 +4,8 @@ import dev.oblac.gart.Dimension
 import dev.oblac.gart.Gart
 import dev.oblac.gart.color.BgColors
 import dev.oblac.gart.color.Palettes
-import dev.oblac.gart.force.Force
-import dev.oblac.gart.force.ForceField
+import dev.oblac.gart.flow.Force
+import dev.oblac.gart.flow.ForceField
 import dev.oblac.gart.gfx.*
 import dev.oblac.gart.math.rndf
 import dev.oblac.gart.noise.PerlinNoise

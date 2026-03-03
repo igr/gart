@@ -5,9 +5,9 @@ import dev.oblac.gart.Gart
 import dev.oblac.gart.angle.Radians
 import dev.oblac.gart.color.BgColors
 import dev.oblac.gart.color.CssColors
-import dev.oblac.gart.force.Flow
-import dev.oblac.gart.force.ForceField
-import dev.oblac.gart.force.ForceGenerator
+import dev.oblac.gart.flow.Flow
+import dev.oblac.gart.flow.ForceField
+import dev.oblac.gart.flow.ForceGenerator
 import dev.oblac.gart.gfx.*
 import dev.oblac.gart.math.PIf
 import dev.oblac.gart.math.rndf

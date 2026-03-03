@@ -1,6 +1,6 @@
 package dev.oblac.gart
 
-import dev.oblac.gart.force.*
+import dev.oblac.gart.flow.*
 import dev.oblac.gart.gfx.strokeOf
 import dev.oblac.gart.math.*
 import dev.oblac.gart.vector.Vector2

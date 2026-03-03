@@ -3,7 +3,7 @@ package dev.oblac.gart.flowforce.zpoly
 import dev.oblac.gart.Gart
 import dev.oblac.gart.color.CssColors
 import dev.oblac.gart.color.Palettes
-import dev.oblac.gart.force.ForceField
+import dev.oblac.gart.flow.ForceField
 import dev.oblac.gart.gfx.drawPoint
 import dev.oblac.gart.gfx.strokeOf
 import dev.oblac.gart.math.*

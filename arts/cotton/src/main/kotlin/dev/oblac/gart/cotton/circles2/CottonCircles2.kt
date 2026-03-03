@@ -3,8 +3,8 @@ package dev.oblac.gart.cotton.circles2
 import dev.oblac.gart.Gart
 import dev.oblac.gart.color.BgColors
 import dev.oblac.gart.color.Palettes
-import dev.oblac.gart.force.CircularFlow
-import dev.oblac.gart.force.ForceField
+import dev.oblac.gart.flow.CircularFlow
+import dev.oblac.gart.flow.ForceField
 import dev.oblac.gart.gfx.drawPoints
 import dev.oblac.gart.gfx.isInside
 import dev.oblac.gart.gfx.randomPoint

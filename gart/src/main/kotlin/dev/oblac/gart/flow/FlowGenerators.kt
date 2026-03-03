@@ -1,4 +1,4 @@
-package dev.oblac.gart.force
+package dev.oblac.gart.flow
 
 import dev.oblac.gart.angle.Radians
 import dev.oblac.gart.math.PIf
