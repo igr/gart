@@ -3,7 +3,7 @@ package dev.oblac.gart.thre3.noise
 import dev.oblac.gart.Gart
 import dev.oblac.gart.color.BgColors
 import dev.oblac.gart.color.CssColors
-import dev.oblac.gart.flow.ForceField
+import dev.oblac.gart.flow.FlowField
 import dev.oblac.gart.flow.WaveFlow
 import dev.oblac.gart.gfx.*
 import dev.oblac.gart.math.rndf
@@ -60,7 +60,7 @@ fun box(c: Canvas, r: Rect, noise: Double) {
 
 fun drawFlow(c: Canvas, stroke: Paint) {
     val waveFlow = WaveFlow(0.015f, 0.015f)
-    val ff = ForceField.of(gart.d) { x, y -> waveFlow(x, y) }
+    val ff = FlowField.of(gart.d) { x, y -> waveFlow(x, y) }
 
     val n = 4
     var points = Array(n) {

@@ -7,8 +7,8 @@ import dev.oblac.gart.color.BgColors
 import dev.oblac.gart.color.CssColors
 import dev.oblac.gart.color.Palettes
 import dev.oblac.gart.color.alpha
-import dev.oblac.gart.flow.ForceField
-import dev.oblac.gart.flow.VecForce
+import dev.oblac.gart.flow.FlowField
+import dev.oblac.gart.flow.FlowVec
 import dev.oblac.gart.gfx.*
 import dev.oblac.gart.math.HALF_PIf
 import dev.oblac.gart.math.rndf
@@ -31,13 +31,13 @@ fun main() {
         Circle(900f, 650f, 80f),
     )
     // prepare field
-    val forceField = ForceField.of(d) { x, y ->
+    val flowField = FlowField.of(d) { x, y ->
         for (circ in voids) {
             if (Point(x, y).distanceTo(circ.center) < circ.radius + rndf(-10f, 10f)) {
-                return@of VecForce(Radians(HALF_PIf), 0f)
+                return@of FlowVec(Radians(HALF_PIf), 0f)
             }
         }
-        VecForce(Radians.PI + Degrees(x * y), 2f)
+        FlowVec(Radians.PI + Degrees(x * y), 2f)
     }
 
     // prepare points
@@ -66,7 +66,7 @@ fun main() {
             randomPoints = randomPoints
                 .filter { it.isInside(d) }
                 .map {
-                    forceField[it.x, it.y]
+                    flowField[it.x, it.y]
                         .offset(it)
                         .also { p ->
                             var color = BgColors.elegantDark.alpha(0x28)

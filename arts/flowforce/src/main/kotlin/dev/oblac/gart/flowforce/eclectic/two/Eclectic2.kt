@@ -4,8 +4,8 @@ import dev.oblac.gart.Dimension
 import dev.oblac.gart.Gart
 import dev.oblac.gart.color.BgColors
 import dev.oblac.gart.color.Palettes
-import dev.oblac.gart.flow.Force
-import dev.oblac.gart.flow.ForceField
+import dev.oblac.gart.flow.Flow
+import dev.oblac.gart.flow.FlowField
 import dev.oblac.gart.gfx.*
 import dev.oblac.gart.math.rndf
 import dev.oblac.gart.noise.PerlinNoise
@@ -54,13 +54,13 @@ fun main() {
     gart.window().showImage(g)
 }
 
-private fun ff(): ForceField {
+private fun ff(): FlowField {
     val noise = PerlinNoise()
     val smooth = 600
     val step = 10
-    val ff = ForceField.of(gart.d) { x, y ->
-        object : Force {
-            override fun apply(p: Point): Vector2 {
+    val ff = FlowField.of(gart.d) { x, y ->
+        object : Flow {
+            override fun invoke(p: Point): Vector2 {
                 val n = noise.noise(p.x / smooth, p.y / smooth) * 3
                 return Vector2(cos(n + 0.5) * step, sin(n + 0.5) * step * 1.7)
             }

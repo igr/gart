@@ -3,7 +3,7 @@ package dev.oblac.gart.flowforce
 import dev.oblac.gart.color.BgColors
 import dev.oblac.gart.color.Palettes
 import dev.oblac.gart.color.alpha
-import dev.oblac.gart.flow.ForceField
+import dev.oblac.gart.flow.FlowField
 import dev.oblac.gart.flow.WaveFlow
 import dev.oblac.gart.gfx.shrink
 import dev.oblac.gart.gfx.strokeOf
@@ -25,7 +25,7 @@ fun main() {
     )
 
 
-    val flowField = ForceField.of(d) { x, y -> wave1(x, y) }
+    val flowField = FlowField.of(d) { x, y -> wave1(x, y) }
     val stopDrawing = 10.seconds.toFrames(gart.fps)
 
     val gradient = Palettes.cool36.expand(3000)

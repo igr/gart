@@ -8,16 +8,16 @@ import kotlin.math.atan2
 
 /**
  * Circular force that pulls the points towards the center.
- * It is the same as [VecForce] except there is no additional angle pull.
+ * It is the same as [FlowVec] except there is no additional angle pull.
  * Closer points are faster. Points are always circulating around the center.
  */
-class CircularVecForce(
+class CircularVecFlow(
     val cx: Float,
     val cy: Float,
     private val maxMagnitude: Float = 1024f,
     private val direction: RotationDirection = RotationDirection.CW
-) : ForceGenerator {
-    override fun invoke(x: Float, y: Float): VecForce {
+) : (Float, Float) -> Flow {
+    override fun invoke(x: Float, y: Float): FlowVec {
         val dx = x - cx
         val dy = y - cy
 
@@ -29,7 +29,7 @@ class CircularVecForce(
         val distance = fastSqrt(dx * dx + dy * dy)
         val magnitude = maxMagnitude / (maxMagnitude * 0.1f + distance)
 
-        return VecForce(Radians(theta).normalize(), magnitude)
+        return FlowVec(Radians(theta).normalize(), magnitude)
     }
 }
 
@@ -37,7 +37,7 @@ class CircularVecForce(
  * Spiral force that pulls the points towards the center.
  * The center is never reached - points start to circle around it.
  */
-class SpiralVecForce(
+class SpiralVecFlow(
     val cx: Float,
     val cy: Float,
     /**
@@ -50,8 +50,8 @@ class SpiralVecForce(
     private val maxMagnitude: Float = 1024f,
     private val minDistance: Float = 200f,
     private val direction: RotationDirection = RotationDirection.CW
-) : ForceGenerator {
-    override fun invoke(x: Float, y: Float): VecForce {
+) : (Float, Float) -> Flow {
+    override fun invoke(x: Float, y: Float): FlowVec {
         val dx = x - cx
         val dy = y - cy
 
@@ -63,6 +63,6 @@ class SpiralVecForce(
         val distance = fastSqrt(dx * dx + dy * dy)
         val magnitude = maxMagnitude / (minDistance + distance)
 
-        return VecForce(Radians(theta).normalize(), magnitude)
+        return FlowVec(Radians(theta).normalize(), magnitude)
     }
 }

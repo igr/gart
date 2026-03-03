@@ -16,8 +16,8 @@ class CircularFlow(
     private val cy: Float,
     private val direction: RotationDirection = CW,
     private val magnitude: Float = 1f,
-) : ForceGenerator {
-    override fun invoke(x: Float, y: Float): Flow {
+) : (Float, Float) -> Flow {
+    override fun invoke(x: Float, y: Float): FlowPlus {
         val dx = x - cx
         val dy = y - cy
 
@@ -26,7 +26,7 @@ class CircularFlow(
             RotationDirection.CCW -> -atan2(-dy, dx)
         }
 
-        return Flow(Radians(theta).normalize(), magnitude)
+        return FlowPlus(Radians(theta).normalize(), magnitude)
     }
 }
 
@@ -36,8 +36,8 @@ class SpiralFlow(
     private val spiralSpeed: Float = 0.3f,
     private val direction: RotationDirection = CW,
     private val magnitude: Float = 1f,
-) : ForceGenerator {
-    override fun invoke(x: Float, y: Float): Flow {
+) : (Float, Float) -> Flow {
+    override fun invoke(x: Float, y: Float): FlowPlus {
         val dx = x - cx
         val dy = y - cy
 
@@ -46,7 +46,7 @@ class SpiralFlow(
             RotationDirection.CCW -> -atan2(-dy, dx)
         } + spiralSpeed
 
-        return Flow(Radians(theta).normalize(), magnitude)
+        return FlowPlus(Radians(theta).normalize(), magnitude)
     }
 }
 
@@ -56,11 +56,11 @@ class WaveFlow(
     private val xAmp: Float = 0.8f,
     private val yAmp: Float = 0.5f,
     private val magnitude: Float = 1f,
-) : ForceGenerator {
-    override fun invoke(x: Float, y: Float): Flow {
+) : (Float, Float) -> Flow {
+    override fun invoke(x: Float, y: Float): FlowPlus {
         val a = sin(x * xFreq) * xAmp
         val b = cos(y * yFreq) * yAmp
-        return Flow(Radians(a + b), magnitude)
+        return FlowPlus(Radians(a + b), magnitude)
     }
 
 }

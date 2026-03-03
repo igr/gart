@@ -13,32 +13,32 @@ fun main() {
     // 1
     val cx = gart.d.wf / 3
     val cy = 1 * gart.d.hf / 3f + 100
-    val spiralVec1 = SpiralVecForce(cx, cy, spiralSpeed = 0.2f, maxMagnitude = 1400f, minDistance = 200f)
-    val forceField1 = ForceField.of(gart.d) { x, y -> spiralVec1(x, y) }
+    val spiralVec1 = SpiralVecFlow(cx, cy, spiralSpeed = 0.2f, maxMagnitude = 1400f, minDistance = 200f)
+    val flowField1 = FlowField.of(gart.d) { x, y -> spiralVec1(x, y) }
 
     // 2
-    val spiralVec2 = CircularVecForce(cx, cy, maxMagnitude = 1000f)
-    val forceField2 = ForceField.of(gart.d) { x, y -> spiralVec2(x, y) }
+    val spiralVec2 = CircularVecFlow(cx, cy, maxMagnitude = 1000f)
+    val flowField2 = FlowField.of(gart.d) { x, y -> spiralVec2(x, y) }
 
     // 3
     val circleFlowForce = CircularFlow(cx, cy)
-    val forceField3 = ForceField.of(gart.d) { x, y -> circleFlowForce(x, y) }
+    val flowField3 = FlowField.of(gart.d) { x, y -> circleFlowForce(x, y) }
     // 4
     val spiralFlow = SpiralFlow(cx, cy)
-    val forceField4 = ForceField.of(gart.d) { x, y -> spiralFlow(x, y) }
+    val flowField4 = FlowField.of(gart.d) { x, y -> spiralFlow(x, y) }
     // 5
     val waveFlow = WaveFlow(cx, cy)
-    val forceField5 = ForceField.of(gart.d) { x, y -> waveFlow(x, y) }
+    val flowField5 = FlowField.of(gart.d) { x, y -> waveFlow(x, y) }
     // 6
     val complexField = ComplexField.of(gart.d) { x, y ->
         val z = x + i * y
         ComplexFunctions.simple(z)
     }
-    val forceField6 = ForceField.from(gart.d) { x, y ->
+    val flowField6 = FlowField.from(gart.d) { x, y ->
         complexField[x, y].let { c -> Vector2(c.real, c.imag) }
     }
 
-    var ff = forceField1
+    var ff = flowField1
     val w = gart.window()
 
     fun resetPoints(): List<Point> = Array(1000) {
@@ -60,32 +60,32 @@ fun main() {
             ff = when (it) {
                 Key.KEY_1 -> {
                     points = resetPoints()
-                    forceField1
+                    flowField1
                 }
 
                 Key.KEY_2 -> {
                     points = resetPoints()
-                    forceField2
+                    flowField2
                 }
 
                 Key.KEY_3 -> {
                     points = resetPoints()
-                    forceField3
+                    flowField3
                 }
 
                 Key.KEY_4 -> {
                     points = resetPoints()
-                    forceField4
+                    flowField4
                 }
 
                 Key.KEY_5 -> {
                     points = resetPoints()
-                    forceField5
+                    flowField5
                 }
 
                 Key.KEY_6 -> {
                     points = resetPoints()
-                    forceField6
+                    flowField6
                 }
 
                 else -> ff

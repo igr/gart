@@ -5,7 +5,7 @@ import dev.oblac.gart.Frames
 import dev.oblac.gart.Gart
 import dev.oblac.gart.color.BgColors
 import dev.oblac.gart.color.Palettes
-import dev.oblac.gart.flow.ForceField
+import dev.oblac.gart.flow.FlowField
 import dev.oblac.gart.flow.WaveFlow
 import dev.oblac.gart.gfx.*
 import org.jetbrains.skia.Canvas
@@ -19,7 +19,7 @@ val d = gart.d
 val w = gart.window()
 
 val waveFlow = WaveFlow(10f, 10f, 4f, 4f, 7f)
-val ff = ForceField.of(gart.d) { x, y -> waveFlow(x, y) }
+val ff = FlowField.of(gart.d) { x, y -> waveFlow(x, y) }
 
 // rays
 

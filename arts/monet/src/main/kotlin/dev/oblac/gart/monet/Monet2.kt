@@ -5,7 +5,7 @@ import dev.oblac.gart.Gart
 import dev.oblac.gart.color.CssColors
 import dev.oblac.gart.color.Palettes
 import dev.oblac.gart.color.alpha
-import dev.oblac.gart.flow.ForceField
+import dev.oblac.gart.flow.FlowField
 import dev.oblac.gart.gfx.*
 import dev.oblac.gart.math.*
 import dev.oblac.gart.vector.Vector2
@@ -83,7 +83,7 @@ private fun draw(c: Canvas, d: Dimension) {
 //    c.drawPath(line.toPath(), strokeOf(Colors.black, 2f))
 }
 
-private fun force2(d: Dimension): ForceField {
+private fun force2(d: Dimension): FlowField {
     val poles = arrayOf(Complex(0.2, -0.8))
     val holes = arrayOf(Complex(-0.2, 0.1), Complex(0.9, 0.9))
 
@@ -91,7 +91,7 @@ private fun force2(d: Dimension): ForceField {
         val z = x + i * y
         ComplexFunctions.polesAndHoles(poles, holes)(z)
     }
-    return ForceField.from(d) { x, y ->
+    return FlowField.from(d) { x, y ->
         complexField[x, y].let { c -> Vector2(c.real, c.imag).normalize() }
     }
 }

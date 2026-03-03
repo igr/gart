@@ -5,7 +5,7 @@ import dev.oblac.gart.Gart
 import dev.oblac.gart.color.BgColors
 import dev.oblac.gart.color.Palettes
 import dev.oblac.gart.color.alpha
-import dev.oblac.gart.flow.ForceField
+import dev.oblac.gart.flow.FlowField
 import dev.oblac.gart.gfx.*
 import dev.oblac.gart.math.*
 import dev.oblac.gart.toFrames
@@ -168,7 +168,7 @@ fun drawFinalImage(image1: Image, image2: Image) {
 //}
 
 
-private fun force1(d: Dimension): ForceField {
+private fun force1(d: Dimension): FlowField {
     val poles = arrayOf(Complex(0.5, 0.5))
     val holes = arrayOf(Complex(0.2, -0.4))
 
@@ -176,12 +176,12 @@ private fun force1(d: Dimension): ForceField {
         val z = x + i * y
         ComplexFunctions.polesAndHoles(poles, holes)(z)
     }
-    return ForceField.from(d) { x, y ->
+    return FlowField.from(d) { x, y ->
         complexField[x, y].let { c -> Vector2(c.real, c.imag).normalize() }
     }
 }
 
-private fun force2(d: Dimension): ForceField {
+private fun force2(d: Dimension): FlowField {
     val poles = arrayOf(Complex(0.2, -0.8))
     val holes = arrayOf(Complex(-0.2, 0.1), Complex(0, 0))
 
@@ -189,7 +189,7 @@ private fun force2(d: Dimension): ForceField {
         val z = x + i * y
         ComplexFunctions.polesAndHoles(poles, holes)(z)
     }
-    return ForceField.from(d) { x, y ->
+    return FlowField.from(d) { x, y ->
         complexField[x, y].let { c -> Vector2(c.real, c.imag).normalize() }
     }
 }

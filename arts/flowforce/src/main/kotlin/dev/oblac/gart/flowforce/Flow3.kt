@@ -3,7 +3,7 @@ package dev.oblac.gart.flowforce
 import dev.oblac.gart.color.CssColors
 import dev.oblac.gart.color.Palettes
 import dev.oblac.gart.color.alpha
-import dev.oblac.gart.flow.ForceField
+import dev.oblac.gart.flow.FlowField
 import dev.oblac.gart.flow.SpiralFlow
 import dev.oblac.gart.flow.WaveFlow
 import dev.oblac.gart.gfx.strokeOf
@@ -42,8 +42,8 @@ fun main() {
         direction = CCW
     )
 
-    val flowField = ForceField.of(d) { x, y -> spiralFlow3(x, y) + wave(x, y) }
-    val flowField2 = ForceField.of(d) { x, y -> spiralFlow1(x, y) }
+    val flowField = FlowField.of(d) { x, y -> spiralFlow3(x, y) + wave(x, y) }
+    val flowField2 = FlowField.of(d) { x, y -> spiralFlow1(x, y) }
 
     // prepare points
     val gradient = Palettes.cool1.expand(3000)

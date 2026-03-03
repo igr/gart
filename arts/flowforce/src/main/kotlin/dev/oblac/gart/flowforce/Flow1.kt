@@ -2,8 +2,8 @@ package dev.oblac.gart.flowforce
 
 import dev.oblac.gart.color.CssColors
 import dev.oblac.gart.color.alpha
-import dev.oblac.gart.flow.ForceField
-import dev.oblac.gart.flow.SpiralVecForce
+import dev.oblac.gart.flow.FlowField
+import dev.oblac.gart.flow.SpiralVecFlow
 import dev.oblac.gart.gfx.fillOfBlack
 import dev.oblac.gart.gfx.fillOfWhite
 import dev.oblac.gart.gfx.isInside
@@ -20,21 +20,21 @@ fun main() {
 
     // prepare field
 
-    val spiralVec1 = SpiralVecForce(
+    val spiralVec1 = SpiralVecFlow(
         d.wf / 3, 1 * d.hf / 3f + 100
     )
-    val spiralVec2 = SpiralVecForce(
+    val spiralVec2 = SpiralVecFlow(
         d.wf / 3f + 140, 2 * d.hf / 3f - 100,
         minDistance = 150f,
         direction = RotationDirection.CCW
     )
-    val spiralVec3 = SpiralVecForce(
+    val spiralVec3 = SpiralVecFlow(
         2 * d.wf / 3f + 200, 2 * d.hf / 3f + 100,
         spiralSpeed = 0.4f,
         direction = RotationDirection.CCW
     )
 
-    val forceField = ForceField.of(d) { x, y ->
+    val flowField = FlowField.of(d) { x, y ->
         spiralVec1(x, y) + spiralVec2(x, y) + spiralVec3(x, y)
     }
 
@@ -59,7 +59,7 @@ fun main() {
             randomPoints = randomPoints
                 .filter { it.isInside(d) }
                 .map {
-                    forceField[it.x, it.y]
+                    flowField[it.x, it.y]
                         .offset(it)
                         .also { p ->
                             g.canvas.drawLine(it.x, it.y, p.x, p.y, strokeOf(CssColors.black.alpha(0x28), 1f))

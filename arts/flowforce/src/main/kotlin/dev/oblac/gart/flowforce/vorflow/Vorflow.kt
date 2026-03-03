@@ -4,8 +4,8 @@ import dev.oblac.gart.Dimension
 import dev.oblac.gart.Gart
 import dev.oblac.gart.angle.Radians
 import dev.oblac.gart.color.RetroColors
-import dev.oblac.gart.flow.ForceField
-import dev.oblac.gart.flow.VecForce
+import dev.oblac.gart.flow.FlowField
+import dev.oblac.gart.flow.FlowVec
 import dev.oblac.gart.flowforce.spring.gart
 import dev.oblac.gart.gfx.*
 import dev.oblac.gart.math.rndGaussian
@@ -64,23 +64,23 @@ private fun draw(c: Canvas, d: Dimension) {
     }!!
     val centerPath = centerCell.toPathPoints().toClosedPath()
 
-    val ff = ForceField.of(gart.d) { x, y ->
+    val ff = FlowField.of(gart.d) { x, y ->
         val p = Point(x, y)
 
         val lineOfP = voronoi.flatMap { it.edges }.find { it.isPointOnLine(p) }
         if (lineOfP != null) {
             // If the point is on a line, flow with the line
-            VecForce(lineOfP.angle(), 10f)
+            FlowVec(lineOfP.angle(), 10f)
         } else {
             // Otherwise, find the closest line
             val closestLine = voronoi.flatMap { it.edges }
                 .minByOrNull { Line.fromPointToLine(p, it).length() }
             if (closestLine != null) {
                 // Flow towards the closest line
-                VecForce(Line.fromPointToLine(p, closestLine).angle(), 10f)
+                FlowVec(Line.fromPointToLine(p, closestLine).angle(), 10f)
             } else {
                 // If no lines are found, return a zero force
-                VecForce(Radians(0f), 0f)
+                FlowVec(Radians(0f), 0f)
             }
         }
     }

@@ -2,7 +2,7 @@ package dev.oblac.gart.flowforce
 
 import dev.oblac.gart.color.CssColors
 import dev.oblac.gart.color.alpha
-import dev.oblac.gart.flow.ForceField
+import dev.oblac.gart.flow.FlowField
 import dev.oblac.gart.flow.SpiralFlow
 import dev.oblac.gart.gfx.fillOfWhite
 import dev.oblac.gart.gfx.strokeOf
@@ -31,7 +31,7 @@ fun main() {
         direction = RotationDirection.CCW
     )
 
-    val flowField = ForceField.of(d) { x, y ->
+    val flowField = FlowField.of(d) { x, y ->
         spiralFlow1(x, y) + spiralFlow2(x, y) + spiralFlow3(x, y)
     }
 

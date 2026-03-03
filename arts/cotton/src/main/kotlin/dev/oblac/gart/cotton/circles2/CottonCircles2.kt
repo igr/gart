@@ -4,7 +4,7 @@ import dev.oblac.gart.Gart
 import dev.oblac.gart.color.BgColors
 import dev.oblac.gart.color.Palettes
 import dev.oblac.gart.flow.CircularFlow
-import dev.oblac.gart.flow.ForceField
+import dev.oblac.gart.flow.FlowField
 import dev.oblac.gart.gfx.drawPoints
 import dev.oblac.gart.gfx.isInside
 import dev.oblac.gart.gfx.randomPoint
@@ -43,7 +43,7 @@ fun main() {
     val end = 2 * 2 * (3.14f * period).toLong()
 
     val circleFlowForce = CircularFlow(gart.d.cx, gart.d.cy)
-    val forceField = ForceField.of(gart.d) { x, y -> circleFlowForce(x, y) }
+    val flowField = FlowField.of(gart.d) { x, y -> circleFlowForce(x, y) }
 
     var points = Array(500) {
         randomPoint(gart.d.cx, gart.d.cy, max, 60f)
@@ -73,7 +73,7 @@ fun main() {
         points = points
             .filter { it.isInside(d) }
             .map {
-                forceField[it.x, it.y].offset(it)
+                flowField[it.x, it.y].offset(it)
             }
             .toList()
 

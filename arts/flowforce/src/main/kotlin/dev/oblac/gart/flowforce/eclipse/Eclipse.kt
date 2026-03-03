@@ -6,8 +6,8 @@ import dev.oblac.gart.angle.Radians
 import dev.oblac.gart.color.BgColors
 import dev.oblac.gart.color.CssColors
 import dev.oblac.gart.flow.Flow
-import dev.oblac.gart.flow.ForceField
-import dev.oblac.gart.flow.ForceGenerator
+import dev.oblac.gart.flow.FlowField
+import dev.oblac.gart.flow.FlowPlus
 import dev.oblac.gart.gfx.*
 import dev.oblac.gart.math.PIf
 import dev.oblac.gart.math.rndf
@@ -76,13 +76,14 @@ fun drawHalo(c: Canvas, d: Dimension, moonR: Float) {
 
 
 fun drawRays(c: Canvas, d: Dimension, moonR: Float) {
-    val flow = ForceGenerator { x, y ->
+    fun flowPlus(x: Float, y: Float): Flow {
         val dx = x - d.cx
         val dy = y - d.cy
         val theta = atan2(dy, dx) + PIf / 2f + rndf(-0.3f, 0.3f)
-        Flow(Radians(theta), 2f)
+        return FlowPlus(Radians(theta), 2f)
     }
-    val ff = ForceField.of(gart.d) { x, y -> flow(x, y) }
+
+    val ff = FlowField.of(gart.d) { x, y -> flowPlus(x, y) }
 
     val rayPoints = Array(500) {
         val angle = (if (rnd.nextBoolean()) 330f else 0f) + rnd.nextGaussian() / 2f

@@ -4,12 +4,12 @@ import dev.oblac.gart.angle.Radians
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 
-class FlowTest {
+class FlowPlusTest {
 
     @Test
     fun addOppositeFlows() {
-        val right = Flow(Radians.ZERO, 1f)
-        val left = Flow(Radians.PI, 1f)
+        val right = FlowPlus(Radians.ZERO, 1f)
+        val left = FlowPlus(Radians.PI, 1f)
 
         val result = right + left
 

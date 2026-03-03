@@ -10,7 +10,7 @@ import dev.oblac.gart.Gart
 import dev.oblac.gart.color.BgColors
 import dev.oblac.gart.color.Palettes
 import dev.oblac.gart.color.space.color4f
-import dev.oblac.gart.flow.ForceField
+import dev.oblac.gart.flow.FlowField
 import dev.oblac.gart.gfx.*
 import dev.oblac.gart.math.*
 import dev.oblac.gart.vector.Vector2
@@ -164,7 +164,7 @@ val fnz = ComplexFunctions.polesAndHoles(
 val complexField = ComplexField.of(gart.d) { x, y ->
     fnz(Complex(x, y))
 }
-val ff = ForceField.from(gart.d) { x, y ->
+val ff = FlowField.from(gart.d) { x, y ->
     complexField[x, y].let { c -> Vector2(c.real, c.imag) }
 }
 

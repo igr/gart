@@ -2,47 +2,22 @@ package dev.oblac.gart.flow
 
 import dev.oblac.gart.Dimension
 import dev.oblac.gart.gfx.isInside
-import dev.oblac.gart.gfx.offset
 import dev.oblac.gart.gfx.strokeOfBlue
 import dev.oblac.gart.gfx.strokeOfRed
 import dev.oblac.gart.vector.Vector2
 import org.jetbrains.skia.Canvas
 import org.jetbrains.skia.Point
 
-/**
- * Represents a force that acts on a point.
- */
-interface Force {
-
-    /**
-     * Calculates the force vector (offset) at the given point.
-     */
-    fun apply(p: Point): Vector2
-
-    /**
-     * Applies the force to the given point and returns the new point.
-     */
-    fun offset(p: Point) = apply(p).let { p.offset(it) }
-
-}
-
-/**
- * Generates a force at the given point.
- */
-fun interface ForceGenerator {
-    operator fun invoke(x: Float, y: Float): Force
-}
-
-class ForceField(val w: Int, val h: Int, private val field: Array<Array<Force>>) {
+class FlowField(val w: Int, val h: Int, private val field: Array<Array<Flow>>) {
 
     private val fieldDimension = Dimension(w, h)
 
-    operator fun get(x: Int, y: Int): Force = field[x][y]
-    operator fun get(point: Point): Force = get(point.x, point.y)
+    operator fun get(x: Int, y: Int): Flow = field[x][y]
+    operator fun get(point: Point): Flow = get(point.x, point.y)
     operator fun get(x: Number, y: Number) = get(x.toInt(), y.toInt())
 
     /**
-     * Applies the force field to the given points and returns the updated list of new points.
+     * Applies the flow field to the given points and returns the updated list of new points.
      */
     fun apply(points: List<Point>, pointConsumer: (Point, Point) -> Unit): List<Point> {
         if (points.isEmpty()) {
@@ -62,22 +37,19 @@ class ForceField(val w: Int, val h: Int, private val field: Array<Array<Force>>)
 
 
     companion object {
-        fun of(d: Dimension, fn: (Float, Float) -> Force) = ForceField(d.w, d.h,
+        fun of(d: Dimension, fn: (Float, Float) -> Flow) = FlowField(
+            d.w, d.h,
             Array(d.w) { x ->
                 Array(d.h) { y ->
                     fn(x.toFloat(), y.toFloat())
                 }
             })
 
-        fun ofVectors(d: Dimension, fn: (Float, Float) -> Vector2) = ForceField(
+        fun ofVectors(d: Dimension, fn: (Float, Float) -> Vector2) = FlowField(
             d.w, d.h,
             Array(d.w) {
                 Array(d.h) {
-                    object : Force {
-                        override fun apply(p: Point): Vector2 {
-                            return fn(p.x, p.y)
-                        }
-                    }
+                    Flow { p -> fn(p.x, p.y) }
                 }
             })
 
@@ -85,28 +57,13 @@ class ForceField(val w: Int, val h: Int, private val field: Array<Array<Force>>)
          * Creates a force field from a function that generates a vector for each point.
          * Points are defined with the index. Used when mapping from one space into another.
          */
-        fun from(d: Dimension, fn: (Int, Int) -> Vector2) = ForceField(
+        fun from(d: Dimension, fn: (Int, Int) -> Vector2) = FlowField(
             d.w, d.h,
             Array(d.w) { x ->
                 Array(d.h) { y ->
-                    object : Force {
-                        override fun apply(p: Point): Vector2 {
-                            return fn(x, y)
-                        }
-                    }
+                    Flow { fn(x, y) }
                 }
             })
-
-        fun of(d: Dimension, forceGenerator: ForceGenerator) = of(d.w, d.h, forceGenerator)
-
-        fun of(width: Int, height: Int, forceGenerator: ForceGenerator): ForceField {
-            return ForceField(width, height,
-                Array(width) { x ->
-                    Array(height) { y ->
-                        forceGenerator(x.toFloat(), y.toFloat())
-                    }
-                })
-        }
     }
 
     /**
@@ -121,7 +78,7 @@ class ForceField(val w: Int, val h: Int, private val field: Array<Array<Force>>)
             val xf = x.toFloat()
             val yf = y.toFloat()
 
-            val v = f.apply(Point(xf, yf)).normalize() * 10f
+            val v = f(Point(xf, yf)).normalize() * 10f
 
             c.drawPoint(xf, yf, strokeOfRed(2.5f))
             c.drawLine(xf, yf, x + v.x, y + v.y, strokeOfBlue(1f))
