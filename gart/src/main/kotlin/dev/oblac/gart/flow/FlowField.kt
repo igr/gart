@@ -18,6 +18,9 @@ class FlowField(val w: Int, val h: Int, private val field: Array<Array<Flow>>) {
 
     /**
      * Applies the flow field to the given points and returns the updated list of new points.
+     * The pointConsumer is called for each point with the original and new point,
+     * allowing for side effects such as drawing or logging.
+     * Points that are outside the field dimension are ignored.
      */
     fun apply(points: List<Point>, pointConsumer: (Point, Point) -> Unit): List<Point> {
         if (points.isEmpty()) {
