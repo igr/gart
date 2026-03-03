@@ -37,19 +37,14 @@ class FlowField(val w: Int, val h: Int, private val field: Array<Array<Flow>>) {
 
 
     companion object {
+        /**
+         * Creates a flow field from a function that generates a flow for each point.
+         */
         fun of(d: Dimension, fn: (Float, Float) -> Flow) = FlowField(
             d.w, d.h,
             Array(d.w) { x ->
                 Array(d.h) { y ->
                     fn(x.toFloat(), y.toFloat())
-                }
-            })
-
-        fun ofVectors(d: Dimension, fn: (Float, Float) -> Vector2) = FlowField(
-            d.w, d.h,
-            Array(d.w) {
-                Array(d.h) {
-                    Flow { p -> fn(p.x, p.y) }
                 }
             })
 
