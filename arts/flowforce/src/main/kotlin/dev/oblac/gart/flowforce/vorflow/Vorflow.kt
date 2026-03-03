@@ -4,8 +4,8 @@ import dev.oblac.gart.Dimension
 import dev.oblac.gart.Gart
 import dev.oblac.gart.angle.Radians
 import dev.oblac.gart.color.RetroColors
+import dev.oblac.gart.flow.Flow2
 import dev.oblac.gart.flow.FlowField
-import dev.oblac.gart.flow.FlowVec
 import dev.oblac.gart.flowforce.spring.gart
 import dev.oblac.gart.gfx.*
 import dev.oblac.gart.math.rndGaussian
@@ -70,17 +70,17 @@ private fun draw(c: Canvas, d: Dimension) {
         val lineOfP = voronoi.flatMap { it.edges }.find { it.isPointOnLine(p) }
         if (lineOfP != null) {
             // If the point is on a line, flow with the line
-            FlowVec(lineOfP.angle(), 10f)
+            Flow2(lineOfP.angle(), 10f)
         } else {
             // Otherwise, find the closest line
             val closestLine = voronoi.flatMap { it.edges }
                 .minByOrNull { Line.fromPointToLine(p, it).length() }
             if (closestLine != null) {
                 // Flow towards the closest line
-                FlowVec(Line.fromPointToLine(p, closestLine).angle(), 10f)
+                Flow2(Line.fromPointToLine(p, closestLine).angle(), 10f)
             } else {
                 // If no lines are found, return a zero force
-                FlowVec(Radians(0f), 0f)
+                Flow2(Radians(0f), 0f)
             }
         }
     }

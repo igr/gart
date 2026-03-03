@@ -4,8 +4,8 @@ import dev.oblac.gart.Gart
 import dev.oblac.gart.angle.Degrees
 import dev.oblac.gart.color.BgColors
 import dev.oblac.gart.color.NipponColors
+import dev.oblac.gart.flow.Flow2
 import dev.oblac.gart.flow.FlowField
-import dev.oblac.gart.flow.FlowVec
 import dev.oblac.gart.gfx.*
 import dev.oblac.gart.math.rndGaussian
 import org.jetbrains.skia.Point
@@ -24,7 +24,7 @@ fun main() {
     // prepare field
     val flowField = FlowField.of(d) { x, y ->
         val a = 90 + sin(x * 0.01f) * 40 + cos(y * 0.005f) * 40
-        FlowVec(Degrees.of(a), 2f)
+        Flow2(Degrees.of(a), 2f)
     }
 
     // prepare points

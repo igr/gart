@@ -7,8 +7,8 @@ import dev.oblac.gart.color.BgColors
 import dev.oblac.gart.color.CssColors
 import dev.oblac.gart.color.Palettes
 import dev.oblac.gart.color.alpha
+import dev.oblac.gart.flow.Flow2
 import dev.oblac.gart.flow.FlowField
-import dev.oblac.gart.flow.FlowVec
 import dev.oblac.gart.gfx.*
 import dev.oblac.gart.math.HALF_PIf
 import dev.oblac.gart.math.rndf
@@ -34,10 +34,10 @@ fun main() {
     val flowField = FlowField.of(d) { x, y ->
         for (circ in voids) {
             if (Point(x, y).distanceTo(circ.center) < circ.radius + rndf(-10f, 10f)) {
-                return@of FlowVec(Radians(HALF_PIf), 0f)
+                return@of Flow2(Radians(HALF_PIf), 0f)
             }
         }
-        FlowVec(Radians.PI + Degrees(x * y), 2f)
+        Flow2(Radians.PI + Degrees(x * y), 2f)
     }
 
     // prepare points

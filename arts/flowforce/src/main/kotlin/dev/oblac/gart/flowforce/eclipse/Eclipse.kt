@@ -6,8 +6,8 @@ import dev.oblac.gart.angle.Radians
 import dev.oblac.gart.color.BgColors
 import dev.oblac.gart.color.CssColors
 import dev.oblac.gart.flow.Flow
+import dev.oblac.gart.flow.Flow2
 import dev.oblac.gart.flow.FlowField
-import dev.oblac.gart.flow.FlowPlus
 import dev.oblac.gart.gfx.*
 import dev.oblac.gart.math.PIf
 import dev.oblac.gart.math.rndf
@@ -80,7 +80,7 @@ fun drawRays(c: Canvas, d: Dimension, moonR: Float) {
         val dx = x - d.cx
         val dy = y - d.cy
         val theta = atan2(dy, dx) + PIf / 2f + rndf(-0.3f, 0.3f)
-        return FlowPlus(Radians(theta), 2f)
+        return Flow2(Radians(theta), 2f)
     }
 
     val ff = FlowField.of(gart.d) { x, y -> flowPlus(x, y) }

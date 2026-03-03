@@ -8,7 +8,6 @@ import kotlin.math.atan2
 
 /**
  * Circular force that pulls the points towards the center.
- * It is the same as [FlowVec] except there is no additional angle pull.
  * Closer points are faster. Points are always circulating around the center.
  */
 class CircularVecFlow(
@@ -17,7 +16,7 @@ class CircularVecFlow(
     private val maxMagnitude: Float = 1024f,
     private val direction: RotationDirection = RotationDirection.CW
 ) : (Float, Float) -> Flow {
-    override fun invoke(x: Float, y: Float): FlowVec {
+    override fun invoke(x: Float, y: Float): Flow2 {
         val dx = x - cx
         val dy = y - cy
 
@@ -29,7 +28,7 @@ class CircularVecFlow(
         val distance = fastSqrt(dx * dx + dy * dy)
         val magnitude = maxMagnitude / (maxMagnitude * 0.1f + distance)
 
-        return FlowVec(Radians(theta).normalize(), magnitude)
+        return Flow2(Radians(theta).normalize(), magnitude)
     }
 }
 
@@ -51,7 +50,7 @@ class SpiralVecFlow(
     private val minDistance: Float = 200f,
     private val direction: RotationDirection = RotationDirection.CW
 ) : (Float, Float) -> Flow {
-    override fun invoke(x: Float, y: Float): FlowVec {
+    override fun invoke(x: Float, y: Float): Flow2 {
         val dx = x - cx
         val dy = y - cy
 
@@ -63,6 +62,6 @@ class SpiralVecFlow(
         val distance = fastSqrt(dx * dx + dy * dy)
         val magnitude = maxMagnitude / (minDistance + distance)
 
-        return FlowVec(Radians(theta).normalize(), magnitude)
+        return Flow2(Radians(theta).normalize(), magnitude)
     }
 }

@@ -12,14 +12,14 @@ import kotlin.math.atan2
 /**
  * Vector flow has a vector defined in each point.
  */
-data class FlowVec(val direction: Angle, val magnitude: Float = 1f) : Flow {
+data class Flow2(val direction: Angle, val magnitude: Float = 1f) : Flow {
 
-    operator fun plus(other: FlowVec): FlowVec {
+    operator fun plus(other: Flow2): Flow2 {
         val x3 = magnitude * cos(direction) + other.magnitude * cos(other.direction)
         val y3 = magnitude * sin(direction) + other.magnitude * sin(other.direction)
         val r3 = fastSqrt(x3 * x3 + y3 * y3)
         val t3 = atan2(y3, x3)
-        return FlowVec(Radians.of(t3).normalize(), r3.toFloat())
+        return Flow2(Radians.of(t3).normalize(), r3.toFloat())
     }
 
     /**

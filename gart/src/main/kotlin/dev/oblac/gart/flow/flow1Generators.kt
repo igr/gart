@@ -17,7 +17,7 @@ class CircularFlow(
     private val direction: RotationDirection = CW,
     private val magnitude: Float = 1f,
 ) : (Float, Float) -> Flow {
-    override fun invoke(x: Float, y: Float): FlowPlus {
+    override fun invoke(x: Float, y: Float): Flow1 {
         val dx = x - cx
         val dy = y - cy
 
@@ -26,7 +26,7 @@ class CircularFlow(
             RotationDirection.CCW -> -atan2(-dy, dx)
         }
 
-        return FlowPlus(Radians(theta).normalize(), magnitude)
+        return Flow1(Radians(theta).normalize(), magnitude)
     }
 }
 
@@ -37,7 +37,7 @@ class SpiralFlow(
     private val direction: RotationDirection = CW,
     private val magnitude: Float = 1f,
 ) : (Float, Float) -> Flow {
-    override fun invoke(x: Float, y: Float): FlowPlus {
+    override fun invoke(x: Float, y: Float): Flow1 {
         val dx = x - cx
         val dy = y - cy
 
@@ -46,7 +46,7 @@ class SpiralFlow(
             RotationDirection.CCW -> -atan2(-dy, dx)
         } + spiralSpeed
 
-        return FlowPlus(Radians(theta).normalize(), magnitude)
+        return Flow1(Radians(theta).normalize(), magnitude)
     }
 }
 
@@ -57,10 +57,10 @@ class WaveFlow(
     private val yAmp: Float = 0.5f,
     private val magnitude: Float = 1f,
 ) : (Float, Float) -> Flow {
-    override fun invoke(x: Float, y: Float): FlowPlus {
+    override fun invoke(x: Float, y: Float): Flow1 {
         val a = sin(x * xFreq) * xAmp
         val b = cos(y * yFreq) * yAmp
-        return FlowPlus(Radians(a + b), magnitude)
+        return Flow1(Radians(a + b), magnitude)
     }
 
 }

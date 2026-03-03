@@ -8,20 +8,20 @@ import dev.oblac.gart.vector.Vector2
 import org.jetbrains.skia.Point
 
 /**
- * Flow is a force represented with the direction and _scalar_ magnitude of a flow.
+ * Flow1 is a force represented with the direction and _scalar_ magnitude of a flow.
  * Flow magnitude is the speed of the flow.
  * It is not a math vector!
- * For real vector force, see [FlowVec].
+ * For real vector force, see [Flow2].
  *
  * @param direction in radians, indicates the direction of the flow. The angle is measured from the negative x-axis.
  * 0 is up, PI/2 is right, PI is down, 3PI/2 is left.
  */
-data class FlowPlus(val direction: Angle, val magnitude: Float = 1f) : Flow {
+data class Flow1(val direction: Angle, val magnitude: Float = 1f) : Flow {
 
-    // this is not mathematically correct, see VecForce.plus for correct vector addition
+    // this is not mathematically correct, see Flow2.plus for correct vector addition
     // magnitude is not averaged!
-    operator fun plus(other: FlowPlus): FlowPlus {
-        return FlowPlus(middleAngle(direction, other.direction), (magnitude + other.magnitude) / 2)
+    operator fun plus(other: Flow1): Flow1 {
+        return Flow1(middleAngle(direction, other.direction), (magnitude + other.magnitude) / 2)
     }
 
     /**
