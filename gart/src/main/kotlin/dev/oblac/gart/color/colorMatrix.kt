@@ -71,6 +71,18 @@ object ColorMatrices {
         return ColorMatrix(arr)
     }
 
+    /**
+     * Swaps two colors while preserving antialiasing. The formula is:
+     * newPixel = (colorA + colorB) - oldPixel
+     */
+    fun swap(colorA: Int, colorB: Int) = ColorMatrix(
+        -1f, 0f, 0f, 0f, (red(colorA) + red(colorB)) / 255f,
+        0f, -1f, 0f, 0f, (green(colorA) + green(colorB)) / 255f,
+        0f, 0f, -1f, 0f, (blue(colorA) + blue(colorB)) / 255f,
+        0f, 0f, 0f, 1f, 0f
+    )
+
+
     fun sepia(): ColorMatrix {
         val arr = floatArrayOf(
             0.393f, 0.769f, 0.189f, 0f, 0f,
