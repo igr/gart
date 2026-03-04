@@ -11,6 +11,7 @@ import dev.oblac.gart.gfx.*
 import dev.oblac.gart.hashgrid.HashGrid
 import dev.oblac.gart.noise.OpenSimplexNoise
 import dev.oblac.gart.util.middle
+import org.jetbrains.skia.PaintStrokeCap
 import org.jetbrains.skia.Path
 import org.jetbrains.skia.Point
 import kotlin.math.cos
@@ -35,14 +36,13 @@ fun main() {
     c.clear(col016_KURENAI)
 
     // build outlines
-    val pathOutlines = paths.map { path ->
+    paths.forEach { path ->
         val point = path.points().middle()
         val width = cos(point.x * 0.01f) * 6f + 8f
-        pathToOutline(path, width)
-    }
-    val paint = fillOf(col234_GOFUN)
-    pathOutlines.forEach {
-        c.drawPath(it.outline, paint)
+        val paint = strokeOf(col234_GOFUN, width).apply {
+            this.strokeCap = PaintStrokeCap.ROUND
+        }
+        c.drawPath(path, paint)
     }
 
     //gart.saveImage(g)
