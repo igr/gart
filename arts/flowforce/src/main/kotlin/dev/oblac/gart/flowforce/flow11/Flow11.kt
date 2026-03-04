@@ -7,14 +7,13 @@ import dev.oblac.gart.color.NipponColors.col016_KURENAI
 import dev.oblac.gart.color.NipponColors.col234_GOFUN
 import dev.oblac.gart.flow.Flow2
 import dev.oblac.gart.flow.FlowField
-import dev.oblac.gart.gfx.isInside
-import dev.oblac.gart.gfx.randomPoint
-import dev.oblac.gart.gfx.strokeOf
-import dev.oblac.gart.gfx.toPath
+import dev.oblac.gart.gfx.*
 import dev.oblac.gart.hashgrid.HashGrid
 import dev.oblac.gart.noise.OpenSimplexNoise
+import dev.oblac.gart.util.middle
 import org.jetbrains.skia.Path
 import org.jetbrains.skia.Point
+import kotlin.math.cos
 
 fun main() {
     val gart = Gart.of("flow11", 1024, 1024)
@@ -32,14 +31,21 @@ fun main() {
     val tracer = StreamlineTracer(d, flowField)
     val paths = tracer.trace()
 
-    // draw
+    // assign random widths, sort thickest-first
     c.clear(col016_KURENAI)
-    val paint = strokeOf(col234_GOFUN, 2f)
-    for (path in paths) {
-        c.drawPath(path, paint)
+
+    // build outlines
+    val pathOutlines = paths.map { path ->
+        val point = path.points().middle()
+        val width = cos(point.x * 0.01f) * 6f + 8f
+        pathToOutline(path, width)
+    }
+    val paint = fillOf(col234_GOFUN)
+    pathOutlines.forEach {
+        c.drawPath(it.outline, paint)
     }
 
-    gart.saveImage(g)
+    //gart.saveImage(g)
     val w = gart.window()
     w.showImage(g)
 }
