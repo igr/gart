@@ -64,3 +64,5 @@ fun <T> List<T>.circular(): List<T> {
 operator fun <T> List<T>.rem(index: Int): T = this[abs(index % this.size)]
 
 fun <T> List<T>.pairs(): List<Pair<T, T>> = zip(drop(1))
+
+fun <T> List<T>.middle(): T = this[size / 2]

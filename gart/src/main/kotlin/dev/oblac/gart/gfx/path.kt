@@ -44,6 +44,10 @@ fun closedPathOf(first: Point, vararg points: Point): Path {
     return path.closePath().detach()
 }
 
+fun Path.points(): List<Point> {
+    return this.points.filterNotNull().toList()
+}
+
 fun Path.toPoints(pointsCount: Int) = pointsOn(this, pointsCount)
 fun Path.toPoints(pointsCount: Int, ease: EaseFn) = pointsOn(this, pointsCount, ease)
 
