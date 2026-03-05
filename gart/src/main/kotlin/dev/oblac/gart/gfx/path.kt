@@ -189,3 +189,11 @@ fun pathsOverlap(c1: Path, c2: Path, minArea: Float = 1f): Boolean {
     val bounds = intersect.bounds
     return bounds.width >= minArea && bounds.height >= minArea
 }
+
+
+/**
+ * Calculates the total length of the path.
+ */
+fun Path.length(): Float {
+    return PathMeasure(this).length
+}
