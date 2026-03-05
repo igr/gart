@@ -33,34 +33,45 @@ fun main() {
     val paths = StreamlineTracer(d, flowField).trace()
 
     //val p = Palettes.cool9
-    val p = Palettes.cool19
+    //val p = Palettes.cool19
+//    val p = Palettes.cool22
+    val p = Palettes.cool25
 
     c.clear(RetroColors.black01)
 
-    paths.forEach { path ->
-        val point = path.points().middle()
-        val width = cos(point.x * 0.01f) * 6f + 8f
-        val color = p.safe(map(width, 0, 14f, 0, p.size - 1).toInt())
-        val paint = strokeOf(color, width).apply {
-            this.strokeCap = PaintStrokeCap.ROUND
-        }
-        if (rndb(1, 10)) {
-            path.toPoints(8).forEach {
-                c.drawCircle(it, width * 0.5f, fillOf(color.alpha(100)))
+    var circle: Circle? = Circle(
+        Point(d.w3x2, d.h3x2), 120f
+    )
+
+    paths.map { Pair(it, it.points().middle()) }
+        .sortedBy { it.second.y }
+        .forEach { (path, point) ->
+            val width = cos(point.x * 0.01f) * 6f + 8f
+            val color = p.safe(map(width, 0, 14f, 0, p.size - 1).toInt())
+            val paint = strokeOf(color, width).apply {
+                strokeCap = PaintStrokeCap.ROUND
             }
-        } else {
-            c.drawPath(path, paint)
+            if (rndb(1, 6)) {
+                generateSequence(2) { it + 2 }
+                    .map { path.toPoints(it) }
+                    .first { it[0].distanceTo(it[1]) < 20f }
+                    .forEach {
+                        c.drawCircle(it, width * 0.5f, fillOf(color.alpha(100)))
+                    }
+            } else {
+                c.drawPath(path, paint)
+            }
+            if (circle != null) {
+                if (point.y > circle.center.y) {
+                    c.drawCircle(circle, fillOf(col234_GOFUN))
+                    c.drawCircle(circle, strokeOf(RetroColors.black01, 20f))
+                    circle = null
+                }
+
+            }
         }
-    }
 
-    // nacrtaj dve polukruga koja su pomerena
-    Point(d.w3x2, d.h3x2).let {
-        c.drawCircle(it, 120f, fillOf(col234_GOFUN))
-        c.drawCircle(it, 120f, strokeOf(RetroColors.black01, 20f))
-    }
-
-
-    //gart.saveImage(g)
+    gart.saveImage(g)
     val w = gart.window()
     w.showImage(g)
 }
