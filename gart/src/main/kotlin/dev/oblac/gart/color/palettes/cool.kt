@@ -778,3 +778,778 @@ internal val cool_76 = Palette(
     0xFF222323,
     0xFFf0f6f0
 )
+
+internal val cool_77 = Palette(
+    0xff69d2e7,
+    0xffa7dbd8,
+    0xffe0e4cc,
+    0xfff38630,
+    0xfffa6900
+)
+
+internal val cool_78 = Palette(
+    0xfffe4365,
+    0xfffc9d9a,
+    0xfff9cdad,
+    0xffc8c8a9,
+    0xff83af9b
+)
+
+internal val cool_79 = Palette(
+    0xffecd078,
+    0xffd95b43,
+    0xffc02942,
+    0xff542437,
+    0xff53777a
+)
+
+internal val cool_80 = Palette(
+    0xff556270,
+    0xff4ecdc4,
+    0xffc7f464,
+    0xffff6b6b,
+    0xffc44d58
+)
+
+internal val cool_81 = Palette(
+    0xff774f38,
+    0xffe08e79,
+    0xfff1d4af,
+    0xffece5ce,
+    0xffc5e0dc
+)
+
+internal val cool_82 = Palette(
+    0xffe8ddcb,
+    0xffcdb380,
+    0xff036564,
+    0xff033649,
+    0xff031634
+)
+
+internal val cool_83 = Palette(
+    0xff490a3d,
+    0xffbd1550,
+    0xffe97f02,
+    0xfff8ca00,
+    0xff8a9b0f
+)
+
+internal val cool_84 = Palette(
+    0xff594f4f,
+    0xff547980,
+    0xff45ada8,
+    0xff9de0ad,
+    0xffe5fcc2
+)
+
+internal val cool_85 = Palette(
+    0xff00a0b0,
+    0xff6a4a3c,
+    0xffcc333f,
+    0xffeb6841,
+    0xffedc951
+)
+
+internal val cool_86 = Palette(
+    0xffe94e77,
+    0xffd68189,
+    0xffc6a49a,
+    0xffc6e5d9,
+    0xfff4ead5
+)
+
+internal val cool_87 = Palette(
+    0xff3fb8af,
+    0xff7fc7af,
+    0xffdad8a7,
+    0xffff9e9d,
+    0xffff3d7f
+)
+
+internal val cool_88 = Palette(
+    0xffd9ceb2,
+    0xff948c75,
+    0xffd5ded9,
+    0xff7a6a53,
+    0xff99b2b7
+)
+
+internal val cool_89 = Palette(
+    0xffffffff,
+    0xffcbe86b,
+    0xfff2e9e1,
+    0xff1c140d,
+    0xffcbe86b
+)
+
+internal val cool_90 = Palette(
+    0xffefffcd,
+    0xffdce9be,
+    0xff555152,
+    0xff2e2633,
+    0xff99173c
+)
+
+internal val cool_91 = Palette(
+    0xff343838,
+    0xff005f6b,
+    0xff008c9e,
+    0xff00b4cc,
+    0xff00dffc
+)
+
+internal val cool_92 = Palette(
+    0xff413e4a,
+    0xff73626e,
+    0xffb38184,
+    0xfff0b49e,
+    0xfff7e4be
+)
+
+internal val cool_93 = Palette(
+    0xffff4e50,
+    0xfffc913a,
+    0xfff9d423,
+    0xffede574,
+    0xffe1f5c4
+)
+
+internal val cool_94 = Palette(
+    0xff99b898,
+    0xfffecea8,
+    0xffff847c,
+    0xffe84a5f,
+    0xff2a363b
+)
+
+internal val cool_95 = Palette(
+    0xff655643,
+    0xff80bca3,
+    0xfff6f7bd,
+    0xffe6ac27,
+    0xffbf4d28
+)
+
+internal val cool_96 = Palette(
+    0xff00a8c6,
+    0xff40c0cb,
+    0xfff9f2e7,
+    0xffaee239,
+    0xff8fbe00
+)
+
+internal val cool_97 = Palette(
+    0xff351330,
+    0xff424254,
+    0xff64908a,
+    0xffe8caa4,
+    0xffcc2a41
+)
+
+internal val cool_98 = Palette(
+    0xff554236,
+    0xfff77825,
+    0xffd3ce3d,
+    0xfff1efa5,
+    0xff60b99a
+)
+
+internal val cool_99 = Palette(
+    0xff5d4157,
+    0xff838689,
+    0xffa8caba,
+    0xffcad7b2,
+    0xffebe3aa
+)
+
+internal val cool_100 = Palette(
+    0xff8c2318,
+    0xff5e8c6a,
+    0xff88a65e,
+    0xffbfb35a,
+    0xfff2c45a
+)
+
+internal val cool_101 = Palette(
+    0xfffad089,
+    0xffff9c5b,
+    0xfff5634a,
+    0xffed303c,
+    0xff3b8183
+)
+
+internal val cool_102 = Palette(
+    0xffff4242,
+    0xfff4fad2,
+    0xffd4ee5e,
+    0xffe1edb9,
+    0xfff0f2eb
+)
+
+internal val cool_103 = Palette(
+    0xffd1e751,
+    0xffffffff,
+    0xff000000,
+    0xff4dbce9,
+    0xff26ade4
+)
+
+internal val cool_104 = Palette(
+    0xff1b676b,
+    0xff519548,
+    0xff88c425,
+    0xffbef202,
+    0xffeafde6
+)
+
+internal val cool_105 = Palette(
+    0xff5e412f,
+    0xfffcebb6,
+    0xff78c0a8,
+    0xfff07818,
+    0xfff0a830
+)
+
+internal val cool_106 = Palette(
+    0xffbcbdac,
+    0xffcfbe27,
+    0xfff27435,
+    0xfff02475,
+    0xff3b2d38
+)
+
+internal val cool_107 = Palette(
+    0xff452632,
+    0xff91204d,
+    0xffe4844a,
+    0xffe8bf56,
+    0xffe2f7ce
+)
+
+internal val cool_108 = Palette(
+    0xffeee6ab,
+    0xffc5bc8e,
+    0xff696758,
+    0xff45484b,
+    0xff36393b
+)
+
+internal val cool_109 = Palette(
+    0xfff0d8a8,
+    0xff3d1c00,
+    0xff86b8b1,
+    0xfff2d694,
+    0xfffa2a00
+)
+
+internal val cool_110 = Palette(
+    0xff2a044a,
+    0xff0b2e59,
+    0xff0d6759,
+    0xff7ab317,
+    0xffa0c55f
+)
+
+internal val cool_111 = Palette(
+    0xfff04155,
+    0xffff823a,
+    0xfff2f26f,
+    0xfffff7bd,
+    0xff95cfb7
+)
+
+internal val cool_112 = Palette(
+    0xffb9d7d9,
+    0xff668284,
+    0xff2a2829,
+    0xff493736,
+    0xff7b3b3b
+)
+
+internal val cool_113 = Palette(
+    0xffb3cc57,
+    0xffecf081,
+    0xffffbe40,
+    0xffef746f,
+    0xffab3e5b
+)
+
+internal val cool_114 = Palette(
+    0xffbbbb88,
+    0xffccc68d,
+    0xffeedd99,
+    0xffeec290,
+    0xffeeaa88
+)
+
+internal val cool_115 = Palette(
+    0xffa3a948,
+    0xffedb92e,
+    0xfff85931,
+    0xffce1836,
+    0xff009989
+)
+
+internal val cool_116 = Palette(
+    0xff300030,
+    0xff480048,
+    0xff601848,
+    0xffc04848,
+    0xfff07241
+)
+
+internal val cool_117 = Palette(
+    0xff67917a,
+    0xff170409,
+    0xffb8af03,
+    0xffccbf82,
+    0xffe33258
+)
+
+internal val cool_118 = Palette(
+    0xffe8d5b7,
+    0xff0e2430,
+    0xfffc3a51,
+    0xfff5b349,
+    0xffe8d5b9
+)
+
+internal val cool_119 = Palette(
+    0xff607848,
+    0xff789048,
+    0xffc0d860,
+    0xfff0f0d8,
+    0xff604848
+)
+
+internal val cool_120 = Palette(
+    0xffab526b,
+    0xffbca297,
+    0xffc5ceae,
+    0xfff0e2a4,
+    0xfff4ebc3
+)
+
+internal val cool_121 = Palette(
+    0xffa8e6ce,
+    0xffdcedc2,
+    0xffffd3b5,
+    0xffffaaa6,
+    0xffff8c94
+)
+
+internal val cool_122 = Palette(
+    0xff3e4147,
+    0xfffffedf,
+    0xffdfba69,
+    0xff5a2e2e,
+    0xff2a2c31
+)
+
+internal val cool_123 = Palette(
+    0xff515151,
+    0xffffffff,
+    0xff00b4ff,
+    0xffeeeeee
+)
+
+internal val cool_124 = Palette(
+    0xfffc354c,
+    0xff29221f,
+    0xff13747d,
+    0xff0abfbc,
+    0xfffcf7c5
+)
+
+internal val cool_125 = Palette(
+    0xffcc0c39,
+    0xffe6781e,
+    0xffc8cf02,
+    0xfff8fcc1,
+    0xff1693a7
+)
+
+internal val cool_126 = Palette(
+    0xffa7c5bd,
+    0xffe5ddcb,
+    0xffeb7b59,
+    0xffcf4647,
+    0xff524656
+)
+
+internal val cool_127 = Palette(
+    0xff1c2130,
+    0xff028f76,
+    0xffb3e099,
+    0xffffeaad,
+    0xffd14334
+)
+
+internal val cool_128 = Palette(
+    0xffedebe6,
+    0xffd6e1c7,
+    0xff94c7b6,
+    0xff403b33,
+    0xffd3643b
+)
+
+internal val cool_129 = Palette(
+    0xffdad6ca,
+    0xff1bb0ce,
+    0xff4f8699,
+    0xff6a5e72,
+    0xff563444
+)
+
+internal val cool_130 = Palette(
+    0xff5c323e,
+    0xffa82743,
+    0xffe15e32,
+    0xffc0d23e,
+    0xffe5f04c
+)
+
+internal val cool_131 = Palette(
+    0xfffdf1cc,
+    0xffc6d6b8,
+    0xff987f69,
+    0xffe3ad40,
+    0xfffcd036
+)
+
+internal val cool_132 = Palette(
+    0xff230f2b,
+    0xfff21d41,
+    0xffebebbc,
+    0xffbce3c5,
+    0xff82b3ae
+)
+
+internal val cool_133 = Palette(
+    0xffb9d3b0,
+    0xff81bda4,
+    0xffb28774,
+    0xfff88f79,
+    0xfff6aa93
+)
+
+internal val cool_134 = Palette(
+    0xff3a111c,
+    0xff574951,
+    0xff83988e,
+    0xffbcdea5,
+    0xffe6f9bc
+)
+
+internal val cool_135 = Palette(
+    0xff1c0113,
+    0xff6b0103,
+    0xffa30006,
+    0xffc21a01,
+    0xfff03c02
+)
+
+internal val cool_136 = Palette(
+    0xff5e3929,
+    0xffcd8c52,
+    0xffb7d1a3,
+    0xffdee8be,
+    0xfffcf7d3
+)
+
+internal val cool_137 = Palette(
+    0xff000000,
+    0xff9f111b,
+    0xffb11623,
+    0xff292c37,
+    0xffcccccc
+)
+
+internal val cool_138 = Palette(
+    0xff382f32,
+    0xffffeaf2,
+    0xfffcd9e5,
+    0xfffbc5d8,
+    0xfff1396d
+)
+
+internal val cool_139 = Palette(
+    0xfff6f6f6,
+    0xffe8e8e8,
+    0xff333333,
+    0xff990100,
+    0xffb90504
+)
+
+internal val cool_140 = Palette(
+    0xffe3dfba,
+    0xffc8d6bf,
+    0xff93ccc6,
+    0xff6cbdb5,
+    0xff1a1f1e
+)
+
+internal val cool_141 = Palette(
+    0xff1b325f,
+    0xff9cc4e4,
+    0xffe9f2f9,
+    0xff3a89c9,
+    0xfff26c4f
+)
+
+internal val cool_142 = Palette(
+    0xffa1dbb2,
+    0xfffee5ad,
+    0xfffaca66,
+    0xfff7a541,
+    0xfff45d4c
+)
+
+internal val cool_143 = Palette(
+    0xff951f2b,
+    0xfff5f4d7,
+    0xffe0dfb1,
+    0xffa5a36c,
+    0xff535233
+)
+
+internal val cool_144 = Palette(
+    0xff5e9fa3,
+    0xffdcd1b4,
+    0xfffab87f,
+    0xfff87e7b,
+    0xffb05574
+)
+
+internal val cool_145 = Palette(
+    0xffc1b398,
+    0xff605951,
+    0xfffbeec2,
+    0xff61a6ab,
+    0xffaccec0
+)
+
+internal val cool_146 = Palette(
+    0xff8dccad,
+    0xff988864,
+    0xfffea6a2,
+    0xfff9d6ac,
+    0xffffe9af
+)
+
+internal val cool_147 = Palette(
+    0xff2d2d29,
+    0xff215a6d,
+    0xff3ca2a2,
+    0xff92c7a3,
+    0xffdfece6
+)
+
+internal val cool_148 = Palette(
+    0xff413d3d,
+    0xff040004,
+    0xffc8ff00,
+    0xfffa023c,
+    0xff4b000f
+)
+
+internal val cool_149 = Palette(
+    0xffeff3cd,
+    0xffb2d5ba,
+    0xff61ada0,
+    0xff248f8d,
+    0xff605063
+)
+
+internal val cool_150 = Palette(
+    0xffffefd3,
+    0xfffffee4,
+    0xffd0ecea,
+    0xff9fd6d2,
+    0xff8b7a5e
+)
+
+internal val cool_151 = Palette(
+    0xfff8edd1,
+    0xffd88a8a,
+    0xff474843,
+    0xff9d9d93,
+    0xffc5cfc6
+)
+
+internal val cool_152 = Palette(
+    0xffcfffdd,
+    0xffb4dec1,
+    0xff5c5863,
+    0xffa85163,
+    0xffff1f4c
+)
+
+internal val cool_153 = Palette(
+    0xffff003c,
+    0xffff8a00,
+    0xfffabe28,
+    0xff88c100,
+    0xff00c176
+)
+
+internal val cool_154 = Palette(
+    0xff9dc9ac,
+    0xfffffec7,
+    0xfff56218,
+    0xffff9d2e,
+    0xff919167
+)
+
+internal val cool_155 = Palette(
+    0xff046d8b,
+    0xff309292,
+    0xff2fb8ac,
+    0xff93a42a,
+    0xffecbe13
+)
+
+internal val cool_156 = Palette(
+    0xffa8a7a7,
+    0xffcc527a,
+    0xffe8175d,
+    0xff474747,
+    0xff363636
+)
+
+internal val cool_157 = Palette(
+    0xfff38a8a,
+    0xff55443d,
+    0xffa0cab5,
+    0xffcde9ca,
+    0xfff1edd0
+)
+
+internal val cool_158 = Palette(
+    0xff4e395d,
+    0xff827085,
+    0xff8ebe94,
+    0xffccfc8e,
+    0xffdc5b3e
+)
+
+internal val cool_159 = Palette(
+    0xffa70267,
+    0xfff10c49,
+    0xfffb6b41,
+    0xfff6d86b,
+    0xff339194
+)
+
+internal val cool_160 = Palette(
+    0xff4d3b3b,
+    0xffde6262,
+    0xffffb88c,
+    0xffffd0b3,
+    0xfff5e0d3
+)
+
+internal val cool_161 = Palette(
+    0xff4e4d4a,
+    0xff353432,
+    0xff94ba65,
+    0xff2790b0,
+    0xff2b4e72
+)
+
+internal val cool_162 = Palette(
+    0xffffedbf,
+    0xfff7803c,
+    0xfff54828,
+    0xff2e0d23,
+    0xfff8e4c1
+)
+
+internal val cool_163 = Palette(
+    0xff0ca5b0,
+    0xff4e3f30,
+    0xfffefeeb,
+    0xfff8f4e4,
+    0xffa5b3aa
+)
+
+internal val cool_164 = Palette(
+    0xfffffbb7,
+    0xffa6f6af,
+    0xff66b6ab,
+    0xff5b7c8d,
+    0xff4f2958
+)
+
+internal val cool_165 = Palette(
+    0xffedf6ee,
+    0xffd1c089,
+    0xffb3204d,
+    0xff412e28,
+    0xff151101
+)
+
+internal val cool_166 = Palette(
+    0xff9d7e79,
+    0xffccac95,
+    0xff9a947c,
+    0xff748b83,
+    0xff5b756c
+)
+
+internal val cool_167 = Palette(
+    0xfffcfef5,
+    0xffe9ffe1,
+    0xffcdcfb7,
+    0xffd6e6c3,
+    0xfffafbe3
+)
+
+internal val cool_168 = Palette(
+    0xff9cddc8,
+    0xffbfd8ad,
+    0xffddd9ab,
+    0xfff7af63,
+    0xff633d2e
+)
+
+internal val cool_169 = Palette(
+    0xffaaff00,
+    0xffffaa00,
+    0xffff00aa,
+    0xffaa00ff,
+    0xff00aaff
+)
+
+internal val cool_170 = Palette(
+    0xff30261c,
+    0xff403831,
+    0xff36544f,
+    0xff1f5f61,
+    0xff0b8185
+)
+
+internal val cool_171 = Palette(
+    0xffd1313d,
+    0xffe5625c,
+    0xfff9bf76,
+    0xff8eb2c5,
+    0xff615375
+)
+
+internal val cool_172 = Palette(
+    0xff805841,
+    0xffdcf7f3,
+    0xfffffcdd,
+    0xffffd8d8,
+    0xfff5a2a2
+)
+
+internal val cool_173 = Palette(
+    0xff73c8a9,
+    0xffdee1b6,
+    0xffe1b866,
+    0xffbd5532,
+    0xff373b44
+)

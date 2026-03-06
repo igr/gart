@@ -2,7 +2,11 @@ package dev.oblac.gart
 
 import dev.oblac.gart.color.Palette
 import dev.oblac.gart.color.Palettes
+import dev.oblac.gart.font.FontFamily
+import dev.oblac.gart.font.font
 import dev.oblac.gart.gfx.fillOf
+import dev.oblac.gart.gfx.fillOfBlack
+import dev.oblac.gart.gfx.fillOfWhite
 import dev.oblac.gart.gfx.ofXYWH
 import org.jetbrains.skia.Canvas
 import org.jetbrains.skia.Rect
@@ -28,6 +32,7 @@ fun main() {
     var reverse = false
     var type = 1
 
+    val font = font(FontFamily.OdibeeSans, 44f)
     w.show { c, d, f ->
         val p = if (reverse) {
             paletteOf(type)(index).reversed()
@@ -39,6 +44,17 @@ fun main() {
         } else {
             drawPaletteT2B(c, d, p)
         }
+
+        val typeString = when (type) {
+            1 -> "cool"
+            2 -> "mix"
+            3 -> "colormap"
+            else -> ""
+        }
+        val label = "$typeString[$index]"
+        c.drawString(label, 10f, 50f, font, fillOfBlack())
+        c.drawString(label, 10f, d.hf - 30f, font, fillOfWhite())
+
     }.onKey {
         when (it) {
             Key.KEY_W -> {

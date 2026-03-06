@@ -79,6 +79,104 @@ object Palettes {
     val cool74 = cool_74
     val cool75 = cool_75
     val cool76 = cool_76
+    val cool77 = cool_77
+    val cool78 = cool_78
+    val cool79 = cool_79
+    val cool80 = cool_80
+    val cool81 = cool_81
+    val cool82 = cool_82
+    val cool83 = cool_83
+    val cool84 = cool_84
+    val cool85 = cool_85
+    val cool86 = cool_86
+    val cool87 = cool_87
+    val cool88 = cool_88
+    val cool89 = cool_89
+    val cool90 = cool_90
+    val cool91 = cool_91
+    val cool92 = cool_92
+    val cool93 = cool_93
+    val cool94 = cool_94
+    val cool95 = cool_95
+    val cool96 = cool_96
+    val cool97 = cool_97
+    val cool98 = cool_98
+    val cool99 = cool_99
+    val cool100 = cool_100
+    val cool101 = cool_101
+    val cool102 = cool_102
+    val cool103 = cool_103
+    val cool104 = cool_104
+    val cool105 = cool_105
+    val cool106 = cool_106
+    val cool107 = cool_107
+    val cool108 = cool_108
+    val cool109 = cool_109
+    val cool110 = cool_110
+    val cool111 = cool_111
+    val cool112 = cool_112
+    val cool113 = cool_113
+    val cool114 = cool_114
+    val cool115 = cool_115
+    val cool116 = cool_116
+    val cool117 = cool_117
+    val cool118 = cool_118
+    val cool119 = cool_119
+    val cool120 = cool_120
+    val cool121 = cool_121
+    val cool122 = cool_122
+    val cool123 = cool_123
+    val cool124 = cool_124
+    val cool125 = cool_125
+    val cool126 = cool_126
+    val cool127 = cool_127
+    val cool128 = cool_128
+    val cool129 = cool_129
+    val cool130 = cool_130
+    val cool131 = cool_131
+    val cool132 = cool_132
+    val cool133 = cool_133
+    val cool134 = cool_134
+    val cool135 = cool_135
+    val cool136 = cool_136
+    val cool137 = cool_137
+    val cool138 = cool_138
+    val cool139 = cool_139
+    val cool140 = cool_140
+    val cool141 = cool_141
+    val cool142 = cool_142
+    val cool143 = cool_143
+    val cool144 = cool_144
+    val cool145 = cool_145
+    val cool146 = cool_146
+    val cool147 = cool_147
+    val cool148 = cool_148
+    val cool149 = cool_149
+    val cool150 = cool_150
+    val cool151 = cool_151
+    val cool152 = cool_152
+    val cool153 = cool_153
+    val cool154 = cool_154
+    val cool155 = cool_155
+    val cool156 = cool_156
+    val cool157 = cool_157
+    val cool158 = cool_158
+    val cool159 = cool_159
+    val cool160 = cool_160
+    val cool161 = cool_161
+    val cool162 = cool_162
+    val cool163 = cool_163
+    val cool164 = cool_164
+    val cool165 = cool_165
+    val cool166 = cool_166
+    val cool167 = cool_167
+    val cool168 = cool_168
+    val cool169 = cool_169
+    val cool170 = cool_170
+    val cool171 = cool_171
+    val cool172 = cool_172
+    val cool173 = cool_173
+
 
     val mix1 = mix_1
     val mix2 = mix_2
@@ -366,6 +464,103 @@ object Palettes {
             74 -> cool74
             75 -> cool75
             76 -> cool76
+            77 -> cool77
+            78 -> cool78
+            79 -> cool79
+            80 -> cool80
+            81 -> cool81
+            82 -> cool82
+            83 -> cool83
+            84 -> cool84
+            85 -> cool85
+            86 -> cool86
+            87 -> cool87
+            88 -> cool88
+            89 -> cool89
+            90 -> cool90
+            91 -> cool91
+            92 -> cool92
+            93 -> cool93
+            94 -> cool94
+            95 -> cool95
+            96 -> cool96
+            97 -> cool97
+            98 -> cool98
+            99 -> cool99
+            100 -> cool100
+            101 -> cool101
+            102 -> cool102
+            103 -> cool103
+            104 -> cool104
+            105 -> cool105
+            106 -> cool106
+            107 -> cool107
+            108 -> cool108
+            109 -> cool109
+            110 -> cool110
+            111 -> cool111
+            112 -> cool112
+            113 -> cool113
+            114 -> cool114
+            115 -> cool115
+            116 -> cool116
+            117 -> cool117
+            118 -> cool118
+            119 -> cool119
+            120 -> cool120
+            121 -> cool121
+            122 -> cool122
+            123 -> cool123
+            124 -> cool124
+            125 -> cool125
+            126 -> cool126
+            127 -> cool127
+            128 -> cool128
+            129 -> cool129
+            130 -> cool130
+            131 -> cool131
+            132 -> cool132
+            133 -> cool133
+            134 -> cool134
+            135 -> cool135
+            136 -> cool136
+            137 -> cool137
+            138 -> cool138
+            139 -> cool139
+            140 -> cool140
+            141 -> cool141
+            142 -> cool142
+            143 -> cool143
+            144 -> cool144
+            145 -> cool145
+            146 -> cool146
+            147 -> cool147
+            148 -> cool148
+            149 -> cool149
+            150 -> cool150
+            151 -> cool151
+            152 -> cool152
+            153 -> cool153
+            154 -> cool154
+            155 -> cool155
+            156 -> cool156
+            157 -> cool157
+            158 -> cool158
+            159 -> cool159
+            160 -> cool160
+            161 -> cool161
+            162 -> cool162
+            163 -> cool163
+            164 -> cool164
+            165 -> cool165
+            166 -> cool166
+            167 -> cool167
+            168 -> cool168
+            169 -> cool169
+            170 -> cool170
+            171 -> cool171
+            172 -> cool172
+            173 -> cool173
             else -> throw IllegalArgumentException("Unknown COOL palette number: $num")
         }
     }
