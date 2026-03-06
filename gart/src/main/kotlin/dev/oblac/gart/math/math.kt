@@ -6,6 +6,7 @@ fun Double.f() = toFloat()
 fun Int.f() = toFloat()
 fun Float.d() = toDouble()
 fun Float.i() = toInt()
+fun Long.i() = toInt()
 
 fun Int.isEven() = this % 2 == 0
 fun Int.isOdd() = this % 2 == 1
