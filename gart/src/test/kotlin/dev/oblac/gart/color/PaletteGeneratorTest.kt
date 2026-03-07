@@ -28,7 +28,6 @@ class PaletteGeneratorTest {
         val palette = PaletteGenerator.sequential(inputColors, numColors = 9, bezier = true, correctLightness = false)
         assertEquals(9, palette.colors.size)
 
-        // reference: linear RGB interpolation
         val reference = listOf(
             "#00429d", "#416ab0", "#6290bf", "#80b0cc", "#9bccd5", "#b6e2dc", "#cff2e0", "#e8fce1", "#ffffe0"
         ).map { it.parseColor() }
@@ -44,7 +43,6 @@ class PaletteGeneratorTest {
         val palette = PaletteGenerator.sequential(inputColors, numColors = 9, bezier = true, correctLightness = true)
         assertEquals(9, palette.colors.size)
 
-        // reference: linear RGB interpolation
         val reference = listOf(
             "#00429d", "#2e59a8", "#4771b2", "#5d8abd", "#73a2c6", "#8abccf", "#a5d5d8", "#c5eddf", "#ffffe0"
         ).map { it.parseColor() }
@@ -60,9 +58,72 @@ class PaletteGeneratorTest {
         val palette = PaletteGenerator.sequential(inputColors, numColors = 9, bezier = false, correctLightness = true)
         assertEquals(9, palette.colors.size)
 
-        // reference: linear RGB interpolation
         val reference = listOf(
             "#00429d", "#145ca8", "#2975b2", "#3d8ebc", "#51a8c6", "#65c2d1", "#7adcdc", "#8ff6e6", "#ffffe0"
+        ).map { it.parseColor() }
+
+        for (i in reference.indices) {
+            assertEquals(reference[i], palette[i], "Color at index $i does not match reference")
+        }
+    }
+
+    @Test
+    fun testDivergePalette() {
+        val colorsLeft = listOf(0xFF00429D.i(), 0xFF96FFEA.i(), 0xFFFFFFE0.i())
+        val colorsRight = listOf(0xFFFFFFE0.i(), 0xFFFF005E.i(), 0xFF93003A.i())
+        val palette = PaletteGenerator.diverging(colorsLeft, colorsRight, numColors = 9, bezier = false, correctLightness = false)
+        assertEquals(9, palette.colors.size)
+
+        val reference = listOf(
+            "#00429d", "#4ba1c4", "#96ffea", "#cbffe5", "#ffffe0", "#ff809f", "#ff005e", "#c9004c", "#93003a"
+        ).map { it.parseColor() }
+
+        for (i in reference.indices) {
+            assertEquals(reference[i], palette[i], "Color at index $i does not match reference")
+        }
+    }
+
+    @Test
+    fun testDivergePalette_bezier() {
+        val colorsLeft = listOf(0xFF00429D.i(), 0xFF96FFEA.i(), 0xFFFFFFE0.i())
+        val colorsRight = listOf(0xFFFFFFE0.i(), 0xFFFF005E.i(), 0xFF93003A.i())
+        val palette = PaletteGenerator.diverging(colorsLeft, colorsRight, numColors = 9, bezier = true, correctLightness = false)
+        assertEquals(9, palette.colors.size)
+
+        val reference = listOf(
+            "#00429d", "#6290bf", "#9bccd5", "#cff2e0", "#ffffe0", "#ffaaa2", "#ea6372", "#c32750", "#93003a"
+        ).map { it.parseColor() }
+
+        for (i in reference.indices) {
+            assertEquals(reference[i], palette[i], "Color at index $i does not match reference")
+        }
+    }
+
+    @Test
+    fun testDivergePalette_bezier_lightness() {
+        val colorsLeft = listOf(0xFF00429D.i(), 0xFF96FFEA.i(), 0xFFFFFFE0.i())
+        val colorsRight = listOf(0xFFFFFFE0.i(), 0xFFFF005E.i(), 0xFF93003A.i())
+        val palette = PaletteGenerator.diverging(colorsLeft, colorsRight, numColors = 9, bezier = true, correctLightness = true)
+        assertEquals(9, palette.colors.size)
+
+        val reference = listOf(
+            "#00429d", "#4771b2", "#73a2c6", "#a5d5d8", "#ffffe0", "#ffbcaf", "#f4777f", "#cf3759", "#93003a"
+        ).map { it.parseColor() }
+
+        for (i in reference.indices) {
+            assertEquals(reference[i], palette[i], "Color at index $i does not match reference")
+        }
+    }
+
+    @Test
+    fun testDivergePalette_lightness() {
+        val colorsLeft = listOf(0xFF00429D.i(), 0xFF96FFEA.i(), 0xFFFFFFE0.i())
+        val colorsRight = listOf(0xFFFFFFE0.i(), 0xFFFF005E.i(), 0xFF93003A.i())
+        val palette = PaletteGenerator.diverging(colorsLeft, colorsRight, numColors = 9, bezier = false, correctLightness = true)
+        assertEquals(9, palette.colors.size)
+
+        val reference = listOf(
+            "#00429d", "#2975b2", "#51a8c6", "#7adcdc", "#ffffe0", "#ffbbbd", "#ff6b95", "#e10054", "#93003a"
         ).map { it.parseColor() }
 
         for (i in reference.indices) {
