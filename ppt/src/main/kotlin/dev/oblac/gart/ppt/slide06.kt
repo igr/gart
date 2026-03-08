@@ -30,6 +30,7 @@ val slide06 = DrawFrame { c, d, f ->
         val radius = rect.height * 0.28f
         val offset = radius * 0.45f
 
+        //--- src: 1 SRC_OVER
         // red circle (base)
         drawCircle(cx - offset, cy, radius, paint().apply {
             color = 0xFFE04040.toInt()
@@ -44,6 +45,7 @@ val slide06 = DrawFrame { c, d, f ->
             color = 0xFF4080E0.toInt()
             blendMode = mode
         })
+        //--- crs: 1
     }
 
     c.clear(CssColors.darkCyan)
@@ -53,23 +55,17 @@ val slide06 = DrawFrame { c, d, f ->
 
     // 1. SRC_OVER (default)
     val g1 = grid[0].shrink(10f)
-    //--- src: 1 SRC_OVER
     c.drawBlendDemo(g1, BlendMode.SRC_OVER)
-    //--- crs: 1
     c.drawLabel(g1, "SRC_OVER")
 
     // 2. MULTIPLY
     val g2 = grid[1].shrink(10f)
-    //--- src: 2 MULTIPLY
     c.drawBlendDemo(g2, BlendMode.MULTIPLY)
-    //--- crs: 2
     c.drawLabel(g2, "MULTIPLY")
 
     // 3. SCREEN
     val g3 = grid[2].shrink(10f)
-    //--- src: 3 SCREEN
     c.drawBlendDemo(g3, BlendMode.SCREEN)
-    //--- crs: 3
     c.drawLabel(g3, "SCREEN")
 
     // 4. OVERLAY

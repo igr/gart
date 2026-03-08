@@ -63,9 +63,7 @@ val slide13 = DrawFrame { c, d, f ->
         VertexMode.TRIANGLES,
         positions.toFloatArray(),
         vertColors.toIntArray(),
-        null, indices,
-        BlendMode.MODULATE,
-        white.toFillPaint()
+        null, indices, BlendMode.MODULATE, white.toFillPaint()
     )
     //--- crs: 1
     c.drawLabel(g1, "drawVertices")
@@ -115,9 +113,7 @@ val slide13 = DrawFrame { c, d, f ->
     c.drawTriangleFan(
         fanPts.toTypedArray(),
         fanColors.toIntArray(),
-        null, null,
-        BlendMode.MODULATE,
-        white.toFillPaint()
+        null, null, BlendMode.MODULATE, white.toFillPaint()
     )
     //--- crs: 3
     c.drawLabel(g3, "drawTriangleFan")
@@ -127,8 +123,8 @@ val slide13 = DrawFrame { c, d, f ->
     val cx4 = g4.left + g4.width / 2
     val cy4 = g4.top + g4.height / 2 - 15f
     val size = g4.height * 0.28f
-    //--- src: 4 3D cube
     val t = f.frameTimeSeconds
+    //--- src: 4 3D cube
     val cubeMesh = cube(
         intArrayOf(coral, deepSkyBlue, mediumSeaGreen, gold, mediumPurple, orange)
     )
@@ -137,13 +133,12 @@ val slide13 = DrawFrame { c, d, f ->
     })
     val camera = Camera(cx4, cy4, size, 4f)
     Scene.render(c, camera, rotated, d.w, d.h)
+    //--- crs: 4
 
     // wireframe overlay
     val cubeVerts = arrayOf(
-        vec3(-1, -1, -1), vec3(1, -1, -1),
-        vec3(1, 1, -1), vec3(-1, 1, -1),
-        vec3(-1, -1, 1), vec3(1, -1, 1),
-        vec3(1, 1, 1), vec3(-1, 1, 1),
+        vec3(-1, -1, -1), vec3(1, -1, -1), vec3(1, 1, -1), vec3(-1, 1, -1),
+        vec3(-1, -1, 1), vec3(1, -1, 1), vec3(1, 1, 1), vec3(-1, 1, 1),
     ).map { camera.project(rotateX(rotateY(it, t * 0.8f), t * 0.5f)) }
     val edges = arrayOf(
         0 to 1, 1 to 2, 2 to 3, 3 to 0,
@@ -154,6 +149,5 @@ val slide13 = DrawFrame { c, d, f ->
     for ((a, b) in edges) {
         c.drawLine(cubeVerts[a].x, cubeVerts[a].y, cubeVerts[b].x, cubeVerts[b].y, wirePaint)
     }
-    //--- crs: 4
     c.drawLabel(g4, "3D cube projection")
 }

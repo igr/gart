@@ -209,6 +209,13 @@ class WindowView(private val w: Window, private val v: GartView) {
         v.fpsGuard.frames.set(frame)
     }
 
+    /**
+     * Resets frame count and elapsed time to zero.
+     */
+    fun resetFrames() {
+        v.fpsGuard.reset()
+    }
+
     fun onClose(onClose: () -> Unit) {
         w.onCloseHandlers.add(onClose)
     }

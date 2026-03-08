@@ -6,14 +6,14 @@ import dev.oblac.gart.color.CssColors.white
 import dev.oblac.gart.color.toFillPaint
 import dev.oblac.gart.font.FontFamily
 import dev.oblac.gart.font.font
-import dev.oblac.gart.gfx.shrink
-import dev.oblac.gart.gfx.splitToGrid
+import dev.oblac.gart.gfx.*
 import dev.oblac.gart.shader.sksl
 import dev.oblac.gart.text.HorizontalAlign
 import dev.oblac.gart.text.drawStringInRect
 import org.jetbrains.skia.Canvas
 import org.jetbrains.skia.Paint
 import org.jetbrains.skia.Rect
+import kotlin.math.min
 
 // Plasma - warm sunset palette (amber → magenta → deep purple)
 //--- src: 1 Plasma
@@ -149,7 +149,8 @@ val slide08 = DrawFrame { c, d, f ->
     rippleSksl.uniform("time", time)
     rippleSksl.uniform("resolution", g2.width, g2.height)
     c.save()
-    c.clipRect(g2)
+    val circle = g2.circleInside()
+    c.clipCircle(circle)
     c.translate(g2.left, g2.top)
     c.drawPaint(Paint().apply { shader = rippleSksl.makeShader() })
     c.restore()
@@ -176,4 +177,8 @@ val slide08 = DrawFrame { c, d, f ->
     c.drawPaint(Paint().apply { shader = voronoiSksl.makeShader() })
     c.restore()
     c.drawLabel(g4, "Voronoi")
+}
+
+private fun Rect.circleInside(): Circle {
+    return Circle(this.center(), min(width, height) * 0.5f)
 }

@@ -20,7 +20,7 @@ fun main() {
 
     val w = gart.fullScreenWindow()
 
-    w.show { canvas, dimension, f ->
+    val wv = w.show { canvas, dimension, f ->
         if (f.new) {
             if (f.frame % 100 == 0L) {
                 println("Frame: ${f.frame}")
@@ -32,13 +32,15 @@ fun main() {
         } else {
             slides[currentSlide](canvas, dimension, f)
         }
-    }.onKey {
+    }
+    wv.onKey {
         when (it) {
             Key.KEY_ESCAPE -> w.close()
             Key.KEY_SPACE, Key.KEY_RIGHT -> {
                 codeSnippet = null
                 if (currentSlide < slides.size - 1) {
                     currentSlide++
+                    wv.resetFrames()
                 }
             }
 
@@ -46,6 +48,7 @@ fun main() {
                 codeSnippet = null
                 if (currentSlide > 0) {
                     currentSlide--
+                    wv.resetFrames()
                 }
             }
 

@@ -107,15 +107,15 @@ val slide10 = DrawFrame { c, d, f ->
         pushStyle(TextStyle().setFontFamily("Sans")
             .setFontSize(fontSize).setColor(gold)
             .setDecorationStyle(DecorationStyle(
-                true, false, false, true,
-                gold, DecorationLineStyle.WAVY, 2f
+                true, false, false, true, gold, DecorationLineStyle.WAVY, 2f
             )))
         addText("paragraph!")
         popStyle()
     }.build()
+    //--- crs: 3
     para.layout(g4.width - 40f)
     para.paint(c, g4.left + 20f, g4.top + 20f)
-    //--- crs: 3
+
     c.drawLabel(g4, "Paragraph (rich text)")
 
     // 4. Text on path

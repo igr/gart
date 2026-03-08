@@ -166,6 +166,13 @@ internal class FrameCounter(override val fps: Int) : Frames {
     fun set(frame: Long) {
         totalFrames = frame
     }
+
+    fun reset() {
+        totalFrames = 0
+        startTime = currentNanoTime()
+        _time = 0L
+        drawNew = false
+    }
 }
 
 /**
@@ -188,6 +195,11 @@ internal class FpsGuard(fps: Int, private val printFps: Boolean = false) {
      */
     private val fpsCounterReal = FPSCounter()
     private val activeTicker = ActiveTicker()
+
+    fun reset() {
+        framesCounter.reset()
+        last = System.nanoTime()
+    }
 
     fun withFps(now: Long) {
         fpsCounterMax.tick()
