@@ -37,9 +37,10 @@ Core Framework
 Color
 
 - Color spaces: RGBA, HSL, HSV, HSI, LAB, LCH, OKLAB, OKLCH, CMYK
-- Palettes: 76 cool + 15 mix + 133 colormaps (Carto, CET, ColorBrewer, Matplotlib, Plotly, Tableau, etc.)
-- Named colors: CssColors, NipponColors, RetroColors, MidCenturyColors
-- Functions: blendColors, lerpColor, colorDistance, toFillPaint, toStrokePaint
+- Palettes: 173 cool + 15 mix + 112 colormaps (Carto, CET, ColorBrewer, Matplotlib, Ocean, Plotly, Tableau, etc.)
+- Named colors: CssColors, NipponColors, RetroColors, MidCenturyColors, CyanotypeColors, BgColors
+- Functions: blendColors, lerpColor, colorDistance, colorMatrix, toFillPaint, toStrokePaint
+- PaletteGenerator — Dynamic palette generation
 
 Geometry & Graphics
 
@@ -48,18 +49,21 @@ Geometry & Graphics
 - Drawing: drawCircle, drawLine, drawPoly4, drawTriangle, drawRotatedRect, fatLine, n-gon, arc, ring, spiral, wave,
   grid, border, moon, tree, human
 - Paint helpers: strokeOf, fillOf, hatchPaint, dashPaint
+- Path utilities: PathW, pathBuilder, pathOutline
+- Easing functions: Linear, Quad, Cubic, Quart, Sine, Expo, Circ, Back, Elastic, Bounce (In/Out/InOut)
 
 Math & Vectors
 
-- Vectors: Vector2/3/4, Matrix2, dot/cross product
+- Vectors: Vector2/3/4, Matrix2, Matrix3, dot/cross product
 - Complex numbers: Complex, ComplexField, ComplexPolynomial, transcendental functions
 - Curves: Lissajous, GaussianFunction
 - Utilities: clamp, map, lerp, smoothstep, frac, mod, distance, primes, fastSqrt
 - Angles: Radians, Degrees with trig functions
+- Polar coordinates, affine transforms, tangent calculations
 
 Noise & Sampling
 
-- Noise: Perlin, multi-octave PerlinNoise, cell noise, FBM
+- Noise: Perlin, multi-octave PerlinNoise, SimplexNoise, OpenSimplexNoise, FBM
 - Sampling: Halton sequence, Poisson disk sampling
 - NoiseColor — Noise-driven color generation
 
@@ -69,12 +73,13 @@ Curve Smoothing
 
 Physics & Simulation
 
-- Attractors (19): Lorenz, Clifford, Rössler, Duffing, Thomas, Chen, Sprott, etc.
+- Attractors (18): Lorenz, Lorenz84, Clifford, Rössler, Duffing, Thomas, Chen, Sprott, Langford-Aizawa, Halvorsen,
+  Rabinovitch-Fabrikant, Dadras, Four-Wing, Symmetric Icon, Three-Scroll, Cubic, Quadratic, Peter de Jong
 - N-body: BarnesHut simulation, QuadTree, GravityParticles (10^6+)
 - Orbital mechanics (WHFast): Wisdom-Holman integrator, Kepler solver, orbital elements
 - Fluid dynamics: Navier-Stokes solver, Lattice Boltzmann, FluidSolver with particle rendering
 - Cellular automata: Elementary rules, Belousov-Zhabotinsky reaction
-- Force fields: ForceField, Flow, ForceGenerator
+- Flow fields: Flow, FlowField, flow generators, StreamlineTracer (evenly-spaced streamlines)
 - Particles: Particle system, Gravitron
 
 Spatial & Triangulation
@@ -94,10 +99,16 @@ Pixel Processing
 Shaders & Effects
 
 - Shaders: neuro, marbled texture, noise grain, risograph, sketching paper
+- Pixader — CPU pixel shader (shader-like per-pixel computation)
 - FX: blur, borderize, pixelate, scale
 - Glass/refraction: glassBall, glassPath
 - Ray tracing: ray, trace, mirror
-- 3D perspective: block3d (two-point perspective)
+
+3D Graphics
+
+- Perspective: block3d (two-point perspective)
+- Scene rendering: Scene, Camera, LightSource, ZBuffer (per-pixel depth buffer)
+- Meshes: cube, sphere (UV), Face/Mesh primitives, 3D rotation matrices
 
 Generators
 
