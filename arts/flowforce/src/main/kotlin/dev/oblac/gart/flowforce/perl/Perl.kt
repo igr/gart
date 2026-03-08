@@ -8,11 +8,11 @@ import dev.oblac.gart.color.RetroColors
 import dev.oblac.gart.color.alpha
 import dev.oblac.gart.flow.Flow2
 import dev.oblac.gart.flow.FlowField
+import dev.oblac.gart.flow.StreamlineTracer
 import dev.oblac.gart.gfx.*
 import dev.oblac.gart.math.map
 import dev.oblac.gart.math.rndb
 import dev.oblac.gart.noise.OpenSimplexNoise
-import dev.oblac.gart.streamlines.StreamlineTracer
 import dev.oblac.gart.util.middle
 import org.jetbrains.skia.PaintStrokeCap
 import kotlin.math.cos

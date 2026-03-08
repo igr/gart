@@ -6,12 +6,12 @@ import dev.oblac.gart.color.CyanotypeColors
 import dev.oblac.gart.color.RetroColors
 import dev.oblac.gart.flow.Flow2
 import dev.oblac.gart.flow.FlowField
+import dev.oblac.gart.flow.StreamlineTracer
 import dev.oblac.gart.gfx.fillOf
 import dev.oblac.gart.gfx.length
 import dev.oblac.gart.gfx.toPoints
 import dev.oblac.gart.math.rndf
 import dev.oblac.gart.noise.OpenSimplexNoise
-import dev.oblac.gart.streamlines.StreamlineTracer
 
 fun main() {
     val gart = Gart.of("cyanowaves", 1024, 1024)

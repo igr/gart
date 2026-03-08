@@ -1,7 +1,6 @@
-package dev.oblac.gart.streamlines
+package dev.oblac.gart.flow
 
 import dev.oblac.gart.Dimension
-import dev.oblac.gart.flow.FlowField
 import dev.oblac.gart.gfx.isInside
 import dev.oblac.gart.gfx.randomPoint
 import dev.oblac.gart.gfx.toPath
