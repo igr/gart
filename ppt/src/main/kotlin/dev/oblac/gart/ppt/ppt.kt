@@ -27,6 +27,7 @@ val slides = listOf(
     slide11,
     slide12,
     slide13,
+    slide14,
 )
 
 val screen = Screen.dimension()
@@ -67,6 +68,12 @@ val contentBox = Rect(
     titleBox.bottom,
     activeRect.right,
     activeRect.bottom
+)
+val bottomBox = Rect(
+    activeRect.left,
+    activeRect.bottom - activeRect.dimension().ofH(0.2f),
+    activeRect.right,
+    activeRect.bottom,
 )
 
 val introFont = font(FontFamily.Alice, screen.height * 0.4f)
