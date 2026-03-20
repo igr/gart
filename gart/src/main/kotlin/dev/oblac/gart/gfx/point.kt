@@ -8,6 +8,7 @@ import dev.oblac.gart.math.rndf
 import org.jetbrains.skia.Canvas
 import org.jetbrains.skia.Paint
 import org.jetbrains.skia.Point
+import org.jetbrains.skia.Rect
 import kotlin.math.atan2
 import kotlin.math.cos
 import kotlin.math.sin
@@ -31,8 +32,9 @@ fun randomPoint(cx: Float, cy: Float, rmax: Float, rmin: Float = rmax): Point {
 
 fun randomPoint(min: Point, max: Point) = Point(rndf(min.x, max.x), rndf(min.y, max.y))
 
-fun Point.Companion.random(d: Dimension): Point = randomPoint(d)
-fun Point.Companion.random(w: Number, h: Number): Point = Point(rndf(0f, w.toFloat()), rndf(0f, h.toFloat()))
+fun Point.Companion.random(d: Dimension) = randomPoint(d)
+fun Point.Companion.random(w: Number, h: Number) = Point(rndf(0f, w.toFloat()), rndf(0f, h.toFloat()))
+fun Point.Companion.random(r: Rect) = Point(rndf(r.left, r.right), rndf(r.top, r.bottom))
 
 fun Pair<Number, Number>.toPoint(): Point = Point(first.toFloat(), second.toFloat())
 fun pointOf(x: Number, y: Number): Point = Point(x.toFloat(), y.toFloat())

@@ -65,7 +65,7 @@ fun main() {
         trace.windowed(2).forEachIndexed { j, (a, b) ->
             val t = j.toFloat() / (trace.size - 1)
             val color = lerpColor(colorFrom, colorTo, t)
-            c.drawLine(a.x, a.y, b.x, b.y, strokeOf(60f, color))
+            c.drawLine(a.x, a.y, b.x, b.y, strokeOf(90f, color))
         }
     }
     traces2.forEach { trace ->
@@ -81,7 +81,7 @@ fun main() {
         val loff = sin(r * 0.03f + theta * 3f) * 200f +
             cos(theta * 2f - r * 0.01f) * 150f +
             sin(l.x * 0.007f * l.y * 0.005f) * 100f
-        c.drawPath(trace.toPath(), strokeOf(1f, p.safe(loff * 0.01f)))
+        c.drawPath(trace.toPath(), strokeOf(2f, p.safe(loff * 0.01f)))
     }
 
     gart.saveImage(g)
