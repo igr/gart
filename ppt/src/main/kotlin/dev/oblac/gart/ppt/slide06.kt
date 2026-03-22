@@ -56,7 +56,7 @@ val slide06 = DrawFrame { c, d, f ->
     // 1. SRC_OVER (default)
     val g1 = grid[0].shrink(10f)
     c.drawBlendDemo(g1, BlendMode.SRC_OVER)
-    c.drawLabel(g1, "SRC_OVER")
+    c.drawLabel(g1, "1> SRC_OVER")
 
     // 2. MULTIPLY
     val g2 = grid[1].shrink(10f)

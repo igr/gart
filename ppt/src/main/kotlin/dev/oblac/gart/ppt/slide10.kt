@@ -47,7 +47,7 @@ val slide10 = DrawFrame { c, d, f ->
     c.drawString("Sans (Rethink)", g1.left + 20f, cy1 + lineH, sans, coral.toFillPaint())
     c.drawString("Mono (IBM Plex)", g1.left + 20f, cy1 + lineH * 2, mono, deepSkyBlue.toFillPaint())
     //--- crs: 1
-    c.drawLabel(g1, "SkFont + Typeface")
+    c.drawLabel(g1, "1> SkFont + Typeface")
 
     // 2. Glyph positioning & metrics
     val g3 = grid[1].shrink(10f)
@@ -75,7 +75,7 @@ val slide10 = DrawFrame { c, d, f ->
     c.drawString("baseline", g3.right - 160f, baseY - 5f, tinyFont, lime.toFillPaint())
     c.drawString("ascent", g3.right - 160f, baseY + metrics.ascent - 5f, tinyFont, hotPink.toFillPaint())
     c.drawString("descent", g3.right - 160f, baseY + metrics.descent + 18f, tinyFont, hotPink.toFillPaint())
-    c.drawLabel(g3, "Glyph positioning")
+    c.drawLabel(g3, "2> Glyph positioning")
 
     // 3. Paragraph — rich text with mixed styles
     val g4 = grid[2].shrink(10f)
@@ -116,7 +116,7 @@ val slide10 = DrawFrame { c, d, f ->
     para.layout(g4.width - 40f)
     para.paint(c, g4.left + 20f, g4.top + 20f)
 
-    c.drawLabel(g4, "Paragraph (rich text)")
+    c.drawLabel(g4, "3> Paragraph (rich text)")
 
     // 4. Text on path
     val g5 = grid[3].shrink(10f)
@@ -134,5 +134,5 @@ val slide10 = DrawFrame { c, d, f ->
         pathEffect = PathEffect.makeDash(floatArrayOf(4f, 4f), 0f)
     })
     //--- crs: 4
-    c.drawLabel(g5, "Text on Path")
+    c.drawLabel(g5, "4> Text on Path")
 }

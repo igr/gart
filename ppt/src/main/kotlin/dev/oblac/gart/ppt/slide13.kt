@@ -66,7 +66,7 @@ val slide13 = DrawFrame { c, d, f ->
         null, indices, BlendMode.MODULATE, white.toFillPaint()
     )
     //--- crs: 1
-    c.drawLabel(g1, "drawVertices")
+    c.drawLabel(g1, "1> drawVertices")
 
     // 2. drawTriangleStrip — alternating colors
     val g2 = grid[1].shrink(8f)
@@ -93,7 +93,7 @@ val slide13 = DrawFrame { c, d, f ->
         )
     }
     //--- crs: 2
-    c.drawLabel(g2, "strip with colors")
+    c.drawLabel(g2, "2> strip with colors")
 
     // 3. drawTriangleFan — radial fan from center
     val g3 = grid[2].shrink(8f)
@@ -116,7 +116,7 @@ val slide13 = DrawFrame { c, d, f ->
         null, null, BlendMode.MODULATE, white.toFillPaint()
     )
     //--- crs: 3
-    c.drawLabel(g3, "drawTriangleFan")
+    c.drawLabel(g3, "3> drawTriangleFan")
 
     // 4. Rotating 3D cube projected to 2D via drawTriangles
     val g4 = grid[3].shrink(8f)
@@ -149,5 +149,5 @@ val slide13 = DrawFrame { c, d, f ->
     for ((a, b) in edges) {
         c.drawLine(cubeVerts[a].x, cubeVerts[a].y, cubeVerts[b].x, cubeVerts[b].y, wirePaint)
     }
-    c.drawLabel(g4, "3D cube projection")
+    c.drawLabel(g4, "4> 3D cube projection")
 }

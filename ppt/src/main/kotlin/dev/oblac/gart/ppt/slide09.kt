@@ -90,7 +90,7 @@ val slide09 = DrawFrame { c, d, f ->
     c.restore()
     c.restore()
     //--- crs: 1
-    c.drawLabel(if1, "Blur")
+    c.drawLabel(if1, "1> Blur")
 
     // Drop shadow
     val if2 = grid[6].shrink(8f)
@@ -107,7 +107,7 @@ val slide09 = DrawFrame { c, d, f ->
     c.restore()
     c.restore()
     //--- crs: 2
-    c.drawLabel(if2, "Drop shadow")
+    c.drawLabel(if2, "2> Drop shadow")
 
     // Dilate (morphology)
     val if3 = grid[9].shrink(8f)
@@ -124,7 +124,7 @@ val slide09 = DrawFrame { c, d, f ->
     c.restore()
     c.restore()
     //--- crs: 3
-    c.drawLabel(if3, "Dilate")
+    c.drawLabel(if3, "3> Dilate")
 
     // ==================== Column 2: Mask Filters ====================
     c.drawHeader(grid[1].shrink(5f), "Mask Filters")
@@ -140,7 +140,7 @@ val slide09 = DrawFrame { c, d, f ->
         maskFilter = normalMask
     })
     //--- crs: 4
-    c.drawLabel(mf1, "Blur NORMAL")
+    c.drawLabel(mf1, "4> Blur NORMAL")
 
     // Blur OUTER
     val mf2 = grid[7].shrink(8f)
@@ -153,7 +153,7 @@ val slide09 = DrawFrame { c, d, f ->
         maskFilter = outerMask
     })
     //--- crs: 5
-    c.drawLabel(mf2, "Blur OUTER")
+    c.drawLabel(mf2, "5> Blur OUTER")
 
     // Blur INNER
     val mf3 = grid[10].shrink(8f)
@@ -166,7 +166,7 @@ val slide09 = DrawFrame { c, d, f ->
         maskFilter = innerMask
     })
     //--- crs: 6
-    c.drawLabel(mf3, "Blur INNER")
+    c.drawLabel(mf3, "6> Blur INNER")
 
     // ==================== Column 3: Color Filters ====================
     c.drawHeader(grid[2].shrink(5f), "Color Filters")
@@ -190,7 +190,7 @@ val slide09 = DrawFrame { c, d, f ->
         ColorMatrices.grayscale().toColorFilter()
     c.drawFilteredScene(cf1, grayscaleFilter)
     //--- crs: 7
-    c.drawLabel(cf1, "Grayscale")
+    c.drawLabel(cf1, "7> Grayscale")
 
     // Sepia
     val cf2 = grid[8].shrink(8f)
@@ -199,7 +199,7 @@ val slide09 = DrawFrame { c, d, f ->
         ColorMatrices.sepia().toColorFilter()
     c.drawFilteredScene(cf2, sepiaFilter)
     //--- crs: 8
-    c.drawLabel(cf2, "Sepia")
+    c.drawLabel(cf2, "8> Sepia")
 
     // Hue rotate
     val cf3 = grid[11].shrink(8f)
@@ -208,5 +208,5 @@ val slide09 = DrawFrame { c, d, f ->
         ColorMatrices.hueRotate(90f).toColorFilter()
     c.drawFilteredScene(cf3, hueFilter)
     //--- crs: 9
-    c.drawLabel(cf3, "Hue rotate 90°")
+    c.drawLabel(cf3, "9> Hue rotate 90°")
 }

@@ -97,3 +97,22 @@ fun Canvas.drawContent(text: String) =
 
 val codeFont = font(FontFamily.IBMPlexMono, screen.height * 0.03f)
 val codePaint = CssColors.white.toFillPaint()
+
+private val badgeRadius = screen.height * 0.016f
+private val badgeFont = font(FontFamily.RethinkSans, badgeRadius * 1.2f)
+
+//private val badgeFill = CssColors.dimGray.toFillPaint()
+private val badgeText = CssColors.dimGray.toFillPaint()
+
+fun Canvas.drawGridBadges(grid: List<Rect>) {
+    grid.forEachIndexed { index, rect ->
+        val cx = rect.left + badgeRadius + 4f
+        val cy = rect.top + badgeRadius + 4f
+        //drawCircle(cx, cy, badgeRadius, badgeFill)
+        val label = "${index + 1}"
+        val textWidth = badgeFont.measureTextWidth(label)
+        val metrics = badgeFont.metrics
+        val textY = cy - (metrics.ascent + metrics.descent) / 2
+        drawString(label, cx - textWidth / 2, textY, badgeFont, badgeText)
+    }
+}

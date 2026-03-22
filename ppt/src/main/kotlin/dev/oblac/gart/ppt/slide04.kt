@@ -60,7 +60,7 @@ val slide04 = DrawFrame { c, d, f ->
     c.restore()
     c.drawRect(clipR, white.toStrokePaint(3f))
     //--- crs: 1
-    c.drawLabel(g1, "clipRect")
+    c.drawLabel(g1, "1> clipRect")
 
     // 2. clipRRect
     val g2 = grid[1].shrink(10f)
@@ -105,7 +105,7 @@ val slide04 = DrawFrame { c, d, f ->
     c.restore()
     c.drawPath(starPath, white.toStrokePaint(3f))
     //--- crs: 4
-    c.drawLabel(g4, "clipPath (star)")
+    c.drawLabel(g4, "4> clipPath (star)")
 
     // 5. ClipMode.DIFFERENCE
     val g5 = grid[4].shrink(10f)
@@ -117,7 +117,7 @@ val slide04 = DrawFrame { c, d, f ->
     c.restore()
     c.drawPath(diffCircle, white.toStrokePaint(3f))
     //--- crs: 5
-    c.drawLabel(g5, "DIFFERENCE")
+    c.drawLabel(g5, "5> DIFFERENCE")
 
     // 6. Save/Restore with nested clips
     val g6 = grid[5].shrink(10f)
@@ -135,5 +135,5 @@ val slide04 = DrawFrame { c, d, f ->
     c.drawRect(outerRect, white.toStrokePaint(3f))
     c.drawPath(innerCircle, white.toStrokePaint(3f))
     //--- crs: 6
-    c.drawLabel(g6, "Nested clips")
+    c.drawLabel(g6, "6> Nested clips")
 }

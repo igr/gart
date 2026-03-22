@@ -50,7 +50,7 @@ val slide03 = DrawFrame { c, d, f ->
     c.drawCircle(g1.center(), g1.height / 3, fillColor)
     c.drawCircle(g1.center(), g1.height / 3, strokeColor)
     //--- crs: 1
-    c.drawLabel(g1, "drawCircle")
+    c.drawLabel(g1, "1> drawCircle")
 
     // 2. Rectangle
     val g2 = grid[1].shrink(10f)
@@ -62,7 +62,7 @@ val slide03 = DrawFrame { c, d, f ->
     c.drawRectWH(rx, ry, rw, rh, mediumSeaGreen.toFillPaint())
     c.drawRectWH(rx, ry, rw, rh, white.toStrokePaint(10f))
     //--- crs: 2
-    c.drawLabel(g2, "drawRect")
+    c.drawLabel(g2, "2> drawRect")
 
     // 3. Lines
     val g3 = grid[2].shrink(10f)
@@ -88,7 +88,7 @@ val slide03 = DrawFrame { c, d, f ->
         white.toStrokePaint(10f)
     )
     //--- crs: 3
-    c.drawLabel(g3, "drawLine")
+    c.drawLabel(g3, "3> drawLine")
 
     // 4. Arc
     val g4 = grid[3].shrink(10f)
@@ -98,7 +98,7 @@ val slide03 = DrawFrame { c, d, f ->
     c.drawArc(arcRect, -180f, 230f, true, tomato.toFillPaint())
     c.drawArc(arcRect, -180f, 230f, true, white.toStrokePaint(10f))
     //--- crs: 4
-    c.drawLabel(g4, "drawArc")
+    c.drawLabel(g4, "4> drawArc")
 
     // 5. Path
     val g5 = grid[4].shrink(10f)
@@ -116,7 +116,7 @@ val slide03 = DrawFrame { c, d, f ->
         .detach()
     c.drawPath(curvePath, orchid.toStrokePaint(10f))
     //--- crs: 5
-    c.drawLabel(g5, "drawPath")
+    c.drawLabel(g5, "5> drawPath")
 
     // 6. Points
     val g6 = grid[5].shrink(10f)
@@ -136,7 +136,7 @@ val slide03 = DrawFrame { c, d, f ->
     c.drawPointsAsCircles(pts, white.toStrokePaint(4f), 40f)
     c.restore()
     //--- crs: 6
-    c.drawLabel(g6, "drawPoints")
+    c.drawLabel(g6, "6> drawPoints")
 
     // 7. Path1D effect — stamp a shape along a path
     val g7 = grid[6].shrink(10f)
@@ -162,7 +162,7 @@ val slide03 = DrawFrame { c, d, f ->
         )
     })
     //--- crs: 7
-    c.drawLabel(g7, "makePath1dEffect")
+    c.drawLabel(g7, "7> makePath1dEffect")
 
     // 8. Path2D effect — tile a pattern across a fill
     val g8 = grid[7].shrink(10f)
@@ -187,5 +187,5 @@ val slide03 = DrawFrame { c, d, f ->
     })
     c.restore()
     //--- crs: 8
-    c.drawLabel(g8, "makePath2dEffect")
+    c.drawLabel(g8, "8> makePath2dEffect")
 }

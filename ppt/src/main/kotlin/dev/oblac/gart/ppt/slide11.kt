@@ -60,7 +60,7 @@ val slide11 = DrawFrame { c, d, f ->
     })
     c.restore()
     //--- crs: 1
-    c.drawLabel(g1, "Per-shape blur")
+    c.drawLabel(g1, "1> Per-shape blur")
 
     // 2. saveLayer — blur applied to the group
     val g2 = grid[1].shrink(8f)
@@ -76,7 +76,7 @@ val slide11 = DrawFrame { c, d, f ->
     c.restore() // restores saveLayer (applies blur)
     c.restore() // restores clipRect
     //--- crs: 2
-    c.drawLabel(g2, "saveLayer + blur")
+    c.drawLabel(g2, "2> saveLayer + blur")
 
     // 3. saveLayer with alpha — group opacity
     val g3 = grid[2].shrink(8f)
@@ -90,7 +90,7 @@ val slide11 = DrawFrame { c, d, f ->
     c.restore()
     c.restore()
     //--- crs: 3
-    c.drawLabel(g3, "Group opacity (alpha)")
+    c.drawLabel(g3, "3> Group opacity (alpha)")
 
     // 4. saveLayer with drop shadow on grouped shapes
     val g4 = grid[3].shrink(8f)
@@ -106,7 +106,7 @@ val slide11 = DrawFrame { c, d, f ->
     c.restore()
     c.restore()
     //--- crs: 4
-    c.drawLabel(g4, "Group drop shadow")
+    c.drawLabel(g4, "4> Group drop shadow")
 
     // 5. Nested layers — inner sharp, outer blurred
     val g5 = grid[4].shrink(8f)
@@ -136,7 +136,7 @@ val slide11 = DrawFrame { c, d, f ->
     c.restore() // outer layer (blurred)
     c.restore() // clip
     //--- crs: 5
-    c.drawLabel(g5, "Nested layers")
+    c.drawLabel(g5, "5> Nested layers")
 
     // 6. Isolated blending via saveLayer
     val g6 = grid[5].shrink(8f)
@@ -160,5 +160,5 @@ val slide11 = DrawFrame { c, d, f ->
     c.restore() // layer composites onto background
     c.restore()
     //--- crs: 6
-    c.drawLabel(g6, "Isolated blending")
+    c.drawLabel(g6, "6> Isolated blending")
 }

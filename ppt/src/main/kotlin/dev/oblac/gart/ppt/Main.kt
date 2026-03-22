@@ -35,7 +35,8 @@ fun main() {
     }
     wv.onKey {
         when (it) {
-            Key.KEY_ESCAPE -> w.close()
+            Key.KEY_X -> w.close()
+            Key.KEY_ESCAPE -> codeSnippet = null
             Key.KEY_SPACE, Key.KEY_RIGHT -> {
                 codeSnippet = null
                 if (currentSlide < slides.size - 1) {

@@ -65,7 +65,7 @@ val slide05 = DrawFrame { c, d, f ->
     c.drawHouse(center1.x, center1.y, houseSize, white.toStrokePaint(3f))
     c.restore()
     //--- crs: 1
-    c.drawLabel(g1, "translate")
+    c.drawLabel(g1, "1> translate")
 
     // 2. Scale
     val g2 = grid[1].shrink(10f)
@@ -80,7 +80,7 @@ val slide05 = DrawFrame { c, d, f ->
     c.drawHouse(center2.x, center2.y, houseSize, white.toStrokePaint(3f))
     c.restore()
     //--- crs: 2
-    c.drawLabel(g2, "scale")
+    c.drawLabel(g2, "2> scale")
 
     // 3. Rotate
     val g3 = grid[2].shrink(10f)
@@ -93,7 +93,7 @@ val slide05 = DrawFrame { c, d, f ->
     c.drawHouse(center3.x, center3.y, houseSize, white.toStrokePaint(3f))
     c.restore()
     //--- crs: 3
-    c.drawLabel(g3, "rotate")
+    c.drawLabel(g3, "3> rotate")
 
     // 4. Skew
     val g4 = grid[3].shrink(10f)
@@ -108,7 +108,7 @@ val slide05 = DrawFrame { c, d, f ->
     c.drawHouse(center4.x, center4.y, houseSize, white.toStrokePaint(3f))
     c.restore()
     //--- crs: 4
-    c.drawLabel(g4, "skew")
+    c.drawLabel(g4, "4> skew")
 
     // 5. Matrix (combined rotate + scale)
     val g5 = grid[4].shrink(10f)
@@ -129,7 +129,7 @@ val slide05 = DrawFrame { c, d, f ->
     c.drawHouse(center5.x, center5.y, houseSize, white.toStrokePaint(3f))
     c.restore()
     //--- crs: 5
-    c.drawLabel(g5, "Matrix33")
+    c.drawLabel(g5, "5> Matrix33")
 
     // 6. Animated transform
     val g6 = grid[5].shrink(10f)
@@ -142,5 +142,5 @@ val slide05 = DrawFrame { c, d, f ->
     c.drawHouse(center6.x, center6.y, houseSize, white.toStrokePaint(3f))
     c.restore()
     //--- crs: 6
-    c.drawLabel(g6, "animated")
+    c.drawLabel(g6, "6> animated")
 }

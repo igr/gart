@@ -142,7 +142,7 @@ val slide08 = DrawFrame { c, d, f ->
     c.translate(g1.left, g1.top)
     c.drawPaint(Paint().apply { shader = plasmaSksl.makeShader() })
     c.restore()
-    c.drawLabel(g1, "Plasma")
+    c.drawLabel(g1, "1> Plasma")
 
     // 2. Ripple
     val g2 = grid[1].shrink(10f)
@@ -154,7 +154,7 @@ val slide08 = DrawFrame { c, d, f ->
     c.translate(g2.left, g2.top)
     c.drawPaint(Paint().apply { shader = rippleSksl.makeShader() })
     c.restore()
-    c.drawLabel(g2, "Ripple")
+    c.drawLabel(g2, "2> Ripple")
 
     // 3. Warp
     val g3 = grid[2].shrink(10f)
@@ -165,7 +165,7 @@ val slide08 = DrawFrame { c, d, f ->
     c.translate(g3.left, g3.top)
     c.drawPaint(Paint().apply { shader = warpSksl.makeShader() })
     c.restore()
-    c.drawLabel(g3, "Domain warp")
+    c.drawLabel(g3, "3> Domain warp")
 
     // 4. Voronoi
     val g4 = grid[3].shrink(10f)

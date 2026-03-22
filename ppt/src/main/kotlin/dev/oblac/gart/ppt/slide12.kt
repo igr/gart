@@ -74,7 +74,7 @@ val slide12 = DrawFrame { c, d, f ->
     val img1 = gv1.snapshot()
     c.drawCentered(img1, g1)
     //--- crs: 1
-    c.drawLabel(g1, "Gartvas + snapshot()")
+    c.drawLabel(g1, "1> Gartvas + snapshot()")
 
     // 2. Pixel-level manipulation — invert colors via Pixels interface
     val g2 = grid[1].shrink(8f)
@@ -98,7 +98,7 @@ val slide12 = DrawFrame { c, d, f ->
     }
     c.drawCentered(bm2.image(), g2)
     //--- crs: 2
-    c.drawLabel(g2, "Pixel invert via Gartmap")
+    c.drawLabel(g2, "2> Pixel invert via Gartmap")
 
     // 3. Grayscale conversion
     val g3 = grid[2].shrink(8f)
@@ -109,7 +109,7 @@ val slide12 = DrawFrame { c, d, f ->
     makeGray(bm3)
     c.drawCentered(bm3.image(), g3)
     //--- crs: 3
-    c.drawLabel(g3, "makeGray()")
+    c.drawLabel(g3, "3> makeGray()")
 
     // 4. Floyd-Steinberg dithering
     val g4 = grid[3].shrink(8f)
@@ -121,7 +121,7 @@ val slide12 = DrawFrame { c, d, f ->
     ditherFloydSteinberg(bm4, pixelSize = 2, colorCount = 4)
     c.drawCentered(bm4.image(), g4)
     //--- crs: 4
-    c.drawLabel(g4, "ditherFloydSteinberg()")
+    c.drawLabel(g4, "4> ditherFloydSteinberg()")
 
     // 5. Image scaling — downscale and upscale
     val g5 = grid[4].shrink(8f)
@@ -134,7 +134,7 @@ val slide12 = DrawFrame { c, d, f ->
         .scaleImage(cellW, cellH)
     c.drawCentered(upscaled, g5)
     //--- crs: 5
-    c.drawLabel(g5, "scaleImage() pixelate")
+    c.drawLabel(g5, "5> scaleImage() pixelate")
 
     // 6. Row/column pixel sorting
     val g6 = grid[5].shrink(8f)
@@ -149,5 +149,5 @@ val slide12 = DrawFrame { c, d, f ->
     }
     c.drawCentered(bm6.image(), g6)
     //--- crs: 6
-    c.drawLabel(g6, "Row pixel sorting")
+    c.drawLabel(g6, "6> Row pixel sorting")
 }

@@ -67,7 +67,7 @@ val slide07 = DrawFrame { c, d, f ->
     }
     c.drawShaderCircle(g1, solidPaint)
     //--- crs: 1
-    c.drawLabel(g1, "Solid color")
+    c.drawLabel(g1, "1> Solid color")
 
     // 2. Linear gradient
     val g2 = grid[1].shrink(10f)
@@ -79,7 +79,7 @@ val slide07 = DrawFrame { c, d, f ->
     )
     c.drawShaderCircle(g2, shaderPaint(linearShader))
     //--- crs: 2
-    c.drawLabel(g2, "Linear gradient")
+    c.drawLabel(g2, "2> Linear gradient")
 
     // 3. Radial gradient
     val g3 = grid[2].shrink(10f)
@@ -93,7 +93,7 @@ val slide07 = DrawFrame { c, d, f ->
     )
     c.drawShaderCircle(g3, shaderPaint(radialShader))
     //--- crs: 3
-    c.drawLabel(g3, "Radial gradient")
+    c.drawLabel(g3, "3> Radial gradient")
 
     // 4. Sweep gradient
     val g4 = grid[3].shrink(10f)
@@ -106,7 +106,7 @@ val slide07 = DrawFrame { c, d, f ->
     )
     c.drawShaderCircle(g4, shaderPaint(sweepShader))
     //--- crs: 4
-    c.drawLabel(g4, "Sweep gradient")
+    c.drawLabel(g4, "4> Sweep gradient")
 
     // 5. Two-point conical
     val g5 = grid[4].shrink(10f)
@@ -121,7 +121,7 @@ val slide07 = DrawFrame { c, d, f ->
     )
     c.drawShaderCircle(g5, shaderPaint(conicalShader))
     //--- crs: 5
-    c.drawLabel(g5, "Conical gradient")
+    c.drawLabel(g5, "5> Conical gradient")
 
     // 6. Fractal noise
     val g6 = grid[5].shrink(10f)
@@ -131,7 +131,7 @@ val slide07 = DrawFrame { c, d, f ->
     )
     c.drawShaderCircle(g6, shaderPaint(noiseShader))
     //--- crs: 6
-    c.drawLabel(g6, "Fractal noise")
+    c.drawLabel(g6, "6> Fractal noise")
 
     // 7. Tiling: REPEAT
     val g7 = grid[6].shrink(10f)
@@ -147,7 +147,7 @@ val slide07 = DrawFrame { c, d, f ->
     )
     c.drawShaderCircle(g7, shaderPaint(repeatShader))
     //--- crs: 7
-    c.drawLabel(g7, "Tile: REPEAT")
+    c.drawLabel(g7, "7> Tile: REPEAT")
 
     // 8. Tiling: MIRROR
     val g8 = grid[7].shrink(10f)
@@ -162,5 +162,5 @@ val slide07 = DrawFrame { c, d, f ->
     )
     c.drawShaderCircle(g8, shaderPaint(mirrorShader))
     //--- crs: 8
-    c.drawLabel(g8, "Tile: MIRROR")
+    c.drawLabel(g8, "8> Tile: MIRROR")
 }
