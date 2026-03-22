@@ -1,9 +1,12 @@
 package dev.oblac.gart.flow
 
 import dev.oblac.gart.Dimension
+import dev.oblac.gart.angle.cos
+import dev.oblac.gart.angle.sin
 import dev.oblac.gart.gfx.isInside
 import dev.oblac.gart.gfx.strokeOfBlue
 import dev.oblac.gart.gfx.strokeOfRed
+import dev.oblac.gart.math.f
 import dev.oblac.gart.vector.Vector2
 import org.jetbrains.skia.Canvas
 import org.jetbrains.skia.Point
@@ -80,6 +83,22 @@ class FlowField(val w: Int, val h: Int, private val field: Array<Array<Flow>>) {
 
             c.drawPoint(xf, yf, strokeOfRed(2.5f))
             c.drawLine(xf, yf, x + v.x, y + v.y, strokeOfBlue(1f))
+        }
+    }
+
+    fun drawField2(c: Canvas, d: Dimension, gap: Int = 20) {
+        d.forEach { x, y ->
+            if (x % gap != 0 || y % gap != 0) {
+                return@forEach
+            }
+            val f = this[x, y] as Flow2
+            val xf = x.f()
+            val yf = y.f()
+            val bx = xf + sin(f.direction) * gap
+            val by = yf + cos(f.direction) * gap
+
+            c.drawPoint(xf, yf, strokeOfRed(2.5f))
+            c.drawLine(xf, yf, bx.f(), by.f(), strokeOfRed(1f))
         }
     }
 

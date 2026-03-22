@@ -23,5 +23,15 @@ object ComplexFunctions {
         }
         result
     }
+
+    fun julia(zx: Float, zy: Float, cx: Float, cy: Float, maxIter: Int = 100): Complex {
+        var z = Complex(zx.toDouble(), zy.toDouble())
+        val c = Complex(cx.toDouble(), cy.toDouble())
+        repeat(maxIter) {
+            if (z.normSquared() > 4.0) return z
+            z = z * z + c
+        }
+        return z
+    }
 }
 

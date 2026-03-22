@@ -45,6 +45,8 @@ class Palette(internal val colors: IntArray) {
         return Palette(this.colors + color)
     }
 
+    operator fun rem(index: Int) = safe(index)
+
     fun random(): Int {
         return colors.random()
     }
@@ -141,6 +143,10 @@ class Palette(internal val colors: IntArray) {
             shiftedColors[newIndex] = colors[i]
         }
         return Palette(shiftedColors)
+    }
+
+    fun removeLast(): Palette {
+        return Palette(colors.sliceArray(0 until size - 1))
     }
 
     companion object {
