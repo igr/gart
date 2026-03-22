@@ -16,6 +16,11 @@ allprojects {
             freeCompilerArgs.add("-Xcontext-parameters")
         }
     }
+
+    plugins.withId("application") {
+        tasks.named("distTar") { enabled = false }
+        tasks.named("distZip") { enabled = false }
+    }
 }
 
 tasks.register<Delete>("clean") {
