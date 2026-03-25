@@ -15,6 +15,8 @@ include("gart-box2d")
 include("example")
 include("ppt")
 
+include("work")
+
 include("arts")
 include("arts:plasma")
 include("arts:circledots")
@@ -63,3 +65,4 @@ include("arts:shad")
 include("arts:neuromancer")
 include("arts:orbitr")
 include("arts:fluid")
+

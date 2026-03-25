@@ -5,3 +5,4 @@ out
 build
 .DS_Store
 .claude
+work/src/main/kotlin/dev/oblac/gart/*/**
