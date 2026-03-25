@@ -29,6 +29,21 @@ allprojects {
         tasks.named("distTar") { enabled = false }
         tasks.named("distZip") { enabled = false }
     }
+
+    plugins.withType<JavaPlugin> {
+        val javaExt = extensions.getByType<JavaPluginExtension>()
+        val classesDirs = javaExt.sourceSets["main"].output.classesDirs
+        val runtimeFiles = configurations["runtimeClasspath"].incoming.files
+        tasks.register("writeClasspath") {
+            description = "Writes runtime classpath to build/classpath.txt"
+            val outputFile = layout.buildDirectory.file("classpath.txt")
+            inputs.files(runtimeFiles, classesDirs)
+            outputs.file(outputFile)
+            doLast {
+                outputFile.get().asFile.writeText("-cp\n${classesDirs.asPath}:${runtimeFiles.asPath}")
+            }
+        }
+    }
 }
 
 tasks.register<Delete>("clean") {

@@ -20,6 +20,12 @@ great. _It’s not how I normally write code._
 just hotReload
 ```
 
+For cold reload (restart the app on code changes):
+
+```shell
+just dev work dev.oblac.gart.cosmic.CosmicTopoKt
+```
+
 ## 🚀 Features
 
 There is really **a lot of features**, and I’m not sure how to organize them, but here’s an attempt at categorization:
