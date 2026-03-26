@@ -70,11 +70,12 @@ class FileWatcher(
     private fun watchLoop() {
         while (isRunning) {
             try {
-                val key = watchService.poll(100, TimeUnit.MILLISECONDS)
-                if (key != null) {
-                    processKey(key)
-                }
+                // Block until an event arrives (no polling delay)
+                val key = watchService.take()
+                processKey(key)
             } catch (_: InterruptedException) {
+                break
+            } catch (_: ClosedWatchServiceException) {
                 break
             } catch (e: Exception) {
                 println("Error in watch loop: ${e.message}")
@@ -86,28 +87,28 @@ class FileWatcher(
         var shouldReload = false
 
         for (event in key.pollEvents()) {
-            val kind = event.kind()
-
-            if (kind == StandardWatchEventKinds.OVERFLOW) {
-                continue
-            }
-
+            if (event.kind() == StandardWatchEventKinds.OVERFLOW) continue
             val filename = event.context() as Path
             val filepath = (key.watchable() as Path).resolve(filename)
-
-            // Only react to filtered files
             if (pathChangeFilter(filepath)) {
-                //println("Detected file change: $filepath")
                 shouldReload = true
             }
         }
-
         key.reset()
 
         if (shouldReload) {
-            // Small delay to avoid multiple rapid changes
-            Thread.sleep(500)
+            // Debounce: drain events until quiet for 150ms
+            // (Gradle may write multiple .class files in rapid succession)
+            drainUntilQuiet()
             onChange()
+        }
+    }
+
+    private fun drainUntilQuiet() {
+        while (true) {
+            val key = watchService.poll(150, TimeUnit.MILLISECONDS) ?: break
+            key.pollEvents()
+            key.reset()
         }
     }
 

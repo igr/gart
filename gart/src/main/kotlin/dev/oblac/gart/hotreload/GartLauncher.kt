@@ -3,13 +3,12 @@ package dev.oblac.gart.hotreload
 import java.net.URLClassLoader
 import java.nio.file.Path
 import java.nio.file.Paths
-import javax.swing.SwingUtilities
 import kotlin.system.exitProcess
 
 /**
  * Launches a gart art project's main() in an isolated classloader.
- * Watches for .class file changes and restarts the app by disposing
- * all Swing windows and re-invoking main() with a fresh classloader.
+ * Watches for .class file changes and re-invokes main() with a fresh classloader.
+ * The existing Swing window is reused (DrawFrame swap via ActiveWindow) - no window flicker.
  *
  * Usage: GartLauncherKt <classes-dir> <main-class>
  */
@@ -82,17 +81,10 @@ class GartLauncher(
     private fun restart() {
         println("🔄 Reloading...")
 
-        // Dispose all Swing windows on the EDT
-        SwingUtilities.invokeAndWait {
-            java.awt.Window.getWindows().forEach { it.dispose() }
-        }
-
-        // Release old classloader
+        // Release old classloader (already-loaded classes remain functional
+        // until replaced; the active window is reused via ActiveWindow holder)
         currentClassLoader?.close()
         currentClassLoader = null
-
-        // Brief pause for Skia/AWT resources to settle
-        Thread.sleep(300)
 
         launchApp()
 

@@ -50,6 +50,32 @@ open class Window(
      * The drawFrame is called on each repaint, that may happen multiple times per frame.
      */
     open fun show(drawFrame: DrawFrame): WindowView {
+        // Hot-reuse: if an active window with matching dimensions exists, swap the DrawFrame
+        if (ActiveWindow.canReuse(d)) {
+            val existingView = ActiveWindow.view!!
+            val existingFrame = ActiveWindow.frame!!
+            this.frame = existingFrame
+            val windowView = WindowView(this, existingView)
+
+            SwingUtilities.invokeLater {
+                existingView.replace(drawFrame)
+                existingView.fpsGuard.reset()
+
+                ActiveWindow.cleanupListeners()
+                existingFrame.addWindowListener(object : WindowAdapter() {
+                    override fun windowClosing(windowEvent: WindowEvent) {
+                        onClose()
+                    }
+                })
+                existingFrame.addKeyListener(windowView.keyListener)
+                existingFrame.addMouseListener(windowView.mouseListener)
+                existingFrame.addMouseMotionListener(windowView.mouseMotionListener)
+
+                existingView.repaint()
+            }
+            return windowView
+        }
+
         val view = GartView(d, drawFrame, fps, printFps)
         val windowView = WindowView(this, view)
         if (java.awt.Taskbar.isTaskbarSupported()) {
@@ -105,6 +131,11 @@ open class Window(
                 "right" -> frame.setLocation(screenSize.width - d.w, (screenSize.height - d.h) / 2)
                 else -> frame.setLocation((screenSize.width - d.w) / 2, (screenSize.height - d.h) / 2)
             }
+
+            // Store for potential hot-reuse
+            ActiveWindow.frame = frame
+            ActiveWindow.view = view
+            ActiveWindow.dimension = this@Window.d
         }
         return windowView
     }
