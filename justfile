@@ -27,13 +27,32 @@ thumbs:
 readme:
     ./gradlew :example:run
 
-# Dev session: continuous compile + auto-restart JVM on class changes.
+# Dev session: continuous compile + classloader-based hot restart.
 # Usage: just dev work dev.oblac.gart.cosmic.CosmicTopoKt
 # Usage: just dev arts:flowforce dev.oblac.gart.flowforce.monolith.MonolithKt
 dev module main:
     #!/usr/bin/env bash
     set -e
-    # Convert module path (e.g. "arts:flowforce" or "work") to Gradle project and directory
+    GRADLE_PROJECT=":{{module}}"
+    MODULE_DIR="$(echo "{{module}}" | tr ':' '/')"
+    echo "Building and resolving classpath..."
+    ./gradlew "${GRADLE_PROJECT}:writeLauncherClasspath" "${GRADLE_PROJECT}:classes" -q
+    SESSION="gart-dev"
+    LAUNCHER_CP="$(pwd)/${MODULE_DIR}/build/launcher-cp.txt"
+    CLASSES_DIR="$(pwd)/${MODULE_DIR}/build/classes/kotlin/main"
+    tmux kill-session -t "$SESSION" 2>/dev/null || true
+    tmux new-session -d -s "$SESSION" -n compile \
+        "bash -c './gradlew ${GRADLE_PROJECT}:compileKotlin --continuous -Dorg.gradle.continuous.quietperiod=100'"
+    tmux set-option -t "$SESSION" remain-on-exit on
+    tmux split-window -t "$SESSION" -h \
+        "bash -c 'java -XX:CICompilerCount=1 -XX:TieredStopAtLevel=1 -XX:+UseSerialGC -Xverify:none -Dgart.align=right @${LAUNCHER_CP} dev.oblac.gart.hotreload.GartLauncherKt ${CLASSES_DIR} {{main}}'"
+    tmux attach -t "$SESSION"
+
+# Dev session using entr to restart the JVM on class changes (fallback).
+# Usage: just dev-entr work dev.oblac.gart.cosmic.CosmicTopoKt
+dev-entr module main:
+    #!/usr/bin/env bash
+    set -e
     GRADLE_PROJECT=":{{module}}"
     MODULE_DIR="$(echo "{{module}}" | tr ':' '/')"
     echo "Building and resolving classpath..."

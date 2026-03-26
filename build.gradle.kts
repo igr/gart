@@ -43,6 +43,15 @@ allprojects {
                 outputFile.get().asFile.writeText("-cp\n${classesDirs.asPath}:${runtimeFiles.asPath}")
             }
         }
+        tasks.register("writeLauncherClasspath") {
+            description = "Writes dependency-only classpath (no module classes) to build/launcher-cp.txt"
+            val outputFile = layout.buildDirectory.file("launcher-cp.txt")
+            inputs.files(runtimeFiles)
+            outputs.file(outputFile)
+            doLast {
+                outputFile.get().asFile.writeText("-cp\n${runtimeFiles.asPath}")
+            }
+        }
     }
 }
 
