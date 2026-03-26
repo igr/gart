@@ -99,7 +99,12 @@ open class Window(
 
             // windows positioning
             val screenSize = Toolkit.getDefaultToolkit().screenSize
-            frame.setLocation((screenSize.width - d.w) / 2, (screenSize.height - d.h) / 2)
+            val devSide = System.getProperty("gart.align")
+            when (devSide) {
+                "left" -> frame.setLocation(0, (screenSize.height - d.h) / 2)
+                "right" -> frame.setLocation(screenSize.width - d.w, (screenSize.height - d.h) / 2)
+                else -> frame.setLocation((screenSize.width - d.w) / 2, (screenSize.height - d.h) / 2)
+            }
         }
         return windowView
     }

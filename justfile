@@ -45,7 +45,7 @@ dev module main:
         "bash -c './gradlew ${GRADLE_PROJECT}:compileKotlin --continuous -Dorg.gradle.continuous.quietperiod=100'"
     tmux set-option -t "$SESSION" remain-on-exit on
     tmux split-window -t "$SESSION" -h \
-        "bash -c 'while true; do find ${MODULE_DIR}/build/classes -name \"*.class\" | entr -d -r java -XX:CICompilerCount=1 -XX:TieredStopAtLevel=1 -XX:+UseSerialGC -Xverify:none @${CP_FILE} {{main}}; done'"
+        "bash -c 'while true; do find ${MODULE_DIR}/build/classes -name \"*.class\" | entr -d -r java -XX:CICompilerCount=1 -XX:TieredStopAtLevel=1 -XX:+UseSerialGC -Xverify:none -Dgart.align=right @${CP_FILE} {{main}}; done'"
     tmux attach -t "$SESSION"
 
 # Stops the dev session.
