@@ -48,7 +48,7 @@ fun Rect.contains(rect: Rect): Boolean {
 }
 
 fun Rect.contains(point: Point): Boolean {
-    return this.left <= point.x && this.top <= point.y && this.right >= point.x && this.bottom >= point.y
+    return this.left <= point.x && point.x < this.right && this.top <= point.y && point.y < this.bottom
 }
 
 /**

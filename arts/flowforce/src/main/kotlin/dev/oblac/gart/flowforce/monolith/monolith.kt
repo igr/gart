@@ -15,6 +15,7 @@ import dev.oblac.gart.noise.OpenSimplexNoise
 import dev.oblac.gart.util.middle
 import org.jetbrains.skia.ImageFilter
 import org.jetbrains.skia.Point
+import org.jetbrains.skia.Rect
 
 fun main() {
     val gart = Gart.of("monolith", 1024, 1024)
@@ -41,32 +42,16 @@ fun main() {
 //    val p = Palettes.cool124.expand(100)
 //    val p = Palettes.cool94.reversed().expand(100)
 
+    // 1:4:9
+    //   300:657
+    val monolith = Rect(d.center.x - 300, 349f, d.center.x, d.hf)
+
     paths.sortedByDescending {
         val middlePoint = it.points().middle()
         middlePoint.y
     }.forEachIndexed { index, it ->
-        if (index == 200) {
+        if (index == 140) {
             //c.drawCircle(d.center, 300f, fillOf(backc))
-            c.drawRect(d.center.x-100f, d.center.y -200f, d.center.x + 200, d.hf,fillOf(backc))
-        }
-        val middlePoint = it.points().middle()
-        val distance = smallestDistance(middlePoint, backbone)
-        val clr = p % (distance * 0.13f).toInt()
-        c.drawPath(it, strokeOf(clr, 4f - count).apply {
-            this.imageFilter = ImageFilter.makeDilate(4f, 4f, null, null)
-        })
-        it.points().shuffled().take(10).forEach { p->
-            c.drawCircle(p, rndf(1f,2f), strokeOfWhite(1f))
-        }
-    }
-    paths.sortedByDescending {
-        val middlePoint = it.points().middle()
-        middlePoint.y
-    }.forEachIndexed { index, it ->
-        if (index == 200) {
-            //c.drawCircle(d.center, 300f, fillOf(backc))
-            // 1:4:9
-            //   300:657
             c.drawRect(d.center.x-300, 349f, d.center.x, d.hf,fillOf(backc))
         }
         val middlePoint = it.points().middle()
@@ -75,15 +60,17 @@ fun main() {
         c.drawPath(it, strokeOf(clr, 4f - count).apply {
             this.imageFilter = ImageFilter.makeDilate(4f, 4f, null, null)
         })
-//        it.points().shuffled().take(10).forEach { p->
-//            c.drawCircle(p, rndf(1f,2f), strokeOfWhite(1f))
-//        }
     }
 
     paths.forEach {
         val take = (it.length() * 0.05).toInt()
-        it.points().shuffled().take(take).forEach { p->
-            c.drawCircle(p, rndf(1f,2f), strokeOfWhite(1f))
+        it.points().shuffled().take(take).forEach { p ->
+            val inside = monolith.contains(p)
+            if (inside) {
+                c.drawCircle(p, rndf(1f, 3f), fillOfWhite())
+            } else {
+                c.drawCircle(p, rndf(1f, 2f), fillOfWhite().alpha(160))
+            }
         }
     }
 
