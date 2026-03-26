@@ -124,7 +124,7 @@ private fun draw(c: Canvas, d: Dimension, f: Frames) {
 
     c.drawRoundBorder(d, 10f, 40f, colorInk)
 
-    c.drawBottom("Igor Spasic\n@github: gart\nigo.rs")
+    c.drawBottom("Igor Spasic\ngithub.com/igr/gart\nigo.rs")
 }
 
 private fun Canvas.drawBottom(text: String) =
