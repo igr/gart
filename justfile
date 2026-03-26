@@ -47,3 +47,8 @@ dev module main:
     tmux split-window -t "$SESSION" -h \
         "bash -c 'while true; do find ${MODULE_DIR}/build/classes -name \"*.class\" | entr -d -r java @${CP_FILE} {{main}}; done'"
     tmux attach -t "$SESSION"
+
+# Stops the dev session.
+dev-stop:
+    tmux kill-session -t gart-dev 2>/dev/null || echo "No dev session running."
+
