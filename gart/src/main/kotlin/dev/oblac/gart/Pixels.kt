@@ -5,7 +5,9 @@ import dev.oblac.gart.color.space.RGBA
 import java.nio.ByteBuffer
 import java.nio.ByteOrder
 import java.nio.IntBuffer
+import kotlin.math.floor
 import kotlin.math.min
+import kotlin.math.roundToInt
 
 /**
  * Actual pixels memory storage.
@@ -199,6 +201,66 @@ interface Pixels {
     fun row(y: Int, row: IntArray) = pixelBytes.row(y, row)
     fun column(x: Int) = pixelBytes.column(x)
     fun column(x: Int, column: IntArray) = pixelBytes.column(x, column)
+
+    /** Read one pixel, applying the requested out-of-bounds mode. */
+    fun sampleNearest(
+        px: Int, py: Int,
+        mode: SampleMode,
+        background: Int
+    ): Int = when (mode) {
+        SampleMode.CLAMP -> this[px.coerceIn(0, d.w - 1), py.coerceIn(0, d.h - 1)]
+        SampleMode.TILE -> this[Math.floorMod(px, d.w), Math.floorMod(py, d.h)]
+        SampleMode.BACKGROUND ->
+            if (px in 0 until d.w && py in 0 until d.h) this[px, py] else background
+    }
+
+    /**
+     * Bilinear-interpolated sample.
+     * Works across all three [SampleMode]s by delegating edge handling to [sampleNearest].
+     */
+    fun sampleBilinear(
+        fx: Double, fy: Double,
+        mode: SampleMode,
+        background: Int
+    ): Int {
+        if (!fx.isFinite() || !fy.isFinite()) return background
+
+        // For TILE mode, reduce to [0, dimension) range in floating-point
+        // to avoid int overflow when source coords are far outside the image.
+        val rfx: Double
+        val rfy: Double
+        if (mode == SampleMode.TILE) {
+            rfx = fx - floor(fx / d.w) * d.w
+            rfy = fy - floor(fy / d.h) * d.h
+        } else {
+            rfx = fx
+            rfy = fy
+        }
+
+        val x0 = floor(rfx).toInt()
+        val y0 = floor(rfy).toInt()
+        val tx = rfx - x0
+        val ty = rfy - y0
+
+        val c00 = sampleNearest(x0, y0, mode, background)
+        val c10 = sampleNearest(x0 + 1, y0, mode, background)
+        val c01 = sampleNearest(x0, y0 + 1, mode, background)
+        val c11 = sampleNearest(x0 + 1, y0 + 1, mode, background)
+
+        fun channel(shift: Int): Int {
+            val v00 = (c00 shr shift) and 0xFF
+            val v10 = (c10 shr shift) and 0xFF
+            val v01 = (c01 shr shift) and 0xFF
+            val v11 = (c11 shr shift) and 0xFF
+            val top = v00 + (v10 - v00) * tx
+            val bot = v01 + (v11 - v01) * tx
+            return (top + (bot - top) * ty).roundToInt().coerceIn(0, 255)
+        }
+
+        return (channel(24) shl 24) or (channel(16) shl 16) or
+            (channel(8) shl 8) or channel(0)
+    }
+
 }
 
 class MemPixels(
@@ -208,7 +270,6 @@ class MemPixels(
     override var pixelBytes: PixelBytes = PixelBytes(ByteArray(d.area * 4), d.w, d.h)
 
 }
-
 
 fun IntBuffer.toIntArray(): IntArray {
     return if (this.hasArray()) {
@@ -222,3 +283,13 @@ fun IntBuffer.toIntArray(): IntArray {
 
 
 data class Pixel(val x: Int, val y: Int)
+enum class SampleMode {
+    /** Clamp to image edges when src coords fall outside bounds. */
+    CLAMP,
+
+    /** Tile (repeat) the source image infinitely — great for patterns. */
+    TILE,
+
+    /** Return background color for out-of-bounds coords. */
+    BACKGROUND
+}
