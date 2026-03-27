@@ -9,6 +9,9 @@ import org.jetbrains.skia.Image
 class Gartmap(private val g: Gartvas) : Pixels {
     override val d = g.d
 
+    val w = g.d.w
+    val h = g.d.h
+
     override var pixelBytes: PixelBytes
     val bitmap = g.createBitmap()
 
