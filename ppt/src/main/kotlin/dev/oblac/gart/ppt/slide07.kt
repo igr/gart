@@ -87,7 +87,7 @@ val slide07 = DrawFrame { c, d, f ->
     val center3 = g3.center()
     val radialShader = makeRadialGradient(
         center3.x, center3.y, g3.height * 0.35f,
-        intArrayOf(CssColors.white, deepSkyBlue, midnightBlue),
+        intArrayOf(white, deepSkyBlue, midnightBlue),
         floatArrayOf(0f, 0.5f, 1f),
         GradientStyle.DEFAULT
     )
