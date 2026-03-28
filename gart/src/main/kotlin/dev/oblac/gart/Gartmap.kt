@@ -10,7 +10,9 @@ class Gartmap(private val g: Gartvas) : Pixels {
     override val d = g.d
 
     val w = g.d.w
+    val wf = g.d.wf
     val h = g.d.h
+    val hf = g.d.hf
 
     override var pixelBytes: PixelBytes
     val bitmap = g.createBitmap()
