@@ -1,4 +1,4 @@
-package dev.oblac.gart.pixels.dither
+package dev.oblac.gart.stipple
 
 import dev.oblac.gart.MemPixels
 import dev.oblac.gart.Pixels
@@ -15,8 +15,9 @@ import kotlin.random.Random
 /**
  * Noisy stipple dithering algorithm that places dots with varying density and size
  * based on the darkness of the source image. Works fine with small radius.
+ * I dont know if this algorithm exists, but I came somehow to this and it worked.
  */
-fun ditherStippleDotDensity(
+fun stippleNoisyDotDensity(
     b: Pixels,
     step: Int = 6,
     minRadius: Float = 0.8f,

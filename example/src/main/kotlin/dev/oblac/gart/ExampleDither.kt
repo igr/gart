@@ -98,10 +98,13 @@ fun main() {
             Key.KEY_F -> ditherAlgorithm = { b -> ditherFedoseev3(b, pixelSize, maxColors) }
             Key.KEY_D -> ditherAlgorithm = { b -> ditherShiauFan1(b, pixelSize, maxColors) }
 
-            Key.KEY_E -> ditherAlgorithm = { b -> ditherWongAllebach(b, pixelSize, maxColors) }
-
-            Key.KEY_P -> ditherAlgorithm = { b -> ditherStippleDotDensity(b, pixelSize) }
-            Key.KEY_O -> ditherAlgorithm = { b -> ditherDots(b, pixelSize) }
+            Key.KEY_P -> ditherAlgorithm = { b -> ditherWongAllebach(b, pixelSize, maxColors) }
+            Key.KEY_O -> ditherAlgorithm = { b -> ditherOstromoukhov(b, pixelSize, maxColors) }
+            Key.KEY_I -> ditherAlgorithm = { b -> ditherZhouFang(b, pixelSize, maxColors) }
+            Key.KEY_U -> ditherAlgorithm = { b -> ditherZhangPang(b, pixelSize, maxColors) }
+            Key.KEY_Y -> ditherAlgorithm = { b -> ditherWhiteNoise(b, pixelSize, maxColors) }
+            Key.KEY_T -> ditherAlgorithm = { b -> ditherThreshold(b, pixelSize, maxColors) }
+            Key.KEY_R -> ditherAlgorithm = { b -> ditherMarcu(b, pixelSize = pixelSize, colorCount = maxColors) }
 
             else -> {}
         }
