@@ -12,6 +12,10 @@ import kotlin.math.floor
 import kotlin.math.pow
 import kotlin.random.Random
 
+/**
+ * Noisy stipple dithering algorithm that places dots with varying density and size
+ * based on the darkness of the source image. Works fine with small radius.
+ */
 fun ditherStippleDotDensity(
     b: Pixels,
     step: Int = 6,

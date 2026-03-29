@@ -79,6 +79,7 @@ fun main() {
             Key.KEY_H -> ditherAlgorithm = { b -> ditherStucki(b, pixelSize, maxColors) }
             Key.KEY_G -> ditherAlgorithm = { b -> ditherTwoRowSierra(b, pixelSize, maxColors) }
             Key.KEY_P -> ditherAlgorithm = { b -> ditherStippleDotDensity(b, pixelSize) }
+            Key.KEY_O -> ditherAlgorithm = { b -> ditherDots(b, pixelSize) }
 
             else -> {}
         }

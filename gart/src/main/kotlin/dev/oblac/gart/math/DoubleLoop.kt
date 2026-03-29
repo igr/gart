@@ -3,6 +3,10 @@ package dev.oblac.gart.math
 fun doubleLoop(imax: Int, jmax: Int, consumer: (Pair<Int, Int>) -> Unit) =
     (0 until jmax).flatMap { (0 until imax).map { j -> j to it } }.forEach(consumer)
 
+fun doubleLoop(imax: Int, jmax: Int, stepI: Int, stepJ: Int, consumer: (Pair<Int, Int>) -> Unit) =
+    (0 until jmax step stepJ).flatMap { (0 until imax step stepI).map { j -> j to it } }.forEach(consumer)
+
+
 fun doubleLoopSequence(iMax: Int, jMax: Int): Sequence<Pair<Int, Int>> =
     sequence {
         for (j in 0 until jMax) {
