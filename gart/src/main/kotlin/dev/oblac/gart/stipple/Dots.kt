@@ -1,4 +1,4 @@
-package dev.oblac.gart.pixels.dither
+package dev.oblac.gart.stipple
 
 import dev.oblac.gart.Pixels
 import dev.oblac.gart.color.space.luminance
@@ -17,7 +17,7 @@ import kotlin.math.sqrt
  * @param foreground dot color (ARGB)
  * @param background cell background color (ARGB)
  */
-fun ditherDots(
+fun stippleDots(
     bitmap: Pixels,
     dotSize: Int = 8,
     gap: Float = 0f,
