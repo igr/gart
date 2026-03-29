@@ -2,15 +2,18 @@ package dev.oblac.gart
 
 import dev.oblac.gart.color.CssColors
 import dev.oblac.gart.gfx.draw
+import dev.oblac.gart.gfx.drawImage
 import dev.oblac.gart.gfx.fillOfRed
 import dev.oblac.gart.pixels.dither.*
 import dev.oblac.gart.pixels.makeGray
+import dev.oblac.gart.util.loadResourceAsImage
 import org.jetbrains.skia.Canvas
 import org.jetbrains.skia.Shader
 
 private var ditherAlgorithm: (Gartmap) -> Unit = {}
 private var drawAlgorithm: (c: Canvas, d: Dimension) -> Unit = ::draw1
 private var preProcess: (Gartmap) -> Unit = {}
+private val corgi = loadResourceAsImage("/corgi.png")
 
 fun main() {
     val gart = Gart.of("exampleDither", 1024, 1024)
@@ -28,41 +31,54 @@ fun main() {
         c.draw(g)
     }.onKey {
         when (it) {
-            Key.KEY_F -> {
+            // NUMBERS = DRAW
+            Key.KEY_0 -> {
+                preProcess = {}
+                println("Switched to NO PREPROCESS")
+            }
+
+            Key.KEY_1 -> {
                 preProcess = { b -> makeGray(b) }
                 println("Switched to GRAY")
             }
 
-            Key.KEY_R -> {
-                preProcess = {}
-                println("Switched to NO PREPROCESS")
-            }
-            Key.KEY_E -> {
+            Key.KEY_2 -> {
                 drawAlgorithm = ::draw1
                 println("Switched to RED")
             }
 
-            Key.KEY_D -> {
+            Key.KEY_3 -> {
                 drawAlgorithm = ::draw2
                 println("Switched to BLACK")
             }
+
+            Key.KEY_4 -> {
+                drawAlgorithm = ::draw3
+                println("Switched to BLACK")
+            }
+
+            // PIXEL SIZE
             Key.KEY_Q -> {
                 pixelSize++
                 println("Increased pixel size to: $pixelSize")
             }
 
             Key.KEY_A -> {
-                pixelSize--
+                if (pixelSize > 1) {
+                    pixelSize--
+                }
                 println("Decreased pixel size to: $pixelSize")
             }
-
+            // COLORS
             Key.KEY_W -> {
                 maxColors++
                 println("Increased max colors to: $maxColors")
             }
 
             Key.KEY_S -> {
-                maxColors--
+                if (maxColors > 2) {
+                    maxColors--
+                }
                 println("Decreased max colors to: $maxColors")
             }
 
@@ -73,11 +89,17 @@ fun main() {
             Key.KEY_B -> ditherAlgorithm = { b -> ditherOrdered2By2Bayer(b, pixelSize, maxColors) }
             Key.KEY_N -> ditherAlgorithm = { b -> ditherOrdered3By3Bayer(b, pixelSize, maxColors) }
             Key.KEY_M -> ditherAlgorithm = { b -> ditherOrdered4By4Bayer(b, pixelSize, maxColors) }
+
             Key.KEY_L -> ditherAlgorithm = { b -> ditherOrdered8By8Bayer(b, pixelSize, maxColors) }
             Key.KEY_K -> ditherAlgorithm = { b -> ditherSierra(b, pixelSize, maxColors) }
             Key.KEY_J -> ditherAlgorithm = { b -> ditherSierraLite(b, pixelSize, maxColors) }
             Key.KEY_H -> ditherAlgorithm = { b -> ditherStucki(b, pixelSize, maxColors) }
             Key.KEY_G -> ditherAlgorithm = { b -> ditherTwoRowSierra(b, pixelSize, maxColors) }
+            Key.KEY_F -> ditherAlgorithm = { b -> ditherFedoseev3(b, pixelSize, maxColors) }
+            Key.KEY_D -> ditherAlgorithm = { b -> ditherShiauFan1(b, pixelSize, maxColors) }
+
+            Key.KEY_E -> ditherAlgorithm = { b -> ditherWongAllebach(b, pixelSize, maxColors) }
+
             Key.KEY_P -> ditherAlgorithm = { b -> ditherStippleDotDensity(b, pixelSize) }
             Key.KEY_O -> ditherAlgorithm = { b -> ditherDots(b, pixelSize) }
 
@@ -107,4 +129,8 @@ private fun draw2(c: Canvas, d: Dimension) {
         )
         this.isDither = true
     })
+}
+
+private fun draw3(c: Canvas, d: Dimension) {
+    c.drawImage(corgi)
 }
