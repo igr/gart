@@ -1,4 +1,4 @@
-package dev.oblac.gart.math
+package dev.oblac.gart.matrix
 
 import org.jetbrains.skia.Matrix33
 

@@ -6,7 +6,6 @@ import dev.oblac.gart.font.FontFamily
 import dev.oblac.gart.font.font
 import dev.oblac.gart.gfx.strokeOfBlack
 import dev.oblac.gart.vector.Vec3
-import dev.oblac.gart.vector.Vector3
 import dev.oblac.gart.vector.cos
 import org.jetbrains.skia.*
 
@@ -161,7 +160,7 @@ private fun draw(c: Canvas, d: Dimension) {
     val wb = waves.b()
     val wc = waves.c()
     val wd = waves.d()
-    val palette: (Float) -> Vector3 = { t: Float ->
+    val palette: (Float) -> Vec3 = { t: Float ->
         wa + wb * cos(Vec3.TWO_PI * (wc * t + wd))
     }
     drawGradientBar(c, d, ggen, palette)
@@ -183,7 +182,7 @@ private fun drawGrid(c: Canvas, d: Dimension, ggen: GGen) {
         color = 0xFF888888.toInt() // gray color for grid
         isAntiAlias = true
         // Create dotted line effect: 5px dash, 5px gap
-        pathEffect = org.jetbrains.skia.PathEffect.makeDash(floatArrayOf(5f, 5f), 0f)
+        pathEffect = PathEffect.makeDash(floatArrayOf(5f, 5f), 0f)
     }
 
     // Draw 11 vertical lines (x = 0.0, 0.1, 0.2, ..., 1.0)

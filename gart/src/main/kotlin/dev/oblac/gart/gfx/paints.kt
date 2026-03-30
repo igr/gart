@@ -2,7 +2,7 @@ package dev.oblac.gart.gfx
 
 import dev.oblac.gart.angle.Angle
 import dev.oblac.gart.angle.Degrees
-import dev.oblac.gart.math.multiply
+import dev.oblac.gart.matrix.multiply
 import org.jetbrains.skia.*
 
 fun strokeOf(color: Color4f, width: Float) = Paint().apply {

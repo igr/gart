@@ -1,6 +1,6 @@
 package dev.oblac.gart.whfast
 
-import dev.oblac.gart.vector.Vector2
+import dev.oblac.gart.vector.Vec2
 import kotlin.math.PI
 
 /**
@@ -35,7 +35,7 @@ class NBodySystem2D(
     val angularMomentum: Float get() = WHIntegrator2D.totalAngularMomentum(_bodies)
 
     /** Center of mass position */
-    val centerOfMass: Vector2 get() = WHIntegrator2D.centerOfMass(_bodies)
+    val centerOfMass: Vec2 get() = WHIntegrator2D.centerOfMass(_bodies)
 
     /**
      * Add a central body (star) at the origin.
@@ -49,8 +49,8 @@ class NBodySystem2D(
      * Add a body with explicit position and velocity.
      */
     fun addBody(
-        position: Vector2,
-        velocity: Vector2,
+        position: Vec2,
+        velocity: Vec2,
         mass: Float,
         name: String = ""
     ): NBodySystem2D {
@@ -71,7 +71,7 @@ class NBodySystem2D(
         require(_bodies.isNotEmpty()) { "Add central body first" }
 
         val centralMass = _bodies[0].mass
-        val position = Vector2.of(dev.oblac.gart.angle.Radians(startAngle)) * distance
+        val position = Vec2.of(dev.oblac.gart.angle.Radians(startAngle)) * distance
         val body = Body2D.circularOrbit(position, mass, centralMass, G, prograde, name)
 
         _bodies.add(body)
@@ -213,9 +213,9 @@ class NBodySystem2D(
             val vy3 = -0.86473146f
 
             return NBodySystem2D(G).apply {
-                addBody(Vector2(-x1, y1), Vector2(vx3 / 2f, vy3 / 2f), 1f, "Body1")
-                addBody(Vector2(x1, -y1), Vector2(vx3 / 2f, vy3 / 2f), 1f, "Body2")
-                addBody(Vector2.ZERO, Vector2(-vx3, -vy3), 1f, "Body3")
+                addBody(Vec2(-x1, y1), Vec2(vx3 / 2f, vy3 / 2f), 1f, "Body1")
+                addBody(Vec2(x1, -y1), Vec2(vx3 / 2f, vy3 / 2f), 1f, "Body2")
+                addBody(Vec2.ZERO, Vec2(-vx3, -vy3), 1f, "Body3")
             }
         }
     }

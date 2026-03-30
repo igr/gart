@@ -3,7 +3,7 @@ package dev.oblac.gart
 import dev.oblac.gart.flow.*
 import dev.oblac.gart.gfx.strokeOf
 import dev.oblac.gart.math.*
-import dev.oblac.gart.vector.Vector2
+import dev.oblac.gart.vector.Vec2
 import org.jetbrains.skia.Color
 import org.jetbrains.skia.Point
 
@@ -35,7 +35,7 @@ fun main() {
         ComplexFunctions.simple(z)
     }
     val flowField6 = FlowField.from(gart.d) { x, y ->
-        complexField[x, y].let { c -> Vector2(c.real, c.imag) }
+        complexField[x, y].let { c -> Vec2(c.real, c.imag) }
     }
 
     var ff = flowField1

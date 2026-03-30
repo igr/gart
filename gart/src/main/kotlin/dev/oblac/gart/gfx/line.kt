@@ -3,7 +3,7 @@ package dev.oblac.gart.gfx
 import dev.oblac.gart.angle.Angle
 import dev.oblac.gart.angle.Radians
 import dev.oblac.gart.math.fastSqrt
-import dev.oblac.gart.vector.Vector2
+import dev.oblac.gart.vector.Vec2
 import org.jetbrains.skia.*
 import kotlin.math.*
 
@@ -134,7 +134,7 @@ data class Line(val a: Point, val b: Point) {
      */
     fun toDline(): DLine {
         val angle = angle()
-        return DLine(a, Vector2.of(angle))
+        return DLine(a, Vec2.of(angle))
     }
 
 

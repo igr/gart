@@ -11,12 +11,7 @@ import dev.oblac.gart.color.red
 import dev.oblac.gart.gfx.draw
 import dev.oblac.gart.math.f
 import dev.oblac.gart.pixader.pixdraw
-import dev.oblac.gart.vector.Vec2
-import dev.oblac.gart.vector.Vec3
-import dev.oblac.gart.vector.Vec4
-import dev.oblac.gart.vector.Vector3
-import dev.oblac.gart.vector.frac
-import dev.oblac.gart.vector.length
+import dev.oblac.gart.vector.*
 import kotlin.math.abs
 import kotlin.math.exp
 import kotlin.math.sin
@@ -64,7 +59,7 @@ private val pal = Palettes.mix9.expand(1000)
 private fun palette(t: Float): Vec3 {
     val index = t.coerceIn(0f, 1f) * (pal.size - 1)
     val color = pal[index.toInt()]
-    return Vector3(
+    return Vec3(
         red(color) / 255f,
         green(color) / 255f,
         blue(color) / 255f

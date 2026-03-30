@@ -1,6 +1,6 @@
 package dev.oblac.gart.whfast
 
-import dev.oblac.gart.vector.Vector2
+import dev.oblac.gart.vector.Vec2
 import kotlin.math.*
 
 /**
@@ -13,7 +13,7 @@ object CoordinateTransform {
      * Convert Keplerian orbital elements to Cartesian state vectors.
      * Returns Pair<position, velocity>.
      */
-    fun toCartesian(elements: OrbitalElements2D): Pair<Vector2, Vector2> {
+    fun toCartesian(elements: OrbitalElements2D): Pair<Vec2, Vec2> {
         val (a, e, omega, M, mu) = elements
 
         if (e < 1f) {
@@ -25,7 +25,7 @@ object CoordinateTransform {
 
     private fun ellipticToCartesian(
         a: Float, e: Float, omega: Float, M: Float, mu: Float
-    ): Pair<Vector2, Vector2> {
+    ): Pair<Vec2, Vec2> {
         // Solve Kepler's equation for eccentric anomaly
         val E = KeplerSolver.solveElliptic(M, e)
 
@@ -58,12 +58,12 @@ object CoordinateTransform {
         val vx = vx_orbital * cosOmega - vy_orbital * sinOmega
         val vy = vx_orbital * sinOmega + vy_orbital * cosOmega
 
-        return Pair(Vector2(x, y), Vector2(vx, vy))
+        return Pair(Vec2(x, y), Vec2(vx, vy))
     }
 
     private fun hyperbolicToCartesian(
         a: Float, e: Float, omega: Float, M: Float, mu: Float
-    ): Pair<Vector2, Vector2> {
+    ): Pair<Vec2, Vec2> {
         // For hyperbolic orbits, a is negative
         val aAbs = abs(a)
 
@@ -94,13 +94,13 @@ object CoordinateTransform {
         val vx = vx_orbital * cosOmega - vy_orbital * sinOmega
         val vy = vx_orbital * sinOmega + vy_orbital * cosOmega
 
-        return Pair(Vector2(x, y), Vector2(vx, vy))
+        return Pair(Vec2(x, y), Vec2(vx, vy))
     }
 
     /**
      * Convert Cartesian state vectors to Keplerian orbital elements.
      */
-    fun toOrbitalElements(position: Vector2, velocity: Vector2, mu: Float): OrbitalElements2D {
+    fun toOrbitalElements(position: Vec2, velocity: Vec2, mu: Float): OrbitalElements2D {
         return OrbitalElements2D.fromCartesian(position, velocity, mu)
     }
 
@@ -128,7 +128,7 @@ object CoordinateTransform {
         val result = mutableListOf<Body2D>()
 
         // First body stays at origin (central body)
-        result.add(bodies[0].copy(position = Vector2.ZERO, velocity = Vector2.ZERO))
+        result.add(bodies[0].copy(position = Vec2.ZERO, velocity = Vec2.ZERO))
 
         // Cumulative mass and center of mass
         var totalMass = bodies[0].mass

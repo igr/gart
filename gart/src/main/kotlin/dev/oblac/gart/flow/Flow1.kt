@@ -4,7 +4,7 @@ import dev.oblac.gart.angle.Angle
 import dev.oblac.gart.angle.cos
 import dev.oblac.gart.angle.middleAngle
 import dev.oblac.gart.angle.sin
-import dev.oblac.gart.vector.Vector2
+import dev.oblac.gart.vector.Vec2
 import org.jetbrains.skia.Point
 
 /**
@@ -27,9 +27,9 @@ data class Flow1(val direction: Angle, val magnitude: Float = 1f) : Flow {
     /**
      * Calculates the offset of a point by the flow.
      */
-    override fun invoke(p: Point): Vector2 {
+    override fun invoke(p: Point): Vec2 {
         val dx = sin(direction) * magnitude
         val dy = -cos(direction) * magnitude
-        return Vector2(dx, dy)
+        return Vec2(dx, dy)
     }
 }

@@ -10,29 +10,27 @@ import kotlin.math.cos
 import kotlin.math.sin
 import kotlin.math.sqrt
 
-typealias Vec2 = Vector2
+fun vec2(x: Number, y: Number) = Vec2(x, y)
 
-fun vec2(x: Number, y: Number) = Vector2(x, y)
-
-data class Vector2(val x: Float, val y: Float) {
+data class Vec2(val x: Float, val y: Float) {
     constructor(x: Number, y: Number) : this(x.toFloat(), y.toFloat())
 
-    operator fun plus(other: Vector2) = Vector2(x + other.x, y + other.y)
-    operator fun plus(scalar: Number) = Vector2(x + scalar.toFloat(), y + scalar.toFloat())
-    operator fun minus(other: Vector2) = Vector2(x - other.x, y - other.y)
-    operator fun minus(scalar: Number) = Vector2(x - scalar.toFloat(), y - scalar.toFloat())
-    operator fun times(scalar: Number) = Vector2(x * scalar.toFloat(), y * scalar.toFloat())
-    operator fun times(other: Vector2) = Vector2(x * other.x, y * other.y)
-    operator fun div(scalar: Number) = Vector2(x / scalar.toFloat(), y / scalar.toFloat())
-    operator fun div(other: Vector2) = Vector2(x / other.x, y / other.y)
+    operator fun plus(other: Vec2) = Vec2(x + other.x, y + other.y)
+    operator fun plus(scalar: Number) = Vec2(x + scalar.toFloat(), y + scalar.toFloat())
+    operator fun minus(other: Vec2) = Vec2(x - other.x, y - other.y)
+    operator fun minus(scalar: Number) = Vec2(x - scalar.toFloat(), y - scalar.toFloat())
+    operator fun times(scalar: Number) = Vec2(x * scalar.toFloat(), y * scalar.toFloat())
+    operator fun times(other: Vec2) = Vec2(x * other.x, y * other.y)
+    operator fun div(scalar: Number) = Vec2(x / scalar.toFloat(), y / scalar.toFloat())
+    operator fun div(other: Vec2) = Vec2(x / other.x, y / other.y)
 
-    fun dot(other: Vector2) = x * other.x + y * other.y
-    fun cross(other: Vector2) = x * other.y - y * other.x
+    fun dot(other: Vec2) = x * other.x + y * other.y
+    fun cross(other: Vec2) = x * other.y - y * other.x
 
     fun length() = sqrt(x * x + y * y)
     val magnitude by lazy { length() }
 
-    fun normalize(): Vector2 {
+    fun normalize(): Vec2 {
         return if (magnitude == 0f) this
         else this / magnitude
     }
@@ -40,10 +38,10 @@ data class Vector2(val x: Float, val y: Float) {
     /**
      * Returns a new vector that is the result of rotating this vector by the given angle.
      */
-    fun rotate(angle: Float): Vector2 {
+    fun rotate(angle: Float): Vec2 {
         val s = sin(angle)
         val c = cos(angle)
-        return Vector2(
+        return Vec2(
             x * c - y * s,
             x * s + y * c
         )
@@ -55,14 +53,14 @@ data class Vector2(val x: Float, val y: Float) {
     val angle by lazy { Radians.of(atan2(y, x)) }
 
     companion object {
-        val ZERO = Vector2(0f, 0f)
+        val ZERO = Vec2(0f, 0f)
 
-        fun of(angle: Angle): Vector2 {
-            return Vector2(cosf(angle), sinf(angle))
+        fun of(angle: Angle): Vec2 {
+            return Vec2(cosf(angle), sinf(angle))
         }
     }
 }
 
-fun sin(v: Vector2) = Vector2(sin(v.x), sin(v.y))
-fun frac(v: Vector2) = Vector2(frac(v.x), frac(v.y))
-fun length(v: Vector2) = sqrt(v.x * v.x + v.y * v.y)
+fun sin(v: Vec2) = Vec2(sin(v.x), sin(v.y))
+fun frac(v: Vec2) = Vec2(frac(v.x), frac(v.y))
+fun length(v: Vec2) = sqrt(v.x * v.x + v.y * v.y)

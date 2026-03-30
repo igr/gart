@@ -1,7 +1,7 @@
 package dev.oblac.gart.gfx
 
 import dev.oblac.gart.angle.*
-import dev.oblac.gart.vector.Vector2
+import dev.oblac.gart.vector.Vec2
 import org.jetbrains.skia.Canvas
 import org.jetbrains.skia.Paint
 import org.jetbrains.skia.Point
@@ -36,7 +36,7 @@ data class DirectionVector(val dx: Float, val dy: Float) {
  * This is a parametric line defined by a point and a direction vector.
  * The line extends infinitely in both directions from the point `p`.
  */
-data class DLine(val p: Point, val dvec: Vector2) {
+data class DLine(val p: Point, val dvec: Vec2) {
     fun pointFromStart(t: Float): Point {
         val dir = dvec.normalize()
         return Point(p.x + t * dir.x, p.y + t * dir.y)
@@ -48,7 +48,7 @@ data class DLine(val p: Point, val dvec: Vector2) {
     }
 
     fun perpendicularDLine(): DLine {
-        val perpDVec = Vector2(
+        val perpDVec = Vec2(
             x = -dvec.y,
             y = dvec.x
         )
@@ -80,7 +80,7 @@ data class DLine(val p: Point, val dvec: Vector2) {
         fun of(prev: Point, current: Point, next: Point): DLine {
             return DLine(
                 p = current,
-                dvec = Vector2(
+                dvec = Vec2(
                     x = (next.x - prev.x) / 2,
                     y = (next.y - prev.y) / 2
                 )
@@ -93,7 +93,7 @@ data class DLine(val p: Point, val dvec: Vector2) {
         fun of(point: Point, current: Angle): DLine {
             return DLine(
                 p = point,
-                dvec = Vector2(
+                dvec = Vec2(
                     x = cos(current),
                     y = sin(current)
                 )

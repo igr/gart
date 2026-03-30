@@ -14,7 +14,7 @@ import dev.oblac.gart.font.font
 import dev.oblac.gart.gfx.center
 import dev.oblac.gart.gfx.shrink
 import dev.oblac.gart.gfx.splitToGrid
-import dev.oblac.gart.math.multiply
+import dev.oblac.gart.matrix.multiply
 import dev.oblac.gart.text.HorizontalAlign
 import dev.oblac.gart.text.drawStringInRect
 import org.jetbrains.skia.Canvas

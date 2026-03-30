@@ -8,7 +8,7 @@ import dev.oblac.gart.color.alpha
 import dev.oblac.gart.flow.FlowField
 import dev.oblac.gart.gfx.*
 import dev.oblac.gart.math.*
-import dev.oblac.gart.vector.Vector2
+import dev.oblac.gart.vector.Vec2
 import org.jetbrains.skia.Canvas
 import org.jetbrains.skia.Path
 import org.jetbrains.skia.Point
@@ -92,7 +92,7 @@ private fun force2(d: Dimension): FlowField {
         ComplexFunctions.polesAndHoles(poles, holes)(z)
     }
     return FlowField.from(d) { x, y ->
-        complexField[x, y].let { c -> Vector2(c.real, c.imag).normalize() }
+        complexField[x, y].let { c -> Vec2(c.real, c.imag).normalize() }
     }
 }
 

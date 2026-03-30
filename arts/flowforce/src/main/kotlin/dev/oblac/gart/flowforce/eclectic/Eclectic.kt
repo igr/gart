@@ -8,7 +8,7 @@ import dev.oblac.gart.flow.FlowField
 import dev.oblac.gart.gfx.*
 import dev.oblac.gart.math.rndf
 import dev.oblac.gart.noise.PerlinNoise
-import dev.oblac.gart.vector.Vector2
+import dev.oblac.gart.vector.Vec2
 import org.jetbrains.skia.Canvas
 import org.jetbrains.skia.PaintStrokeCap
 import org.jetbrains.skia.Point
@@ -59,9 +59,9 @@ fun ff(): FlowField {
     val step = 10
     val ff = FlowField.of(gart.d) { x, y ->
         object : Flow {
-            override fun invoke(p: Point): Vector2 {
+            override fun invoke(p: Point): Vec2 {
                 val n = noise.noise(p.x / smooth, p.y / smooth) * 3
-                return Vector2(cos(n - 0.5) * step, sin(n - 0.5) * step)
+                return Vec2(cos(n - 0.5) * step, sin(n - 0.5) * step)
             }
         }
     }

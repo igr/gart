@@ -1,6 +1,6 @@
 package dev.oblac.gart.whfast
 
-import dev.oblac.gart.vector.Vector2
+import dev.oblac.gart.vector.Vec2
 
 /**
  * Wisdom-Holman (WHFAST) symplectic integrator for 2D N-body orbital mechanics.
@@ -127,7 +127,7 @@ class WHIntegrator2D(
         if (n < 2) return bodies
 
         // Compute accelerations from gravitational interactions
-        val accelerations = Array(n) { Vector2.ZERO }
+        val accelerations = Array(n) { Vec2.ZERO }
 
         // Planet-planet interactions (skip central body for self-interaction)
         for (i in 1 until n) {
@@ -260,9 +260,9 @@ class WHIntegrator2D(
         /**
          * Compute center of mass position.
          */
-        fun centerOfMass(bodies: List<Body2D>): Vector2 {
+        fun centerOfMass(bodies: List<Body2D>): Vec2 {
             val totalMass = bodies.sumOf { it.mass.toDouble() }.toFloat()
-            var com = Vector2.ZERO
+            var com = Vec2.ZERO
             for (body in bodies) {
                 com += body.position * body.mass
             }
@@ -272,9 +272,9 @@ class WHIntegrator2D(
         /**
          * Compute center of mass velocity.
          */
-        fun centerOfMassVelocity(bodies: List<Body2D>): Vector2 {
+        fun centerOfMassVelocity(bodies: List<Body2D>): Vec2 {
             val totalMass = bodies.sumOf { it.mass.toDouble() }.toFloat()
-            var comVel = Vector2.ZERO
+            var comVel = Vec2.ZERO
             for (body in bodies) {
                 comVel += body.velocity * body.mass
             }

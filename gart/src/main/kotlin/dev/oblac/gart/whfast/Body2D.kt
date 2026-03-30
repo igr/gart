@@ -1,6 +1,6 @@
 package dev.oblac.gart.whfast
 
-import dev.oblac.gart.vector.Vector2
+import dev.oblac.gart.vector.Vec2
 import kotlin.math.sqrt
 
 /**
@@ -13,8 +13,8 @@ import kotlin.math.sqrt
  * @param name Optional name for identification
  */
 data class Body2D(
-    val position: Vector2,
-    val velocity: Vector2,
+    val position: Vec2,
+    val velocity: Vec2,
     val mass: Float,
     val name: String = ""
 ) {
@@ -36,22 +36,22 @@ data class Body2D(
     /**
      * Returns a new body with updated position
      */
-    fun withPosition(newPosition: Vector2) = copy(position = newPosition)
+    fun withPosition(newPosition: Vec2) = copy(position = newPosition)
 
     /**
      * Returns a new body with updated velocity
      */
-    fun withVelocity(newVelocity: Vector2) = copy(velocity = newVelocity)
+    fun withVelocity(newVelocity: Vec2) = copy(velocity = newVelocity)
 
     /**
      * Returns a new body with position offset by delta
      */
-    fun offsetPosition(delta: Vector2) = copy(position = position + delta)
+    fun offsetPosition(delta: Vec2) = copy(position = position + delta)
 
     /**
      * Returns a new body with velocity offset by delta (kick)
      */
-    fun kick(deltaV: Vector2) = copy(velocity = velocity + deltaV)
+    fun kick(deltaV: Vec2) = copy(velocity = velocity + deltaV)
 
     /**
      * Returns a new body drifted by time dt (position updated by velocity * dt)
@@ -63,8 +63,8 @@ data class Body2D(
          * Creates a body at rest at the origin
          */
         fun atOrigin(mass: Float, name: String = "") = Body2D(
-            position = Vector2.ZERO,
-            velocity = Vector2.ZERO,
+            position = Vec2.ZERO,
+            velocity = Vec2.ZERO,
             mass = mass,
             name = name
         )
@@ -77,7 +77,7 @@ data class Body2D(
          * @param prograde True for counter-clockwise orbit, false for clockwise
          */
         fun circularOrbit(
-            position: Vector2,
+            position: Vec2,
             mass: Float,
             centralMass: Float,
             G: Float = 1f,
@@ -88,7 +88,7 @@ data class Body2D(
             val speed = sqrt(G * centralMass / r)
             // Velocity perpendicular to position vector
             val direction = if (prograde) 1f else -1f
-            val velocity = Vector2(-position.y, position.x).normalize() * speed * direction
+            val velocity = Vec2(-position.y, position.x).normalize() * speed * direction
             return Body2D(position, velocity, mass, name)
         }
     }

@@ -1,6 +1,6 @@
 package dev.oblac.gart.whfast
 
-import dev.oblac.gart.vector.Vector2
+import dev.oblac.gart.vector.Vec2
 import kotlin.math.*
 
 /**
@@ -58,7 +58,7 @@ data class OrbitalElements2D(
         /**
          * Create orbital elements from Cartesian state vectors.
          */
-        fun fromCartesian(position: Vector2, velocity: Vector2, mu: Float): OrbitalElements2D {
+        fun fromCartesian(position: Vec2, velocity: Vec2, mu: Float): OrbitalElements2D {
             val r = position.length()
             val v = velocity.length()
 
@@ -68,7 +68,7 @@ data class OrbitalElements2D(
             // Eccentricity vector
             val evx = (v * v / mu - 1f / r) * position.x - (position.dot(velocity) / mu) * velocity.x
             val evy = (v * v / mu - 1f / r) * position.y - (position.dot(velocity) / mu) * velocity.y
-            val eVec = Vector2(evx, evy)
+            val eVec = Vec2(evx, evy)
             val e = eVec.length()
 
             // Semi-major axis from vis-viva equation

@@ -7,7 +7,7 @@ import dev.oblac.gart.flow.FlowField
 import dev.oblac.gart.gfx.drawPoint
 import dev.oblac.gart.gfx.strokeOf
 import dev.oblac.gart.math.*
-import dev.oblac.gart.vector.Vector2
+import dev.oblac.gart.vector.Vec2
 import org.jetbrains.skia.PaintStrokeCap
 import org.jetbrains.skia.Point
 import kotlin.math.cos
@@ -36,7 +36,7 @@ val complexField = ComplexField.of(gart.d) { x, y ->
     fnz(Complex(x, y))
 }
 val ff = FlowField.from(gart.d) { x, y ->
-    complexField[x, y].let { z -> Vector2(z.real, z.imag) }
+    complexField[x, y].let { z -> Vec2(z.real, z.imag) }
 }
 
 fun main() {

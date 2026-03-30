@@ -13,7 +13,7 @@ import dev.oblac.gart.math.rndf
 import dev.oblac.gart.noise.PoissonDiskSamplingNoise
 import dev.oblac.gart.triangulation.Delaunator
 import dev.oblac.gart.triangulation.delaunayToVoronoi
-import dev.oblac.gart.vector.Vector2
+import dev.oblac.gart.vector.Vec2
 import org.jetbrains.skia.Canvas
 
 fun main() {
@@ -36,7 +36,7 @@ private fun draw(c: Canvas, d: Dimension) {
 
     // we need a bigger rectangle to avoid weird effects at the edges
     val dOut = d.rect.grow(200f).dimension()
-    val vOut = Vector2(-200f, -200f)
+    val vOut = Vec2(-200f, -200f)
 
     val points = PoissonDiskSamplingNoise().generate(0.0, 0.0, dOut.wd, dOut.hd, 160.0, 100)
     val triangles = Delaunator(points).triangles()

@@ -4,7 +4,7 @@ import dev.oblac.gart.Dimension
 import dev.oblac.gart.math.dist
 import dev.oblac.gart.math.distSquared
 import dev.oblac.gart.math.rndf
-import dev.oblac.gart.vector.Vector2
+import dev.oblac.gart.vector.Vec2
 import org.jetbrains.skia.Point
 import org.jetbrains.skia.Rect
 
@@ -19,7 +19,7 @@ fun Point.isInside(rect: Rect) =
 fun Point.isInside(triangle: Triangle) =
     triangle.contains(this)
 
-fun Point.offset(vec: Vector2) = this.offset(vec.x, vec.y)
+fun Point.offset(vec: Vec2) = this.offset(vec.x, vec.y)
 
 fun Point.fromCenter(d: Dimension, fl: Float = 1f): Point {
     val x = d.cx + x * fl

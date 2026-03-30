@@ -7,7 +7,7 @@ import dev.oblac.gart.gfx.isInside
 import dev.oblac.gart.gfx.strokeOfBlue
 import dev.oblac.gart.gfx.strokeOfRed
 import dev.oblac.gart.math.f
-import dev.oblac.gart.vector.Vector2
+import dev.oblac.gart.vector.Vec2
 import org.jetbrains.skia.Canvas
 import org.jetbrains.skia.Point
 
@@ -58,7 +58,7 @@ class FlowField(val w: Int, val h: Int, private val field: Array<Array<Flow>>) {
          * Creates a force field from a function that generates a vector for each point.
          * Points are defined with the index. Used when mapping from one space into another.
          */
-        fun from(d: Dimension, fn: (Int, Int) -> Vector2) = FlowField(
+        fun from(d: Dimension, fn: (Int, Int) -> Vec2) = FlowField(
             d.w, d.h,
             Array(d.w) { x ->
                 Array(d.h) { y ->

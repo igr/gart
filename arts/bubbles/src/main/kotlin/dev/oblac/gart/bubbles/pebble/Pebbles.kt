@@ -6,9 +6,9 @@ import dev.oblac.gart.Gart
 import dev.oblac.gart.Gartvas
 import dev.oblac.gart.color.RetroColors
 import dev.oblac.gart.gfx.*
-import dev.oblac.gart.math.multiply
 import dev.oblac.gart.math.rndf
 import dev.oblac.gart.math.rndsgn
+import dev.oblac.gart.matrix.multiply
 import dev.oblac.gart.smooth.catmullRomSpline
 import org.jetbrains.skia.*
 
