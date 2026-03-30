@@ -10,12 +10,12 @@ import dev.oblac.gart.color.CssColors.deepSkyBlue
 import dev.oblac.gart.color.CssColors.gold
 import dev.oblac.gart.color.CssColors.mediumSeaGreen
 import dev.oblac.gart.color.CssColors.white
+import dev.oblac.gart.dither.ditherFloydSteinberg
 import dev.oblac.gart.font.FontFamily
 import dev.oblac.gart.font.font
 import dev.oblac.gart.fx.scaleImage
 import dev.oblac.gart.gfx.shrink
 import dev.oblac.gart.gfx.splitToGrid
-import dev.oblac.gart.pixels.dither.ditherFloydSteinberg
 import dev.oblac.gart.pixels.makeGray
 import dev.oblac.gart.text.HorizontalAlign
 import dev.oblac.gart.text.drawStringInRect

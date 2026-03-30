@@ -8,7 +8,7 @@ import dev.oblac.gart.color.space.RGBA.Companion.YELLOW
 import dev.oblac.gart.gfx.draw
 import dev.oblac.gart.gfx.drawImage
 import dev.oblac.gart.gfx.fillOfRed
-import dev.oblac.gart.pixels.halftone.*
+import dev.oblac.gart.halftone.*
 import dev.oblac.gart.util.loadResourceAsImage
 import org.jetbrains.skia.Canvas
 import org.jetbrains.skia.Shader

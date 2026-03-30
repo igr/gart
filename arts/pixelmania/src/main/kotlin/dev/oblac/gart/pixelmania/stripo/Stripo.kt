@@ -6,8 +6,8 @@ import dev.oblac.gart.gfx.Line
 import dev.oblac.gart.gfx.draw
 import dev.oblac.gart.gfx.drawLine
 import dev.oblac.gart.gfx.paint
-import dev.oblac.gart.pixels.halftone.HalftoneConfiguration
-import dev.oblac.gart.pixels.halftone.halftoneProcess
+import dev.oblac.gart.halftone.HalftoneConfiguration
+import dev.oblac.gart.halftone.halftoneProcess
 import org.jetbrains.skia.Canvas
 import org.jetbrains.skia.PaintStrokeCap
 import org.jetbrains.skia.PathEffect

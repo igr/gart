@@ -1,10 +1,10 @@
 package dev.oblac.gart
 
 import dev.oblac.gart.color.CssColors
+import dev.oblac.gart.dither.*
 import dev.oblac.gart.gfx.draw
 import dev.oblac.gart.gfx.drawImage
 import dev.oblac.gart.gfx.fillOfRed
-import dev.oblac.gart.pixels.dither.*
 import dev.oblac.gart.pixels.makeGray
 import dev.oblac.gart.util.loadResourceAsImage
 import org.jetbrains.skia.Canvas
@@ -89,7 +89,11 @@ fun main() {
             Key.KEY_B -> ditherAlgorithm = { b -> ditherOrdered2By2Bayer(b, pixelSize, maxColors) }
             Key.KEY_N -> ditherAlgorithm = { b -> ditherOrdered3By3Bayer(b, pixelSize, maxColors) }
             Key.KEY_M -> ditherAlgorithm = { b -> ditherOrdered4By4Bayer(b, pixelSize, maxColors) }
+            Key.KEY_COMMA -> ditherAlgorithm = { b -> ditherBlueNoise(b, pixelSize, maxColors) }
+            Key.KEY_PERIOD -> ditherAlgorithm = { b -> ditherEntropyConstrained(b, pixelSize, maxColors) }
 
+            Key.KEY_QUOTE -> ditherAlgorithm = { b -> ditherLaplacian(b, pixelSize, maxColors) }
+            Key.KEY_SEMICOLON -> ditherAlgorithm = { b -> ditherContrastAware(b, pixelSize, maxColors) }
             Key.KEY_L -> ditherAlgorithm = { b -> ditherOrdered8By8Bayer(b, pixelSize, maxColors) }
             Key.KEY_K -> ditherAlgorithm = { b -> ditherSierra(b, pixelSize, maxColors) }
             Key.KEY_J -> ditherAlgorithm = { b -> ditherSierraLite(b, pixelSize, maxColors) }
@@ -98,13 +102,14 @@ fun main() {
             Key.KEY_F -> ditherAlgorithm = { b -> ditherFedoseev3(b, pixelSize, maxColors) }
             Key.KEY_D -> ditherAlgorithm = { b -> ditherShiauFan1(b, pixelSize, maxColors) }
 
+            Key.KEY_OPEN_BRACKET -> ditherAlgorithm = { b -> ditherVisualDifference(b, pixelSize, maxColors) }
             Key.KEY_P -> ditherAlgorithm = { b -> ditherWongAllebach(b, pixelSize, maxColors) }
             Key.KEY_O -> ditherAlgorithm = { b -> ditherOstromoukhov(b, pixelSize, maxColors) }
             Key.KEY_I -> ditherAlgorithm = { b -> ditherZhouFang(b, pixelSize, maxColors) }
             Key.KEY_U -> ditherAlgorithm = { b -> ditherZhangPang(b, pixelSize, maxColors) }
             Key.KEY_Y -> ditherAlgorithm = { b -> ditherWhiteNoise(b, pixelSize, maxColors) }
             Key.KEY_T -> ditherAlgorithm = { b -> ditherThreshold(b, pixelSize, maxColors) }
-            Key.KEY_R -> ditherAlgorithm = { b -> ditherMarcu(b, pixelSize = pixelSize, colorCount = maxColors) }
+            Key.KEY_R -> ditherAlgorithm = { b -> ditherMarcu(b, pixelSize, maxColors) }
 
             else -> {}
         }

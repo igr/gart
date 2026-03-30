@@ -2,10 +2,10 @@ package dev.oblac.gart.pixelmania.rastsin
 
 import dev.oblac.gart.*
 import dev.oblac.gart.color.RetroColors
+import dev.oblac.gart.dither.ditherOrdered4By4Bayer
 import dev.oblac.gart.gfx.*
 import dev.oblac.gart.math.GOLDEN_RATIO
 import dev.oblac.gart.math.f
-import dev.oblac.gart.pixels.dither.ditherOrdered4By4Bayer
 import org.jetbrains.skia.Canvas
 import org.jetbrains.skia.Shader
 import kotlin.math.sin
