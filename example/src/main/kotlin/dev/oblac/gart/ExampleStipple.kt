@@ -5,8 +5,10 @@ import dev.oblac.gart.gfx.draw
 import dev.oblac.gart.gfx.drawImage
 import dev.oblac.gart.gfx.fillOfRed
 import dev.oblac.gart.pixels.makeGray
+import dev.oblac.gart.stipple.WangTileSet
 import dev.oblac.gart.stipple.stippleDots
 import dev.oblac.gart.stipple.stippleNoisyDotDensity
+import dev.oblac.gart.stipple.stippleWangTile
 import dev.oblac.gart.util.loadResourceAsImage
 import org.jetbrains.skia.Canvas
 import org.jetbrains.skia.Shader
@@ -22,6 +24,10 @@ fun main() {
     val b = Gartmap(g)
     var maxColors = 4
     var pixelSize = 4
+
+    println("Generating Wang Tile set...")
+    val wangTileSet = WangTileSet.generate()
+    println("Wang Tile set ready.")
 
     gart.window().show { c, d, _ ->
         drawAlgorithm(g.canvas, d)
@@ -85,7 +91,7 @@ fun main() {
 
             Key.KEY_Z -> stippleAlgorithm = { b -> stippleNoisyDotDensity(b, pixelSize) }
             Key.KEY_X -> stippleAlgorithm = { b -> stippleDots(b, pixelSize) }
-
+            Key.KEY_C -> stippleAlgorithm = { b -> stippleWangTile(b, wangTileSet) }
             else -> {}
         }
     }
