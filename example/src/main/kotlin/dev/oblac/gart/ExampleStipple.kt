@@ -5,10 +5,7 @@ import dev.oblac.gart.gfx.draw
 import dev.oblac.gart.gfx.drawImage
 import dev.oblac.gart.gfx.fillOfRed
 import dev.oblac.gart.pixels.makeGray
-import dev.oblac.gart.stipple.WangTileSet
-import dev.oblac.gart.stipple.stippleDots
-import dev.oblac.gart.stipple.stippleNoisyDotDensity
-import dev.oblac.gart.stipple.stippleWangTile
+import dev.oblac.gart.stipple.*
 import dev.oblac.gart.util.loadResourceAsImage
 import org.jetbrains.skia.Canvas
 import org.jetbrains.skia.Shader
@@ -92,6 +89,25 @@ fun main() {
             Key.KEY_Z -> stippleAlgorithm = { b -> stippleNoisyDotDensity(b, pixelSize) }
             Key.KEY_X -> stippleAlgorithm = { b -> stippleDots(b, pixelSize) }
             Key.KEY_C -> stippleAlgorithm = { b -> stippleWangTile(b, wangTileSet) }
+            Key.KEY_V -> stippleAlgorithm = { b ->
+                val points = stippleVoronoi(b, pointCount = 5000, iterations = 30, gamma = 0.9f)
+                b.fill(0xFFFFFFFF.toInt())
+                val black = 0xFF000000.toInt()
+                val r = 2
+                for (p in points) {
+                    val cx = p.x.toInt()
+                    val cy = p.y.toInt()
+                    for (dy in -r..r) {
+                        for (dx in -r..r) {
+                            if (dx * dx + dy * dy <= r * r) {
+                                val px = (cx + dx).coerceIn(0, b.d.w - 1)
+                                val py = (cy + dy).coerceIn(0, b.d.h - 1)
+                                b[px, py] = black
+                            }
+                        }
+                    }
+                }
+            }
             else -> {}
         }
     }
