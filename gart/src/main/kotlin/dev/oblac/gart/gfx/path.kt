@@ -197,3 +197,44 @@ fun pathsOverlap(c1: Path, c2: Path, minArea: Float = 1f): Boolean {
 fun Path.length(): Float {
     return PathMeasure(this).length
 }
+
+/**
+ * Checks if a point is below a path at the point's x coordinate.
+ * "Below" means the point's y is greater than the path's y (screen coordinates).
+ * The path is sampled at the given [precision] interval.
+ * If the path has multiple segments at the same x, the point must be below all of them.
+ * Returns false if the point's x is outside the path's x range.
+ */
+fun isPointBelowPath(path: Path, point: Point, precision: Float = 1f): Boolean {
+    val measure = PathMeasure(path, false)
+    val pathYValues = mutableListOf<Float>()
+
+    do {
+        val length = measure.length
+        var distance = 0f
+        var prev: Point? = null
+
+        while (distance <= length) {
+            val curr = measure.getPosition(distance) ?: break
+            if (prev != null) {
+                val x1 = prev.x
+                val x2 = curr.x
+                if ((x1 <= point.x && point.x <= x2) || (x2 <= point.x && point.x <= x1)) {
+                    if (x1 != x2) {
+                        val t = (point.x - x1) / (x2 - x1)
+                        val y = prev.y + t * (curr.y - prev.y)
+                        pathYValues.add(y)
+                    }
+                }
+            }
+            prev = curr
+            distance += precision
+        }
+    } while (measure.nextContour())
+
+    if (pathYValues.isEmpty()) return false
+    return pathYValues.all { point.y > it }
+}
+
+fun Point.isBelowPath(path: Path, precision: Float = 1f): Boolean =
+    isPointBelowPath(path, this, precision)

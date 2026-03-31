@@ -4,12 +4,16 @@ import dev.oblac.gart.Pixels
 import dev.oblac.gart.color.space.luminance
 import dev.oblac.gart.color.space.of
 import org.jetbrains.skia.Color4f
-import org.jetbrains.skia.Point
 import kotlin.math.max
 import kotlin.math.min
 import kotlin.math.pow
 import kotlin.math.sqrt
 import kotlin.random.Random
+
+/**
+ * A stipple dot with position and radius.
+ */
+data class StippleDot(val x: Float, val y: Float, val radius: Float)
 
 /**
  * Weighted Voronoi Stippling using Lloyd relaxation.
@@ -19,6 +23,9 @@ import kotlin.random.Random
  * each point to the weighted centroid of its cell, where weights
  * are the pixel darkness values.
  *
+ * Returns [StippleDot] with position and radius proportional to
+ * cell darkness — dots in darker areas are larger.
+ *
  * @param pixels source image (darkness drives density)
  * @param pointCount number of stipple points
  * @param iterations number of Lloyd relaxation iterations
@@ -26,8 +33,10 @@ import kotlin.random.Random
  * @param brightnessThreshold pixels brighter than this (0-1) are ignored during centroid calculation (default 0.95)
  * @param overshoot velocity factor for centroid movement; values > 1 speed up convergence (default 1.8)
  * @param initialJitter jitter for initial point placement (0-1); decays over iterations
+ * @param minRadius minimum dot radius (default 0.5)
+ * @param maxRadius maximum dot radius (default 4.0)
  * @param seed PRNG seed for reproducible output
- * @return list of stipple point positions
+ * @return list of stipple dots with position and radius
  */
 fun stippleVoronoi(
 	pixels: Pixels,
@@ -37,8 +46,10 @@ fun stippleVoronoi(
 	brightnessThreshold: Float = 0.95f,
 	overshoot: Float = 1.8f,
 	initialJitter: Float = 0.5f,
+	minRadius: Float = 0.5f,
+	maxRadius: Float = 4.0f,
 	seed: Int = 42
-): List<Point> {
+): List<StippleDot> {
 	val w = pixels.d.w
 	val h = pixels.d.h
 	val rng = Random(seed)
@@ -66,7 +77,13 @@ fun stippleVoronoi(
 		lloydRelaxation(points, w, h, density, overshoot, jitter, rng)
 	}
 
-	return points.map { Point(it[0], it[1]) }
+	// Phase 3: Compute per-dot radius from cell density
+	val cellDensity = computeCellDensity(points, w, h, density)
+
+	return points.indices.map { i ->
+		val r = minRadius + (maxRadius - minRadius) * cellDensity[i]
+		StippleDot(points[i][0], points[i][1], r)
+	}
 }
 
 /**
@@ -169,6 +186,53 @@ private fun lloydRelaxation(
 			}
 		}
 	}
+}
+
+/**
+ * Computes normalized average density for each Voronoi cell.
+ * Returns values in 0..1 range where 1 = darkest cell.
+ */
+private fun computeCellDensity(
+	points: Array<FloatArray>,
+	w: Int, h: Int,
+	density: FloatArray
+): FloatArray {
+	val n = points.size
+	val sumW = DoubleArray(n)
+	val count = IntArray(n)
+
+	val gridSize = max(1, sqrt(n.toFloat()).toInt())
+	val cellW = w.toFloat() / gridSize
+	val cellH = h.toFloat() / gridSize
+	val grid = Array(gridSize * gridSize) { mutableListOf<Int>() }
+
+	for (i in 0 until n) {
+		val gx = (points[i][0] / cellW).toInt().coerceIn(0, gridSize - 1)
+		val gy = (points[i][1] / cellH).toInt().coerceIn(0, gridSize - 1)
+		grid[gy * gridSize + gx].add(i)
+	}
+
+	for (py in 0 until h) {
+		for (px in 0 until w) {
+			val nearest = findNearest(points, grid, gridSize, cellW, cellH, px.toFloat(), py.toFloat())
+			sumW[nearest] += density[py * w + px].toDouble()
+			count[nearest]++
+		}
+	}
+
+	// Average density per cell
+	val avgDensity = FloatArray(n) { i ->
+		if (count[i] > 0) (sumW[i] / count[i]).toFloat() else 0f
+	}
+
+	// Normalize to 0..1
+	val maxD = avgDensity.max()
+	if (maxD > 0f) {
+		for (i in avgDensity.indices) {
+			avgDensity[i] /= maxD
+		}
+	}
+	return avgDensity
 }
 
 /**

@@ -32,6 +32,11 @@ data class Circle(val x: Float, val y: Float, val radius: Float) {
         return dx * dx + dy * dy <= radius * radius
     }
 
+    fun contains(c: Circle): Boolean {
+        val distanceCenters = center.distanceTo(c.center)
+        return distanceCenters + c.radius <= radius
+    }
+
     fun contains(p: Point): Boolean {
         val dx = p.x - this.x
         val dy = p.y - this.y

@@ -1,5 +1,6 @@
 package dev.oblac.gart
 
+import dev.oblac.gart.gfx.draw
 import dev.oblac.gart.hotreload.DrawFrameReloader
 import org.jetbrains.skia.Image
 import java.awt.GraphicsEnvironment
@@ -42,6 +43,10 @@ open class Window(
         return show { c, _, _ ->
             c.drawImage(image(), 0f, 0f)
         }
+    }
+
+    fun show(g: Gartvas): WindowView {
+        return show { c, _, _ -> c.draw(g) }
     }
 
     /**

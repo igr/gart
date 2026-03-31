@@ -17,9 +17,10 @@ val slide02 = DrawFrame { c, d, f ->
     val text = """
         • Skia bindings for Kotlin/Native, JVM, and JS
         • Maintained by JetBrains, open source
-        • Low-level API, verbose, but powerful
+        • Low-level API, verbose, but powerful        
         • Same domain as painting tools
-        • WHAT not HOW
+        • WHAT, not HOW!
+        • Why Kotlin?
     """.trimIndent()
 
     c.drawContent(text)
