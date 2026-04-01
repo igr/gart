@@ -13,9 +13,9 @@ build:
 test:
     ./gradlew test
 
-# Runs the hot reload for Kotlin files.
-hotreload:
-    ./gradlew compileKotlin --continuous -Dorg.gradle.continuous.quietperiod=100
+## Runs the hot reload for Kotlin files.
+#hotreload:
+#    ./gradlew compileKotlin --continuous -Dorg.gradle.continuous.quietperiod=100
 
 # Make NEW thumbnails (restores git state!).
 thumbs:

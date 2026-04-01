@@ -32,7 +32,7 @@ fun main() {
     g.draw(draw)
     gart.saveImage(g)
 
-    w.show(MyDraw(g, m)).hotReload(g)
+    w.show(MyDraw(g, m))
 //    m.record(w).show(MyDraw(g, m))
 }
 /**

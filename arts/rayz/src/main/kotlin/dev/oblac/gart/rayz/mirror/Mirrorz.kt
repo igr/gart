@@ -65,7 +65,7 @@ fun main() {
             else -> { /* no-op */
             }
         }
-    }.hotReload(g)
+    }
 }
 /**
  * Hot reload requires a real class to be created, not a lambda.

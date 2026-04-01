@@ -8,8 +8,12 @@ import dev.oblac.gart.color.BgColors
 import dev.oblac.gart.gfx.draw
 import dev.oblac.gart.pixader.pixdrawAsync
 import dev.oblac.gart.vector.*
-import kotlinx.coroutines.*
-import kotlin.math.*
+import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.runBlocking
+import kotlin.math.abs
+import kotlin.math.exp
+import kotlin.math.pow
+import kotlin.math.sin
 
 fun main() {
     val gart = Gart.of("cross", 1024, 1024)
@@ -26,7 +30,7 @@ fun main() {
 //    g.draw(draw)
 //    gart.saveImage(g)
 
-    w.show(draw).hotReload(g)
+    w.show(draw)
 }
 
 private class MyDraw(g: Gartvas) : Drawing(g) {

@@ -30,7 +30,7 @@ fun main() {
     //g.draw(draw)
     gart.saveImage(g)
 
-    w.show(draw).hotReload(g)
+    w.show(draw)
 }
 
 private class RectAroundDraw(g: Gartvas) : Drawing(g) {

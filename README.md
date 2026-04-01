@@ -14,118 +14,13 @@
 🤷‍♂️ Honestly, I put the framework together for my own needs, so it’s a bit rough around the edges and the naming isn’t
 great. _It’s not how I normally write code._
 
-♻️ Continuous build for **Hot Reload**:
+## ♻️ **Hot Reload**
 
-```shell
-just hotReload
-```
-
-For cold reload (restart the app on code changes):
-
-```shell
-just dev work dev.oblac.gart.cosmic.CosmicTopoKt
-```
+See [Hot Reload](docs/hotreload.md) for details on how to set up hot reload for faster iteration.
 
 ## 🚀 Features
 
-There is really **a lot of features**, and I’m not sure how to organize them, but here’s an attempt at categorization:
-
-Core Framework
-
-- Gart — Factory/entry point (Gart.of("name", w, h))
-- Gartvas — Canvas wrapper (Skia Surface)
-- Window / WindowView — Swing display with keyboard/mouse handlers
-- Movie — MP4/GIF video recording (FFmpeg + GifSequenceWriter)
-- Frames — Frame timing, FPS control
-- GartRand — Deterministic random with replay
-- Sprite — Image with chainable transforms (rotate, translate, scale, flip)
-
-Color
-
-- Color spaces: RGBA, HSL, HSV, HSI, LAB, LCH, OKLAB, OKLCH, CMYK
-- Palettes: 173 cool + 15 mix + 112 colormaps (Carto, CET, ColorBrewer, Matplotlib, Ocean, Plotly, Tableau, etc.)
-- Named colors: CssColors, NipponColors, RetroColors, MidCenturyColors, CyanotypeColors, BgColors
-- Functions: blendColors, lerpColor, colorDistance, colorMatrix, toFillPaint, toStrokePaint
-- PaletteGenerator — Dynamic palette generation
-
-Geometry & Graphics
-
-- Primitives: Point, Line, DLine, Circle, Triangle, Poly4, Rect, GridRect, RectIsometric
-- Collections: Points, PointsTrail
-- Drawing: drawCircle, drawLine, drawPoly4, drawTriangle, drawRotatedRect, fatLine, n-gon, arc, ring, spiral, wave,
-  grid, border, moon, tree, human
-- Paint helpers: strokeOf, fillOf, hatchPaint, dashPaint
-- Path utilities: PathW, pathBuilder, pathOutline
-- Easing functions: Linear, Quad, Cubic, Quart, Sine, Expo, Circ, Back, Elastic, Bounce (In/Out/InOut)
-
-Math & Vectors
-
-- Vectors: Vector2/3/4, Matrix2, Matrix3, dot/cross product
-- Complex numbers: Complex, ComplexField, ComplexPolynomial, transcendental functions
-- Curves: Lissajous, GaussianFunction
-- Utilities: clamp, map, lerp, smoothstep, frac, mod, distance, primes, fastSqrt
-- Angles: Radians, Degrees with trig functions
-- Polar coordinates, affine transforms, tangent calculations
-
-Noise & Sampling
-
-- Noise: Perlin, multi-octave PerlinNoise, SimplexNoise, OpenSimplexNoise, FBM
-- Sampling: Halton sequence, Poisson disk sampling
-- NoiseColor — Noise-driven color generation
-
-Curve Smoothing
-
-- B-spline, Cardinal spline, Catmull-Rom spline, Chaikin, quadratic smoothing
-
-Physics & Simulation
-
-- Attractors (18): Lorenz, Lorenz84, Clifford, Rössler, Duffing, Thomas, Chen, Sprott, Langford-Aizawa, Halvorsen,
-  Rabinovitch-Fabrikant, Dadras, Four-Wing, Symmetric Icon, Three-Scroll, Cubic, Quadratic, Peter de Jong
-- N-body: BarnesHut simulation, QuadTree, GravityParticles (10^6+)
-- Orbital mechanics (WHFast): Wisdom-Holman integrator, Kepler solver, orbital elements
-- Fluid dynamics: Navier-Stokes solver, Lattice Boltzmann, FluidSolver with particle rendering
-- Cellular automata: Elementary rules, Belousov-Zhabotinsky reaction
-- Flow fields: Flow, FlowField, flow generators, StreamlineTracer (evenly-spaced streamlines)
-- Particles: Particle system, Gravitron
-
-Spatial & Triangulation
-
-- Delaunay triangulation (Mapbox Delaunator port)
-- Voronoi diagrams
-- HashGrid — Spatial hash for fast neighbor queries
-- Circle packing — CirclePacker
-- Jump Flooding Algorithm — Distance fields
-
-Pixel Processing
-
-- Filters: Gaussian blur, motion blur, grayscale, liquify, moiré, pixel sorting, flood fill, scaling
-- Dithering (12): Floyd-Steinberg, Bayer (2x2–8x8), Atkinson, Burkes, Jarvis-Judice-Ninke, Sierra, Stucki
-- Halftone: CMYK separation, configurable screening
-
-Shaders & Effects
-
-- Shaders: neuro, marbled texture, noise grain, risograph, sketching paper
-- Pixader — CPU pixel shader (shader-like per-pixel computation)
-- FX: blur, borderize, pixelate, scale
-- Glass/refraction: glassBall, glassPath
-- Ray tracing: ray, trace, mirror
-
-3D Graphics
-
-- Perspective: block3d (two-point perspective)
-- Scene rendering: Scene, Camera, LightSource, ZBuffer (per-pixel depth buffer)
-- Meshes: cube, sphere (UV), Face/Mesh primitives, 3D rotation matrices
-
-Generators
-
-- Spirograph, harmonograph, midpoint displacement (terrain)
-
-Utilities
-
-- Hot reload (file watcher + dynamic class loader)
-- Font loading, text rendering
-- Image conversion, resource loading
-- Array/list/loop/range/sequence helpers
+See [Features](docs/features.md) for a comprehensive list of features and utilities provided by the framework.
 
 ## 🧪 Example
 
@@ -133,7 +28,6 @@ Example folder contains several small projects demonstrating various features of
 
 + `Example*` - demonstrations of various features, usually interactive.
 + `Template` - minimal project template to start with.
-+ `TemplateHotReload` - same as above, but with hot-reload enabled.
 + Tools:
   + `GradientGenerator` - interactive gradient palette generator.
   + `FunGraph` - interactive function plotter.

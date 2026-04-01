@@ -10,7 +10,6 @@ import dev.oblac.gart.math.f
 import dev.oblac.gart.math.smoothstep
 import dev.oblac.gart.pixader.pixdrawAsync
 import dev.oblac.gart.vector.*
-import dev.oblac.gart.vector.Vec3
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.runBlocking
 import kotlin.math.abs
@@ -33,7 +32,7 @@ fun main() {
     g.draw(draw)
     gart.saveImage(g)
 
-    w.show(draw).hotReload(g)
+    w.show(draw)
 }
 
 private class MyFooDraw(g: Gartvas) : Drawing(g) {

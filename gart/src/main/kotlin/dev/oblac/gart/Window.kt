@@ -1,7 +1,6 @@
 package dev.oblac.gart
 
 import dev.oblac.gart.gfx.draw
-import dev.oblac.gart.hotreload.DrawFrameReloader
 import org.jetbrains.skia.Image
 import java.awt.GraphicsEnvironment
 import java.awt.Toolkit
@@ -276,16 +275,16 @@ class WindowView(private val w: Window, private val v: GartView) {
         return v.drawFrame()
     }
 
-    /**
-     * Enables hot reload for the window.
-     * This is experimental feature.
-     */
-    fun hotReload(g: Gartvas, projectRoot: String = System.getProperty("user.dir")) {
-        val hotReloadWindowsView = DrawFrameReloader(g, this, projectRoot)
-        this.onClose {
-            hotReloadWindowsView.shutdown()
-        }
-    }
+//    /**
+//     * Enables hot reload for the window.
+//     * This is experimental feature.
+//     */
+//    fun hotReload(g: Gartvas, projectRoot: String = System.getProperty("user.dir")) {
+//        val hotReloadWindowsView = DrawFrameReloader(g, this, projectRoot)
+//        this.onClose {
+//            hotReloadWindowsView.shutdown()
+//        }
+//    }
 }
 
 object KeyHandlers {

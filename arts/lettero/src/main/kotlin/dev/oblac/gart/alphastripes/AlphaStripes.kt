@@ -28,7 +28,7 @@ fun main() {
     // save image
     gart.saveImage(g)
 
-    w.show(draw).hotReload(g)
+    w.show(draw)
 }
 
 private class AlphaStripesDraw(g: Gartvas) : Drawing(g) {

@@ -52,6 +52,7 @@ class GartLauncher(
     }
 
     private fun launchApp() {
+        val t0 = System.currentTimeMillis()
         val url = Paths.get(classesDir).toUri().toURL()
         val classLoader = URLClassLoader(arrayOf(url), javaClass.classLoader)
         currentClassLoader = classLoader
@@ -68,6 +69,7 @@ class GartLauncher(
                     val cause = e.cause ?: e
                     System.err.println("❌ ${cause.javaClass.simpleName}: ${cause.message}")
                 }
+                println("⏱️ main(): ${System.currentTimeMillis() - t0}ms")
             }, "gart-app")
             thread.isDaemon = true
             thread.start()
