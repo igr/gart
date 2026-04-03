@@ -1,0 +1,121 @@
+package flowforce.eclipse
+
+import dev.oblac.gart.Dimension
+import dev.oblac.gart.Gart
+import dev.oblac.gart.angle.Radians
+import dev.oblac.gart.color.BgColors
+import dev.oblac.gart.color.CssColors
+import dev.oblac.gart.flow.Flow
+import dev.oblac.gart.flow.Flow2
+import dev.oblac.gart.flow.FlowField
+import dev.oblac.gart.gfx.*
+import dev.oblac.gart.math.PIf
+import dev.oblac.gart.math.rndf
+import dev.oblac.gart.shader.createMarbledFilter
+import dev.oblac.gart.util.loop
+import org.jetbrains.skia.Canvas
+import org.jetbrains.skia.FilterTileMode
+import org.jetbrains.skia.ImageFilter
+import org.jetbrains.skia.Paint
+import java.util.*
+import kotlin.math.atan2
+import kotlin.math.cos
+import kotlin.math.sin
+
+val gart = Gart.of("Eclipse", 1024, 1024)
+val rnd = Random()
+
+fun main() {
+    val d = _root_ide_package_.flowforce.eclipse.gart.d
+    val g = _root_ide_package_.flowforce.eclipse.gart.gartvas()
+    val c = g.canvas
+
+    val moonR = 300f
+
+    // background
+
+    c.clear(BgColors.dark01)
+
+    // rays
+
+    _root_ide_package_.flowforce.eclipse.drawRays(c, d, moonR)
+
+    // halo
+
+    _root_ide_package_.flowforce.eclipse.drawHalo(c, d, moonR)
+
+    // black sun
+
+    c.drawCircle(d.cx, d.cy, moonR, fillOfBlack().also {
+        it.imageFilter = createMarbledFilter(0.9f, g.d)
+    })
+//    c.drawCircle(d.cx, d.cy, moonR - 40f, fillOfBlack().apply {
+//        imageFilter = ImageFilter.makeBlur(10f, 10f, FilterTileMode.DECAL)
+//    })
+
+    // show
+
+    _root_ide_package_.flowforce.eclipse.gart.window().showImage(g)
+    _root_ide_package_.flowforce.eclipse.gart.saveImage(g)
+}
+
+
+fun drawHalo(c: Canvas, d: Dimension, moonR: Float) {
+    val haloPoints = Array(100) {
+        randomPoint(d.cx, d.cy, moonR)
+    }
+    val haloPaint = fillOfWhite().also {
+        it.imageFilter = ImageFilter.makeBlur(40f, 40f, FilterTileMode.DECAL)
+        it.alpha = 180
+    }
+
+    haloPoints.forEach { p ->
+        c.drawCircle(p.x, p.y, rndf(1f, 40f), haloPaint)
+    }
+}
+
+
+fun drawRays(c: Canvas, d: Dimension, moonR: Float) {
+    fun flowPlus(x: Float, y: Float): Flow {
+        val dx = x - d.cx
+        val dy = y - d.cy
+        val theta = atan2(dy, dx) + PIf / 2f + rndf(-0.3f, 0.3f)
+        return Flow2(Radians(theta), 2f)
+    }
+
+    val ff = FlowField.of(_root_ide_package_.flowforce.eclipse.gart.d) { x, y -> flowPlus(x, y) }
+
+    val rayPoints = Array(500) {
+        val angle = (if (_root_ide_package_.flowforce.eclipse.rnd.nextBoolean()) 330f else 0f) + _root_ide_package_.flowforce.eclipse.rnd.nextGaussian() / 2f
+
+        val r = rndf(10f, moonR)
+        val x = d.cx + r * cos(angle)
+        val y = d.cy + r * sin(angle)
+        PointsTrail(Point(x, y), 1)
+    }.toList()
+
+    val rayPaint = Paint().apply {
+        color = CssColors.white
+        strokeWidth = 1f
+        alpha = 30
+    }
+
+    loop(200) {
+        rayPoints
+            .filter { it.isActive() }
+            .forEach { trail ->
+                trail.update {
+                    ff[it].offset(it)
+                }
+            }
+        rayPoints.forEach { trail ->
+            trail
+                .filter { it.isInside(d) }
+                .sequence()
+                .forEach { p ->
+                    c.drawPoint(p.x, p.y, rayPaint)
+                }
+        }
+    }
+
+}

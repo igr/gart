@@ -1,0 +1,671 @@
+package sixsix
+
+import dev.oblac.gart.Gartvas
+import dev.oblac.gart.angle.Degrees
+import dev.oblac.gart.color.Palette
+import dev.oblac.gart.gfx.*
+import dev.oblac.gart.math.GOLDEN_RATIOf
+import org.jetbrains.skia.PathBuilder
+import org.jetbrains.skia.Point
+import org.jetbrains.skia.RRect
+import org.jetbrains.skia.Rect
+import kotlin.math.cos
+import kotlin.math.sin
+
+
+/** CELLS **/
+
+internal val cells = listOf(
+    ::cell1,
+    ::cell2,
+    ::cell3,
+    ::cell4,
+    ::cell5,
+    ::cell6,
+    ::cell7,
+    ::cell8,
+    ::cell9,
+    ::cell10,
+    ::cell11,
+    ::cell12,
+    ::cell13,
+    ::cell14,
+    ::cell15,
+    ::cell16,
+    ::cell17,
+    ::cell18,
+    ::cell19,
+    ::cell20,
+    ::cell21,
+    ::cell22,
+    ::cell23,
+    ::cell24,
+    ::cell25,
+    ::cell26,
+    ::cell27,
+    ::cell28,
+    ::cell29,
+    ::cell30,
+    ::cell31,
+    ::cell32,
+    ::cell33,
+    ::cell34,
+    ::cell35,
+    ::cell36,
+)
+
+private const val RATIO = 1f / GOLDEN_RATIOf
+private const val LW = 20f  // line width
+
+private fun cell1(g: Gartvas, p: Palette) {
+    val d = g.d
+    val c = g.canvas
+
+    val pa = d.leftTop
+    val pb = Point(d.cx, 0f)
+    val pc = d.rightTop
+    val pd = Point(d.wf, d.cy)
+    val pe = d.rightBottom
+    val pf = Point(d.cx, d.hf)
+    val pg = d.leftBottom
+    val ph = Point(0f, d.cy)
+
+    c.drawTriangle(Triangle(pa, pc, pg), fillOf(p[0]))
+    c.drawTriangle(Triangle(pa, pb, ph), fillOf(p[1]))
+    c.drawTriangle(Triangle(pe, pc, pg), fillOf(p[2]))
+    c.drawTriangle(Triangle(pe, pd, pf), fillOf(p[3]))
+    c.drawTriangle(Triangle(pe, pd, pf), fillOf(p[3]))
+}
+
+private fun cell2(g: Gartvas, p: Palette) {
+    val d = g.d
+    val c = g.canvas
+
+    c.clear(p[0])
+
+    // Draw two half-circles
+    val centerX = d.cx
+    val centerY = d.cy
+    val radius = d.wf.coerceAtMost(d.hf * RATIO) / 2f
+
+    c.save()
+    c.clipRect(Rect.makeXYWH(0f, 0f, centerX, d.hf))
+    c.drawCircle(centerX, centerY, radius, fillOf(p[1]))
+    c.restore()
+
+    c.save()
+    c.clipRect(Rect.makeXYWH(centerX, 0f, centerX, d.hf))
+    c.drawCircle(centerX, centerY, radius, fillOf(p[2]))
+    c.restore()
+}
+
+private fun cell3(g: Gartvas, p: Palette) {
+    val d = g.d
+    val c = g.canvas
+
+    c.clear(p[0])
+
+    // Draw two half-circles
+    val centerX = d.cx
+    val centerY = d.cy
+    val radius = d.wf.coerceAtMost(d.hf * RATIO) / 2f
+
+    c.save()
+    c.translate(0f, centerY)
+    c.clipRect(Rect.makeXYWH(0f, 0f, centerX, d.hf))
+    c.drawCircle(centerX, centerY, radius, fillOf(p[1]))
+    c.restore()
+    c.drawRect(Rect.makeXYWH(centerX, d.hf - radius, centerX, radius), fillOf(p[1]))
+
+    c.save()
+    c.translate(0f, -centerY)
+    c.clipRect(Rect.makeXYWH(centerX, 0f, centerX, d.hf))
+    c.drawCircle(centerX, centerY, radius, fillOf(p[2]))
+    c.restore()
+    c.drawRect(Rect.makeXYWH(0f, 0f, centerX, radius), fillOf(p[2]))
+}
+
+private fun cell4(g: Gartvas, p: Palette) {
+    val d = g.d
+    val c = g.canvas
+
+    c.clear(p[0])
+
+    // Draw two half-circles
+    val centerX = d.cx
+    val centerY = d.cy
+    val radius = d.wf.coerceAtMost(d.hf * RATIO) / 2f
+
+    c.save()
+    c.translate(0f, radius)
+    c.clipRect(Rect.makeXYWH(0f, 0f, d.wf, centerY))
+    c.drawCircle(centerX, centerY, radius, fillOf(p[1]))
+    c.restore()
+
+    c.save()
+    c.translate(0f, -radius)
+    c.clipRect(Rect.makeXYWH(0f, centerY, d.wf, d.hf))
+    c.drawCircle(centerX, centerY, radius, fillOf(p[2]))
+    c.restore()
+}
+
+private fun cell5(g: Gartvas, p: Palette) {
+    val d = g.d
+    val c = g.canvas
+
+    c.clear(p[0])
+    c.drawTriangle(Triangle(d.leftTop, d.rightTop, d.center), fillOf(p[1]))
+    c.drawTriangle(Triangle(d.rightTop, d.rightBottom, d.center), fillOf(p[2]))
+    c.drawTriangle(Triangle(d.leftBottom, d.rightBottom, d.center), fillOf(p[3]))
+}
+
+private fun cell6(g: Gartvas, p: Palette) {
+    val d = g.d
+    val c = g.canvas
+
+    c.clear(p[0])
+    c.drawCircle(d.leftBottom, d.hf, fillOf(p[1]))
+
+    val pa = Point(d.w3x2, 0f)
+    val pb = Point(d.w, d.h3)
+    c.drawTriangle(Triangle(pa, pb, d.rightTop), fillOf(p[2]))
+}
+
+private fun cell7(g: Gartvas, p: Palette) {
+    val d = g.d
+    val c = g.canvas
+
+    c.clear(p[0])
+
+    c.drawCircle(d.center, RATIO * d.cx, fillOf(p[1]))
+    c.drawCircle(d.center, (RATIO * d.cx) / 2, fillOf(p[2]))
+}
+
+private fun cell8(g: Gartvas, p: Palette) {
+    val d = g.d
+    val c = g.canvas
+
+    c.clear(p[0])
+
+    c.drawRect(Rect.makeXYWH(d.wf * 0.25f, d.hf * 0.25f, d.wf * 0.5f, d.hf * 0.5f), fillOf(p[1]))
+    c.drawRect(Rect.makeXYWH(d.wf * 0.25f, d.hf * 0.25f, d.wf * 0.25f, d.hf * 0.25f), fillOf(p[2]))
+}
+
+private fun cell9(g: Gartvas, p: Palette) {
+    val d = g.d
+    val c = g.canvas
+
+    c.clear(p[0])
+
+    c.drawCircle(d.center, RATIO * d.cx, strokeOf(p[1], LW))
+}
+
+private fun cell10(g: Gartvas, p: Palette) {
+    val d = g.d
+    val c = g.canvas
+
+    c.clear(p[0])
+
+    val m = d.cx * RATIO + 20f
+    equilateralTriangle(d.center, m, Degrees.ZERO).let {
+        c.drawTriangle(it, fillOf(p[1]))
+    }
+    equilateralTriangle(d.center.offset(20f, 0f), m - 20f, Degrees.ZERO).let {
+        c.drawTriangle(it, fillOf(p[2]))
+    }
+
+}
+
+private fun cell11(g: Gartvas, p: Palette) {
+    val d = g.d
+    val c = g.canvas
+
+    c.clear(p[0])
+
+    c.save()
+    c.clipRect(Rect.ofXYWH(0f, d.cy, d.wf, d.hf))
+    c.drawCircle(Point(0f, d.cy), d.cx, fillOf(p[1]))
+    c.drawCircle(Point(0f, d.cy), d.cx * 0.5f, fillOf(p[0]))
+
+    c.drawCircle(Point(d.wf, d.cy), d.cx, fillOf(p[1]))
+    c.drawCircle(Point(d.wf, d.cy), d.cx * 0.5f, fillOf(p[0]))
+    c.restore()
+
+    c.drawRect(Rect.ofXYWH(d.cx * 0.5f, 0f, d.cx, d.cy), fillOf(p[1]))
+}
+
+private fun cell12(g: Gartvas, p: Palette) {
+    val d = g.d
+    val c = g.canvas
+
+    c.clear(p[0])
+
+    val r1 = (d.cx / RATIO) / 4f
+    c.drawCircle(Point(d.w3, d.h3), r1, fillOf(p[1]))
+    val r2 = (d.cx / RATIO) / 6f
+    c.drawCircle(Point(d.w3x2, d.h3x2), r2, fillOf(p[2]))
+}
+
+private fun cell13(g: Gartvas, p: Palette) {
+    val d = g.d
+    val c = g.canvas
+
+    c.clear(p[0])
+
+    val path = listOf(
+        Point(0, d.cy),
+        Point(d.cx, 0),
+        Point(d.wf, d.cy),
+        Point(d.cx, d.hf),
+    ).toClosedPath()
+    //c.drawRect(Rect.makeXYWH(-size / 2, -size / 2, size, size), fillOf(p[1]))
+    c.drawPath(path, fillOf(p[1]))
+
+    val size = d.wf.coerceAtMost(d.hf)
+    c.drawCircle(d.rightBottom, size / 2, fillOf(p[2]))
+    c.drawCircle(d.leftTop, size / 2, fillOf(p[3]))
+}
+
+private fun cell14(g: Gartvas, p: Palette) {
+    val d = g.d
+    val c = g.canvas
+
+    c.clear(p[0])
+
+    val radius = d.wf.coerceAtMost(d.hf) * RATIO / 2
+
+    c.drawCircle(Point(d.cx - radius / 2, d.cy), radius, fillOf(p[3]))
+    c.drawCircle(Point(d.cx + radius / 2, d.cy), radius, fillOf(p[1]))
+
+    c.drawCircle(d.center, radius / 2, fillOf(p[2]))
+}
+
+private fun cell15(g: Gartvas, p: Palette) {
+    val d = g.d
+    val c = g.canvas
+
+    c.clear(p[0])
+
+    val halfSize = d.wf * 0.5f
+
+    // Top triangle
+    c.drawTriangle(
+        Triangle(
+            Point(d.cx - halfSize, d.cy),
+            Point(d.cx + halfSize, d.cy),
+            Point(d.cx, d.cy - halfSize)
+        ),
+        fillOf(p[1])
+    )
+
+    // Right triangle
+    c.drawTriangle(
+        Triangle(
+            Point(d.cx, d.cy - halfSize),
+            Point(d.cx, d.cy + halfSize),
+            Point(d.cx + halfSize, d.cy)
+        ),
+        fillOf(p[2])
+    )
+
+    // Bottom triangle
+    c.drawTriangle(
+        Triangle(
+            Point(d.cx - halfSize, d.cy),
+            Point(d.cx + halfSize, d.cy),
+            Point(d.cx, d.cy + halfSize)
+        ),
+        fillOf(p[3])
+    )
+
+    // Left triangle
+    c.drawTriangle(
+        Triangle(
+            Point(d.cx, d.cy - halfSize),
+            Point(d.cx, d.cy + halfSize),
+            Point(d.cx - halfSize, d.cy)
+        ),
+        fillOf(p[1])
+    )
+
+    // Center circle
+    val size = d.wf.coerceAtMost(d.hf) * RATIO / 2
+    c.drawCircle(d.center, size / 2, fillOf(p[2]))
+}
+
+private fun cell16(g: Gartvas, p: Palette) {
+    val d = g.d
+    val c = g.canvas
+
+    c.clear(p[0])
+
+    val dff = d.wf / 4
+
+    val rect = RRect.makeXYWH(-d.wf, 0f, d.wf * 2, d.hf * 2, d.wf)
+    c.drawRRect(rect, fillOf(p[1]))
+    val rect2 = RRect.makeXYWH(-d.wf, dff, d.wf * 2, d.hf * 2 - dff, d.wf - dff)
+    c.drawRRect(rect2, fillOf(p[2]))
+    val rect3 = RRect.makeXYWH(-d.wf, dff * 2, d.wf * 2, d.hf * 2 - dff * 2, d.wf - dff * 2)
+    c.drawRRect(rect3, fillOf(p[3]))
+}
+
+private fun cell17(g: Gartvas, p: Palette) {
+    val d = g.d
+    val c = g.canvas
+
+    c.clear(p[0])
+
+    val rect = RRect.makeXYWH(-d.wf, 0f, d.wf * 2, d.hf * 2, d.wf / RATIO)
+    c.drawRRect(rect, fillOf(p[1]))
+
+    c.drawTriangle(Triangle(d.leftTop, d.rightBottom, d.leftBottom), fillOf(p[2]))
+
+    val rect2 = RRect.makeXYWH(0f, -d.hf, d.hf * 2, d.wf * 2, d.hf / RATIO)
+    c.save()
+    c.clipPath(Triangle(d.leftTop, d.rightBottom, d.leftBottom).path)
+    c.drawRRect(rect2, fillOf(p[1]))
+    c.restore()
+
+    // fix clip
+    c.drawLine(d.leftTop, d.rightBottom, strokeOf(p[1], 10f))
+
+    val size = d.wf.coerceAtMost(d.hf) * RATIO / 2
+    c.drawCircle(d.center, size / 2, fillOf(p[3]))
+}
+
+private fun cell18(g: Gartvas, p: Palette) {
+    val d = g.d
+    val c = g.canvas
+
+    c.clear(p[0])
+
+    // Four overlapping circles in corners
+    val radius = d.w3
+
+    c.drawCircle(d.leftTop, radius, fillOf(p[1]))
+    c.drawCircle(d.rightTop, radius * 2, fillOf(p[2]))
+    c.drawCircle(d.leftBottom, radius * 2, fillOf(p[3]))
+    c.drawCircle(d.rightBottom, radius, fillOf(p[1]))
+}
+
+private fun cell19(g: Gartvas, p: Palette) {
+    val d = g.d
+    val c = g.canvas
+
+    c.clear(p[0])
+
+    c.drawRect(Rect.ofXYWH(Point(0, d.h / 4), d.w * 0.75f, d.hf * 0.75f), fillOf(p[1]))
+    c.drawRect(Rect.ofXYWH(Point(0, d.h / 2), d.w * 0.5f, d.hf * 0.5f), fillOf(p[2]))
+    c.drawRect(Rect.ofXYWH(Point(0, d.h * 0.75f), d.w * 0.25f, d.hf * 0.25f), fillOf(p[3]))
+}
+
+private fun cell20(g: Gartvas, p: Palette) {
+    val d = g.d
+    val c = g.canvas
+
+    c.clear(p[0])
+
+    c.drawCircle(d.rightTop, d.hf, fillOf(p[1]))
+    c.save()
+    c.clipPath(Circle.of(d.rightTop, d.hf).toPath())
+    c.drawCircle(d.leftBottom, d.hf * RATIO, fillOf(p[2]))
+    c.restore()
+}
+
+private fun cell21(g: Gartvas, p: Palette) {
+    val d = g.d
+    val c = g.canvas
+
+    c.clear(p[0])
+
+    val radius = d.wf.coerceAtMost(d.hf * RATIO) / 2f
+
+    c.drawCircle(d.w3x2, 0f, radius, fillOf(p[1]))
+    c.drawRect(Rect.makeXYWH(0f, 0f, d.w3x2, radius), fillOf(p[1]))
+    c.drawRect(Rect.makeXYWH(0f, 0f, radius, d.h3x2), fillOf(p[2]))
+    c.drawCircle(0f, d.h3x2, radius, fillOf(p[2]))
+}
+
+private fun cell22(g: Gartvas, p: Palette) {
+    val d = g.d
+    val c = g.canvas
+
+    c.clear(p[0])
+    c.drawCircle(d.leftBottom, d.hf, fillOf(p[1]))
+    c.drawCircle(d.leftBottom, d.hf * 0.5f, fillOf(p[2]))
+}
+
+private fun cell23(g: Gartvas, p: Palette) {
+    val d = g.d
+    val c = g.canvas
+
+    c.clear(p[0])
+
+    // Four overlapping circles in corners
+    val radius = d.cx
+
+    c.drawCircle(d.leftTop, radius, fillOf(p[1]))
+    c.drawCircle(d.rightTop, radius, fillOf(p[1]))
+    c.drawCircle(d.leftBottom, radius, fillOf(p[1]))
+    c.drawCircle(d.rightBottom, radius, fillOf(p[1]))
+}
+
+private fun cell24(g: Gartvas, p: Palette) {
+    val d = g.d
+    val c = g.canvas
+
+    c.clear(p[0])
+    c.drawCircle(d.leftBottom, d.hf, fillOf(p[1]))
+
+    c.drawCircle(d.w3, d.h3x2, d.hf * RATIO / 4, fillOf(p[2]))
+}
+
+private fun cell25(g: Gartvas, p: Palette) {
+    val d = g.d
+    val c = g.canvas
+
+    c.clear(p[0])
+
+    c.drawRect(Rect.ofXYWH(0f, 0f, d.wf, d.cy), fillOf(p[1]))
+    c.drawRect(Rect.ofCenter(d.center, d.wf * RATIO / 2, d.hf * RATIO / 2), fillOf(p[2]))
+}
+
+private fun cell26(g: Gartvas, p: Palette) {
+    val d = g.d
+    val c = g.canvas
+
+    c.clear(p[0])
+
+    val pb = Point(d.cx, 0f)
+    val ph = Point(0f, d.cy)
+
+    c.drawTriangle(Triangle(d.leftTop, pb, ph), fillOf(p[1]))
+    c.drawCircle(d.w3x2, d.h3x2, d.hf * RATIO / 4, fillOf(p[2]))
+}
+
+private fun cell27(g: Gartvas, p: Palette) {
+    val d = g.d
+    val c = g.canvas
+
+    c.clear(p[0])
+
+    val pd = Point(d.wf, d.cy)
+    val pf = Point(d.cx, d.hf)
+
+    c.drawTriangle(Triangle(d.leftTop, d.rightTop, pd), fillOf(p[1]))
+    c.drawTriangle(Triangle(d.leftTop, pd, pf), fillOf(p[2]))
+}
+
+private fun cell28(g: Gartvas, p: Palette) {
+    val d = g.d
+    val c = g.canvas
+
+    c.clear(p[0])
+
+    val pd = Point(d.wf, d.cy)
+
+    c.drawTriangle(Triangle(d.leftTop, d.rightTop, pd), fillOf(p[1]))
+    c.drawCircle(d.leftBottom, d.hf * 0.5f, fillOf(p[2]))
+}
+
+private fun cell29(g: Gartvas, p: Palette) {
+    val d = g.d
+    val c = g.canvas
+
+    c.clear(p[0])
+
+    val rect = RRect.makeXYWH(-d.wf, 0f, d.wf * 2, d.hf * 2, d.h3x2)
+    c.drawRRect(rect, fillOf(p[1]))
+
+    c.drawTriangle(Triangle(d.leftTop, d.rightBottom, d.leftBottom), fillOf(p[2]))
+
+    val rect2 = RRect.makeXYWH(0f, -d.hf, d.hf * 2, d.wf * 2, d.h3x2)
+    c.save()
+    c.clipPath(Triangle(d.leftTop, d.rightBottom, d.leftBottom).path)
+    c.drawRRect(rect2, fillOf(p[1]))
+    c.restore()
+    c.drawLine(d.leftTop, d.rightBottom, strokeOf(p[1], 10f))
+}
+
+private fun cell30(g: Gartvas, p: Palette) {
+    val d = g.d
+    val c = g.canvas
+
+    c.clear(p[0])
+
+    val r = Rect.ofXYWH(0f, 0f, d.w3, d.hf)
+    c.drawRect(r, fillOf(p[1]))
+
+    // Draw two half-circles
+    val centerX = d.cx
+    val centerY = d.cy
+    val radius = d.wf.coerceAtMost(d.hf * RATIO) / 2f
+
+    c.save()
+    c.clipRect(r)
+    c.drawCircle(centerX, centerY, radius, fillOf(p[2]))
+    c.restore()
+
+    c.save()
+    c.clipRect(Rect.makeXYWH(d.w3, 0f, centerX, d.hf))
+    c.drawCircle(centerX, centerY, radius, fillOf(p[3]))
+    c.restore()
+}
+
+private fun cell31(g: Gartvas, p: Palette) {
+    val d = g.d
+    val c = g.canvas
+
+    c.clear(p[0])
+    c.drawCircle(d.leftBottom, d.cy, fillOf(p[1]))
+    c.drawCircle(d.rightBottom, d.cy, fillOf(p[1]))
+}
+
+private fun cell32(g: Gartvas, p: Palette) {
+    val d = g.d
+    val c = g.canvas
+
+    c.clear(p[0])
+
+    c.drawCircle(Point(d.cx, d.hf), d.cx, fillOf(p[1]))
+    c.drawCircle(Point(d.cx, d.hf), d.cx * 0.5f, fillOf(p[0]))
+
+    c.drawCircle(Point(0f, 0f), d.cx, fillOf(p[1]))
+    c.drawCircle(Point(0f, 0f), d.cx * 0.5f, fillOf(p[0]))
+
+    c.drawCircle(Point(d.wf, 0f), d.cx, fillOf(p[1]))
+    c.drawCircle(Point(d.wf, 0f), d.cx * 0.5f, fillOf(p[0]))
+}
+
+private fun cell33(g: Gartvas, p: Palette) {
+    val d = g.d
+    val c = g.canvas
+
+    c.clear(p[0])
+
+    val radius = d.wf.coerceAtMost(d.hf * RATIO) / 2f
+
+    val top = d.cy - radius
+    c.drawRect(Rect.makeXYWH(d.w3x2, top, d.w3, radius), fillOf(p[1]))
+    c.save()
+    c.clipPath(Rect.makeXYWH(0f, top, d.wf, radius).path())
+    c.drawCircle(d.w3x2, top + radius, radius, fillOf(p[1]))
+    c.restore()
+
+    val bottom = d.cy + radius
+    c.drawRect(Rect.makeXYWH(0f, d.cy, d.w3, radius), fillOf(p[2]))
+    c.save()
+    c.clipPath(Rect.makeXYWH(d.w3, d.cy, d.wf, radius).path())
+    c.drawCircle(d.w3, bottom - radius, radius, fillOf(p[2]))
+    c.restore()
+}
+
+private fun cell34(g: Gartvas, p: Palette) {
+    val d = g.d
+    val c = g.canvas
+
+    c.clear(p[0])
+
+    c.drawTriangle(Triangle(d.leftTop, d.center, d.rightTop), fillOf(p[1]))
+    c.save()
+    c.clipRect(Rect.ofXYWH(0, 0, d.cx, d.cy))
+    c.drawCircle(Point(d.cx, 0f), d.cx, fillOf(p[1]))
+    c.restore()
+
+    c.drawTriangle(Triangle(d.leftBottom, d.center, d.rightBottom), fillOf(p[2]))
+    c.save()
+    c.clipRect(Rect.ofXYWH(d.cx, d.cy, d.cx, d.cy))
+    c.drawCircle(Point(d.cx, d.hf), d.cx, fillOf(p[2]))
+    c.restore()
+}
+
+private fun cell35(g: Gartvas, p: Palette) {
+    val d = g.d
+    val c = g.canvas
+
+    c.clear(p[0])
+
+    // Draw pentagram (5-pointed star)
+    val radius = d.wf.coerceAtMost(d.hf * RATIO) / 2f
+    val innerRadius = radius * 0.382f // Golden ratio for pentagram
+
+    val path = PathBuilder()
+    for (i in 0 until 10) {
+        val angle = (i * 36f - 90f) * Math.PI.toFloat() / 180f
+        val r = if (i % 2 == 0) radius else innerRadius
+        val x = d.cx + r * cos(angle)
+        val y = d.cy + r * sin(angle)
+
+        if (i == 0) {
+            path.moveTo(x, y)
+        } else {
+            path.lineTo(x, y)
+        }
+    }
+    path.closePath()
+    c.drawPath(path.detach(), fillOf(p[1]))
+}
+
+private fun cell36(g: Gartvas, p: Palette) {
+    val d = g.d
+    val c = g.canvas
+
+    c.clear(p[0])
+
+    // Draw stairs
+    val steps = 4
+    val stepWidth = d.wf / steps
+    val stepHeight = d.hf / steps
+
+    for (i in 0 until steps) {
+        c.drawRect(
+            Rect.makeXYWH(
+                0f,
+                d.hf - (i + 1) * stepHeight,
+                (i + 1) * stepWidth,
+                stepHeight
+            ),
+            fillOf(p[(i % 3) + 1])
+        )
+    }
+}
