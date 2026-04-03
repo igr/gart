@@ -1,4 +1,4 @@
-package dev.oblac.gart.ppt
+package ppt
 
 import dev.oblac.gart.Gart
 import dev.oblac.gart.Key

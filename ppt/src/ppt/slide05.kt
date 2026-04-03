@@ -1,4 +1,4 @@
-package dev.oblac.gart.ppt
+package ppt
 
 import dev.oblac.gart.DrawFrame
 import dev.oblac.gart.color.CssColors
@@ -17,9 +17,7 @@ import dev.oblac.gart.gfx.splitToGrid
 import dev.oblac.gart.matrix.multiply
 import dev.oblac.gart.text.HorizontalAlign
 import dev.oblac.gart.text.drawStringInRect
-import org.jetbrains.skia.Canvas
-import org.jetbrains.skia.Matrix33
-import org.jetbrains.skia.Rect
+import org.jetbrains.skia.*
 
 val slide05 = DrawFrame { c, d, f ->
     val labelFont = font(FontFamily.RethinkSans, screen.height * 0.024f)
@@ -31,12 +29,12 @@ val slide05 = DrawFrame { c, d, f ->
     }
 
     // Draw a small house shape as the reference object
-    fun Canvas.drawHouse(cx: Float, cy: Float, size: Float, paint: org.jetbrains.skia.Paint) {
+    fun Canvas.drawHouse(cx: Float, cy: Float, size: Float, paint: Paint) {
         val half = size / 2
         // body
         drawRect(Rect(cx - half, cy - half * 0.3f, cx + half, cy + half), paint)
         // roof
-        val roof = org.jetbrains.skia.PathBuilder()
+        val roof = PathBuilder()
             .moveTo(cx - half * 1.2f, cy - half * 0.3f)
             .lineTo(cx, cy - half * 1.2f)
             .lineTo(cx + half * 1.2f, cy - half * 0.3f)

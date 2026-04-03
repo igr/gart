@@ -1,4 +1,4 @@
-package dev.oblac.gart.ppt
+package ppt
 
 import dev.oblac.gart.DrawFrame
 import dev.oblac.gart.color.argb
@@ -10,6 +10,7 @@ import dev.oblac.gart.vector.Vec3
 import org.jetbrains.skia.BlendMode
 import org.jetbrains.skia.Color4f
 import org.jetbrains.skia.VertexMode
+import java.util.*
 import kotlin.math.*
 
 // FSS (Flat Surface Shader) animated triangle mesh
@@ -54,7 +55,7 @@ private class FSSPlane(
     val colors = IntArray(triCount * 3)       // 3 colors per tri
 
     init {
-        val rng = java.util.Random(42)
+        val rng = Random(42)
         for (i in 0..segments) {
             for (j in 0..slices) {
                 val idx = i * gridH + j

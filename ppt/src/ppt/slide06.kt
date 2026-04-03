@@ -1,4 +1,4 @@
-package dev.oblac.gart.ppt
+package ppt
 
 import dev.oblac.gart.DrawFrame
 import dev.oblac.gart.color.CssColors

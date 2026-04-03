@@ -1,4 +1,4 @@
-package dev.oblac.gart.ppt
+package ppt
 
 import dev.oblac.gart.DrawFrame
 import dev.oblac.gart.color.ColorMatrices
@@ -20,6 +20,8 @@ import dev.oblac.gart.gfx.splitToGrid
 import dev.oblac.gart.text.HorizontalAlign
 import dev.oblac.gart.text.drawStringInRect
 import org.jetbrains.skia.*
+import kotlin.math.cos
+import kotlin.math.sin
 
 val slide09 = DrawFrame { c, d, f ->
     val labelFont = font(FontFamily.RethinkSans, screen.height * 0.020f)
@@ -57,8 +59,8 @@ val slide09 = DrawFrame { c, d, f ->
             for (i in 0 until 10) {
                 val angle = Math.toRadians((i * 36 - 90).toDouble())
                 val radius = if (i % 2 == 0) outerR else innerR
-                val px = cx + (radius * kotlin.math.cos(angle)).toFloat()
-                val py = cy + (radius * kotlin.math.sin(angle)).toFloat()
+                val px = cx + (radius * cos(angle)).toFloat()
+                val py = cy + (radius * sin(angle)).toFloat()
                 if (i == 0) moveTo(px, py) else lineTo(px, py)
             }
             closePath()
