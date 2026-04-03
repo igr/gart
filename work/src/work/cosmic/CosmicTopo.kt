@@ -28,7 +28,7 @@ fun main() {
     val g = gart.gartvas()
     val c = g.canvas
     val d = g.d
-    val rng = Random(142)
+    val rng = Random(42)
 
     c.clear(Color.BLACK)
 

@@ -28,8 +28,8 @@ readme:
     ./gradlew :example:run
 
 # Dev session: continuous compile + classloader-based hot restart.
-# Usage: just dev work dev.oblac.gart.cosmic.CosmicTopoKt
-# Usage: just dev arts:flowforce dev.oblac.gart.flowforce.monolith.MonolithKt
+# Usage: just dev work work.cosmic.CosmicTopoKt
+# Usage: just dev arts:flowforce monolith.MonolithKt
 dev module main:
     #!/usr/bin/env bash
     set -e
@@ -49,7 +49,6 @@ dev module main:
     tmux attach -t "$SESSION"
 
 # Dev session using entr to restart the JVM on class changes (fallback).
-# Usage: just dev-entr work dev.oblac.gart.cosmic.CosmicTopoKt
 dev-entr module main:
     #!/usr/bin/env bash
     set -e
