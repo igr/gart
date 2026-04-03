@@ -1,6 +1,6 @@
 # gȧrt
 
-🧧 gënérative ȧrt made by pragmatic [kotlin](WhyKotlin.md) micro-framework.
+🧧 gënérative ȧrt made by pragmatic [kotlin](docs/WhyKotlin.md) micro-framework.
 
 > ❤️ [Instagram](https://www.instagram.com/gart_173) / [Online Gallery](https://igo.rs/gart)
 
