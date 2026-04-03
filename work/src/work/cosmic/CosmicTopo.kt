@@ -1,4 +1,4 @@
-package dev.oblac.gart.cosmic
+package work.cosmic
 
 import dev.oblac.gart.Gart
 import dev.oblac.gart.color.rgb

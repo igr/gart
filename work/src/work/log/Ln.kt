@@ -1,4 +1,4 @@
-package dev.oblac.gart.log
+package work.log
 
 import dev.oblac.gart.Gart
 import dev.oblac.gart.Gartmap
