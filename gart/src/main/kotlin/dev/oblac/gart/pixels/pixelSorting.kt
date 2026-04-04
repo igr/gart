@@ -7,15 +7,15 @@ fun pixelSorter(bitmap: Pixels, threshold: Int = 100, sortValueOf: (Int) -> Int)
     val height = bitmap.d.h
 
     for (y in 0 until height) {
-        pixelSorterRow(bitmap, y, sortValueOf, threshold)
+        pixelSorterRow(bitmap, y, threshold, sortValueOf)
     }
 }
 
 fun pixelSorterRow(
     bitmap: Pixels,
     row: Int,
-    sortValueOf: (Int) -> Int,
-    threshold: Int
+    threshold: Int,
+    sortValueOf: (Int) -> Int
 ) {
     val rowPixels = bitmap.row(row)
 
