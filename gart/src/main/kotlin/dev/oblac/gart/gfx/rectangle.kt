@@ -4,6 +4,7 @@ import dev.oblac.gart.Dimension
 import dev.oblac.gart.angle.Angle
 import org.jetbrains.skia.*
 import org.jetbrains.skia.Point
+import kotlin.math.sqrt
 
 /**
  * Converts rectangle to the list of four points.
@@ -149,3 +150,9 @@ fun Canvas.drawRotatedRect(center: Point, width: Float, height: Float, angle: An
     this.restore()
 }
 
+
+fun Rect.diagonal(): Float {
+    val dx = this.right - this.left
+    val dy = this.bottom - this.top
+    return sqrt((dx * dx + dy * dy).toDouble()).toFloat()
+}

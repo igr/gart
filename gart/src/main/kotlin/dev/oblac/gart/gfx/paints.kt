@@ -92,6 +92,11 @@ fun Paint.alpha(a: Int): Paint {
     return this
 }
 
+fun Paint.blendMode(blendMode: BlendMode): Paint {
+    this.blendMode = blendMode
+    return this
+}
+
 fun paintOfImageFilter(imageFilter: ImageFilter) = Paint().apply {
     this.isAntiAlias = true
     this.imageFilter = imageFilter

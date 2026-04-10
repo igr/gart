@@ -5,11 +5,8 @@ import dev.oblac.gart.angle.Degrees
 import dev.oblac.gart.angle.cos
 import dev.oblac.gart.angle.sin
 import dev.oblac.gart.vector.Vec2
-import org.jetbrains.skia.Canvas
-import org.jetbrains.skia.Paint
-import org.jetbrains.skia.PathBuilder
+import org.jetbrains.skia.*
 import org.jetbrains.skia.Point
-import org.jetbrains.skia.Rect
 import kotlin.math.pow
 import kotlin.math.sqrt
 
@@ -226,5 +223,6 @@ fun circleFrom3Points(a: Point, b: Point, c: Point): Circle {
 }
 
 fun Canvas.clipCircle(circle: Circle) = clipPath(circle.toPath())
+fun Canvas.clipCircle(circle: Circle, mode: ClipMode) = clipPath(circle.toPath(), mode)
 
 fun Canvas.drawCircle(p: Point, r: Float, fill: Paint) = this.drawCircle(p.x, p.y, r, fill)
