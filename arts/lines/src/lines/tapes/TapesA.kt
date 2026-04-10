@@ -19,7 +19,7 @@ fun main() {
     val w = gart.window()
     val g = gart.gartvas()
 
-    val draw = _root_ide_package_.lines.tapes.MyDrawA(g)
+    val draw = MyDrawA(g)
 
     // save image
     g.draw(draw)
@@ -30,7 +30,7 @@ fun main() {
 
 private class MyDrawA(g: Gartvas) : Drawing(g) {
     init {
-        _root_ide_package_.lines.tapes.draw(g.canvas, g.d)
+        draw(g.canvas, g.d)
     }
 }
 
@@ -38,14 +38,14 @@ private fun draw(c: Canvas, d: Dimension) {
     c.clear(RetroColors.black01)
     c.drawCircle(512f, 512f, 300f, fillOf(RetroColors.white01))
 
-    _root_ide_package_.lines.tapes.generateOverlappingClosedPath(7, radius = 500f, centerX = 512f, centerY = 512f)
+    generateOverlappingClosedPath(7, radius = 500f, centerX = 512f, centerY = 512f)
         .let { lines ->
-            _root_ide_package_.lines.tapes.linesToRects(lines, tapeWidth = 60f)
+            linesToRects(lines, tapeWidth = 60f)
     }.forEach {
         c.save()
         c.clipPath(it.path)
-        _root_ide_package_.lines.tapes.drawGrungePoly4v2(c, it, RetroColors.red01)
-        _root_ide_package_.lines.tapes.drawGrungePoly4v3(c, it, RetroColors.red01)
+        drawGrungePoly4v2(c, it, RetroColors.red01)
+        drawGrungePoly4v3(c, it, RetroColors.red01)
         c.restore()
     }
 
@@ -63,7 +63,7 @@ private fun linesToRects(lines: List<Line>, tapeWidth: Float): List<Poly4> {
         val line2 = lines[(i + 1) % lines.size] // Wrap around for closed path
 
         // Find line between two lines
-        val dLineBetween = _root_ide_package_.lines.tapes.lineBetweenTwoLines(line1, line2)
+        val dLineBetween = lineBetweenTwoLines(line1, line2)
 
         // Rotate DLine for 90 degrees (get perpendicular)
         val rotatedDLine = dLineBetween.perpendicularDLine()

@@ -16,7 +16,7 @@ fun main() {
 
     val w = gart.window()
     val g = gart.gartvas()
-    val draw = _root_ide_package_.lines.triandance.MyDraw2(g)
+    val draw = MyDraw2(g)
 
     // save image
     g.draw(draw)
@@ -31,7 +31,7 @@ fun main() {
 private class MyDraw2(val g: Gartvas) : Drawing(g) {
     val b = Gartmap(g)
     init {
-        _root_ide_package_.lines.triandance.draw(g.canvas, g.d)
+        draw(g.canvas, g.d)
     }
     override fun draw(c: Canvas, d: Dimension, f: Frames) {
         //draw(g.canvas, d)
@@ -43,7 +43,7 @@ private class MyDraw2(val g: Gartvas) : Drawing(g) {
 }
 
 private const val total = 31
-private val palettes = Palettes.cool20.expand(_root_ide_package_.lines.triandance.total + 1)
+private val palettes = Palettes.cool20.expand(total + 1)
 
 private fun draw(c: Canvas, d: Dimension) {
     c.clear(RetroColors.black01)
@@ -51,7 +51,7 @@ private fun draw(c: Canvas, d: Dimension) {
     val triangle = Triangle.equilateral(d.center, 400f, Degrees.ZERO)
     val ts = mutableListOf(triangle)
 
-    repeat(_root_ide_package_.lines.triandance.total) {
+    repeat(total) {
         val t = ts.last()
         val scaledT = t.scaled(0.91f)
         // flip around the random side
@@ -77,15 +77,15 @@ private fun draw(c: Canvas, d: Dimension) {
     }
 
     ts.forEachIndexed { i, t ->
-        val color = _root_ide_package_.lines.triandance.palettes.safe(i)
+        val color = palettes.safe(i)
 
-        _root_ide_package_.lines.triandance.drawTriangleEchos(c, t, color)
+        drawTriangleEchos(c, t, color)
             c.drawTriangle(t, fillOf(color).apply {
                 alpha = 200
             })
     }
 
-    _root_ide_package_.lines.triandance.drawStripes(c, d)
+    drawStripes(c, d)
 }
 
 private fun drawTriangleEchos(c: Canvas, t: Triangle, color: Int) {

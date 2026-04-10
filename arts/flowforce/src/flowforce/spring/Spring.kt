@@ -15,12 +15,12 @@ import org.jetbrains.skia.Point
 // use high FPS so not to wait much.
 val gart = Gart.of("Spring", 1024, 1024, fps = 1000)
 
-val d = _root_ide_package_.flowforce.spring.gart.d
-val w = _root_ide_package_.flowforce.spring.gart.window()
+val d = gart.d
+val w = gart.window()
 
 val waveFlow = WaveFlow(10f, 10f, 4f, 4f, 7f)
-val ff = FlowField.of(_root_ide_package_.flowforce.spring.gart.d) { x, y ->
-    _root_ide_package_.flowforce.spring.waveFlow(
+val ff = FlowField.of(gart.d) { x, y ->
+    waveFlow(
         x,
         y
     )
@@ -31,7 +31,7 @@ val ff = FlowField.of(_root_ide_package_.flowforce.spring.gart.d) { x, y ->
 const val TRAILS = 1000
 const val TRAIL_LEN = 500
 
-val pal = Palettes.cool19.expand(_root_ide_package_.flowforce.spring.TRAIL_LEN)
+val pal = Palettes.cool19.expand(TRAIL_LEN)
     .map { c ->
         Paint().apply {
             color = c
@@ -40,41 +40,41 @@ val pal = Palettes.cool19.expand(_root_ide_package_.flowforce.spring.TRAIL_LEN)
     }
 
 
-val trails = Array(_root_ide_package_.flowforce.spring.TRAILS) { _root_ide_package_.flowforce.spring.newTrail() }.toMutableList()
+val trails = Array(TRAILS) { newTrail() }.toMutableList()
 
 fun main() {
-    _root_ide_package_.flowforce.spring.w.show { c, _, f ->
+    w.show { c, _, f ->
         c.clear(BgColors.dark01)
-        _root_ide_package_.flowforce.spring.drawRays(c, _root_ide_package_.flowforce.spring.d, f)
-        c.drawRect(_root_ide_package_.flowforce.spring.d.rect, strokeOfBlack(40f))
+        drawRays(c, d, f)
+        c.drawRect(d.rect, strokeOfBlack(40f))
 
         if (f.frame == 620L) {
-            _root_ide_package_.flowforce.spring.gart.saveImage(c)
+            gart.saveImage(c)
         }
     }
 }
 
 fun drawRays(c: Canvas, d: Dimension, f: Frames) {
-    _root_ide_package_.flowforce.spring.trails
+    trails
         .forEach { trail ->
-            trail.update { _root_ide_package_.flowforce.spring.u(it, d) }
+            trail.update { u(it, d) }
         }
     // don't draw until the end
     if (f.frame > 610) {
-        _root_ide_package_.flowforce.spring.trails.forEach { trail ->
+        trails.forEach { trail ->
             trail.sequenceIndexed().forEach {
                 val i = it.index
                 val p = it.value
-                c.drawCircle(p.x, p.y, 4f, _root_ide_package_.flowforce.spring.pal[i])
+                c.drawCircle(p.x, p.y, 4f, pal[i])
             }
         }
     }
 
     // add more points
-    if (_root_ide_package_.flowforce.spring.trails.countActive() < _root_ide_package_.flowforce.spring.TRAILS) {
-        repeat(_root_ide_package_.flowforce.spring.TRAILS - _root_ide_package_.flowforce.spring.trails.countActive()) {
-            _root_ide_package_.flowforce.spring.trails.add(
-                _root_ide_package_.flowforce.spring.newTrail2()
+    if (trails.countActive() < TRAILS) {
+        repeat(TRAILS - trails.countActive()) {
+            trails.add(
+                newTrail2()
             )
         }
     }
@@ -82,17 +82,17 @@ fun drawRays(c: Canvas, d: Dimension, f: Frames) {
 
 private fun u(it: Point, d: Dimension) =
     if (it.isInside(d)) {
-        _root_ide_package_.flowforce.spring.ff[it].offset(it)
+        ff[it].offset(it)
     } else {
         null
     }
 
 private fun newTrail(): PointsTrail = PointsTrail(
-    randomPoint(_root_ide_package_.flowforce.spring.d),
-    _root_ide_package_.flowforce.spring.TRAIL_LEN
+    randomPoint(d),
+    TRAIL_LEN
 )
 
 private fun newTrail2(): PointsTrail = PointsTrail(
-    randomPoint(Dimension(_root_ide_package_.flowforce.spring.d.w, _root_ide_package_.flowforce.spring.d.cy.toInt())).offset(0f, _root_ide_package_.flowforce.spring.d.cy),
-    _root_ide_package_.flowforce.spring.TRAIL_LEN
+    randomPoint(Dimension(d.w, d.cy.toInt())).offset(0f, d.cy),
+    TRAIL_LEN
 )

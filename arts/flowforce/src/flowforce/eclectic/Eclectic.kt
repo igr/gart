@@ -16,7 +16,7 @@ import kotlin.math.cos
 import kotlin.math.sin
 
 val gart = Gart.of("Eclectic", 1024, 1024)
-val d = _root_ide_package_.flowforce.eclectic.gart.d
+val d = gart.d
 
 const val TRAILS = 100
 const val TRAIL_LEN = 300
@@ -34,7 +34,7 @@ private data class TrailPath(
             if (tp == this) continue
             if (!tp.started) continue
             val collide = tp.trail.sequence()
-                .any { it.distanceTo(p) < _root_ide_package_.flowforce.eclectic.MAX_DISTANCE }
+                .any { it.distanceTo(p) < MAX_DISTANCE }
             if (collide) return true
         }
         return false
@@ -42,28 +42,28 @@ private data class TrailPath(
 }
 
 fun main() {
-    val g = _root_ide_package_.flowforce.eclectic.gart.gartvas()
+    val g = gart.gartvas()
     val c = g.canvas
 
     c.clear(BgColors.elegant)
 
     Palettes.cool35.sequence().forEachIndexed { index, it ->
-        _root_ide_package_.flowforce.eclectic.drawww(
+        drawww(
             c,
             it,
             index
         )
     }
 
-    _root_ide_package_.flowforce.eclectic.gart.saveImage(g)
-    _root_ide_package_.flowforce.eclectic.gart.window().showImage(g)
+    gart.saveImage(g)
+    gart.window().showImage(g)
 }
 
 fun ff(): FlowField {
     val noise = PerlinNoise()
     val smooth = 300
     val step = 10
-    val ff = FlowField.of(_root_ide_package_.flowforce.eclectic.gart.d) { x, y ->
+    val ff = FlowField.of(gart.d) { x, y ->
         object : Flow {
             override fun invoke(p: Point): Vec2 {
                 val n = noise.noise(p.x / smooth, p.y / smooth) * 3
@@ -74,24 +74,24 @@ fun ff(): FlowField {
     return ff
 }
 
-val ff = _root_ide_package_.flowforce.eclectic.ff()
+val ff = ff()
 
 private fun drawww(c: Canvas, color: Int, index: Int) {
     //val ff = ff()
-    val tps = Array(_root_ide_package_.flowforce.eclectic.TRAILS) {
+    val tps = Array(TRAILS) {
         PointsTrail(
-            randomPoint(_root_ide_package_.flowforce.eclectic.d),
-            _root_ide_package_.flowforce.eclectic.TRAIL_LEN
+            randomPoint(d),
+            TRAIL_LEN
         )
     }
         .map {
-            _root_ide_package_.flowforce.eclectic.TrailPath(
+            TrailPath(
                 it,
-                rndf(6f, _root_ide_package_.flowforce.eclectic.MAX_WIDTH)
+                rndf(6f, MAX_WIDTH)
             )
         }
         .toMutableList()
-    repeat(_root_ide_package_.flowforce.eclectic.TRAIL_LEN) {
+    repeat(TRAIL_LEN) {
         tps
             .filter { it.active }
             .filter { !it.trail.isEmpty() }
@@ -101,8 +101,8 @@ private fun drawww(c: Canvas, color: Int, index: Int) {
                     tp.active = false
                 } else {
                     tp.trail.update {
-                        it.ifInside(_root_ide_package_.flowforce.eclectic.d)?.let { p ->
-                            _root_ide_package_.flowforce.eclectic.ff[p].offset(p)
+                        it.ifInside(d)?.let { p ->
+                            ff[p].offset(p)
                         }
                     }
                     tp.started = true
@@ -112,10 +112,10 @@ private fun drawww(c: Canvas, color: Int, index: Int) {
 
     // draw
     when (index) {
-        3 -> c.drawCircle(_root_ide_package_.flowforce.eclectic.d.w - 200f, _root_ide_package_.flowforce.eclectic.d.hf / 3, 100f, fillOf(BgColors.coconutMilk))
-        6 -> c.drawCircle(_root_ide_package_.flowforce.eclectic.d.cx / 3 + 400, _root_ide_package_.flowforce.eclectic.d.hf / 3 + 400, 80f, fillOf(BgColors.coconutMilk))
-        7 -> c.drawCircle(_root_ide_package_.flowforce.eclectic.d.cx / 2, _root_ide_package_.flowforce.eclectic.d.hf / 3, 100f, fillOf(BgColors.coconutMilk))
-        9 -> c.drawCircle(_root_ide_package_.flowforce.eclectic.d.cx, _root_ide_package_.flowforce.eclectic.d.cy, 50f, fillOf(BgColors.coconutMilk))
+        3 -> c.drawCircle(d.w - 200f, d.hf / 3, 100f, fillOf(BgColors.coconutMilk))
+        6 -> c.drawCircle(d.cx / 3 + 400, d.hf / 3 + 400, 80f, fillOf(BgColors.coconutMilk))
+        7 -> c.drawCircle(d.cx / 2, d.hf / 3, 100f, fillOf(BgColors.coconutMilk))
+        9 -> c.drawCircle(d.cx, d.cy, 50f, fillOf(BgColors.coconutMilk))
     }
 
 
@@ -128,5 +128,5 @@ private fun drawww(c: Canvas, color: Int, index: Int) {
         }
     }
     //ff.drawField(c, d)
-    c.drawBorder(_root_ide_package_.flowforce.eclectic.d, 20f, BgColors.bg08)
+    c.drawBorder(d, 20f, BgColors.bg08)
 }

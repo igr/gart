@@ -59,10 +59,10 @@ fun generateOverlappingClosedPath(
         val shouldJump = random.nextFloat() < jumpProbability
         val nextIndex = if (shouldJump) {
             // Jump over center: choose a point on the opposite side
-            _root_ide_package_.lines.tapes.chooseOppositePoint(currentIndex, numPoints, visited, random)
+            chooseOppositePoint(currentIndex, numPoints, visited, random)
         } else {
             // Choose nearby point
-            _root_ide_package_.lines.tapes.chooseNearbyPoint(currentIndex, numPoints, nearbyRange, visited, random)
+            chooseNearbyPoint(currentIndex, numPoints, nearbyRange, visited, random)
         }
 
         if (nextIndex != -1) {

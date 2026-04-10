@@ -26,8 +26,8 @@ val gart = Gart.of("Eclipse", 1024, 1024)
 val rnd = Random()
 
 fun main() {
-    val d = _root_ide_package_.flowforce.eclipse.gart.d
-    val g = _root_ide_package_.flowforce.eclipse.gart.gartvas()
+    val d = gart.d
+    val g = gart.gartvas()
     val c = g.canvas
 
     val moonR = 300f
@@ -38,11 +38,11 @@ fun main() {
 
     // rays
 
-    _root_ide_package_.flowforce.eclipse.drawRays(c, d, moonR)
+    drawRays(c, d, moonR)
 
     // halo
 
-    _root_ide_package_.flowforce.eclipse.drawHalo(c, d, moonR)
+    drawHalo(c, d, moonR)
 
     // black sun
 
@@ -55,8 +55,8 @@ fun main() {
 
     // show
 
-    _root_ide_package_.flowforce.eclipse.gart.window().showImage(g)
-    _root_ide_package_.flowforce.eclipse.gart.saveImage(g)
+    gart.window().showImage(g)
+    gart.saveImage(g)
 }
 
 
@@ -83,10 +83,10 @@ fun drawRays(c: Canvas, d: Dimension, moonR: Float) {
         return Flow2(Radians(theta), 2f)
     }
 
-    val ff = FlowField.of(_root_ide_package_.flowforce.eclipse.gart.d) { x, y -> flowPlus(x, y) }
+    val ff = FlowField.of(gart.d) { x, y -> flowPlus(x, y) }
 
     val rayPoints = Array(500) {
-        val angle = (if (_root_ide_package_.flowforce.eclipse.rnd.nextBoolean()) 330f else 0f) + _root_ide_package_.flowforce.eclipse.rnd.nextGaussian() / 2f
+        val angle = (if (rnd.nextBoolean()) 330f else 0f) + rnd.nextGaussian() / 2f
 
         val r = rndf(10f, moonR)
         val x = d.cx + r * cos(angle)

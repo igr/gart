@@ -55,7 +55,7 @@ fun main() {
             c.drawRect(d.center.x-300, 349f, d.center.x, d.hf,fillOf(backc))
         }
         val middlePoint = it.points().middle()
-        val distance = _root_ide_package_.flowforce.monolith.smallestDistance(middlePoint, backbone)
+        val distance = smallestDistance(middlePoint, backbone)
         val clr = p % (distance * 0.14f).toInt()
         c.drawPath(it, strokeOf(clr, 4f - count).apply {
             this.imageFilter = ImageFilter.makeDilate(4f, 4f, null, null)

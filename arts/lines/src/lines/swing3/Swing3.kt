@@ -15,7 +15,7 @@ fun main() {
 
     val w = gart.window()
     val g = gart.gartvas()
-    val draw = _root_ide_package_.lines.swing3.MyDraw(g)
+    val draw = MyDraw(g)
 
     g.draw(draw)
     gart.saveImage(g)
@@ -25,7 +25,7 @@ fun main() {
 
 private class MyDraw(g: Gartvas) : Drawing(g) {
     override fun draw(c: Canvas, d: Dimension, f: Frames) {
-        _root_ide_package_.lines.swing3.draw2(c, d)
+        draw2(c, d)
     }
 }
 
@@ -59,7 +59,7 @@ private fun draw2(c: Canvas, d: Dimension) {
             a = Point(0f, -340f + 8 * it),
             b = Point(d.wf, -10f + 8 * it)
         )
-        _root_ide_package_.lines.swing3.drawSwingLine(c, d, l, it)
+        drawSwingLine(c, d, l, it)
     }
 }
 
@@ -70,13 +70,13 @@ private fun drawSwingLine(c: Canvas,  d: Dimension, l: Line, i: Int) {
     var currentLine = l
 
     // Apply g1 transformation
-    currentLine = _root_ide_package_.lines.swing3.g1.applyTo(currentLine, p) ?: run {
+    currentLine = g1.applyTo(currentLine, p) ?: run {
         //c.drawPath(p, strokeOf(color, 2f))
         return
     }
 
     // Apply g2 transformation
-    currentLine = _root_ide_package_.lines.swing3.g2.applyTo(currentLine, p) ?: run {
+    currentLine = g2.applyTo(currentLine, p) ?: run {
         p.lineTo(currentLine.b.x, currentLine.b.y)
         //c.drawPath(p, strokeOf(color, 2f))
         return
@@ -86,7 +86,7 @@ private fun drawSwingLine(c: Canvas,  d: Dimension, l: Line, i: Int) {
     //p.lineTo(currentLine.b.x, currentLine.b.y)
 
     // Apply g3 transformation and draw final line if successful
-    val finalLine = _root_ide_package_.lines.swing3.g3.applyTo(currentLine, p)
+    val finalLine = g3.applyTo(currentLine, p)
     if (finalLine != null) {
         p.lineTo(finalLine.b.x, finalLine.b.y)
     }

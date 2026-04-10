@@ -39,14 +39,14 @@ fun main() {
 
     val g = gart.gartvas()
     val c = g.canvas
-    _root_ide_package_.lines.draw(c, d)
+    draw(c, d)
     gart.saveImage(g)
     w.showImage(g)
 }
 
 private fun draw(c: Canvas, d: Dimension) {
     c.clear(BgColors.coolDark)
-    val streets = _root_ide_package_.lines.generateCityMap(
+    val streets = generateCityMap(
         r = 1.1f,
         angle = 0.06f,
         pBranch = 0.2f
@@ -72,7 +72,7 @@ private fun draw(c: Canvas, d: Dimension) {
         .sortedByDescending { it.level }
         .forEach {
             paint.strokeWidth = lineSize * (1f / (it.level + 1f))
-            paint.color = _root_ide_package_.lines.pal.safe(it.level)
+            paint.color = pal.safe(it.level)
 
             c.drawLine(
                 it.x, it.y,
@@ -102,7 +102,7 @@ private fun generateCityMap(
     val lines = mutableListOf<lines.CLine>()
 
     // initial point is center
-    points.add(_root_ide_package_.lines.CPoint(width / 2f, height / 2f, 0f, 0))
+    points.add(CPoint(width / 2f, height / 2f, 0f, 0))
 
     var i = 1   // index, start with second point
     var totalExceeds = 0
@@ -140,8 +140,8 @@ private fun generateCityMap(
                 (if (branch) (if (rnd.nextBoolean()) -1f else 1f) * PIf / 2f else 0f)
 
             val levelFactor = 1f + 1f / (if (branch) randomPoint.level + 1 else randomPoint.level)
-            val xj = randomPoint.x + _root_ide_package_.kotlin.math.cos(alpha) * r * levelFactor
-            val yj = randomPoint.y + _root_ide_package_.kotlin.math.sin(alpha) * r * levelFactor
+            val xj = randomPoint.x + kotlin.math.cos(alpha) * r * levelFactor
+            val yj = randomPoint.y + kotlin.math.sin(alpha) * r * levelFactor
             val newLevel = if (branch) randomPoint.level + 1 else randomPoint.level
 
             if (xj < 0 || xj > width || yj < 0 || yj > height) {    // out of bounds
@@ -150,12 +150,12 @@ private fun generateCityMap(
             }
 
             val minDistanceToExistingPoints = points.minOf {
-                _root_ide_package_.kotlin.math.sqrt((xj - it.x).pow(2) + (yj - it.y).pow(2))
+                kotlin.math.sqrt((xj - it.x).pow(2) + (yj - it.y).pow(2))
             }
 
             if (minDistanceToExistingPoints >= r) {
-                points.add(_root_ide_package_.lines.CPoint(xj, yj, alpha, newLevel))
-                lines.add(_root_ide_package_.lines.CLine(xj, yj, randomPoint.x, randomPoint.y, newLevel))
+                points.add(CPoint(xj, yj, alpha, newLevel))
+                lines.add(CLine(xj, yj, randomPoint.x, randomPoint.y, newLevel))
                 valid = true
                 trials = 0
             } else {

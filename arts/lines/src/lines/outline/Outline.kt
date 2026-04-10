@@ -20,7 +20,7 @@ fun main() {
     val w = gart.window()
     val g = gart.gartvas()
 
-    val draw = _root_ide_package_.lines.outline.MyDraw3(g)
+    val draw = MyDraw3(g)
 
     // save image
     g.draw(draw)
@@ -34,7 +34,7 @@ fun main() {
  */
 private class MyDraw3(g: Gartvas) : Drawing(g) {
     init {
-        _root_ide_package_.lines.outline.draw(g.canvas, g.d)
+        draw(g.canvas, g.d)
     }
 }
 

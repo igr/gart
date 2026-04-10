@@ -22,7 +22,7 @@ fun main() {
 
     // Hot reload requires a real class to be created, not a lambda!
 
-    val draw = _root_ide_package_.lines.ngons.MyDraw(g)
+    val draw = MyDraw(g)
 
     // save image
     g.draw(draw)
@@ -33,7 +33,7 @@ fun main() {
 
 private class MyDraw(g: Gartvas) : Drawing(g) {
     init {
-        _root_ide_package_.lines.ngons.draw(g.canvas, g.d)
+        draw(g.canvas, g.d)
         print("!")
     }
 }
@@ -43,7 +43,7 @@ private fun draw(c: Canvas, d: Dimension) {
     c.save()
     c.rotate(-90f, 512f, 512f)
     c.drawCircle(116 + 512f, 512f, 204f, fillOf(NipponColors.col037_SYOJYOHI))
-    _root_ide_package_.lines.ngons.ntgon(c, d)
+    ntgon(c, d)
     c.restore()
 }
 

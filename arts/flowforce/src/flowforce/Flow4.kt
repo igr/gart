@@ -13,8 +13,8 @@ import java.util.*
 import kotlin.time.Duration.Companion.seconds
 
 fun main() {
-    val d = _root_ide_package_.flowforce.gart.d
-    val g = _root_ide_package_.flowforce.gart.gartvas()
+    val d = gart.d
+    val g = gart.gartvas()
 
     val wave1 = WaveFlow(
         xFreq = 0.04f,
@@ -26,7 +26,7 @@ fun main() {
 
 
     val flowField = FlowField.of(d) { x, y -> wave1(x, y) }
-    val stopDrawing = 10.seconds.toFrames(_root_ide_package_.flowforce.gart.fps)
+    val stopDrawing = 10.seconds.toFrames(gart.fps)
 
     val gradient = Palettes.cool36.expand(3000)
     val palette = gradient
@@ -42,7 +42,7 @@ fun main() {
 
     g.canvas.clear(BgColors.sand)
 
-    val w = _root_ide_package_.flowforce.gart.window()
+    val w = gart.window()
     var image = g.snapshot()
 
     w.show { c, _, f ->
@@ -58,10 +58,10 @@ fun main() {
         f.onFrame(stopDrawing) {
             val border = 30f
             g.canvas.drawImage(image, 30f, 0f)
-            g.canvas.drawRect(_root_ide_package_.flowforce.gart.d.rect.shrink(border / 2), strokeOf(BgColors.milkMustache, border))
+            g.canvas.drawRect(gart.d.rect.shrink(border / 2), strokeOf(BgColors.milkMustache, border))
             image = g.snapshot()
             println("Done")
-            _root_ide_package_.flowforce.gart.saveImage(image)
+            gart.saveImage(image)
         }
         c.drawImage(image, 0f, 0f)
     }

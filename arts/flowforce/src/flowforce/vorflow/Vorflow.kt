@@ -23,7 +23,7 @@ fun main() {
     val d = gart.d
     val g = gart.gartvas()
     val c = g.canvas
-    _root_ide_package_.flowforce.vorflow.draw(c, d)
+    draw(c, d)
 
     val w = gart.window()
     gart.saveImage(g)
@@ -63,7 +63,7 @@ private fun draw(c: Canvas, d: Dimension) {
     }!!
     val centerPath = centerCell.toPathPoints().toClosedPath()
 
-    val ff = FlowField.of(_root_ide_package_.flowforce.spring.gart.d) { x, y ->
+    val ff = FlowField.of(flowforce.spring.gart.d) { x, y ->
         val p = Point(x, y)
 
         val lineOfP = voronoi.flatMap { it.edges }.find { it.isPointOnLine(p) }

@@ -14,7 +14,7 @@ import org.jetbrains.skia.PathBuilder
 
 private class Swing2Draw(g: Gartvas) : Drawing(g) {
     override fun draw(c: Canvas, d: Dimension, f: Frames) {
-        _root_ide_package_.lines.swing2.draw2(c, d)
+        draw2(c, d)
     }
 }
 
@@ -24,7 +24,7 @@ fun main() {
 
     val w = gart.window()
     val g = gart.gartvas()
-    val draw = _root_ide_package_.lines.swing2.Swing2Draw(g)
+    val draw = Swing2Draw(g)
 
 //    g.draw(draw)
 //    gart.saveImage(g)
@@ -63,7 +63,7 @@ private fun draw2(c: Canvas, d: Dimension) {
             a = Point(0f, 0f + 20 * it),
             b = Point(d.wf, 100f + 20 * it)
         )
-        _root_ide_package_.lines.swing2.drawSwingLine(c, l, RetroColors.white01, it)
+        drawSwingLine(c, l, RetroColors.white01, it)
         if (it == 1) {
             c.drawCircle(320f, 90f, 80f, fillOf(RetroColors.red01))
         }
@@ -74,7 +74,7 @@ private fun draw2(c: Canvas, d: Dimension) {
             a = Point(0f, 300f + 20 * it),
             b = Point(d.wf, 100f + 20 * it)
         )
-        _root_ide_package_.lines.swing2.drawSwingLine2(c, l, RetroColors.red01, it, 2)
+        drawSwingLine2(c, l, RetroColors.red01, it, 2)
     }
 }
 
@@ -82,9 +82,9 @@ private fun drawSwingLine(c: Canvas, l: Line, color: Int, i: Int, delta: Int = 0
     val p = PathBuilder()
     p.moveTo(l.a.x, l.a.y)
 
-    val l2 = _root_ide_package_.lines.swing2.g1.applyTo(l, p)
+    val l2 = g1.applyTo(l, p)
     if (l2 != null) {
-        val l3 = _root_ide_package_.lines.swing2.g2.applyTo(l2, p)
+        val l3 = g2.applyTo(l2, p)
         if (l3 != null) {
             // draw the last line
             p.lineTo(l3.b.x, l3.b.y)
@@ -99,9 +99,9 @@ private fun drawSwingLine2(c: Canvas, l: Line, color: Int, i: Int, delta: Int = 
     val p = PathBuilder()
     p.moveTo(l.a.x, l.a.y)
 
-    val l2 = _root_ide_package_.lines.swing2.g1Prim.applyTo(l, p)
+    val l2 = g1Prim.applyTo(l, p)
     if (l2 != null) {
-        val l3 = _root_ide_package_.lines.swing2.g2.applyTo(l2, p)
+        val l3 = g2.applyTo(l2, p)
         if (l3 != null) {
             // draw the last line
             p.lineTo(l3.b.x, l3.b.y)

@@ -70,7 +70,7 @@ fun main() {
     }
     traces2.forEach { trace ->
         val l = trace.last()
-        if (_root_ide_package_.flowforce.vivipard.isPointInsideOneOfPaths(l, traces1.map { it.toPath() })) {
+        if (isPointInsideOneOfPaths(l, traces1.map { it.toPath() })) {
             c.drawCircle(l, 1f, fillOf(RetroColors.black01))
             return@forEach
         }

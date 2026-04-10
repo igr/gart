@@ -21,7 +21,7 @@ fun main() {
     val w = gart.window()
     val g = gart.gartvas()
 
-    val draw = _root_ide_package_.lines.hyper.MyDraw(g)
+    val draw = MyDraw(g)
 
     // save image
     g.draw(draw)
@@ -32,13 +32,13 @@ fun main() {
 
 private class MyDraw(g: Gartvas) : Drawing(g) {
     init {
-        _root_ide_package_.lines.hyper.draw(g.canvas, g.d)
+        draw(g.canvas, g.d)
     }
 }
 
 private fun draw(c: Canvas, d: Dimension) {
     forSequence(40, 10, -1).forEachIndexed { index, n ->
-        _root_ide_package_.lines.hyper.drawN(c, d, 6, 500f - n * 40f, index)
+        drawN(c, d, 6, 500f - n * 40f, index)
     }
 }
 
@@ -53,7 +53,7 @@ private fun drawN(c: Canvas, d: Dimension, n: Int, r: Float, index: Int) {
     c.rotate(angle, center.x, center.y)
     val points = createNtagonPoints(n, center.x, center.y, r, 0f)
     val path = points.toClosedPath()
-    c.drawPath(path, fillOf(_root_ide_package_.lines.hyper.pal.safe(index)).apply {
+    c.drawPath(path, fillOf(pal.safe(index)).apply {
         this.strokeJoin = PaintStrokeJoin.ROUND
         this.strokeCap = PaintStrokeCap.ROUND
         this.alpha = 150

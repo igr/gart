@@ -18,7 +18,7 @@ fun main() {
     val w = gart.window()
     val g = gart.gartvas()
 
-    val draw = _root_ide_package_.lines.tapes.MyDrawB(g)
+    val draw = MyDrawB(g)
 
     // save image
     g.draw(draw)
@@ -29,35 +29,35 @@ fun main() {
 
 private class MyDrawB(g: Gartvas) : Drawing(g) {
     init {
-        _root_ide_package_.lines.tapes.drawB(g.canvas, g.d)
+        drawB(g.canvas, g.d)
     }
 }
 private fun drawB(c: Canvas, d: Dimension) {
     c.clear(RetroColors.black01)
-    _root_ide_package_.lines.tapes.generateOverlappingClosedPath(
+    generateOverlappingClosedPath(
         7,
         radius = 400f,
         centerX = 512f,
         centerY = 512f - 200f
     ).let { lines ->
-        _root_ide_package_.lines.tapes.linesToRects(lines, tapeWidth = 60f)
+        linesToRects(lines, tapeWidth = 60f)
     }.forEach {
         c.save()
         c.clipPath(it.path)
-        _root_ide_package_.lines.tapes.drawGrungePoly4(c, it, RetroColors.white01)
+        drawGrungePoly4(c, it, RetroColors.white01)
         c.restore()
     }
-    _root_ide_package_.lines.tapes.generateOverlappingClosedPath(
+    generateOverlappingClosedPath(
         8,
         radius = 400f,
         centerX = 512f,
         centerY = 512f + 200f
     ).let { lines ->
-        _root_ide_package_.lines.tapes.linesToRects(lines, tapeWidth = 60f)
+        linesToRects(lines, tapeWidth = 60f)
     }.forEach {
         c.save()
         c.clipPath(it.path)
-        _root_ide_package_.lines.tapes.drawGrungePoly4(c, it, RetroColors.red01)
+        drawGrungePoly4(c, it, RetroColors.red01)
         c.restore()
     }
 }
@@ -73,7 +73,7 @@ private fun linesToRects(lines: List<Line>, tapeWidth: Float): List<Poly4> {
         val line2 = lines[(i + 1) % lines.size] // Wrap around for closed path
 
         // Find line between two lines
-        val dLineBetween = _root_ide_package_.lines.tapes.lineBetweenTwoLines(line1, line2)
+        val dLineBetween = lineBetweenTwoLines(line1, line2)
 
         // Rotate DLine for 90 degrees (get perpendicular)
         val rotatedDLine = dLineBetween.perpendicularDLine()

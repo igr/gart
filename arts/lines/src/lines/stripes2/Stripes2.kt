@@ -21,7 +21,7 @@ fun main() {
 
     // Hot reload requires a real class to be created, not a lambda!
 
-    val draw = _root_ide_package_.lines.stripes2.MyDraw(g)
+    val draw = MyDraw(g)
 
     // save image
     g.draw(draw)
@@ -32,7 +32,7 @@ fun main() {
 
 private class MyDraw(g: Gartvas) : Drawing(g) {
     init {
-        _root_ide_package_.lines.stripes2.draw(g.canvas, g.d)
+        draw(g.canvas, g.d)
     }
 }
 
@@ -40,7 +40,7 @@ private fun draw(c: Canvas, d: Dimension) {
     c.clear(RetroColors.red01)
 
     repeat(22) {
-        _root_ide_package_.lines.stripes2.drawStripe(
+        drawStripe(
             c, d,
             -100f + it * 70f,
             -10 + (it / 2),
@@ -65,7 +65,7 @@ private fun drawStripe(
     val pointCount = 70
 
     // Create first sinusoidal path starting at xoff
-    val path1 = _root_ide_package_.lines.stripes2.createVerticalSinePath(
+    val path1 = createVerticalSinePath(
         xStart = xoff,
         height = d.hf,
         amplitude = amplitude1,
@@ -74,7 +74,7 @@ private fun drawStripe(
     )
 
     // Create second sinusoidal path starting at xoff + 50
-    val path2 = _root_ide_package_.lines.stripes2.createVerticalSinePath(
+    val path2 = createVerticalSinePath(
         xStart = xoff + 110f,
         height = d.hf,
         amplitude = amplitude2,

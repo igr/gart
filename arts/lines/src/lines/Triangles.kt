@@ -18,7 +18,7 @@ fun main() {
 
     val g = gart.gartvas()
     val c = g.canvas
-    _root_ide_package_.lines.draw(c, d)
+    draw(c, d)
     //gart.saveImage(g)
     w.showImage(g)
 }
@@ -36,7 +36,7 @@ private fun draw(c: Canvas, d: Dimension) {
             Point(sideGap, gap / 2 + i * gap),
             Point(d.wf - sideGap, gap / 2 + i * gap)
         )
-        val ts = _root_ide_package_.lines.lineOfTriangles(d, line, i % 2 == 0, gap, allTs)
+        val ts = lineOfTriangles(d, line, i % 2 == 0, gap, allTs)
         allTs.addAll(ts)
     }
     c.drawCircle(-100f, d.cy, 600f, fillOf(RetroColors.red01))
@@ -79,7 +79,7 @@ private fun lineOfTriangles(d: Dimension, line: Line, firstUp: Boolean, gap: Flo
                 continue
             }
             val triangle = Triangle(leftPoint, topPoint, rightPoint)
-            if (_root_ide_package_.lines.isTriangleColliding(triangle, allTriangles)) {
+            if (isTriangleColliding(triangle, allTriangles)) {
                 //ndx += len
                 //break
                 continue

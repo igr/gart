@@ -43,7 +43,7 @@ fun main() {
 //    val p = Palettes.cool141
     val pr = p.shuffle()
 
-    c.clear(_root_ide_package_.flowforce.glst.backColor)
+    c.clear(backColor)
     //flowField.drawField2(c, d, 50)
 
     val outlineGap = 6f
@@ -51,7 +51,7 @@ fun main() {
     // Layer 1: sparse, thickest lines
     val strokeWidth1 = 58f
     paths1.forEach { path ->
-        _root_ide_package_.flowforce.glst.hipline(c, path, strokeWidth1, pr)
+        hipline(c, path, strokeWidth1, pr)
     }
     val outlines1 = paths1.map { it.toOutline(strokeWidth1 + outlineGap).outline }
 
@@ -59,8 +59,8 @@ fun main() {
     val strokeWidth2 = 14f
     val drawnPaths2 = mutableListOf<Path>()
     paths2.forEach { path ->
-        if (!_root_ide_package_.flowforce.glst.overlapsAny(path, outlines1)) {
-            _root_ide_package_.flowforce.glst.hipline(c, path, strokeWidth2, pr)
+        if (!overlapsAny(path, outlines1)) {
+            hipline(c, path, strokeWidth2, pr)
             //c.drawPath(path, strokeOf(strokeWidth2, p.safe(1)))
             drawnPaths2.add(path)
         }
@@ -70,8 +70,8 @@ fun main() {
     // Layer 3: dense, thinnest lines, skip overlapping
     val strokeWidth3 = 1.5f
     paths3.forEach { path ->
-        if (!_root_ide_package_.flowforce.glst.overlapsAny(path, outlines2)) {
-            _root_ide_package_.flowforce.glst.dottedline(c, path, strokeWidth3, p)
+        if (!overlapsAny(path, outlines2)) {
+            dottedline(c, path, strokeWidth3, p)
         }
     }
 
@@ -88,7 +88,7 @@ private fun dottedline(
 ) {
     c.drawPath(path, strokeOf(strokeWidth3, p.safe(1)))
     path.toPoints(20).shuffled().take(4).forEach {
-        c.drawCircle(it.x, it.y, 2f, fillOf(_root_ide_package_.flowforce.glst.backColor))
+        c.drawCircle(it.x, it.y, 2f, fillOf(backColor))
     }
 }
 
@@ -101,7 +101,7 @@ private fun hipline(
     val pathLen = path.length()
     val colors = if (pathLen > 400) 14 else 4
     val n = 1000
-    val chunks = path.toPoints(n).chunkedAt(*_root_ide_package_.flowforce.glst.randomIndexes(colors, n), overlap = 10)
+    val chunks = path.toPoints(n).chunkedAt(*randomIndexes(colors, n), overlap = 10)
     chunks.forEachIndexed { index, chunk ->
         c.drawPath(chunk.toPath(), strokeOf(strokeWidth, p.shuffle() % index))
     }

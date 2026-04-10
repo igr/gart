@@ -37,7 +37,7 @@ fun main() {
     val flowField = FlowField.of(d) { x, y ->
         val p = Point(x, y)
         val n = simplex.random2D(x * 0.001, y * 0.001) * 2000f
-        if (_root_ide_package_.flowforce.worms.isRightFromLine(line, p)) {
+        if (isRightFromLine(line, p)) {
             Flow2(Degrees.of(n), StreamlineTracer.STEP_SIZE)
         } else {
             Flow2(Degrees.of(- 2 * n + x), StreamlineTracer.STEP_SIZE)

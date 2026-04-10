@@ -15,8 +15,8 @@ import org.jetbrains.skia.Point
 import kotlin.time.Duration.Companion.seconds
 
 fun main() {
-    val d = _root_ide_package_.flowforce.gart.d
-    val g = _root_ide_package_.flowforce.gart.gartvas()
+    val d = gart.d
+    val g = gart.gartvas()
 
     // prepare field
 
@@ -49,9 +49,9 @@ fun main() {
 
     // paint
 
-    val stopDrawing = 15.seconds.toFrames(_root_ide_package_.flowforce.gart.fps)
+    val stopDrawing = 15.seconds.toFrames(gart.fps)
 
-    val w = _root_ide_package_.flowforce.gart.window()
+    val w = gart.window()
     var image = g.snapshot()
     w.show { c, _, f ->
         f.onBeforeFrame(stopDrawing) {

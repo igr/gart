@@ -14,7 +14,7 @@ fun main() {
 
     val w = gart.window()
     val g = gart.gartvas()
-    val draw = _root_ide_package_.lines.swing.MyDraw(g)
+    val draw = MyDraw(g)
 
     g.draw(draw)
     gart.saveImage(g)
@@ -24,7 +24,7 @@ fun main() {
 
 private class MyDraw(g: Gartvas) : Drawing(g) {
     override fun draw(c: Canvas, d: Dimension, f: Frames) {
-        _root_ide_package_.lines.swing.draw(c, d)
+        draw(c, d)
     }
 }
 
@@ -32,14 +32,14 @@ private fun draw(c: Canvas, d: Dimension) {
     c.clear(RetroColors.black01)
     val total = 20
     repeat(total) { i ->
-        val s = _root_ide_package_.lines.swing.Swing(
+        val s = Swing(
             y = 300f + i * 10f,
             right = 600f + i * 10f,
             gap = 200f,
             left = 300f + i * 10f,
             radius = 200f
         )
-        val path = _root_ide_package_.lines.swing.topLevelPath(d, s)
+        val path = topLevelPath(d, s)
         val stroke = if (i == 14) {
             strokeOf(RetroColors.red01, 34f)
         } else {

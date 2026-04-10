@@ -47,8 +47,8 @@ fun main() {
         }
     }
 
-    _root_ide_package_.flowforce.flow10.circle(g, c, Point(d.w3, d.h3x2), 200f)
-    _root_ide_package_.flowforce.flow10.circle(g, c, Point(d.wf - 200f, 20f), 100f)
+    circle(g, c, Point(d.w3, d.h3x2), 200f)
+    circle(g, c, Point(d.wf - 200f, 20f), 100f)
 //    circle2(g, c, Point(d.w3, d.h3x2), 150f)
 
     gart.saveImage(g)
