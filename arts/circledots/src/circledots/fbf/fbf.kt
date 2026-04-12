@@ -1,13 +1,16 @@
 package circledots.fbf
 
-import dev.oblac.gart.*
+import dev.oblac.gart.Dimension
+import dev.oblac.gart.Drawing
+import dev.oblac.gart.Gart
+import dev.oblac.gart.Gartvas
 import dev.oblac.gart.color.BgColors
+import dev.oblac.gart.color.gradientOf
 import dev.oblac.gart.gfx.paint
 import dev.oblac.gart.math.doubleLoopSequence
 import dev.oblac.gart.math.f
 import dev.oblac.gart.math.rndi
 import org.jetbrains.skia.Canvas
-import org.jetbrains.skia.GradientStyle
 import org.jetbrains.skia.Image
 import org.jetbrains.skia.Matrix33.Companion.makeRotate
 import org.jetbrains.skia.Shader.Companion.makeSweepGradient
@@ -29,7 +32,6 @@ fun main() {
 
 private class MyDraw(g: Gartvas) : Drawing(g) {
     init {
-        val b = Gartmap(g)
         val d = g.d
         draw(g.canvas, d)
     }
@@ -68,9 +70,10 @@ private fun drawSquare(w: Float, rotationAngle: Float = 0f): Image {
         d.center,
         0f,
         360f,
-        colors,
-        positions,
-        GradientStyle.DEFAULT
+        gradientOf(
+            colors,
+            positions
+        )
     ).makeWithLocalMatrix(rotationMatrix)
     c.drawRect(d.rect, paint)
 

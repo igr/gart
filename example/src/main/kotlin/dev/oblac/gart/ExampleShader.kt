@@ -1,9 +1,13 @@
 package dev.oblac.gart
 
 import dev.oblac.gart.color.CssColors
+import dev.oblac.gart.color.gradientOf
 import dev.oblac.gart.gfx.fillOfRed
 import dev.oblac.gart.shader.*
-import org.jetbrains.skia.*
+import org.jetbrains.skia.FilterTileMode
+import org.jetbrains.skia.ImageFilter
+import org.jetbrains.skia.Paint
+import org.jetbrains.skia.Shader
 import org.jetbrains.skia.Shader.Companion.makeFractalNoise
 import org.jetbrains.skia.Shader.Companion.makeLinearGradient
 import org.jetbrains.skia.Shader.Companion.makeRadialGradient
@@ -76,18 +80,22 @@ fun main() {
                 fill = fillOfRed()
                 filter = createNoiseGrainFilter(-0.2f, gart.d)
             }
+
             Key.KEY_S -> {
                 fill = fillOfRed()
                 filter = createNoiseGrain2Filter(0.2f, gart.d)
             }
+
             Key.KEY_D -> {
                 fill = fillOfRed()
                 filter = createRisographFilter(0.1f, d = gart.d)
             }
+
             Key.KEY_F -> {
                 fill = fillOfRed()
                 filter = createMarbledFilter(0.1f, gart.d)
             }
+
             Key.KEY_G -> {
                 fill = fillOfRed()
                 filter = createSketchingPaperFilter(1.2f, 0.2f, 0.15f, gart.d)
@@ -107,9 +115,10 @@ fun main() {
                 shader = {
                     makeLinearGradient(
                         0f, 0f, gart.d.w.toFloat(), gart.d.h.toFloat(),
-                        intArrayOf(CssColors.red, CssColors.yellow, CssColors.green, CssColors.cyan, CssColors.blue, CssColors.magenta),
-                        floatArrayOf(0f, 0.2f, 0.4f, 0.6f, 0.8f, 1f),
-                        GradientStyle.DEFAULT
+                        gradientOf(
+                            intArrayOf(CssColors.red, CssColors.yellow, CssColors.green, CssColors.cyan, CssColors.blue, CssColors.magenta),
+                            floatArrayOf(0f, 0.2f, 0.4f, 0.6f, 0.8f, 1f),
+                        )
                     )
                 }
             }
@@ -120,9 +129,10 @@ fun main() {
                         gart.d.wf / 2,
                         gart.d.hf / 2,
                         gart.d.wf / 2,
-                        intArrayOf(CssColors.white, CssColors.blue, CssColors.black),
-                        floatArrayOf(0f, 0.5f, 1f),
-                        GradientStyle.DEFAULT
+                        gradientOf(
+                            intArrayOf(CssColors.white, CssColors.blue, CssColors.black),
+                            floatArrayOf(0f, 0.5f, 1f),
+                        )
                     )
                 }
             }
@@ -136,9 +146,10 @@ fun main() {
                         gart.d.wf / 2,
                         gart.d.hf / 2,
                         gart.d.wf / 2,
-                        intArrayOf(CssColors.yellow, CssColors.red, CssColors.magenta, CssColors.blue, CssColors.cyan, CssColors.green, CssColors.yellow),
-                        floatArrayOf(0f, 0.16f, 0.33f, 0.5f, 0.66f, 0.83f, 1f),
-                        GradientStyle.DEFAULT
+                        gradientOf(
+                            intArrayOf(CssColors.yellow, CssColors.red, CssColors.magenta, CssColors.blue, CssColors.cyan, CssColors.green, CssColors.yellow),
+                            floatArrayOf(0f, 0.16f, 0.33f, 0.5f, 0.66f, 0.83f, 1f),
+                        )
                     )
                 }
             }
@@ -148,9 +159,10 @@ fun main() {
                     makeSweepGradient(
                         gart.d.wf / 2,
                         gart.d.hf / 2,
-                        intArrayOf(CssColors.red, CssColors.yellow, CssColors.green, CssColors.cyan, CssColors.blue, CssColors.magenta, CssColors.red),
-                        floatArrayOf(0f, 0.16f, 0.33f, 0.5f, 0.66f, 0.83f, 1f),
-                        GradientStyle.DEFAULT
+                        gradientOf(
+                            intArrayOf(CssColors.red, CssColors.yellow, CssColors.green, CssColors.cyan, CssColors.blue, CssColors.magenta, CssColors.red),
+                            floatArrayOf(0f, 0.16f, 0.33f, 0.5f, 0.66f, 0.83f, 1f),
+                        )
                     )
                 }
             }

@@ -1,6 +1,7 @@
 package dev.oblac.gart
 
 import dev.oblac.gart.color.CssColors
+import dev.oblac.gart.color.gradientOf
 import dev.oblac.gart.dither.*
 import dev.oblac.gart.gfx.draw
 import dev.oblac.gart.gfx.drawImage
@@ -122,7 +123,9 @@ private fun draw1(c: Canvas, d: Dimension) {
         this.shader = Shader.makeLinearGradient(
             x0 = d.cx, y0 = d.cy - 400f,
             x1 = d.cx, y1 = d.cy + 400f,
-            colors = arrayOf(CssColors.white, CssColors.red).toIntArray(),
+            gradientOf(
+                colors = arrayOf(CssColors.white, CssColors.red).toIntArray()
+            )
         )
         this.isDither = true
     })
@@ -133,7 +136,9 @@ private fun draw2(c: Canvas, d: Dimension) {
         this.shader = Shader.makeLinearGradient(
             x0 = d.cx, y0 = d.cy - 400f,
             x1 = d.cx, y1 = d.cy + 400f,
-            colors = arrayOf(CssColors.white, CssColors.black).toIntArray(),
+            gradientOf(
+                colors = arrayOf(CssColors.white, CssColors.black).toIntArray()
+            )
         )
         this.isDither = true
     })

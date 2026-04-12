@@ -1,6 +1,7 @@
 package dev.oblac.gart
 
 import dev.oblac.gart.color.CssColors
+import dev.oblac.gart.color.gradientOf
 import dev.oblac.gart.gfx.Point
 import dev.oblac.gart.gfx.fillOfBlue
 import dev.oblac.gart.gfx.strokeOf
@@ -53,7 +54,9 @@ private fun drawPatch(c: Canvas) {
     }
 
     p.shader = Shader.makeLinearGradient(
-        pts[0], pts[1], intArrayOf(Color.RED, Color.GREEN, Color.BLUE, Color.YELLOW), null, GradientStyle.DEFAULT
+        pts[0], pts[1], gradientOf(
+            intArrayOf(Color.RED, Color.GREEN, Color.BLUE, Color.YELLOW)
+        )
     )
 
     val cubics = arrayOf(

@@ -1,5 +1,6 @@
 package dev.oblac.gart
 
+import dev.oblac.gart.color.gradientOf
 import dev.oblac.gart.math.PIf
 import org.jetbrains.skia.Paint
 import org.jetbrains.skia.Rect
@@ -13,7 +14,7 @@ fun main() {
 
     val w = gart.window()
 
-    w.show{ c, d, f ->
+    w.show { c, d, f ->
         f.print()
 
         // Background gradient
@@ -21,7 +22,11 @@ fun main() {
             shader = Shader.makeLinearGradient(
                 x0 = 0f, y0 = 0f,
                 x1 = d.width, y1 = d.height,
-                colors = intArrayOf(0xFF1a1a2e.toInt(), 0xFF16213e.toInt(), 0xFF0f3460.toInt())
+                gradientOf(
+                    colors = intArrayOf(
+                        0xFF1a1a2e.toInt(), 0xFF16213e.toInt(), 0xFF0f3460.toInt()
+                    )
+                )
             )
         }
         c.drawRect(Rect.makeWH(d.width, d.height), bgPaint)
@@ -59,10 +64,13 @@ fun main() {
 
         val centerPaint = Paint().apply {
             shader = Shader.makeRadialGradient(
-                x = d.cx, y = d.cy, r = 140f,
-                colors = intArrayOf(0xFFFFFFFF.toInt(), 0xFFe94560.toInt())
+                x = d.cx, y = d.cy, radius = 140f,
+                gradientOf(
+                    colors = intArrayOf(
+                        0xFFFFFFFF.toInt(), 0xFFe94560.toInt()
+                    )
+                )
             )
-            isAntiAlias = true
         }
         c.drawCircle(d.cx, d.cy, 140f, centerPaint)
     }

@@ -5,6 +5,7 @@ import dev.oblac.gart.Drawing
 import dev.oblac.gart.Gart
 import dev.oblac.gart.Gartvas
 import dev.oblac.gart.color.CssColors
+import dev.oblac.gart.color.gradientOf
 import dev.oblac.gart.font.FontFamily
 import dev.oblac.gart.font.font
 import dev.oblac.gart.gfx.*
@@ -138,7 +139,9 @@ private fun drawCircleCloud(c: Canvas, d: Dimension, circle: Circle) {
         this.shader = makeLinearGradient(
             circle.center.offset(0f, -circle.radius),
             circle.center.offset(0f, +circle.radius - 100f * yRatio),
-            colors = intArrayOf(CssColors.transparent, CssColors.black),
+            gradientOf(
+                colors = intArrayOf(CssColors.transparent, CssColors.black),
+            )
         )
     }
 
@@ -195,7 +198,9 @@ private fun rectTow(rect: Rect, angleDegrees: Float, f1: Float, f2: Float): Shad
     return makeLinearGradient(
         Point(startX, startY),
         Point(endX, endY),
-        intArrayOf(CssColors.white, CssColors.black),
-        floatArrayOf(f1, f2),
+        gradientOf(
+            intArrayOf(CssColors.white, CssColors.black),
+            floatArrayOf(f1, f2),
+        )
     )
 }

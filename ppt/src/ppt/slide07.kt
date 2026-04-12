@@ -1,7 +1,7 @@
 package ppt
 
 import dev.oblac.gart.DrawFrame
-import dev.oblac.gart.color.CssColors
+import dev.oblac.gart.color.*
 import dev.oblac.gart.color.CssColors.darkRed
 import dev.oblac.gart.color.CssColors.deepSkyBlue
 import dev.oblac.gart.color.CssColors.gold
@@ -12,9 +12,7 @@ import dev.oblac.gart.color.CssColors.purple
 import dev.oblac.gart.color.CssColors.red
 import dev.oblac.gart.color.CssColors.white
 import dev.oblac.gart.color.CssColors.yellow
-import dev.oblac.gart.color.Palettes
-import dev.oblac.gart.color.toFillPaint
-import dev.oblac.gart.color.toStrokePaint
+import dev.oblac.gart.color.space.of
 import dev.oblac.gart.font.FontFamily
 import dev.oblac.gart.font.font
 import dev.oblac.gart.gfx.center
@@ -24,6 +22,7 @@ import dev.oblac.gart.gfx.splitToGrid
 import dev.oblac.gart.text.HorizontalAlign
 import dev.oblac.gart.text.drawStringInRect
 import org.jetbrains.skia.*
+import org.jetbrains.skia.Gradient.Colors
 import org.jetbrains.skia.Shader.Companion.makeFractalNoise
 import org.jetbrains.skia.Shader.Companion.makeLinearGradient
 import org.jetbrains.skia.Shader.Companion.makeRadialGradient
@@ -74,8 +73,7 @@ val slide07 = DrawFrame { c, d, f ->
     //--- src: 2 Linear gradient
     val linearShader = makeLinearGradient(
         g2.left, g2.top, g2.right, g2.bottom,
-        vividColors, vividPos,
-        GradientStyle.DEFAULT
+        gradientOf(vividColors, vividPos)
     )
     c.drawShaderCircle(g2, shaderPaint(linearShader))
     //--- crs: 2
@@ -87,9 +85,10 @@ val slide07 = DrawFrame { c, d, f ->
     val center3 = g3.center()
     val radialShader = makeRadialGradient(
         center3.x, center3.y, g3.height * 0.35f,
-        intArrayOf(white, deepSkyBlue, midnightBlue),
-        floatArrayOf(0f, 0.5f, 1f),
-        GradientStyle.DEFAULT
+        gradientOf(
+            intArrayOf(white, deepSkyBlue, midnightBlue),
+            floatArrayOf(0f, 0.5f, 1f),
+        )
     )
     c.drawShaderCircle(g3, shaderPaint(radialShader))
     //--- crs: 3
@@ -101,8 +100,7 @@ val slide07 = DrawFrame { c, d, f ->
     val center4 = g4.center()
     val sweepShader = makeSweepGradient(
         center4.x, center4.y,
-        vividColors, vividPos,
-        GradientStyle.DEFAULT
+        gradientOf(vividColors, vividPos)
     )
     c.drawShaderCircle(g4, shaderPaint(sweepShader))
     //--- crs: 4
@@ -115,9 +113,10 @@ val slide07 = DrawFrame { c, d, f ->
     val conicalShader = makeTwoPointConicalGradient(
         center5.x - 30f, center5.y - 30f, 20f,
         center5.x, center5.y, g5.height * 0.35f,
-        intArrayOf(yellow, red, darkRed),
-        floatArrayOf(0f, 0.5f, 1f),
-        GradientStyle.DEFAULT
+        gradientOf(
+            intArrayOf(yellow, red, darkRed),
+            floatArrayOf(0f, 0.5f, 1f),
+        )
     )
     c.drawShaderCircle(g5, shaderPaint(conicalShader))
     //--- crs: 5
@@ -141,9 +140,13 @@ val slide07 = DrawFrame { c, d, f ->
     val repeatShader = makeLinearGradient(
         center7.x - tileSize, center7.y - tileSize,
         center7.x + tileSize, center7.y + tileSize,
-        intArrayOf(hotPink, gold, hotPink),
-        floatArrayOf(0f, 0.5f, 1f),
-        GradientStyle(FilterTileMode.REPEAT, true, Matrix33.IDENTITY)
+        Gradient(
+            colors = Colors(
+                colors = intArrayOf(hotPink, gold, hotPink).map { Color4f.of(it) }.toTypedArray<Color4f>(),
+                positions = floatArrayOf(0f, 0.5f, 1f),
+                tileMode = FilterTileMode.REPEAT
+            )
+        ) //GradientStyle (FilterTileMode.REPEAT, true, Matrix33.IDENTITY
     )
     c.drawShaderCircle(g7, shaderPaint(repeatShader))
     //--- crs: 7
@@ -156,9 +159,14 @@ val slide07 = DrawFrame { c, d, f ->
     val mirrorShader = makeLinearGradient(
         center8.x - tileSize, center8.y - tileSize,
         center8.x + tileSize, center8.y + tileSize,
-        intArrayOf(lime, purple),
-        null,
-        GradientStyle(FilterTileMode.MIRROR, true, Matrix33.IDENTITY)
+        Gradient(
+            colors = Colors(
+                colors = intArrayOf(lime, purple).map { Color4f.of(it) }.toTypedArray<Color4f>(),
+                positions = null,
+                tileMode = FilterTileMode.MIRROR
+            )
+        )
+        //GradientStyle (FilterTileMode.MIRROR, true, Matrix33.IDENTITY)
     )
     c.drawShaderCircle(g8, shaderPaint(mirrorShader))
     //--- crs: 8

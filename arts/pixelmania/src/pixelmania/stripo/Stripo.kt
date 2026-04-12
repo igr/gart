@@ -2,6 +2,7 @@ package pixelmania.stripo
 
 import dev.oblac.gart.*
 import dev.oblac.gart.color.RetroColors
+import dev.oblac.gart.color.gradientOf
 import dev.oblac.gart.gfx.Line
 import dev.oblac.gart.gfx.draw
 import dev.oblac.gart.gfx.drawLine
@@ -32,10 +33,12 @@ private class MyDraw(val g: Gartvas) : Drawing(g) {
     override fun draw(c: Canvas, d: Dimension, f: Frames) {
         draw(g.canvas, d)
         b.updatePixelsFromCanvas()
-        val m = halftoneProcess(b, HalftoneConfiguration(
-            dotSize = 14,
-            dotResolution = 7
-        ))
+        val m = halftoneProcess(
+            b, HalftoneConfiguration(
+                dotSize = 14,
+                dotResolution = 7
+            )
+        )
         b.copyPixelsFrom(m)
         b.drawToCanvas()
         c.draw(g)
@@ -70,13 +73,15 @@ private fun draw(c: Canvas, d: Dimension) {
             this.shader = Shader.makeLinearGradient(
                 x0 = line.x1, y0 = line.y1,
                 x1 = line.x2, y1 = line.y2,
-                colors = intArrayOf(
-                    RetroColors.white01,
-                    RetroColors.black01,
-                    RetroColors.red01,
-                    RetroColors.white01,
-                ),
-                positions = floatArrayOf(0f, 0.2f,  0.25f + it * 0.06f, 1f)
+                gradientOf(
+                    colors = intArrayOf(
+                        RetroColors.white01,
+                        RetroColors.black01,
+                        RetroColors.red01,
+                        RetroColors.white01,
+                    ),
+                    positions = floatArrayOf(0f, 0.2f, 0.25f + it * 0.06f, 1f)
+                )
             )
             this.pathEffect = PathEffect.makeDash(
                 intervals = floatArrayOf(80f, 1f),

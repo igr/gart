@@ -9,6 +9,7 @@ import dev.obac.gart.box2d.createContainer
 import dev.oblac.gart.Gart
 import dev.oblac.gart.color.BgColors
 import dev.oblac.gart.color.Palettes
+import dev.oblac.gart.color.gradientOf
 import dev.oblac.gart.color.space.color4f
 import dev.oblac.gart.flow.FlowField
 import dev.oblac.gart.gfx.*
@@ -31,8 +32,7 @@ val topGradient = Paint().apply {
     this.shader = makeLinearGradient(
         Point(0f, 0f),
         Point(0f, 800f),
-        waterColorsInt,
-        null, null, GradientStyle.DEFAULT
+        gradientOf(waterColorsInt)
     )
 }
 

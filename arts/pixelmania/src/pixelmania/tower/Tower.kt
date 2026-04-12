@@ -5,6 +5,7 @@ import dev.oblac.gart.Drawing
 import dev.oblac.gart.Gart
 import dev.oblac.gart.Gartvas
 import dev.oblac.gart.color.CssColors
+import dev.oblac.gart.color.gradientOf
 import dev.oblac.gart.gfx.*
 import dev.oblac.gart.math.GaussianFunction
 import dev.oblac.gart.math.rndf
@@ -88,8 +89,10 @@ private fun rectTow(rect: Rect, angleDegrees: Float, f1: Float, f2: Float): Shad
     return makeLinearGradient(
         Point(startX, startY),
         Point(endX, endY),
-        intArrayOf(CssColors.white, CssColors.black),
-        floatArrayOf(f1, f2),
+        gradientOf(
+            intArrayOf(CssColors.white, CssColors.black),
+            floatArrayOf(f1, f2),
+        )
     )
 }
 

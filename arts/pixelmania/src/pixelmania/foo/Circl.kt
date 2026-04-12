@@ -5,6 +5,7 @@ import dev.oblac.gart.Drawing
 import dev.oblac.gart.Gart
 import dev.oblac.gart.Gartvas
 import dev.oblac.gart.color.CssColors
+import dev.oblac.gart.color.gradientOf
 import dev.oblac.gart.gfx.*
 import dev.oblac.gart.shader.createNoiseGrain2Filter
 import org.jetbrains.skia.Canvas
@@ -57,8 +58,10 @@ private fun draw(c: Canvas, d: Dimension) {
             this.alpha = 200
             this.shader = makeSweepGradient(
                 center = point.offset(100f, 100f),
-                colors = intArrayOf(color, CssColors.white, color),
-                positions = floatArrayOf(0.4f, 0.7f, 1f)
+                gradientOf(
+                    colors = intArrayOf(color, CssColors.white, color),
+                    positions = floatArrayOf(0.4f, 0.7f, 1f)
+                )
             )
         })
         c.restore()

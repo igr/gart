@@ -5,7 +5,6 @@ import dev.oblac.gart.Gartvas
 import dev.oblac.gart.MemPixels
 import dev.oblac.gart.color.*
 import org.jetbrains.skia.Color
-import org.jetbrains.skia.GradientStyle
 import org.jetbrains.skia.Paint
 import org.jetbrains.skia.PaintMode
 import org.jetbrains.skia.Shader.Companion.makeRadialGradient
@@ -113,9 +112,10 @@ fun drawGlassBall(
         isAntiAlias = true
         shader = makeRadialGradient(
             cx, cy, radius,
-            intArrayOf(base(0x00), base(0x00), base(0x70), base(0xBB)),
-            floatArrayOf(0f, 0.5f, 0.85f, 1f),
-            GradientStyle.DEFAULT
+            gradientOf(
+                intArrayOf(base(0x00), base(0x00), base(0x70), base(0xBB)),
+                floatArrayOf(0f, 0.5f, 0.85f, 1f)
+            )
         )
     })
 
@@ -127,9 +127,10 @@ fun drawGlassBall(
         isAntiAlias = true
         shader = makeRadialGradient(
             hlX, hlY, hlR,
-            intArrayOf(light(0x50, 0.85f), light(0x18, 0.85f), light(0x00, 0.85f)),
-            floatArrayOf(0f, 0.4f, 1f),
-            GradientStyle.DEFAULT
+            gradientOf(
+                intArrayOf(light(0x50, 0.85f), light(0x18, 0.85f), light(0x00, 0.85f)),
+                floatArrayOf(0f, 0.4f, 1f)
+            )
         )
     })
 
@@ -142,9 +143,10 @@ fun drawGlassBall(
             isAntiAlias = true
             shader = makeRadialGradient(
                 spotX, spotY, spotR,
-                intArrayOf(light(0xC0, 0.95f), light(0x00, 0.95f)),
-                floatArrayOf(0f, 1f),
-                GradientStyle.DEFAULT
+                gradientOf(
+                    intArrayOf(light(0xC0, 0.95f), light(0x00, 0.95f)),
+                    floatArrayOf(0f, 1f),
+                )
             )
         })
     }
@@ -156,9 +158,10 @@ fun drawGlassBall(
         strokeWidth = 1.5f
         shader = makeRadialGradient(
             cx, cy, radius,
-            intArrayOf(light(0x00, 0.7f), light(0x30, 0.7f)),
-            floatArrayOf(0.85f, 1f),
-            GradientStyle.DEFAULT
+            gradientOf(
+                intArrayOf(light(0x00, 0.7f), light(0x30, 0.7f)),
+                floatArrayOf(0.85f, 1f),
+            )
         )
     })
 }

@@ -2,6 +2,7 @@ package pixelmania.rastsin
 
 import dev.oblac.gart.*
 import dev.oblac.gart.color.RetroColors
+import dev.oblac.gart.color.gradientOf
 import dev.oblac.gart.dither.ditherOrdered4By4Bayer
 import dev.oblac.gart.gfx.*
 import dev.oblac.gart.math.GOLDEN_RATIO
@@ -57,7 +58,7 @@ private fun draw(c: Canvas, d: Dimension) {
                 x.f() - skew, d.hf,
                 x.f(), y.f()
             )
-            val lineToShade = if (it == total -1) {
+            val lineToShade = if (it == total - 1) {
                 Line.of(
                     lineToDraw.a.x, d.hf,
                     lineToDraw.b.x, lineToDraw.b.y
@@ -75,13 +76,15 @@ private fun draw(c: Canvas, d: Dimension) {
                     this.shader = Shader.makeLinearGradient(
                         x0 = lineToShade.x1, y0 = lineToShade.y1,
                         x1 = lineToShade.x2, y1 = lineToShade.y2,
-                        colors = arrayOf(
-                            RetroColors.black01,
-                            RetroColors.red01,
-                            RetroColors.white01,
-                        ).toIntArray(),
-                        positions = floatArrayOf(
-                            0f, 0.82f, 1f
+                        gradientOf(
+                            colors = arrayOf(
+                                RetroColors.black01,
+                                RetroColors.red01,
+                                RetroColors.white01,
+                            ).toIntArray(),
+                            positions = floatArrayOf(
+                                0f, 0.82f, 1f
+                            )
                         )
                     )
                 }
