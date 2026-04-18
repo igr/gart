@@ -11,6 +11,24 @@ import org.jetbrains.skia.Shader.Companion.makeRadialGradient
 import kotlin.math.floor
 import kotlin.math.sqrt
 
+/**
+ * Draws a glass ball effect over the existing canvas contents, applying spherical
+ * refraction distortion via per-pixel Snell's-law sampling plus optional stylized
+ * overlays (Fresnel rim darkening, diffuse highlight, bright specular spot, rim outline).
+ *
+ * The pixels underneath the ball are read, refracted, and written back before the
+ * overlays are drawn on top.
+ *
+ * @param g the target canvas; its current pixels are sampled and overwritten within the ball
+ * @param cx center x of the ball in pixels
+ * @param cy center y of the ball in pixels
+ * @param radius ball radius in pixels
+ * @param eta ratio of refractive indices (air/glass). Lower values bend light more. Default `1/1.5`.
+ * @param thickness multiplier for refraction displacement; higher values exaggerate distortion
+ * @param baseColor tint used for rim darkening and highlight color mixing
+ * @param whiteSpot if `true`, draws a small concentrated bright reflection near the top-left
+ * @param rimDarkening if `true`, applies a Fresnel-style darkened rim gradient around the edge
+ */
 // Spherical refraction distortion using pixel manipulation
 fun drawGlassBall(
     g: Gartvas,
@@ -20,7 +38,8 @@ fun drawGlassBall(
     eta: Double = 1.0 / 1.5,   // air-to-glass refraction ratio (Snell's law)
     thickness: Double = 1.2,   // refraction displacement strength
     baseColor: Int = Color.BLACK,
-    whiteSpot: Boolean = false
+    whiteSpot: Boolean = false,
+    rimDarkening: Boolean = true
 ) {
     val c = g.canvas
 
@@ -108,16 +127,18 @@ fun drawGlassBall(
     // Glass ball visual overlays
 
     // 1. Rim darkening (Fresnel effect - edges reflect more, transmit less)
-    c.drawCircle(cx, cy, radius, Paint().apply {
-        isAntiAlias = true
-        shader = makeRadialGradient(
-            cx, cy, radius,
-            gradientOf(
-                intArrayOf(base(0x00), base(0x00), base(0x70), base(0xBB)),
-                floatArrayOf(0f, 0.5f, 0.85f, 1f)
+    if (rimDarkening) {
+        c.drawCircle(cx, cy, radius, Paint().apply {
+            isAntiAlias = true
+            shader = makeRadialGradient(
+                cx, cy, radius,
+                gradientOf(
+                    intArrayOf(base(0x00), base(0x00), base(0x70), base(0xBB)),
+                    floatArrayOf(0f, 0.5f, 0.85f, 1f)
+                )
             )
-        )
-    })
+        })
+    }
 
     // 2. Diffuse specular highlight (top-left)
     val hlX = cx - radius * 0.3f

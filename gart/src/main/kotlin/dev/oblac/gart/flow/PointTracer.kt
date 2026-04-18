@@ -18,4 +18,11 @@ class PointTracer(
         generateSequence(point) { p ->
             if (p.isInside(d)) flowField[p].offset(p) else null
         }.take(steps + 1).toList()
+
+    /**
+     * Trace a single point through the flow field for one step.
+     * If the point is inside the dimension, it returns the new position after applying the flow; otherwise, it returns null.
+     */
+    fun trace(p: Point): Point? =
+        if (p.isInside(d)) flowField[p].offset(p) else null
 }
