@@ -67,6 +67,7 @@ There is really **a lot of features**, and I'm not sure how to organize them, bu
 - Orbital mechanics (WHFast): Wisdom-Holman integrator, Kepler solver, orbital elements
 - Fluid dynamics: Navier-Stokes solver, Lattice Boltzmann, FluidSolver with particle rendering
 - Cellular automata: Elementary rules, Belousov-Zhabotinsky reaction
+- Reaction-diffusion (continuous): Gray-Scott, FitzHugh-Nagumo, Belousov-Zhabotinsky continuous, with 5-stop gradient coloring
 - Flow fields: Flow, FlowField, flow generators, StreamlineTracer (evenly-spaced streamlines)
 - Particles: Particle system, Gravitron
 - Box2D integration (gart-box2d module): JBox2D rigid body and particle physics, createContainer, World.particles()
