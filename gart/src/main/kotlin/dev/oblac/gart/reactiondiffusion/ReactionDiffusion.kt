@@ -19,14 +19,12 @@ package dev.oblac.gart.reactiondiffusion
  *
  * ## Seeding sources and obstacles
  *
- * Gart models expose direct per-species setters so callers can write any shape:
+ * Gart models expose direct per-species setters (`setU`/`setV`, or `setA`/`setB`/`setC`
+ * for [BelousovZhabotinskyContinuous]) plus disc-stamp helpers for the common case:
  *
  * ```kotlin
- * // Seed a circular activator patch (equivalent to addSource)
- * val r = 10
- * for (dy in -r..r) for (dx in -r..r) {
- *     if (dx * dx + dy * dy <= r * r) rd.setV(cx + dx, cy + dy, 1f)
- * }
+ * // Seed a circular activator patch
+ * rd.stampV(cx, cy, radius = 10, value = 1f)
  *
  * // Enforce an obstacle by re-masking a region after every step
  * fun mask() {
@@ -49,7 +47,7 @@ interface ReactionDiffusion {
     fun step()
 
     /**
-     * Scalar value at `(x, y)` used by [dev.oblac.gart.reactiondiffusion.RDColoring]
+     * Scalar value at `(x, y)` used by [dev.oblac.gart.color.ColorRamp]
      * for visualization (range: roughly `0f..1f`).
      */
     fun displayValue(x: Int, y: Int): Float

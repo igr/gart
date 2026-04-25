@@ -1,6 +1,7 @@
 package dev.oblac.gart.reactiondiffusion
 
 import dev.oblac.gart.Gartmap
+import dev.oblac.gart.color.ColorRamp
 
 /**
  * Render the simulation's display value into a [Gartmap] through the given
@@ -21,7 +22,7 @@ import dev.oblac.gart.Gartmap
  */
 fun ReactionDiffusion.renderTo(
     map: Gartmap,
-    coloring: RDColoring = RDColoring.Default,
+    coloring: ColorRamp = ColorRamp.Default,
 ) {
     require(map.w == width && map.h == height) {
         "Gartmap (${map.w}x${map.h}) must match reaction-diffusion grid (${width}x$height)"

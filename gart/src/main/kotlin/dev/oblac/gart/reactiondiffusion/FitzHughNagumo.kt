@@ -44,6 +44,12 @@ class FitzHughNagumo(
         v[y * width + x] = value
     }
 
+    /** Fill a clipped disc of `radius` centered at `(cx, cy)` with `value` in U. */
+    fun stampU(cx: Int, cy: Int, radius: Int, value: Float) = stampDisc(u, cx, cy, radius, value, width, height)
+
+    /** Fill a clipped disc of `radius` centered at `(cx, cy)` with `value` in V. */
+    fun stampV(cx: Int, cy: Int, radius: Int, value: Float) = stampDisc(v, cx, cy, radius, value, width, height)
+
     override fun displayValue(x: Int, y: Int): Float = v[y * width + x]
 
     override fun reset() {

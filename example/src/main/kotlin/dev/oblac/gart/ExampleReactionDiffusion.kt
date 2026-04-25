@@ -1,5 +1,6 @@
 package dev.oblac.gart
 
+import dev.oblac.gart.color.ColorRamp
 import dev.oblac.gart.math.TWO_PIf
 import dev.oblac.gart.noise.SimplexNoise
 import dev.oblac.gart.reactiondiffusion.*
@@ -60,7 +61,7 @@ fun main() {
                 else -> defaultStepsPerFrame
             }
             repeat(stepsPerFrame) { rd.step() }
-            rd.renderTo(map, RDColoring.Default)
+            rd.renderTo(map, ColorRamp.Default)
         }
         g.snapshotTo(canvas)
     }
@@ -109,12 +110,8 @@ private fun seedGrayScott(rd: GrayScott) {
     repeat(patchCount) {
         val cx = rng.nextInt(patchRadius, rd.width - patchRadius)
         val cy = rng.nextInt(patchRadius, rd.height - patchRadius)
-        for (dy in -patchRadius..patchRadius) for (dx in -patchRadius..patchRadius) {
-            if (dx * dx + dy * dy <= patchRadius * patchRadius) {
-                rd.setU(cx + dx, cy + dy, 0.5f)
-                rd.setV(cx + dx, cy + dy, 0.25f)
-            }
-        }
+        rd.stampU(cx, cy, patchRadius, 0.5f)
+        rd.stampV(cx, cy, patchRadius, 0.25f)
     }
 }
 
@@ -130,22 +127,10 @@ private fun seedFitzHughNagumo(rd: FitzHughNagumo) {
     val notchCx = cx + excitedRadius / 3
     val notchCy = cy + excitedRadius / 2
 
-    for (y in 0 until rd.height) for (x in 0 until rd.width) {
-        val dx = x - cx
-        val dy = y - cy
-        if (dx * dx + dy * dy <= excitedRadius * excitedRadius) {
-            rd.setU(x, y, 0.95f)
-            rd.setV(x, y, 0.05f)
-        }
-    }
-    for (y in 0 until rd.height) for (x in 0 until rd.width) {
-        val dx = x - notchCx
-        val dy = y - notchCy
-        if (dx * dx + dy * dy <= refractoryRadius * refractoryRadius) {
-            rd.setU(x, y, 0f)
-            rd.setV(x, y, 1f)
-        }
-    }
+    rd.stampU(cx, cy, excitedRadius, 0.95f)
+    rd.stampV(cx, cy, excitedRadius, 0.05f)
+    rd.stampU(notchCx, notchCy, refractoryRadius, 0f)
+    rd.stampV(notchCx, notchCy, refractoryRadius, 1f)
 }
 
 private fun seedBz(rd: BelousovZhabotinskyContinuous) {

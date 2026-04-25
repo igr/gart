@@ -46,3 +46,32 @@ internal fun laplacian(
         LAP_CARDINAL * (cN + cS + cE + cW) +
         LAP_DIAGONAL * (cNW + cNE + cSW + cSE)).toFloat()
 }
+
+/**
+ * Fill a disc of `radius` cells centered at `(cx, cy)` with `value` in `dst`.
+ * Cells outside `[0, w) x [0, h)` are skipped.
+ */
+internal fun stampDisc(
+    dst: FloatArray,
+    cx: Int,
+    cy: Int,
+    radius: Int,
+    value: Float,
+    w: Int,
+    h: Int,
+) {
+    if (radius < 0) return
+    val r2 = radius * radius
+    val xMin = maxOf(0, cx - radius)
+    val xMax = minOf(w - 1, cx + radius)
+    val yMin = maxOf(0, cy - radius)
+    val yMax = minOf(h - 1, cy + radius)
+    for (y in yMin..yMax) {
+        val dy = y - cy
+        val row = y * w
+        for (x in xMin..xMax) {
+            val dx = x - cx
+            if (dx * dx + dy * dy <= r2) dst[row + x] = value
+        }
+    }
+}

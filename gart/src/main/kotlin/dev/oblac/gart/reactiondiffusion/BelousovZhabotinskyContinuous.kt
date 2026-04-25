@@ -53,6 +53,15 @@ class BelousovZhabotinskyContinuous(
         c[y * width + x] = value
     }
 
+    /** Fill a clipped disc of `radius` centered at `(cx, cy)` with `value` in A. */
+    fun stampA(cx: Int, cy: Int, radius: Int, value: Float) = stampDisc(a, cx, cy, radius, value, width, height)
+
+    /** Fill a clipped disc of `radius` centered at `(cx, cy)` with `value` in B. */
+    fun stampB(cx: Int, cy: Int, radius: Int, value: Float) = stampDisc(b, cx, cy, radius, value, width, height)
+
+    /** Fill a clipped disc of `radius` centered at `(cx, cy)` with `value` in C. */
+    fun stampC(cx: Int, cy: Int, radius: Int, value: Float) = stampDisc(c, cx, cy, radius, value, width, height)
+
     override fun displayValue(x: Int, y: Int): Float = c[y * width + x]
 
     override fun reset() {
