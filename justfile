@@ -48,24 +48,6 @@ dev module main:
         "bash -c 'java -XX:CICompilerCount=1 -XX:TieredStopAtLevel=1 -XX:+UseSerialGC -Xverify:none -Dgart.align=right @${LAUNCHER_CP} dev.oblac.gart.hotreload.GartLauncherKt ${CLASSES_DIR} {{main}}'"
     tmux attach -t "$SESSION"
 
-# Dev session using entr to restart the JVM on class changes (fallback).
-dev-entr module main:
-    #!/usr/bin/env bash
-    set -e
-    GRADLE_PROJECT=":{{module}}"
-    MODULE_DIR="$(echo "{{module}}" | tr ':' '/')"
-    echo "Building and resolving classpath..."
-    ./gradlew "${GRADLE_PROJECT}:writeClasspath" "${GRADLE_PROJECT}:classes" -q
-    SESSION="gart-dev"
-    CP_FILE="$(pwd)/${MODULE_DIR}/build/classpath.txt"
-    tmux kill-session -t "$SESSION" 2>/dev/null || true
-    tmux new-session -d -s "$SESSION" -n compile \
-        "bash -c './gradlew ${GRADLE_PROJECT}:compileKotlin --continuous -Dorg.gradle.continuous.quietperiod=100'"
-    tmux set-option -t "$SESSION" remain-on-exit on
-    tmux split-window -t "$SESSION" -h \
-        "bash -c 'while true; do find ${MODULE_DIR}/build/classes -name \"*.class\" | entr -d -r java -XX:CICompilerCount=1 -XX:TieredStopAtLevel=1 -XX:+UseSerialGC -Xverify:none -Dgart.align=right @${CP_FILE} {{main}}; done'"
-    tmux attach -t "$SESSION"
-
 # Stops the dev session.
 dev-stop:
     tmux kill-session -t gart-dev 2>/dev/null || echo "No dev session running."
