@@ -33,18 +33,10 @@ class ColorRamp(stops: List<ColorStop>) {
             if (value <= curr.threshold) {
                 val span = curr.threshold - prev.threshold
                 val t = if (span > 0f) (value - prev.threshold) / span else 0f
-                return mixArgb(prev.color, curr.color, t)
+                return lerpColor(prev.color, curr.color, t)
             }
         }
         return stops.last().color
-    }
-
-    private fun mixArgb(c0: Int, c1: Int, t: Float): Int {
-        val a = alpha(c0) + ((alpha(c1) - alpha(c0)) * t).toInt()
-        val r = red(c0) + ((red(c1) - red(c0)) * t).toInt()
-        val g = green(c0) + ((green(c1) - green(c0)) * t).toInt()
-        val b = blue(c0) + ((blue(c1) - blue(c0)) * t).toInt()
-        return argb(a.coerceIn(0, 255), r.coerceIn(0, 255), g.coerceIn(0, 255), b.coerceIn(0, 255))
     }
 
     companion object {
@@ -62,5 +54,15 @@ class ColorRamp(stops: List<ColorStop>) {
                 ColorStop(argb(255, 5, 199, 234), 0.8f),
             )
         )
+
+        /**
+         * Build a [ColorRamp] from [palette] with stops spread evenly across `[0, 1]`.
+         * The first color maps to `0f`, the last to `1f`. A single-color palette
+         * yields a constant ramp.
+         */
+        fun of(palette: Palette): ColorRamp {
+            val denom = (palette.size - 1).toFloat()
+            return ColorRamp(palette.indices.map { i -> ColorStop(palette[i], i / denom) })
+        }
     }
 }
