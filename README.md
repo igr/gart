@@ -118,6 +118,10 @@ A collection of generative art pieces (ordered by name).
 [<img src="arts/flowforce/glst2_thumb.png" hspace="2" vspace="2" align="left">](arts/flowforce/glst2.png)
 [<img src="arts/flowforce/interruption_thumb.png" hspace="2" vspace="2" align="left">](arts/flowforce/interruption.png)
 [<img src="arts/flowforce/monolith_thumb.png" hspace="2" vspace="2" align="left">](arts/flowforce/monolith.png)
+[<img src="arts/flowforce/orb1_thumb.png" hspace="2" vspace="2" align="left">](arts/flowforce/orb1.png)
+[<img src="arts/flowforce/orb2_thumb.png" hspace="2" vspace="2" align="left">](arts/flowforce/orb2.png)
+[<img src="arts/flowforce/orb3-1_thumb.png" hspace="2" vspace="2" align="left">](arts/flowforce/orb3-1.png)
+[<img src="arts/flowforce/orb3-2_thumb.png" hspace="2" vspace="2" align="left">](arts/flowforce/orb3-2.png)
 [<img src="arts/flowforce/perl_1_thumb.png" hspace="2" vspace="2" align="left">](arts/flowforce/perl_1.png)
 [<img src="arts/flowforce/perl_thumb.png" hspace="2" vspace="2" align="left">](arts/flowforce/perl.png)
 [<img src="arts/flowforce/vivipard_thumb.png" hspace="2" vspace="2" align="left">](arts/flowforce/vivipard.png)
@@ -235,6 +239,7 @@ A collection of generative art pieces (ordered by name).
 ## Orbitr
 
 [<img src="arts/orbitr/orbitr_thumb.png" hspace="2" vspace="2" align="left">](arts/orbitr/orbitr.png)
+[<img src="arts/orbitr/triangle-in-space_thumb.png" hspace="2" vspace="2" align="left">](arts/orbitr/triangle-in-space.png)
 <br clear="both">
 
 ## Palecircles
@@ -248,12 +253,16 @@ A collection of generative art pieces (ordered by name).
 ## Pixelmania
 
 [<img src="arts/pixelmania/circl_thumb.png" hspace="2" vspace="2" align="left">](arts/pixelmania/circl.png)
+[<img src="arts/pixelmania/cosmic_thumb.png" hspace="2" vspace="2" align="left">](arts/pixelmania/cosmic.png)
+[<img src="arts/pixelmania/flight_thumb.png" hspace="2" vspace="2" align="left">](arts/pixelmania/flight.png)
 [<img src="arts/pixelmania/glass_thumb.png" hspace="2" vspace="2" align="left">](arts/pixelmania/glass.png)
 [<img src="arts/pixelmania/liqf_thumb.png" hspace="2" vspace="2" align="left">](arts/pixelmania/liqf.png)
 [<img src="arts/pixelmania/rastersin_thumb.png" hspace="2" vspace="2" align="left">](arts/pixelmania/rastersin.png)
 [<img src="arts/pixelmania/romb_thumb.png" hspace="2" vspace="2" align="left">](arts/pixelmania/romb.png)
 [<img src="arts/pixelmania/stripo_thumb.png" hspace="2" vspace="2" align="left">](arts/pixelmania/stripo.png)
 [<img src="arts/pixelmania/tower01_thumb.png" hspace="2" vspace="2" align="left">](arts/pixelmania/tower01.png)
+[<img src="arts/pixelmania/waves-bw_thumb.png" hspace="2" vspace="2" align="left">](arts/pixelmania/waves-bw.png)
+[<img src="arts/pixelmania/waves_thumb.png" hspace="2" vspace="2" align="left">](arts/pixelmania/waves.png)
 <br clear="both">
 
 ## Plasma
@@ -433,4 +442,4 @@ A collection of generative art pieces (ordered by name).
 
 ---
 
-**Total: 205 works across 47 collections**
+**Total: 214 works across 47 collections**
