@@ -199,6 +199,53 @@ fun Path.length(): Float {
 }
 
 /**
+ * Bakes a discrete path effect into [path] geometry — the static-geometry
+ * counterpart to Skia's `PathEffect.makeDiscrete`. Walks each contour at
+ * intervals of [segLength], offsets every sample perpendicular to the local
+ * tangent by a uniform random in `[-deviation, deviation]`, and connects the
+ * perturbed samples with line segments.
+ *
+ * Unlike the paint-time effect, the result is a real [Path] you can hand to
+ * boolean ops, obstacle setters, or anywhere a Path is expected.
+ *
+ * [seed] makes the perturbation deterministic; pass different seeds for
+ * different jitter patterns.
+ */
+fun discretizePath(
+    path: Path,
+    segLength: Float,
+    deviation: Float,
+    seed: Int = 0,
+): Path {
+    val rng = kotlin.random.Random(seed.toLong())
+    val builder = PathBuilder()
+    val measure = PathMeasure(path, false)
+    do {
+        val length = measure.length
+        if (length <= 0f) continue
+        var distance = 0f
+        var first = true
+        while (distance <= length) {
+            val pos = measure.getPosition(distance) ?: break
+            val tan = measure.getTangent(distance) ?: Point(1f, 0f)
+            val nx = -tan.y
+            val ny = tan.x
+            val r = (rng.nextFloat() * 2f - 1f) * deviation
+            val px = pos.x + nx * r
+            val py = pos.y + ny * r
+            if (first) {
+                builder.moveTo(px, py)
+                first = false
+            } else {
+                builder.lineTo(px, py)
+            }
+            distance += segLength
+        }
+    } while (measure.nextContour())
+    return builder.detach()
+}
+
+/**
  * Checks if a point is below a path at the point's x coordinate.
  * "Below" means the point's y is greater than the path's y (screen coordinates).
  * The path is sampled at the given [precision] interval.
