@@ -1,36 +1,12 @@
 package dev.oblac.gart.gfx
 
-import dev.oblac.gart.angle.*
+import dev.oblac.gart.angle.Angle
+import dev.oblac.gart.angle.cos
+import dev.oblac.gart.angle.sin
 import dev.oblac.gart.vector.Vec2
 import org.jetbrains.skia.Canvas
 import org.jetbrains.skia.Paint
 import org.jetbrains.skia.Point
-
-/**
- * A vector that represents a direction and distance.
- */
-@Deprecated("Use Vector2 instead", ReplaceWith("Vector2(dx, dy)"))
-data class DirectionVector(val dx: Float, val dy: Float) {
-    val length: Float
-        get() = kotlin.math.sqrt(dx * dx + dy * dy)
-
-    fun normalize(): DirectionVector {
-        val len = length
-        return if (len == 0f) {
-            this
-        } else {
-            DirectionVector(dx / len, dy / len)
-        }
-    }
-
-    fun toDegrees(): Degrees {
-        return Degrees(kotlin.math.atan2(dy, dx) * (180f / kotlin.math.PI.toFloat()))
-    }
-
-    fun toRadians(): Radians {
-        return Radians(kotlin.math.atan2(dy, dx))
-    }
-}
 
 /**
  * This is a parametric line defined by a point and a direction vector.
