@@ -2,6 +2,7 @@ package dev.oblac.gart.pixels
 
 import dev.oblac.gart.Pixels
 import dev.oblac.gart.color.*
+import dev.oblac.gart.forEach
 
 /**
  * Converts the given bitmap to grayscale by averaging the RGB components.

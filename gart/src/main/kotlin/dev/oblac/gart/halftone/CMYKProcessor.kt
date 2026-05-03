@@ -2,6 +2,7 @@ package dev.oblac.gart.halftone
 
 import dev.oblac.gart.MemPixels
 import dev.oblac.gart.Pixels
+import dev.oblac.gart.forEach
 import dev.oblac.gart.color.argb
 import dev.oblac.gart.color.blue
 import dev.oblac.gart.color.green

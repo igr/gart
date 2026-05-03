@@ -82,18 +82,16 @@ val slide12 = DrawFrame { c, d, f ->
     drawSampleScene(gv2)
     //--- src: 2 Pixel manipulation
     val bm2 = Gartmap(gv2)
-    bm2.pixelBytes.let { pb ->
-        for (y in 0 until cellDim.h) {
-            for (x in 0 until cellDim.w) {
-                val pixel = pb.get(x, y)
-                val inv = argb(
-                    alpha(pixel),
-                    255 - red(pixel),
-                    255 - green(pixel),
-                    255 - blue(pixel)
-                )
-                pb.set(x, y, inv)
-            }
+    for (y in 0 until cellDim.h) {
+        for (x in 0 until cellDim.w) {
+            val pixel = bm2[x, y]
+            val inv = argb(
+                alpha(pixel),
+                255 - red(pixel),
+                255 - green(pixel),
+                255 - blue(pixel)
+            )
+            bm2[x, y] = inv
         }
     }
     c.drawCentered(bm2.image(), g2)
