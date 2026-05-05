@@ -86,3 +86,30 @@ fun intersectionOf(
     val rayLine = dline.toLine(dline.p, 10_000f)    // grow in both directions
     return intersectionOf(rayLine, line2)
 }
+
+/**
+ * Returns true if open segments `p1→p2` and `p3→p4` cross properly (no shared
+ * endpoint or collinear touch counts). Allocation-free orientation-test variant
+ * suitable for hot loops; for the intersection point itself use [intersectionOf].
+ */
+fun segmentsCross(
+    p1x: Float, p1y: Float, p2x: Float, p2y: Float,
+    p3x: Float, p3y: Float, p4x: Float, p4y: Float,
+): Boolean {
+    fun orient(ax: Float, ay: Float, bx: Float, by: Float, cx: Float, cy: Float): Int {
+        val v = (by - ay) * (cx - bx) - (bx - ax) * (cy - by)
+        return when {
+            v > 0f -> 1
+            v < 0f -> -1
+            else -> 0
+        }
+    }
+    val o1 = orient(p1x, p1y, p2x, p2y, p3x, p3y)
+    val o2 = orient(p1x, p1y, p2x, p2y, p4x, p4y)
+    val o3 = orient(p3x, p3y, p4x, p4y, p1x, p1y)
+    val o4 = orient(p3x, p3y, p4x, p4y, p2x, p2y)
+    return o1 != o2 && o3 != o4 && o1 != 0 && o2 != 0 && o3 != 0 && o4 != 0
+}
+
+fun segmentsCross(a1: Point, a2: Point, b1: Point, b2: Point): Boolean =
+    segmentsCross(a1.x, a1.y, a2.x, a2.y, b1.x, b1.y, b2.x, b2.y)

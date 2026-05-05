@@ -24,6 +24,11 @@ fun blue(color: Int): Int {
     return color and 0xFF
 }
 
+fun alphaf(color: Int): Float = alpha(color) / 255f
+fun redf(color: Int): Float = red(color) / 255f
+fun greenf(color: Int): Float = green(color) / 255f
+fun bluef(color: Int): Float = blue(color) / 255f
+
 fun rgb(r: Int, g: Int, b: Int): Int {
     return Color.makeARGB(0xFF, r, g, b)
 }
