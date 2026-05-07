@@ -57,7 +57,7 @@ fun Canvas.drawDynaGraph(graph: DynaGraph, group: GroupId = DynaGraph.MAIN, pain
 fun SprayPainter.drawDynaGraphEdges(graph: DynaGraph, group: GroupId = DynaGraph.MAIN, samplesPerEdge: Int = 50) {
     val g = graph.groupOrNull(group) ?: return
     for (e in g.edges()) {
-        stroke(graph.pos(e.a), graph.pos(e.b), samplesPerEdge)
+        stroke(graph.point(e.a), graph.point(e.b), samplesPerEdge)
     }
 }
 

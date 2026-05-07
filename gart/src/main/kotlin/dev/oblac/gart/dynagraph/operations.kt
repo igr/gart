@@ -6,7 +6,7 @@ import org.jetbrains.skia.Point
 import org.jetbrains.skia.Rect
 
 /** Internal accessor: returns the named [Graph] or null. Avoids the throwing `group()`. */
-internal fun DynaGraph.groupOrNull(name: GroupId): Graph? = if (name in groupNames()) group(name) else null
+internal fun DynaGraph.groupOrNull(name: GroupId): Graph? = if (name in groupIds()) group(name) else null
 
 /**
  * Axis-aligned bounding box of the vertices that participate in [group].
@@ -56,7 +56,7 @@ fun DynaGraph.center(group: GroupId = DynaGraph.MAIN, target: Point = Point(0f, 
     val cy = (b.top + b.bottom) * 0.5f
     val dx = target.x - cx
     val dy = target.y - cy
-    for (v in 0 until numVerts) setPos(v, x(v) + dx, y(v) + dy)
+    for (v in 0 until verticesCount) setPoint(v, x(v) + dx, y(v) + dy)
     return Point(cx, cy)
 }
 
@@ -151,7 +151,7 @@ fun DynaGraph.relativeNeighborhood(
     targetGroup: GroupId,
     radius: Float,
 ): Int {
-    val n = numVerts
+    val n = verticesCount
     if (n < 2) return 0
     ensureGroup(targetGroup)
 

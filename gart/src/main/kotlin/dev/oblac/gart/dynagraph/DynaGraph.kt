@@ -11,6 +11,8 @@ value class GroupId(val value: String) {
     override fun toString(): String = value
 }
 
+private data class Vertex(val id: Int, var pos: Point)
+
 
 /**
  * A mutable dot-and-line drawing model: vertices are dots with positions, and
@@ -31,7 +33,7 @@ class DynaGraph(
 ) {
     private val vertices = Array(maxVertices) { Vertex(-1, Point(0f, 0f)) }
 
-    var numVerts: Int = 0
+    var verticesCount: Int = 0
         private set
 
     private val groups: MutableMap<GroupId, Graph> = HashMap()
@@ -40,40 +42,40 @@ class DynaGraph(
         groups[MAIN] = Graph(initialGroupCapacity)
     }
 
-    fun pos(v: Int): Point {
-        require(v in 0 until numVerts) { "vertex $v out of range [0, $numVerts)" }
+    fun point(v: Int): Point {
+        require(v in 0 until verticesCount) { "vertex $v out of range [0, $verticesCount)" }
         return vertices[v].pos
     }
 
     fun vec(v: Int): Vec2 {
-        val p = pos(v)
+        val p = point(v)
         return Vec2(p.x, p.y)
     }
 
     fun x(v: Int): Float {
-        return pos(v).x
+        return point(v).x
     }
 
     fun y(v: Int): Float {
-        return pos(v).y
+        return point(v).y
     }
 
-    fun setPos(v: Int, p: Point) {
-        require(v in 0 until numVerts) { "vertex $v out of range [0, $numVerts)" }
+    fun setPoint(v: Int, p: Point) {
+        require(v in 0 until verticesCount) { "vertex $v out of range [0, $verticesCount)" }
         vertices[v].pos = p
     }
 
-    fun setPos(v: Int, x: Float, y: Float) = setPos(v, Point(x, y))
+    fun setPoint(v: Int, x: Float, y: Float) = setPoint(v, Point(x, y))
 
-    /** Returns the named group. Throws if the group does not exist. */
-    fun group(name: GroupId = MAIN): Graph =
-        groups[name] ?: error("no group named '$name'")
+    /** Returns the group. Throws if the group does not exist. */
+    fun group(id: GroupId = MAIN): Graph =
+        groups[id] ?: error("no group '$id'")
 
-    /** Returns the named group, creating it if missing. */
-    fun ensureGroup(name: GroupId): Graph =
-        groups.getOrPut(name) { Graph() }
+    /** Returns the group, creating it if missing. */
+    fun ensureGroup(id: GroupId): Graph =
+        groups.getOrPut(id) { Graph() }
 
-    fun groupNames(): Set<GroupId> = groups.keys
+    fun groupIds(): Set<GroupId> = groups.keys
 
     /** Adds a new vertex to the pool. On success, [MutationResult.newVert] is the new vertex ID. */
     fun addVert(p: Point): MutationResult {
@@ -84,10 +86,10 @@ class DynaGraph(
     fun addVert(x: Float, y: Float): MutationResult = addVert(Point(x, y))
 
     private fun addVertId(p: Point): Int? {
-        if (numVerts >= maxVertices) return null
-        val v = numVerts
+        if (verticesCount >= maxVertices) return null
+        val v = verticesCount
         vertices[v] = Vertex(v, p)
-        numVerts = v + 1
+        verticesCount = v + 1
         return v
     }
 
@@ -99,7 +101,7 @@ class DynaGraph(
         if (addEdgeRaw(a, b, group)) MutationResult.ok() else MutationResult.Failure
 
     private fun addEdgeRaw(a: Int, b: Int, group: GroupId = MAIN): Boolean =
-        a != b && a in 0 until numVerts && b in 0 until numVerts && ensureGroup(group).add(a, b)
+        a != b && a in 0 until verticesCount && b in 0 until verticesCount && ensureGroup(group).add(a, b)
 
     /** Removes edge `(a, b)` from [group]. Fails if the group does not exist or the edge is absent. */
     fun delEdge(a: Int, b: Int, group: GroupId = MAIN): MutationResult =
@@ -119,7 +121,7 @@ class DynaGraph(
         if (moveVertRaw(v, p, relative)) MutationResult.ok() else MutationResult.Failure
 
     private fun moveVertRaw(v: Int, p: Point, relative: Boolean = true): Boolean {
-        if (v !in 0 until numVerts) return false
+        if (v !in 0 until verticesCount) return false
         val vertex = vertices[v]
         val current = vertex.pos
         if (relative) {
@@ -146,7 +148,7 @@ class DynaGraph(
     }
 
     private fun appendEdgeId(v: Int, p: Point, group: GroupId = MAIN, relative: Boolean = true): Int? {
-        if (v !in 0 until numVerts) return null
+        if (v !in 0 until verticesCount) return null
         val current = vertices[v].pos
         val px = if (relative) current.x + p.x else p.x
         val py = if (relative) current.y + p.y else p.y
@@ -168,7 +170,7 @@ class DynaGraph(
     private fun vaddEdgeIds(pa: Point, pb: Point, group: GroupId = MAIN): Pair<Int, Int>? {
         val a = addVertId(pa) ?: return null
         val b = addVertId(pb) ?: run {
-            numVerts -= 1
+            verticesCount -= 1
             return null
         }
         ensureGroup(group).add(a, b)
@@ -230,7 +232,7 @@ class DynaGraph(
         mustIntersect: Boolean = false,
         relative: Boolean = true,
     ): Int? {
-        if (v !in 0 until numVerts) return null
+        if (v !in 0 until verticesCount) return null
         val g = groups[group]
         val a = vertices[v].pos
         val ax = a.x; val ay = a.y
@@ -262,5 +264,3 @@ class DynaGraph(
         val MAIN: GroupId = GroupId("main")
     }
 }
-
-private data class Vertex(val id: Int, var pos: Point)

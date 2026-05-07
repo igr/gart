@@ -12,13 +12,13 @@ class DynaGraphTest {
         val graph = DynaGraph(maxVertices = 4)
         val v = graph.addVert(Point(1f, 2f)).newVert!!
 
-        assertEquals(Point(1f, 2f), graph.pos(v))
+        assertEquals(Point(1f, 2f), graph.point(v))
 
         assertTrue(graph.moveVert(v, Point(3f, -1f)).isOk)
-        assertEquals(Point(4f, 1f), graph.pos(v))
+        assertEquals(Point(4f, 1f), graph.point(v))
 
-        graph.setPos(v, 7f, 8f)
-        assertEquals(Point(7f, 8f), graph.pos(v))
+        graph.setPoint(v, 7f, 8f)
+        assertEquals(Point(7f, 8f), graph.point(v))
     }
 
     @Test
@@ -27,12 +27,12 @@ class DynaGraphTest {
         val a = graph.addVert(0f, 0f).newVert!!
         val b = graph.appendEdge(a, Point(3f, 4f)).newVert!!
 
-        assertEquals(Point(3f, 4f), graph.pos(b))
+        assertEquals(Point(3f, 4f), graph.point(b))
         assertEquals(5f, graph.edgeLength(a, b), 0.01f)
 
         val mid = graph.splitEdge(a, b).newVert!!
 
-        assertEquals(Point(1.5f, 2f), graph.pos(mid))
+        assertEquals(Point(1.5f, 2f), graph.point(mid))
     }
 
     @Test
@@ -47,7 +47,7 @@ class DynaGraphTest {
         )
 
         assertTrue(results.all { it.isOk })
-        assertEquals(Point(1f, 0f), graph.pos(2))
+        assertEquals(Point(1f, 0f), graph.point(2))
         assertEquals(listOf(2), results[3].newVerts.toList())
     }
 
@@ -60,7 +60,7 @@ class DynaGraphTest {
 
         assertTrue(graph.addEdge(a, b, group).isOk)
 
-        assertTrue(group in graph.groupNames())
+        assertTrue(group in graph.groupIds())
         assertEquals(setOf(b), graph.group(group).neighbors(a))
         assertEquals(0, graph.group().numEdges)
     }

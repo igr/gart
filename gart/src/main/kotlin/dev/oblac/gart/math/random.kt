@@ -1,5 +1,7 @@
 package dev.oblac.gart.math
 
+import dev.oblac.gart.vector.Vec3
+import org.jetbrains.skia.Point
 import kotlin.math.cos
 import kotlin.math.ln
 import kotlin.math.sqrt
@@ -44,6 +46,26 @@ fun Random.rndGaussian(mean: Float = 0.0f, standardDeviation: Float = 1.0f): Flo
     return (z0 * standardDeviation + mean).toFloat()
 }
 
+/**
+ * Returns a uniformly distributed random point inside a disc of radius [r].
+ */
+fun Random.rndInDisc(r: Float): Point {
+    while (true) {
+        val x = rndf(-r, r); val y = rndf(-r, r)
+        if (x * x + y * y <= r * r) return Point(x, y)
+    }
+}
+
+/**
+ * Returns a uniformly distributed random point inside a ball of radius [r].
+ */
+fun Random.rndInBall(r: Float): Vec3 {
+    while (true) {
+        val x = rndf(-r, r); val y = rndf(-r, r); val z = rndf(-r, r)
+        if (x * x + y * y + z * z <= r * r) return Vec3(x, y, z)
+    }
+}
+
 fun rndi(): Int = Random.rndi()
 fun rndi(max: Int): Int = Random.rndi(max)
 fun rndi(min: Int, max: Int): Int = Random.rndi(min, max)
@@ -62,3 +84,6 @@ fun rndsgn(): Int = Random.rndsgn()
 
 fun rndGaussian(mean: Float = 0.0f, standardDeviation: Float = 1.0f): Float =
     Random.rndGaussian(mean, standardDeviation)
+
+fun rndInDisc(r: Float): Point = Random.rndInDisc(r)
+fun rndInBall(r: Float): Vec3 = Random.rndInBall(r)

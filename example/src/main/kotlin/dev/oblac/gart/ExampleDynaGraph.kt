@@ -46,7 +46,7 @@ fun main() {
     val tipFill = fillOf(CssColors.crimson)
 
     w.show { c, _, f ->
-        if (f.new && graph.numVerts < maxVerts) {
+        if (f.new && graph.verticesCount < maxVerts) {
             growTips(graph, tips)
         }
         c.clear(0xFFFAF8F2.toInt())
