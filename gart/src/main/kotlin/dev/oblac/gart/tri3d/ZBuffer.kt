@@ -22,9 +22,9 @@ import org.jetbrains.skia.Image
  */
 class ZBuffer(val width: Int, val height: Int, private val shading: Shading = Shading.flat) {
 
-    private val depth = FloatArray(width * height)
-    private val gartvas = Gartvas(Dimension(width, height))
-    private val gartmap = Gartmap(gartvas)
+    internal val depth = FloatArray(width * height)
+    internal val gartvas = Gartvas(Dimension(width, height))
+    internal val gartmap = Gartmap(gartvas)
 
     /**
      * Clears the buffer: depth to +infinity, color to background.
@@ -52,6 +52,12 @@ class ZBuffer(val width: Int, val height: Int, private val shading: Shading = Sh
         val za = camera.depth(face.a)
         val zb = camera.depth(face.b)
         val zc = camera.depth(face.c)
+        // Perspective-correct depth interpolation interpolates 1/z linearly in
+        // screen space, then inverts. Linear z-interp would overestimate depth
+        // (AM-HM) and place the unprojected hit slightly behind the triangle.
+        val invZa = 1f / za
+        val invZb = 1f / zb
+        val invZc = 1f / zc
 
         val faceColor = shading.color(face, face.normal())
 
@@ -84,8 +90,9 @@ class ZBuffer(val width: Int, val height: Int, private val shading: Shading = Sh
 
                 if (w0 < 0f || w1 < 0f || w2 < 0f) continue
 
-                // interpolate depth
-                val z = w0 * za + w1 * zb + w2 * zc
+                // perspective-correct depth: interp 1/z, then invert
+                val invZ = w0 * invZa + w1 * invZb + w2 * invZc
+                val z = 1f / invZ
                 val idx = y * width + x
 
                 if (z < depth[idx]) {

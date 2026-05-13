@@ -25,19 +25,42 @@ fun interface Shading {
         val flat = Shading { face, _ -> face.color }
 
         /**
-         * Diffuse (Lambertian) shading from a point light source.
-         * Faces pointing toward the light are fully lit;
-         * faces pointing away are darkened down to [ambient].
+         * Diffuse (Lambertian) shading from a point light source, using the
+         * same lighting model as [VolumetricLight.render] so a scene
+         * rendered by [ZBuffer] and by [VolumetricLight] shares consistent
+         * surface shading.
          *
-         * @param light   the light source position
-         * @param ambient minimum brightness factor (0..1), default 0.2
+         * `brightness = clamp(ambient + lambert × strength × falloff, 0, 1)`.
+         *
+         * The face is sampled at its centroid; this is per-face shading
+         * (consistent with [ZBuffer]'s raster cadence), not per-pixel.
+         *
+         * @param light    the light source position
+         * @param ambient  baseline brightness factor (0..1)
+         * @param strength multiplier on the direct (Lambert × falloff) term
+         * @param falloff  distance-based attenuation model
          */
-        fun diffuse(light: LightSource, ambient: Float = 0.2f) = Shading { face, normal ->
+        fun diffuse(
+            light: LightSource,
+            ambient: Float = 0.2f,
+            strength: Float = 1f,
+            falloff: Falloff = Falloff.NONE,
+        ) = Shading { face, normal ->
             val centroid = (face.a + face.b + face.c) / 3f
-            val toLight = (light.position - centroid).normalize()
-            val n = normal.normalize()
-            val dot = n.dot(toLight).coerceIn(0f, 1f)
-            val brightness = ambient + (1f - ambient) * dot
+            val toLight = light.position - centroid
+            val distToLight = toLight.length()
+            // Light sitting on (or essentially at) the surface: skip the
+            // entire direct calculation. Otherwise INVERSE/INVERSE_SQUARE
+            // falloff at d≈0 returns +Infinity, lambert=0 → 0 * Inf = NaN,
+            // and the pixel collapses to black instead of pure ambient.
+            val direct = if (distToLight < 1e-5f) {
+                0f
+            } else {
+                val n = normal.normalize()
+                val lambert = n.dot(toLight / distToLight).coerceAtLeast(0f)
+                lambert * strength * falloffFactor(distToLight, falloff)
+            }
+            val brightness = (ambient + direct).coerceIn(0f, 1f)
             scaleColor(face.color, brightness)
         }
     }
