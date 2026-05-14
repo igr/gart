@@ -24,7 +24,7 @@ fun main() {
         hsvToColor(hue, sat, 1f)
     }
 
-    val light = LightSource(Vec3(-2f, -3f, 2f))
+    val light = LightSource(Vec3(-2f, -3f, 2f), color = 0xFFFFE0B0.toInt())
     val labelFont = font(FontFamily.OdibeeSans, 18f)
 
     var angleX = 0f
@@ -57,10 +57,9 @@ fun main() {
                 // falloff/strength). 5f gives a clearly warm scattering halo
                 // while keeping the surface lit enough to read against the bg.
                 val gv = VolumetricLight(
-                    light = light,
+                    lights = listOf(light),
                     samples = 8,
                     strength = 5f,
-                    color = 0xFFFFE0B0.toInt(),
                     blendMode = VolumetricBlend.ADD,
                     falloff = Falloff.INVERSE_SQUARE,
                     maxDistance = 8f,
@@ -79,10 +78,9 @@ fun main() {
                 // VL.apply only contributes scattering here (surface comes from
                 // ZB). strength can be higher without dimming the sphere.
                 VolumetricLight(
-                    light = light,
+                    lights = listOf(light),
                     samples = 12,
                     strength = 4f,
-                    color = 0xFFFFE0B0.toInt(),
                     blendMode = VolumetricBlend.SCREEN,
                     falloff = Falloff.INVERSE_SQUARE,
                     maxDistance = 8f,

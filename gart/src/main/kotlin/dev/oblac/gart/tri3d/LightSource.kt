@@ -9,8 +9,14 @@ import dev.oblac.gart.vector.Vec3
 
 /**
  * A point light source in 3D space.
+ *
+ * [color] tints both the Lambertian surface contribution and the volumetric
+ * scattering produced by [VolumetricLight]. Defaults to opaque white.
  */
-data class LightSource(val position: Vec3)
+data class LightSource(
+    val position: Vec3,
+    val color: Int = 0xFFFFFFFF.toInt(),
+)
 
 /**
  * Shading function: given a face and its normal, returns the pixel color.
@@ -60,15 +66,18 @@ fun interface Shading {
                 val lambert = n.dot(toLight / distToLight).coerceAtLeast(0f)
                 lambert * strength * falloffFactor(distToLight, falloff)
             }
-            val brightness = (ambient + direct).coerceIn(0f, 1f)
-            scaleColor(face.color, brightness)
+            val lr = red(light.color) / 255f
+            val lg = green(light.color) / 255f
+            val lb = blue(light.color) / 255f
+            val fr = (ambient + direct * lr).coerceIn(0f, 1f)
+            val fg = (ambient + direct * lg).coerceIn(0f, 1f)
+            val fb = (ambient + direct * lb).coerceIn(0f, 1f)
+            argb(
+                alpha(face.color),
+                (red(face.color) * fr).toInt().coerceIn(0, 255),
+                (green(face.color) * fg).toInt().coerceIn(0, 255),
+                (blue(face.color) * fb).toInt().coerceIn(0, 255),
+            )
         }
     }
-}
-
-private fun scaleColor(color: Int, factor: Float): Int {
-    val r = (red(color) * factor).toInt().coerceIn(0, 255)
-    val g = (green(color) * factor).toInt().coerceIn(0, 255)
-    val b = (blue(color) * factor).toInt().coerceIn(0, 255)
-    return argb(alpha(color), r, g, b)
 }

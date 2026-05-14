@@ -101,13 +101,12 @@ private fun draw(
     val camera = Camera(d.cx, d.cy + 300f, d.hf * 0.25f, 8f)
 
     // Light inside the box, slightly off-center so the radial gradient is asymmetric
-    val light = LightSource(Vec3(0.3f, 0.3f, 0.3f))
+    val light = LightSource(Vec3(0.3f, 0.3f, 0.3f), lightColor)
 
     val gv = VolumetricLight(
-        light = light,
+        lights = listOf(light),
         samples = 5,
         strength = 4.0f,
-        color = lightColor,
         blendMode = VolumetricBlend.ADD,
         falloff = Falloff.INVERSE_SQUARE,
         maxDistance = 12f,

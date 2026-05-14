@@ -13,7 +13,7 @@ class SceneTest {
         val cam = Camera(screenCx = 8f, screenCy = 8f, scale = 4f, distance = 4f)
         val mesh = Mesh(emptyList())
         val vl = VolumetricLight(
-            light = LightSource(Vec3(0f, 0f, -10f)),
+            lights = listOf(LightSource(Vec3(0f, 0f, -10f))),
             samples = 4,
             seed = 99L,
             background = argb(255, 11, 22, 33),

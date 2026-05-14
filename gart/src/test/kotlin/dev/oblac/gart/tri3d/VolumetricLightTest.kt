@@ -29,7 +29,7 @@ class VolumetricLightTest {
         val before = sampleColor(zb, 8, 8)
 
         VolumetricLight(
-            light = LightSource(Vec3(0f, 0f, -10f)),
+            lights = listOf(LightSource(Vec3(0f, 0f, -10f))),
             samples = 0,
         ).apply(zb, defaultCamera(), emptyMesh())
 
@@ -42,7 +42,7 @@ class VolumetricLightTest {
         val before = sampleColor(zb, 8, 8)
 
         VolumetricLight(
-            light = LightSource(Vec3(0f, 0f, -10f)),
+            lights = listOf(LightSource(Vec3(0f, 0f, -10f))),
             samples = 8,
             strength = 0f,
         ).apply(zb, defaultCamera(), emptyMesh())
@@ -55,10 +55,9 @@ class VolumetricLightTest {
         // No occluders + REPLACE + NONE falloff => every pixel gets the same color
         val zb = freshZBuffer()
         VolumetricLight(
-            light = LightSource(Vec3(0f, 0f, -10f)),
+            lights = listOf(LightSource(Vec3(0f, 0f, -10f), argb(255, 200, 200, 200))),
             samples = 4,
             strength = 1f,
-            color = argb(255, 200, 200, 200),
             blendMode = VolumetricBlend.REPLACE,
             falloff = Falloff.NONE,
             maxDistance = 10f,
@@ -78,10 +77,9 @@ class VolumetricLightTest {
         val baseFill = argb(255, 10, 10, 10)
         val zb = freshZBuffer(fill = baseFill)
         VolumetricLight(
-            light = LightSource(Vec3(0f, 0f, -10f)),
+            lights = listOf(LightSource(Vec3(0f, 0f, -10f), argb(255, 100, 100, 100))),
             samples = 4,
             strength = 1f,
-            color = argb(255, 100, 100, 100),
             blendMode = VolumetricBlend.ADD,
             falloff = Falloff.NONE,
             maxDistance = 10f,
@@ -100,7 +98,7 @@ class VolumetricLightTest {
         val zb1 = freshZBuffer()
         val zb2 = freshZBuffer()
         val vl = VolumetricLight(
-            light = LightSource(Vec3(2f, -1f, -10f)),
+            lights = listOf(LightSource(Vec3(2f, -1f, -10f))),
             samples = 6,
             seed = 12345L,
         )
@@ -117,7 +115,7 @@ class VolumetricLightTest {
     fun renderEmptyMeshSamplesZeroProducesBackgroundOnly() {
         val bg = argb(255, 50, 60, 70)
         val vl = VolumetricLight(
-            light = LightSource(Vec3(0f, 0f, -10f)),
+            lights = listOf(LightSource(Vec3(0f, 0f, -10f))),
             samples = 0,
             background = bg,
         )
@@ -131,7 +129,7 @@ class VolumetricLightTest {
 
     @Test
     fun renderReturnsGartvasOfRequestedSize() {
-        val vl = VolumetricLight(light = LightSource(Vec3(0f, 0f, -10f)), samples = 0)
+        val vl = VolumetricLight(lights = listOf(LightSource(Vec3(0f, 0f, -10f))), samples = 0)
         val gv = vl.render(defaultCamera(), emptyMesh(), width = 32, height = 24)
         assertEquals(32, gv.d.w)
         assertEquals(24, gv.d.h)
@@ -144,7 +142,7 @@ class VolumetricLightTest {
         val faceColor = argb(255, 200, 100, 50)
         val mesh = Mesh(listOf(frontTriangle(faceColor)))
         val vl = VolumetricLight(
-            light = LightSource(Vec3(0f, 0f, -4f)),
+            lights = listOf(LightSource(Vec3(0f, 0f, -4f))),
             samples = 0,
             strength = 0f,
             ambient = 0.5f,
@@ -168,7 +166,7 @@ class VolumetricLightTest {
         val faceColor = argb(255, 120, 200, 80)
         val mesh = Mesh(listOf(frontTriangle(faceColor)))
         val vl = VolumetricLight(
-            light = LightSource(Vec3(0f, 0f, -4f)),
+            lights = listOf(LightSource(Vec3(0f, 0f, -4f))),
             samples = 0,
             strength = 1f,
             ambient = 0f,
@@ -196,7 +194,7 @@ class VolumetricLightTest {
         val mesh = Mesh(near.faces + far.faces)
 
         val vl = VolumetricLight(
-            light = LightSource(Vec3(0f, 0f, 10f)),
+            lights = listOf(LightSource(Vec3(0f, 0f, 10f))),
             samples = 0,
             strength = 5f,
             ambient = 0.4f,
@@ -218,7 +216,7 @@ class VolumetricLightTest {
         val mesh = Mesh(listOf(frontTriangle(argb(255, 255, 255, 255))))
         val bg = argb(255, 7, 8, 9)
         val vl = VolumetricLight(
-            light = LightSource(Vec3(0f, 0f, -4f)),
+            lights = listOf(LightSource(Vec3(0f, 0f, -4f))),
             samples = 0,
             ambient = 1f,
             background = bg,
@@ -238,10 +236,9 @@ class VolumetricLightTest {
         // Empty mesh + REPLACE + NONE falloff: every pixel of render(...) gets the
         // same color, just like the existing zero-mesh apply test.
         val vl = VolumetricLight(
-            light = LightSource(Vec3(0f, 0f, -10f)),
+            lights = listOf(LightSource(Vec3(0f, 0f, -10f), argb(255, 200, 200, 200))),
             samples = 4,
             strength = 1f,
-            color = argb(255, 200, 200, 200),
             blendMode = VolumetricBlend.REPLACE,
             falloff = Falloff.NONE,
             maxDistance = 10f,
@@ -262,7 +259,7 @@ class VolumetricLightTest {
     @Test
     fun renderDeterministicWithSameSeed() {
         val vl = VolumetricLight(
-            light = LightSource(Vec3(2f, -1f, -10f)),
+            lights = listOf(LightSource(Vec3(2f, -1f, -10f))),
             samples = 6,
             seed = 12345L,
             background = argb(255, 16, 16, 16),
@@ -288,7 +285,7 @@ class VolumetricLightTest {
         val mesh = frontWall(z = 15f, color = wallColor)
         val bg = argb(255, 0, 0, 0)
         val vl = VolumetricLight(
-            light = LightSource(Vec3(0f, 0f, -4f)),
+            lights = listOf(LightSource(Vec3(0f, 0f, -4f))),
             samples = 0,
             strength = 0f,
             ambient = 1f,
@@ -312,7 +309,7 @@ class VolumetricLightTest {
         val faceColor = argb(255, 200, 100, 50)
         val mesh = Mesh(listOf(frontTriangle(faceColor)))
         val vl = VolumetricLight(
-            light = LightSource(Vec3(0f, 0f, -4f)),
+            lights = listOf(LightSource(Vec3(0f, 0f, -4f))),
             samples = 0,
             strength = 0f,
             ambient = 0.5f,
@@ -325,6 +322,68 @@ class VolumetricLightTest {
         assertEquals(100, red(center))
         assertEquals(50, green(center))
         assertEquals(25, blue(center))
+    }
+
+    @Test
+    fun renderPerLightColorTintsSurfaceIndependently() {
+        // Two coincident lights at z=-4: one pure red, one pure green. The
+        // white face under each Lambert contribution should pick up both
+        // channels independently (with no cross-channel bleed).
+        // strength=0.5, NONE falloff, ambient=0, lambert=1:
+        //   directR = 0.5 * 255/255 = 0.5 (from red light)
+        //   directG = 0.5 * 255/255 = 0.5 (from green light)
+        //   directB = 0
+        //   pixel = face * (0.5, 0.5, 0) = (128, 128, 0)
+        val mesh = Mesh(listOf(frontTriangle(argb(255, 255, 255, 255))))
+        val pos = Vec3(0f, 0f, -4f)
+        val gv = VolumetricLight(
+            lights = listOf(
+                LightSource(pos, argb(255, 255, 0, 0)),
+                LightSource(pos, argb(255, 0, 255, 0)),
+            ),
+            samples = 0,
+            strength = 0.5f,
+            ambient = 0f,
+            falloff = Falloff.NONE,
+            background = argb(255, 0, 0, 0),
+        ).render(defaultCamera(), mesh, 16, 16)
+        val center = Gartmap(gv).pixels[8 * 16 + 8]
+
+        assertNear(128, red(center), 2)   // 255 * 0.5
+        assertNear(128, green(center), 2) // 255 * 0.5
+        assertEquals(0, blue(center))     // no blue light
+    }
+
+    @Test
+    fun renderTwoLightsSumDirectIllumination() {
+        // Two coincident lights at z=-4 should double the Lambert term vs one
+        // light at the same position. strength=0.3, NONE falloff, ambient=0:
+        //   1 light  => face * 0.3
+        //   2 lights => face * 0.6
+        val faceColor = argb(255, 200, 100, 50)
+        val mesh = Mesh(listOf(frontTriangle(faceColor)))
+        val pos = Vec3(0f, 0f, -4f)
+        fun render(lights: List<LightSource>): Int {
+            val gv = VolumetricLight(
+                lights = lights,
+                samples = 0,
+                strength = 0.3f,
+                ambient = 0f,
+                falloff = Falloff.NONE,
+                background = argb(255, 0, 0, 0),
+            ).render(defaultCamera(), mesh, 16, 16)
+            return Gartmap(gv).pixels[8 * 16 + 8]
+        }
+        val one = render(listOf(LightSource(pos)))
+        val two = render(listOf(LightSource(pos), LightSource(pos)))
+
+        assertNear(60, red(one), 2)
+        assertNear(30, green(one), 2)
+        assertNear(15, blue(one), 2)
+
+        assertNear(120, red(two), 2)
+        assertNear(60, green(two), 2)
+        assertNear(30, blue(two), 2)
     }
 
     // --- helpers --------------------------------------------------------------

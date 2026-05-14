@@ -25,18 +25,19 @@ internal fun falloffFactor(d: Float, falloff: Falloff): Float = when (falloff) {
  *
  * For every pixel the camera ray is marched from the eye to the ZBuffer hit
  * point (or to [maxDistance] for background pixels). [samples] points along the
- * ray cast shadow rays toward the light; those with a clear path contribute
- * to the pixel intensity (scaled by [strength] / samples and falloff). The
- * accumulated colour is composited onto the surface using [blendMode].
+ * ray cast shadow rays toward each light in [lights]; those with a clear path
+ * contribute to the pixel intensity (scaled by [strength] / samples and
+ * falloff). Each light's [LightSource.color] tints its own scattering and
+ * surface contribution. The accumulated colour is composited onto the surface
+ * using [blendMode].
  *
  * Deterministic given a fixed [seed]; the default seed of 0 also produces
  * stable output across runs.
  */
 data class VolumetricLight(
-    val light: LightSource,
+    val lights: List<LightSource>,
     val samples: Int = 10,
     val strength: Float = 1.0f,
-    val color: Int = 0xFFFFFFFF.toInt(),
     val blendMode: VolumetricBlend = VolumetricBlend.ADD,
     val falloff: Falloff = Falloff.INVERSE_SQUARE,
     val maxDistance: Float = 100f,
@@ -47,8 +48,9 @@ data class VolumetricLight(
 ) {
     /**
      * Standalone render: ray-traces primary rays against [mesh], shades the
-     * hit surface (Lambert + ambient + falloff + shadow rays toward the
-     * light), and composites volumetric scattering along each camera ray.
+     * hit surface (Lambert + ambient + falloff + shadow rays toward each
+     * light, tinted by per-light color), and composites volumetric scattering
+     * along each camera ray.
      *
      * Returns a fresh [Gartvas] containing the rendered image. The caller is
      * responsible for drawing/saving it.
@@ -69,13 +71,12 @@ data class VolumetricLight(
         val eye = camera.eye
         val aa = antiAlias.coerceAtLeast(1)
         val invNorm = 1f / (samples.coerceAtLeast(1).toFloat() * aa.toFloat())
-        val vColorR = red(color)
-        val vColorG = green(color)
-        val vColorB = blue(color)
 
         for (y in 0 until height) {
             for (x in 0 until width) {
-                var accumVol = 0f
+                var accumVolR = 0f
+                var accumVolG = 0f
+                var accumVolB = 0f
                 var accumR = 0
                 var accumG = 0
                 var accumB = 0
@@ -101,26 +102,44 @@ data class VolumetricLight(
                     } else {
                         endT = (hit.t - SURFACE_BIAS).coerceAtLeast(0f)
                         val p = eye + rayDir * endT
-                        val toLight = light.position - p
-                        val distToLight = toLight.length()
-                        val direct = if (distToLight < 1e-5f) {
-                            0f
-                        } else {
+                        val n = hit.face.normal().normalize()
+                        var directR = 0f
+                        var directG = 0f
+                        var directB = 0f
+                        for (light in lights) {
+                            val toLight = light.position - p
+                            val distToLight = toLight.length()
+                            if (distToLight < 1e-5f) continue
                             val lightDir = toLight / distToLight
-                            val n = hit.face.normal().normalize()
                             val lambert = n.dot(lightDir).coerceAtLeast(0f)
+                            if (lambert == 0f) continue
                             val occluded = RayMesh.isOccluded(
                                 p, lightDir, mesh, distToLight, epsilon = 1e-6f,
                             )
-                            if (occluded) 0f
-                            else lambert * falloffFactor(distToLight, falloff) * strength
+                            if (!occluded) {
+                                val w = lambert * falloffFactor(distToLight, falloff) * strength
+                                directR += w * red(light.color) / 255f
+                                directG += w * green(light.color) / 255f
+                                directB += w * blue(light.color) / 255f
+                            }
                         }
-                        val litFactor = (ambient + direct).coerceIn(0f, 1f)
-                        basePixel = shadeFaceColor(hit.face.color, litFactor)
+                        val fa = alpha(hit.face.color)
+                        val fr = (ambient + directR).coerceIn(0f, 1f)
+                        val fg = (ambient + directG).coerceIn(0f, 1f)
+                        val fb = (ambient + directB).coerceIn(0f, 1f)
+                        basePixel = argb(
+                            fa,
+                            (red(hit.face.color) * fr).toInt().coerceIn(0, 255),
+                            (green(hit.face.color) * fg).toInt().coerceIn(0, 255),
+                            (blue(hit.face.color) * fb).toInt().coerceIn(0, 255),
+                        )
                     }
 
                     if (samples > 0 && strength != 0f && endT > 0f) {
-                        accumVol += marchOnce(eye, rayDir, endT, mesh, rng)
+                        val vol = marchOnce(eye, rayDir, endT, mesh, rng)
+                        accumVolR += vol.x
+                        accumVolG += vol.y
+                        accumVolB += vol.z
                     }
 
                     accumA += alpha(basePixel)
@@ -135,11 +154,11 @@ data class VolumetricLight(
                 val baseB = accumB / aa
                 val baseColor = argb(baseA, baseR, baseG, baseB)
 
-                val out = if (samples > 0 && strength != 0f && accumVol > 0f) {
-                    val intensity = (accumVol * invNorm).coerceIn(0f, 1f)
-                    val tintR = (vColorR * intensity).toInt()
-                    val tintG = (vColorG * intensity).toInt()
-                    val tintB = (vColorB * intensity).toInt()
+                val volTotal = accumVolR + accumVolG + accumVolB
+                val out = if (samples > 0 && strength != 0f && volTotal > 0f) {
+                    val tintR = (accumVolR * invNorm).toInt().coerceIn(0, 255)
+                    val tintG = (accumVolG * invNorm).toInt().coerceIn(0, 255)
+                    val tintB = (accumVolB * invNorm).toInt().coerceIn(0, 255)
                     blend(baseColor, tintR, tintG, tintB)
                 } else {
                     baseColor
@@ -150,14 +169,6 @@ data class VolumetricLight(
         }
         gartmap.drawToCanvas()
         return gartvas
-    }
-
-    private fun shadeFaceColor(c: Int, factor: Float): Int {
-        val a = alpha(c)
-        val r = (red(c) * factor).toInt().coerceIn(0, 255)
-        val g = (green(c) * factor).toInt().coerceIn(0, 255)
-        val b = (blue(c) * factor).toInt().coerceIn(0, 255)
-        return argb(a, r, g, b)
     }
 
     /**
@@ -174,16 +185,14 @@ data class VolumetricLight(
         val aa = antiAlias.coerceAtLeast(1)
         val invNorm = 1f / (samples.toFloat() * aa.toFloat())
 
-        val vColorR = red(color)
-        val vColorG = green(color)
-        val vColorB = blue(color)
-
         for (y in 0 until height) {
             for (x in 0 until width) {
                 val depthIdx = y * width + x
                 val storedDepth = zBuffer.depth[depthIdx]
 
-                var accum = 0f
+                var accumR = 0f
+                var accumG = 0f
+                var accumB = 0f
                 for (aaStep in 0 until aa) {
                     val jx = if (aa == 1) 0.5f else rng.nextFloat()
                     val jy = if (aa == 1) 0.5f else rng.nextFloat()
@@ -199,15 +208,16 @@ data class VolumetricLight(
                     }
                     if (endT <= 0f) continue
 
-                    accum += marchOnce(eye, rayDir, endT, mesh, rng)
+                    val vol = marchOnce(eye, rayDir, endT, mesh, rng)
+                    accumR += vol.x
+                    accumG += vol.y
+                    accumB += vol.z
                 }
 
-                if (accum <= 0f) continue
-                val intensity = (accum * invNorm).coerceIn(0f, 1f)
-
-                val tintR = (vColorR * intensity).toInt()
-                val tintG = (vColorG * intensity).toInt()
-                val tintB = (vColorB * intensity).toInt()
+                if (accumR + accumG + accumB <= 0f) continue
+                val tintR = (accumR * invNorm).toInt().coerceIn(0, 255)
+                val tintG = (accumG * invNorm).toInt().coerceIn(0, 255)
+                val tintB = (accumB * invNorm).toInt().coerceIn(0, 255)
 
                 val surface = zBuffer.gartmap.pixels[depthIdx]
                 zBuffer.gartmap.pixels[depthIdx] = blend(surface, tintR, tintG, tintB)
@@ -222,31 +232,38 @@ data class VolumetricLight(
         endT: Float,
         mesh: Mesh,
         rng: Random,
-    ): Float {
-        var sum = 0f
+    ): Vec3 {
+        var sumR = 0f
+        var sumG = 0f
+        var sumB = 0f
         for (s in 1..samples) {
             val tNorm = (s - rng.nextFloat()) / samples
             val t = tNorm * endT
             val p = rayOrigin + rayDir * t
 
-            val toLight = light.position - p
-            val distToLight = toLight.length()
-            if (distToLight < 1e-5f) continue
+            for (light in lights) {
+                val toLight = light.position - p
+                val distToLight = toLight.length()
+                if (distToLight < 1e-5f) continue
 
-            val lightDir = toLight / distToLight
+                val lightDir = toLight / distToLight
 
-            // SURFACE_BIAS guarantees `p` is geometrically off every triangle,
-            // so we can use a much smaller t-min epsilon than RayMesh's default.
-            // Otherwise grazing camera angles produce shadow-ray hits at tiny t
-            // that get falsely rejected as self-intersections.
-            if (!RayMesh.isOccluded(p, lightDir, mesh, distToLight, epsilon = 1e-6f)) {
-                sum += strength * falloffFactor(distToLight, falloff)
+                // SURFACE_BIAS guarantees `p` is geometrically off every triangle,
+                // so we can use a much smaller t-min epsilon than RayMesh's default.
+                // Otherwise grazing camera angles produce shadow-ray hits at tiny t
+                // that get falsely rejected as self-intersections.
+                if (!RayMesh.isOccluded(p, lightDir, mesh, distToLight, epsilon = 1e-6f)) {
+                    val w = strength * falloffFactor(distToLight, falloff)
+                    sumR += w * red(light.color)
+                    sumG += w * green(light.color)
+                    sumB += w * blue(light.color)
+                }
             }
         }
-        return sum
+        return Vec3(sumR, sumG, sumB)
     }
 
-private fun blend(surface: Int, vR: Int, vG: Int, vB: Int): Int {
+    private fun blend(surface: Int, vR: Int, vG: Int, vB: Int): Int {
         val sA = alpha(surface)
         val sR = red(surface)
         val sG = green(surface)
