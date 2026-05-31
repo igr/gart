@@ -24,6 +24,22 @@ fun mod(a: Int, b: Int) = ((a % b) + b) % b
 fun mod(a: Float, b: Float) = ((a % b) + b) % b
 fun mod(a: Long, b: Long) = ((a % b) + b) % b
 
+fun wrap(v: Int, size: Int): Int {
+    val m = v % size
+    return if (m < 0) m + size else m
+}
+
+fun wrap(v: Float, size: Float): Float {
+    val r = v % size
+    if (r < 0f) {
+        // `r + size` can round up to exactly `size` in float; fold that back to 0
+        // so the result stays in [0, size) and is safe to use as an array index.
+        val s = r + size
+        return if (s < size) s else 0f
+    }
+    return r
+}
+
 
 // Helper function for smoothstep
 fun smoothstep(edge0: Float, edge1: Float, x: Float): Float {
