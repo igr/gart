@@ -34,6 +34,7 @@ data class Poly4(
      * Finds the point with the smallest y-coordinate.
      */
     fun topPoint(): Point = points().minBy { it.y }
+    fun bottomPoint(): Point = points().maxBy { it.y }
 
     /**
      * Returns the 4 edges of the polygon as lines.
