@@ -28,7 +28,7 @@ import java.nio.IntBuffer
 class Gartmap private constructor(
     override val d: Dimension,
     private val gartvas: Gartvas?,
-) : Pixels {
+) : Pixels, AutoCloseable {
 
     /** In-memory only — no Skia surface binding. */
     constructor(d: Dimension) : this(d, null)
@@ -51,6 +51,11 @@ class Gartmap private constructor(
         .asIntBuffer()
 
     val bitmap: Bitmap = gartvas?.createBitmap() ?: createInMemBitmap(d)
+
+    // Most recent Image handed out by image(). Skia Images are native (off-heap) objects;
+    // we release the previous one when the next is requested so a render loop calling
+    // image() every frame keeps at most one alive instead of leaking one per frame.
+    private var lastImage: Image? = null
 
     /**
      * Pulls pixels from the bound canvas into [pixels].
@@ -83,11 +88,27 @@ class Gartmap private constructor(
      * Returns a snapshot Skia [Image] of the current [pixels]. Calling this
      * does not require a Gartvas binding; it's a useful path for in-memory
      * Gartmaps that want to be drawn onto another canvas via [Canvas.drawImage].
+     *
+     * The returned [Image] is a native (off-heap) resource **owned by this Gartmap**:
+     * it stays valid until the next [image] call (or [close]), at which point it is
+     * released. That lets a render loop call `image()` every frame without leaking a
+     * native image per frame. Do not retain the result across frames, and do not request
+     * two live images from the same Gartmap at once — copy it, or use a second Gartmap,
+     * if you need it to outlive the next call.
      */
     fun image(): Image {
+        lastImage?.close()      // release the previous frame's native image before minting this one
+        lastImage = null
         syncBytesFromPixels()
         bitmap.installPixels(bytes)
-        return Image.makeFromBitmap(bitmap.setImmutable())
+        return Image.makeFromBitmap(bitmap.setImmutable()).also { lastImage = it }
+    }
+
+    /** Releases the cached native [image] and the backing [bitmap]. Idempotent. */
+    override fun close() {
+        lastImage?.close()
+        lastImage = null
+        bitmap.close()
     }
 
     private fun syncBytesFromPixels() {

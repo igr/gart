@@ -149,6 +149,10 @@ class Palette(internal val colors: IntArray) {
         return Palette(colors.sliceArray(0 until size - 1))
     }
 
+    fun toIntArray(): IntArray {
+        return colors.clone()
+    }
+
     companion object {
         fun of(values: Collection<Int>) = Palette(values.toIntArray())
         fun of(vararg values: Int) = Palette(values)

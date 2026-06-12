@@ -38,8 +38,9 @@ import kotlin.math.sqrt
  * per-cell / per-agent loops run over a parallel [IntStream].
  *
  * Typical use, per frame: [step], then read [trail] (length [area], row-major
- * `y * w + x`) and map it to colours. [scatter], [seedDisc], [draw] and [clear]
- * reset or seed the agents; the tunables below can be changed live.
+ * `y * w + x`) and map it to colours. [scatter], [seedDisc], [seedLine], [draw]
+ * and [clear] reset or seed the agents; the tunables below can be changed live,
+ * individually or in bulk via the `preset*()` functions.
  */
 class Physarum(val w: Int, val h: Int, agentCount: Int) {
 
@@ -68,6 +69,59 @@ class Physarum(val w: Int, val h: Int, agentCount: Int) {
     var stepSize = 1.1f              // ss = 1.1 px
     var decay = 0.9f
 
+    // Presets — known-good looks for the tunables above. Two rules of thumb:
+    // the SA:RA ratio sets the character (SA < RA -> networks; SA ≈ RA and both
+    // large -> spots; RA tiny -> flow), and sensorDistance sets the scale of
+    // whatever that character is.
+
+    /** Classic Jones network — the canonical reorganizing vein mesh, the reference look. */
+    fun presetClassicNetwork() {
+        sensorAngle = 0.39f      // 22.5°
+        rotationAngle = 0.79f    // 45°
+        sensorDistance = 9f
+        stepSize = 1f
+        decay = 0.9f
+    }
+
+    /** Coarse highways — long-range sensing pulls everything into a few thick glowing arteries. */
+    fun presetCoarseHighways() {
+        sensorAngle = 0.5f
+        rotationAngle = 0.6f
+        sensorDistance = 40f
+        stepSize = 0.8f
+        decay = 0.92f
+    }
+
+    /** Fine lace — dense capillary fabric, tiny cells. */
+    fun presetFineLace() {
+        sensorAngle = 0.3f
+        rotationAngle = 0.35f
+        sensorDistance = 5f
+        stepSize = 0.7f
+        decay = 0.88f
+    }
+
+    /**
+     * Cells / coral spots — equal wide angles make agents orbit locally, so the
+     * field breaks into rounded islands instead of veins.
+     */
+    fun presetCells() {
+        sensorAngle = 1.3f       // ~75°
+        rotationAngle = 1.3f
+        sensorDistance = 18f
+        stepSize = 1.2f
+        decay = 0.9f
+    }
+
+    /** Silk / laminar flow — tiny rotation = sweeping arcs, hair-like streamlines. */
+    fun presetSilk() {
+        sensorAngle = 0.9f
+        rotationAngle = 0.15f
+        sensorDistance = 20f
+        stepSize = 1.5f
+        decay = 0.93f
+    }
+
     init {
         scatter()
         renderDeposits()
@@ -83,6 +137,26 @@ class Physarum(val w: Int, val h: Int, agentCount: Int) {
 
     fun seedDisc(cx: Float, cy: Float, radius: Float) {
         for (i in 0 until n) place(i, cx, cy, radius)
+    }
+
+    /**
+     * Place agents [from] (inclusive) to [to] (exclusive) along the segment (x1,y1)-(x2,y2),
+     * jittered perpendicular to it by ±[thickness]/2. The index range allows splitting the
+     * population across several segments.
+     */
+    fun seedLine(x1: Float, y1: Float, x2: Float, y2: Float, thickness: Float = 1f, from: Int = 0, to: Int = n) {
+        val dx = x2 - x1
+        val dy = y2 - y1
+        val len = sqrt(dx * dx + dy * dy)
+        val nx = if (len == 0f) 0f else -dy / len   // unit normal
+        val ny = if (len == 0f) 0f else dx / len
+        for (i in from until to) {
+            val t = rndf()
+            val off = (rndf() - 0.5f) * thickness
+            ax[i] = wrap(x1 + dx * t + nx * off, wf)
+            ay[i] = wrap(y1 + dy * t + ny * off, hf)
+            ah[i] = rndf() * TWO_PIf
+        }
     }
 
     /** Relocate [count] random agents into a disc — used for mouse "drawing". */
