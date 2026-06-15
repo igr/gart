@@ -18,18 +18,21 @@ test:
 #    ./gradlew compileKotlin --continuous -Dorg.gradle.continuous.quietperiod=100
 
 # Make NEW thumbnails (restores git state!).
+[group('docs')]
 thumbs:
     fd -g '*.png' arts/* -x magick {} -thumbnail 240x240 -unsharp 0x0.75+0.75+0.008 {.}_thumb.png
     rm arts/z/etc/*_thumb.png
     git restore .
 
 # Generates README file.
+[group('docs')]
 readme:
     ./gradlew :example:run
 
 # Dev session: continuous compile + classloader-based hot restart.
 # Usage: just dev work work.cosmic.CosmicTopoKt
 # Usage: just dev arts:flowforce monolith.MonolithKt
+[group('dev')]
 dev module main:
     #!/usr/bin/env bash
     set -e
@@ -49,6 +52,7 @@ dev module main:
     tmux attach -t "$SESSION"
 
 # Stops the dev session.
+[group('dev')]
 dev-stop:
     tmux kill-session -t gart-dev 2>/dev/null || echo "No dev session running."
 
