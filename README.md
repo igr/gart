@@ -64,6 +64,8 @@ A collection of generative art pieces (ordered by name).
 
 ## Cell
 
+[<img src="arts/cell/accertion_d_s7_g145_thumb.png" hspace="2" vspace="2" align="left">](arts/cell/accertion_d_s7_g145.png)
+[<img src="arts/cell/accretion_thumb.png" hspace="2" vspace="2" align="left">](arts/cell/accretion.png)
 [<img src="arts/cell/cell1_thumb.png" hspace="2" vspace="2" align="left">](arts/cell/cell1.png)
 [<img src="arts/cell/cell2_thumb.png" hspace="2" vspace="2" align="left">](arts/cell/cell2.png)
 [<img src="arts/cell/rugae_thumb.png" hspace="2" vspace="2" align="left">](arts/cell/rugae.png)
@@ -460,4 +462,4 @@ A collection of generative art pieces (ordered by name).
 
 ---
 
-**Total: 228 works across 48 collections**
+**Total: 230 works across 48 collections**
