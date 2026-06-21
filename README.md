@@ -14,6 +14,8 @@
 🤷‍♂️ Honestly, I put the framework together for my own needs, so it’s a bit rough around the edges and the naming isn’t
 great. _It’s not how I normally write code._
 
+🤖 AI is used mostly to generate comments and documentation.
+
 ## ♻️ **Hot Reload**
 
 See [Hot Reload](docs/hotreload.md) for details on how to set up hot reload for faster iteration.
