@@ -1,12 +1,7 @@
-package work.nervure
+package nervure
 
 import dev.oblac.gart.Gart
-import dev.oblac.gart.color.CyanotypeColors
-import dev.oblac.gart.color.Palette
-import dev.oblac.gart.color.Palettes
-import dev.oblac.gart.color.alpha
-import dev.oblac.gart.color.gradientOf
-import dev.oblac.gart.color.lerpColor
+import dev.oblac.gart.color.*
 import dev.oblac.gart.gfx.fillOf
 import dev.oblac.gart.gfx.strokeOf
 import dev.oblac.gart.io.detectHeadlessFlags
@@ -47,8 +42,7 @@ import kotlin.random.Random
  *   - veins        : the crisp cyanotype skeleton, deep prussian trunk -> bright tips.
  *
  * Presets weight those layers (and the engine) differently: `tissue` (membrane-led),
- * `palimpsest` (isochrone-led), `reach` (hard phototropic diagonal lean). Every
- * knob is a -D override.
+ * `palimpsest` (isochrone-led), `reach` (hard phototropic diagonal lean).
  *
  * family: rugae, nervure, corona, areola.
  */
@@ -187,7 +181,7 @@ private data class Pre(
 
 private fun resolveParams(): Params {
     val preset = ps("preset", "reach")
-    val palette = ps("palette", "inferno")
+    val palette = ps("palette", "viridis")
     val pre = when (preset) {
         //                bloom  iso  isoa  pull  light  macro  curl  splat  seedfx seedfy agew
         "palimpsest" -> Pre(0.8f, 26, 0.42f, 0.16f, 80f, 0.15f, 0.48f, 6, 0.50f, 0.95f, 0.0f)
@@ -195,7 +189,7 @@ private fun resolveParams(): Params {
         else -> Pre(1.6f, 0, 0.16f, 0.85f, 36f, 0.28f, 0.40f, 4, 0.20f, 0.92f, 1.0f)   // reach: no outlines, older=thicker
     }
     return Params(
-        seed = pi("seed", 9).toLong(),
+        seed = pi("seed", 2).toLong(),
         out = ps("out", "nervure"),
         preset = preset,
         seedX = pf("seedx", pre.seedfx) * W,

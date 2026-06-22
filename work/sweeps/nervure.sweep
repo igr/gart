@@ -1,0 +1,16 @@
+# example sweep: two different directions ("branches") for nervure.
+# run:  just sweep example
+
+art   = work.nervure.NervureKt
+out   = output/nervure
+fixed = preset=reach
+
+[branch fiery]
+palette = inferno,magma
+seed    = 1:3
+agew    = 0.6:1.0:0.4
+
+[branch cool]
+palette = turbo,viridis
+seed    = 1:100
+pull    = 0.4,0.8
