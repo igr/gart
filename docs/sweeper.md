@@ -2,8 +2,8 @@
 
 Sweeper brute-forces any art in `work/` over a grid of inputs, renders them all headless and in
 parallel, and tiles each batch into a labelled contact sheet — so you can scan a wall of variants
-and fish out the good ones ("find the beauty in the noise"). The inputs live in a **config file**,
-not on the command line, so a sweep is a thing you keep and edit.
+and fish out the good ones ("find the beauty in the noise"). Everything — inputs *and* run settings
+— lives in a **config file**; the only thing you pass on the command line is which config to run.
 
 - Tool: `work/src/sweeper/Sweeper.kt` (`work.sweeper.SweeperKt`)
 - Configs: `work/sweeps/<name>.sweep`
@@ -12,17 +12,18 @@ not on the command line, so a sweep is a thing you keep and edit.
 ## Usage
 
 ```bash
-just sweep <name>            # runs work/sweeps/<name>.sweep
-just sweep example --dry     # preview the plan, render nothing
-just sweep example --par 8   # extra flags pass straight through
+just sweep <name>           # runs work/sweeps/<name>.sweep
 ```
 
 `just sweep` builds the module classpath, then invokes the Sweeper. Equivalent to:
 
 ```bash
 ./gradlew :work:classes :work:writeClasspath -q
-java @work/build/classpath.txt work.sweeper.SweeperKt work/sweeps/example.sweep --par 6
+java @work/build/classpath.txt work.sweeper.SweeperKt work/sweeps/example.sweep
 ```
+
+There are **no command-line flags** — to change anything (parallelism, sampling, a dry preview…),
+edit the config. To preview a run without rendering, set `dry = true` in the file.
 
 ## The config file
 
@@ -44,9 +45,9 @@ palette = turbo,viridis
 pull    = 0.2,0.6,0.9
 ```
 
-Top-level keys: `art` (required), `out`, `par`, `name`, `sheet` (on/off), `thumb`, and `fixed`
-(space-separated `k=v` pairs applied to every branch). Any *other* top-level `key = spec` line is a
-**global axis** swept across all branches.
+`art` is the only required key, and `fixed` holds space-separated `k=v` pairs applied to every
+branch. Any *other* top-level `key = spec` line (not a [setting](#settings)) is a **global axis**
+swept across all branches.
 
 ### Specs
 
@@ -68,6 +69,26 @@ of branches (promising directions) instead of one exploding grid, because you ca
 combination of every knob. Each branch gets its own contact sheet. A config with no `[branch]`
 sections is a single implicit branch.
 
+## Settings
+
+Optional top-level keys that control the run (everything is in the file — there are no flags):
+
+| Key       | Default            | Effect                                        |
+|-----------|--------------------|-----------------------------------------------|
+| `out`     | `output`           | output folder                                 |
+| `par`     | ≈ half your cores  | parallel renders                              |
+| `name`    | the art's short name | filename prefix                             |
+| `sheet`   | `on`               | the contact sheet; `off` to skip it           |
+| `thumb`   | auto               | contact-sheet thumbnail size, px              |
+| `sample`  | —                  | render a random N of the grid                 |
+| `limit`   | —                  | render the first N of the grid                |
+| `timeout` | `180`              | per-render timeout, seconds                   |
+| `yes`     | `false`            | proceed when the grid exceeds 500 renders     |
+| `dry`     | `false`            | print the plan and render nothing             |
+
+Grids over **500** renders need `yes = true` (a guard against an accidental 10k-render run); trim
+with `sample` / `limit`.
+
 ## Output
 
 Per render:
@@ -80,7 +101,7 @@ Per render:
 Per batch:
 
 - `_sheet_<branch>.png` — a labelled grid of every image in the branch (the "big table"), rendered
-  with Skia. Disable with `--no-sheet`; resize cells with `--thumb`.
+  with Skia. Set `sheet = off` to skip it, `thumb = PX` to resize the cells.
 
 ## The taste loop (`continue`)
 
@@ -108,27 +129,8 @@ For each survivor it reads the full params from the `.txt`, sweeps `±spread` ar
 knob (`steps` points each, cartesian), holds everything else, and writes one contact sheet per
 survivor. Because the `.txt` holds the *full* resolved set, you can vary **any** numeric knob — even
 one that wasn't in the original sweep. `seed` is excluded by default (a different seed is a
-different organism, not a neighbour). You can also drive it from flags:
-`--continue DIR --vary pull,curl --spread 0.2 --steps 3`.
-
-## Flags
-
-| Flag | Effect |
-|---|---|
-| `--out DIR` | override the output folder |
-| `--par N` | parallel renders (default ≈ half your cores) |
-| `--name P` | filename prefix (default: the art's short name) |
-| `--sample N` | render a random N of the grid |
-| `--limit N` | render the first N of the grid |
-| `--timeout S` | per-render timeout, seconds (default 180) |
-| `--no-sheet` | skip the contact sheet |
-| `--thumb PX` | contact-sheet thumbnail size |
-| `--yes` | proceed when the grid exceeds 500 renders |
-| `--dry` | print the plan, render nothing |
-| `--continue DIR` · `--vary` · `--spread` · `--steps` | drive/override a continue run |
-
-Grids over **500** renders require `--yes` (a guard against an accidental 10k-render run); trim with
-`--sample` / `--limit`.
+different organism, not a neighbour). The [settings](#settings) above (`par`, `sample`, `dry`, …)
+work in a continue config too.
 
 ## How it works
 
@@ -161,6 +163,6 @@ Any art works with the Sweeper if it:
 - Start coarse (wide ranges, few steps) to find regions, then `continue` with a small `spread` to
   refine.
 - Use lists for structural knobs (`palette`, `preset`) and ranges for continuous ones.
-- `--dry` first when a grid might be large — it prints the combo count and sample names.
+- Set `dry = true` first when a grid might be large — it prints the combo count and sample names.
 - Keep each sweep's `out` per-name (`out = output/<name>`) so batches don't collide.
 - The `.txt` beside any image is a complete recipe; its `# reproduce:` line re-renders just that one.
