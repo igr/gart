@@ -7,7 +7,7 @@ and fish out the good ones ("find the beauty in the noise"). Everything — inpu
 
 - Tool: `work/src/sweeper/Sweeper.kt` (`work.sweeper.SweeperKt`)
 - Configs: `work/sweeps/<name>.sweep`
-- Output: `<out>/<name>.png` + `<name>.txt` per render, `<out>/_sheet[_branch].png` per batch
+- Output: `<out>/<id>.png` + `<id>.txt` per render (`<id>` = a zero-padded counter), `<out>/_sheet[_branch].png` per batch
 
 ## Usage
 
@@ -77,7 +77,7 @@ Optional top-level keys that control the run (everything is in the file — ther
 |-----------|--------------------|-----------------------------------------------|
 | `out`     | `output`           | output folder                                 |
 | `par`     | ≈ half your cores  | parallel renders                              |
-| `name`    | the art's short name | filename prefix                             |
+| `name`    | the art's short name | title shown on the contact sheet              |
 | `sheet`   | `on`               | the contact sheet; `off` to skip it           |
 | `thumb`   | auto               | contact-sheet thumbnail size, px              |
 | `sample`  | —                  | render a random N of the grid                 |
@@ -93,15 +93,18 @@ with `sample` / `limit`.
 
 Per render:
 
-- `<name>.png` — the image. `<name>` is `<prefix>_<branch>_<index>__<swept-params>`, e.g.
-  `nervure_fiery_007_palette-magma_seed-1_agew-0.6.png`.
-- `<name>.txt` — the **full resolved parameter set** (every knob, defaults included) plus a
-  one-line reproduce command.
+- `<id>.png` — the image. `<id>` is a **zero-padded counter** (`001.png`, `002.png`, …) handed out
+  by a single atomic incrementer, unique across the whole run (every branch shares the sequence).
+  Failed renders leave a gap in the numbering.
+- `<id>.txt` — the **full resolved parameter set** (every knob, defaults included), a `# swept:`
+  line naming what varied for this id, plus a one-line reproduce command.
 
 Per batch:
 
 - `_sheet_<branch>.png` — a labelled grid of every image in the branch (the "big table"), rendered
-  with Skia. Set `sheet = off` to skip it, `thumb = PX` to resize the cells.
+  with Skia. Each thumbnail is captioned with just its `<id>` (short, so it never gets cropped) —
+  spot a keeper on the sheet and jump straight to `<id>.png` / `<id>.txt`. Set `sheet = off` to skip
+  it, `thumb = PX` to resize the cells.
 
 ## The taste loop (`continue`)
 

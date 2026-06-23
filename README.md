@@ -20,6 +20,10 @@ great. _It’s not how I normally write code._
 
 See [Hot Reload](docs/hotreload.md) for details on how to set up hot reload for faster iteration.
 
+## 🧹 **Sweeper**
+
+See [sweeper](docs/sweeper.md) for details on how to use the sweeper utility.
+
 ## 🚀 Features
 
 See [Features](docs/features.md) for a comprehensive list of features and utilities provided by the framework.

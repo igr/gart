@@ -23,7 +23,7 @@ private const val MAX = 500          // above this many renders we make you pass
 
 private data class Axis(val key: String, val values: List<String>, val swept: Boolean)
 private data class Branch(val name: String, val axes: List<Axis>)
-private data class Task(val branch: String, val name: String, val combo: List<Pair<String, String>>, val label: String)
+private data class Task(val branch: String, val name: String, val combo: List<Pair<String, String>>, val label: String)  // name = the render's id
 private data class Result(val branch: String, val name: String, val ok: Boolean, val msg: String, val png: File?, val label: String)
 private data class Opts(val par: Int, val name: String?, val sheet: Boolean, val thumb: Int, val sample: Int, val limit: Int, val yes: Boolean, val dry: Boolean, val timeout: Long)
 
@@ -70,11 +70,9 @@ private fun run(mainClass: String, branches: List<Branch>, outDir: File, o: Opts
     val tasks = ArrayList<Task>()
     for (b in branches) {
         val swept = b.axes.filter { it.swept }.map { it.key }.toSet()
-        val combos = cartesian(b.axes)
-        val pad = combos.size.toString().length.coerceAtLeast(3)
-        combos.forEachIndexed { idx, combo ->
+        for (combo in cartesian(b.axes)) {
             val label = combo.filter { it.first in swept }.joinToString(" ") { "${it.first}=${it.second}" }
-            tasks += Task(b.name, nameFor(prefix, b.name, idx + 1, pad, combo, swept), combo, label)
+            tasks += Task(b.name, "", combo, label)   // name (the id) is assigned below, after sample/limit
         }
     }
 
@@ -82,6 +80,13 @@ private fun run(mainClass: String, branches: List<Branch>, outDir: File, o: Opts
     val full = picked.size
     if (o.sample in 1 until picked.size) picked = picked.shuffled(kotlin.random.Random(0L)).take(o.sample)
     if (o.limit in 1 until picked.size) picked = picked.take(o.limit)
+
+    // give every surviving render a unique, zero-padded id from one atomic counter. that id is the
+    // whole file name (<id>.png / <id>.txt) and the only caption under each thumbnail on the sheet,
+    // so you can spot a keeper and jump straight to its files - no more cropped param soup.
+    val idPad = picked.size.toString().length.coerceAtLeast(3)
+    val nextId = AtomicInteger()
+    picked = picked.map { it.copy(name = nextId.incrementAndGet().toString().padStart(idPad, '0')) }
 
     println("art:      $mainClass")
     println("branches: ${branches.size} ${branches.map { it.name.ifEmpty { "(main)" } }}")
@@ -108,7 +113,7 @@ private fun run(mainClass: String, branches: List<Branch>, outDir: File, o: Opts
         pool.submit(Callable {
             val r = renderOne(t, mainClass, outDir, cp, javaBin, o.timeout)
             val k = done.incrementAndGet()
-            println("[$k/${picked.size}] ${if (r.ok) "ok  " else "FAIL"} ${r.name}${if (r.ok) "" else "  (${r.msg})"}")
+            println("[$k/${picked.size}] ${if (r.ok) "ok  " else "FAIL"} ${r.name}${if (r.ok) "  ${r.label}" else "  (${r.msg})"}")
             r
         })
     }.map { it.get() }
@@ -148,7 +153,7 @@ private fun renderOne(t: Task, mainClass: String, outDir: File, cp: String, java
 
         // prefer the art's full resolved dump (defaults included); fall back to what we passed
         val fullParams = if (dump.exists()) readParams(dump).filterKeys { it != "out" } else t.combo.toMap()
-        File(outDir, "${t.name}.txt").writeText(buildTxt(mainClass, fullParams, t.combo))
+        File(outDir, "${t.name}.txt").writeText(buildTxt(mainClass, fullParams, t.combo, t.label))
         return Result(t.branch, t.name, true, "", target, t.label)
     } catch (e: Exception) {
         return Result(t.branch, t.name, false, e.message ?: e.javaClass.simpleName, null, t.label)
@@ -157,9 +162,10 @@ private fun renderOne(t: Task, mainClass: String, outDir: File, cp: String, java
     }
 }
 
-private fun buildTxt(mainClass: String, params: Map<String, String>, repro: List<Pair<String, String>>): String = buildString {
+private fun buildTxt(mainClass: String, params: Map<String, String>, repro: List<Pair<String, String>>, label: String): String = buildString {
     appendLine("# sweeper render")
     appendLine("# art: $mainClass")
+    if (label.isNotEmpty()) appendLine("# swept: $label")
     appendLine()
     for ((k, v) in params) appendLine("$k=$v")
     appendLine()
@@ -189,7 +195,7 @@ private fun buildSheet(out: File, title: String, results: List<Result>, thumbOve
     val titlePaint = Paint().apply { color = 0xFFD4EDF3.toInt() }
     val labelPaint = Paint().apply { color = 0xFF9FB3C8.toInt() }
     c.drawString("$title   ·   $n images", pad.toFloat(), 25f, font(FontFamily.SpaceMonoBold, 18f), titlePaint)
-    val labelFont = font(FontFamily.SpaceMono, 12f)
+    val labelFont = font(FontFamily.SpaceMonoBold, 14f)
 
     results.forEachIndexed { idx, r ->
         val cx = pad + (idx % cols) * cellW
@@ -201,8 +207,8 @@ private fun buildSheet(out: File, title: String, results: List<Result>, thumbOve
                 img.close()
             }
         }
-        val text = (r.label.ifEmpty { r.name }).let { if (it.length > thumb / 7) it.take(thumb / 7 - 1) + "…" else it }
-        c.drawString(text, cx.toFloat(), (cy + thumb + 16).toFloat(), labelFont, labelPaint)
+        // just the id under each thumbnail - it's the file name too, so it never needs cropping
+        c.drawString(r.name, cx.toFloat(), (cy + thumb + 18).toFloat(), labelFont, labelPaint)
     }
     saveImageToFile(surface.makeImageSnapshot(), out.absolutePath)
 }
@@ -361,13 +367,3 @@ private fun cartesian(axes: List<Axis>): List<List<Pair<String, String>>> {
 
 private fun resolveMainClass(arg: String): String =
     if (arg.contains('.')) arg else "work.$arg.${arg.replaceFirstChar { it.uppercase() }}Kt"
-
-private fun nameFor(prefix: String, branch: String, index: Int, pad: Int, combo: List<Pair<String, String>>, swept: Set<String>): String {
-    val base = if (branch.isEmpty()) "${prefix}_${index.toString().padStart(pad, '0')}"
-    else "${prefix}_${branch}_${index.toString().padStart(pad, '0')}"
-    val tail = combo.filter { it.first in swept }.joinToString("") { "_${it.first}-${sanitize(it.second)}" }
-    val fullName = base + tail
-    return if (fullName.length > 120) base else fullName
-}
-
-private fun sanitize(s: String) = buildString { for (ch in s) append(if (ch.isLetterOrDigit() || ch == '.' || ch == '-') ch else '_') }
