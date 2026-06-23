@@ -1,0 +1,16 @@
+# corona variant menu for picking: 4 temperature toes on the locked egg + the 10 attractor forms.
+# tuned tone, ss=1 (this is a chooser - the winner gets finalized at ss=2/3).
+art   = work.corona.CoronaKt
+out   = output/corona_variants
+fixed = ss=1 gamma=0.52 black=0.05 bloom=0.8
+par   = 6
+
+# the egg (seed 4) in each temperature toe: 0=steel-blue 1=violet 2=pure-warm 3=teal
+[branch palette]
+seed = 4
+pal  = 0,1,2,3
+
+# the full menu of handpicked attractors, default toe
+[branch form]
+pal  = 0
+seed = 0,1,2,3,4,5,6,7,8,9

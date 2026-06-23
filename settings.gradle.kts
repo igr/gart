@@ -66,4 +66,5 @@ include("arts:neuromancer")
 include("arts:orbitr")
 include("arts:fluid")
 include("arts:td")
+include("arts:mathy")
 

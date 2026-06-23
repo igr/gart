@@ -1,0 +1,10 @@
+# corona tone pass: fix the body contrast + tame the blown-out core.
+# locked egg, default palette, ss=1 for speed. i pick the best gamma/black/bloom from the sheet.
+art   = work.corona.CoronaKt
+out   = output/corona_tone
+fixed = seed=4 pal=0 ss=1
+par   = 6
+
+gamma = 0.42,0.52,0.62
+black = 0.02,0.05
+bloom = 0.7,1.0
