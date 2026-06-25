@@ -186,3 +186,15 @@ fun lerpColor(from: Int, to: Int, t: Float): Int {
         (blue(from) * t0 + blue(to) * t1).toInt()
     )
 }
+
+/**
+ * Darkens [color] by mixing it toward black. [f] is the mix amount:
+ * `f = 0f` returns the colour unchanged, `f = 1f` returns black.
+ */
+fun darken(color: Int, f: Float): Int = lerpColor(color, Color.BLACK, f)
+
+/**
+ * Lightens [color] by mixing it toward white. [f] is the mix amount:
+ * `f = 0f` returns the colour unchanged, `f = 1f` returns white.
+ */
+fun lighten(color: Int, f: Float): Int = lerpColor(color, Color.WHITE, f)

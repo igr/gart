@@ -1,0 +1,38 @@
+# voronin chooser: butterfly-wing-macro scales. voronoi cells on a noise-warped grid that grow
+# bottom-right and imbricate; each painted dark-border / drifting-mid-colour / red-core.
+# ss=1 here for speed; finalize the keeper at ss=2-3.
+# run:  just sweep voronin
+
+art   = work.voronin.VoroninKt
+out   = output/voronin
+fixed = ss=1 cell=46 grow=0.8 shadow=0.72 shadowoff=5 redr=0.16 midr=0.7
+par   = 6
+
+# the four wing palettes, in the bold-scale macro look
+[branch palette]
+pal = 0,1,2,3
+
+# imbrication: how bold the bottom-right shingles are
+[branch shingle]
+pal       = 0
+grow      = 0.5,0.7,0.9
+shadow    = 0.4,0.6,0.8
+shadowoff = 5
+
+# scale size x colour-band scale (lower colorfreq = bigger calmer bands)
+[branch scale_bands]
+pal       = 0
+cell      = 40,52,68
+colorfreq = 1.0,1.6,2.4
+
+# zone proportions: red-core size x middle-band width
+[branch zones]
+pal  = 0
+redr = 0.12,0.18,0.26
+midr = 0.62,0.74,0.84
+
+# matte vs glossy surface
+[branch surface]
+pal   = 0
+bloom = 0,0.12,0.28
+rim   = 0,0.18,0.4

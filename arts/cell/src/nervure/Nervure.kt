@@ -474,8 +474,8 @@ private fun drawBackground(c: Canvas, gradient: Palette, cyan: Boolean) {
     }
     // colorful mode: a near-black vignette subtly tinted by the palette so the glow sits in its own world.
     // darken by scaling RGB channels (preserves hue) - lerpColor toward black drifts through olive.
-    val center = darken(gradient.safe((0.45f * (GRAD_STEPS - 1)).toInt()), 0.22f)
-    val deep = darken(gradient.safe((0.30f * (GRAD_STEPS - 1)).toInt()), 0.10f)
+    val center = darken(gradient.safe((0.45f * (GRAD_STEPS - 1)).toInt()), 0.78f)
+    val deep = darken(gradient.safe((0.30f * (GRAD_STEPS - 1)).toInt()), 0.90f)
     c.clear(deep)
     c.drawPaint(Paint().apply {
         shader = makeRadialGradient(
@@ -485,13 +485,6 @@ private fun drawBackground(c: Canvas, gradient: Palette, cyan: Boolean) {
     })
 }
 
-/** scale a color's RGB channels by [f] (keeps hue, unlike lerp-to-black). */
-private fun darken(color: Int, f: Float): Int {
-    val r = ((color ushr 16 and 0xFF) * f).toInt().coerceIn(0, 255)
-    val g = ((color ushr 8 and 0xFF) * f).toInt().coerceIn(0, 255)
-    val b = ((color and 0xFF) * f).toInt().coerceIn(0, 255)
-    return (0xFF shl 24) or (r shl 16) or (g shl 8) or b
-}
 
 /** few random white discs sat under the veins, so the nervatures cross over them here n there.
  *  own rng off the seed so it doesnt touch the growth, but still reproducible. */
