@@ -48,6 +48,12 @@ data class Vec2(val x: Float, val y: Float) {
     }
 
     /**
+     * Returns the signed angle in radians from this vector to [other], in `(-PI, PI]`.
+     * Rotating this vector by the result aligns it with the direction of [other].
+     */
+    fun angleTo(other: Vec2): Float = atan2(cross(other), dot(other))
+
+    /**
      * Returns the angle of the vector in radians.
      */
     val angle by lazy { Radians.of(atan2(y, x)) }
