@@ -1,0 +1,23 @@
+# areola - crack / craquelure: small cells crowd the main faults, coarse plates fill the field.
+# run:  just sweep areola      (writes pngs + a contact sheet per branch to output/areola)
+
+art   = work.areola.AreolaKt
+out   = output/areola
+fixed = ss=2
+
+# the fineness gradient - how tiny the cells get hugging a line (fine), how coarse the open field
+# (coarse), and how far the fine zone reaches (band). this is the signature knob set.
+[branch grade]
+seed   = 1:12
+fine   = 5,6,8
+band   = 70,90,120
+
+# composition - seed picks the fault layout; curl sets how much the main lines meander.
+[branch flow]
+seed   = 1:24
+curl   = 0.08,0.12,0.18
+
+# browse gart's Cool palettes on one fixed composition (85 is the shipped default).
+[branch palette]
+seed = 7
+cool = 1:173:6
