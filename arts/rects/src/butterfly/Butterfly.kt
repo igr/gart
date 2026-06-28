@@ -13,6 +13,7 @@ import dev.oblac.gart.io.detectHeadlessFlags
 import dev.oblac.gart.io.pf
 import dev.oblac.gart.io.pi
 import dev.oblac.gart.io.ps
+import dev.oblac.gart.math.hash01 as seededHash01
 import dev.oblac.gart.noise.SimplexNoise
 import dev.oblac.gart.triangulation.Delaunator
 import dev.oblac.gart.triangulation.delaunayToVoronoi
@@ -518,13 +519,8 @@ private fun snf(x: Float, y: Float, freq: Float, tag: Float): Float {
     return SimplexNoise.noise((x * freq + o).toDouble(), (y * freq + o).toDouble()).toFloat()
 }
 
-private fun hash01(a: Int, b: Int, k: Int): Float {
-    var h = (a * 0x1f1f1f1f) xor (b * -0x61c88647) xor (k * 0x27d4eb2f) xor (SEED * 0x165667b1)
-    h = h xor (h ushr 15); h *= -0x7ee3623b
-    h = h xor (h ushr 13); h *= -0x3d4d51cb
-    h = h xor (h ushr 16)
-    return ((h ushr 8) and 0xFFFF) / 65535f
-}
+/** integer hash keyed by SEED; stable per-cell pseudo-random in [0,1). */
+private fun hash01(a: Int, b: Int, k: Int): Float = seededHash01(a, b, k, SEED)
 
 // POST ----------------------------------------------------------------------
 
