@@ -204,3 +204,14 @@ fun darken(color: Int, f: Float): Int = lerpColor(color, Color.BLACK, f)
  * `f = 0f` returns the colour unchanged, `f = 1f` returns white.
  */
 fun lighten(color: Int, f: Float): Int = lerpColor(color, Color.WHITE, f)
+
+/**
+ * Scales each RGB channel of [color] by [s] (clamped to `0..255`), forcing the alpha opaque.
+ * A multiplicative brightness: `s < 1f` darkens, `s > 1f` brightens — unlike [darken]/[lighten], which lerp toward black/white.
+ */
+fun colorScale(color: Int, s: Float): Int {
+    val r = (red(color) * s).toInt().coerceIn(0, 255)
+    val g = (green(color) * s).toInt().coerceIn(0, 255)
+    val b = (blue(color) * s).toInt().coerceIn(0, 255)
+    return rgb(r, g, b)
+}
