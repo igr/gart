@@ -11,3 +11,8 @@ fun IntArray.sortRange(start: Int, end: Int, selector: (Int) -> Int) {
 }
 
 operator fun <T> Array<T>.rem(i: Int) = this.elementAt(i % this.size)
+
+// some function aliases
+fun farr(vararg elements: Float): FloatArray = floatArrayOf(*elements)
+fun iarr(vararg elements: Int): IntArray = intArrayOf(*elements)
+fun darr(vararg elements: Double): DoubleArray = doubleArrayOf(*elements)
