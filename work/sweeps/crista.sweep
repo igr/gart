@@ -1,0 +1,30 @@
+# crista - the folded inner membrane: an anisotropic gray-scott labyrinth combed along a
+# noise current, mother folds for the spine, quiet ringed wells the ridges part around.
+# run:  just sweep crista      (writes pngs + a contact sheet per branch to output/crista)
+
+art   = work.crista.CristaKt
+out   = output/crista
+fixed = ss=2
+
+# composition - seed lays the wells and the folds; pores change the cast on stage.
+[branch cast]
+seed  = 1:24
+pores = 4,5,7
+
+# fabric - f/k pick the worm weight, comb sets how hard the current combs it.
+[branch fabric]
+seed = 11
+f    = 0.030,0.033,0.036
+k    = 0.056,0.058,0.060
+comb = 0.5,0.95
+
+# light - raking angle, and how deep the low membrane drowns.
+[branch light]
+seed  = 11
+light = 35,145,215
+dim   = 0.3,0.45,0.6
+
+# palette - browse gart's Cool palettes on the locked composition.
+[branch palette]
+seed = 11
+cool = 1:173:6
