@@ -2,9 +2,9 @@ package butterfly
 
 import dev.oblac.gart.Dimension
 import dev.oblac.gart.Gart
-import dev.oblac.gart.Gartmap
 import dev.oblac.gart.Gartvas
 import dev.oblac.gart.color.*
+import dev.oblac.gart.fx.addGrain
 import dev.oblac.gart.gfx.fillOf
 import dev.oblac.gart.gfx.roundStroke
 import dev.oblac.gart.gfx.strokeOf
@@ -174,7 +174,7 @@ fun main(args: Array<String>) {
     // post
     if (BLOOM > 0f) drawBloom(g.canvas, g.snapshot())
     if (VIG > 0f) drawVignette(g.canvas)
-    if (GRAIN > 0f) addGrain(g)
+    if (GRAIN > 0f) addGrain(g, GRAIN, SEED) { x, y -> hash01(x, y, 9) }
 
     gart.saveImage(g, "$OUT.png")
     if (!headless) gart.window().showImage(g)
@@ -548,20 +548,4 @@ private fun drawVignette(c: Canvas) {
             )
         )
     })
-}
-
-private fun addGrain(g: Gartvas) {
-    val map = Gartmap(g)
-    val px = map.pixels
-    val amp = GRAIN.coerceIn(0f, 1f) * 40f
-    val w = g.d.w
-    for (idx in px.indices) {
-        val n = (hash01(idx % w, idx / w, 9) - 0.5f) * 2f * amp
-        val col = px[idx]
-        val r = ((col ushr 16 and 0xFF) + n).toInt().coerceIn(0, 255)
-        val gg = ((col ushr 8 and 0xFF) + n).toInt().coerceIn(0, 255)
-        val b = ((col and 0xFF) + n).toInt().coerceIn(0, 255)
-        px[idx] = c3(r, gg, b)
-    }
-    map.drawToCanvas(g)
 }

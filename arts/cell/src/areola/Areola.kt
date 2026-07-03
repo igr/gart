@@ -2,13 +2,13 @@ package areola
 
 import dev.oblac.gart.Gart
 import dev.oblac.gart.Gartmap
-import dev.oblac.gart.Gartvas
 import dev.oblac.gart.color.Palette
 import dev.oblac.gart.color.Palettes
 import dev.oblac.gart.color.colorScale
 import dev.oblac.gart.color.darken
 import dev.oblac.gart.color.lighten
 import dev.oblac.gart.color.lumOf
+import dev.oblac.gart.fx.addGrain
 import dev.oblac.gart.gfx.drawVignette
 import dev.oblac.gart.io.detectHeadlessFlags
 import dev.oblac.gart.io.pf
@@ -139,7 +139,7 @@ fun main(args: Array<String>) {
     shadePlates(field, mapMain)
     mapMain.drawToCanvas(g)
     c.drawVignette(g.d, VIG)
-    if (GRAIN > 0f) addGrain(g)
+    if (GRAIN > 0f) addGrain(g, GRAIN, SEED.toInt())
     println("render in ${System.currentTimeMillis() - t0}ms")
 
     gart.saveImage(g, "$OUT.png")
@@ -697,22 +697,6 @@ private fun downsample(rgb: IntArray, map: Gartmap) {
             px[y * W + x] = (0xFF shl 24) or ((r * inv).toInt() shl 16) or ((gg * inv).toInt() shl 8) or (b * inv).toInt()
         }
     }
-}
-
-private fun addGrain(g: Gartvas) {
-    val m = Gartmap(g)
-    val px = m.pixels
-    val amp = GRAIN.coerceIn(0f, 1f) * 40f
-    val w = g.d.w
-    for (i in px.indices) {
-        val n = (seededHash01(i % w, i / w + 1, SEED.toInt()) - 0.5f) * 2f * amp
-        val col = px[i]
-        val r = (((col ushr 16) and 0xFF) + n).toInt().coerceIn(0, 255)
-        val gg = (((col ushr 8) and 0xFF) + n).toInt().coerceIn(0, 255)
-        val b = ((col and 0xFF) + n).toInt().coerceIn(0, 255)
-        px[i] = (0xFF shl 24) or (r shl 16) or (gg shl 8) or b
-    }
-    m.drawToCanvas(g)
 }
 
 // HELPERS, utils etc
