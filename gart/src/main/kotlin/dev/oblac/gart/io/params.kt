@@ -24,5 +24,6 @@ private fun record(k: String, v: Any?) {
 }
 
 fun pi(k: String, d: Int) = (System.getProperty(k)?.toInt() ?: d).also { record(k, it) }
+fun pl(k: String, d: Long) = (System.getProperty(k)?.toLong() ?: d).also { record(k, it) }
 fun pf(k: String, d: Float) = (System.getProperty(k)?.toFloat() ?: d).also { record(k, it) }
 fun ps(k: String, d: String) = (System.getProperty(k) ?: d).also { record(k, it) }
