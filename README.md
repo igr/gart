@@ -72,8 +72,11 @@ A collection of generative art pieces (ordered by name).
 
 [<img src="arts/cell/accertion_d_s7_g145_thumb.png" hspace="2" vspace="2" align="left">](arts/cell/accertion_d_s7_g145.png)
 [<img src="arts/cell/accretion_thumb.png" hspace="2" vspace="2" align="left">](arts/cell/accretion.png)
+[<img src="arts/cell/areola_thumb.png" hspace="2" vspace="2" align="left">](arts/cell/areola.png)
 [<img src="arts/cell/cell1_thumb.png" hspace="2" vspace="2" align="left">](arts/cell/cell1.png)
 [<img src="arts/cell/cell2_thumb.png" hspace="2" vspace="2" align="left">](arts/cell/cell2.png)
+[<img src="arts/cell/crista_thumb.png" hspace="2" vspace="2" align="left">](arts/cell/crista.png)
+[<img src="arts/cell/nervure_thumb.png" hspace="2" vspace="2" align="left">](arts/cell/nervure.png)
 [<img src="arts/cell/rugae_thumb.png" hspace="2" vspace="2" align="left">](arts/cell/rugae.png)
 <br clear="both">
 
@@ -234,6 +237,11 @@ A collection of generative art pieces (ordered by name).
 [<img src="arts/lissajous/moire_thumb.png" hspace="2" vspace="2" align="left">](arts/lissajous/moire.png)
 <br clear="both">
 
+## Mathy
+
+[<img src="arts/mathy/corona_thumb.png" hspace="2" vspace="2" align="left">](arts/mathy/corona.png)
+<br clear="both">
+
 ## Metro
 
 [<img src="arts/metro/metro2_thumb.png" hspace="2" vspace="2" align="left">](arts/metro/metro2.png)
@@ -314,6 +322,7 @@ A collection of generative art pieces (ordered by name).
 
 ## Rects
 
+[<img src="arts/rects/butterfly_thumb.png" hspace="2" vspace="2" align="left">](arts/rects/butterfly.png)
 [<img src="arts/rects/cells_thumb.png" hspace="2" vspace="2" align="left">](arts/rects/cells.png)
 [<img src="arts/rects/divine-divide_thumb.png" hspace="2" vspace="2" align="left">](arts/rects/divine-divide.png)
 [<img src="arts/rects/impossible-rubik-one_thumb.png" hspace="2" vspace="2" align="left">](arts/rects/impossible-rubik-one.png)
@@ -362,6 +371,8 @@ A collection of generative art pieces (ordered by name).
 ## Sf
 
 [<img src="arts/sf/sf10_thumb.png" hspace="2" vspace="2" align="left">](arts/sf/sf10.png)
+[<img src="arts/sf/sf11-a_thumb.png" hspace="2" vspace="2" align="left">](arts/sf/sf11-a.png)
+[<img src="arts/sf/sf11-b_thumb.png" hspace="2" vspace="2" align="left">](arts/sf/sf11-b.png)
 [<img src="arts/sf/sf1_thumb.png" hspace="2" vspace="2" align="left">](arts/sf/sf1.png)
 [<img src="arts/sf/sf2_thumb.png" hspace="2" vspace="2" align="left">](arts/sf/sf2.png)
 [<img src="arts/sf/sf3_thumb.png" hspace="2" vspace="2" align="left">](arts/sf/sf3.png)
@@ -468,4 +479,4 @@ A collection of generative art pieces (ordered by name).
 
 ---
 
-**Total: 230 works across 48 collections**
+**Total: 237 works across 49 collections**
