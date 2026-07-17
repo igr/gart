@@ -1,0 +1,33 @@
+# vitrall - sagrada familia stained glass: bsp cuts with a shared grain make the panes,
+# a warped hue field pours the jewel color, slices + arcs + heavy bone lines + lead.
+# defaults are the kept piece (seed=10 nou rise arc=0.35); branches explore around it.
+# run:  just sweep vitrall     (writes pngs + a contact sheet per branch to output/vitrall)
+
+art   = work.VitrallKt
+out   = output/vitrall
+fixed = ss=2
+
+# composition - every seed recuts the panel; all in the vertical rise read.
+[branch cast]
+seed = 1:16
+
+# wares - fire and water verticals on the default cut and the moody alternate.
+[branch ware]
+seed   = 10,2
+preset = ponent,llevant
+
+# fabric - pane density against lead weight, on the kept cut.
+[branch fabric]
+seed  = 10
+panes = 68,92,124
+lead  = 5.5,7,9
+
+# bow - how much the cuts curve.
+[branch bow]
+seed = 10
+arc  = 0.12,0.35,0.58
+
+# tone - shift the warm/cool share of the rise.
+[branch tone]
+seed = 10
+bias = 0.44,0.50,0.56

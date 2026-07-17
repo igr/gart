@@ -16,13 +16,15 @@ great. _It’s not how I normally write code._
 
 🤖 AI is used mostly to generate comments and documentation.
 
+> ☕️ [Buy Me a Coffee](https://buymeacoffee.com/oblac) if you like the project.
+
 ## ♻️ **Hot Reload**
 
 See [Hot Reload](docs/hotreload.md) for details on how to set up hot reload for faster iteration.
 
 ## 🧹 **Sweeper**
 
-See [sweeper](docs/sweeper.md) for details on how to use the sweeper utility.
+See [Sweeper](docs/sweeper.md) for details on how to use the sweeper utility.
 
 ## 🚀 Features
 
