@@ -3,6 +3,7 @@
 🧧 gënérative ȧrt made by pragmatic [kotlin](docs/WhyKotlin.md) micro-framework.
 
 > ❤️ [Instagram](https://www.instagram.com/gart_173) / [Online Gallery](https://igo.rs/gart)
+> ☕️ [Buy Me a Coffee](https://buymeacoffee.com/oblac) if you like the project.
 
 ⭐️ **Gȧrt** is a pragmatical framework and set of utilities for generating and rendering
 **still images** and **movies**.
@@ -15,8 +16,6 @@
 great. _It’s not how I normally write code._
 
 🤖 AI is used mostly to generate comments and documentation.
-
-> ☕️ [Buy Me a Coffee](https://buymeacoffee.com/oblac) if you like the project.
 
 ## ♻️ **Hot Reload**
 
