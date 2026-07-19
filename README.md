@@ -230,6 +230,7 @@ A collection of generative art pieces (ordered by name).
 [<img src="arts/lines/triadance2_thumb.png" hspace="2" vspace="2" align="left">](arts/lines/triadance2.png)
 [<img src="arts/lines/triangles_thumb.png" hspace="2" vspace="2" align="left">](arts/lines/triangles.png)
 [<img src="arts/lines/tridance_thumb.png" hspace="2" vspace="2" align="left">](arts/lines/tridance.png)
+[<img src="arts/lines/vitrall_thumb.png" hspace="2" vspace="2" align="left">](arts/lines/vitrall.png)
 <br clear="both">
 
 ## Lissajous
@@ -404,6 +405,7 @@ A collection of generative art pieces (ordered by name).
 [<img src="arts/skyscraper/dualcity_thumb.png" hspace="2" vspace="2" align="left">](arts/skyscraper/dualcity.png)
 [<img src="arts/skyscraper/perspective01_thumb.png" hspace="2" vspace="2" align="left">](arts/skyscraper/perspective01.png)
 [<img src="arts/skyscraper/perspective02_thumb.png" hspace="2" vspace="2" align="left">](arts/skyscraper/perspective02.png)
+[<img src="arts/skyscraper/scrapers_thumb.png" hspace="2" vspace="2" align="left">](arts/skyscraper/scrapers.png)
 [<img src="arts/skyscraper/skyscraper2_thumb.png" hspace="2" vspace="2" align="left">](arts/skyscraper/skyscraper2.png)
 [<img src="arts/skyscraper/skyscraper_thumb.png" hspace="2" vspace="2" align="left">](arts/skyscraper/skyscraper.png)
 <br clear="both">
@@ -480,4 +482,4 @@ A collection of generative art pieces (ordered by name).
 
 ---
 
-**Total: 237 works across 49 collections**
+**Total: 239 works across 49 collections**
