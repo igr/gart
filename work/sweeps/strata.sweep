@@ -1,0 +1,30 @@
+# strata - a coherent family of cut-paper waves opening around a luminous disc.
+# Defaults are the reference-facing composition; these branches explore its useful structural knobs.
+# run:  just sweep strata      (writes pngs + one contact sheet per branch to output/strata)
+
+art   = work.strata.StrataKt
+out   = output/strata
+fixed = ss=1
+par   = 6
+
+# New seeds keep the contour family coherent while moving its small anchor drifts and the sun.
+[branch cast]
+seed = 2410:2421
+
+# How dramatically the shared crest and trough fan through the stack.
+[branch flow]
+seed  = 2417,2420
+wave  = 145,180,215
+crest = 0.16,0.20,0.24
+
+# Sheet count and spacing change the density without changing the visual grammar.
+[branch stack]
+seed  = 2417
+upper = 4,5,6
+lower = 3,4,5
+gap   = 90,105,120
+
+# Every built-in Gȧrt cool palette on the locked composition.
+[branch cool_palettes]
+seed = 2417
+cool = 1:173

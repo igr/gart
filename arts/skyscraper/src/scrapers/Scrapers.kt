@@ -7,6 +7,7 @@ import dev.oblac.gart.color.RetroColors
 import dev.oblac.gart.gfx.fillOf
 import dev.oblac.gart.gfx.strokeOf
 import dev.oblac.gart.io.*
+import dev.oblac.gart.math.between
 import org.jetbrains.skia.*
 import kotlin.math.*
 import kotlin.random.Random
@@ -624,7 +625,5 @@ private fun diamond(cx: Float, cy: Float, rx: Float, ry: Float): Path = PathBuil
     .lineTo(cx - rx, cy)
     .closePath()
     .detach()
-
-private fun Random.between(min: Float, max: Float): Float = min + nextFloat() * (max - min)
 
 private fun Random.nextAccentTone(): AccentTone = if (nextBoolean()) AccentTone.RED else AccentTone.YELLOW

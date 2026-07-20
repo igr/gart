@@ -17,6 +17,9 @@ fun Random.rndf(max: Number): Float = nextFloat() * max.toFloat()
 fun Random.rndf(min: Float, max: Float): Float = nextFloat() * (max - min) + min
 fun Random.rndf(min: Number, max: Number): Float = nextFloat() * (max.toFloat() - min.toFloat()) + min.toFloat()
 
+/** Returns a uniformly distributed value between [from] and [to]. */
+fun Random.between(from: Float, to: Float): Float = from + nextFloat() * (to - from)
+
 fun Random.rnd(min: Double, max: Double): Double = min + (max - min) * nextDouble()
 
 /**
