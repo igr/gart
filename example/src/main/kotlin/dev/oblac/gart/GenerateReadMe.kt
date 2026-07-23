@@ -140,7 +140,7 @@ private fun generateMarkdown(thumbnailsByFolder: Map<String, List<ThumbnailInfo>
 
         appendLine("---")
         appendLine()
-        appendLine("**Total: $totalThumbnails works across $totalFolders collections**")
+        appendLine("🖼️ **$totalThumbnails works** across **$totalFolders collections** — and counting.")
     }
 }
 

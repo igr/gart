@@ -3,6 +3,7 @@
 🧧 gënérative ȧrt made by pragmatic [kotlin](docs/WhyKotlin.md) micro-framework.
 
 > ❤️ [Instagram](https://www.instagram.com/gart_173) / [Online Gallery](https://igo.rs/gart)
+>
 > ☕️ [Buy Me a Coffee](https://buymeacoffee.com/oblac) if you like the project.
 
 ⭐️ **Gȧrt** is a pragmatical framework and set of utilities for generating and rendering
@@ -38,6 +39,12 @@ Example folder contains several small projects demonstrating various features of
 + Tools:
   + `GradientGenerator` - interactive gradient palette generator.
   + `FunGraph` - interactive function plotter.
+
+## 🙋‍♀️ Who is using Gȧrt?
+
++ **Gȧrt** artwork ships as wallpapers in [Smart Launcher](https://www.smartlauncher.net)
+
+(Contact me if you want to be added to this list.)
 
 ## 🍭 Gȧlléry
 
@@ -192,6 +199,11 @@ A collection of generative art pieces (ordered by name).
 [<img src="arts/kaleiircle/kaleiircle_thumb.png" hspace="2" vspace="2" align="left">](arts/kaleiircle/kaleiircle.png)
 <br clear="both">
 
+## Layers
+
+[<img src="arts/layers/strata_thumb.png" hspace="2" vspace="2" align="left">](arts/layers/strata.png)
+<br clear="both">
+
 ## Legoo
 
 [<img src="arts/legoo/Legoo12_thumb.png" hspace="2" vspace="2" align="left">](arts/legoo/Legoo12.png)
@@ -299,6 +311,7 @@ A collection of generative art pieces (ordered by name).
 [<img src="arts/plasma/plasma3_thumb.png" hspace="2" vspace="2" align="left">](arts/plasma/plasma3.png)
 [<img src="arts/plasma/plasma4_thumb.png" hspace="2" vspace="2" align="left">](arts/plasma/plasma4.png)
 [<img src="arts/plasma/plasma_thumb.png" hspace="2" vspace="2" align="left">](arts/plasma/plasma.png)
+[<img src="arts/plasma/plasmeander_thumb.png" hspace="2" vspace="2" align="left">](arts/plasma/plasmeander.png)
 <br clear="both">
 
 ## Rayz
@@ -482,4 +495,4 @@ A collection of generative art pieces (ordered by name).
 
 ---
 
-**Total: 239 works across 49 collections**
+🖼️ **241 works** across **50 collections** — and counting.
