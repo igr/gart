@@ -35,6 +35,20 @@ fun bluef(color: Int): Float = blue(color) / 255f
  */
 fun lumOf(color: Int): Float = red(color) * 0.299f + green(color) * 0.587f + blue(color) * 0.114f
 
+/**
+ * Adds [delta] to every RGB channel of a packed ARGB [color], clamping each
+ * channel to `0..255` and preserving alpha.
+ *
+ * This changes brightness without changing hue for channels that do not clip.
+ * Positive values lighten; negative values darken.
+ */
+fun shiftLuma(color: Int, delta: Float): Int = argb(
+    alpha(color),
+    (red(color) + delta).toInt().coerceIn(0, 255),
+    (green(color) + delta).toInt().coerceIn(0, 255),
+    (blue(color) + delta).toInt().coerceIn(0, 255),
+)
+
 fun rgb(r: Int, g: Int, b: Int): Int {
     return Color.makeARGB(0xFF, r, g, b)
 }
