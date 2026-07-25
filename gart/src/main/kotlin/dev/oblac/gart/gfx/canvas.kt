@@ -20,4 +20,7 @@ fun Canvas.draw(g: Gartvas) = drawImage(g.snapshot(), 0f, 0f)
  */
 fun Canvas.saveLayer(imageFilter: ImageFilter) = this.saveLayer(null, paintOfImageFilter(imageFilter))
 
-
+/**
+ * Clears canvas (long variant).
+ */
+fun Canvas.clear(color: Long) = clear(color.toInt())
