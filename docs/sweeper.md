@@ -1,6 +1,6 @@
 # Sweeper
 
-Sweeper brute-forces any art in `work/` over a grid of inputs, renders them all headless and in
+Sweeper brute-forces any art in the repo over a grid of inputs, renders them all headless and in
 parallel, and tiles each batch into a labelled contact sheet — so you can scan a wall of variants
 and fish out the good ones ("find the beauty in the noise"). Everything — inputs *and* run settings
 — lives in a **config file**; the only thing you pass on the command line is which config to run.
@@ -15,10 +15,11 @@ and fish out the good ones ("find the beauty in the noise"). Everything — inpu
 just sweep <name>           # runs work/sweeps/<name>.sweep
 ```
 
-`just sweep` builds the module classpath, then invokes the Sweeper. Equivalent to:
+`just sweep` builds the sweeper and the art's [module](#which-module-the-art-lives-in), then invokes
+the Sweeper. For an art in `arts/layers`, equivalent to:
 
 ```bash
-./gradlew :work:classes :work:writeClasspath -q
+./gradlew :work:classes :work:writeClasspath :arts:layers:classes :arts:layers:writeClasspath -q
 java @work/build/classpath.txt work.sweeper.SweeperKt work/sweeps/example.sweep
 ```
 
@@ -31,9 +32,10 @@ A `.sweep` file is line-based (`key = value`, `#` comments). Top-level keys conf
 `[branch …]` sections define what to sweep.
 
 ```ini
-art   = work.nervure.NervureKt   # fully-qualified main class (required)
-out   = output/example           # output folder
-fixed = preset=reach             # params held constant across every branch
+art    = nervure.NervureKt   # fully-qualified main class (required)
+module = arts:cell           # gradle module the art lives in (default: work)
+out    = output/example      # output folder
+fixed  = preset=reach        # params held constant across every branch
 
 [branch fiery]
 palette = inferno,magma
@@ -48,6 +50,28 @@ pull    = 0.2,0.6,0.9
 `art` is the only required key, and `fixed` holds space-separated `k=v` pairs applied to every
 branch. Any *other* top-level `key = spec` line (not a [setting](#settings)) is a **global axis**
 swept across all branches.
+
+An art param whose name collides with a [setting](#settings) can only be swept **inside a
+`[branch]`** — at the top level the setting wins and the axis is silently swallowed (you get one
+render instead of N). The reserved names are `art`, `module`, `out`, `par`, `name`, `sheet`,
+`thumb`, `sample`, `limit`, `timeout`, `yes`, `dry`, `fixed`, `continue`, `vary`, `spread`,
+`steps`. Renaming the art's param is usually the better fix.
+
+### Which module the art lives in
+
+Renders are subprocesses, and they run on the **art's own module classpath** — not the sweeper's.
+The sweeper lives in `work`, so a piece that has graduated to `arts/<module>` needs `module` set:
+
+```ini
+art    = plica.PlicaKt
+module = arts:layers
+```
+
+`just sweep` builds that module and its `classpath.txt` for you. Running the sweeper by hand means
+building it yourself first (`./gradlew :arts:layers:writeClasspath`); if you forget, the sweeper
+says so instead of failing every render with a `ClassNotFoundException`. An art still in `work/`
+needs no `module` line. Note that `art` must be the *real* package — graduating a piece does not
+necessarily rename its package, so check the source rather than assuming it matches the folder.
 
 ### Specs
 
@@ -75,6 +99,7 @@ Optional top-level keys that control the run (everything is in the file — ther
 
 | Key       | Default            | Effect                                        |
 |-----------|--------------------|-----------------------------------------------|
+| `module`  | `work`             | gradle module the art lives in (see below)     |
 | `out`     | `output`           | output folder                                 |
 | `par`     | ≈ half your cores  | parallel renders                              |
 | `name`    | the art's short name | title shown on the contact sheet              |

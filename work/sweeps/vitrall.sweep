@@ -3,9 +3,10 @@
 # defaults are the kept piece (seed=10 nou rise arc=0.35); branches explore around it.
 # run:  just sweep vitrall     (writes pngs + a contact sheet per branch to output/vitrall)
 
-art   = work.VitrallKt
-out   = output/vitrall
-fixed = ss=2
+art    = lines.vitrali.VitrallKt
+module = arts:lines
+out    = output/vitrall
+fixed  = ss=2
 
 # composition - every seed recuts the panel; all in the vertical rise read.
 [branch cast]

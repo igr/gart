@@ -16,10 +16,11 @@ import java.util.concurrent.TimeUnit
 import java.util.concurrent.atomic.AtomicInteger
 import kotlin.math.*
 
-// Sweeper - brute-force any work/ art over a grid of inputs (defined in a .sweep config), render
+// Sweeper - brute-force any art over a grid of inputs (defined in a .sweep config), render
 // headless, dump pngs + params + contact sheets. full docs in docs/sweeper.md.
 
 private const val MAX = 500          // above this many renders we make you pass --yes
+private const val OWN_MODULE = "work" // where the sweeper itself lives, so also the module default
 
 private data class Axis(val key: String, val values: List<String>, val swept: Boolean)
 private data class Branch(val name: String, val axes: List<Axis>)
@@ -52,10 +53,10 @@ fun main(args: Array<String>) {
         val contDir = cfg.continueDir
         if (contDir != null) {
             val (art, branches) = continueBranches(File(contDir), cfg.vary, cfg.spread ?: 0.15, cfg.steps ?: 3)
-            run(resolveMainClass(art), branches, outDir, opts)
+            run(resolveMainClass(art), cfg.module, branches, outDir, opts)
         } else {
             val art = cfg.art ?: error("config needs an 'art = ...' line (or 'continue = <dir>')")
-            run(resolveMainClass(art), cfg.branches, outDir, opts)
+            run(resolveMainClass(art), cfg.module, cfg.branches, outDir, opts)
         }
     } catch (e: Exception) {
         System.err.println("error: ${e.message}")
@@ -64,7 +65,7 @@ fun main(args: Array<String>) {
 
 // RUN
 
-private fun run(mainClass: String, branches: List<Branch>, outDir: File, o: Opts) {
+private fun run(mainClass: String, module: String, branches: List<Branch>, outDir: File, o: Opts) {
     val prefix = o.name ?: mainClass.substringAfterLast('.').removeSuffix("Kt").lowercase()
 
     val tasks = ArrayList<Task>()
@@ -88,7 +89,7 @@ private fun run(mainClass: String, branches: List<Branch>, outDir: File, o: Opts
     val nextId = AtomicInteger()
     picked = picked.map { it.copy(name = nextId.incrementAndGet().toString().padStart(idPad, '0')) }
 
-    println("art:      $mainClass")
+    println("art:      $mainClass  (module $module)")
     println("branches: ${branches.size} ${branches.map { it.name.ifEmpty { "(main)" } }}")
     println("renders:  $full${if (picked.size != full) " -> ${picked.size} after sample/limit" else ""}   par=${o.par}")
     println("out:      ${outDir.path}")
@@ -103,7 +104,8 @@ private fun run(mainClass: String, branches: List<Branch>, outDir: File, o: Opts
     if (picked.isEmpty()) { println("nothing to render."); return }
 
     outDir.mkdirs()
-    val cp = System.getProperty("java.class.path")
+    val cpFile = classpathFileOf(module)
+    val cp = classpathOf(module, cpFile)
     val javaBin = File(System.getProperty("java.home"), "bin/java").absolutePath
     val done = AtomicInteger()
     val pool = Executors.newFixedThreadPool(o.par)
@@ -111,7 +113,7 @@ private fun run(mainClass: String, branches: List<Branch>, outDir: File, o: Opts
 
     val results = picked.map { t ->
         pool.submit(Callable {
-            val r = renderOne(t, mainClass, outDir, cp, javaBin, o.timeout)
+            val r = renderOne(t, mainClass, outDir, cp, cpFile, javaBin, o.timeout)
             val k = done.incrementAndGet()
             println("[$k/${picked.size}] ${if (r.ok) "ok  " else "FAIL"} ${r.name}${if (r.ok) "  ${r.label}" else "  (${r.msg})"}")
             r
@@ -132,7 +134,7 @@ private fun run(mainClass: String, branches: List<Branch>, outDir: File, o: Opts
 }
 
 /** run one combo as a headless subprocess; save <name>.png + <name>.txt (full resolved params). */
-private fun renderOne(t: Task, mainClass: String, outDir: File, cp: String, javaBin: String, timeoutSec: Long): Result {
+private fun renderOne(t: Task, mainClass: String, outDir: File, cp: String, cpFile: File, javaBin: String, timeoutSec: Long): Result {
     val target = File(outDir, "${t.name}.png")
     val tmp = Files.createTempDirectory("sweep_").toFile()
     val log = File(tmp, "_log.txt")
@@ -153,7 +155,7 @@ private fun renderOne(t: Task, mainClass: String, outDir: File, cp: String, java
 
         // prefer the art's full resolved dump (defaults included); fall back to what we passed
         val fullParams = if (dump.exists()) readParams(dump).filterKeys { it != "out" } else t.combo.toMap()
-        File(outDir, "${t.name}.txt").writeText(buildTxt(mainClass, fullParams, t.combo, t.label))
+        File(outDir, "${t.name}.txt").writeText(buildTxt(mainClass, cpFile, fullParams, t.combo, t.label))
         return Result(t.branch, t.name, true, "", target, t.label)
     } catch (e: Exception) {
         return Result(t.branch, t.name, false, e.message ?: e.javaClass.simpleName, null, t.label)
@@ -162,7 +164,7 @@ private fun renderOne(t: Task, mainClass: String, outDir: File, cp: String, java
     }
 }
 
-private fun buildTxt(mainClass: String, params: Map<String, String>, repro: List<Pair<String, String>>, label: String): String = buildString {
+private fun buildTxt(mainClass: String, cpFile: File, params: Map<String, String>, repro: List<Pair<String, String>>, label: String): String = buildString {
     appendLine("# sweeper render")
     appendLine("# art: $mainClass")
     if (label.isNotEmpty()) appendLine("# swept: $label")
@@ -170,7 +172,27 @@ private fun buildTxt(mainClass: String, params: Map<String, String>, repro: List
     for ((k, v) in params) appendLine("$k=$v")
     appendLine()
     appendLine("# reproduce:")
-    appendLine("# java @work/build/classpath.txt " + repro.joinToString(" ") { "-D${it.first}=${it.second}" } + " $mainClass --render")
+    appendLine("# java @${cpFile.path} " + repro.joinToString(" ") { "-D${it.first}=${it.second}" } + " $mainClass --render")
+}
+
+/** `arts:cell` -> `arts/cell/build/classpath.txt`; a leading `:` is optional. */
+private fun classpathFileOf(module: String) =
+    File(module.removePrefix(":").replace(':', '/'), "build/classpath.txt")
+
+/**
+ * Child renders run on the art's own module classpath. The sweeper lives in `work`, so an art that
+ * has graduated to `arts/<module>` is not on ours - we read what `:<module>:writeClasspath` wrote
+ * (`just sweep` runs that task for us). Falling back to our own classpath only makes sense for our
+ * own module; for any other, a missing file means the task never ran and every render would fail.
+ */
+private fun classpathOf(module: String, cpFile: File): String {
+    if (!cpFile.isFile) {
+        require(module == OWN_MODULE) {
+            "no classpath for module '$module' (looked in ${cpFile.path}) - run ./gradlew :$module:writeClasspath"
+        }
+        return System.getProperty("java.class.path")
+    }
+    return cpFile.readText().trim().removePrefix("-cp").trim()
 }
 
 private fun readParams(f: File): Map<String, String> = f.readLines().mapNotNull { line ->
@@ -250,6 +272,7 @@ private fun neighbourhood(baseStr: String, spread: Double, steps: Int): List<Str
 
 private class Config {
     var art: String? = null
+    var module: String = OWN_MODULE
     var out: String = "output"
     var par: Int? = null
     var name: String? = null
@@ -286,6 +309,7 @@ private fun parseConfig(file: File): Config {
         val value = line.substringAfter('=').trim()
         if (cur == null) when (key) {
             "art" -> cfg.art = value
+            "module" -> if (value.isNotEmpty()) cfg.module = value   // blank means "the default", as in just sweep
             "out" -> cfg.out = value
             "par" -> cfg.par = value.toInt()
             "name" -> cfg.name = value

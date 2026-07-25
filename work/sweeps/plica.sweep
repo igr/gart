@@ -1,0 +1,70 @@
+# plica - a stack of ribbons folded along their length into a lit face and a shadowed one.
+# Defaults are the reference-facing composition; these branches explore its structural knobs.
+# run:  just sweep plica      (writes pngs + one contact sheet per branch to output/plica)
+
+art    = plica.PlicaKt
+module = arts:layers
+out    = output/plica
+fixed  = ss=1
+par    = 6
+
+# New seeds keep the grammar and reroll the flow, the family runs and the tone walk.
+[branch cast]
+seed = 2020:2031
+
+# How far each ribbon's own curve strays from the shared harmonic family - the knob that makes
+# ribbons overlap. stray=0 is one waveform drawn N times, so neighbours can only run parallel.
+# Runs off its own salted stream, so this axis moves the shapes and leaves the colours alone.
+[branch stray]
+seed  = 2024,909,4242
+stray = 0.0,0.15,0.30,0.45,0.60,1.0
+
+# How the stack drapes. freq and wave have to move together: high freq at low amplitude
+# corrugates, low freq at high amplitude flattens into a tilt.
+[branch drape]
+seed = 2024,4242
+freq = 0.48,0.70,0.85,1.10
+wave = 120,180,260,350
+
+# Lean. skew=0 is a symmetric sine and reads as corrugation; leaning the lead harmonic is
+# what makes a ribbon look like it is flowing.
+[branch lean]
+seed = 2024,909
+skew = -0.6,-0.3,0.0,0.3,0.6
+
+# How the apex turns. arc=0 is a plain sine and comes to a point; turning it up opens the crest
+# into a broad round sweep. Past ~0.7 the flanks straighten and it starts reading as a trapezoid.
+[branch arc]
+seed = 2024,909
+arc  = 0.0,0.25,0.45,0.7,1.0
+
+# Where each ribbon creases. Low fold collapses the dark face into a thin cut-paper lip.
+[branch crease]
+seed       = 2024
+fold       = 0.20,0.35,0.50,0.65
+foldjitter = 0.08,0.22,0.36
+
+# Ribbon count against family run length - these two have to move together or the frame
+# turns monochrome.
+[branch stack]
+seed  = 2024
+bands = 7,9,11,14
+run   = 1,2,3
+
+# Phase drift marches the whole family down the stack; stray (above) rerolls each ribbon's shape.
+[branch flow]
+seed  = 2024,3131
+drift = 0.00,0.06,0.13,0.19
+env   = 0.0,0.35,0.7
+
+# Fold contrast and the cast shadow - how hard the piece reads as three-dimensional.
+[branch relief]
+seed        = 2024
+shade       = 0.18,0.30,0.42
+shadowalpha = 0.35,0.62,0.80
+shadowblur  = 8,20,34
+
+# Every built-in Gȧrt cool palette, split into two families, on the locked composition.
+[branch cool_palettes]
+seed = 2024
+cool = 1:173

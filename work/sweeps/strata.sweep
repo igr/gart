@@ -2,10 +2,11 @@
 # Defaults are the reference-facing composition; these branches explore its useful structural knobs.
 # run:  just sweep strata      (writes pngs + one contact sheet per branch to output/strata)
 
-art   = work.strata.StrataKt
-out   = output/strata
-fixed = ss=1
-par   = 6
+art    = work.strata.StrataKt
+module = arts:layers
+out    = output/strata
+fixed  = ss=1
+par    = 6
 
 # New seeds keep the contour family coherent while moving its small anchor drifts and the sun.
 [branch cast]

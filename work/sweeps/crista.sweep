@@ -2,9 +2,10 @@
 # noise current, mother folds for the spine, quiet ringed wells the ridges part around.
 # run:  just sweep crista      (writes pngs + a contact sheet per branch to output/crista)
 
-art   = work.crista.CristaKt
-out   = output/crista
-fixed = ss=2
+art    = crista.CristaKt
+module = arts:cell
+out    = output/crista
+fixed  = ss=2
 
 # composition - seed lays the wells and the folds; pores change the cast on stage.
 [branch cast]

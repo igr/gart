@@ -70,6 +70,10 @@ sweep name:
             exit 1
         fi
     fi
-    ./gradlew :work:classes :work:writeClasspath -q
+    # renders run on the art's own module classpath, so build whatever 'module = ...' names
+    # (default: work, where the sweeper itself lives).
+    MODULE="$(sed -n 's/^[[:space:]]*module[[:space:]]*=[[:space:]]*\([^#]*\).*/\1/p' "$CONFIG" | head -1 | tr -d '[:space:]')"
+    MODULE="${MODULE:-work}"
+    ./gradlew :work:classes :work:writeClasspath ":${MODULE}:classes" ":${MODULE}:writeClasspath" -q
     java @work/build/classpath.txt work.sweeper.SweeperKt "$CONFIG"
 

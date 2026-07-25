@@ -1,0 +1,22 @@
+# plica in the stock palettes, crossed with the wave shape.
+#
+# Sweeping the palette on its own (the cool_palettes branch in plica.sweep) tells you very
+# little: whether a ramp works here depends on how many of its tones the ribbons actually show,
+# and that is set by the wave - amplitude decides how much of each ribbon the one in front
+# leaves visible, cadence decides how many turns share the frame, and stray decides how far
+# ribbons swallow each other. So palette and wave have to move together.
+#
+# run:  just sweep plica_cool      (writes pngs + one contact sheet to output/plica_cool)
+
+art    = plica.PlicaKt
+module = arts:layers
+out    = output/plica_cool
+fixed  = ss=1 seed=2024
+par    = 6
+
+# some palettes spread across the built-in cool range x amplitude x cadence x overlap = 144 renders.
+[branch palette_wave]
+cool  = 1,19,20,21,22,24,27,28,32,159
+wave  = 120,180,260
+freq  = 0.60,0.85,1.15
+stray = 0.15,0.45

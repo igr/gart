@@ -1,9 +1,10 @@
 # example sweep: two different directions ("branches") for nervure.
 # run:  just sweep example
 
-art   = work.nervure.NervureKt
-out   = output/nervure
-fixed = preset=reach
+art    = nervure.NervureKt
+module = arts:cell
+out    = output/nervure
+fixed  = preset=reach
 
 [branch fiery]
 palette = inferno,magma

@@ -1,9 +1,10 @@
 # areola - crack / craquelure: small cells crowd the main faults, coarse plates fill the field.
 # run:  just sweep areola      (writes pngs + a contact sheet per branch to output/areola)
 
-art   = work.areola.AreolaKt
-out   = output/areola
-fixed = ss=2
+art    = areola.AreolaKt
+module = arts:cell
+out    = output/areola
+fixed  = ss=2
 
 # the fineness gradient - how tiny the cells get hugging a line (fine), how coarse the open field
 # (coarse), and how far the fine zone reaches (band). this is the signature knob set.
