@@ -7,7 +7,7 @@ import dev.oblac.gart.color.Palettes
 import dev.oblac.gart.color.argb
 import dev.oblac.gart.color.darken
 import dev.oblac.gart.color.gradientOf
-import dev.oblac.gart.color.lerpColor
+import dev.oblac.gart.color.lerpColors
 import dev.oblac.gart.color.lighten
 import dev.oblac.gart.fx.addGrain
 import dev.oblac.gart.gfx.drawVignette
@@ -30,7 +30,6 @@ import org.jetbrains.skia.SamplingMode
 import org.jetbrains.skia.Shader
 import kotlin.math.PI
 import kotlin.math.cos
-import kotlin.math.floor
 import kotlin.math.roundToInt
 import kotlin.math.sin
 import kotlin.random.Random
@@ -183,7 +182,7 @@ private fun render(c: Canvas, p: Params, colors: PaperPalette) {
         val amplitude = p.wave * (0.64f + 0.12f * t)
         val edge = field.edge(meanY, amplitude, layer, p.lower, Family.LOWER)
         val path = closeToTop(edge)
-        drawPaper(c, path, ramp(colors.lower, t), p)
+        drawPaper(c, path, lerpColors(colors.lower, t), p)
     }
 
     drawOrb(c, p, colors.orb)
@@ -196,7 +195,7 @@ private fun render(c: Canvas, p: Params, colors: PaperPalette) {
         val amplitude = p.wave * (0.34f + 0.66f * t)
         val edge = field.edge(meanY, amplitude, layer, p.upper, Family.UPPER)
         val path = closeToTop(edge)
-        drawPaper(c, path, ramp(colors.upper, t), p)
+        drawPaper(c, path, lerpColors(colors.upper, t), p)
     }
 }
 
@@ -361,11 +360,5 @@ private fun paperPalette(cool: Int): PaperPalette {
     )
 }
 
-private fun ramp(colors: IntArray, t: Float): Int {
-    if (colors.size == 1) return colors[0]
-    val x = t.coerceIn(0f, 1f) * (colors.size - 1)
-    val i = floor(x).toInt().coerceAtMost(colors.size - 2)
-    return lerpColor(colors[i], colors[i + 1], x - i)
-}
 
 private fun Int.fractionOf(count: Int): Float = if (count <= 1) 0f else this.toFloat() / (count - 1)

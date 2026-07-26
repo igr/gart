@@ -33,6 +33,14 @@ class Palette(internal val colors: IntArray) {
         return colors[index % size]
     }
 
+    /**
+     * Samples the palette as one continuous ramp: [t] runs `0f..1f` across the whole palette and
+     * the result is interpolated between the two entries it falls between. [relative] snaps to a
+     * slot, this one blends - so a value walked over a short palette comes out as a smooth
+     * gradient instead of a staircase. [t] is clamped, so the ends hold.
+     */
+    fun sample(t: Float): Int = lerpColors(colors, t)
+
     fun last(): Int {
         return colors[size - 1]
     }

@@ -6,6 +6,7 @@ import dev.oblac.gart.gfx.strokeOf
 import org.jetbrains.skia.Color
 import org.jetbrains.skia.Color4f
 import org.jetbrains.skia.Paint
+import kotlin.math.floor
 import kotlin.math.min
 
 fun alpha(color: Int): Int {
@@ -205,6 +206,22 @@ fun lerpColor(from: Int, to: Int, t: Float): Int {
         (green(from) * t0 + green(to) * t1).toInt(),
         (blue(from) * t0 + blue(to) * t1).toInt()
     )
+}
+
+/**
+ * Samples [colors] as one continuous ramp: [t] runs `0f..1f` across the whole array and the result
+ * is interpolated between the two entries it falls between, so walking [t] gives a smooth gradient
+ * rather than a staircase. [t] is clamped, so the ends hold.
+ *
+ * This is the continuous counterpart to indexing: [Palette.bound] and friends snap to a slot,
+ * this one blends. See [Palette.sample] for the same thing on a [Palette].
+ */
+fun lerpColors(colors: IntArray, t: Float): Int {
+    require(colors.isNotEmpty()) { "colors must not be empty" }
+    if (colors.size == 1) return colors[0]
+    val x = t.coerceIn(0f, 1f) * (colors.size - 1)
+    val i = floor(x).toInt().coerceAtMost(colors.size - 2)
+    return lerpColor(colors[i], colors[i + 1], x - i)
 }
 
 /**

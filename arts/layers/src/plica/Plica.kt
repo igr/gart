@@ -7,7 +7,6 @@ import dev.oblac.gart.color.Palette
 import dev.oblac.gart.color.Palettes
 import dev.oblac.gart.color.argb
 import dev.oblac.gart.color.gradientOf
-import dev.oblac.gart.color.lerpColor
 import dev.oblac.gart.fx.addGrain
 import dev.oblac.gart.gfx.drawVignette
 import dev.oblac.gart.io.detectHeadlessFlags
@@ -27,7 +26,6 @@ import org.jetbrains.skia.PathBuilder
 import org.jetbrains.skia.Rect
 import org.jetbrains.skia.SamplingMode
 import org.jetbrains.skia.Shader
-import kotlin.math.floor
 import kotlin.math.max
 import kotlin.math.roundToInt
 import kotlin.math.sin
@@ -181,10 +179,10 @@ private fun render(c: Canvas, p: Params) {
 
     for (i in p.bands - 1 downTo 0) {
         val colors = duotone[family[i]]
-        val litTop = sample(colors, tone[i] - 0.15f * p.shade)
-        val litBottom = sample(colors, tone[i] + 0.65f * p.shade)
-        val darkTop = sample(colors, tone[i])
-        val darkBottom = sample(colors, tone[i] - 1.10f * p.shade)
+        val litTop = colors.sample(tone[i] - 0.15f * p.shade)
+        val litBottom = colors.sample(tone[i] + 0.65f * p.shade)
+        val darkTop = colors.sample(tone[i])
+        val darkBottom = colors.sample(tone[i] - 1.10f * p.shade)
 
         val top = ribbons.tops[i]
         val crease = ribbons.creases[i]
@@ -392,11 +390,6 @@ private fun duotone(cool: Int): Duotone {
     )
 }
 
-private fun sample(colors: Palette, t: Float): Int {
-    val x = t.coerceIn(0f, 1f) * (colors.size - 1)
-    val i = floor(x).toInt().coerceAtMost(colors.size - 2)
-    return lerpColor(colors[i], colors[i + 1], x - i)
-}
 
 /** Folds a walk back inside `0.10..0.90` instead of letting it stick to the ramp ends. */
 private fun reflect(v: Float): Float {
