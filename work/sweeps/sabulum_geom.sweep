@@ -1,0 +1,78 @@
+# sabulum geometry - the shape of the dune field only, with the surface treatment turned off.
+#
+# raster and grain are pinned off in `fixed` on purpose: they are a print finish laid over the
+# forms, and at contact-sheet size the screen texture makes it genuinely hard to compare two
+# silhouettes. Flat fills show where crests cross, how the bands mass and where the depth reads.
+# Drop `raster=0 grain=0` from `fixed` to judge the same grid as finished frames.
+#
+# Every branch here pairs knobs that actually interact - sweeping them one at a time hides the
+# coupling, and the coupling is where this piece lives or dies.
+#
+# run:  just sweep sabulum_geom
+
+art    = sabulum.SabulumKt
+module = arts:layers
+out    = output/sabulum_geom
+fixed  = ss=1 raster=0 grain=0
+par    = 6
+
+# How many dunes against how hard they thicken toward the viewer. The two only work together: many
+# dunes at low depth is a flat stack of stripes with no distance in it, few at high depth leaves a
+# bare horizon and one enormous foreground mass.
+[branch massing]
+seed  = 7
+dunes = 4,6,8,10,13,17
+depth = 0.0,0.8,1.6,2.8
+
+# The crest curve itself. wave is amplitude, freq is how many lobes cross the frame - they have to
+# move together. High freq at high amplitude corrugates into surf; low freq at low amplitude
+# flattens the whole field into level bands.
+[branch sweep_shape]
+seed = 7
+wave = 40,90,150,240,340
+freq = 0.25,0.45,0.62,1.0,1.8
+
+# The knob that decides dunes vs stripes, against the lean it spreads around. Each dune leans at its
+# own rate, and two crests with different slopes must meet somewhere - those meetings are what pinch
+# the bands into crescents. At stray=0 the field runs parallel and nothing ever tapers, whatever
+# tilt is set to.
+[branch crossings]
+seed  = 7
+stray = 0.0,0.15,0.3,0.5,0.7,1.0
+tilt  = -0.35,-0.15,0.0,0.15,0.35
+
+# How a crest turns over. arc=0 comes to a sine point; turning it up opens the apex into the broad
+# rounded nose a real dune has. skew slides that nose off centre so the curve stops reading as
+# periodic. Both at zero is an undisguised sine wave.
+[branch crest]
+seed = 7
+skew = -0.7,-0.35,0.0,0.45,0.8
+arc  = 0.0,0.25,0.5,0.72,1.0
+
+# Where the field sits in the frame. horizon is where the farthest crest starts, reach is where the
+# nearest one lands - past 1.0 the front dune runs off the bottom edge and only its flank is seen.
+[branch frame]
+seed    = 7
+horizon = 0.15,0.28,0.38,0.55,0.70
+reach   = 0.75,0.9,1.02,1.2
+
+# Phase drift marches the shared waveform along as it steps down the stack, so the field flows in
+# one direction; stray rerolls each dune's own shape around it. Drift alone gives an orderly
+# procession, stray alone a shapeless scatter.
+[branch flow]
+seed  = 7
+drift = -0.2,-0.08,0.0,0.12,0.25
+stray = 0.15,0.35,0.6,0.9
+
+# Scale of the forms against how many there are. Big waves need fewer dunes or the crests bury each
+# other; small waves need more or the frame goes empty.
+[branch scale]
+seed  = 7,34
+wave  = 70,150,260
+dunes = 5,8,12
+depth = 0.6,1.6,2.6
+
+# The whole grammar rerolled. Fixed geometry, new seeds - this is the one that shows whether the
+# defaults survive contact with a different draw, or only ever worked for seed 7.
+[branch cast]
+seed = 1:20

@@ -1,0 +1,143 @@
+# sabulum - a sand sea under a low sun. Crests are drawn back to front, each filling the frame below
+# itself, so a far dune survives only as the sliver between its own crest and the one in front.
+# Defaults are the reference-facing composition; these branches explore what holds it together.
+# run:  just sweep sabulum    (writes pngs + one contact sheet per branch to output/sabulum)
+
+art    = sabulum.SabulumKt
+module = arts:layers
+out    = output/sabulum
+fixed  = ss=1
+par    = 6
+
+# New seeds keep the grammar and reroll the field: crest shapes, the family walk, the tone walk
+# and the sun's position.
+[branch cast]
+seed = 1:24
+
+# How many dunes against how hard they grow toward the viewer. These two only work together:
+# many dunes at low depth is a flat stack of stripes, few at high depth leaves the horizon bare.
+[branch field]
+seed  = 7,34
+dunes = 5,6,7,8,10,13
+depth = 0.4,1.0,1.6,2.4
+
+# The sweep of the crests. wave and freq have to move together - high freq at high amplitude
+# corrugates into surf, low freq at low amplitude flattens the whole field into bands.
+[branch drape]
+seed = 7,89
+wave = 80,150,230,320
+freq = 0.35,0.62,0.95,1.40
+
+# The single knob that decides dunes vs stripes. Every dune leans at its own rate, and crests with
+# different slopes have to cross somewhere - those crossings are what pinch the bands into
+# crescents. At stray=0 the whole field runs parallel and nothing ever tapers.
+[branch stray]
+seed  = 7,34,89
+stray = 0.0,0.15,0.3,0.5,0.7,1.0
+
+# Which way the field runs, and how hard. tilt is the shared lean that stray then spreads around.
+[branch lean]
+seed = 7,34
+tilt = -0.25,-0.10,0.0,0.10,0.25,0.40
+
+# How a crest turns over. arc=0 comes to a sine point; turning it up opens the apex into the broad
+# rounded nose a dune actually has. skew slides that nose off centre so it stops looking periodic.
+[branch crest_shape]
+seed = 7,34
+arc  = 0.0,0.35,0.72,1.0
+skew = -0.6,-0.3,0.0,0.45,0.8
+
+# How often a lit slip face or a lee shadow interrupts the sand, and how often the two stack
+# straight onto each other. accent=0 is a monochrome dune field.
+[branch accent]
+seed   = 7,34
+accent = 0.0,0.25,0.55,0.85
+pair   = 0.0,0.35,0.7
+
+# Each sand ramp is derived from its lit end. shadedrop is how far down the ramp reaches as a
+# fraction of that colour's lightness; shadewarm rotates the hue as it falls into shadow. Chroma is
+# not a knob - it follows the pigment curve, gaining for a light colour and thinning for a dark one,
+# which is why the same rule deepens the sand and greys the lee face.
+[branch shading]
+seed      = 7
+shadedrop = 0.35,0.50,0.65,0.80
+shadewarm = -30,-14,0,14
+
+# How three-dimensional it reads. relief is the light-to-dark spread down one face, face is how far
+# that gradient runs before it clamps, crest is the lip of light along the ridge itself.
+[branch relief]
+seed   = 7,34
+relief = 0.15,0.32,0.50,0.70
+face   = 0.7,1.35,2.5,4.0
+
+[branch lip]
+seed  = 7,34,89
+crest = 0.0,0.15,0.30,0.55,0.85
+
+# Where the sand meets the sky, and how much distance washes the far dunes toward it.
+[branch air]
+seed    = 7,34
+horizon = 0.22,0.38,0.55,0.70
+haze    = 0.0,0.12,0.30,0.55
+
+# Where the sun sits. Fixing sunx/suny pins it; the default (-1) lets the seed place it.
+[branch sun]
+seed = 7
+sunx = 0.2,0.5,0.75
+suny = 0.12,0.25,0.38
+glow = 0.0,0.28,0.7
+
+# Sun size on its own axis - crossing sunr with the placement above would just render the sunr=0
+# frame nine times over.
+[branch sun_size]
+seed = 7,34
+sunr = 0.0,0.030,0.046,0.072,0.11
+
+# The glow, printed on the same screen as the sand rather than laid on as a smooth gradient. halo is
+# its radius in sun-radii and glow is the ink opacity; the falloff itself is carried by dot size.
+# With raster=0 this reverts to a plain radial gradient, since there is no screen to print on.
+[branch halo]
+seed = 7,34
+halo = 3,5,7.5,11,16
+glow = 0.15,0.28,0.5
+
+# Surface. grain is film texture over the whole frame; the screen below only touches the sand.
+[branch surface]
+seed     = 7,34
+grain    = 0.0,0.08,0.20,0.35
+vignette = 0.0,0.10,0.35
+
+# The screen. Each dune face is printed as a raster of dots sized by how lit that spot is, so the
+# gradient resolves out of dot size the way a screen print does. raster is the cell size in pixels:
+# small reads as sand grain, large turns the whole frame into pop-art benday dots. raster=0 drops
+# the screen and paints the smooth gradient instead.
+[branch raster]
+seed   = 7,34
+raster = 0,2,3,4,5,7,11,16
+
+# How far off its grid cell each dot is allowed to sit. At 0 the dots line up into a perfect mesh
+# and read as newsprint; past ~0.6 they clump and the raster stops reading as a raster at all.
+[branch raster_jitter]
+seed         = 7,34
+rasterjitter = 0.0,0.15,0.30,0.50,0.80
+
+# Where the screen gives up. rasterfloor is the coverage below which a dot is too small to bother
+# drawing - raise it and the dots stop early, leaving a hard edge between screen and flat ink.
+[branch raster_floor]
+seed        = 7
+raster      = 4,7
+rasterfloor = 0.0,0.05,0.15,0.30
+
+# The screen against the film grain - two textures competing for the same surface. This branch is
+# how the defaults (raster 4 at grain 0.06) were picked.
+[branch texture_balance]
+seed   = 7,34
+raster = 3,4,6
+grain  = 0.0,0.06,0.16
+
+# How much of a face the screen actually covers. face sets how far the gradient runs before it
+# clamps to flat ink, so it decides how much of each band is dots and how much is solid.
+[branch screen_reach]
+seed   = 7,34
+face   = 0.7,1.35,2.5,4.0
+raster = 4
