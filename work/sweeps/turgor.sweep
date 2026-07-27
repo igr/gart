@@ -98,6 +98,12 @@ halomist    = 0.0,0.25,0.5,1.0
 seed      = 7,2024
 halorough = 0.0,0.03,0.05,0.09,0.18,0.3
 
+# How far the cloud fades out past its solid core, drawn as oversized passes at low alpha. At 0 the
+# edge is one hard boundary; high values push the fade out far enough to read as a glow.
+[branch softedge]
+seed     = 7,2024
+halosoft = 0.0,0.15,0.30,0.6,1.0
+
 # Surface: roller texture across the strokes, and the hue of the whole piece in OKLCH.
 [branch surface]
 seed        = 7

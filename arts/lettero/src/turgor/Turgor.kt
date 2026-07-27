@@ -103,6 +103,7 @@ private data class Params(
     val haloMottle: Float,
     val haloMist: Float,
     val haloRough: Float,
+    val haloSoft: Float,
     // finish
     val streaks: Float,
     val streakAngle: Float,
@@ -180,6 +181,7 @@ private fun resolveParams(): Params {
         haloMottle = pf("halomottle", 0.55f),
         haloMist = pf("halomist", 0.5f),
         haloRough = pf("halorough", 0.05f),
+        haloSoft = pf("halosoft", 0.30f),
         streaks = pf("streaks", 0.55f),
         streakAngle = pf("streakangle", 6f),
         hue = pf("hue", 0f),
@@ -217,6 +219,7 @@ private fun resolveParams(): Params {
     require(p.haloMottle in 0f..1f) { "halomottle must be between 0 and 1" }
     require(p.haloMist in 0f..1f) { "halomist must be between 0 and 1" }
     require(p.haloRough in 0f..0.4f) { "halorough must be between 0 and 0.4" }
+    require(p.haloSoft in 0f..1.5f) { "halosoft must be between 0 and 1.5" }
     require(p.streaks in 0f..1f) { "streaks must be between 0 and 1" }
     require(p.hue in -180f..180f) { "hue must be between -180 and 180" }
     require(p.grain in 0f..0.5f) { "grain must be between 0 and 0.5" }
@@ -598,18 +601,25 @@ private fun drawHalo(c: Canvas, piece: Path, p: Params, capH: Float, colors: Col
     val reach = p.halo * capH
     if (reach <= 0f) return
 
-    // one winding path rather than loose circles, so the coverage passes have something to clip into
-    val cloud = PathBuilder().let { pb ->
-        pb.setFillType(PathFillMode.WINDING)
-        walk(piece, reach * 0.30f) { x, y, _, _ ->
-            val r = lobe(x, y, p, capH, nz)
-            if (r > 0f) pb.addCircle(x, y, r)
-        }
-        pb.detach().also { it.fillMode = PathFillMode.WINDING }
-    }
+    val cloud = cloudAt(piece, p, capH, nz, 1f)
 
     // knocks the arcs off the circles the cloud is stamped from, so the edge is chewed rather than drawn
     val rough = roughen(reach * 0.22f, reach * p.haloRough, reach * 0.11f, p.seed.toInt())
+
+    // a can lays more paint in the middle than at the rim, so the edge is a stack of oversized
+    // passes at low alpha under the solid core rather than one hard boundary
+    if (p.haloSoft > 0f) {
+        for (k in HALO_FADE downTo 1) {
+            val wide = cloudAt(piece, p, capH, nz, 1f + p.haloSoft * k / HALO_FADE)
+            // own seed per pass, else every pass is chewed identically and the fade shows as rings
+            val edge = roughen(reach * 0.22f, reach * p.haloRough, reach * 0.11f, p.seed.toInt() + k * 977)
+            val fade = fillOf(alpha(colors.halo, 16 + 11 * (HALO_FADE - k))).apply { pathEffect = edge }
+            c.drawPath(wide, fade)
+            fade.close()
+            edge?.close()
+            wide.close()
+        }
+    }
 
     val body = fillOf(colors.halo).apply { pathEffect = rough }
     c.drawPath(cloud, body)
@@ -658,6 +668,20 @@ private fun roughen(seg: Float, dev: Float, round: Float, seed: Int): PathEffect
     jag.close()
     corner.close()
     return soft
+}
+
+/** how many oversized passes fade the cloud out under its solid core */
+private const val HALO_FADE = 5
+
+/** the cloud stamped at [grow] times its reach, as one winding path so the circles read as solid */
+private fun cloudAt(piece: Path, p: Params, capH: Float, nz: Float, grow: Float): Path {
+    val pb = PathBuilder()
+    pb.setFillType(PathFillMode.WINDING)
+    walk(piece, p.halo * capH * 0.30f) { x, y, _, _ ->
+        val r = lobe(x, y, p, capH, nz) * grow
+        if (r > 0f) pb.addCircle(x, y, r)
+    }
+    return pb.detach().also { it.fillMode = PathFillMode.WINDING }
 }
 
 /** how far the cloud reaches at this point, the same field the stamps use */
