@@ -1,0 +1,100 @@
+# turgor - a Literata skeleton inflated into a graffiti piece.
+# Defaults are the reference-facing look; these branches explore what actually makes it read
+# as spray rather than as a bold serif.
+# run:  just sweep turgor      (writes pngs + one contact sheet per branch to output/turgor)
+
+art    = turgor.TurgorKt
+module = arts:lettero
+out    = output/turgor
+fixed  = ss=1
+par    = 6
+
+# New seeds reroll every letter's attitude - lean, spin, squash, bounce, drag - and the barb
+# directions. The warp field moves with the seed too, so this is a fresh piece each time.
+[branch cast]
+seed = 2020:2031
+
+# The words. Layout is derived, not hand-placed, so this is the real test of the piece:
+# ascenders, descenders, counters and dotted letters all have to survive the same pipeline.
+[branch words]
+seed = 7,2024
+text = gart,igor,oblac,skia,turgor,wildstyle
+
+# Mass against counter rescue. Fattening is a centred stroke, so it eats `fatten` off every hole -
+# counter pays it back. At counter=0 anything with a bowl fills in solid and the word stops
+# reading; past ~1 the holes open wider than the font ever drew them.
+[branch mass]
+seed    = 7
+fatten  = 0.035,0.052,0.075,0.100
+counter = 0.0,0.5,1.0
+
+# Attitude. lean is the single biggest graffiti cue; drag bends it into a non-linear shear so the
+# foot lags the shoulder instead of the letter just being italic.
+[branch attitude]
+seed  = 7,2024
+lean  = 0,12,20,30
+drag  = 0.0,0.16,0.35
+
+# How hard the letters interlock. Negative spaces them out; past ~0.3 the black outlines are the
+# only thing keeping neighbours apart.
+[branch interlock]
+seed    = 7,2024
+overlap = -0.1,0.0,0.16,0.30,0.45
+
+# The warp. swell rides the contour normal so stems bulge and pinch; wobble is a flat displacement
+# that takes the mechanical edge off. Both get clamped to the local stem half-width, so the top of
+# these ranges quietly stops moving on thin letters.
+[branch warp]
+seed      = 7
+swell     = 0.0,0.026,0.06,0.12
+swellfreq = 1.0,2.0,4.0
+wobble    = 0.0,0.016,0.04
+
+# Spikes. barblen is capped by the contour's own radius, so short words with round letters
+# top out earlier than the number suggests.
+[branch barbs]
+seed    = 7,2024
+barbs   = 0,1,2,4,7
+barblen = 0.10,0.22,0.40
+
+# The layer stack: black outline weight, and where the shine sits inside the body.
+[branch stack]
+seed       = 7
+outline    = 0.012,0.026,0.045
+shine      = 0.010,0.022,0.032
+shinewidth = 0.006,0.013,0.022
+
+# Depth. The 3d block is stepped, so extrude is a real distance rather than a blur.
+[branch depth]
+seed         = 7,2024
+extrude      = 0.0,0.04,0.075,0.15,0.25
+extrudeangle = 20,62,110
+
+# The backdrop cloud. halo is how far it reaches past the piece; halolobe is how much that reach
+# breathes along the outline - at 0 it is a plain uniform offset and stops reading as spray.
+[branch halo]
+seed     = 7,2024
+halo     = 0.0,0.18,0.30,0.50,0.75
+halolobe = 0.0,0.25,0.45,0.8
+
+# Blots inside the cloud and dots floating off it. Both hang off the piece outline, so they follow
+# the letters rather than scattering evenly over the frame.
+[branch specks]
+seed      = 7,2024
+halospots = 0,9,25
+halodots  = 0,16,40
+
+# What stops the cloud reading as flat vector fill. mottle is uneven coverage inside it - pooling
+# one way, wall showing through the other; mist is the overspray speckle that softens its rim.
+# Both at 0 gives the clean sticker look, which is worth seeing for comparison.
+[branch spray]
+seed        = 7,2024
+halomottle  = 0.0,0.3,0.55,1.0
+halomist    = 0.0,0.25,0.5,1.0
+
+# Surface: roller texture across the strokes, and the hue of the whole piece in OKLCH.
+[branch surface]
+seed        = 7
+streaks     = 0.0,0.3,0.55,1.0
+streakangle = -20,6,35
+hue         = -120,-60,0,60,120
