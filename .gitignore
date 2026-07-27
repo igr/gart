@@ -8,3 +8,5 @@ build
 CLAUDE.md
 output
 docs/superpowers
+.superpowers
+__pycache__/

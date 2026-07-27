@@ -77,3 +77,8 @@ sweep name:
     ./gradlew :work:classes :work:writeClasspath ":${MODULE}:classes" ":${MODULE}:writeClasspath" -q
     java @work/build/classpath.txt work.sweeper.SweeperKt "$CONFIG"
 
+# Ink profile of a render, for comparing against a reference.
+[group('dev')]
+ink png threshold="45":
+    python3 work/tools/inkprofile.py {{png}} {{threshold}}
+

@@ -1,0 +1,94 @@
+# pinna - a space-colonization tree whose canopy is filled with grain: iso-contours of the
+# distance field from the branches, so the fill flows around the tree the way grain flows
+# around a knot.
+# run:  just sweep pinna     (writes pngs + one contact sheet per branch to output/pinna)
+# 492 renders across 11 branches at these settings - under the sweeper's 500-render guard, so
+# no yes=true is needed. par=6 matches this machine's cores.
+
+art    = work.pinna.PinnaKt
+module = work
+out    = output/pinna
+fixed  = ss=1
+par    = 6
+
+# New seeds reroll the attractor scatter, so every branch moves and the whole grain field
+# reshapes with it. This is the real test of the piece.
+[branch cast]
+seed = 2026:2038
+
+# Branch density. attractors/influence/kill set colonization jointly; tips then truncates
+# whatever they produce, so it is the knob to reach for first. Fewer tips means wider gaps,
+# which means more contour levels fit before the distance field runs out.
+[branch prune]
+seed = 2026,2031
+tips = 8,14,22,40,80
+
+[branch skeleton]
+seed       = 2026
+attractors = 120,280,600
+kill       = 0.03,0.055,0.10
+wander     = 0.0,0.30,0.8
+
+# Branch mass. taper is the da Vinci exponent: at 22 tips the trunk:twig radius ratio is
+# tips^(1/taper), so low values thicken the trunk hard. The old 1.5 floor excluded the ~1.3
+# this piece actually needs.
+[branch mass]
+seed  = 2026,2031
+taper = 1.1,1.3,1.8,2.6
+tipr  = 0.0013,0.0026,0.0045
+
+# The foot. footskew is the asymmetry that stops it reading as a stock vector tree.
+[branch foot]
+seed     = 2026
+foot     = 0.0,0.7,1.5,2.4
+footskew = -0.8,0.0,0.55
+footrun  = 0.05,0.115,0.18
+
+# Canopy proportion. The grain is clipped to this shape, so the corners are where the fill
+# reads most strongly - canopyr past ~0.2 stops reading as a rectangle at all.
+[branch canopy]
+seed    = 2026
+canopyw = 0.60,0.737,0.88
+canopyh = 0.62,0.756,0.88
+canopyr = 0.0,0.06,0.20,0.45
+
+# The circle pack. Size range and how many geometric steps between max and min; largest-first,
+# so the big discs claim the open middles of gaps and the small ones fill the crevices.
+[branch circles]
+seed      = 2026,2031
+circmax   = 0.03,0.055,0.09
+circmin   = 0.002,0.004,0.010
+circsteps = 5,13
+
+# Spacing. circgap is an absolute separation; circoverlap is a fraction of the two radii and is
+# what makes the translucency composite instead of just washing over paper.
+# circoverlap is deliberately RELATIVE: an absolute negative gap lets a small disc sit wholly
+# inside a large one, so every candidate site succeeds and the count runs away (523 -> 92k).
+[branch spacing]
+seed        = 2026,2031
+circgap     = 0.0,0.002,0.008
+circoverlap = 0.0,0.12,0.25,0.45
+
+# Wash strength, and the clearance every disc keeps from the branches.
+[branch wash]
+seed      = 2026
+circalpha = 0.15,0.35,0.55,1.0
+branchgap = 0.002,0.006,0.014,0.025
+
+# The foliage palette: folsteps greens evenly spaced in OKLCH lightness from foldeep to follight,
+# one picked at random per disc. foldeep below ~0.30 clips out of sRGB and goes near-black, at
+# which point the deep end stops reading as green at all.
+[branch foliage]
+seed      = 2026
+folhue    = 100,148,190
+folchroma = 0.0,0.07,0.13,0.22
+foldeep   = 0.30,0.38,0.50
+follight  = 0.72,0.86
+folsteps  = 2,5,9
+
+# Ink. hue carries both ink and paper in OKLCH, so the whole piece turns together.
+[branch ink]
+seed     = 2026
+hue      = -150,-90,-30,0,60,140
+grain    = 0.0,0.05,0.2
+vignette = 0.0,0.10,0.5
