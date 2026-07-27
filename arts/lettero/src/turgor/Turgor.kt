@@ -39,6 +39,7 @@ import org.jetbrains.skia.PaintStrokeCap
 import org.jetbrains.skia.PaintStrokeJoin
 import org.jetbrains.skia.Path
 import org.jetbrains.skia.PathBuilder
+import org.jetbrains.skia.PathEffect
 import org.jetbrains.skia.PathFillMode
 import org.jetbrains.skia.PathMeasure
 import org.jetbrains.skia.PathOp
@@ -101,6 +102,7 @@ private data class Params(
     val haloDots: Int,
     val haloMottle: Float,
     val haloMist: Float,
+    val haloRough: Float,
     // finish
     val streaks: Float,
     val streakAngle: Float,
@@ -177,6 +179,7 @@ private fun resolveParams(): Params {
         haloDots = pi("halodots", 16),
         haloMottle = pf("halomottle", 0.55f),
         haloMist = pf("halomist", 0.5f),
+        haloRough = pf("halorough", 0.05f),
         streaks = pf("streaks", 0.55f),
         streakAngle = pf("streakangle", 6f),
         hue = pf("hue", 0f),
@@ -213,6 +216,7 @@ private fun resolveParams(): Params {
     require(p.haloDots in 0..80) { "halodots must be between 0 and 80" }
     require(p.haloMottle in 0f..1f) { "halomottle must be between 0 and 1" }
     require(p.haloMist in 0f..1f) { "halomist must be between 0 and 1" }
+    require(p.haloRough in 0f..0.4f) { "halorough must be between 0 and 0.4" }
     require(p.streaks in 0f..1f) { "streaks must be between 0 and 1" }
     require(p.hue in -180f..180f) { "hue must be between -180 and 180" }
     require(p.grain in 0f..0.5f) { "grain must be between 0 and 0.5" }
@@ -604,7 +608,10 @@ private fun drawHalo(c: Canvas, piece: Path, p: Params, capH: Float, colors: Col
         pb.detach().also { it.fillMode = PathFillMode.WINDING }
     }
 
-    val body = fillOf(colors.halo)
+    // knocks the arcs off the circles the cloud is stamped from, so the edge is chewed rather than drawn
+    val rough = roughen(reach * 0.22f, reach * p.haloRough, reach * 0.11f, p.seed.toInt())
+
+    val body = fillOf(colors.halo).apply { pathEffect = rough }
     c.drawPath(cloud, body)
     body.close()
 
@@ -613,21 +620,44 @@ private fun drawHalo(c: Canvas, piece: Path, p: Params, capH: Float, colors: Col
     drawMist(c, piece, p, capH, colors, rng, nz)
 
     // blots inside the cloud and dots off it, both hung on the piece outline so they follow the letters
-    if (p.haloSpots <= 0 && p.haloDots <= 0) return
+    if (p.haloSpots <= 0 && p.haloDots <= 0) {
+        rough?.close()
+        return
+    }
     val stops = mutableListOf<FloatArray>()
     walk(piece, capH * 0.02f) { x, y, tx, ty -> stops.add(floatArrayOf(x, y, tx, ty)) }
-    if (stops.isEmpty()) return
+    if (stops.isEmpty()) {
+        rough?.close()
+        return
+    }
+
+    // a dot is a fraction of the cloud's size, so it gets its own milder roughening
+    val speck = roughen(reach * 0.09f, reach * p.haloRough * 0.35f, reach * 0.05f, p.seed.toInt() * 31 + 7)
 
     if (p.haloSpots > 0) {
-        val deep = fillOf(colors.haloDeep)
+        val deep = fillOf(colors.haloDeep).apply { pathEffect = speck }
         scatter(c, piece, stops, p.haloSpots, rng, deep) { reach * rng.between(0.15f, 0.75f) to reach * rng.between(0.20f, 0.42f) }
         deep.close()
     }
     if (p.haloDots > 0) {
-        val dot = fillOf(colors.halo)
+        val dot = fillOf(colors.halo).apply { pathEffect = speck }
         scatter(c, piece, stops, p.haloDots, rng, dot) { reach * rng.between(1.25f, 2.9f) to reach * rng.between(0.10f, 0.36f) }
         dot.close()
     }
+    speck?.close()
+    rough?.close()
+}
+
+/** roughen, then round the facets it leaves, so the edge undulates instead of coming out spiky */
+private fun roughen(seg: Float, dev: Float, round: Float, seed: Int): PathEffect? {
+    if (dev <= 0f) return null
+    val jag = PathEffect.makeDiscrete(seg, dev, seed)
+    if (round <= 0f) return jag
+    val corner = PathEffect.makeCorner(round)
+    val soft = corner.makeCompose(jag)
+    jag.close()
+    corner.close()
+    return soft
 }
 
 /** how far the cloud reaches at this point, the same field the stamps use */
@@ -794,7 +824,7 @@ private fun drawStreaks(c: Canvas, silhouette: Path, p: Params, capH: Float, col
     val dy = sin(a)
     val cx = b.left + b.width / 2f
     val cy = b.top + b.height / 2f
-    val gap = capH / (12f + p.streaks * 46f)
+    val gap = capH / (16f + p.streaks * 60f)
     val light = lighten(colors.pink, 0.42f)
 
     c.save()
@@ -802,26 +832,60 @@ private fun drawStreaks(c: Canvas, silhouette: Path, p: Params, capH: Float, col
     val pt = paint().apply {
         mode = PaintMode.STROKE
         strokeCap = PaintStrokeCap.ROUND
+        strokeJoin = PaintStrokeJoin.ROUND
     }
     var t = -diag / 2f
     while (t <= diag / 2f) {
         // perpendicular offset of this hatch line from the centre
         val ox = cx - dy * t
         val oy = cy + dx * t
+        // a pass either lays one long stroke or breaks into short dashes, the way a hand would
+        val long = rng.nextFloat() < 0.45f
+        // width holds across a pass, since one stroke keeps its weight
+        val width = capH * (if (long) rng.between(0.013f, 0.028f) else rng.between(0.008f, 0.019f))
         var u = -diag / 2f
         while (u < diag / 2f) {
-            val seg = capH * rng.between(0.10f, 0.52f)
-            if (rng.nextFloat() < 0.74f) {
-                pt.color = alpha(light, (26f + rng.nextFloat() * 74f).toInt())
-                pt.strokeWidth = capH * rng.between(0.005f, 0.017f)
-                c.drawLine(ox + dx * u, oy + dy * u, ox + dx * (u + seg), oy + dy * (u + seg), pt)
+            val seg = capH * (if (long) rng.between(0.30f, 1.00f) else rng.between(0.06f, 0.26f))
+            if (rng.nextFloat() < (if (long) 0.86f else 0.60f)) {
+                pt.color = alpha(light, (28f + rng.nextFloat() * 76f).toInt())
+                pt.strokeWidth = width * rng.between(0.85f, 1.15f)
+                drawByHand(c, ox + dx * u, oy + dy * u, dx, dy, seg, capH, rng, pt)
             }
-            u += seg + capH * rng.between(0.02f, 0.13f)
+            u += seg + capH * (if (long) rng.between(0.02f, 0.10f) else rng.between(0.05f, 0.22f))
         }
         t += gap * rng.between(0.7f, 1.4f)
     }
     pt.close()
     c.restore()
+}
+
+/** one stroke, bowed through the middle and unsteady along it, so it does not come out ruled */
+private fun drawByHand(
+    c: Canvas,
+    x: Float,
+    y: Float,
+    dx: Float,
+    dy: Float,
+    len: Float,
+    capH: Float,
+    rng: Random,
+    pt: Paint,
+) {
+    val bow = capH * rng.between(-0.022f, 0.022f)
+    val shake = capH * rng.between(0.0015f, 0.006f)
+    val steps = (len / (capH * 0.09f)).toInt().coerceIn(2, 10)
+    val pb = PathBuilder()
+    for (k in 0..steps) {
+        val f = k / steps.toFloat()
+        // the bow arcs the whole stroke, the shake is the hand on top of it
+        val off = bow * sin(PIf * f) + rng.between(-shake, shake)
+        val px = x + dx * len * f - dy * off
+        val py = y + dy * len * f + dx * off
+        if (k == 0) pb.moveTo(px, py) else pb.lineTo(px, py)
+    }
+    val path = pb.detach()
+    c.drawPath(path, pt)
+    path.close()
 }
 
 /** The shine as a real ring path */

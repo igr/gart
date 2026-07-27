@@ -92,6 +92,12 @@ seed        = 7,2024
 halomottle  = 0.0,0.3,0.55,1.0
 halomist    = 0.0,0.25,0.5,1.0
 
+# Chews the arcs off the circles the cloud is stamped from. Low values just take the vector
+# perfection off the edge; past ~0.1 the lobes stop reading as lobes and it goes to torn paper.
+[branch rough]
+seed      = 7,2024
+halorough = 0.0,0.03,0.05,0.09,0.18,0.3
+
 # Surface: roller texture across the strokes, and the hue of the whole piece in OKLCH.
 [branch surface]
 seed        = 7
