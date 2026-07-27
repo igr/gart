@@ -396,13 +396,24 @@ private fun contoursOf(path: Path, step: Float): List<FloatArray> {
     return out
 }
 
-/** Splits counters from outer contours; the normal's sign comes from the biggest one, as fonts disagree on winding. */
+/** Splits counters from outer contours by nesting, and takes the normal's sign from the biggest one. */
 private class Shape(contours: List<FloatArray>) {
     private val areas = FloatArray(contours.size) { signedArea(contours[it]) }
     private val outer = areas.indices.maxBy { abs(areas[it]) }
     val sign = if (areas[outer] > 0f) 1f else -1f
 
-    fun isHole(i: Int) = (areas[i] > 0f) != (areas[outer] > 0f)
+    // nesting, not winding: font glyphs wind counters the opposite way but the path ops hand back
+    // even-odd paths with every contour wound the same, where the sign says nothing about holes
+    private val hole = BooleanArray(contours.size) { i ->
+        var enclosing = 0
+        for (j in contours.indices) {
+            if (j == i || abs(areas[j]) <= abs(areas[i])) continue
+            if (encloses(contours[j], contours[i][0], contours[i][1])) enclosing++
+        }
+        enclosing % 2 == 1
+    }
+
+    fun isHole(i: Int) = hole[i]
     fun radius(i: Int) = sqrt(abs(areas[i]) / PIf)
 }
 
@@ -422,6 +433,20 @@ private fun narrowest(pts: FloatArray): Float {
         }
     }
     return sqrt(best)
+}
+
+/** ray crossing count: is (x, y) inside this closed polyline */
+private fun encloses(poly: FloatArray, x: Float, y: Float): Boolean {
+    val n = poly.size / 2
+    var inside = false
+    var j = n - 1
+    for (i in 0 until n) {
+        val yi = poly[i * 2 + 1]
+        val yj = poly[j * 2 + 1]
+        if ((yi > y) != (yj > y) && x < poly[i * 2] + (poly[j * 2] - poly[i * 2]) * (y - yi) / (yj - yi)) inside = !inside
+        j = i
+    }
+    return inside
 }
 
 private fun signedArea(pts: FloatArray): Float {
