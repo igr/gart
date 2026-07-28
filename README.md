@@ -74,6 +74,7 @@ A collection of generative art pieces (ordered by name).
 [<img src="arts/bubbles/holes_thumb.png" hspace="2" vspace="2" align="left">](arts/bubbles/holes.png)
 [<img src="arts/bubbles/pebble1_thumb.png" hspace="2" vspace="2" align="left">](arts/bubbles/pebble1.png)
 [<img src="arts/bubbles/pebble2_thumb.png" hspace="2" vspace="2" align="left">](arts/bubbles/pebble2.png)
+[<img src="arts/bubbles/pinna_thumb.png" hspace="2" vspace="2" align="left">](arts/bubbles/pinna.png)
 <br clear="both">
 
 ## Cell
@@ -201,7 +202,12 @@ A collection of generative art pieces (ordered by name).
 
 ## Layers
 
+[<img src="arts/layers/plica_thumb.png" hspace="2" vspace="2" align="left">](arts/layers/plica.png)
+[<img src="arts/layers/relief2_thumb.png" hspace="2" vspace="2" align="left">](arts/layers/relief2.png)
+[<img src="arts/layers/relief_thumb.png" hspace="2" vspace="2" align="left">](arts/layers/relief.png)
+[<img src="arts/layers/sabulum_thumb.png" hspace="2" vspace="2" align="left">](arts/layers/sabulum.png)
 [<img src="arts/layers/strata_thumb.png" hspace="2" vspace="2" align="left">](arts/layers/strata.png)
+[<img src="arts/layers/undula_thumb.png" hspace="2" vspace="2" align="left">](arts/layers/undula.png)
 <br clear="both">
 
 ## Legoo
@@ -219,6 +225,7 @@ A collection of generative art pieces (ordered by name).
 [<img src="arts/lettero/lettero3-1_thumb.png" hspace="2" vspace="2" align="left">](arts/lettero/lettero3-1.png)
 [<img src="arts/lettero/lettero3-2_thumb.png" hspace="2" vspace="2" align="left">](arts/lettero/lettero3-2.png)
 [<img src="arts/lettero/lettero3_thumb.png" hspace="2" vspace="2" align="left">](arts/lettero/lettero3.png)
+[<img src="arts/lettero/turgor_thumb.png" hspace="2" vspace="2" align="left">](arts/lettero/turgor.png)
 <br clear="both">
 
 ## Lines
@@ -495,4 +502,4 @@ A collection of generative art pieces (ordered by name).
 
 ---
 
-🖼️ **241 works** across **50 collections** — and counting.
+🖼️ **248 works** across **50 collections** — and counting.
