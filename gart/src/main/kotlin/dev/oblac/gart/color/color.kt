@@ -7,6 +7,7 @@ import org.jetbrains.skia.Color
 import org.jetbrains.skia.Color4f
 import org.jetbrains.skia.Paint
 import kotlin.math.floor
+import kotlin.math.max
 import kotlin.math.min
 
 fun alpha(color: Int): Int {
@@ -245,4 +246,24 @@ fun colorScale(color: Int, s: Float): Int {
     val g = (green(color) * s).toInt().coerceIn(0, 255)
     val b = (blue(color) * s).toInt().coerceIn(0, 255)
     return rgb(r, g, b)
+}
+
+/**
+ * Brightens [color] multiplicatively like [colorScale], but never past the point where a
+ * channel clips: [s] is capped at the headroom of the brightest channel.
+ *
+ * Every other way of brightening in here loses the colour when it is already near the top.
+ * [lighten] mixes toward white, so it desaturates by construction. [shiftLuma] adds a
+ * constant, which keeps the hue but flattens saturation. [colorScale] keeps both — right up
+ * until it clips, and once all three channels pin at `255` the result is neutral white with
+ * the hue gone. Capping at the headroom keeps hue and saturation exact at every value of
+ * [s]; already-bright colours simply receive less lift.
+ *
+ * `s <= 1f` darkens and is passed straight through to [colorScale]. Alpha is forced opaque.
+ */
+fun colorLift(color: Int, s: Float): Int {
+    if (s <= 1f) return colorScale(color, s)
+    val m = max(max(red(color), green(color)), blue(color))
+    if (m == 0) return color
+    return colorScale(color, min(s, 255f / m))
 }
