@@ -3,6 +3,7 @@ package pinna
 import dev.oblac.gart.Dimension
 import dev.oblac.gart.Gart
 import dev.oblac.gart.Gartvas
+import dev.oblac.gart.color.hueShift
 import dev.oblac.gart.color.space.ColorOKLCH
 import dev.oblac.gart.color.space.color4f
 import dev.oblac.gart.gfx.drawVignette
@@ -155,12 +156,6 @@ private fun resolveParams(): Params {
 private const val INK = 0xFF161418.toInt()
 private const val PAPER = 0xFFF2EFE7.toInt()
 private const val OPAQUE = 0xFF000000.toInt()
-
-private fun hueShift(color: Int, deg: Float): Int {
-    if (deg == 0f) return color
-    val o = ColorOKLCH.of(color.color4f())
-    return ColorOKLCH(o.l, o.c, o.h + deg).toColor4f().toColor() or OPAQUE
-}
 
 internal class Colors(p: Params) {
     val ink = hueShift(INK, p.hue)

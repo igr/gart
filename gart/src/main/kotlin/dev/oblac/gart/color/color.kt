@@ -1,5 +1,7 @@
 package dev.oblac.gart.color
 
+import dev.oblac.gart.color.space.ColorOKLCH
+import dev.oblac.gart.color.space.color4f
 import dev.oblac.gart.color.space.of
 import dev.oblac.gart.gfx.fillOf
 import dev.oblac.gart.gfx.strokeOf
@@ -261,6 +263,20 @@ fun colorScale(color: Int, s: Float): Int {
  *
  * `s <= 1f` darkens and is passed straight through to [colorScale]. Alpha is forced opaque.
  */
+/**
+ * Rotates the hue of [color] by [deg] degrees in OKLCH, holding lightness and chroma fixed,
+ * and returns it opaque.
+ *
+ * OKLCH is perceptual, so this turns a whole palette together without the lightness swings
+ * an HSL rotation produces — which is what makes it usable as a single "turn the piece"
+ * knob. `deg = 0f` returns [color] untouched.
+ */
+fun hueShift(color: Int, deg: Float): Int {
+    if (deg == 0f) return color
+    val o = ColorOKLCH.of(color.color4f())
+    return ColorOKLCH(o.l, o.c, o.h + deg).toColor4f().toColor() or 0xFF000000.toInt()
+}
+
 fun colorLift(color: Int, s: Float): Int {
     if (s <= 1f) return colorScale(color, s)
     val m = max(max(red(color), green(color)), blue(color))

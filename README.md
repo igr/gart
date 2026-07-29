@@ -487,6 +487,7 @@ A collection of generative art pieces (ordered by name).
 
 [<img src="arts/triangular/SaharaDiamond_thumb.png" hspace="2" vspace="2" align="left">](arts/triangular/SaharaDiamond.png)
 [<img src="arts/triangular/Triage_thumb.png" hspace="2" vspace="2" align="left">](arts/triangular/Triage.png)
+[<img src="arts/triangular/ommatidia_thumb.png" hspace="2" vspace="2" align="left">](arts/triangular/ommatidia.png)
 <br clear="both">
 
 ## Z
@@ -502,4 +503,4 @@ A collection of generative art pieces (ordered by name).
 
 ---
 
-🖼️ **248 works** across **50 collections** — and counting.
+🖼️ **249 works** across **50 collections** — and counting.

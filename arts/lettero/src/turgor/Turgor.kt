@@ -7,6 +7,7 @@ import dev.oblac.gart.color.RetroColors
 import dev.oblac.gart.color.alpha
 import dev.oblac.gart.color.darken
 import dev.oblac.gart.color.gradientOf
+import dev.oblac.gart.color.hueShift
 import dev.oblac.gart.color.lighten
 import dev.oblac.gart.color.space.ColorOKLCH
 import dev.oblac.gart.color.space.color4f
@@ -233,8 +234,6 @@ private const val DEEP = 0xFF0A0910.toInt()
 private const val SHINE = 0xFFF2E6DA.toInt()
 private val GROUND = RetroColors.black01
 private const val HALO = 0xFF2F8C82.toInt()
-private const val OPAQUE = 0xFF000000.toInt()
-
 /** how far the pooled blots sit below the cloud they lie on */
 private const val HALO_POOL = 0.30f
 
@@ -253,12 +252,6 @@ private class Colors(hue: Float) {
 }
 
 /** rotates in OKLCH, so lightness and chroma survive the turn */
-private fun hueShift(color: Int, deg: Float): Int {
-    if (deg == 0f) return color
-    val o = ColorOKLCH.of(color.color4f())
-    return ColorOKLCH(o.l, o.c, o.h + deg).toColor4f().toColor() or OPAQUE
-}
-
 private class Letter(val core: Path, val bounds: Rect)
 
 private fun render(c: Canvas, p: Params) {

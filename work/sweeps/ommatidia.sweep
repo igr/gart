@@ -1,0 +1,131 @@
+# ommatidia - a facet membrane. ~19k voronoi micro lenses tile the frame, packed on a height
+# field that is never drawn. each lens refracts a hidden marbled scene along its own optical
+# axis, so every swell acts as the converging lens it actually is and magnifies what sits
+# behind it. nothing draws the picture; the picture is what 19k samples of something
+# invisible look like when they end up next to each other.
+# run:  just sweep ommatidia     (writes pngs + one contact sheet per branch to output/ommatidia)
+# 495 renders across 13 branches at these settings - under the sweeper's 500-render guard, so
+# no yes=true is needed. par=6 matches this machine's cores.
+
+art    = ommatidia.OmmatidiaKt
+module = arts:triangular
+out    = output/ommatidia
+fixed  = ss=1
+par    = 6
+
+# New seeds reroll the swell layout, which moves every caustic fold and reshapes the whole
+# density field with it. This is the real test of the piece - the compositions vary more
+# between seeds here than any single knob can manage.
+[branch cast]
+seed = 2026:2040
+
+# The optics, and the reason the piece exists. depth is how far behind the membrane the
+# sampling plane sits: 0 is a flat mosaic of the scene, ~0.5 magnifies gently, and past ~1.2
+# the swells push through focus and the image folds over on itself into rosettes and fans.
+# ior sets how hard each lens bends; 1.0 would be no lens at all.
+[branch optics]
+seed  = 2028,2033
+depth = 0.0,0.2,0.5,0.9,1.3,1.7
+ior   = 1.2,1.5,2.1
+
+# The membrane itself. swells is how many gaussian bumps, swellr their size, swellamp their
+# height. Few big swells give one dominant form; many small ones give a churn with no centre.
+[branch membrane]
+seed     = 2028,2033
+swells   = 3,6,11
+swellr   = 0.26,0.42,0.62
+swellamp = 0.6,1.0,1.7
+
+# How steep the surface gets. relief tilts the normals, which drives everything downstream at
+# once - refraction offset, lambert, facet foreshortening. ripple adds fbm wobble on top, and
+# dimples is the fraction of swells that go inward instead of outward. The troughs matter:
+# without them it reads as a pile of identical bumps.
+[branch relief]
+seed    = 2028
+relief  = 0.6,1.4,2.6,4.0
+ripple  = 0.0,0.06,0.18
+dimples = 0.0,0.35,0.7
+
+# The pack. pitch is quadratic in facet count - 0.007 is ~48k lenses and 0.030 is ~2.5k, so it
+# swings from "fine sampling that resolves the scene" to "coarse tiles you read individually".
+# acuity shrinks facets where the membrane faces the light, the way a real acute zone faces
+# forward. aniso is the foreshortening: at 0 the cells stay round on the flanks and the surface
+# stops reading as curved at all, which is worth seeing once.
+[branch pack]
+seed   = 2028
+pitch  = 0.007,0.011,0.018,0.030
+acuity = 0.0,0.3,0.55,0.8
+aniso  = 0.0,0.5,1.0
+
+# The seams, and how regular the pack is. grout is a fraction of local spacing so it scales
+# with the cells. relax=0 leaves raw dart-throwing blue noise (scattered, no hex order);
+# by ~18 it has pulled into hexagons with defects only where density forces them.
+[branch seam]
+seed  = 2028
+grout = 0.0,0.06,0.11,0.20,0.32
+relax = 0,4,18,40
+
+# The hidden scene: palette bands folded by fbm turbulence. bandf is the calm/busy knob -
+# palette 1 crosses teal to gold to rust every single cycle, so 4.5 puts four of those
+# crossings across the frame and the whole thing turns to confetti. Below ~1 you get large
+# coherent fields with one or two transitions, which is where the swells get room to read.
+# Keep warpf low regardless - the facets are the sampling grid, and anything finer than the
+# facet pitch resolves as salt and pepper rather than as an image. That is the one hard
+# limit in the whole piece.
+[branch marble]
+seed    = 2028
+bandf   = 0.6,0.9,2.0,4.5
+bandang = 0,45,100
+warp    = 0.2,0.35,0.9
+warpf   = 1.3,2.6
+
+# Where the source sits behind the membrane and how far it reaches. It blooms in OKLCH -
+# lightness up, chroma down - so the halo stays inside the palette instead of turning tan.
+[branch sun]
+seed = 2028
+sunx = 0.2,0.5
+suny = 0.25,0.6
+sunr = 0.10,0.18,0.35
+suni = 0.3,0.9,1.3
+
+# What makes a flat polygon read as convex: a radial gradient offset toward the light.
+# domeoff=0 centres it and the cells go back to looking like flat tiles.
+[branch lens]
+seed     = 2028
+domelift = 0.2,0.44,0.7
+domeedge = 0.4,0.66,0.85
+domeoff  = 0.0,0.52,1.0
+
+# The sparkle. tremor sets every lens a few degrees off true, which is the only thing making
+# the specular selective - with tremor=0 the glint band is a smooth arc instead of speckle.
+# specmin is the cutoff; drop it and the glint stops being a highlight and becomes a wash.
+[branch glint]
+seed    = 2028
+tremor  = 0.0,0.15,0.30,0.5
+shine   = 10,30,70
+specmin = 0.05,0.18,0.4
+
+# The ramp. flip reverses it, which swaps which end of the palette the troughs get.
+# 1 is teal/gold/ember/rust, 14 electric magenta, 41 a pure blue ramp, 55 crimson/cyan.
+[branch palette]
+seed = 2028
+pal  = 1,8,14,28,41,55,70,99
+flip = 0,1
+
+# The ground showing through the seams, and the frame. hue turns the whole ramp in OKLCH.
+[branch ink]
+seed     = 2028
+inkl     = 0.05,0.14,0.30
+hue      = -120,-40,0,60,140
+vignette = 0.0,0.35,0.8
+
+# bandc pushes the bands toward the ends of the ramp; a plain sine already spends most of its
+# time in the middle, so past ~1 this posterises into flat fields. sundesat is how much chroma
+# the source burns out. bloom is the one thing in the frame that is not facet quantised -
+# keep it low or it stops being a lens flare and starts carrying the image.
+[branch post]
+seed     = 2028
+bandc    = 0.0,0.4,1.0
+sundesat = 0.0,0.35,0.8
+bloom    = 0.0,0.07,0.3
+grain    = 0.0,0.2
