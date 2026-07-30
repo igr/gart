@@ -122,15 +122,7 @@ private fun generateMarkdown(thumbnailsByFolder: Map<String, List<ThumbnailInfo>
         thumbnailsByFolder.forEach { (folderName, thumbnails) ->
             appendLine("## ${generateDisplayName(folderName)}")
             appendLine()
-
-            // Create HTML img list
-            //appendLine("<p align=\"left\">")
-            thumbnails.forEach { thumbnail ->
-                appendLine("[<img src=\"${thumbnail.relativePath}\" hspace=\"2\" vspace=\"2\" align=\"left\">](${thumbnail.relativePath.replace("_thumb", "")})")
-            }
-            //appendLine("</p>")
-            appendLine("<br clear=\"both\">")
-
+            append(generateGalleryTable(thumbnails))
             appendLine()
         }
 
@@ -141,6 +133,35 @@ private fun generateMarkdown(thumbnailsByFolder: Map<String, List<ThumbnailInfo>
         appendLine("---")
         appendLine()
         appendLine("🖼️ **$totalThumbnails works** across **$totalFolders collections** — and counting.")
+    }
+}
+
+private const val COLUMNS = 3
+
+/**
+ * Renders the thumbnails as a table, [COLUMNS] per row
+ */
+private fun generateGalleryTable(thumbnails: List<ThumbnailInfo>): String {
+    val cellWidth = "${100 / COLUMNS}%"
+
+    return buildString {
+        appendLine("<table width=\"100%\">")
+        thumbnails.chunked(COLUMNS).forEach { row ->
+            appendLine("  <tr>")
+            row.forEach { thumbnail ->
+                val fullImage = thumbnail.relativePath.replace("_thumb", "")
+                appendLine("    <td width=\"$cellWidth\" align=\"center\">")
+                appendLine("      <a href=\"$fullImage\"><img src=\"${thumbnail.relativePath}\" alt=\"${thumbnail.displayName}\" width=\"100%\"/></a>")
+                appendLine("      <br><b>${thumbnail.displayName}</b>")
+                appendLine("    </td>")
+            }
+            // pad the last row so the cells keep their width
+            repeat(COLUMNS - row.size) {
+                appendLine("    <td width=\"$cellWidth\"></td>")
+            }
+            appendLine("  </tr>")
+        }
+        appendLine("</table>")
     }
 }
 
