@@ -1,0 +1,47 @@
+# glossa on the other presses. `pal` picks a paper/ink/red trio:
+#
+#   0  torinoko / aisumicha / ginsyu  - the original, warm and devotional
+#   1  shironeri / sumi / keshizumi   - sumi only, the accent drops to a second grey
+#   2  shirotsurubami / kogecha / bengara - one earth hue for everything, sun-bleached
+#   3  shironezumi / kon / suoh       - cold grey stock, indigo hand, plum accent
+#   4  usuki / ro / syojyohi          - black on strong yellow. a handbill, not a manuscript
+#
+# Sweeping pal on its own tells you almost nothing though, same trap as plica_cool. The red *is*
+# the palette - it's the only second colour on the page - so how much of it you see is entirely
+# down to rubric and ruling, and a trio that's elegant at rubric=60 is a rash at rubric=6. Same
+# for the aging: foxing and the vignette are both hardcoded warm (tan blooms, a brown edge), which
+# is correct on 0/1/2 and actively fights 3. So palette moves with those or not at all.
+# run:  just sweep glossa_press     (writes pngs + one contact sheet per branch to output/glossa_press)
+# 120 renders across 3 branches.
+
+art    = glossa.GlossaKt
+module = arts:alien
+out    = output/glossa_press
+par    = 6
+
+# The accent, per press. rubric is 1-in-N words set in the red and ruling is the alpha of the
+# scored guide lines - and the lines are drawn in the red too, which is easy to forget, so ruling
+# is really a second dose of the same colour spread thin over the whole block. On pal=4 that's a
+# lot of vermilion; on pal=1 you can push both hard because the "red" is only a grey.
+[branch impress]
+pal    = 0,1,2,3,4
+seed   = 41
+rubric = 6,20,60
+ruling = 0,26,70
+
+# Age, per press. Both of these are warm no matter what the palette is, so this branch is partly
+# just asking which trios can carry a stain. foxing=0 with vignette=0 is a page fresh off the
+# block, which suits the cold one; 260 blooms with a heavy edge is a found object and suits the
+# earth one. The middle row is where it usually lands.
+[branch wear]
+pal      = 0,1,2,3,4
+seed     = 41
+foxing   = 0,90,260
+vignette = 0.0,0.25,0.55
+
+# Does the press survive a different hand. A new seed redraws the whole alphabet, so this is the
+# check that a palette isn't just flattering one particular set of glyphs - some trios only look
+# good when the letters happen to come out spidery.
+[branch cast]
+pal  = 0,1,2,3,4
+seed = 1:6

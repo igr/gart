@@ -1,0 +1,71 @@
+# glossa - alien, but the letters got a language. one construction rule (a spine hanging off a
+# headline bar) makes a fixed alphabet, the alphabet makes a lexicon, the lexicon gets set as
+# prose. every seed is a different hand, so `cast` is the branch that actually shows the piece.
+# run:  just sweep glossa     (writes pngs + one contact sheet per branch to output/glossa)
+# 255 renders across 7 branches - still under the sweeper's 500-render guard, but not by as much
+# as it looks, so new directions go in glossa_hand.sweep / glossa_press.sweep rather than here.
+
+art    = glossa.GlossaKt
+module = arts:alien
+out    = output/glossa
+par    = 6
+
+# A new seed redraws the whole alphabet, so the script itself changes hand - angular, rounded,
+# top-heavy, spidery. Nothing else in here moves the piece nearly as much.
+[branch cast]
+seed = 1:12
+
+# The grammar of a letter. marks is how many glyphs carry a diacritic above the headline (past
+# ~0.6 the page grows a second texture over the bar and the lines start to close up), bowls is
+# the only curved thing in the script so it reads as the script's "roundness" dial, and descend
+# is how many letters drop below the baseline - high values tangle with the line beneath.
+[branch hand]
+seed     = 41
+marks    = 0.0,0.34,0.6,0.85
+bowls    = 0.1,0.32,0.6
+descend  = 0.0,0.2,0.45
+
+# The setting. em is the letter size and lead the line pitch, so em/lead is the colour of the
+# text block - em=34/lead=52 is a cramped gothic wall, em=20/lead=72 is airy and sparse. weight
+# is the nib in pixels (it scales sublinearly with em, so the title stays a letter).
+[branch type]
+seed   = 41
+em     = 20,24,27,34
+lead   = 52,62,74
+weight = 3.0,4.4,6.0
+
+# How the language is distributed. Low zipf exponents spread usage flat and the page reads as
+# noise; high ones make a handful of letters and words carry everything, which looks like real
+# text but starts to feel like a stuck key past ~1.3. wordMax sets how long words get.
+[branch voice]
+seed    = 41
+zipfG   = 0.2,0.6,1.1
+zipfW   = 0.4,0.75,1.3
+lexicon = 40,130,400
+wordMax = 3,5,7
+
+# The furniture. dropcap is the seal height in lines (0 removes it and the text block squares
+# up), title is how many big words sit above the rule, mr is the outer margin the marginalia
+# live in - drop it to ~90 and the notes get crushed against the text.
+[branch page]
+seed    = 41
+dropcap = 0,3,4
+title   = 2,3,5
+mr      = 90,196,280
+
+# The ink. rubric is 1-in-N words in red and punct is 1-in-N words followed by a break mark -
+# both are the family's "one accent, used sparingly" rule, so anything under ~8 turns the page
+# spotty. ruling is the alpha of the scored guide lines (0 = unruled paper).
+[branch ink]
+seed    = 41
+rubric  = 6,14,24,60
+punct   = 5,11,30
+ruling  = 0,26,70
+
+# Age. foxing is the count of stain blooms, grain the film noise over everything, vignette the
+# darkening at the edges - together they decide whether this is a fresh page or a found one.
+[branch paper]
+seed     = 41
+foxing   = 0,70,220
+grain    = 0.0,0.13,0.3
+vignette = 0.0,0.22,0.5

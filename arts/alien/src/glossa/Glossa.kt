@@ -73,6 +73,25 @@ private data class Params(
     val jitter: Float,
 )
 
+// the impressions. paper / ink / red - and the red is the only accent the whole page gets,
+// so picking a palette is really just deciding how loud that second colour is allowed to be.
+// 0 is the original and stays put, everything already printed came off it.
+// (has to sit above `p` down there, top-level vals init in file order and i got a very
+// confusing NPE out of having it next to resolveParams where it belongs)
+private val PRESSES = arrayOf(
+    // torinoko paper, aisumicha ink, ginsyu for the red. dont touch, took ages
+    intArrayOf(NipponColors.col105_TORINOKO, NipponColors.col245_AISUMICHA, NipponColors.col029_GINSYU),
+    // sumi only. rubric drops to a second grey, so theres no colour on the page at all
+    intArrayOf(NipponColors.col233_SHIRONERI, NipponColors.col248_SUMI, NipponColors.col247_KESHIZUMI),
+    // one earth hue for the lot - bengara over kogecha on tanned stock. reads much older
+    intArrayOf(NipponColors.col100_SHIROTSURUBAMI, NipponColors.col057_KOGECHA, NipponColors.col046_BENGARA),
+    // cold. grey stock, indigo hand, plum accent - comes out official rather than devotional
+    intArrayOf(NipponColors.col235_SHIRONEZUMI, NipponColors.col195_KON, NipponColors.col003_SUOH),
+    // a handbill and not a manuscript. shouldnt work and mostly doesnt, but keep rubric low
+    // and the vermilion lands on maybe two words a page, which is worth the trouble
+    intArrayOf(NipponColors.col106_USUKI, NipponColors.col250_RO, NipponColors.col037_SYOJYOHI),
+)
+
 private val p = resolveParams()
 private val rnd = Random(p.seed)
 
@@ -538,36 +557,40 @@ private fun ri(a: Int, b: Int) = a + rnd.nextInt(b - a + 1) // inclusive both en
 private fun chance(f: Float) = rnd.nextFloat() < f
 private fun FloatArray.random(r: Random) = this[r.nextInt(size)] // stdlib has it for List but not this
 
-private fun resolveParams() = Params(
-    seed = pl("seed", 41L),
-    out = ps("out", "glossa.png"),
-    mt = pf("mt", 150f), mb = pf("mb", 168f), ml = pf("ml", 116f), mr = pf("mr", 196f),
-    em = pf("em", 27f),
-    lead = pf("lead", 62f),
-    weight = pf("weight", 4.4f),
-    track = pf("track", 0.2f),
-    space = pf("space", 0.74f),
-    alphabet = pi("alphabet", 30), // 30ish is the sweet spot, 12 reads as a code, 60 as noise
-    lexicon = pi("lexicon", 130),
-    zipfG = pf("zipfG", 0.6f), zipfW = pf("zipfW", 0.75f),
-    wordMin = pi("wordMin", 1), wordMax = pi("wordMax", 5),
-    descend = pf("descend", 0.2f),
-    marks = pf("marks", 0.34f),
-    bowls = pf("bowls", 0.32f),
-    title = pi("title", 3),
-    paraMin = pi("paraMin", 3), paraMax = pi("paraMax", 6),
-    dropcap = pi("dropcap", 3),
-    rubric = pi("rubric", 24),
-    punct = pi("punct", 11),
-    margins = pi("margins", 3),
-    ruling = pi("ruling", 26),
-    // torinoko paper, aisumicha ink, ginsyu for the red. dont touch, took ages
-    paper = pi("paper", NipponColors.col105_TORINOKO),
-    ink = pi("ink", NipponColors.col245_AISUMICHA),
-    red = pi("red", NipponColors.col029_GINSYU),
-    foxing = pi("foxing", 70),
-    grain = pf("grain", 0.13f),
-    vignette = pf("vignette", 0.22f),
-    flow = pi("flow", 205),
-    jitter = pf("jitter", 0.7f),
-)
+private fun resolveParams(): Params {
+    // the preset only hands over the *defaults* - paper/ink/red are still each overridable
+    // on their own, which is how you find the next preset
+    val press = PRESSES[pi("pal", 0).coerceIn(PRESSES.indices)]
+    return Params(
+        seed = pl("seed", 41L),
+        out = ps("out", "glossa.png"),
+        mt = pf("mt", 150f), mb = pf("mb", 168f), ml = pf("ml", 116f), mr = pf("mr", 196f),
+        em = pf("em", 27f),
+        lead = pf("lead", 62f),
+        weight = pf("weight", 4.4f),
+        track = pf("track", 0.2f),
+        space = pf("space", 0.74f),
+        alphabet = pi("alphabet", 30), // 30ish is the sweet spot, 12 reads as a code, 60 as noise
+        lexicon = pi("lexicon", 130),
+        zipfG = pf("zipfG", 0.6f), zipfW = pf("zipfW", 0.75f),
+        wordMin = pi("wordMin", 1), wordMax = pi("wordMax", 5),
+        descend = pf("descend", 0.2f),
+        marks = pf("marks", 0.34f),
+        bowls = pf("bowls", 0.32f),
+        title = pi("title", 3),
+        paraMin = pi("paraMin", 3), paraMax = pi("paraMax", 6),
+        dropcap = pi("dropcap", 3),
+        rubric = pi("rubric", 24),
+        punct = pi("punct", 11),
+        margins = pi("margins", 3),
+        ruling = pi("ruling", 26),
+        paper = pi("paper", press[0]),
+        ink = pi("ink", press[1]),
+        red = pi("red", press[2]),
+        foxing = pi("foxing", 70),
+        grain = pf("grain", 0.13f),
+        vignette = pf("vignette", 0.22f),
+        flow = pi("flow", 205),
+        jitter = pf("jitter", 0.7f),
+    )
+}

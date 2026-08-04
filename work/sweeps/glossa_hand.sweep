@@ -1,0 +1,57 @@
+# glossa, but the knobs the main sweep never touches. glossa.sweep works on the grammar of the
+# letters (marks, bowls, descenders) and the size of the type - this one is about the *hand* and
+# the *setting*: how big the alphabet is in the first place, how tight the words sit, how steady
+# the pen is, and what shape the text block ends up.
+# run:  just sweep glossa_hand     (writes pngs + one contact sheet per branch to output/glossa_hand)
+# 115 renders across 4 branches. seed is pinned at 41 all the way down - the point here is to see
+# one hand change its habits, not to see twelve different hands.
+
+art    = glossa.GlossaKt
+module = arts:alien
+out    = output/glossa_hand
+par    = 6
+
+# How much language there is. alphabet is the big one and the source has said so all along -
+# 12 letters and the page reads as a cypher (you start recognising individual glyphs, which
+# kills it), 48 and no letter repeats often enough to feel learned, so it goes back to noise.
+# The word lengths are the other half: wordMin=3 with wordMax=8 gives long ceremonial words and
+# about four to a line, wordMin=1 with wordMax=3 reads clipped, almost like a list.
+# (wordMin can never exceed wordMax here - `ri` would throw. mind that if you widen these.)
+[branch script]
+seed    = 41
+alphabet = 12,22,30,48
+wordMin = 1,2,3
+wordMax = 3,5,8
+
+# The fit. track is the gap between letters and space the gap between words, both in em, and
+# they're the two halves of one decision: at track=0 the letters touch and each word turns into
+# a single fused blob under its bar, which is a real look but a different one. Push space past
+# ~1.2 and the bars stop reading as words in a line and start reading as separate objects.
+# smallest branch in here - 16 - because these two only really matter against each other.
+[branch setting]
+seed  = 41
+track = 0.0,0.14,0.3,0.55
+space = 0.35,0.6,0.95,1.4
+
+# Is it a font or is it a hand. jitter shoves every letter off its headline (and tilts it by 0.7
+# of the same amount) - at 0 the page is set type, machined, and honestly a bit dead; past ~2 the
+# words stop sitting on a line at all. flow is the *lower* bound on the ink alpha, re-rolled once
+# per word, so 255 is a full pen every time and 120 is one that keeps running dry mid-sentence.
+# weight is in here rather than with the type because it's the thing that hides the wobble - a fat
+# nib swallows a crooked baseline, a fine one shows every slip.
+[branch wobble]
+seed   = 41
+jitter = 0.0,0.7,1.6,3.0
+flow   = 255,205,120
+weight = 2.4,4.4,7.0
+
+# The architecture of the page. ml is the left margin, and since the right edge is set by mr it
+# really controls how wide the column is - at 60 the measure gets long enough that the eye starts
+# losing the line. margins is how many notes crowd the outer edge (0 empties it completely and the
+# page goes quiet and formal). paraMax is the longest a paragraph gets: at 3 the page is all
+# pilcrows and breaks, at 14 it's two or three unbroken slabs.
+[branch block]
+seed    = 41
+ml      = 60,116,200
+margins = 0,3,8
+paraMax = 3,6,14
