@@ -13,6 +13,7 @@ import dev.oblac.gart.io.pf
 import dev.oblac.gart.io.pi
 import dev.oblac.gart.io.pl
 import dev.oblac.gart.io.ps
+import dev.oblac.gart.math.Zipf
 import org.jetbrains.skia.Canvas
 import org.jetbrains.skia.Paint
 import org.jetbrains.skia.PaintStrokeCap
@@ -257,28 +258,6 @@ private fun makeWord(alphabet: List<Glyph>, pick: Zipf): Word {
     return Word(letters, w)
 }
 
-// zipf-ish sampler. a handful of letters and words carry the whole page and the rest are
-// rare, which is what real language does and what makes this look like language.
-// linear scan over the cumulative table, n is tiny so who cares
-private class Zipf(n: Int, s: Float) {
-    private val cum = FloatArray(n)
-
-    init {
-        var t = 0f
-        for (i in 0 until n) {
-            t += 1f / (i + 1f).pow(s)
-            cum[i] = t
-        }
-        for (i in cum.indices) cum[i] /= t // normalise
-    }
-
-    fun next(): Int {
-        val u = rnd.nextFloat()
-        for (i in cum.indices) if (u <= cum[i]) return i
-        return cum.size - 1 // float slop, shouldnt really get here
-    }
-}
-
 // ---- setting type -------------------------------------------------
 
 // a size of the hand. nib is the pen width in device px and it grows with the em but not
@@ -352,11 +331,14 @@ private fun render(g: Gartvas) {
     val c = g.canvas
     val d = g.d
 
-    // build the language up front: glyphs -> words -> and then two samplers over both
+    // build the language up front: glyphs -> words -> and then two samplers over both.
+    // the two zipfs compound - the letter one shapes what goes *into* the lexicon, the word
+    // one shapes what gets set on the page, so a common glyph gets favoured twice over. thats
+    // most of why this reads as writing and not as a texture
     val alphabet = List(p.alphabet) { makeGlyph() }
-    val pickLetter = Zipf(p.alphabet, p.zipfG)
+    val pickLetter = Zipf(p.alphabet, p.zipfG, rnd)
     val lexicon = List(p.lexicon) { makeWord(alphabet, pickLetter) }
-    val pickWord = Zipf(p.lexicon, p.zipfW)
+    val pickWord = Zipf(p.lexicon, p.zipfW, rnd)
 
     c.clear(p.paper)
     foxing(c, d)
