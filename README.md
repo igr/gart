@@ -74,7 +74,10 @@ A collection of generative art pieces (ordered by name).
       <a href="arts/alien/alien2.png"><img src="arts/alien/alien2_thumb.png" alt="Alien2" width="100%"/></a>
       <br><b>Alien2</b>
     </td>
-    <td width="33%"></td>
+    <td width="33%" align="center">
+      <a href="arts/alien/glossa.png"><img src="arts/alien/glossa_thumb.png" alt="Glossa" width="100%"/></a>
+      <br><b>Glossa</b>
+    </td>
     <td width="33%"></td>
   </tr>
 </table>
@@ -1551,4 +1554,4 @@ A collection of generative art pieces (ordered by name).
 
 ---
 
-🖼️ **249 works** across **50 collections** — and counting.
+🖼️ **250 works** across **50 collections** — and counting.
