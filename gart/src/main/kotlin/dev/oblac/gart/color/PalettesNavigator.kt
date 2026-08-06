@@ -10,9 +10,11 @@ class PalettesNavigator {
         val palette: (Int) -> Palette
     )
 
+    // size is the highest valid number for the set, not a count-from-zero. keep these in step with
+    // the when-branches in Palettes, or the navigator walks off the end and throws
     private val sets = listOf(
         PaletteInfo(name = "mix", size = 15, Palettes::mixPalette),
-        PaletteInfo(name = "cool", size = 76, Palettes::coolPalette),
+        PaletteInfo(name = "cool", size = 177, Palettes::coolPalette),
         PaletteInfo(name = "colormap", size = 133, Palettes::colormapPalette),
     )
 
@@ -24,7 +26,7 @@ class PalettesNavigator {
 
     fun nextPalette(): Palette {
         index++
-        if (index >= sets[set].size) {
+        if (index > sets[set].size) {
             index = 1
         }
         return palette()

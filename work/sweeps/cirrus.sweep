@@ -1,0 +1,86 @@
+# cirrus - braided ribbons wound into a gyre. the flamebrush rosette dragged through a field of
+# vortices, splatted into a float buffer and tone mapped by log density, so where the ribbons
+# cross you get light rather than paint.
+# run:  just sweep cirrus     (writes pngs + one contact sheet per branch to output/cirrus)
+# 356 renders across 8 branches, about a second and a half each - well under the 500 guard.
+
+art    = work.cirrus.CirrusKt
+module = work
+out    = output/cirrus
+par    = 5
+
+# A new seed lays out the whole vortex field - where the satellites sit, which way each one
+# turns, and every ribbon that gets thrown into it. This is the branch that actually shows
+# what the piece does.
+[branch cast]
+seed = 1:14
+
+# The flow. pull is how hard a gyre winds a ribbon inward as opposed to just carrying it round:
+# near 0 it's a ring, near 1 it's a plughole and everything is gone in half a turn. reach is
+# how far the main one governs, and past ~0.6 it swamps the satellites and the picture goes
+# laminar again. gyres is how many vortices in total.
+[branch flow]
+seed  = 3
+pull  = 0.14,0.30,0.55
+reach = 0.22,0.35,0.60
+gyres = 3,8,14
+
+# Turbulence. wobble is how much curl noise is mixed into the velocity - at 0 the ribbons are
+# clean streamlines of the gyres and nothing crosses, past ~0.8 the vortices stop being legible
+# at all. nscale is the eddy size (small = long lazy meanders). against is the odds a satellite
+# spins the other way, which is where most of the crossing comes from.
+[branch turbulence]
+seed    = 3
+wobble  = 0.0,0.42,0.85
+nscale  = 0.0009,0.0021,0.005
+against = 0.0,0.45,0.9
+
+# How much is on the page. n is the ribbon count and width their thickness - the two trade off,
+# and the interesting end is few and fat rather than many and thin, because a ribbon you can
+# actually follow is the whole point. steps is how long each one runs before it tapers out.
+[branch cloth]
+seed  = 3
+n     = 120,330,700
+width = 10,26,55
+steps = 700,1700,3000
+
+# The brush itself, straight out of flamebrush. k is dots per rosette and starts how many
+# interleaved spirals they're split across - one start puts a single dot at the outer edge and
+# it draws a hard helix down the ribbon, which at 1:1 looks like a telephone cord. loops is how
+# many times the rosette wraps, squash flattens it along the stroke so it reads as a ribbon and
+# not a rope.
+[branch brush]
+seed   = 3
+k      = 8,24,40
+starts = 1,3,6
+loops  = 1.5,4.2,8
+squash = 0.1,0.34,0.9
+
+# The braid. twist is how far the rosette turns per step - the scallop on the ribbon edge. past
+# about 0.1 the scallop period drops under a dozen steps and the edge turns into sawtooth. slop
+# and jitter are the two bits of grit that stop consecutive stamps landing exactly on top of
+# each other; at 0 both, the ribbons come out as a tidy halftone screen.
+[branch braid]
+seed   = 3
+twist  = 0.0,0.03,0.12
+slop   = 0.0,0.22,0.8
+jitter = 0.0,0.09,0.3
+
+# Light. exposure and ceiling set the white point together - ceiling is the density percentile
+# that maps to white, so lowering it burns more of the core out. gamma lifts the midtones, and
+# above ~1.6 the whole thing goes pastel and stops reading as light at all.
+[branch light]
+seed     = 3
+exposure = 0.8,2.6,8
+gamma    = 0.9,1.28,1.9
+ceiling  = 0.97,0.997,0.9995
+whiten   = 0.0,0.62,1.0
+
+# Ink and air. pal picks the ramp - 0 ember, 1 halo, 2 bruise, 3 verdigris, 4+ falls through to
+# the library's cool palettes. wash is how much of the colour comes off a noise field instead of
+# the radius: at 0 it's a plain radial gradient map and looks like one. bloom is the halo.
+[branch ink]
+seed  = 3
+pal   = 0,1,2,3,4,7
+wash  = 0.0,0.35,0.62,0.9
+bloom = 0.0,0.5,1.2

@@ -1553,3 +1553,55 @@ internal val cool_173 = Palette(
     0xffbd5532,
     0xff373b44
 )
+
+// the four below came out of cirrus. chroma ramps, not value ramps - nothing in them is dark,
+// so they're for pieces that get their darkness from density/tone mapping rather than the ink
+
+// ember - the long way round the wheel, teal to cream, ordered by temperature
+internal val cool_174 = Palette(
+    0xff0f5f6e,
+    0xff1d4a7a,
+    0xff3b3f8c,
+    0xff6b3a90,
+    0xffa33a7c,
+    0xffd04a5c,
+    0xffee7c3c,
+    0xfff8b856,
+    0xfffce8c0
+)
+
+// halo - sea green swinging up into warm brass
+internal val cool_175 = Palette(
+    0xff10456b,
+    0xff117a87,
+    0xff23a794,
+    0xff6fc9a4,
+    0xffb6dca4,
+    0xffe7d593,
+    0xfff6be6a,
+    0xffffe9b8
+)
+
+// bruise - violet outside, cyan in the middle, no warmth anywhere
+internal val cool_176 = Palette(
+    0xff2a1155,
+    0xff52208a,
+    0xff8b2e92,
+    0xffc03e82,
+    0xffd86a82,
+    0xffb98fc7,
+    0xff74c6e0,
+    0xffd8f4fb
+)
+
+// verdigris - oxidised copper. the green/orange pair does the work
+internal val cool_177 = Palette(
+    0xff13403c,
+    0xff1e6e5e,
+    0xff3e9a6b,
+    0xff87b96b,
+    0xffcbc272,
+    0xffdf9a55,
+    0xffc96a3e,
+    0xfff0d3a0
+)
