@@ -1,0 +1,264 @@
+# rectflow - rectapart, but the carrier bends. the family always strung rects along something
+# straight (radial spokes, parallel diagonals, a grid); here they ride evenly-spaced noise
+# streamlines instead, each rect turned to the local field angle. the flow is fbm plus a
+# circulation term around an off-canvas attractor, so you can dial it from "pure noise churn"
+# all the way back to "wobbly rectpack1 rings" without changing anything else.
+# They then get printed off-register, cut out, dropped in a heap, and photographed with the lens
+# wide open - so the last three branches here are about the pile and the camera rather than the
+# drawing, and theyre the ones that decide where the eye goes.
+# run:  just sweep rectflow     (writes pngs + one contact sheet per branch to output/rectflow)
+# 323 renders across 17 branches - well under the sweeper's 500-render guard.
+
+art    = rectflow.RectFlowKt
+module = arts:rectapart
+out    = output/rectflow
+par    = 6
+
+# New seeds reroll the noise window and every fill/accent decision, so the whole composition
+# moves. Cheapest way to see what the piece actually does.
+[branch cast]
+seed = 1:12
+
+# The field, and the reason the piece exists. swirl is the big one: at 0 the trails follow raw
+# fbm and mill about with no global read, by ~1.8 you can see the bottom-left generator through
+# the noise, and past ~2.6 it collapses into near-concentric arcs - basically rectpack1 with a
+# wobble. turns is how many full rotations the noise angle spans (low = long lazy curves, high
+# = the field folds back on itself and trails get chopped short). scale is the noise frequency.
+[branch field]
+seed  = 7
+swirl = 0.0,0.8,1.8,2.6,3.4
+turns = 0.3,0.6,1.2,2.0
+scale = 0.0007,0.0011,0.0018
+
+# Where the generator sits, as a fraction of the canvas. The family likes it just off frame -
+# rectpack1 and rectapart3 both hang theirs past the bottom-left corner. Put it inside (0.5,0.5)
+# and you get a vortex in the middle instead, which is a different piece but worth a look.
+[branch centre]
+seed  = 7
+swirl = 1.8,2.6
+ax    = -0.15,0.5,1.15
+ay    = -0.05,0.5,1.05
+
+# The pack across the flow. sep is the streamline separation and thick is the rect height, so
+# sep-thick is the visible channel between neighbouring trails - at sep=36/thick=10 the trails
+# read as separate ribbons with dark between. The default now sits the other side of that line,
+# sep=20 against thick=30, so the channel is NEGATIVE and neighbouring trails cut into each
+# other. With knock=1 that means a trail crops the one it was seeded from, and the piece stops
+# reading as tiles-threaded-on-curves and starts reading as masonry. Most of the character comes
+# from here, so its worth sweeping this branch before any of the decorative ones.
+[branch pack]
+seed  = 7
+sep   = 14,20,26,36
+thick = 10,20,30
+len   = 28,44,70
+
+# The pack along the flow. pitch is the arc distance between rects and len is how long each one
+# is, so pitch-len is the gap - equal means they touch end to end, and pitch < len makes them
+# shingle over each other like roof tiles. Default is len=70 against pitch=48, so its shingling
+# everywhere and there is no gap left to open; drop len under ~48 if you want the tiles to
+# separate again and read as individual bricks.
+[branch pitch]
+seed  = 7
+pitch = 26,34,48,64,90
+len   = 28,44,70
+
+# Shingling, but only in places - or it was, before len went to 70. A second noise field
+# multiplies len per rect, so the real test is len*lenvar-swing against pitch: at len=70 and
+# pitch=48 the lengths run ~41-99 and even the short end still laps onto its neighbour, so what
+# this branch now controls is how MUCH things overlap rather than whether they do. Take len back
+# to ~44 and lenvar starts opening real gaps again, which is a noticeably airier piece.
+# lenvar is how hard it swings, 0 switches the whole thing off and every tile is exactly len.
+# lenscale is the zoning. It wants to sit in a narrow band - 0.0009 and below is one gradient
+# across the frame, 0.003 and up starts alternating within a single trail so neighbouring rivers
+# stop agreeing, which throws away the point of using a spatial field at all. 0.0018 is the spot.
+# Note the length field runs at much the same frequency as the flow field and is kept separate
+# only by its sample offset, so dont go looking for a scale relationship between the two.
+[branch length]
+seed     = 7
+lenvar   = 0.0,0.35,0.55,0.85,1.2
+lenscale = 0.0009,0.0018,0.0030
+
+# How the overlaps render. knock is the alpha of a ground-coloured fill laid under each rect:
+# 1 and a rect properly occludes what it laps over (roof tiles), 0 and the outlines just cross
+# each other, which doubles up lines 2-6px apart wherever len only just beats pitch and reads
+# as moire more than as depth. The in-between values are muddier than they sound. At len=70
+# against pitch=48 every tile laps its neighbour, so knock is carrying a lot here - drop it to 0
+# and the whole board turns to crosshatch.
+[branch knock]
+seed   = 7
+knock  = 0.0,0.5,1.0
+lenvar = 0.55,1.2
+
+# How much rects shrink toward the ends of their trail, and how far a trail is allowed to run
+# before it gives up. Low steps chops everything into short dashes regardless of separation.
+[branch trail]
+seed  = 7
+taper = 0.0,0.2,0.45,0.8
+steps = 200,600,1500
+
+# The ink. HEADS UP: fill no longer means what it says. With the automaton running it sets how
+# many WAVE SOURCES there are, 1-in-N, and the final solid density is caband's job instead. So
+# raising fill now means fewer, bigger rings rather than fewer solid tiles - it can even end up
+# with MORE solid tiles, since fewer competing fronts annihilate each other early and the waves
+# get further across the board. Set cagens=0 and it goes back to meaning 1-in-N filled solid.
+# accent is 1-in-N in red and is genuinely 1-in-N, the automaton never touches it - the family
+# treats red as a single punctuation mark, so anything under ~60 starts reading as confetti.
+# There used to be a `line` knob here for the bare carrier drawn under the tiles, echoing the
+# radial lines in rectpack1. Its gone, not just defaulted off - at sep=20 the tiles cover nearly
+# everything and it only ever surfaced in the leftover gaps as stray scratches. If you ever want
+# it back for a sparse layout its a handful of lines: stroke each trail's points before the
+# tiles go down. Deliberately not kept around as a dead param.
+[branch ink]
+seed   = 7
+fill   = 4,12,30
+accent = 25,140,600
+
+# The press. Each tile prints once per plate, each plate slipped in a fixed direction, so you
+# get colour fringes on every edge. plates=0 turns the press off and gives you back the flat
+# two-colour piece. plateoff is the slip in px WHERE THE PICTURE IS SHARP - out in the blurred
+# parts the lens takes over and walks the plates apart to `blur` instead, so this knob only ever
+# sets one end of that ramp. Read it against stroke=2: under ~2.5 the fringe hugs the line and
+# just looks like a fatter warm stroke, past ~7 the plates have detached even in the focal band
+# and you lose the crisp doubled look that the sharp region is there to provide.
+# There used to be a platedrift knob here that varied slip across the sheet. Its gone - the lens
+# does that job now and does it properly, since it moves contrast and size and stacking along
+# with the slip instead of the slip on its own, which was the reason drift always read as untidy.
+# plates=1 (amber only) is in here but it mostly reads as a gold drop shadow rather than as a
+# print - you need the second, cooler plate for it to look like registration and not styling.
+# plates=0 is left out of the grid on purpose, since it ignores the other one and youd just be
+# rendering the same picture three times. Run it on its own if you want to see the press off.
+[branch press]
+seed       = 7
+plates     = 1,2
+plateoff   = 2.5,4.5,7.0
+
+# The five-colour sets, defined up in the art. ground / ink / accent / warm plate / cool plate.
+# The ground is the one to watch and its easy to underrate from a thumbnail: everything fades
+# toward it as it defocuses, so it isnt the backdrop, its what the entire far half of the canvas
+# turns into. pal=2 nocturne is the clearest demonstration - same drawing, but the mush in the
+# bottom corner goes from muddy brown to blue-grey fog, and it stops looking like dirt.
+# 0 retro (the original)  1 midcentury  2 nocturne  3 oxblood  4 moss  5 ash  6 plum
+# 4 moss is the default. It went in because it looks like an old CRT - the ground reads as unlit
+# phosphor rather than as paper, which quietly reframes the whole thing: the soft corner stops
+# being a badly printed sheet and becomes the part of the tube not driven hard enough. Nothing
+# in the code knows about that, its just what those five colours do to the same drawing.
+[branch palette]
+seed = 7
+pal  = 0,1,2,3,4,5,6
+
+# Plate overrides, as indices into RetroColors.allColors - these IGNORE whatever palette youre
+# on, so this branch is really only meaningful against pal=0:
+#   0 black  1 white  2 red   3 green  4 blue   5 yellow  6 orange
+#   7 purple 8 brown  9 teal 10 pink  11 gray  12 maroon 13 amber
+# One warm one cool, the usual riso pairing, and the temperature split is the whole game: a pair
+# from the same side goes flat and stops reading as registration at all - it just looks like you
+# picked an outline colour. The other half of that rule, learned the hard way while building the
+# palettes above: the plates have to differ from the INK as well as from the ground, or the
+# fringe is technically there and visually absent.
+# 2 red is deliberately not in here, its the accent. Purple over teal on the retro set because
+# against that much cream teal drifts towards swimming-pool, where purple stays as a shadow.
+[branch inks]
+seed   = 7
+pal    = 0
+platea = 13,5,6,10
+plateb = 9,4,7,11
+
+# The automaton. Every tile is a cell in an excitable medium - the BZ/heart-muscle kind, not the
+# Life kind. The 1-in-fill scatter seeds it, fronts spread outward, and a tile that has just
+# fired goes deaf for carefrac generations so the wave cant wash back over itself. What gets
+# drawn is not the state at the end (the whole medium burns out by about gen 8 and youd get an
+# empty canvas) but WHEN each tile first caught, banded by caband. Rings, broken along the lines
+# where two fronts met and killed each other.
+# cagens=0 turns the automaton off completely and hands back the plain 1-in-fill scatter, exact.
+# Past ~8 nothing changes at the defaults, everything has already burnt out - if you want more
+# than 8 to do anything you have to slow the spread down first (bigger pitch, smaller caradius).
+# caband is the density knob: 1 solids in everything the wave ever touched, 3 is a bit under a
+# quarter of the board and keeps enough ground showing for the plate fringes to still read.
+# Every caband looks identical at cagens=0, since only the seeds have fired and 0 % n is always
+# 0 - if a run of this branch shows four matching thumbnails in a row, thats it, not a bug.
+[branch ca]
+seed   = 7
+cagens = 0,2,4,8,16
+caband = 1,2,3,4
+
+# The medium's shape. These two have to be tuned TOGETHER - measured at seed 7 and the current
+# defaults, as reached-of-820 (tiles the wave ever got to) and lit (tiles that end up solid):
+#
+#            cathresh=1              cathresh=2
+#   r=45    712 reached, 252 lit     13 reached,  64 lit
+#   r=55    754 reached, 187 lit    225 reached, 114 lit
+#   r=70    756 reached, 122 lit    734 reached, 276 lit
+#   r=90    756 reached,  90 lit    755 reached, 193 lit
+#
+# (These move whenever the layout does - they were quite different at sep=26/len=44, which had
+# 620 tiles. Re-measure from the ca: line the art prints if you change the pack.)
+#
+# caradius wants reading against pitch=48 (along a trail) and sep=20 (across to the next). Drop
+# it far enough and almost nothing connects - trails arent evenly spaced and tiles on neighbours
+# dont line up - so it doesnt fade out, it falls off a cliff and the automaton is just off.
+# cathresh needs a big enough radius to have 2 lit neighbours available at all: at 45 the wave
+# dies on the spot (13 reached), by 70 it runs fine.
+# Note lit is NOT monotonic in either. Along cathresh=1 it FALLS as the radius grows, 252 down to
+# 90, even though coverage barely moves. Whats driving density is how many DISTINCT generations
+# the wave takes to cross - spread fast and every tile lands in a handful of firedAt values, few
+# of which are multiples of caband; slow the front and arrival times fan out and far more land on
+# a band. So to get it denser, slow the wave (smaller radius, or cathresh=2 once the radius can
+# carry it) rather than widening caband. r=70/thresh=2 is the densest cell in that table by a
+# distance, and it isnt where youd have guessed.
+# carefrac is the deaf period. Short and the wave sloshes back and the banding turns to mush.
+[branch medium]
+seed     = 7
+caradius = 45,55,70,90
+cathresh = 1,2
+carefrac = 2,3,6
+
+# The lens. Nothing below this line changes a single rect's position, angle or ink - the drawing
+# is finished by the time any of it runs. It decides how far away each chip is and then prints it
+# accordingly, and its the only thing in the piece with an opinion about where you should look.
+# Before it existed the picture was an all-over field: every square inch equally busy, equally
+# crisp, no hierarchy anywhere. Handsome wallpaper. This is what gives it a near and a far.
+# dof scales the whole falloff at once. The top row of this branch is one render repeated four
+# times - with the lens off focus has nothing left to act on - so if the thumbnails there look
+# identical thats correct, not a stuck sweeper. Careful though: that row is NOT the original
+# pre-lens piece, because depthsort lives in the pile branch and is still on here, quietly
+# restacking everything - and the default palette has moved off retro since. All three of
+# dof=0, depthsort=0 and pal=0 to get the original back exactly.
+# focus slides the sharp band through the depth field. Under ~0.3 the near hump is what's sharp
+# and the far one dissolves; over ~0.6 they swap, which is more photographic but hands the sharp
+# treatment to the small chips and the mush to the big ones. Its a real choice, not a wrong one.
+[branch lens]
+seed  = 7
+dof   = 0.0,0.4,0.7,1.0
+focus = 0.15,0.38,0.6,0.85
+
+# How the falloff is built, and the three knobs pull in genuinely different directions.
+# blur walks the plates apart until the two ghosts of a chip stop overlapping. haze sinks the ink
+# back toward the ground. spread fattens the outlines until they close up and the chip goes from
+# a line drawing to a blob - and thats the one to watch, because its the only one that destroys
+# DETAIL. Run spread=1 and look at the far corner: it has more edges in it than the sharp corner
+# does, which is the exact opposite of what out-of-focus means, and no amount of the other two
+# fixes it. By 5 the far half has gone properly soft.
+# haze=0 does not do what it sounds like. The strokes still fade, because spread is diluting them
+# whatever haze says (same ink over more area), so what you get is far FILLS at full cream inside
+# far outlines that have nearly vanished. Odd, quite good, not "the lens off".
+[branch falloff]
+seed   = 7
+blur   = 8,22,36
+haze   = 0.0,0.5,0.85
+spread = 1.0,5.0,8.0
+
+# The shape of the heap. persp is how much bigger a near chip prints - keep it under ~0.35, since
+# pitch does NOT scale with it and past that the near chips start swallowing their neighbours
+# along the trail and the beat goes. depthscale is how many humps the pile has across the frame:
+# 0.0004 is a single ramp corner to corner, 0.0016 starts breaking into separate mounds and the
+# read goes from "a heap" to "several heaps", which is busier and much harder to compose.
+# depthsort is whether the furthest chip prints first. Its the quietest knob here and the easiest
+# to dismiss from a thumbnail, so look at the far corner full size: with it off, a near-treatment
+# chip lands on top of the mush every so often and prints full cream, and a handful of those is
+# enough to pull the whole corner back onto the flat. Everything else in the lens is arguing that
+# corner is distant; this is what stops the stacking order arguing the opposite.
+[branch pile]
+seed       = 7
+persp      = 0.0,0.15,0.3,0.5
+depthsort  = 0,1
+depthscale = 0.0004,0.0008,0.0016
