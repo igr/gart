@@ -1605,3 +1605,63 @@ internal val cool_177 = Palette(
     0xffc96a3e,
     0xfff0d3a0
 )
+
+// the four below came out of fimbria. not ramps - each one is a yarn box, a handful of skeins in
+// no particular order, and the piece weights how often each gets picked up *by index*. so dont
+// reorder these. warm glass (ruby, amber, cobalt) stayed in the piece
+
+// jewel glass - ruby, cobalt, amber, emerald. four rods and thats it
+internal val cool_178 = Palette(
+    0xffe0203c,
+    0xff2a55d6,
+    0xfff5a81c,
+    0xff18a878
+)
+
+// the yarn box - reds and oranges off the photo, the pinks, then the odd cool skein someone ran out of
+internal val cool_179 = Palette(
+    0xffe8342a,
+    0xfff05a2c,
+    0xfff0872b,
+    0xfff4ae2e,
+    0xfff2ce4c,
+    0xfff3a0b8,
+    0xfff6c6ce,
+    0xffde3d7e,
+    0xffb4212f,
+    0xff7a1b29,
+    0xff3457c4,
+    0xff7c8fd9,
+    0xff6e3f9e,
+    0xffa88bc7,
+    0xff39a8a3,
+    0xff2c3470
+)
+
+// night - the yarn box after dark. indigo, teal, violet, the odd ember
+internal val cool_180 = Palette(
+    0xff2b3a8f,
+    0xff3457c4,
+    0xff6c8fd9,
+    0xff2fa39a,
+    0xff3e8f72,
+    0xff6e3f9e,
+    0xff4a2c6b,
+    0xffbfd3e6,
+    0xff9aa6e0,
+    0xffe8642a,
+    0xffe9c36a,
+    0xffc94f7c
+)
+
+// ash - bone and grey, a slate, and one red thread
+internal val cool_181 = Palette(
+    0xffede6d6,
+    0xfff3ecdc,
+    0xffdcd6c8,
+    0xffbdb8ae,
+    0xff8e8880,
+    0xff4f4b46,
+    0xffe0482a,
+    0xff8792a0
+)

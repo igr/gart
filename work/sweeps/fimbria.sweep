@@ -1,0 +1,92 @@
+# fimbria - a fringe hung on zigzags. rods bent into zigzags and stacked in tiers, glass strands
+# hanging dead vertical off them and screening onto whatever hangs behind. a layered image and
+# nothing more - each rod picks a layer, back ones go dim. three colours of rod, the rest is one
+# over another.
+# run:  just sweep fimbria     (writes pngs + one contact sheet per branch to output/fimbria)
+# 93 renders across 10 branches.
+
+art    = fimbria.FimbriaKt
+module = arts:falllines
+out    = output/fimbria
+par    = 6
+
+# A new seed rehangs everything: which tier gets which colour, where the rods bend, how wide
+# each tier is, which layer it hangs in. This is the branch that actually shows the piece.
+# 4 (the default) is ruby and amber with a cobalt tier at the bottom, 3 has the most cobalt in
+# it, 2 hangs the widest.
+[branch cast]
+seed = 1:12
+
+# The bend. zig is the half height of a bend and pitch the x run between bends - together they
+# are the angle of the chevrons. 50/150 is about 34 degrees; 80/100 is nearly a sawtooth and
+# 30/220 barely ripples.
+[branch bend]
+seed  = 4
+zig   = 30,50,80
+pitch = 100,150,220
+
+# The stack. drop is strand length in tier spacings - under 1 the curtains dont overlap and it
+# comes apart into separate shelves; over 2 the lower tiers vanish behind the upper ones. 1.5
+# leaves every second rod peeking through.
+[branch stack]
+seed  = 4
+tiers = 6,8,11
+drop  = 1.1,1.5,2.0
+
+# The rows. every tier is rows rods hung a bit apart - stagger is how far, in tier spacings -
+# and each picks its own layer, so a tier can hang in front of the one above it or behind it.
+# thats all the depth there is. rows 1 is a plain stack of shelves.
+[branch rows]
+seed    = 4
+rows    = 1,2,3
+stagger = 0.15,0.4,0.8
+
+# The silhouette. waist is how narrow the top and bottom tiers are next to the belly - 0.15
+# is a diamond, 0.7 a slab. reach is the belly's half width.
+[branch shape]
+seed  = 4
+waist = 0.15,0.32,0.7
+reach = 0.34,0.42,0.5
+
+# The rods. gap is spacing along the bend, w the rod width - the ratio is the coverage, ie how
+# much black shows through a single curtain, and with glass how much of the curtain behind
+# comes through. 2.5/6 is a solid sheet; 5/2.5 is a comb. under w~2 it stops being rods and
+# goes back to thread.
+[branch yarn]
+seed = 4
+gap  = 2.5,3.5,5
+w    = 2.5,4,6
+
+# Colour. pal 0 is warm glass (ruby, amber, a little cobalt), 1 is jewel glass with emerald in,
+# 2 is the sixteen-colour yarn box off the photo - which glass doesnt need, the overlaps make
+# those colours on their own. mood is how much of a tier is its own colour: 0.2 is confetti
+# everywhere, 0.9 gives one solid colour per tier, 0.55 is a red tier, an amber tier, with
+# other rods run in.
+[branch colour]
+seed = 4
+pal  = 0,1,2
+mood = 0.2,0.55,0.9
+
+# The glass. glass is how see-through a strand is and blend is how two of them combine where
+# they cross: over is paint (opaque at glass 0 - the yarn it started as), screen is light
+# through glass, plus is additive and burns to white where three rods meet. 0.35/screen keeps
+# the ruby a ruby; over 0.5 the whole thing goes pastel.
+[branch glass]
+seed  = 4
+glass = 0.2,0.35,0.55
+blend = over,screen,plus
+
+# The runs. run is the mean length of one colour along the rod, in strands. ragged jitters the
+# strand lengths, mostly per run (a bundle was cut together) with a bit per strand.
+[branch runs]
+seed   = 4
+run    = 3,9,25
+ragged = 0.05,0.14,0.35
+
+# Light. fog is brightness at the very back of the stack, and it is most of the depth in the
+# picture - at 0.7 the far runs of every zigzag stop reading as far. tail dims the last third
+# of each strand; 0 gives hard-cut tassels, 0.6 melts them into the black.
+[branch light]
+seed = 4
+fog  = 0.2,0.35,0.7
+tail = 0,0.3,0.6

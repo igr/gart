@@ -1,0 +1,65 @@
+# fimbria - one image per yarn box, each hung the way that box wants. the defaults were tuned on
+# warm glass under screen, and most of the other boxes need their own blend and glass before they
+# look like anything: the pale ones (yarn, ash) screen up to white and night screens up to a lilac
+# haze. nothing in here touches the source defaults - the warm branch *is* them.
+# run:  just sweep fimbria_pal     (writes 001..005.png to output/fimbria_pal, one per box, no sheet)
+# 5 renders across 5 branches, in box order: 001 warm, 002 jewel, 003 yarn, 004 night, 005 ash.
+
+art    = fimbria.FimbriaKt
+module = arts:falllines
+out    = output/fimbria_pal
+par    = 5
+sheet  = off
+
+# Warm glass, as it ships. seed 4 is the cast the source defaults to (pal 5 in the source wraps
+# round to 0) and the whole thing was tuned on this box, so nothing to do here.
+[branch warm]
+pal  = 0
+seed = 4
+
+# Jewel glass. four rods, and the point is that each tier reads as one gem with the other three
+# run through it, so mood goes up to 0.7 - at 0.55 the tiers are half confetti and the cobalt
+# (a quarter of the box) smears the middle. seed 8 puts emerald on the top tier, amber in the
+# belly, ruby low and cobalt scattered. 1..12 tried; 2 and 3 come close but are busier.
+[branch jewel]
+pal  = 1
+seed = 8
+mood = 0.7
+
+# The yarn box. glass=0 blend=over is the yarn it started as (the source says so) and its the only
+# way this box works: sixteen colours screened onto each other go pastel, and the pinks and
+# oranges glass would make are already in the box. seed 4 keeps the default cast - a pink tier
+# over the orange belly and the teal skein at the bottom, nine parts red and orange to one part
+# everything else, which is the photo. 12 has a violet band across the middle that looks good,
+# but a whole tier of a 0.7-weight colour isnt the story.
+[branch yarn]
+pal   = 2
+seed  = 4
+glass = 0
+blend = over
+
+# Night. under screen indigo on indigo lifts to lilac and the mids go grey; over keeps it dark,
+# and glass 0.25 with fog 0.3 lets the back tiers ghost through without brightening anything.
+# mood 0.4 is the odd one, lower than default: a night tier should be mostly indigo/teal/violet
+# with the ember run through it, not an orange shelf (seed 12 at 0.55 does exactly that -
+# striking, but its a stripe). mind that mood re-rolls the runs and every tier colour after the
+# first, so this cast at 0.4 is a different hang than at 0.55: gold embers on the upper tiers,
+# rose here and there, teal at the bottom.
+[branch night]
+pal   = 3
+seed  = 4
+blend = over
+glass = 0.25
+mood  = 0.4
+fog   = 0.3
+
+# Ash. bone screened onto bone is white, so over again, and glass 0.15 for a bit of see-through
+# without going grey. seed 11 is the one where the red is actually one thread - a handful of red
+# runs and a slate one, nothing more (4 hands red to a whole tier, 8 too). fog down to 0.25
+# because with everything near the same value the back has to be darker to read as back.
+[branch ash]
+pal   = 4
+seed  = 11
+blend = over
+glass = 0.15
+fog   = 0.25

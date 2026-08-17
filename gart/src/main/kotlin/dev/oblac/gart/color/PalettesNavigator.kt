@@ -14,7 +14,7 @@ class PalettesNavigator {
     // the when-branches in Palettes, or the navigator walks off the end and throws
     private val sets = listOf(
         PaletteInfo(name = "mix", size = 15, Palettes::mixPalette),
-        PaletteInfo(name = "cool", size = 177, Palettes::coolPalette),
+        PaletteInfo(name = "cool", size = 181, Palettes::coolPalette),
         PaletteInfo(name = "colormap", size = 133, Palettes::colormapPalette),
     )
 

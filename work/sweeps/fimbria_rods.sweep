@@ -1,0 +1,41 @@
+# fimbria - the rods themselves, everything else held. w is the rod width in px and gap the
+# spacing along the bend, so w/gap is the coverage of one curtain: about 1 is edge to edge, under
+# ~0.6 is a comb, past 1 the rods lap and the glass starts stacking on itself and going pale.
+# note gap changes how many rods hang, so the colours re-roll between gap values. w doesnt.
+# run:  just sweep fimbria_rods     (writes pngs + one contact sheet per branch to output/fimbria_rods)
+# 40 renders across 4 branches.
+
+art    = fimbria.FimbriaKt
+module = arts:falllines
+out    = output/fimbria_rods
+par    = 6
+thumb  = 400
+
+# Width alone, spacing left at 3.5. 1.5 is back to thread, 4 is the default, 12 is a curtain
+# of glass tubes with nothing between them.
+[branch width]
+seed = 4
+w    = 1.5,2.5,4,6,9,12
+
+# Width and spacing together. w = gap keeps the coverage near 1, and thats the fair comparison
+# of rod size. w 8 and 12 at gap 2 lap five deep and burn out white; w 2 at gap 12 is a comb
+# with more black than glass.
+[branch grid]
+seed = 4
+w    = 2,4,8,12
+gap  = 2,4,8,12
+
+# The thick version across seeds, at a spacing that leaves a sliver of black between rods.
+[branch thick]
+w    = 8
+gap  = 7
+seed = 1:6
+
+# The finish on a thick rod. taper is the tip - 0 is cut square, 0.9 a needle - and shine is
+# the highlight down one side, which only shows once a rod is wide enough to carry it.
+[branch finish]
+seed  = 4
+w     = 8
+gap   = 7
+taper = 0,0.3,0.6,0.9
+shine = 0,0.3,0.6
