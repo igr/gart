@@ -13,6 +13,7 @@ import dev.oblac.gart.io.pi
 import dev.oblac.gart.io.ps
 import dev.oblac.gart.math.lerp
 import org.jetbrains.skia.Canvas
+import org.jetbrains.skia.Paint
 import org.jetbrains.skia.PathBuilder
 import org.jetbrains.skia.Point
 import org.jetbrains.skia.Rect
@@ -37,7 +38,7 @@ import kotlin.math.sin
 private val n = pi("n", 12)
 private val sunx = pf("sunx", 0.66f)
 private val suny = pf("suny", 0.30f)
-private val sunr = pf("sunr", 0.17f)
+internal val sunr = pf("sunr", 0.17f) // dvd sibling reads this one
 private val fall = pf("fall", 0.7f)    // how far past the rim the light reaches, in canvas widths
 private val gamma = pf("gamma", 0.7f)  // <1 thins the crescents early, >1 keeps them fat for longer
 private val dark = pf("dark", 0.5f)    // where along the reach the moon goes fully dark
@@ -61,16 +62,17 @@ fun main(args: Array<String>) {
     println(gart)
 
     val g = gart.gartvas()
-    draw(g.canvas, g.d)
+    draw(g.canvas, g.d, Circle(g.d.wf * sunx, g.d.hf * suny, g.d.wf * sunr), redFill)
 
     gart.saveImage(g, out.ensureExtension("png"))
     if (!headless) gart.window().showImage(g)
 }
 
-private fun draw(c: Canvas, d: Dimension) {
+// the sun comes in from outside so PhasesDvd can bounce it around and swap its colour (lit).
+// everything else stays put, the grid never moves
+internal fun draw(c: Canvas, d: Dimension, sun: Circle, lit: Paint) {
     c.clear(paper)
 
-    val sun = Circle(d.wf * sunx, d.hf * suny, d.wf * sunr)
     val reach = fall * d.wf
     val cell = d.wf / n
 
@@ -122,14 +124,14 @@ private fun draw(c: Canvas, d: Dimension) {
 
     val farthest = moons.maxOf { it.dist }
     moons.sortedBy { if (it.p >= 0f) it.dist else 2 * farthest - it.dist }.forEach {
-        if (it.p >= 0f) drawMoon(c, it.ctr, it.r, it.a, it.p) else drawMoon(c, it.ctr, it.r, it.a + PI.toFloat(), -it.p)
+        if (it.p >= 0f) drawMoon(c, it.ctr, it.r, it.a, it.p, lit) else drawMoon(c, it.ctr, it.r, it.a + PI.toFloat(), -it.p, lit)
     }
 
     c.drawBorder(d, 40f, paper)
 }
 
 // lit fraction p: 1 full, 0.5 half, 0 new. lit side points at angle a (radians)
-private fun drawMoon(c: Canvas, ctr: Point, r: Float, a: Float, p: Float) {
+private fun drawMoon(c: Canvas, ctr: Point, r: Float, a: Float, p: Float, fill: Paint) {
     val cx = ctr.x
     val cy = ctr.y
     c.save()
@@ -148,6 +150,6 @@ private fun drawMoon(c: Canvas, ctr: Point, r: Float, a: Float, p: Float) {
         else -> lit.arcTo(Rect(cx - e, cy - r, cx + e, cy + r), 90f, -180f, false)     // crescent, the ellipse eats the half disc
     }
     lit.closePath()
-    c.drawPath(lit.detach(), redFill)
+    c.drawPath(lit.detach(), fill)
     c.restore()
 }
