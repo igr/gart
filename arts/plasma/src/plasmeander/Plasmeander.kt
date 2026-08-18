@@ -11,6 +11,7 @@ import dev.oblac.gart.color.darken
 import dev.oblac.gart.color.lerpColor
 import dev.oblac.gart.color.lumOf
 import dev.oblac.gart.color.shiftLuma
+import dev.oblac.gart.io.ensureExtension
 import dev.oblac.gart.math.hash01
 import dev.oblac.gart.noise.SimplexNoise
 import dev.oblac.gart.reactiondiffusion.GrayScott
@@ -107,7 +108,7 @@ fun main() {
     drawDrifters(g.canvas, drifters)
     applyTactileFinish(g, seed)
 
-    val output = if (out.endsWith(".png", true)) out else "$out.png"
+    val output = out.ensureExtension("png")
     gart.saveImage(g, output)
     small.close()
     println("turing-flow seed=$seed lineWidth=$lineWidth density=$density lineLength=$lineLength flowAlignment=$flowAlignment steps=$STEPS -> $output")

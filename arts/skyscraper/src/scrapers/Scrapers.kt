@@ -7,6 +7,7 @@ import dev.oblac.gart.color.RetroColors
 import dev.oblac.gart.gfx.fillOf
 import dev.oblac.gart.gfx.strokeOf
 import dev.oblac.gart.io.*
+import dev.oblac.gart.io.ensureExtension
 import dev.oblac.gart.math.between
 import org.jetbrains.skia.*
 import kotlin.math.*
@@ -133,7 +134,7 @@ fun main(args: Array<String>) {
     )
     snapshot.close()
 
-    val output = if (params.out.endsWith(".png", ignoreCase = true)) params.out else "${params.out}.png"
+    val output = params.out.ensureExtension("png")
     gart.saveImage(g, output)
     if (!headless) gart.window().showImage(g)
 }

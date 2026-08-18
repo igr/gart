@@ -12,6 +12,7 @@ import dev.oblac.gart.color.lighten
 import dev.oblac.gart.fx.addGrain
 import dev.oblac.gart.gfx.drawVignette
 import dev.oblac.gart.io.detectHeadlessFlags
+import dev.oblac.gart.io.ensureExtension
 import dev.oblac.gart.io.pf
 import dev.oblac.gart.io.pi
 import dev.oblac.gart.io.pl
@@ -113,7 +114,7 @@ fun main(args: Array<String>) {
     if (params.vignette > 0f) g.canvas.drawVignette(g.d, params.vignette, radius = 0.82f, innerStop = 0.52f)
     if (params.grain > 0f) addGrain(g, params.grain, params.seed.toInt())
 
-    val output = if (params.out.endsWith(".png", ignoreCase = true)) params.out else "${params.out}.png"
+    val output = params.out.ensureExtension("png")
     gart.saveImage(g, output)
     if (!headless) gart.window().showImage(g)
 }

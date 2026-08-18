@@ -14,6 +14,7 @@ import dev.oblac.gart.gfx.drawPoly4
 import dev.oblac.gart.gfx.fillOf
 import dev.oblac.gart.gfx.strokeOf
 import dev.oblac.gart.io.detectHeadlessFlags
+import dev.oblac.gart.io.ensureExtension
 import dev.oblac.gart.io.pf
 import dev.oblac.gart.io.pi
 import dev.oblac.gart.io.pl
@@ -124,7 +125,7 @@ fun main(args: Array<String>) {
     val g = gart.gartvas()
     val draw = RectFlowDraw(g)
 
-    val output = if (p.out.endsWith(".png", ignoreCase = true)) p.out else "${p.out}.png"
+    val output = p.out.ensureExtension("png")
     gart.saveImage(g, output)
 
     if (!headless) gart.window().show(draw)

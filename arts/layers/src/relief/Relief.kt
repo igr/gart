@@ -9,6 +9,7 @@ import dev.oblac.gart.color.lerpColor
 import dev.oblac.gart.color.lighten
 import dev.oblac.gart.color.parseColor
 import dev.oblac.gart.io.detectHeadlessFlags
+import dev.oblac.gart.io.ensureExtension
 import dev.oblac.gart.io.pf
 import dev.oblac.gart.io.pi
 import dev.oblac.gart.io.ps
@@ -121,7 +122,7 @@ fun main(args: Array<String>) {
         true,
     )
     map.close()
-    val output = if (p.out.endsWith(".png", true)) p.out else "${p.out}.png"
+    val output = p.out.ensureExtension("png")
     gart.saveImage(g, output)
     if (!headless) gart.window().showImage(g)
 }

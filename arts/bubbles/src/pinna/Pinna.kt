@@ -9,6 +9,7 @@ import dev.oblac.gart.color.space.color4f
 import dev.oblac.gart.gfx.drawVignette
 import dev.oblac.gart.gfx.fillOf
 import dev.oblac.gart.io.detectHeadlessFlags
+import dev.oblac.gart.io.ensureExtension
 import dev.oblac.gart.io.pf
 import dev.oblac.gart.io.pi
 import dev.oblac.gart.io.pl
@@ -194,7 +195,7 @@ fun main(args: Array<String>) {
 
     if (p.vignette > 0f) g.canvas.drawVignette(g.d, p.vignette, color = 0x1A1510, radius = 0.95f, innerStop = 0.55f)
 
-    val output = if (p.out.endsWith(".png", ignoreCase = true)) p.out else "${p.out}.png"
+    val output = p.out.ensureExtension("png")
     gart.saveImage(g, output)
     if (!headless) gart.window().showImage(g)
 }
