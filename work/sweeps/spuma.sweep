@@ -1,0 +1,78 @@
+# spuma - a dense raft of soap bubbles from above. circles packed big to small on one disc
+# mostly off the page (so its edge sweeps through the frame), fused along their radical axes
+# (plateau geometry for free), then one per-pixel shader does all the optics: interference
+# bands parallel to each cell edge, bright film lines on the walls, nodes where three films
+# meet, a glint per bubble, a few cells already burst.
+# run:  just sweep spuma     (writes pngs + one contact sheet per branch to output/spuma)
+# 96 renders across 10 branches.
+
+art    = spuma.SpumaKt
+module = arts:blob
+out    = output/spuma
+par    = 6
+
+# A new seed re-packs the raft: where the giants sit, which cells burst, how the sweep
+# wanders. 2 is the committed hero.
+[branch cast]
+seed = 1:12
+
+# The colours. Interference bands sample the ramp, but every bubble only wears its own slice
+# of it - thats what turns a raft into colour chords instead of one hue everywhere. slice 1
+# hands every bubble the whole ramp and the chords collapse.
+[branch film]
+seed  = 2
+pal   = 9,1,34,77,135,101
+slice = 0.2,0.38,0.7
+
+# The drain. ringw is the band wavelength, fade how many bands survive before the film goes
+# dark inside - low fade is young foam (one pale wash and glass), high is an old raft striped
+# to the middle, which reads as agate rather than soap.
+[branch drain]
+seed  = 2
+ringw = 10,20,32
+fade  = 0.5,0.85,1.6
+
+# The packing. fuse is how deep neighbours sink into each other - 0 just kisses and the
+# walls vanish, 0.3 goes honeycomb. rmax sets the giants against the gap-fillers.
+[branch raft]
+seed = 2
+fuse = 0.06,0.22,0.35
+rmax = 0.05,0.07,0.1
+
+# The sweep. rx walks the raft disc across the page (its centre, in page widths - off the
+# page is the point), rim is how ragged the long edge gets - 0 is a compass arc.
+[branch colony]
+seed = 2
+rx   = -0.1,0.02,0.35
+rim  = 0,0.12,0.3
+
+# The casualties. popp is the fraction of cells already burst, ghost how much light a burst
+# one keeps - 0 is a black hole in the raft.
+[branch burst]
+seed  = 2
+popp  = 0,0.02,0.08
+ghost = 0,0.45,1
+
+# The loners drifting past the raft edge. the dark mostly wants to stay empty.
+[branch loners]
+seed = 2
+sats = 0,4,12
+
+# The walls. filmw is the bright line's width, jw the node glow where films meet.
+[branch walls]
+seed  = 2
+filmw = 0.8,1.35,2.5
+jw    = 3,6,12
+
+# The wobble. bands drift off true by a slow fbm - 0 is machine-turned concentric rings,
+# high tears the bands into watered silk.
+[branch hand]
+seed  = 2
+wob   = 0,0.35,0.9
+wfreq = 0.002,0.006,0.015
+
+# The room. glint is the window reflected in every skin, grain the tooth over the lot.
+[branch room]
+seed  = 2
+glint = 0.4,0.8,1.0
+grain = 0,0.10,0.25

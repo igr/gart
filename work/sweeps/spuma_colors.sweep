@@ -1,0 +1,26 @@
+# spuma - colour survey. the ramp is the whole look: every bubble wears its own slice of it, the
+# liquid and the void are pulled off it too, so one knob (pal) recolours everything at once.
+# all 181 cool palettes at the hero seed, four sheets, then the picks get a flip each way.
+# run:  just sweep spuma_colors     (writes pngs + one contact sheet per branch to output/spuma_colors)
+# 181 renders across 4 branches, plus the picks.
+
+art    = spuma.SpumaKt
+module = arts:blob
+out    = output/spuma_colors
+par    = 6
+
+[branch ramp_a]
+seed = 2
+pal  = 1:46
+
+[branch ramp_b]
+seed = 2
+pal  = 47:92
+
+[branch ramp_c]
+seed = 2
+pal  = 93:138
+
+[branch ramp_d]
+seed = 2
+pal  = 139:181

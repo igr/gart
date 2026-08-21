@@ -1,0 +1,17 @@
+# spuma - the picks out of the colour survey (spuma_colors), each ramp both ways round. flip
+# swaps which end the liquid and the young skins take, so a ramp that reads muddy one way can
+# sing the other. run:  just sweep spuma_picks
+# 16 renders, one sheet.
+
+art    = spuma.SpumaKt
+module = arts:blob
+out    = output/spuma_picks
+par    = 6
+
+# 34 is the committed hero (magenta and gold). these are the distinct chords worth a second look:
+# 1 teal-gold-rust, 14 indigo, 55 magenta on cyan, 69 deep blue, 83 amber, 135 deep red,
+# 155 teal and olive, 174 violet-gold-blue.
+[branch picks]
+seed = 2
+pal  = 1,14,55,69,83,135,155,174
+flip = 0,1
