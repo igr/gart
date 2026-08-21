@@ -1,6 +1,9 @@
 package dev.oblac.gart.math
 
+import kotlin.math.abs
 import kotlin.math.floor
+import kotlin.math.max
+import kotlin.math.min
 
 fun Double.f() = toFloat()
 fun Int.f() = toFloat()
@@ -49,6 +52,27 @@ fun smoothstep(edge0: Float, edge1: Float, x: Float): Float {
 
 fun step(threshold: Float, x: Float) =
     if (x >= threshold) 1.0f else 0.0f
+
+/**
+ * Quadratic polynomial smooth-min (iq): `min(a, b)` with the crease rounded over a band
+ * of width [k]. The dip at `a == b` is `k/4`; see [sminCubic] for the shallower one.
+ */
+fun smin(a: Float, b: Float, k: Float): Float {
+    if (k <= 1e-4f) return min(a, b)
+    val h = (0.5f + 0.5f * (b - a) / k).coerceIn(0f, 1f)
+    return lerp(b, a, h) - k * h * (1f - h)
+}
+
+/**
+ * Cubic smooth-min (iq): dips only `k/6` at `a == b`, so the blend comes in as a long
+ * tapered spindle rather than a bulge. Outside the band it returns the winner exactly,
+ * not a rounded copy of it - early-outs can lean on that.
+ */
+fun sminCubic(a: Float, b: Float, k: Float): Float {
+    if (k <= 1e-4f) return min(a, b)
+    val h = max(k - abs(a - b), 0f) / k
+    return min(a, b) - h * h * h * k * (1f / 6f)
+}
 
 // Helper function for fractional part (equivalent to frac in shader)
 fun frac(value: Float): Float = value - floor(value)

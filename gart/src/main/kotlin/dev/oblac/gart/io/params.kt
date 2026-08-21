@@ -27,3 +27,8 @@ fun pi(k: String, d: Int) = (System.getProperty(k)?.toInt() ?: d).also { record(
 fun pl(k: String, d: Long) = (System.getProperty(k)?.toLong() ?: d).also { record(k, it) }
 fun pf(k: String, d: Float) = (System.getProperty(k)?.toFloat() ?: d).also { record(k, it) }
 fun ps(k: String, d: String) = (System.getProperty(k) ?: d).also { record(k, it) }
+
+// same, with the allowed range on the knob itself. the resolved value (default or override) must
+// land inside it, so a typo in a default fails just like a bad -D would
+fun pi(k: String, d: Int, range: IntRange) = pi(k, d).also { require(it in range) { "$k must be between ${range.first} and ${range.last}" } }
+fun pf(k: String, d: Float, range: ClosedFloatingPointRange<Float>) = pf(k, d).also { require(it in range) { "$k must be between ${range.start} and ${range.endInclusive}" } }

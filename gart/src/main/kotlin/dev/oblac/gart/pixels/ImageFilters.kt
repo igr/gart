@@ -1,5 +1,7 @@
 package dev.oblac.gart.pixels
 
+import dev.oblac.gart.util.parallelBands
+import kotlin.math.ceil
 import kotlin.math.exp
 import kotlin.math.max
 import kotlin.math.min
@@ -73,6 +75,42 @@ fun gaussianBlur(data: DoubleArray, w: Int, h: Int, sigma: Double, mode: PadMode
         }
     }
     return result
+}
+
+/**
+ * The same blur for a [FloatArray] field, but in place and built for big supersampled buffers:
+ * separable, edges clamped (the border pixel repeats outward), rows split across threads.
+ * [tmp] is scratch of at least `w * h`; pass one in to reuse it across calls. Radius is
+ * `ceil(3 * sigma)`, so a sigma of 0 is a no-op.
+ */
+fun gaussianBlur(src: FloatArray, w: Int, h: Int, sigma: Float, tmp: FloatArray = FloatArray(w * h)) {
+    require(src.size == w * h) { "src must be w * h" }
+    require(tmp.size >= w * h) { "tmp must hold w * h" }
+    val rad = ceil(sigma * 3f).toInt()
+    if (rad < 1) return
+    val k = FloatArray(rad + 1) { exp(-(it * it) / (2f * sigma * sigma)) }
+    var tail = 0f
+    for (i in 1..rad) tail += k[i]
+    val norm = 1f / (k[0] + 2f * tail) // weights sum to 1, or the blur brightens the field
+    for (i in k.indices) k[i] *= norm
+
+    parallelBands(h) { y0, y1 ->
+        for (y in y0 until y1) {
+            val row = y * w
+            for (x in 0 until w) {
+                var s = src[row + x] * k[0]
+                for (o in 1..rad) s += k[o] * (src[row + max(x - o, 0)] + src[row + min(x + o, w - 1)])
+                tmp[row + x] = s
+            }
+        }
+    }
+    parallelBands(h) { y0, y1 ->
+        for (y in y0 until y1) for (x in 0 until w) {
+            var s = tmp[y * w + x] * k[0]
+            for (o in 1..rad) s += k[o] * (tmp[max(y - o, 0) * w + x] + tmp[min(y + o, h - 1) * w + x])
+            src[y * w + x] = s
+        }
+    }
 }
 
 private fun gaussianKernel1D(radius: Int, sigma: Double): DoubleArray {
