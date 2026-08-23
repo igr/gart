@@ -90,8 +90,14 @@ A collection of generative art pieces (ordered by name).
       <a href="arts/blob/blob.jpg"><img src="arts/blob/blob_thumb.jpg" alt="Blob" width="100%"/></a>
       <br><b>Blob</b>
     </td>
-    <td width="33%"></td>
-    <td width="33%"></td>
+    <td width="33%" align="center">
+      <a href="arts/blob/spuma055.png"><img src="arts/blob/spuma055_thumb.png" alt="Spuma055" width="100%"/></a>
+      <br><b>Spuma055</b>
+    </td>
+    <td width="33%" align="center">
+      <a href="arts/blob/spuma.png"><img src="arts/blob/spuma_thumb.png" alt="Spuma" width="100%"/></a>
+      <br><b>Spuma</b>
+    </td>
   </tr>
 </table>
 
@@ -176,10 +182,13 @@ A collection of generative art pieces (ordered by name).
       <br><b>Nervure</b>
     </td>
     <td width="33%" align="center">
+      <a href="arts/cell/rete.png"><img src="arts/cell/rete_thumb.png" alt="Rete" width="100%"/></a>
+      <br><b>Rete</b>
+    </td>
+    <td width="33%" align="center">
       <a href="arts/cell/rugae.png"><img src="arts/cell/rugae_thumb.png" alt="Rugae" width="100%"/></a>
       <br><b>Rugae</b>
     </td>
-    <td width="33%"></td>
   </tr>
 </table>
 
@@ -268,6 +277,20 @@ A collection of generative art pieces (ordered by name).
       <a href="arts/falllines/falllines.png"><img src="arts/falllines/falllines_thumb.png" alt="Falllines" width="100%"/></a>
       <br><b>Falllines</b>
     </td>
+    <td width="33%" align="center">
+      <a href="arts/falllines/fimbria_001.png"><img src="arts/falllines/fimbria_001_thumb.png" alt="Fimbria 001" width="100%"/></a>
+      <br><b>Fimbria 001</b>
+    </td>
+    <td width="33%" align="center">
+      <a href="arts/falllines/fimbria_003.png"><img src="arts/falllines/fimbria_003_thumb.png" alt="Fimbria 003" width="100%"/></a>
+      <br><b>Fimbria 003</b>
+    </td>
+  </tr>
+  <tr>
+    <td width="33%" align="center">
+      <a href="arts/falllines/fimbria_005.png"><img src="arts/falllines/fimbria_005_thumb.png" alt="Fimbria 005" width="100%"/></a>
+      <br><b>Fimbria 005</b>
+    </td>
     <td width="33%"></td>
     <td width="33%"></td>
   </tr>
@@ -278,10 +301,13 @@ A collection of generative art pieces (ordered by name).
 <table width="100%">
   <tr>
     <td width="33%" align="center">
+      <a href="arts/flamebrush/cirrus.png"><img src="arts/flamebrush/cirrus_thumb.png" alt="Cirrus" width="100%"/></a>
+      <br><b>Cirrus</b>
+    </td>
+    <td width="33%" align="center">
       <a href="arts/flamebrush/flamebrush1.png"><img src="arts/flamebrush/flamebrush1_thumb.png" alt="Flamebrush1" width="100%"/></a>
       <br><b>Flamebrush1</b>
     </td>
-    <td width="33%"></td>
     <td width="33%"></td>
   </tr>
 </table>
@@ -877,10 +903,13 @@ A collection of generative art pieces (ordered by name).
   </tr>
   <tr>
     <td width="33%" align="center">
+      <a href="arts/palecircles/phases.png"><img src="arts/palecircles/phases_thumb.png" alt="Phases" width="100%"/></a>
+      <br><b>Phases</b>
+    </td>
+    <td width="33%" align="center">
       <a href="arts/palecircles/shad.png"><img src="arts/palecircles/shad_thumb.png" alt="Shad" width="100%"/></a>
       <br><b>Shad</b>
     </td>
-    <td width="33%"></td>
     <td width="33%"></td>
   </tr>
 </table>
@@ -1040,6 +1069,16 @@ A collection of generative art pieces (ordered by name).
       <br><b>Rectaround</b>
     </td>
     <td width="33%" align="center">
+      <a href="arts/rectapart/rectflow2.png"><img src="arts/rectapart/rectflow2_thumb.png" alt="Rectflow2" width="100%"/></a>
+      <br><b>Rectflow2</b>
+    </td>
+    <td width="33%" align="center">
+      <a href="arts/rectapart/rectflow.png"><img src="arts/rectapart/rectflow_thumb.png" alt="Rectflow" width="100%"/></a>
+      <br><b>Rectflow</b>
+    </td>
+  </tr>
+  <tr>
+    <td width="33%" align="center">
       <a href="arts/rectapart/rectpack1.png"><img src="arts/rectapart/rectpack1_thumb.png" alt="Rectpack1" width="100%"/></a>
       <br><b>Rectpack1</b>
     </td>
@@ -1047,6 +1086,7 @@ A collection of generative art pieces (ordered by name).
       <a href="arts/rectapart/rectpack2.png"><img src="arts/rectapart/rectpack2_thumb.png" alt="Rectpack2" width="100%"/></a>
       <br><b>Rectpack2</b>
     </td>
+    <td width="33%"></td>
   </tr>
 </table>
 
@@ -1554,4 +1594,4 @@ A collection of generative art pieces (ordered by name).
 
 ---
 
-🖼️ **250 works** across **50 collections** — and counting.
+🖼️ **260 works** across **50 collections** — and counting.

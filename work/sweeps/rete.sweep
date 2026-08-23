@@ -1,0 +1,100 @@
+# rete - a soap-film net with a few more of itself out of focus behind it, draining toward the
+# bottom-right corner. discs packed big to small under a froth field (big clean cells far from
+# the drain, patches of small ones, sparse clusters of tiny ones in the gaps), the whole size
+# window sliding down geometrically toward the drain, then one distance field per layer: every
+# pixel finds the nearest disc surfaces, the wall is the gap between the first two, a cubic
+# smooth-min over the next few tapers the walls into the nodes. toward the drain the borders
+# fatten until the cells go solid black and all thats left is the bright film line down the
+# middle of every wall, and that thins and fades with the cell - so the page runs from black at
+# the corner, through white-line cells, to black-line cells. nothing is painted over anything,
+# its a gradient of cell size. back layers: same thing again with another seed, blurred and
+# greyed, multiplied in.
+# run:  just sweep rete     (writes pngs + one contact sheet per branch to output/rete)
+# 93 renders across 11 branches.
+
+art    = rete.ReteKt
+module = arts:cell
+out    = output/rete
+par    = 6
+
+# A new seed re-packs everything: where the dry cells sit, what the back layers get.
+# 3 is the committed hero.
+[branch cast]
+seed = 1:12
+
+# The froth. froth is roughly the share of the page that turns to small cells (on top of the
+# drain side, which always does), fscale how many zones that splits into - under 1 is one big
+# clean region against one big patch.
+[branch froth]
+seed   = 3
+froth  = 0.15,0.3,0.5
+fscale = 0.5,0.7,1.1
+
+# The sizes. rbig sets the giants in page widths, cap the biggest bubble let into a patch as a
+# fraction of rbig. rbig 0.1 gave 600 cells in front and read as texture, 0.14 gives about
+# 150 on the page and carries.
+[branch sizes]
+seed = 3
+rbig = 0.11,0.14,0.17
+cap  = 0.2,0.28,0.36
+
+# The specks - clusters of tiny bubbles in the gaps. 0 is none. its a noise threshold, not a
+# true share, so it saturates fast.
+[branch specks]
+seed   = 3
+specks = 0,0.2,0.4
+
+# The ink. wall is the film mid-edge between the giants in px (little ones run thinner on their
+# own), knot the reach of the taper into the nodes - wall 4, knot 50 is the committed look. knot
+# is for the giants and scales down with the bubble; it used to scale slower and the small cells
+# rounded into pebbles.
+[branch ink]
+seed = 3
+wall = 3,4,5.5
+knot = 30,50,75
+
+# The film line. core is how light it is inside a dry fat node (toward the drain its white
+# regardless), film its half-width in px. it sits on the distance field (where the two nearest
+# surfaces tie) but is only let through where a blur of the ink says the ink is wide, so thin
+# films stay solid. the first version lit the whole node off the distance field alone and came
+# out with black claws inside merged nodes.
+[branch core]
+seed = 3
+core = 0,0.5,0.8
+film = 0.8,1.3,2
+
+# The drain. pool is the radius of the fully wet disc off the corner in page widths (0 is a dry
+# page, no gradient at all), prim how much its edge wanders. keep the disc small - a 0.5 one
+# flattened the gradient into one uniform mesh across the whole corner.
+[branch drain]
+seed = 3
+pool = 0,0.05,0.2
+prim = 0.05,0.12,0.25
+
+# The gradient. wet is how far past the disc the foam still counts as wet, in page widths -
+# the whole black-to-white run happens inside it; sink how small the cells get at the drain as
+# a multiple of their dry size. the smallest tier (rmin) floors it.
+[branch wet]
+seed = 3
+wet  = 0.5,0.85,1.2
+sink = 0.03,0.05,0.1
+
+# How fat the borders get at the drain. 8 still left a white dot in every ring there, under ~5
+# the cells never go solid and the corner is a dense net, not black.
+[branch flood]
+seed  = 3
+flood = 6,12,20
+
+# The depth. blur is px per step back, grey the ink of the first layer back (the ones behind
+# keep fade of the previous). the back nets should still read as lines, just soft grey ones -
+# blur past 4 turns them into smudges, low blur + high grey reads as a double exposure.
+[branch depth]
+seed = 3
+blur = 1.2,2.2,4
+grey = 0.35,0.5,0.65
+
+# How many layers and how much bigger each one behind gets. layers 1 is the bare net.
+[branch stack]
+seed   = 3
+layers = 1,2,4,6
+zoom   = 1,1.1,1.3
