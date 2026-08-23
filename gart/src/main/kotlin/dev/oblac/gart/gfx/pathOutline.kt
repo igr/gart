@@ -4,8 +4,52 @@ import org.jetbrains.skia.Path
 import org.jetbrains.skia.PathBuilder
 import org.jetbrains.skia.PathMeasure
 import org.jetbrains.skia.Point
+import kotlin.math.hypot
+import kotlin.math.max
+import kotlin.math.min
 
 data class PathOutline(val line: Path, val width: Float, val outline: Path)
+
+/**
+ * Closed outline of a sampled polyline that has its own half-width at every sample: walks up
+ * one side and back down the other, so the stroke can swell in the middle and run to a point
+ * at both ends - which stroking a path cannot do. The variable-width twin of [pathToOutline].
+ *
+ * Only the first [n] samples are read, so the arrays can be reused buffers. Normals come from
+ * the central difference of the neighbouring samples (one-sided at the ends); a degenerate step
+ * falls back to a horizontal tangent. Fewer than two samples give an empty path.
+ */
+fun outlineOf(xs: FloatArray, ys: FloatArray, halfWidths: FloatArray, n: Int = xs.size): Path {
+    if (n < 2) return Path()
+    val nx = FloatArray(n)
+    val ny = FloatArray(n)
+    for (i in 0 until n) {
+        val a = max(0, i - 1)
+        val b = min(n - 1, i + 1)
+        var tx = xs[b] - xs[a]
+        var ty = ys[b] - ys[a]
+        val l = hypot(tx, ty)
+        if (l < 1e-5f) {
+            tx = 1f; ty = 0f
+        } else {
+            tx /= l; ty /= l
+        }
+        nx[i] = -ty
+        ny[i] = tx
+    }
+
+    val pb = PathBuilder()
+    for (i in 0 until n) {
+        val h = halfWidths[i]
+        pb.lineOrMove(i == 0, xs[i] + nx[i] * h, ys[i] + ny[i] * h)
+    }
+    for (i in n - 1 downTo 0) {
+        val h = halfWidths[i]
+        pb.lineTo(xs[i] - nx[i] * h, ys[i] - ny[i] * h)
+    }
+    pb.closePath()
+    return pb.detach()
+}
 
 fun Path.toOutline(width: Float): PathOutline = pathToOutline(this, width)
 

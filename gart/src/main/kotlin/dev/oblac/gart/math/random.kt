@@ -20,6 +20,14 @@ fun Random.rndf(min: Number, max: Number): Float = nextFloat() * (max.toFloat() 
 /** Returns a uniformly distributed value between [from] and [to]. */
 fun Random.between(from: Float, to: Float): Float = from + nextFloat() * (to - from)
 
+/**
+ * Returns a uniformly distributed integer between [from] and [to], both ends inclusive - unlike
+ * [rndi], which excludes the upper bound. A degenerate range (`to <= from`) returns [from]
+ * without drawing, so a seeded piece keeps the same random sequence whether a count knob is 0
+ * or not.
+ */
+fun Random.between(from: Int, to: Int): Int = if (to <= from) from else from + nextInt(to - from + 1)
+
 fun Random.rnd(min: Double, max: Double): Double = min + (max - min) * nextDouble()
 
 /**
