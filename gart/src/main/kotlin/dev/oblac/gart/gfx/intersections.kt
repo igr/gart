@@ -2,6 +2,7 @@ package dev.oblac.gart.gfx
 
 import dev.oblac.gart.math.fastSqrt
 import org.jetbrains.skia.Point
+import kotlin.math.hypot
 
 fun intersectionsOf(
     line: Line,
@@ -113,3 +114,27 @@ fun segmentsCross(
 
 fun segmentsCross(a1: Point, a2: Point, b1: Point, b2: Point): Boolean =
     segmentsCross(a1.x, a1.y, a2.x, a2.y, b1.x, b1.y, b2.x, b2.y)
+
+/**
+ * Does the segment `a→b` pass through the circle - an occlusion / line-of-sight test. Only a
+ * circle sitting strictly between the two ends counts: a segment that starts or ends inside the
+ * circle returns false, which is what you want when the ends are a light and a point on some
+ * body of their own. Allocation-free; a zero-length segment hits nothing.
+ */
+fun segmentHitsCircle(ax: Float, ay: Float, bx: Float, by: Float, cx: Float, cy: Float, r: Float): Boolean {
+    val dx = bx - ax
+    val dy = by - ay
+    val len = hypot(dx, dy)
+    if (len < 1e-3f) return false
+    val ux = dx / len
+    val uy = dy / len
+    val ox = cx - ax
+    val oy = cy - ay
+    val t = ox * ux + oy * uy
+    if (t <= 0f || t >= len) return false
+    val q = ox * uy - oy * ux
+    return q * q < r * r
+}
+
+/** [segmentHitsCircle] for a [Circle]: does the segment `a→b` pass through it. */
+fun Circle.blocks(a: Point, b: Point): Boolean = segmentHitsCircle(a.x, a.y, b.x, b.y, x, y, radius)

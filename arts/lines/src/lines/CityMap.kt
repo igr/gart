@@ -4,11 +4,11 @@ import dev.oblac.gart.Dimension
 import dev.oblac.gart.Gart
 import dev.oblac.gart.color.BgColors
 import dev.oblac.gart.color.Palettes
+import dev.oblac.gart.gfx.paint
 import dev.oblac.gart.math.DOUBLE_PIf
 import dev.oblac.gart.math.PIf
 import org.jetbrains.skia.Canvas
 import org.jetbrains.skia.Color
-import org.jetbrains.skia.Paint
 import org.jetbrains.skia.PaintStrokeCap
 import kotlin.math.pow
 import kotlin.random.Random
@@ -61,11 +61,10 @@ private fun draw(c: Canvas, d: Dimension) {
 
     val lineSize = 2f
 
-    val paint = Paint().apply {
+    val paint = paint().apply {
         color = Color.BLACK
         strokeWidth = lineSize
         strokeCap = PaintStrokeCap.ROUND
-        isAntiAlias = true
     }
 
     streets

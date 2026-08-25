@@ -27,8 +27,7 @@ val waterColors = ppp.map { fillOf(it) }
 val waterColorsInt = ppp.map { it.color4f() }.toTypedArray()
 val bbbColors = Palettes.cool36.map { fillOf(it) }
 
-val topGradient = Paint().apply {
-    this.isAntiAlias = true
+val topGradient = paint().apply {
     this.shader = makeLinearGradient(
         Point(0f, 0f),
         Point(0f, 800f),

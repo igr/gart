@@ -3,6 +3,7 @@ package accretion
 import dev.oblac.gart.Gart
 import dev.oblac.gart.Gartvas
 import dev.oblac.gart.color.Palette
+import dev.oblac.gart.gfx.paint
 import dev.oblac.gart.io.detectHeadlessFlags
 import dev.oblac.gart.io.pf
 import dev.oblac.gart.io.pi
@@ -215,7 +216,7 @@ private fun paint(g: Gartvas, dla: Dla) {
     val smoothed = smoothAge(dla.state, maxAge)    // masked blur: denoise speckle, keep branch contrast
 
     // base layer: every frozen cell as a soft dot, colored by its smoothed freeze-age
-    val dot = Paint().apply { isAntiAlias = true }
+    val dot = paint()
     val r = SCALE * DOT
     var i = 0
     for (gy in 0 until GH) for (gx in 0 until GW) {
@@ -239,12 +240,11 @@ private fun paint(g: Gartvas, dla: Dla) {
     // the living frontier: where colonies collide last, the SMOOTHED age is highest and coherent
     // (the ember). Light only those using the smoothed field means isolated late pockets
     // get averaged down and don't sprinkle specks, so the suture glow stays clean
-    val halo = Paint().apply {
-        isAntiAlias = true
+    val halo = paint().apply {
         blendMode = BlendMode.PLUS
         maskFilter = MaskFilter.makeBlur(FilterBlurMode.NORMAL, 3f)
     }
-    val tip = Paint().apply { isAntiAlias = true }
+    val tip = paint()
     var j = 0
     for (gy in 0 until GH) for (gx in 0 until GW) {
         val a = smoothed[j++]

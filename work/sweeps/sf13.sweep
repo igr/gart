@@ -1,0 +1,55 @@
+# sf13 - scratched. a scratchboard plate: lines cut into black, spheres turned on the lathe one
+# parallel at a time, the line swelling where the sun hits and thinning to a hair in the dark.
+# the sun goes through the same lathe in red with a rough grain, and sits in a pond of plain
+# rings that thin to nothing where a body is in the way, so the shadows are wedges. a moon in
+# its planets shadow gets cut in red too.
+# run:  just sweep sf13     (writes pngs + one contact sheet per branch to output/sf13)
+# 60 seeds + 5 branches.
+
+art    = sf.SF13Kt
+module = arts:sf
+out    = output/sf13
+par    = 6
+
+# A new seed moves the sun to another corner, recasts the bodies and which moons hang in a
+# shadow. 49 is the default - the big planet top left, sun top right, moons trailing off down
+# the pond. picked out of 1:60, 33 and 30 the runners-up. the big one had rings for a while,
+# dropped - too saturn, too much of a scene.
+[branch cast]
+seed = 1:60
+
+# The cut. pitch is px between parallels, fill the widest line as a share of it (1 = the lit side
+# goes solid), gamma the shade curve. tone here is nothing but line weight.
+[branch cut]
+seed  = 49
+pitch = 2.4,3.2,4.5
+fill  = 0.8,0.95,1.1
+gamma = 0.5,0.8,1.4
+
+# The surface. relief is noise on the line weight, some bodies stretch it into bands.
+[branch surface]
+seed   = 49
+relief = 0,0.5,1
+eclipse = 0.05,0.12,0.3
+
+# The pond. plain rings round the sun, rgap the first gap (it opens 4% a ring), ringw the line
+# at the sun. this replaced a burst of rays, then wobbling rings with spiral phase steps and gaps
+# breathing into wave fronts - too much going on next to the planets, plain circles sit behind.
+[branch pond]
+seed  = 49
+rings = 40,70,120
+rgap  = 6,9,14
+ringw = 1.2,2,3
+
+# The sun. it goes through the same lathe in red, limb darkening for shade, grain is the
+# granulation noise on top (the planets use relief). 0 is a flat red disc again.
+# tried the sun as thick red rings too - it echoed the pond and read as a target. dropped.
+[branch sun]
+seed  = 49
+sun   = 70,120,200
+grain = 0,0.8,1.4
+
+# The sky.
+[branch sky]
+seed   = 49
+bodies = 3,6,10

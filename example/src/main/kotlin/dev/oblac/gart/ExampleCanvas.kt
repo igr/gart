@@ -4,6 +4,7 @@ import dev.oblac.gart.color.CssColors
 import dev.oblac.gart.color.gradientOf
 import dev.oblac.gart.gfx.Point
 import dev.oblac.gart.gfx.fillOfBlue
+import dev.oblac.gart.gfx.paint
 import dev.oblac.gart.gfx.strokeOf
 import org.jetbrains.skia.*
 import org.jetbrains.skia.BlendMode.SRC_OVER
@@ -49,9 +50,7 @@ private fun drawPatch(c: Canvas) {
         Point(3f * 100f / 4f, 100f)
     )
 
-    val p = Paint().apply {
-        isAntiAlias = true
-    }
+    val p = paint()
 
     p.shader = Shader.makeLinearGradient(
         pts[0], pts[1], gradientOf(

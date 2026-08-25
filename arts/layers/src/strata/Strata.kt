@@ -11,6 +11,7 @@ import dev.oblac.gart.color.lerpColors
 import dev.oblac.gart.color.lighten
 import dev.oblac.gart.fx.addGrain
 import dev.oblac.gart.gfx.drawVignette
+import dev.oblac.gart.gfx.paint
 import dev.oblac.gart.io.detectHeadlessFlags
 import dev.oblac.gart.io.ensureExtension
 import dev.oblac.gart.io.pf
@@ -22,7 +23,6 @@ import dev.oblac.gart.smooth.bSpline
 import org.jetbrains.skia.Canvas
 import org.jetbrains.skia.ClipMode
 import org.jetbrains.skia.ImageFilter
-import org.jetbrains.skia.Paint
 import org.jetbrains.skia.Path
 import org.jetbrains.skia.PathBuilder
 import org.jetbrains.skia.Point
@@ -241,8 +241,7 @@ private fun closeToTop(edge: Path): Path = PathBuilder(edge)
     .detach()
 
 private fun drawGround(c: Canvas, colors: IntArray) {
-    c.drawPaint(Paint().apply {
-        isAntiAlias = true
+    c.drawPaint(paint().apply {
         isDither = true
         shader = Shader.makeLinearGradient(
             0f,
@@ -256,8 +255,7 @@ private fun drawGround(c: Canvas, colors: IntArray) {
 
 private fun drawPaper(c: Canvas, path: Path, color: Int, p: Params) {
     val shadowColor = argb((p.shadowAlpha * 255f).roundToInt(), 2, 7, 13)
-    c.drawPath(path, Paint().apply {
-        isAntiAlias = true
+    c.drawPath(path, paint().apply {
         isDither = true
         shader = Shader.makeLinearGradient(
             0f,
@@ -291,8 +289,7 @@ private fun drawOrb(c: Canvas, p: Params, colors: IntArray) {
 
     c.save()
     c.rotate(p.orbTilt, cx, cy)
-    c.drawPath(oval, Paint().apply {
-        isAntiAlias = true
+    c.drawPath(oval, paint().apply {
         isDither = true
         shader = Shader.makeLinearGradient(
             cx - rx * 0.24f,
@@ -335,8 +332,7 @@ private fun drawOrbArcBand(
         .lineTo(cx - span, edgeY + ry * 1.65f)
         .closePath()
         .detach()
-    c.drawPath(path, Paint().apply {
-        isAntiAlias = true
+    c.drawPath(path, paint().apply {
         this.color = color
     })
 }

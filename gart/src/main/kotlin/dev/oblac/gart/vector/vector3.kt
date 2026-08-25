@@ -27,6 +27,23 @@ data class Vec3(val x: Float, val y: Float, val z: Float) {
         x * other.y - y * other.x
     )
 
+    /**
+     * Some unit vector perpendicular to this one - cross with whichever world axis this is
+     * least aligned with (z unless the vector is near z, then x). Deterministic for a given input,
+     * arbitrary otherwise; pair with [basis] for a full frame.
+     */
+    fun anyPerpendicular(): Vec3 {
+        val helper = if (kotlin.math.abs(z) < 0.9f) Vec3(0f, 0f, 1f) else Vec3(1f, 0f, 0f)
+        val c = cross(helper)
+        return c / c.length()
+    }
+
+    /** Right-handed frame round this vector as the pole: `(u, v)` unit and perpendicular, `u x v` along it. Expects a unit vector. */
+    fun basis(): Pair<Vec3, Vec3> {
+        val u = anyPerpendicular()
+        return u to cross(u)
+    }
+
     companion object {
         fun of(a: Float) = Vec3(a, a, a)
         fun of(v: Vec2, a: Float) = Vec3(v.x, v.y, a)

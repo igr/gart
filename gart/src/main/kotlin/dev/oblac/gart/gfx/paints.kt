@@ -5,41 +5,35 @@ import dev.oblac.gart.angle.Degrees
 import dev.oblac.gart.matrix.multiply
 import org.jetbrains.skia.*
 
-fun strokeOf(color: Color4f, width: Float) = Paint().apply {
-    this.isAntiAlias = true
+fun strokeOf(color: Color4f, width: Float) = paint().apply {
     this.color4f = color
     this.mode = PaintMode.STROKE
     this.strokeWidth = width
 }
 
-fun strokeOf(color: Long, width: Float) = Paint().apply {
-    this.isAntiAlias = true
+fun strokeOf(color: Long, width: Float) = paint().apply {
     this.color = color.toInt()
     this.mode = PaintMode.STROKE
     this.strokeWidth = width
 }
 fun strokeOf(width: Float, color: Long) = strokeOf(color, width)
 
-fun strokeOf(color: Int, width: Float) = Paint().apply {
-    this.isAntiAlias = true
+fun strokeOf(color: Int, width: Float) = paint().apply {
     this.color = color
     this.mode = PaintMode.STROKE
     this.strokeWidth = width
 }
 fun strokeOf(width: Float, color: Int) = strokeOf(color, width)
 
-fun fillOf(color: Color4f) = Paint().apply {
-    this.isAntiAlias = true
+fun fillOf(color: Color4f) = paint().apply {
     this.color4f = color
 }
 
-fun fillOf(color: Int) = Paint().apply {
-    this.isAntiAlias = true
+fun fillOf(color: Int) = paint().apply {
     this.color = color
 }
 
-fun fillOf(color: Long) = Paint().apply {
-    this.isAntiAlias = true
+fun fillOf(color: Long) = paint().apply {
     this.color = color.toInt()
 }
 
@@ -97,8 +91,7 @@ fun Paint.blendMode(blendMode: BlendMode): Paint {
     return this
 }
 
-fun paintOfImageFilter(imageFilter: ImageFilter) = Paint().apply {
-    this.isAntiAlias = true
+fun paintOfImageFilter(imageFilter: ImageFilter) = paint().apply {
     this.imageFilter = imageFilter
 }
 

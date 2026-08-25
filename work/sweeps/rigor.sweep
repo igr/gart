@@ -1,0 +1,45 @@
+# rigor - a wallpaper of flat primitives with I G O R swapped in for four tiles. the block
+# repeats strict as print, the letters lean, and the tiles around each letter twist and get
+# shoved off grid. the disturbance is the picture.
+# run:  just sweep rigor     (writes pngs + one contact sheet per branch to output/rigor)
+
+art    = rigor.RigorKt
+module = arts:igor
+out    = output/rigor
+par    = 6
+
+# a new seed redeals the block, the rust and where the letters sit. default pinned at 14 -
+# eclipse rows, all four letters in the open. 1 is triangles with rust dots, 7 quiet disks,
+# 12 rust triangle rows. seeds with no rust in the block go monkish, some are better for it
+[branch cast]
+seed = 1:24
+
+# the repeating block. period 1 is a drumbeat, 4 nearly hides the repeat. rust is per tile,
+# so it lands in the blocks rhythm or not at all - 0 goes all ink
+[branch block]
+seed   = 14
+period = 1,2,3,4
+rust   = 0,0.12,0.3
+
+# how loudly a letter ruins its neighbourhood. push 0 with itilt 0 is the pure swap,
+# letters disturbing nothing but the pattern itself
+[branch dent]
+seed  = 14
+push  = 0,0.11,0.22
+itilt = 0,6.5,12
+
+# how far the ruin carries
+[branch reach]
+seed  = 14
+reach = 1.2,2.2,3.2
+
+# the grid. coarser cells make the letters posters, finer makes them whispers
+[branch grid]
+seed = 14
+cols = 6,8,10
+rows = 8,10,12
+
+# letters struck in rust instead of ink, for when quiet isnt landing
+[branch accent]
+seed   = 14
+accent = 0,1

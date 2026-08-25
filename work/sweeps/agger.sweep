@@ -1,0 +1,81 @@
+# agger - an interchange from straight above. flat inks, elevation carried by how far each
+# decks shadow drifts sun-side. roads are one spine stroked at offsets: tarmac, edge lines,
+# dashes, sometimes a grass median. ghosts are decks outside the frame that only send their
+# shadow.
+# run:  just sweep agger     (writes pngs + one contact sheet per branch to output/agger)
+# agger2, the green one, is pal 177 seed 46 traffic 1.0 - see branch green
+
+art    = agger.AggerKt
+module = arts:skyscraper
+out    = output/agger
+par    = 6
+
+# a new seed redeals the whole network and the traffic. the default is pinned at 13 - the
+# ribbons thread past the loop and leave the middle open. 4 is a denser hub, 10 a big lazy S.
+# 12-road seeds go spaghetti, dont bother above 8.
+[branch cast]
+seed = 1:24
+
+# colourways. darks go ground, lights go tarmac (pushed to paper), loudest colour goes to the
+# cars. 35 (cobalt + peach, in colour2) is the default - picked over 9 teal+blush, 110
+# violet+chartreuse and 52 ink+sage, with 31 petrol+salmon the quiet earlier default. light
+# palettes flip the whole thing to daytime - ground goes pale and the shadow bands do all the
+# drawing, which is its own picture
+[branch colour]
+seed = 13
+pal  = 1,2,3,4,5,6,7,8,9,10,11,12,14,17,20,24,28,30,31,33,40,52,60,75
+
+# the far end of the tray, never dealt above 75 before
+[branch colour2]
+seed = 13
+pal  = 35,38,42,45,48,56,64,68,72,77,82,88,95,102,110,118,126,134,142,150,158,166,174,181
+
+# the green one - agger2 is pal 177 on seed 46 at traffic 1.0. the only tray palette whose darks
+# come out green rather than teal, olive or near black: deep green ground, peach and sage decks,
+# rust for the cars. 6 goes teal all over, 71 forest but the ground is near black, 104 acid, 4
+# sage with a pink loop. 19 was the first cut - a loop knotted into a big ring - but it piled
+# everything into the left third and left the right to one ring over bare ground. 46 fans the
+# arcs from the top-left corner, crosses the straights through the middle and drops the loop
+# just off centre, every corner gets a road. 44 is the same idea with three decks stacked on
+# the loop, 40 the crossing-straights one with the loop low left, 27 big sweeping arcs. traffic
+# 1.0 is 116 cars here against 59 on the old seed - 0.55 read thin on green, 1.4 (171) crowds
+[branch green]
+pal     = 177
+traffic = 1.0
+seed    = 46,44,40,27,19,10,17
+
+# the other greens on the agger2 layout, for the record
+[branch greens]
+seed    = 46
+traffic = 1.0
+pal     = 177,6,71,104,4,140,166
+
+# how many roads and how bendy. arcs 0 is a plain grid crossing, 1 all sweep
+[branch network]
+seed  = 13
+roads = 5,8,12
+arcs  = 0.3,0.6,0.9
+
+# the gauge. road, paint and cars all scale off lane width together - 14 goes wiry map,
+# 24 crowds the frame shut. 20 is the poster weight
+[branch gauge]
+seed  = 13
+lanew = 14,17,20,24
+
+# the sun. shstep is the whole depth cue - 0 flattens the stack dead, 60 floats the top deck
+# off the page. shade past 0.55 goes thundery
+[branch light]
+seed   = 13
+shstep = 10,26,45
+shade  = 0.25,0.38,0.52
+
+# how full the roads are
+[branch density]
+seed    = 13
+traffic = 0.25,0.55,1.2
+
+# the ground push, minus is darker. and how many shadow-only decks cross from outside
+[branch setting]
+seed   = 13
+ground = -0.5,0,0.35
+ghosts = 0,2,4

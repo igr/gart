@@ -1,0 +1,53 @@
+# unda - a few whole versions to pick from. unda.sweep walks one knob at a time off seed 9; this
+# goes the other way - a handful of complete looks, each across the same six seeds, because a
+# version that only works on one cast isnt a version. the ids in brackets are the renders in
+# output/unda that each look was lifted from.
+# run:  just sweep unda_versions     (writes pngs + one contact sheet per branch to output/unda_versions)
+# 42 renders across 6 branches.
+
+art    = unda.UndaKt
+module = arts:sea
+out    = output/unda_versions
+par    = 6
+thumb  = 400
+
+# The default look pulled on the other two blocks. 1 sumi is black on grey stock, 2 beni a red
+# block on pale paper - ai (0) is what the cast branch of the main sweep already shows.
+[branch impression]
+pal  = 1,2
+seed = 1:6
+
+# The breaker. Swell up to 0.38 with the shoulders pushed as far apart as they go - a long ramp
+# in from the left and a cliff on the right, so the peak actually leans (037).
+[branch breaker]
+seed    = 1:6
+height  = 0.38
+spreadl = 0.75
+spreadr = 0.09
+
+# Rollers. Sixteen fat bands stacked evenly up the page and the peak carried all the way down to
+# the bottom edge, so it reads as a range of big waves rather than one swell (040).
+[branch rollers]
+seed   = 1:6
+crests = 16
+fall   = 1.0
+decay  = 0.4
+
+# The graphic one. Wide paper shoulders under a heavy key line and no snowcap - fewer, bolder
+# stripes, more poster than print (118).
+[branch graphic]
+seed  = 1:6
+gap   = 16
+key   = 8
+crown = 0
+
+# Machined. roll=0 takes the hand out and leaves clean chevrons; the band spacing still jitters
+# so the seeds do differ. The sweep note calls it a ripple tank, but its a look (125).
+[branch machined]
+seed = 1:6
+roll = 0
+
+# Calm. The swell all but flattened - open water with a slight rise, no hero wave (017).
+[branch calm]
+seed   = 1:6
+height = 0.1

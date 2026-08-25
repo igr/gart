@@ -1,6 +1,7 @@
 package dev.oblac.gart
 
 import dev.oblac.gart.color.gradientOf
+import dev.oblac.gart.gfx.paint
 import dev.oblac.gart.math.PIf
 import org.jetbrains.skia.Paint
 import org.jetbrains.skia.Rect
@@ -44,9 +45,8 @@ fun main() {
             val hue = (i * 60f + t * 30f) % 360f
             val color = hsvToArgb(hue, 0.8f, 1.0f, alpha)
 
-            val petalPaint = Paint().apply {
+            val petalPaint = paint().apply {
                 this.color = color
-                isAntiAlias = true
             }
             c.drawCircle(px, py, 350f, petalPaint)
         }
@@ -55,9 +55,8 @@ fun main() {
         repeat(10) { ring ->
             val radius = 40f - ring * 6f
             val alpha = 0.15f + ring * 0.1f
-            val glowPaint = Paint().apply {
+            val glowPaint = paint().apply {
                 color = (((alpha * 255).toInt() shl 24) or 0x00e94560).toInt()
-                isAntiAlias = true
             }
             c.drawCircle(d.cx, d.cy, radius + 20f, glowPaint)
         }

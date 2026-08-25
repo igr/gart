@@ -1,0 +1,87 @@
+# unda - a woodblock sea. one family of curves sampled at every depth: the heavy ones are crests,
+# the fine broken ones between them are the gouge marks that carry all the tone. nothing is
+# shaded, only cut denser or sparser, because that is the only thing a block can do.
+# run:  just sweep unda     (writes pngs + one contact sheet per branch to output/unda)
+# 210 renders across 9 branches - well under the sweeper's 500-render guard.
+
+art    = unda.UndaKt
+module = arts:sea
+out    = output/unda
+par    = 6
+
+# A new seed redraws the swell entirely: where the peak sits, how the bands are spaced, every
+# scallop and every patch of foam. This is the branch that actually shows the piece.
+[branch cast]
+seed = 1:12
+
+# The shape of the swell. height is how far the peak rears above the flat, spreadl/spreadr are
+# the two shoulders - a wide one makes long lazy sweeps off the edge, a tight one makes the
+# crests pile up. equal spreads give a symmetrical mountain, which reads as a mountain and not
+# as water, so the asymmetry is doing real work.
+[branch swell]
+seed    = 9
+height  = 0.1,0.22,0.38
+spreadl = 0.2,0.42,0.75
+spreadr = 0.09,0.17,0.4
+
+# Depth. fall is the perspective power - 1.0 stacks the bands evenly up the page, 2.6 crushes
+# them at the horizon and hands the whole foreground to three huge waves. decay is how fast the
+# peak stops mattering as the water comes toward you; near 0 it never does and the picture turns
+# into one giant chevron.
+[branch depth]
+seed   = 9
+crests = 16,28,44
+fall   = 1.0,1.9,2.6
+decay  = 0.4,1.35,2.8
+
+# The cut. pitch is the gouge spacing and nib its width - the two together are the entire tonal
+# range, and pitch under ~3.5 with a fat nib fills in solid. bite is how much ink survives:
+# above 1 the lines run unbroken, under ~0.8 the block starts to look worn through.
+[branch cut]
+seed  = 9
+pitch = 3.5,4.6,7.0
+nib   = 1.2,2.2,3.2
+bite  = 0.7,0.95,1.08
+
+# The crests. gap is the strip of paper left under each key line - it is the only white in the
+# water, so at 0 the waves stop separating at all. key is that line's weight, crown widens the
+# gap where the swell rears up and is what turns the peak into a snowcap.
+[branch crest]
+seed  = 9
+gap   = 0,7,16
+key   = 1.5,4.2,8
+crown = 0,1.9,5
+
+# The hand. roll is how far each wave wanders off the clean maths - 0 gives a machined ripple
+# tank. uneven jitters the band spacing so the stack stops reading as a contour map. wander
+# slides the peak sideways with depth; at 0 every crest peaks at the same x and you get a seam.
+[branch hand]
+seed   = 9
+roll   = 0.0,0.85,1.6
+uneven = 0.0,0.5,0.9
+wander = 0.0,0.1,0.28
+
+# The sky. It's bokashi - one wash wiped off the top edge - with a dot screen over it so the
+# grade reads as printed. sky is the wash strength (0 leaves clean paper), raster the dot
+# strength (0 leaves the wash smooth), rpitch the screen ruling: 3 is invisibly fine, 14 is a
+# newspaper enlarged and the picture turns into pop art.
+[branch wash]
+seed   = 9
+sky    = 0.0,0.32,0.6
+raster = 0.0,0.46,1.0
+rpitch = 3,6,14
+
+# The impression. 0 ai (indigo on tea paper, the one it was cut for), 1 sumi (black, no colour at all),
+# 2 beni (a red block on pale stock).
+[branch print]
+seed   = 9
+pal    = 0,1,2
+skyfall = 0.6,1.7,4.0
+
+# Age: how long it has been in a drawer. mottle is the stain blooming through the sheet, age the
+# dirt gathering at the edges, grain the tooth of the paper under everything.
+[branch paper]
+seed   = 9
+age    = 0.0,0.16,0.45
+mottle = 0.0,0.11,0.3
+grain  = 0.0,0.07,0.2

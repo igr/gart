@@ -1,4 +1,4 @@
-package sixsix
+package sixsix.one
 
 import dev.oblac.gart.*
 import dev.oblac.gart.color.CssColors
@@ -7,7 +7,7 @@ import dev.oblac.gart.color.PalettesOf4
 import dev.oblac.gart.math.doubleLoop
 import org.jetbrains.skia.Canvas
 import org.jetbrains.skia.Image
-import sixsix.Cell.CellColor
+import sixsix.one.Cell.CellColor
 import java.util.*
 
 //1) G95RcsRS1SHNBgEb4hLdhpbHGJsHuRybHrnZIcIkhceU8Qzb2mELXkYOwNjDWA8eio1f4xe2EjYIuaNTSXIQp85hIF5h8tNk

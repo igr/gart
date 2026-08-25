@@ -4,6 +4,7 @@ import dev.oblac.gart.angle.Angle
 import dev.oblac.gart.angle.Degrees
 import dev.oblac.gart.color.CssColors
 import dev.oblac.gart.gfx.Triangle
+import dev.oblac.gart.gfx.paint
 import org.jetbrains.skia.*
 
 class Sprite(surface: Surface) {
@@ -136,8 +137,7 @@ data class SpriteTransformations(
 
         transformations.reversed().forEach { it(canvas) }
 
-        canvas.drawImage(sprite.image, 0f, 0f, Paint().apply {
-            this.isAntiAlias = true
+        canvas.drawImage(sprite.image, 0f, 0f, paint().apply {
             // need to blur due to Skiko issue https://youtrack.jetbrains.com/issue/SKIKO-1023
             this.imageFilter = ImageFilter.makeBlur(0.1f, 0.1f, FilterTileMode.CLAMP)
         })

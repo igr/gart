@@ -4,9 +4,9 @@ import dev.oblac.gart.Gartmap
 import dev.oblac.gart.Gartvas
 import dev.oblac.gart.MemPixels
 import dev.oblac.gart.color.*
+import dev.oblac.gart.gfx.paint
 import dev.oblac.gart.gfx.toRegion
 import org.jetbrains.skia.Color
-import org.jetbrains.skia.Paint
 import org.jetbrains.skia.PaintMode
 import org.jetbrains.skia.Path
 import org.jetbrains.skia.Shader.Companion.makeRadialGradient
@@ -133,8 +133,7 @@ fun drawGlassPath(
     // 1. Rim darkening
     c.save()
     c.clipPath(path)
-    c.drawCircle(cx, cy, avgRadius * 1.5f, Paint().apply {
-        isAntiAlias = true
+    c.drawCircle(cx, cy, avgRadius * 1.5f, paint().apply {
         shader = makeRadialGradient(
             cx, cy, avgRadius,
             gradientOf(
@@ -148,8 +147,7 @@ fun drawGlassPath(
     val hlX = cx - avgRadius * 0.3f
     val hlY = cy - avgRadius * 0.35f
     val hlR = avgRadius * 0.5f
-    c.drawCircle(hlX, hlY, hlR, Paint().apply {
-        isAntiAlias = true
+    c.drawCircle(hlX, hlY, hlR, paint().apply {
         shader = makeRadialGradient(
             hlX, hlY, hlR,
             gradientOf(
@@ -164,8 +162,7 @@ fun drawGlassPath(
         val spotX = cx - avgRadius * 0.22f
         val spotY = cy - avgRadius * 0.38f
         val spotR = avgRadius * 0.1f
-        c.drawCircle(spotX, spotY, spotR, Paint().apply {
-            isAntiAlias = true
+        c.drawCircle(spotX, spotY, spotR, paint().apply {
             shader = makeRadialGradient(
                 spotX, spotY, spotR,
                 gradientOf(
@@ -178,8 +175,7 @@ fun drawGlassPath(
     c.restore()
 
     // 4. Rim outline (follows the path shape)
-    c.drawPath(path, Paint().apply {
-        isAntiAlias = true
+    c.drawPath(path, paint().apply {
         mode = PaintMode.STROKE
         strokeWidth = 1.5f
         color = light(0x30, 0.7f)

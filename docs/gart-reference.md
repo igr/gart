@@ -920,6 +920,24 @@ Painter (`dev/oblac/gart/painter/SprayPainter.kt`):
 - `class SprayPainter(width, height = width, bg = white, fg = black, rng = Random.Default)` — float RGBA accumulation buffer for stippling/spray. Key ops: `pixel(x,y)`/`pixel(p)`, `pixels(points, n = -1)`, `circle(cx,cy,radius,n)`, `stroke(a,b,n)`/`line`, `strokes`/`lines`, `path(points, n)`, `clear(color)`, `sample(x,y)`; render via `toBitmap(gamma = 1f): Bitmap` / `drawTo(canvas, gamma = 1f)`; `SprayPainter.loadPng(path)` factory. Porter-Duff "over" compositing, gamma at output.
 
 Pixader (`dev/oblac/gart/pixader/pixader.kt`): CPU shader — see `pixdraw`/`pixdrawAsync` under SkSL section above.
+
+### Brush strokes & washes (`brush/`)
+
+Source: `dev/oblac/gart/brush/` (added 2026-08, newer than the rest of this catalogue).
+
+Dry-media strokes as stamps: a stroke walks the path in `spacing`-sized steps and puts the tip down at each one, so a line is really thousands of tiny marks. `weight`, `scatter` and `spacing` are px at size 1; the draw-call `size` zooms all three together. Every random decision goes through the `Random` handed to the draw call, so a seeded piece renders the same stroke twice.
+
+- `Brush(tip = Tip.Dots, weight, scatter, sharpness = 1f, grain = 1f, opacity, spacing, pressure = Pressure.Bell())` — one brush recipe. `grain` is the chance a step lands a dot (≥1 never skips); `sharpness` 0..1 keeps the wander even vs. spiky. Source: `Brush.kt`.
+- `Tip` (sealed) — `Dots` (scatter of small dots: pencils, pens, charcoal), `Spray(specks = 40)` (specks inside a disc of radius `scatter`), `Marker` (one soft disc stacking with its neighbours), `Image(image, rotate)` (alpha is the shape, stroke colour is the ink), `Custom(rotate) { canvas, paint -> }` (canvas pre-transformed so the unit box `[-0.5, 0.5]²` is the stamp). `Rotate.NONE` / `NATURAL` (along stroke direction) / `RANDOM`.
+- `Pressure` (sealed) — `Bell(ends = 1.2f, peak = 1f, drift = 0.15f, spread = 0.2f)` simulated hand pressure, a super-gaussian re-rolled per stroke (ends heavier than the middle = ink pooling where the hand slows); `Curve { t -> }` your own profile over 0..1; `Pressure.Flat`. Scales dot size (squared), stamp alpha and, for soft brushes, wander.
+- `Canvas.drawBrush(path: Path, brush, color: Int, size = 1f, rnd = Random.Default, wobble: Wobble? = null, pressure: ((t) -> Float)? = null, blend = BlendMode.SRC_OVER)` — strokes every contour; overloads take `List<Point>` (polyline), `Line`, or `a: Point, b: Point`. `color` alpha multiplies brush opacity; `MULTIPLY` reads well for dry media on paper. Source: `brushStroke.kt`.
+- `Brushes` — stock presets tuned for size 1 on a ~1000 px canvas (sketch lines sit at size 2..4): `pen`, `rotring`, `pencil2B`, `pencilHB`, `pencil2H`, `colorPencil`, `pastel`, `crayon`, `charcoal`, `spray`, `marker`, `hatch`. `Brushes.all: Map<String, Brush>` and `Brushes.of(name)` for `ps("brush", "pencil2B")` knobs; customise with `Brushes.pencil2B.copy(scatter = 1.2f)`. Source: `Brushes.kt`.
+- `Wobble` — `fun interface { at(x, y): Float }`, an angle (radians) added to the step direction at the spot the hand is at; the drift is kept, nothing pulls the stroke back, which is where the hand-drawn look comes from. Factories: `Wobble.hand(rnd, amount = 3°, cell = 10f)` (one random angle per grid cell, tremor), `Wobble.curved(rnd, amount = 0.5f, scale = 0.004f)` (simplex bends), `Wobble.waves(rnd, amount = 0.4f, fx = 0.05f, fy = 0.02f)`. Source: `Wobble.kt`.
+- `Hatch(dist, angle = Degrees(45f), rand = 0f, gradient = 0f, overshoot = 0f)` + `hatchLines(path, hatch, rnd): List<Line>` — parallel lines clipped to a shape by even-odd pairing of crossings (holes and concave shapes come out right, no path booleans); `rand` jitters spacing and ends, `gradient` grows the spacing across the shape, `overshoot` runs lines past the edge. `Canvas.drawBrushHatch(path, hatch, brush, color, size, rnd, wobble, blend)` makes every line its own stroke with its own pressure and darkness. Source: `hatch.kt`.
+- `Watercolor(opacity = 0.6f, bleed = 0.07f, texture = 0.8f, border = 0.5f, outward = true, angle: Angle? = null, scatter = true, layers = 20)` + `Canvas.drawWatercolor(path, color, watercolor = Watercolor(), rnd, blend = SRC_OVER)` — a wash: the shape becomes a coarse polygon, edges are subdivided and pushed about, `layers` translucent copies are laid over each other with a rim and some pigment rubbed out, so the edge bleeds, the rim darkens and the inside granulates. Biggest contour is the shape, other contours are holes. `MULTIPLY` glazes on white paper. Source: `watercolor.kt`.
+
+Demos: `example/.../ExampleBrush.kt`, `ExampleWatercolor.kt`.
+
 ## 7. Simulations & Generative Engines
 
 The algorithmic heart of gart: strange attractors, reaction-diffusion, agent
@@ -1253,6 +1271,43 @@ internally by Barnes-Hut.
 
 ---
 
+### 7.9 Space colonization
+
+`gart/.../colonization/SpaceColonization.kt`. Branching networks grown by scattered
+attractor points ("food"): each step attractors tug nearby branch nodes one
+`segmentLength` toward them; a branch arriving within `killDistance` eats the
+attractor. Trees, veins, roots, lightning fall out of the one rule.
+
+```kotlin
+class SpaceColonization(
+    attractionDistance = 30f, killDistance = 5f, segmentLength = 5f,
+    venation = Venation.OPEN,   // OPEN = nearest node only (tree); CLOSED = relative neighborhood (branches meet)
+    jitter = 0.1f,              // random wiggle per step direction
+    maxNodes = 500_000,
+    allowed = { p -> true },    // bounds + obstacles in one predicate
+    rnd = Random.Default,       // pass a seeded one — pieces are seeded
+)
+```
+`allowed` is checked at **new node positions only** — segments aren't sampled (keep
+obstacles fatter than `segmentLength`) and roots aren't checked.
+- **seed**: `addAttractor(x,y | Point)`, `addAttractors(points)`, `addRoot(x,y | Point): Node`.
+  Attractor scattering is the caller's art (poisson, halton, noise-thinned grids, image sampling).
+- **run**: `grow(maxSteps = 10_000): Int` or `step(): Boolean`; `done` flips when all food
+  is eaten or the rest is unreachable/walled off. `attractorsLeft`, `steps`, `attractors()`
+  (uneaten, for debug overlays).
+- **read**: `nodes: List<Node>` append-only, parent before child; `Node` has `position`,
+  `parent`, `birth` (step born — age gradients), `thickness`, `isTip`, `index`. Draw as
+  node→parent lines. `canalize(thicken = 0.03f)` fills `thickness` (= thicken × subtree
+  height, one O(n) pass — call after `grow`, or per frame when animating).
+  `tipCounts(): IntArray` = subtree tip count per node (Murray-law widths, flow).
+- Uniform grid keyed by `attractionDistance` internally; keep `killDistance` below it.
+
+**Usage:** `example/ExampleSpaceColonization.kt` (open vs closed side by side).
+`arts/cell/src/nervure/Nervure.kt` predates it with a private open-venation engine
+(phototropism + curl baked in) — left untouched, seeded output.
+
+---
+
 #### Gaps / opportunities (unused by finished art)
 - `BelousovZhabotinskyContinuous` (continuous BZ spirals) — example only.
 - WHFAST orbital system (`NBodySystem2D` / `WHIntegrator2D`) — example only.
@@ -1424,3 +1479,4 @@ The catalogue surfaced powerful primitives **with no finished art piece** — st
 - The **strange-attractor zoo** beyond the corona maps — 17 attractors in `attractor/` (Clifford/De Jong used by corona; Lorenz, Thomas, Halvorsen, etc. unused as stills).
 - **`stippleVoronoi`** + Lloyd relaxation (`stipple/`), **`CirclePacker`** (`pack/`), **`Delaunay`/Voronoi** (`triangulation/`), **`dynagraph`** force-directed layout — graphic/structural aesthetics barely touched.
 - **WHFAST** symplectic orbital integrator (`whfast/`) and **`physarum`** slime-mold — only in `example/` demos.
+- **`brush/`** stamped-media strokes (§6) — `drawBrush` with the pencil/charcoal/marker presets, `Wobble` fields, `drawBrushHatch`, `drawWatercolor` washes — newest package, only in `example/` demos so far.

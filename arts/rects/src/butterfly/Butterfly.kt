@@ -6,6 +6,7 @@ import dev.oblac.gart.Gartvas
 import dev.oblac.gart.color.*
 import dev.oblac.gart.fx.addGrain
 import dev.oblac.gart.gfx.fillOf
+import dev.oblac.gart.gfx.paint
 import dev.oblac.gart.gfx.roundStroke
 import dev.oblac.gart.gfx.strokeOf
 import dev.oblac.gart.gfx.toClosedPath
@@ -296,8 +297,7 @@ private fun renderScene(c: Canvas, scales: List<Scale>) {
         // cast shadow onto the bottom-right neighbour this scale laps over -> shingle depth
         if (SHADOW > 0f) {
             val sp = poly.map { Point(it.x + DR.x * SHADOWOFF, it.y + DR.y * SHADOWOFF) }.toClosedPath()
-            c.drawPath(sp, Paint().apply {
-                isAntiAlias = true
+            c.drawPath(sp, paint().apply {
                 color = (SHADOW.coerceIn(0f, 1f) * 170).toInt() shl 24    // black, alpha only
                 if (SHADOWBLUR > 0f) imageFilter = ImageFilter.makeBlur(SHADOWBLUR, SHADOWBLUR, FilterTileMode.CLAMP)
             })
@@ -307,8 +307,7 @@ private fun renderScene(c: Canvas, scales: List<Scale>) {
         } else {
             val rimCol = darken(sc.mid, RIMDARK)
             val (midStart, midEnd) = midBand(sc.pupil)
-            c.drawPath(path, Paint().apply {
-                isAntiAlias = true
+            c.drawPath(path, paint().apply {
                 shader = makeRadialGradient(
                     sc.eye.x, sc.eye.y, max(1f, sc.radius),
                     gradientOf(
@@ -326,8 +325,7 @@ private fun renderScene(c: Canvas, scales: List<Scale>) {
                 val hi = ((RIM.coerceIn(0f, 1f) * 150).toInt() shl 24) or tint
                 c.save()
                 c.clipPath(path)
-                c.drawCircle(hx, hy, hr, Paint().apply {
-                    isAntiAlias = true
+                c.drawCircle(hx, hy, hr, paint().apply {
                     shader = makeRadialGradient(hx, hy, hr, gradientOf(intArrayOf(hi, tint), floatArrayOf(0f, 1f)))
                 })
                 c.restore()
@@ -338,15 +336,14 @@ private fun renderScene(c: Canvas, scales: List<Scale>) {
                 val cx = sc.eye.x - DR.x * sc.radius * REDR * 0.35f
                 val cy = sc.eye.y - DR.y * sc.radius * REDR * 0.35f
                 val hi = ((CATCH.coerceIn(0f, 1f) * 235).toInt() shl 24) or 0xEFF3FF
-                c.drawCircle(cx, cy, cr, Paint().apply {
-                    isAntiAlias = true
+                c.drawCircle(cx, cy, cr, paint().apply {
                     shader = makeRadialGradient(cx, cy, cr, gradientOf(intArrayOf(hi, 0x00EFF3FF), floatArrayOf(0f, 1f)))
                 })
             }
         }
         if (STRIA > 0f) drawStriations(c, sc.eye, sc.radius, sc.mid, path)
         // crisp dark border - this is what separates the overlapping scales
-        c.drawPath(path, strokeOf(sc.border, BORDER).apply { isAntiAlias = true })
+        c.drawPath(path, strokeOf(sc.border, BORDER))
         if (RIMLIGHT > 0f) drawRimLight(c, sc, poly)
         // upper cover scale on top (ground + cover layering)
         if (LAYER > 0f) drawCoverScale(c, sc)
@@ -399,7 +396,7 @@ private fun drawStriations(c: Canvas, eye: Point, radius: Float, mid: Int, path:
     val half = radius * 1.25f
     val k = (radius / gap).toInt()
     val col = ((STRIA.coerceIn(0f, 1f) * 70).toInt() shl 24) or (darken(mid, 0.45f) and 0xFFFFFF)
-    val paint = strokeOf(col, max(0.6f, radius * 0.018f)).apply { isAntiAlias = true }
+    val paint = strokeOf(col, max(0.6f, radius * 0.018f))
     c.save()
     c.clipPath(path)
     for (i in -k..k) {
@@ -426,16 +423,14 @@ private fun drawCoverScale(c: Canvas, sc: Scale) {
     // drop shadow toward bottom-right so the cover floats above the ground scale
     if (SHADOW > 0f) {
         val sp = cover.map { Point(it.x + DR.x * SHADOWOFF * 0.7f, it.y + DR.y * SHADOWOFF * 0.7f) }.toClosedPath()
-        c.drawPath(sp, Paint().apply {
-            isAntiAlias = true
+        c.drawPath(sp, paint().apply {
             color = (SHADOW.coerceIn(0f, 1f) * 130).toInt() shl 24
             if (SHADOWBLUR > 0f) imageFilter = ImageFilter.makeBlur(SHADOWBLUR, SHADOWBLUR, FilterTileMode.CLAMP)
         })
     }
     // cover fill: same pupil -> brighter mid band -> dark rim, slightly translucent
     val (midStart, midEnd) = midBand(sc.pupil)
-    c.drawPath(path, Paint().apply {
-        isAntiAlias = true
+    c.drawPath(path, paint().apply {
         alpha = a
         shader = makeRadialGradient(
             cc.x, cc.y, cr,
@@ -446,7 +441,7 @@ private fun drawCoverScale(c: Canvas, sc: Scale) {
         )
     })
     if (STRIA > 0f) drawStriations(c, cc, cr, coverMid, path)
-    c.drawPath(path, strokeOf(darken(coverMid, BORDERDARK), BORDER).apply { isAntiAlias = true })
+    c.drawPath(path, strokeOf(darken(coverMid, BORDERDARK), BORDER))
 }
 
 /** bright catch on the top-left lapping edges - light from upper-left grazing the raised shingle. */

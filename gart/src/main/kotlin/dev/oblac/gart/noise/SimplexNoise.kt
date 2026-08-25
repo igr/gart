@@ -99,6 +99,9 @@ object SimplexNoise {
 	/** Float overload of the 2D [noise]; delegates to the double version. */
 	fun noise(x: Float, y: Float): Float = noise(x.toDouble(), y.toDouble()).toFloat()
 
+	/** Float overload of the 3D [noise]; delegates to the double version. */
+	fun noise(x: Float, y: Float, z: Float): Float = noise(x.toDouble(), y.toDouble(), z.toDouble()).toFloat()
+
 	fun noise(x: Double, y: Double, z: Double): Double {
 		// Skew the input space to determine which simplex cell we're in
 		val s = (x + y + z) * F3

@@ -9,6 +9,7 @@ import dev.oblac.gart.color.argb
 import dev.oblac.gart.color.gradientOf
 import dev.oblac.gart.fx.addGrain
 import dev.oblac.gart.gfx.drawVignette
+import dev.oblac.gart.gfx.paint
 import dev.oblac.gart.io.detectHeadlessFlags
 import dev.oblac.gart.io.ensureExtension
 import dev.oblac.gart.io.pf
@@ -191,8 +192,7 @@ private fun render(c: Canvas, p: Params) {
 
         // Silhouette pass
         val band = ribbonPath(ribbons, bottom)
-        val silhouette = Paint().apply {
-            isAntiAlias = true
+        val silhouette = paint().apply {
             color = darkBottom
             imageFilter = ImageFilter.makeDropShadow(
                 0f,

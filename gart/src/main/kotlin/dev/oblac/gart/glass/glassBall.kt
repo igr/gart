@@ -4,8 +4,8 @@ import dev.oblac.gart.Gartmap
 import dev.oblac.gart.Gartvas
 import dev.oblac.gart.MemPixels
 import dev.oblac.gart.color.*
+import dev.oblac.gart.gfx.paint
 import org.jetbrains.skia.Color
-import org.jetbrains.skia.Paint
 import org.jetbrains.skia.PaintMode
 import org.jetbrains.skia.Shader.Companion.makeRadialGradient
 import kotlin.math.floor
@@ -128,8 +128,7 @@ fun drawGlassBall(
 
     // 1. Rim darkening (Fresnel effect - edges reflect more, transmit less)
     if (rimDarkening) {
-        c.drawCircle(cx, cy, radius, Paint().apply {
-            isAntiAlias = true
+        c.drawCircle(cx, cy, radius, paint().apply {
             shader = makeRadialGradient(
                 cx, cy, radius,
                 gradientOf(
@@ -144,8 +143,7 @@ fun drawGlassBall(
     val hlX = cx - radius * 0.3f
     val hlY = cy - radius * 0.35f
     val hlR = radius * 0.5f
-    c.drawCircle(hlX, hlY, hlR, Paint().apply {
-        isAntiAlias = true
+    c.drawCircle(hlX, hlY, hlR, paint().apply {
         shader = makeRadialGradient(
             hlX, hlY, hlR,
             gradientOf(
@@ -160,8 +158,7 @@ fun drawGlassBall(
         val spotX = cx - radius * 0.22f
         val spotY = cy - radius * 0.38f
         val spotR = radius * 0.1f
-        c.drawCircle(spotX, spotY, spotR, Paint().apply {
-            isAntiAlias = true
+        c.drawCircle(spotX, spotY, spotR, paint().apply {
             shader = makeRadialGradient(
                 spotX, spotY, spotR,
                 gradientOf(
@@ -173,8 +170,7 @@ fun drawGlassBall(
     }
 
     // 4. Subtle rim outline
-    c.drawCircle(cx, cy, radius, Paint().apply {
-        isAntiAlias = true
+    c.drawCircle(cx, cy, radius, paint().apply {
         mode = PaintMode.STROKE
         strokeWidth = 1.5f
         shader = makeRadialGradient(

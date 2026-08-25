@@ -3,10 +3,10 @@ package ommatidia
 import dev.oblac.gart.color.colorLift
 import dev.oblac.gart.color.colorScale
 import dev.oblac.gart.color.gradientOf
+import dev.oblac.gart.gfx.paint
 import dev.oblac.gart.math.hash01
 import org.jetbrains.skia.BlendMode
 import org.jetbrains.skia.Canvas
-import org.jetbrains.skia.Paint
 import org.jetbrains.skia.PathBuilder
 import org.jetbrains.skia.Shader
 import kotlin.math.pow
@@ -26,14 +26,13 @@ internal fun lightOf(p: Params): FloatArray {
  */
 internal class LensPainter(private val p: Params, colors: Colors) : AutoCloseable {
     private val pb = PathBuilder()
-    private val fill = Paint().apply { isAntiAlias = true }
+    private val fill = paint()
 
     // additive, and deliberately the only thing in the piece that goes brighter than the
     // base colour. the specular peak sits right on top of the diffuse peak, so if the
     // diffuse is allowed to blow out to white as well the glint has nowhere to show -
     // keep ambient + diffuse at or under 1 and this is what you see instead.
-    private val glint = Paint().apply {
-        isAntiAlias = true
+    private val glint = paint().apply {
         blendMode = BlendMode.PLUS
     }
 

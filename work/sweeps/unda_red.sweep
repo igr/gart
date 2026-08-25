@@ -1,0 +1,37 @@
+# unda in beni - three keepers from the main sweep pulled on the red block (pal 2), each across
+# twelve casts because a look that only holds on one cast isnt a look. the ids are the renders in
+# output/unda they were lifted from; all three were cast on seed 9, so seed 9 in each branch is
+# that exact image re-inked.
+# run:  just sweep unda_red     (writes pngs + one contact sheet per branch to output/unda_red)
+# 36 renders across 3 branches.
+
+art    = unda.UndaKt
+module = arts:sea
+out    = output/unda_red
+par    = 6
+thumb  = 400
+pal    = 2
+
+# Rollers (040). sixteen fat bands stacked evenly and the peak carried all the way down the page,
+# so it reads as a range of big waves rather than one swell.
+[branch v040]
+seed   = 1:12
+crests = 16
+fall   = 1.0
+decay  = 0.4
+
+# The open sea (024). default swell but both shoulders swapped - tight ramp in from the left,
+# wide on the right, so the crests run long and lazy off the right edge.
+[branch v024]
+seed    = 1:12
+height  = 0.22
+spreadl = 0.2
+spreadr = 0.4
+
+# The spike (022). same tight left but the right shoulder cut to 0.09 - the peak stands alone
+# and the crests pile up on both flanks.
+[branch v022]
+seed    = 1:12
+height  = 0.22
+spreadl = 0.2
+spreadr = 0.09

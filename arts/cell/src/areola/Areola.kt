@@ -2,6 +2,7 @@ package areola
 
 import dev.oblac.gart.Gart
 import dev.oblac.gart.Gartmap
+import dev.oblac.gart.pixels.boxDownsample
 import dev.oblac.gart.color.Palette
 import dev.oblac.gart.color.Palettes
 import dev.oblac.gart.color.colorScale
@@ -669,35 +670,9 @@ private fun shadePlates(f: Extraction, map: Gartmap) {
         val shade = lerp(AO_MIN, 1f, ao) * lerp(1f - RIMK * 0.5f, 1f, lambert)
         rgb[i] = colorScale(f.plateBase[l], shade)
     }
-    downsample(rgb, map)
+    boxDownsample(rgb, SS, map)
 }
 
-/** box-average the SS grid down to W*H, writing opaque pixels. */
-private fun downsample(rgb: IntArray, map: Gartmap) {
-    val px = map.pixels
-    val inv = 1f / (SS * SS)
-    for (y in 0 until H) {
-        val by = y * SS
-        for (x in 0 until W) {
-            val bx = x * SS
-            var r = 0
-            var gg = 0
-            var b = 0
-            var yy = 0
-            while (yy < SS) {
-                var row = (by + yy) * GW + bx
-                var xx = 0
-                while (xx < SS) {
-                    val col = rgb[row]
-                    r += (col ushr 16) and 0xFF; gg += (col ushr 8) and 0xFF; b += col and 0xFF
-                    row++; xx++
-                }
-                yy++
-            }
-            px[y * W + x] = (0xFF shl 24) or ((r * inv).toInt() shl 16) or ((gg * inv).toInt() shl 8) or (b * inv).toInt()
-        }
-    }
-}
 
 // HELPERS, utils etc
 

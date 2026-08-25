@@ -4,6 +4,7 @@ import dev.oblac.gart.color.CssColors
 import dev.oblac.gart.color.argb
 import dev.oblac.gart.font.FontFamily
 import dev.oblac.gart.font.font
+import dev.oblac.gart.gfx.paint
 import dev.oblac.gart.gfx.strokeOfBlack
 import dev.oblac.gart.vector.Vec3
 import dev.oblac.gart.vector.cos
@@ -176,11 +177,10 @@ private fun drawGrid(c: Canvas, d: Dimension, ggen: GGen) {
     val drawW = W - 2 * ggen.gapA
     val drawH = H - ggen.gapA - ggen.gapB
 
-    val gridPaint = Paint().apply {
+    val gridPaint = paint().apply {
         mode = PaintMode.STROKE
         strokeWidth = 1f
         color = 0xFF888888.toInt() // gray color for grid
-        isAntiAlias = true
         // Create dotted line effect: 5px dash, 5px gap
         pathEffect = PathEffect.makeDash(floatArrayOf(5f, 5f), 0f)
     }
@@ -201,11 +201,10 @@ private fun drawGrid(c: Canvas, d: Dimension, ggen: GGen) {
     }
 
     // Draw X and Y axes (solid, darker lines)
-    val axisPaint = Paint().apply {
+    val axisPaint = paint().apply {
         mode = PaintMode.STROKE
         strokeWidth = 2f
         color = 0xFF000000.toInt() // black color for axes
-        isAntiAlias = true
     }
 
     // X-axis (y = 0, at bottom of grid)
@@ -217,9 +216,8 @@ private fun drawGrid(c: Canvas, d: Dimension, ggen: GGen) {
     c.drawLine(yAxisX, drawY, yAxisX, drawY + drawH, axisPaint)
 
     // Draw axis labels
-    val textPaint = Paint().apply {
+    val textPaint = paint().apply {
         color = 0xFF000000.toInt() // black
-        isAntiAlias = true
     }
 
     // X-axis labels (0.0, 0.5, 1.0)
@@ -249,10 +247,9 @@ private fun drawWavePlot(c: Canvas, d: Dimension, ggen: GGen, waves: Waves) {
     val drawW = W - 2 * ggen.gapA
     val drawH = H - ggen.gapA - ggen.gapB
 
-    val paint = Paint().apply {
+    val paint = paint().apply {
         mode = PaintMode.STROKE
         strokeWidth = 3f
-        isAntiAlias = true
     }
 
     val samples = 2000
@@ -308,10 +305,9 @@ private fun drawGradientBar(c: Canvas, d: Dimension, ggen: GGen, palette: (Float
     c.drawRect(Rect(barX, barY, barX + barW, barY + barHeight), strokeOfBlack(2f))
 
     // Fill with gradient using palette function
-    val paint = Paint().apply {
+    val paint = paint().apply {
         mode = PaintMode.STROKE
         strokeWidth = 1f
-        isAntiAlias = true
     }
 
     val samples = barW.toInt()  // One vertical line per pixel

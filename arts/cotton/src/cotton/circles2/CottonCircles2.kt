@@ -7,6 +7,7 @@ import dev.oblac.gart.flow.CircularFlow
 import dev.oblac.gart.flow.FlowField
 import dev.oblac.gart.gfx.drawPoints
 import dev.oblac.gart.gfx.isInside
+import dev.oblac.gart.gfx.paint
 import dev.oblac.gart.gfx.randomPoint
 import dev.oblac.gart.gfx.strokeOfWhite
 import dev.oblac.gart.shader.createNoiseGrainFilter
@@ -25,10 +26,9 @@ fun main() {
     println(gart)
     val palette = Palettes.cool31
     val colors = palette.map {
-        Paint().apply {
+        paint().apply {
             color = it
             imageFilter = createNoiseGrainFilter(0.2f, gart.d)
-            isAntiAlias = true
         }
     }
 

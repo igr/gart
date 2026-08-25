@@ -40,6 +40,13 @@ fun bluef(color: Int): Float = blue(color) / 255f
 fun lumOf(color: Int): Float = red(color) * 0.299f + green(color) * 0.587f + blue(color) * 0.114f
 
 /**
+ * Chroma of a packed ARGB [color]: the spread of its RGB channels, `max - min`, in `0..255`.
+ * Greys are `0`, pure primaries `255`. This is the raw chroma that HSV/HSL saturation is
+ * normalised from, so it ranks how loud a colour is without a colour-space round trip.
+ */
+fun chromaOf(color: Int): Int = maxOf(red(color), green(color), blue(color)) - minOf(red(color), green(color), blue(color))
+
+/**
  * Adds [delta] to every RGB channel of a packed ARGB [color], clamping each
  * channel to `0..255` and preserving alpha.
  *

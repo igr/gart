@@ -3,10 +3,10 @@ package dev.oblac.gart
 import dev.oblac.gart.color.CssColors
 import dev.oblac.gart.color.gradientOf
 import dev.oblac.gart.gfx.fillOfRed
+import dev.oblac.gart.gfx.paint
 import dev.oblac.gart.shader.*
 import org.jetbrains.skia.FilterTileMode
 import org.jetbrains.skia.ImageFilter
-import org.jetbrains.skia.Paint
 import org.jetbrains.skia.Shader
 import org.jetbrains.skia.Shader.Companion.makeFractalNoise
 import org.jetbrains.skia.Shader.Companion.makeLinearGradient
@@ -48,8 +48,7 @@ fun main() {
             }
 
             Key.KEY_2 -> {
-                fill = Paint().apply {
-                    this.isAntiAlias = true
+                fill = paint().apply {
                     this.color = CssColors.red
                     this.imageFilter = ImageFilter.makeBlur(20f, 20f, FilterTileMode.DECAL)
                 }
@@ -57,8 +56,7 @@ fun main() {
             }
 
             Key.KEY_3 -> {
-                fill = Paint().apply {
-                    this.isAntiAlias = true
+                fill = paint().apply {
                     this.color = CssColors.blue
                     this.imageFilter = ImageFilter.makeDilate(20f, 20f, input = null, crop = null)
                 }
@@ -66,8 +64,7 @@ fun main() {
             }
 
             Key.KEY_4 -> {
-                fill = Paint().apply {
-                    this.isAntiAlias = true
+                fill = paint().apply {
                     this.color = CssColors.darkGoldenrod
                     this.imageFilter = ImageFilter.makeDropShadow(10f, 20f, 10f, 20f, CssColors.black)
                 }

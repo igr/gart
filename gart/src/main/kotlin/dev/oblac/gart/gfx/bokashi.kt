@@ -67,8 +67,7 @@ fun Canvas.drawBokashi(region: Path, wash: Bokashi, stops: Int = 7) {
     }
     drawPath(
         region,
-        Paint().apply {
-            isAntiAlias = true
+        paint().apply {
             shader = Shader.makeLinearGradient(
                 0f, wash.y0, 0f, wash.y1,
                 gradientOf(ramp, FloatArray(stops) { it / (stops - 1f) }),

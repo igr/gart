@@ -1,4 +1,4 @@
-package sixsix
+package sixsix.one
 
 import dev.oblac.gart.Gartvas
 import dev.oblac.gart.angle.Degrees

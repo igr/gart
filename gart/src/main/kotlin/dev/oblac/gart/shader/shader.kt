@@ -1,12 +1,11 @@
 package dev.oblac.gart.shader
 
-import org.jetbrains.skia.Paint
+import dev.oblac.gart.gfx.paint
 import org.jetbrains.skia.RuntimeEffect
 import org.jetbrains.skia.RuntimeShaderBuilder
 import org.jetbrains.skia.Shader
 
-fun Shader.toPaint() = Paint().apply {
-    isAntiAlias = true
+fun Shader.toPaint() = paint().apply {
     shader = this@toPaint
 }
 

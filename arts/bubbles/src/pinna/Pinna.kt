@@ -8,6 +8,7 @@ import dev.oblac.gart.color.space.ColorOKLCH
 import dev.oblac.gart.color.space.color4f
 import dev.oblac.gart.gfx.drawVignette
 import dev.oblac.gart.gfx.fillOf
+import dev.oblac.gart.gfx.paint
 import dev.oblac.gart.io.detectHeadlessFlags
 import dev.oblac.gart.io.ensureExtension
 import dev.oblac.gart.io.pf
@@ -16,7 +17,6 @@ import dev.oblac.gart.io.pl
 import dev.oblac.gart.io.ps
 import org.jetbrains.skia.Canvas
 import org.jetbrains.skia.ClipMode
-import org.jetbrains.skia.Paint
 import org.jetbrains.skia.Rect
 import org.jetbrains.skia.SamplingMode
 import kotlin.random.Random
@@ -231,7 +231,7 @@ private fun render(c: Canvas, p: Params) {
 }
 
 private fun drawCircles(c: Canvas, blobs: List<Blob>, p: Params, colors: Colors) {
-    val paint = Paint().apply { isAntiAlias = true }
+    val paint = paint()
     for (b in blobs) {
         paint.color = colors.greens[b.tone]
         c.drawCircle(b.x, b.y, b.r, paint)

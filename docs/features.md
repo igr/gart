@@ -59,6 +59,16 @@ There is really **a lot of features**, and I'm not sure how to organize them, bu
 
 - B-spline, Cardinal spline, Catmull-Rom spline, Chaikin, quadratic smoothing
 
+## Brush Strokes
+
+- Brush — stamped strokes along a Path (drawBrush): weight, scatter, sharpness, grain, opacity, spacing
+- Tips: Dots, Spray, Marker, Image stamp, Custom draw — with NONE/NATURAL/RANDOM rotation
+- Pressure: simulated Bell profile (randomized per stroke), custom Curve, Flat
+- Brushes — stock presets: pen, rotring, pencil2B/HB/2H, colorPencil, pastel, crayon, charcoal, spray, marker, hatch
+- Wobble — fields that bend strokes off the path: hand tremor, curved (simplex), waves
+- Hatching: Hatch, hatchLines, drawBrushHatch — spacing gradient, jitter, overshoot, holes handled
+- Watercolor — layered washes with bleeding edges, granulation, darkened rim (drawWatercolor)
+
 ## Physics & Simulation
 
 - Attractors (18): Lorenz, Lorenz84, Clifford, Rossler, Duffing, Thomas, Chen, Sprott, Langford-Aizawa, Halvorsen,

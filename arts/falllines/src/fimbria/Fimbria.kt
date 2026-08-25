@@ -10,6 +10,7 @@ import dev.oblac.gart.color.lerpColor
 import dev.oblac.gart.color.Palette
 import dev.oblac.gart.color.Palettes
 import dev.oblac.gart.color.lighten
+import dev.oblac.gart.gfx.paint
 import dev.oblac.gart.io.detectHeadlessFlags
 import dev.oblac.gart.io.ensureExtension
 import dev.oblac.gart.io.pf
@@ -291,9 +292,9 @@ private fun paint(c: Canvas, els: List<El>) {
         )
     }
 
-    val fill = Paint().apply { isAntiAlias = true; blendMode = mix; setAlphaf(1f - p.glass) }
-    val shine = Paint().apply { isAntiAlias = true; blendMode = mix }
-    val stroke = Paint().apply { isAntiAlias = true; mode = PaintMode.STROKE; strokeCap = PaintStrokeCap.ROUND }
+    val fill = paint().apply { blendMode = mix; setAlphaf(1f - p.glass) }
+    val shine = paint().apply { blendMode = mix }
+    val stroke = paint().apply { mode = PaintMode.STROKE; strokeCap = PaintStrokeCap.ROUND }
     for (e in els) when (e) {
         is Line -> { stroke.color = e.col; stroke.strokeWidth = e.w; c.drawLine(e.x0, e.y0, e.x1, e.y1, stroke) }
         is Yarn -> yarn(c, e, fill, shine)

@@ -4,7 +4,6 @@ import dev.oblac.gart.Dimension
 import dev.oblac.gart.Gartmap
 import dev.oblac.gart.Gartvas
 import dev.oblac.gart.color.alpha
-import org.jetbrains.skia.Paint
 import org.jetbrains.skia.PaintMode
 import org.jetbrains.skia.Path
 import org.jetbrains.skia.PathMeasure
@@ -21,10 +20,9 @@ class IsPointInPath(private val d: Dimension, path: Path) {
         canvas.clear(0x00000000)
 
         // Fill path with opaque color
-        val paint = Paint().apply {
+        val paint = paint().apply {
             color = 0xFFFFFFFF.toInt()
             mode = PaintMode.FILL
-            isAntiAlias = true
         }
 
         canvas.drawPath(path, paint)

@@ -11,6 +11,7 @@ import dev.oblac.gart.color.darken
 import dev.oblac.gart.color.lerpColor
 import dev.oblac.gart.color.lumOf
 import dev.oblac.gart.color.shiftLuma
+import dev.oblac.gart.gfx.paint
 import dev.oblac.gart.io.ensureExtension
 import dev.oblac.gart.math.hash01
 import dev.oblac.gart.noise.SimplexNoise
@@ -18,7 +19,6 @@ import dev.oblac.gart.reactiondiffusion.GrayScott
 import org.jetbrains.skia.Canvas
 import org.jetbrains.skia.FilterTileMode
 import org.jetbrains.skia.ImageFilter
-import org.jetbrains.skia.Paint
 import org.jetbrains.skia.PaintMode
 import org.jetbrains.skia.Path
 import org.jetbrains.skia.PathBuilder
@@ -409,23 +409,20 @@ private fun drawDrifters(canvas: Canvas, drifters: List<Drifter>) {
         val lx = toLightX / lightDistance
         val ly = toLightY / lightDistance
         val shadowPath = islandPath(sphere, -lx * 5f, -ly * 5f)
-        val shadow = Paint().apply {
-            isAntiAlias = true
+        val shadow = paint().apply {
             color = argb(105, 0, 0, 0)
         }
         canvas.drawPath(shadowPath, shadow)
         shadow.close()
 
         val path = islandPath(sphere)
-        val body = Paint().apply {
-            isAntiAlias = true
+        val body = paint().apply {
             color = sphere.color
         }
         canvas.drawPath(path, body)
         body.close()
 
-        val edge = Paint().apply {
-            isAntiAlias = true
+        val edge = paint().apply {
             mode = PaintMode.STROKE
             strokeWidth = 3f
             color = darken(sphere.color, 0.52f)
