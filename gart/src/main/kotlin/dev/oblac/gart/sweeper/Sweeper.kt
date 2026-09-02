@@ -1,4 +1,4 @@
-package work.sweeper
+package dev.oblac.gart.sweeper
 
 import dev.oblac.gart.font.FontFamily
 import dev.oblac.gart.font.font
@@ -20,7 +20,7 @@ import kotlin.math.*
 // headless, dump pngs + params + contact sheets. full docs in docs/sweeper.md.
 
 private const val MAX = 500          // above this many renders we make you pass --yes
-private const val OWN_MODULE = "work" // where the sweeper itself lives, so also the module default
+private const val DEFAULT_MODULE = "work" // where a .sweep art lives unless the config says otherwise
 
 private data class Axis(val key: String, val values: List<String>, val swept: Boolean)
 private data class Branch(val name: String, val axes: List<Axis>)
@@ -128,7 +128,7 @@ private fun run(mainClass: String, module: String, branches: List<Branch>, outDi
     if (o.sheet) results.filter { it.ok }.groupBy { it.branch }.forEach { (branch, rs) ->
         val sheet = File(outDir, "_sheet${if (branch.isEmpty()) "" else "_$branch"}.png")
         runCatching { buildSheet(sheet, "$prefix $branch".trim(), rs, o.thumb); println("sheet: ${sheet.path}  (${rs.size} imgs)") }
-            .onFailure { System.err.println("sheet failed for '$branch': ${it.message}") }
+            .onFailure { System.err.println("sheet failed for '$branch': ${it.message ?: it}") }
     }
     println("-> ${outDir.path}")
 }
@@ -180,17 +180,14 @@ private fun classpathFileOf(module: String) =
     File(module.removePrefix(":").replace(':', '/'), "build/classpath.txt")
 
 /**
- * Child renders run on the art's own module classpath. The sweeper lives in `work`, so an art that
- * has graduated to `arts/<module>` is not on ours - we read what `:<module>:writeClasspath` wrote
- * (`just sweep` runs that task for us). Falling back to our own classpath only makes sense for our
- * own module; for any other, a missing file means the task never ran and every render would fail.
+ * Child renders run on the art's own module classpath. The sweeper lives in the library, whose
+ * classpath has no art on it at all, so we always read what `:<module>:writeClasspath` wrote
+ * (`just sweep` runs that task for us). A missing file means the task never ran and every render
+ * would fail with a ClassNotFoundException, so say so up front instead.
  */
 private fun classpathOf(module: String, cpFile: File): String {
-    if (!cpFile.isFile) {
-        require(module == OWN_MODULE) {
-            "no classpath for module '$module' (looked in ${cpFile.path}) - run ./gradlew :$module:writeClasspath"
-        }
-        return System.getProperty("java.class.path")
+    require(cpFile.isFile) {
+        "no classpath for module '$module' (looked in ${cpFile.path}) - run ./gradlew :$module:writeClasspath"
     }
     return cpFile.readText().trim().removePrefix("-cp").trim()
 }
@@ -272,7 +269,7 @@ private fun neighbourhood(baseStr: String, spread: Double, steps: Int): List<Str
 
 private class Config {
     var art: String? = null
-    var module: String = OWN_MODULE
+    var module: String = DEFAULT_MODULE
     var out: String = "output"
     var par: Int? = null
     var name: String? = null

@@ -32,15 +32,18 @@ allprojects {
 
     plugins.withType<JavaPlugin> {
         val javaExt = extensions.getByType<JavaPluginExtension>()
-        val classesDirs = javaExt.sourceSets["main"].output.classesDirs
+        // classes and resources both - a module run straight off its build dirs (the sweeper from
+        // gart) needs its fonts on the path too, not just its classes. wrapped in files() so the
+        // configuration cache can store it
+        val outputDirs = files(javaExt.sourceSets["main"].output)
         val runtimeFiles = configurations["runtimeClasspath"].incoming.files
         tasks.register("writeClasspath") {
             description = "Writes runtime classpath to build/classpath.txt"
             val outputFile = layout.buildDirectory.file("classpath.txt")
-            inputs.files(runtimeFiles, classesDirs)
+            inputs.files(runtimeFiles, outputDirs)
             outputs.file(outputFile)
             doLast {
-                outputFile.get().asFile.writeText("-cp\n${classesDirs.asPath}:${runtimeFiles.asPath}")
+                outputFile.get().asFile.writeText("-cp\n${outputDirs.asPath}:${runtimeFiles.asPath}")
             }
         }
         tasks.register("writeLauncherClasspath") {

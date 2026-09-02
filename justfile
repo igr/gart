@@ -71,11 +71,11 @@ sweep name:
         fi
     fi
     # renders run on the art's own module classpath, so build whatever 'module = ...' names
-    # (default: work, where the sweeper itself lives).
+    # (default: work). the sweeper itself lives in the library.
     MODULE="$(sed -n 's/^[[:space:]]*module[[:space:]]*=[[:space:]]*\([^#]*\).*/\1/p' "$CONFIG" | head -1 | tr -d '[:space:]')"
     MODULE="${MODULE:-work}"
-    ./gradlew :work:classes :work:writeClasspath ":${MODULE}:classes" ":${MODULE}:writeClasspath" -q
-    java @work/build/classpath.txt work.sweeper.SweeperKt "$CONFIG"
+    ./gradlew :gart:classes :gart:writeClasspath ":${MODULE}:classes" ":${MODULE}:writeClasspath" -q
+    java @gart/build/classpath.txt dev.oblac.gart.sweeper.SweeperKt "$CONFIG"
 
 # Ink profile of a render, for comparing against a reference.
 [group('dev')]

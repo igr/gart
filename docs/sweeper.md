@@ -5,7 +5,7 @@ parallel, and tiles each batch into a labelled contact sheet — so you can scan
 and fish out the good ones ("find the beauty in the noise"). Everything — inputs *and* run settings
 — lives in a **config file**; the only thing you pass on the command line is which config to run.
 
-- Tool: `work/src/sweeper/Sweeper.kt` (`work.sweeper.SweeperKt`)
+- Tool: `gart/src/main/kotlin/dev/oblac/gart/sweeper/Sweeper.kt` (`dev.oblac.gart.sweeper.SweeperKt`, in the library)
 - Configs: `work/sweeps/<name>.sweep`
 - Output: `<out>/<id>.png` + `<id>.txt` per render (`<id>` = a zero-padded counter), `<out>/_sheet[_branch].png` per batch
 
@@ -19,8 +19,8 @@ just sweep <name>           # runs work/sweeps/<name>.sweep
 the Sweeper. For an art in `arts/layers`, equivalent to:
 
 ```bash
-./gradlew :work:classes :work:writeClasspath :arts:layers:classes :arts:layers:writeClasspath -q
-java @work/build/classpath.txt work.sweeper.SweeperKt work/sweeps/example.sweep
+./gradlew :gart:classes :gart:writeClasspath :arts:layers:classes :arts:layers:writeClasspath -q
+java @gart/build/classpath.txt dev.oblac.gart.sweeper.SweeperKt work/sweeps/example.sweep
 ```
 
 There are **no command-line flags** — to change anything (parallelism, sampling, a dry preview…),
@@ -59,8 +59,9 @@ render instead of N). The reserved names are `art`, `module`, `out`, `par`, `nam
 
 ### Which module the art lives in
 
-Renders are subprocesses, and they run on the **art's own module classpath** — not the sweeper's.
-The sweeper lives in `work`, so a piece that has graduated to `arts/<module>` needs `module` set:
+Renders are subprocesses, and they run on the **art's own module classpath** — not the sweeper's
+(the sweeper lives in the `gart` library, which has no art on its classpath). `module` defaults to
+`work`, so a piece that has graduated to `arts/<module>` needs it set:
 
 ```ini
 art    = plica.PlicaKt
