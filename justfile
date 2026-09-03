@@ -77,8 +77,3 @@ sweep name:
     ./gradlew :gart:classes :gart:writeClasspath ":${MODULE}:classes" ":${MODULE}:writeClasspath" -q
     java @gart/build/classpath.txt dev.oblac.gart.sweeper.SweeperKt "$CONFIG"
 
-# Ink profile of a render, for comparing against a reference.
-[group('dev')]
-ink png threshold="45":
-    python3 work/tools/inkprofile.py {{png}} {{threshold}}
-
