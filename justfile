@@ -30,8 +30,6 @@ readme:
     ./gradlew :example:run
 
 # Dev session: continuous compile + classloader-based hot restart.
-# Usage: just dev work work.cosmic.CosmicTopoKt
-# Usage: just dev arts:flowforce monolith.MonolithKt
 [group('dev')]
 dev module main:
     #!/usr/bin/env bash
@@ -50,6 +48,18 @@ dev module main:
     tmux split-window -t "$SESSION" -h \
         "bash -c 'java -XX:CICompilerCount=1 -XX:TieredStopAtLevel=1 -XX:+UseSerialGC -Xverify:none -Dgart.align=right @${LAUNCHER_CP} dev.oblac.gart.hotreload.GartLauncherKt ${CLASSES_DIR} {{main}}'"
     tmux attach -t "$SESSION"
+
+# Dev session for cosmic topo.
+[group('dev')]
+dev-cosmic: (dev "arts:pixelmania" "pixelmania.cosmic.CosmicTopoKt")
+
+# Dev session for monolith.
+[group('dev')]
+dev-monolith: (dev "arts:flowforce" "flowforce.monolith.MonolithKt")
+
+# Dev session for unda.
+[group('dev')]
+dev-unda: (dev "arts:sea" "unda.UndaKt")
 
 # Stops the dev session.
 [group('dev')]
