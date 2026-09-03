@@ -57,11 +57,13 @@ fun main() {
 # headless one-shot (used for batch renders, sweeps, CI-style verification)
 ./gradlew :<module>:classes :<module>:writeClasspath -q
 java -Dheadless [-Dseed=N] [-Dout=work/foo.png] @<module>/build/classpath.txt <pkg>.<File>Kt
-# e.g. java -Dheadless @work/build/classpath.txt work.corona.CoronaKt
+# e.g. java -Dheadless @arts/mathy/build/classpath.txt work.corona.CoronaKt
 
 # interactive hot-reload dev session (tmux + Skia window, recompiles on save)
-just dev <module> <pkg>.<File>Kt          # e.g. just dev work work.corona.CoronaKt
-just dev arts:flowforce monolith.MonolithKt   # nested module uses ':' form
+# <pkg> follows the file's package line, not the module path (corona kept work.corona after moving)
+just dev <module> <pkg>.<File>Kt                        # e.g. just dev arts:mathy work.corona.CoronaKt
+just dev arts:flowforce flowforce.monolith.MonolithKt   # nested module uses ':' form
+just dev-unda                                           # per-piece shortcut: dev-unda, dev-monolith, dev-cosmic (one-line recipes in the justfile)
 just dev-stop
 ```
 
@@ -147,7 +149,7 @@ All file paths are relative to the repo root; sources live under `gart/src/main/
 
 - `fun interface Draw { operator fun invoke(canvas: Canvas, dimension: Dimension) }` — static draw.
 - `fun interface DrawFrame { operator fun invoke(canvas: Canvas, dimension: Dimension, frames: Frames) }` — per-frame draw (the animation callback). ⭐
-- `abstract class Drawing(g: Gartvas? = null) : DrawFrame` — base class with `open fun draw(canvas, dimension, frames)`; after `draw` it blits `g`'s snapshot if `g != null`. Used mainly for hot-reload.
+- `abstract class Drawing(g: Gartvas? = null) : DrawFrame` — base class with `open fun draw(canvas, dimension, frames)`; after `draw` it blits `g`'s snapshot if `g != null`. The previous hot-reload hook — `GartLauncher` re-runs `main()` and swaps the `DrawFrame` itself, so new pieces pass a lambda to `Window.show` instead of subclassing this.
 
 ### Pixel buffers ⭐
 
@@ -271,7 +273,7 @@ All saving is in `media.kt`; files are written via `java.io.File(name)`, so `nam
 
 ### Hot reload (brief)
 
-`hotreload/` enables live editing without restarting the window. `GartLauncher` (`hotreload/GartLauncher.kt`, has its own `main(args)` — `<classes-dir> <main-class>`) runs an art project's `main()` in an isolated `URLClassLoader`, watches `.class` files for changes, and re-invokes `main()` with a fresh classloader; the existing Swing window is reused (the `DrawFrame` is swapped via `ActiveWindow`, so no flicker). `FileWatcher` (`hotreload/FileWatcher.kt`) does the actual filesystem watching (`start()` / `stop()`).
+`hotreload/` enables live editing without restarting the window. `GartLauncher` (`hotreload/GartLauncher.kt`, has its own `main(args)` — `<classes-dir> <main-class>`) runs an art project's `main()` in an isolated `URLClassLoader`, watches `.class` files for changes, and re-invokes `main()` with a fresh classloader; the existing Swing window is reused (the `DrawFrame` is swapped via `ActiveWindow`, so no flicker). `FileWatcher` (`hotreload/FileWatcher.kt`) does the actual filesystem watching (`start()` / `stop()`). Started by `just dev <module> <main-class>`: the `justfile` builds the deps-only launcher classpath, then runs Gradle continuous compile and the launcher side by side in tmux. Per-piece shortcuts (`just dev-unda`, `dev-monolith`, `dev-cosmic`) are one-line recipes that call `dev`. See `docs/hotreload.md`.
 ## 2. Color & Palettes
 
 All in `gart/src/main/kotlin/dev/oblac/gart/color/`. Colors are plain ARGB `Int`s (alpha in the high byte). Skia interop uses `org.jetbrains.skia.Color4f`. `0xFF……` long literals are common because the int form would overflow.

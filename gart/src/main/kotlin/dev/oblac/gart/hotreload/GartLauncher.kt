@@ -11,6 +11,10 @@ import kotlin.system.exitProcess
  * The existing Swing window is reused (DrawFrame swap via ActiveWindow) - no window flicker.
  *
  * Usage: GartLauncherKt <classes-dir> <main-class>
+ *
+ * Normally started through `just dev <module> <main-class>` (or a `just dev-<piece>` shortcut),
+ * which builds the deps-only classpath and runs Gradle continuous compile alongside.
+ * See docs/hotreload.md.
  */
 fun main(args: Array<String>) {
     if (args.size < 2) {

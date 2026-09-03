@@ -38,7 +38,7 @@ fun main() {
 
     val w = gart.window()
 
-    // Hot reload requires a real class to be created, not a lambda!
+    // old hot-reload style (a Drawing subclass); a plain lambda works just as well now
     val draw = FunDraw()
     w.show(draw).onKey { key ->
         when (key) {

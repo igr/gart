@@ -11,7 +11,9 @@ fun interface DrawFrame {
 }
 
 /**
- * Base class for drawing, used mostly with the Hot Reload feature.
+ * Base class for drawing from the previous hot-reload mechanism. Kept for the older pieces
+ * that still subclass it; new code passes a [DrawFrame] lambda to `Window.show` and lets
+ * `GartLauncher` re-run `main()` on change (see docs/hotreload.md).
  */
 abstract class Drawing(private val g: Gartvas? = null) : DrawFrame {
     final override fun invoke(canvas: Canvas, dimension: Dimension, frames: Frames) {

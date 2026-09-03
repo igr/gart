@@ -20,7 +20,8 @@ great. _It’s not how I normally write code._
 
 ## ♻️ **Hot Reload**
 
-See [Hot Reload](docs/hotreload.md) for details on how to set up hot reload for faster iteration.
+`just dev <module> <main-class>` (or a per-piece shortcut like `just dev-unda`) recompiles on save and re-runs
+the piece in the same window. See [Hot Reload](docs/hotreload.md) for details.
 
 ## 🧹 **Sweeper**
 

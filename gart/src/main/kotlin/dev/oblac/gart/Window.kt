@@ -274,17 +274,6 @@ class WindowView(private val w: Window, private val v: GartView) {
     internal fun drawFrame(): DrawFrame {
         return v.drawFrame()
     }
-
-//    /**
-//     * Enables hot reload for the window.
-//     * This is experimental feature.
-//     */
-//    fun hotReload(g: Gartvas, projectRoot: String = System.getProperty("user.dir")) {
-//        val hotReloadWindowsView = DrawFrameReloader(g, this, projectRoot)
-//        this.onClose {
-//            hotReloadWindowsView.shutdown()
-//        }
-//    }
 }
 
 object KeyHandlers {

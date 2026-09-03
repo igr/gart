@@ -10,16 +10,41 @@ is _reused automatically_ (no flicker).
 just dev <module> <main-class>
 ```
 
-Example:
+`<module>` is the Gradle project path with `:` separators (`work`, `arts:sea`).
+`<main-class>` is the file's facade class: the package, the file name and a `Kt` suffix.
+Note it follows the `package` line, not the module path.
 
 ```bash
-just dev work dev.oblac.gart.cosmic.CosmicTopoKt
+just dev arts:sea unda.UndaKt
+just dev arts:flowforce flowforce.monolith.MonolithKt
+just dev arts:pixelmania pixelmania.cosmic.CosmicTopoKt
 ```
+
+A piece you keep coming back to gets a one-line shortcut recipe in the `justfile`:
+
+```just
+# Dev session for unda.
+[group('dev')]
+dev-unda: (dev "arts:sea" "unda.UndaKt")
+```
+
+so `just dev-unda` does the same thing. Existing shortcuts: `dev-unda`, `dev-monolith`,
+`dev-cosmic` (`just --list` shows them under `dev`).
 
 This starts a tmux session with two panes:
 
 - **left**: Gradle continuous compilation (watches for source changes)
 - **right**: `GartLauncher` (watches for `.class` changes, re-runs `main()`)
+
+## What the art needs to do
+
+Nothing special. Write `main()` the normal way: draw onto a gartvas and hand it to the
+window with `gart.window().showImage(g)`, or `gart.window().show { c, d, f -> ... }` for
+animation. On reload the launcher runs `main()` again and `Window.show()` swaps the new
+draw into the existing window.
+
+Subclassing `Drawing` (`private class MyDraw(g: Gartvas) : Drawing(g)`) was the previous
+hot-reload mechanism. It still works but is not needed; don't use it in new pieces.
 
 ## How it works
 
