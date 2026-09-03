@@ -1,7 +1,6 @@
 package unda
 
 import dev.oblac.gart.Dimension
-import dev.oblac.gart.Drawing
 import dev.oblac.gart.Gart
 import dev.oblac.gart.Gartmap
 import dev.oblac.gart.Gartvas
@@ -152,20 +151,13 @@ fun main(args: Array<String>) {
     println(p)
 
     val g = gart.gartvas()
-    val draw = UndaDraw(g)
+    draw(g.canvas, g.d)
     patina(g)
 
     val output = p.out.ensureExtension("png")
     gart.saveImage(g, output)
 
-    if (!headless) gart.window().show(draw)
-}
-
-// hot reload needs a real class, not a lambda
-private class UndaDraw(g: Gartvas) : Drawing(g) {
-    init {
-        draw(g.canvas, g.d)
-    }
+    if (!headless) gart.window().showImage(g)
 }
 
 // the swell -------------------------------------------------------
