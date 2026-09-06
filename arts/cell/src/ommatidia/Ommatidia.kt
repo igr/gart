@@ -3,6 +3,7 @@ package ommatidia
 import dev.oblac.gart.Dimension
 import dev.oblac.gart.Gart
 import dev.oblac.gart.Gartvas
+import dev.oblac.gart.color.Palette
 import dev.oblac.gart.color.Palettes
 import dev.oblac.gart.color.gradientOf
 import dev.oblac.gart.color.hueShift
@@ -12,6 +13,7 @@ import dev.oblac.gart.fx.addGrain
 import dev.oblac.gart.gfx.drawVignette
 import dev.oblac.gart.gfx.fillOf
 import dev.oblac.gart.io.detectHeadlessFlags
+import dev.oblac.gart.util.Stopwatch
 import dev.oblac.gart.io.ensureExtension
 import dev.oblac.gart.io.pf
 import dev.oblac.gart.io.pi
@@ -169,16 +171,16 @@ private fun resolveParams(): Params {
 private const val OPAQUE = 0xFF000000.toInt()
 
 internal class Colors(p: Params) {
-    val ramp: IntArray
+    val ramp: Palette
     /** the seams between lenses, and everything the pack doesn't cover */
     val ink: Int
     val sun: Int
     val glint: Int
 
     init {
-        val cool = Palettes.coolPalette(p.pal).toIntArray()
-        val ordered = if (p.flip == 1) cool.reversedArray() else cool
-        ramp = IntArray(ordered.size) { hueShift(ordered[it], p.hue) }
+        val cool = Palettes.coolPalette(p.pal)
+        val ordered = if (p.flip == 1) cool.reversed() else cool
+        ramp = Palette.of(ordered.map { hueShift(it, p.hue) })
         ink = ColorOKLCH(p.inkL, p.inkC, p.inkHue + p.hue).toColor4f().toColor() or OPAQUE
         sun = ColorOKLCH(0.97f, 0.055f, p.sunHue + p.hue).toColor4f().toColor() or OPAQUE
         glint = ColorOKLCH(0.99f, 0.020f, p.sunHue + p.hue).toColor4f().toColor() or OPAQUE
@@ -225,14 +227,13 @@ private fun render(c: Canvas, p: Params, colors: Colors) {
     val membrane = Membrane(p, rnd, nzOff)
     val light = lightOf(p)
 
-    var t0 = System.currentTimeMillis()
+    val sw = Stopwatch()
     val facets = packFacets(membrane, p, rnd, light, W.toFloat(), H.toFloat())
-    println("facets=${facets.size} pack=${System.currentTimeMillis() - t0}ms")
+    println("facets=${facets.size} pack=${sw.lap()}ms")
 
     val scene = Scene(p, colors, nzOff)
     c.drawRect(Rect.makeWH(W.toFloat(), H.toFloat()), fillOf(colors.ink))
 
-    t0 = System.currentTimeMillis()
     val eta = 1f / p.ior
     val depth = p.depth * W
     val hit = FloatArray(2)
@@ -242,7 +243,7 @@ private fun render(c: Canvas, p: Params, colors: Colors) {
             painter.draw(c, f, scene.sample(hit[0] / W, hit[1] / W))
         }
     }
-    println("draw=${System.currentTimeMillis() - t0}ms")
+    println("draw=${sw.lap()}ms")
 }
 
 

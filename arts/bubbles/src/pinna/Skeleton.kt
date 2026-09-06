@@ -100,7 +100,10 @@ internal fun growSkeleton(canopy: Canopy, p: Params, rng: Random, nz: Float, w: 
             val n = nodes.last()
             var sx = 0f
             var sy = 0f
-            attractors.forEach { sx += it.x; sy += it.y }
+            attractors.forEach {
+                sx += it.x
+                sy += it.y
+            }
             val dir = Vec2(sx / attractors.size - n.pos.x, sy / attractors.size - n.pos.y).normalize()
             nodes.add(spawn(n, dir, seg, p, nz))
             continue

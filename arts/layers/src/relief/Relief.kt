@@ -89,8 +89,10 @@ fun main(args: Array<String>) {
         val shadow = 1f - smoothstep(0.00f, 0.62f, f)
 
         // Directional surface light
-        val xm = max(0, x - 4); val xp = min(rw - 1, x + 4)
-        val ym = max(0, y - 4); val yp = min(rh - 1, y + 4)
+        val xm = max(0, x - 4)
+        val xp = min(rw - 1, x + 4)
+        val ym = max(0, y - 4)
+        val yp = min(rh - 1, y + 4)
         val dx = field[y * rw + xp] - field[y * rw + xm]
         val dy = field[yp * rw + x] - field[ym * rw + x]
         val slopeLight = ((-dx * 1.4f - dy) * 0.15f).coerceIn(-0.12f, 0.12f)

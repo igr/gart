@@ -250,7 +250,11 @@ private class Probe(private val foam: Foam) {
             val d = sqrt(dx * dx + dy * dy) - foam.r[j]
             if (d >= bd[3]) return@forEachIn
             var k = 3
-            while (k > 0 && bd[k - 1] > d) { bd[k] = bd[k - 1]; bi[k] = bi[k - 1]; k-- }
+            while (k > 0 && bd[k - 1] > d) {
+                bd[k] = bd[k - 1]
+                bi[k] = bi[k - 1]
+                k--
+            }
             bd[k] = d
             bi[k] = j
         }
@@ -304,9 +308,15 @@ private fun shade(foam: Foam, cov: FloatArray, film: FloatArray, sw: Int, sh: In
                         if (bound - bd[0] > 2f * (tauMax * fat + aa + 1.25f * kmax)) break
                     }
                     if (boundC <= boundF) {
-                        if (coarse.ring(ccx, ccy, mC) { pr.visit(coarse, it) }) { mC++; boundC = (mC - 1) * coarse.cs } else boundC = Float.MAX_VALUE
+                        if (coarse.ring(ccx, ccy, mC) { pr.visit(coarse, it) }) {
+                            mC++
+                            boundC = (mC - 1) * coarse.cs
+                        } else boundC = Float.MAX_VALUE
                     } else {
-                        if (fine.ring(fcx, fcy, mF) { pr.visit(fine, it) }) { mF++; boundF = (mF - 1) * fine.cs } else boundF = Float.MAX_VALUE
+                        if (fine.ring(fcx, fcy, mF) { pr.visit(fine, it) }) {
+                            mF++
+                            boundF = (mF - 1) * fine.cs
+                        } else boundF = Float.MAX_VALUE
                     }
                     if (boundC == Float.MAX_VALUE && boundF == Float.MAX_VALUE) break
                 }

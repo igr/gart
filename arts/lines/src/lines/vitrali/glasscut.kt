@@ -25,8 +25,12 @@ internal class Poly(val p: FloatArray) {
     }
 
     fun centroid(): Pair<Float, Float> {
-        var cx = 0f; var cy = 0f
-        for (i in 0 until n) { cx += x(i); cy += y(i) }
+        var cx = 0f
+        var cy = 0f
+        for (i in 0 until n) {
+            cx += x(i)
+            cy += y(i)
+        }
         return cx / n to cy / n
     }
 }
@@ -61,7 +65,9 @@ internal fun clipHalf(q: Poly, ax: Float, ay: Float, nx: Float, ny: Float): Poly
             out[m * 2 + 1] = py + (cy - py) * t
             m++
         }
-        px = cx; py = cy; pd = cd
+        px = cx
+        py = cy
+        pd = cd
     }
     if (m < 3) return null
     return Poly(out.copyOf(m * 2))
@@ -72,8 +78,10 @@ internal fun inset(q: Poly, g: Float): Poly? {
     val n = q.n
     val srcArea = q.area()
     if (srcArea <= 0f) return null
-    val ax = FloatArray(n); val ay = FloatArray(n)
-    val dx = FloatArray(n); val dy = FloatArray(n)
+    val ax = FloatArray(n)
+    val ay = FloatArray(n)
+    val dx = FloatArray(n)
+    val dy = FloatArray(n)
     for (i in 0 until n) {
         val j = (i + 1) % n
         val ex = q.x(j) - q.x(i)
@@ -82,7 +90,8 @@ internal fun inset(q: Poly, g: Float): Poly? {
         if (len < 1e-3f) return null
         ax[i] = q.x(i) - ey / len * g
         ay[i] = q.y(i) + ex / len * g
-        dx[i] = ex; dy[i] = ey
+        dx[i] = ex
+        dy[i] = ey
     }
     val out = FloatArray(n * 2)
     var m = 0
@@ -131,9 +140,11 @@ internal fun clipCircleSide(
         val vy = q.y(i)
         val vd = dd(vx, vy)
         // circle crossings along this edge, in walk order
-        val ex = vx - px; val ey = vy - py
+        val ex = vx - px
+        val ey = vy - py
         val ea = ex * ex + ey * ey
-        val fx = px - cx; val fy = py - cy
+        val fx = px - cx
+        val fy = py - cy
         val eb = 2f * (fx * ex + fy * ey)
         val ec = fx * fx + fy * fy - r * r
         val disc = eb * eb - 4f * ea * ec
@@ -142,13 +153,20 @@ internal fun clipCircleSide(
             val sq = sqrt(disc)
             for (t in floatArrayOf((-eb - sq) / (2f * ea), (-eb + sq) / (2f * ea))) {
                 if (t <= 1e-5f || t >= 1f - 1e-5f) continue
-                pts.add(px + ex * t); pts.add(py + ey * t)
+                pts.add(px + ex * t)
+                pts.add(py + ey * t)
                 tag.add(if (inKept) 1 else 2)
                 inKept = !inKept
             }
         }
-        if (vd <= 0f) { pts.add(vx); pts.add(vy); tag.add(0) }
-        px = vx; py = vy; pd = vd
+        if (vd <= 0f) {
+            pts.add(vx)
+            pts.add(vy)
+            tag.add(0)
+        }
+        px = vx
+        py = vy
+        pd = vd
     }
     if (tag.size < 3) return null to null
 
@@ -160,11 +178,14 @@ internal fun clipCircleSide(
     val chain = ArrayList<Float>()
     val m = tag.size
     for (i in 0 until m) {
-        val x = pts[i * 2]; val y = pts[i * 2 + 1]
-        res.add(x); res.add(y)
+        val x = pts[i * 2]
+        val y = pts[i * 2 + 1]
+        res.add(x)
+        res.add(y)
         val j = (i + 1) % m
         if (tag[i] == 1 && tag[j] == 2) {
-            val jx = pts[j * 2]; val jy = pts[j * 2 + 1]
+            val jx = pts[j * 2]
+            val jy = pts[j * 2 + 1]
             val a1 = atan2(y - cy, x - cx)
             val a2 = atan2(jy - cy, jx - cx)
             var da = (a2 - a1) % TWO_PIf
@@ -174,15 +195,19 @@ internal fun clipCircleSide(
                 if (da > 0f) da -= TWO_PIf
             }
             val steps = max(1, (abs(da) * r / arcStep).toInt())
-            chain.add(x); chain.add(y)
+            chain.add(x)
+            chain.add(y)
             for (s in 1 until steps) {
                 val aa = a1 + da * s / steps
                 val ax = cx + cos(aa) * r
                 val ay = cy + sin(aa) * r
-                res.add(ax); res.add(ay)
-                chain.add(ax); chain.add(ay)
+                res.add(ax)
+                res.add(ay)
+                chain.add(ax)
+                chain.add(ay)
             }
-            chain.add(jx); chain.add(jy)
+            chain.add(jx)
+            chain.add(jy)
         }
     }
     if (res.size < 6) return null to null

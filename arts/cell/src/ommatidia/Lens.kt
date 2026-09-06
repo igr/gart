@@ -46,13 +46,17 @@ internal class LensPainter(private val p: Params, colors: Colors) : AutoCloseabl
 
     init {
         val l = lightOf(p)
-        lx = l[0]; ly = l[1]; lz = l[2]
+        lx = l[0]
+        ly = l[1]
+        lz = l[2]
         // half vector against a viewer straight on at (0,0,1)
         val vx = lx
         val vy = ly
         val vz = lz + 1f
         val vl = sqrt(vx * vx + vy * vy + vz * vz)
-        hx = vx / vl; hy = vy / vl; hz = vz / vl
+        hx = vx / vl
+        hy = vy / vl
+        hz = vz / vl
     }
 
     fun draw(c: Canvas, f: Facet, base: Int) {
@@ -64,7 +68,9 @@ internal class LensPainter(private val p: Params, colors: Colors) : AutoCloseabl
             nx += (hash01(f.id, 1, TREMOR_SEED) - 0.5f) * p.tremor
             ny += (hash01(f.id, 2, TREMOR_SEED) - 0.5f) * p.tremor
             val l = sqrt(nx * nx + ny * ny + nz * nz)
-            nx /= l; ny /= l; nz /= l
+            nx /= l
+            ny /= l
+            nz /= l
         }
 
         // colorLift, never lighten - see its docs. the dome centre is the middle of every

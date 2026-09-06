@@ -98,7 +98,8 @@ fun main() {
 
 private fun mask(rd: GrayScott) {
     for ((x, y) in obstaclePixels) {
-        rd.setU(x, y, 1f); rd.setV(x, y, 0f)
+        rd.setU(x, y, 1f)
+        rd.setV(x, y, 0f)
     }
 }
 

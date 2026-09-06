@@ -235,6 +235,19 @@ fun lerpColors(colors: IntArray, t: Float): Int {
 }
 
 /**
+ * [lerpColors] with the two bracketing entries mixed in OKLCH instead of RGB, so a ramp from
+ * orange to blue goes by way of red and magenta rather than through grey, and lightness moves
+ * evenly along it. Same slot arithmetic as [lerpColors]; [t] is clamped. See [Palette.sampleOklch].
+ */
+fun lerpColorsOklch(colors: IntArray, t: Float): Int {
+    require(colors.isNotEmpty()) { "colors must not be empty" }
+    if (colors.size == 1) return colors[0]
+    val x = t.coerceIn(0f, 1f) * (colors.size - 1)
+    val i = floor(x).toInt().coerceAtMost(colors.size - 2)
+    return ColorOKLCH.of(Color4f(colors[i])).mix(ColorOKLCH.of(Color4f(colors[i + 1])), x - i).toColor4f().toColor()
+}
+
+/**
  * Darkens [color] by mixing it toward black. [f] is the mix amount:
  * `f = 0f` returns the colour unchanged, `f = 1f` returns black.
  */

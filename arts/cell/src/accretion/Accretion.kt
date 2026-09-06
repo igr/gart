@@ -168,11 +168,15 @@ private class Dla(private val rng: Random) {
             val x = rng.nextInt(GW)
             val y = rng.nextInt(GH)
             if (state[y * GW + x] == EMPTY) {
-                wx[i] = x; wy[i] = y; walkLen[i] = 0
+                wx[i] = x
+                wy[i] = y
+                walkLen[i] = 0
                 return
             }
         }
-        wx[i] = rng.nextInt(GW); wy[i] = rng.nextInt(GH); walkLen[i] = 0
+        wx[i] = rng.nextInt(GW)
+        wy[i] = rng.nextInt(GH)
+        walkLen[i] = 0
     }
 
     private fun wrap(v: Int, m: Int) = if (v < 0) v + m else if (v >= m) v - m else v
@@ -274,7 +278,11 @@ private fun smoothAge(state: IntArray, maxAge: Float): FloatArray {
     var idx = 0
     for (gy in 0 until GH) for (gx in 0 until GW) {
         val cv = state[idx]
-        if (cv == EMPTY) { out[idx] = -1f; idx++; continue }
+        if (cv == EMPTY) {
+            out[idx] = -1f
+            idx++
+            continue
+        }
         var sum = 0L
         var cnt = 0
         var oy = -rad
@@ -288,7 +296,8 @@ private fun smoothAge(state: IntArray, maxAge: Float): FloatArray {
                     if (x in 0 until GW) {
                         val v = state[base + x]
                         if (v != EMPTY && (v - cv).toFloat().let { if (it < 0) -it else it } <= range) {
-                            sum += v; cnt++
+                            sum += v
+                            cnt++
                         }
                     }
                     ox++

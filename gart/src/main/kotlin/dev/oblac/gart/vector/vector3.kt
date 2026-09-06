@@ -27,6 +27,27 @@ data class Vec3(val x: Float, val y: Float, val z: Float) {
         x * other.y - y * other.x
     )
 
+    /** Turned by [angle] radians about the x axis, y toward z. */
+    fun rotateX(angle: Float): Vec3 {
+        val s = sin(angle)
+        val c = cos(angle)
+        return Vec3(x, y * c - z * s, y * s + z * c)
+    }
+
+    /** Turned by [angle] radians about the y axis, z toward x. */
+    fun rotateY(angle: Float): Vec3 {
+        val s = sin(angle)
+        val c = cos(angle)
+        return Vec3(x * c + z * s, y, z * c - x * s)
+    }
+
+    /** Turned by [angle] radians about the z axis, x toward y - [Vec2.rotate] on the xy pair, z kept. */
+    fun rotateZ(angle: Float): Vec3 {
+        val s = sin(angle)
+        val c = cos(angle)
+        return Vec3(x * c - y * s, x * s + y * c, z)
+    }
+
     /**
      * Some unit vector perpendicular to this one - cross with whichever world axis this is
      * least aligned with (z unless the vector is near z, then x). Deterministic for a given input,

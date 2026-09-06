@@ -138,3 +138,39 @@ fun segmentHitsCircle(ax: Float, ay: Float, bx: Float, by: Float, cx: Float, cy:
 
 /** [segmentHitsCircle] for a [Circle]: does the segment `a→b` pass through it. */
 fun Circle.blocks(a: Point, b: Point): Boolean = segmentHitsCircle(a.x, a.y, b.x, b.y, x, y, radius)
+
+/**
+ * Squared distance from the point `(px, py)` to the segment `a→b`. The nearest point is held to
+ * the segment, so beyond either end this is the distance to that end. Squared because the callers
+ * that need it (nearest-of-many searches) compare, they dont measure. Allocation-free; a segment
+ * shorter than a thousandth of a pixel counts as its start point.
+ */
+fun distSquaredToSegment(px: Float, py: Float, ax: Float, ay: Float, bx: Float, by: Float): Float {
+    val ex = bx - ax
+    val ey = by - ay
+    val len2 = ex * ex + ey * ey
+    val t = if (len2 < 1e-6f) 0f else (((px - ax) * ex + (py - ay) * ey) / len2).coerceIn(0f, 1f)
+    val fx = ax + ex * t - px
+    val fy = ay + ey * t - py
+    return fx * fx + fy * fy
+}
+
+/** [distSquaredToSegment] for [Point]s. */
+fun distSquaredToSegment(p: Point, a: Point, b: Point): Float = distSquaredToSegment(p.x, p.y, a.x, a.y, b.x, b.y)
+
+/**
+ * The point of the segment `a→b` nearest to `(px, py)`: the foot of the perpendicular, or the
+ * nearer end when the foot falls outside. Same short-segment guard as [distSquaredToSegment].
+ * For a [Line] from the point to that foot see [Line.fromPointToLine].
+ */
+fun nearestOnSegment(px: Float, py: Float, ax: Float, ay: Float, bx: Float, by: Float): Point {
+    val ex = bx - ax
+    val ey = by - ay
+    val len2 = ex * ex + ey * ey
+    if (len2 < 1e-6f) return Point(ax, ay)
+    val t = (((px - ax) * ex + (py - ay) * ey) / len2).coerceIn(0f, 1f)
+    return Point(ax + ex * t, ay + ey * t)
+}
+
+/** [nearestOnSegment] for [Point]s. */
+fun nearestOnSegment(p: Point, a: Point, b: Point): Point = nearestOnSegment(p.x, p.y, a.x, a.y, b.x, b.y)

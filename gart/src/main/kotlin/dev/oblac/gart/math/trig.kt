@@ -37,3 +37,10 @@ private fun normalizeDeg(deg: Float): Float {
     }
     return result
 }
+
+/**
+ * Degrees to radians in single precision, `deg * PIf / 180f` - the form the pieces write by hand.
+ * [toRadians] goes through Double and rounds differently, so in a seeded piece the two are not
+ * interchangeable; this one is bit-exact with the hand-written expression.
+ */
+fun degToRad(deg: Float): Float = deg * PIf / 180f

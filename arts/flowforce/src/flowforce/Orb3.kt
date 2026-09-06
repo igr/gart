@@ -33,7 +33,7 @@ fun main() {
         var vx = 0f
         var vy = 0f
         for ((cx, cy, s) in vortices) {
-            val dx = x - cx;
+            val dx = x - cx
             val dy = y - cy
             val d2 = dx * dx + dy * dy + 400f
             vx += -s * dy / d2 * 2000f

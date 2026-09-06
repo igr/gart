@@ -238,7 +238,7 @@ private val sky = run {
 private const val RAMP_STOPS = 6
 
 /** lit ends: open sand, lit slip face, lee shadow */
-private val rampTops = intArrayOf(
+private val rampTops = Palette.of(
     NipponColors.col105_TORINOKO,// 0xFFEDD5B8 ????
     NipponColors.col073_SHAREGAKI,
     NipponColors.col172_OMESHICHA, //0xFF406C78?

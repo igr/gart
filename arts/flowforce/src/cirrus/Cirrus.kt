@@ -8,6 +8,7 @@ import dev.oblac.gart.color.Palettes
 import dev.oblac.gart.fx.addGrain
 import dev.oblac.gart.gfx.drawVignette
 import dev.oblac.gart.io.detectHeadlessFlags
+import dev.oblac.gart.util.Stopwatch
 import dev.oblac.gart.io.ensureExtension
 import dev.oblac.gart.io.pf
 import dev.oblac.gart.io.pi
@@ -250,7 +251,12 @@ private class Dots(cap: Int) {
 
     fun add(px: Float, py: Float, pr: Float, pw: Float, pc: Int) {
         if (n >= x.size) return // cap is an upper bound so this never fires. belt and braces
-        x[n] = px; y[n] = py; r[n] = pr; w[n] = pw; c[n] = pc; n++
+        x[n] = px
+        y[n] = py
+        r[n] = pr
+        w[n] = pw
+        c[n] = pc
+        n++
     }
 }
 
@@ -527,7 +533,9 @@ private fun develop(b: Bins, ss: Int): FloatArray {
                     cg = lerp(cg, 1f, wt) * v
                     cb = lerp(cb, 1f, wt) * v
 
-                    sr += cr; sg += cg; sb += cb
+                    sr += cr
+                    sg += cg
+                    sb += cb
                 }
             }
             val o3 = (oy * W + ox) * 3
@@ -543,7 +551,10 @@ private fun develop(b: Bins, ss: Int): FloatArray {
 
 // three box passes is near enough a gaussian, and the running sum makes each one O(n) in r
 private fun blur(src: FloatArray, tmp: FloatArray, r: Int) {
-    repeat(3) { boxH(src, tmp, r); boxV(tmp, src, r) }
+    repeat(3) {
+        boxH(src, tmp, r)
+        boxV(tmp, src, r)
+    }
 }
 
 private fun boxH(src: FloatArray, dst: FloatArray, r: Int) {
@@ -638,15 +649,15 @@ private fun page(img: FloatArray): IntArray {
 
 private fun render(g: Gartvas) {
     val ss = p.ss.coerceIn(1, 3)
-    val t0 = System.currentTimeMillis()
+    val sw = Stopwatch()
 
     val dots = sow(ss)
-    println("  ${dots.n} dots  (${System.currentTimeMillis() - t0}ms)")
+    println("  ${dots.n} dots  (${sw.ms}ms)")
 
     val bins = Bins(W * ss, H * ss)
     val lut = buildLut()
     parallelBands(bins.h) { y0, y1 -> splat(dots, lut, bins, y0, y1) }
-    println("  splat done (${System.currentTimeMillis() - t0}ms)")
+    println("  splat done (${sw.ms}ms)")
 
     val light = develop(bins, ss)
     if (p.bloom > 0f) bloom(light)
@@ -659,7 +670,7 @@ private fun render(g: Gartvas) {
 
     g.canvas.drawVignette(g.d, strength = p.vig, radius = 0.82f, innerStop = 0.42f)
     if (p.grain > 0f) addGrain(g, p.grain, p.seed.toInt())
-    println("  done (${System.currentTimeMillis() - t0}ms)")
+    println("  done (${sw.ms}ms)")
 }
 
 // knobs -------------------------------------

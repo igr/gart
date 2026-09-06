@@ -245,7 +245,8 @@ private fun sample(sx: Float, sy: Float, f: Foam, out: FloatArray) {
         val dy = sy - f.by[ci]
         val pd = dx * dx + dy * dy - f.br[ci] * f.br[ci]
         if (pd < pd1) {
-            pd1 = pd; i1 = ci
+            pd1 = pd
+            i1 = ci
         }
     }
 
@@ -264,7 +265,9 @@ private fun sample(sx: Float, sy: Float, f: Foam, out: FloatArray) {
             vg += (liqG - vg + 0.10f) * hI
             vb += (liqB - vb + 0.10f) * hI
         }
-        out[0] = vr; out[1] = vg; out[2] = vb
+        out[0] = vr
+        out[1] = vg
+        out[2] = vb
         return
     }
 
@@ -293,7 +296,8 @@ private fun sample(sx: Float, sy: Float, f: Foam, out: FloatArray) {
         val pdk = dxk * dxk + dyk * dyk - f.br[ci] * f.br[ci]
         val w = (pdk - pd1) / (2f * cd) // exact distance to the radical axis, not an approximation
         if (w < w1) {
-            w2 = w1; w1 = w
+            w2 = w1
+            w1 = w
         } else if (w < w2) {
             w2 = w
         }
@@ -392,7 +396,9 @@ private fun render(g: Gartvas) {
                 var ab = 0f
                 for (sy in 0 until SS) for (sx in 0 until SS) {
                     sample(x + (sx + 0.5f) / SS, y + (sy + 0.5f) / SS, foam, one)
-                    ar += one[0]; ag += one[1]; ab += one[2]
+                    ar += one[0]
+                    ag += one[1]
+                    ab += one[2]
                 }
 
                 // one slow key light across the tank, mottle in the liquid, grain over the lot

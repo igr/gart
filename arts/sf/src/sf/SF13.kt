@@ -89,13 +89,23 @@ private val RINGW = pf("ringw", 2.0f, 0.2f..5f)     // ring line width at the su
 // a body sits in the picture plane at z = 0. axis is its pole, a unit vector in 3d. the frame is
 // kept as plain floats, the lathe loop is hot
 private class Body(val x: Float, val y: Float, val r: Float, axis: Vec3) {
-    val ax = axis.x; val ay = axis.y; val az = axis.z
-    val ux: Float; val uy: Float; val uz: Float   // u and v span the equator
-    val vx: Float; val vy: Float; val vz: Float
+    val ax = axis.x
+    val ay = axis.y
+    val az = axis.z
+    val ux: Float   // u and v span the equator
+    val uy: Float
+    val uz: Float
+    val vx: Float
+    val vy: Float
+    val vz: Float
     init {
         val (u, v) = axis.basis()
-        ux = u.x; uy = u.y; uz = u.z
-        vx = v.x; vy = v.y; vz = v.z
+        ux = u.x
+        uy = u.y
+        uz = u.z
+        vx = v.x
+        vy = v.y
+        vz = v.z
     }
 
     // a point on the surface, relative to the centre: cr out along the equator at (ct, st), sr up
@@ -105,7 +115,8 @@ private class Body(val x: Float, val y: Float, val r: Float, axis: Vec3) {
     fun sz(cr: Float, sr: Float, ct: Float, st: Float) = cr * (ct * uz + st * vz) + sr * az
 }
 
-private var sunX = 0f; private var sunY = 0f
+private var sunX = 0f
+private var sunY = 0f
 private lateinit var sun: Body
 private val bodies = mutableListOf<Body>()
 
@@ -127,7 +138,8 @@ private fun cast(d: Dimension) {
 
 // in a corner, any of the four
 private fun castSun(d: Dimension) {
-    sunX = d.wf * rng.rndf(0.05f, 0.28f); sunY = d.hf * rng.rndf(0.05f, 0.28f)
+    sunX = d.wf * rng.rndf(0.05f, 0.28f)
+    sunY = d.hf * rng.rndf(0.05f, 0.28f)
     if (rng.rndb()) sunX = d.wf - sunX
     if (rng.rndb()) sunY = d.hf - sunY
     sun = Body(sunX, sunY, SUNR, axis())
@@ -144,7 +156,8 @@ private fun castPlanets(d: Dimension) {
     }
     for (r in radii) {
         for (attempt in 0 until 300) {
-            val x = d.wf * rng.rndf(0.1f, 0.9f); val y = d.hf * rng.rndf(0.1f, 0.9f)
+            val x = d.wf * rng.rndf(0.1f, 0.9f)
+            val y = d.hf * rng.rndf(0.1f, 0.9f)
             if (!fits(x, y, r, 18f)) continue
             bodies += Body(x, y, r, axis())
             break
@@ -161,7 +174,8 @@ private fun castMoons(d: Dimension) {
             val away = atan2(p.y - sunY, p.x - sunX)
             val a = if (rng.rndb()) away + rng.rndf(-0.12f, 0.12f) else rng.rndf(0f, 2 * PIf)
             val dist = p.r + r + rng.rndf(10f, 55f)
-            val x = p.x + cos(a) * dist; val y = p.y + sin(a) * dist
+            val x = p.x + cos(a) * dist
+            val y = p.y + sin(a) * dist
             if (x < 0f || x > d.wf || y < 0f || y > d.hf) return@repeat
             if (fits(x, y, r, 8f)) bodies += Body(x, y, r, axis())
         }
@@ -183,8 +197,11 @@ private fun axis(): Vec3 {
 // light on a body: the direction to the sun in the plane, tipped a little toward the viewer so
 // we see a bit more than half. all one sun so this is per body, not per point
 private fun light(b: Body): Vec3 {
-    var lx = sunX - b.x; var ly = sunY - b.y
-    val l = hypot(lx, ly).coerceAtLeast(1e-3f); lx /= l; ly /= l
+    var lx = sunX - b.x
+    var ly = sunY - b.y
+    val l = hypot(lx, ly).coerceAtLeast(1e-3f)
+    lx /= l
+    ly /= l
     val lz = 0.3f
     val n = sqrt(1f + lz * lz)
     return Vec3(lx / n, ly / n, lz / n)
@@ -195,10 +212,14 @@ private fun light(b: Body): Vec3 {
 private fun shadowed(px: Float, py: Float, pz: Float, self: Body, L: Vec3, minR: Float = 0f): Boolean {
     for (o in bodies) {
         if (o === self || o.r < minR) continue
-        val dx = px - o.x; val dy = py - o.y; val dz = pz
+        val dx = px - o.x
+        val dy = py - o.y
+        val dz = pz
         val t = dx * L.x + dy * L.y + dz * L.z
         if (t > 0f) continue   // sun side of it
-        val qx = dx - t * L.x; val qy = dy - t * L.y; val qz = dz - t * L.z
+        val qx = dx - t * L.x
+        val qy = dy - t * L.y
+        val qz = dz - t * L.z
         if (qx * qx + qy * qy + qz * qz < o.r * o.r) return true
     }
     return false
@@ -206,7 +227,9 @@ private fun shadowed(px: Float, py: Float, pz: Float, self: Body, L: Vec3, minR:
 
 // ==== the lathe ====
 
-private val xs = FloatArray(8192); private val ys = FloatArray(8192); private val hw = FloatArray(8192)
+private val xs = FloatArray(8192)
+private val ys = FloatArray(8192)
+private val hw = FloatArray(8192)
 
 // cut in red, lit from inside so the shade is limb darkening, and the relief runs finer and
 // rougher so it reads as granulation with a few dark spots
@@ -251,8 +274,10 @@ private inline fun lathe(
     val n = max(3, (PIf * b.r / PITCH).toInt())
     for (k in 0 until n) {
         val phi = -PIf / 2 + (k + 0.5f) * PIf / n
-        val cp = cos(phi); val sp = sin(phi)
-        val cr = cp * b.r; val sr = sp * b.r
+        val cp = cos(phi)
+        val sp = sin(phi)
+        val cr = cp * b.r
+        val sr = sp * b.r
         val m = max(24, (2 * PIf * cr / 1.5f).toInt())
         // walk the parallel, keeping the runs on the near side
         var cnt = 0
@@ -260,16 +285,25 @@ private inline fun lathe(
         for (j in 0..m) {
             val i = (start + j) % m
             val th = i * 2 * PIf / m
-            val ct = cos(th); val st = sin(th)
-            val px = b.sx(cr, sr, ct, st); val py = b.sy(cr, sr, ct, st); val pz = b.sz(cr, sr, ct, st)
-            if (pz <= 0f) { flush(c, ink, cnt); cnt = 0; continue }
+            val ct = cos(th)
+            val st = sin(th)
+            val px = b.sx(cr, sr, ct, st)
+            val py = b.sy(cr, sr, ct, st)
+            val pz = b.sz(cr, sr, ct, st)
+            if (pz <= 0f) {
+                flush(c, ink, cnt)
+                cnt = 0
+                continue
+            }
             val lam = shade(px, py, pz)
             // relief in the bodys own frame, (sp, cp ct, cp st) being the point on its unit sphere, so
             // along stretches it round the parallels into bands. b.r in the second slot keeps bodies apart
             val relief = 1f + rough * SimplexNoise.noise(sp * along + NZOFF, cp * ct * across + b.r, cp * st * across)
             val mz = -sp * (ct * b.uz + st * b.vz) + cp * b.az   // z of the meridian tangent
             val w = cut(lam, relief, weight, mz)
-            xs[cnt] = (b.x + px) * SS; ys[cnt] = (b.y + py) * SS; hw[cnt] = w * SS * 0.5f
+            xs[cnt] = (b.x + px) * SS
+            ys[cnt] = (b.y + py) * SS
+            hw[cnt] = w * SS * 0.5f
             cnt++
         }
         flush(c, ink, cnt)
@@ -326,9 +360,12 @@ private fun drawRing(c: Canvas, r: Float, w: Float, seam: Float, ink: Paint) {
     var cnt = 0
     for (i in 0..m) {
         val th = seam + i * 2 * PIf / m
-        val x = sunX + cos(th) * r; val y = sunY + sin(th) * r
+        val x = sunX + cos(th) * r
+        val y = sunY + sin(th) * r
         val ww = if (lit(x, y)) w else w * ECLIPSE
-        xs[cnt] = x * SS; ys[cnt] = y * SS; hw[cnt] = ww * SS * 0.5f
+        xs[cnt] = x * SS
+        ys[cnt] = y * SS
+        hw[cnt] = ww * SS * 0.5f
         cnt++
     }
     flush(c, ink, cnt)

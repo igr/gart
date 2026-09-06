@@ -94,8 +94,18 @@ private val nzoff = (p.seed and 0xffff) * 0.01f
 // colours and how often each one gets picked up. the weights are the whole character of a
 // box - the photo is nine parts red and orange to one part everything else
 private class Box(val cols: Palette, wts: FloatArray) {
-    private val cum = FloatArray(wts.size).also { c -> var s = 0f; for (i in wts.indices) { s += wts[i]; c[i] = s } }
-    fun pick(r: Float): Int { val t = r * cum.last(); for (i in cum.indices) if (t < cum[i]) return i; return cum.size - 1 }
+    private val cum = FloatArray(wts.size).also { c ->
+        var s = 0f
+        for (i in wts.indices) {
+            s += wts[i]
+            c[i] = s
+        }
+    }
+    fun pick(r: Float): Int {
+        val t = r * cum.last()
+        for (i in cum.indices) if (t < cum[i]) return i
+        return cum.size - 1
+    }
 }
 
 // the skeins of boxes 1..4 moved to cool.kt as 178..181, the weights stayed here. they go by
@@ -180,7 +190,10 @@ private fun hang(): List<El> {
     var lastTier = -1
     for (rod in rods) {
         // each tier favours one skein - thats what makes an orange tier, a purple tier
-        if (rod.tier != lastTier) { mood = box.pick(rnd.nextFloat()); lastTier = rod.tier }
+        if (rod.tier != lastTier) {
+            mood = box.pick(rnd.nextFloat())
+            lastTier = rod.tier
+        }
         // the back layers go dark - its most of the depth in the picture - and the lower tiers
         // get a bit less light
         val tone0 = lerp(1f, p.fog, rod.layer) * (1f - p.lit * rod.tier / (p.tiers - 1f).coerceAtLeast(1f))
@@ -195,8 +208,10 @@ private fun hang(): List<El> {
         var col = 0
         var runLen = 1f
         for (v in 1 until rod.x.size) {
-            val ax = rod.x[v - 1]; val ay = rod.y[v - 1]
-            val bx = rod.x[v]; val by = rod.y[v]
+            val ax = rod.x[v - 1]
+            val ay = rod.y[v - 1]
+            val bx = rod.x[v]
+            val by = rod.y[v]
             val n = max(1, (hypot(bx - ax, by - ay) / p.gap).roundToInt())
             for (j in 0 until n) {
                 if (left <= 0) {
@@ -292,11 +307,21 @@ private fun paint(c: Canvas, els: List<El>) {
         )
     }
 
-    val fill = paint().apply { blendMode = mix; setAlphaf(1f - p.glass) }
+    val fill = paint().apply {
+        blendMode = mix
+        setAlphaf(1f - p.glass)
+    }
     val shine = paint().apply { blendMode = mix }
-    val stroke = paint().apply { mode = PaintMode.STROKE; strokeCap = PaintStrokeCap.ROUND }
+    val stroke = paint().apply {
+        mode = PaintMode.STROKE
+        strokeCap = PaintStrokeCap.ROUND
+    }
     for (e in els) when (e) {
-        is Line -> { stroke.color = e.col; stroke.strokeWidth = e.w; c.drawLine(e.x0, e.y0, e.x1, e.y1, stroke) }
+        is Line -> {
+            stroke.color = e.col
+            stroke.strokeWidth = e.w
+            c.drawLine(e.x0, e.y0, e.x1, e.y1, stroke)
+        }
         is Yarn -> yarn(c, e, fill, shine)
     }
 }

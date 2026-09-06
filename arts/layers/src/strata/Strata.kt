@@ -18,6 +18,7 @@ import dev.oblac.gart.io.pf
 import dev.oblac.gart.io.pi
 import dev.oblac.gart.io.pl
 import dev.oblac.gart.io.ps
+import dev.oblac.gart.math.TAUf
 import dev.oblac.gart.math.between
 import dev.oblac.gart.smooth.bSpline
 import org.jetbrains.skia.Canvas
@@ -29,7 +30,6 @@ import org.jetbrains.skia.Point
 import org.jetbrains.skia.Rect
 import org.jetbrains.skia.SamplingMode
 import org.jetbrains.skia.Shader
-import kotlin.math.PI
 import kotlin.math.cos
 import kotlin.math.roundToInt
 import kotlin.math.sin
@@ -40,7 +40,6 @@ import kotlin.random.Random
  */
 private const val W = 900
 private const val H = 1100
-private const val TAU = (2.0 * PI).toFloat()
 private const val ANCHORS = 10
 
 private data class Params(
@@ -218,8 +217,8 @@ private class WaveField(private val p: Params) {
         repeat(ANCHORS) { anchor ->
             val x = -margin + span * anchor / (ANCHORS - 1)
             val u = x / W
-            val dominant = -cos(TAU * (u - effectiveCrest))
-            val secondary = sin(TAU * 2f * (u - p.crest * 0.35f + secondaryPhase))
+            val dominant = -cos(TAUf * (u - effectiveCrest))
+            val secondary = sin(TAUf * 2f * (u - p.crest * 0.35f + secondaryPhase))
             val own = rng.nextFloat() * 2f - 1f
             val anchorDrift = p.jitter * (shared[anchor] * 0.68f + own * 0.32f)
             val y = meanY + amplitude * (dominant + p.bend * secondary) + anchorDrift

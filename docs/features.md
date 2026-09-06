@@ -20,7 +20,7 @@ There is really **a lot of features**, and I'm not sure how to organize them, bu
 - Color spaces: RGBA, HSL, HSV, HSI, LAB, LCH, OKLAB, OKLCH, CMYK
 - Palettes: 173 cool + 15 mix + 112 colormaps (Carto, CET, ColorBrewer, Matplotlib, Ocean, Plotly, Tableau, etc.)
 - Named colors: CssColors, NipponColors, RetroColors, MidCenturyColors, CyanotypeColors, BgColors
-- Functions: blendColors, lerpColor, colorDistance, colorMatrix, toFillPaint, toStrokePaint
+- Functions: blendColors, lerpColor, lerpColors, lerpColorsOklch, colorDistance, colorMatrix, toFillPaint, toStrokePaint
 - PaletteGenerator — Dynamic palette generation
 - NoiseColor — Noise-driven color generation
 
@@ -29,7 +29,8 @@ There is really **a lot of features**, and I'm not sure how to organize them, bu
 - Primitives: Point, Line, DLine, Circle, Triangle, Poly4, Rect, GridRect, RectIsometric
 - DLine — Parametric line (point + direction), perpendicular, pointFromStart/End
 - Collections: Points, PointsTrail
-- Intersections: line-line, line-circle, dline-line
+- Intersections: line-line, line-circle, dline-line, segment-circle (line of sight), point-to-segment distance and nearest point
+- Signed distance: sdRoundBox (box with a radius per corner)
 - Drawing: drawCircle, drawLine, drawPoly4, drawTriangle, drawRotatedRect, drawPointsAsCircles, fatLine, n-gon, arc, ring, spiral, wave, grid, border, moon, tree, human
 - Paint helpers: strokeOf, fillOf, hatchPaint, dashPaint
 - Path utilities: pathOf, closedPathOf, toQuadPath, toPath, toClosedPath, pointsOn (with easing), combinePathsWithOp (boolean ops), deformPath, pathOutline
@@ -39,11 +40,11 @@ There is really **a lot of features**, and I'm not sure how to organize them, bu
 
 ## Math & Vectors
 
-- Vectors: Vector2/3/4, Vec2 (with dot, cross, rotation, normalization, angle), Matrix2, Matrix3
+- Vectors: Vector2/3/4, Vec2 (with dot, cross, rotation, normalization, angle), Vec3 (dot, cross, rotateX/Y/Z, perpendicular/basis), Matrix2, Matrix3
 - Complex numbers: Complex, ComplexField, ComplexPolynomial, transcendental functions
 - Curves: Lissajous, GaussianFunction
 - Utilities: clamp, map, lerp, smoothstep, frac, mod, distance, primes, fastSqrt, stdev
-- Angles: Radians, Degrees with trig functions, middleAngle
+- Angles: Radians, Degrees with trig functions, middleAngle, degToRad
 - Polar coordinates, affine transforms, tangent calculations
 - Precalculated trig tables: MathCos, MathSin, MathPrecalcTable
 - Z-function iteration for fractals (zfunc, ZFuncResult, Convergence)
@@ -134,3 +135,4 @@ There is really **a lot of features**, and I'm not sure how to organize them, bu
 - Font loading, text rendering
 - Image conversion, resource loading
 - Array/list/loop/range/sequence helpers (countSequence, forSequence, repeatSequence)
+- Stopwatch / timed for the progress prints in main

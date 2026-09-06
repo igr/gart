@@ -11,17 +11,22 @@ import dev.oblac.gart.color.lighten
 import dev.oblac.gart.color.lumOf
 import dev.oblac.gart.fx.addGrain
 import dev.oblac.gart.gfx.drawVignette
+import dev.oblac.gart.gfx.distSquaredToSegment
+import dev.oblac.gart.gfx.nearestOnSegment
 import dev.oblac.gart.io.detectHeadlessFlags
+import dev.oblac.gart.util.Stopwatch
 import dev.oblac.gart.io.pf
 import dev.oblac.gart.io.pi
 import dev.oblac.gart.io.ps
+import dev.oblac.gart.math.HALF_PIf
+import dev.oblac.gart.math.PIf
+import dev.oblac.gart.math.degToRad
 import dev.oblac.gart.math.hash01 as seededHash01
 import dev.oblac.gart.math.lerp
 import dev.oblac.gart.math.smoothstep
 import dev.oblac.gart.noise.SimplexNoise
 import dev.oblac.gart.vector.Vec2
 import org.jetbrains.skia.Point
-import kotlin.math.PI
 import kotlin.math.ceil
 import kotlin.math.cos
 import kotlin.math.hypot
@@ -40,8 +45,6 @@ import kotlin.random.Random
 
 private const val W = 1200
 private const val H = 1200
-private val HALF_PI = (PI / 2).toFloat()
-private val PIf = PI.toFloat()
 
 // io / determinism
 private val SEED = pi("seed", 7).toLong()
@@ -95,7 +98,7 @@ private val VIG = pf("vig", 0.0f)                   // vignette strength multipl
 private val GRAIN = pf("grain", 0.02f)              // fine surface grain
 
 // light unit vector, screen coords (y down): +deg => up, 135 = upper-left
-private val LIGHT = pf("light", 135f) * PIf / 180f
+private val LIGHT = degToRad(pf("light", 135f))
 private val LX = cos(LIGHT)
 private val LY = -sin(LIGHT)
 private val LZ = pf("lz", 0.72f)
@@ -110,8 +113,10 @@ private val VOID = run {
     var dl = lumOf(dark)
     for (i in 0 until GRAD_STEPS) {
         val c = RAMP.safe(i)
-        val l = lumOf(c); if (l < dl) {
-            dl = l; dark = c
+        val l = lumOf(c)
+        if (l < dl) {
+            dl = l
+            dark = c
         }
     }
     darken(dark, 0.45f)
@@ -126,22 +131,20 @@ fun main(args: Array<String>) {
     val g = gart.gartvas()
     val c = g.canvas
 
-    var t0 = System.currentTimeMillis()
+    val sw = Stopwatch()
     val net = Net()
     net.build(SEED)
-    println("cracks: ${net.crackCount}  segments: ${net.segs.size}  in ${System.currentTimeMillis() - t0}ms")
+    println("cracks: ${net.crackCount}  segments: ${net.segs.size}  in ${sw.lap()}ms")
 
-    t0 = System.currentTimeMillis()
     val field = Extraction(net)
-    println("plates: ${field.alivePlates}/${field.plateCount}  in ${System.currentTimeMillis() - t0}ms")
+    println("plates: ${field.alivePlates}/${field.plateCount}  in ${sw.lap()}ms")
 
-    t0 = System.currentTimeMillis()
     val mapMain = Gartmap(g.d)
     shadePlates(field, mapMain)
     mapMain.drawToCanvas(g)
     c.drawVignette(g.d, VIG)
     if (GRAIN > 0f) addGrain(g, GRAIN, SEED.toInt())
-    println("render in ${System.currentTimeMillis() - t0}ms")
+    println("render in ${sw.lap()}ms")
 
     gart.saveImage(g, "$OUT.png")
     if (!headless) gart.window().showImage(g)
@@ -159,7 +162,8 @@ private class Net {
     val segs = ArrayList<Seg>(1 shl 16)
     val crackGape = ArrayList<Float>()
     val crackWidth = ArrayList<Float>()
-    var crackCount = 0; private set
+    var crackCount = 0
+        private set
 
     private val cell = R_TURN
     private val cols = ceil(W / cell).toInt()
@@ -198,7 +202,8 @@ private class Net {
                     if (segs[i].crack == ignore) continue
                     val d2 = footDist2(x, y, segs[i])
                     if (d2 < bestD2) {
-                        bestD2 = d2; bestIdx = i
+                        bestD2 = d2
+                        bestIdx = i
                     }
                 }
                 cx++
@@ -229,7 +234,8 @@ private class Net {
                             for (i in grid[cy * cols + cx]) {
                                 val d2 = footDist2(x, y, segs[i])
                                 if (d2 < bestD2) {
-                                    bestD2 = d2; bestIdx = i
+                                    bestD2 = d2
+                                    bestIdx = i
                                 }
                             }
                         }
@@ -325,30 +331,41 @@ private class Net {
 
             if (nx < 0f || nx > W || ny < 0f || ny > H) {
                 val cl = clipToFrame(px, py, nx, ny)
-                addSeg(Seg(px, py, cl.x, cl.y, id), primary); return
+                addSeg(Seg(px, py, cl.x, cl.y, id), primary)
+                return
             }
             val hit = nearestSeg(nx, ny, id)
             if (hit != null && hit.dist < SNAP_EPS) {
                 val foot = weld(hit, id)
-                addSeg(Seg(px, py, foot.x, foot.y, id), primary); return
+                addSeg(Seg(px, py, foot.x, foot.y, id), primary)
+                return
             }
             if (hit != null && hit.dist < SLIVER_MIN) {
                 val ax = (hit.fx - px)
                 val ay = (hit.fy - py)
                 val al = max(1e-4f, hypot(ax, ay))
                 if ((ax / al) * hx + (ay / al) * hy < 0.5f) {
-                    addSeg(Seg(px, py, hit.fx, hit.fy, id), primary); return
+                    addSeg(Seg(px, py, hit.fx, hit.fy, id), primary)
+                    return
                 }
             }
             addSeg(Seg(px, py, nx, ny, id), primary)
-            hx = (nx - px); hy = (ny - py)
-            val hl = max(1e-4f, hypot(hx, hy)); hx /= hl; hy /= hl
-            px = nx; py = ny; len += STEP
+            hx = (nx - px)
+            hy = (ny - py)
+            val hl = max(1e-4f, hypot(hx, hy))
+            hx /= hl
+            hy /= hl
+            px = nx
+            py = ny
+            len += STEP
             if (!homing && len >= maxLen) {
                 homing = true
                 val b = nearestBoundary(px, py)
-                hx = b.x - px; hy = b.y - py
-                val bl = max(1e-4f, hypot(hx, hy)); hx /= bl; hy /= bl
+                hx = b.x - px
+                hy = b.y - py
+                val bl = max(1e-4f, hypot(hx, hy))
+                hx /= bl
+                hy /= bl
             }
         }
         val b = nearestBoundary(px, py)
@@ -370,7 +387,10 @@ private class Net {
         val db = H - y
         val m = min(min(dl, dr), min(dt, db))
         return when (m) {
-            dl -> Point(0f, y); dr -> Point(W.toFloat(), y); dt -> Point(x, 0f); else -> Point(x, H.toFloat())
+            dl -> Point(0f, y)
+            dr -> Point(W.toFloat(), y)
+            dt -> Point(x, 0f)
+            else -> Point(x, H.toFloat())
         }
     }
 
@@ -393,7 +413,10 @@ private class Net {
             val clr = clearance(x, y)
             val score = clr - minPlateAt(x, y)
             if (score > bestScore) {
-                bestScore = score; bestClr = clr; bx = x; by = y
+                bestScore = score
+                bestClr = clr
+                bx = x
+                by = y
             }
         }
         return if (bestScore <= 0f) null else Point(bx, by) to bestClr
@@ -415,7 +438,8 @@ private class Net {
             // launch ACROSS the plate: toward the nearest existing crack, so the new crack spans wall-to-wall.
             val near = nearestRing(x0, y0, clr * 1.3f + R_TURN)
             val base = if (near != null) {
-                val l = max(1e-4f, near.dist); Vec2((near.fx - x0) / l, (near.fy - y0) / l)
+                val l = max(1e-4f, near.dist)
+                Vec2((near.fx - x0) / l, (near.fy - y0) / l)
             } else fieldDir(x0, y0)
             val jit = rng.nextDouble(-SEED_JIT.toDouble(), SEED_JIT.toDouble()).toFloat()
             val (sx, sy) = base.rotate(jit)
@@ -436,8 +460,10 @@ private class Extraction(net: Net) {
     val dy = IntArray(GW * GH)
     val gape = FloatArray(GW * GH) { -1f }            // crack gape, then DT-propagated to plate pixels
 
-    var plateCount = 0; private set
-    var alivePlates = 0; private set
+    var plateCount = 0
+        private set
+    var alivePlates = 0
+        private set
     lateinit var plateBase: IntArray
     lateinit var plateMaxDist: FloatArray
     lateinit var dead: BooleanArray
@@ -496,10 +522,12 @@ private class Extraction(net: Net) {
 
     private fun frameWall() {
         for (x in 0 until GW) {
-            crack[x] = true; crack[(GH - 1) * GW + x] = true
+            crack[x] = true
+            crack[(GH - 1) * GW + x] = true
         }
         for (y in 0 until GH) {
-            crack[y * GW] = true; crack[y * GW + GW - 1] = true
+            crack[y * GW] = true
+            crack[y * GW + GW - 1] = true
         }
     }
 
@@ -510,7 +538,8 @@ private class Extraction(net: Net) {
         val stack = IntArray(GW * GH)
         for (start in 0 until GW * GH) {
             if (crack[start]) {
-                label[start] = -2; continue
+                label[start] = -2
+                continue
             }
             if (label[start] != -1) continue
             val id = areaL.size
@@ -518,34 +547,47 @@ private class Extraction(net: Net) {
             var sx = 0L
             var sy = 0L
             var sp = 0
-            stack[sp++] = start; label[start] = id
+            stack[sp++] = start
+            label[start] = id
             while (sp > 0) {
                 val cur = stack[--sp]
                 val cx = cur % GW
                 val cy = cur / GW
-                a++; sx += cx; sy += cy
+                a++
+                sx += cx
+                sy += cy
                 if (cx > 0) {
-                    val n = cur - 1; if (label[n] == -1 && !crack[n]) {
-                        label[n] = id; stack[sp++] = n
+                    val n = cur - 1
+                    if (label[n] == -1 && !crack[n]) {
+                        label[n] = id
+                        stack[sp++] = n
                     }
                 }
                 if (cx < GW - 1) {
-                    val n = cur + 1; if (label[n] == -1 && !crack[n]) {
-                        label[n] = id; stack[sp++] = n
+                    val n = cur + 1
+                    if (label[n] == -1 && !crack[n]) {
+                        label[n] = id
+                        stack[sp++] = n
                     }
                 }
                 if (cy > 0) {
-                    val n = cur - GW; if (label[n] == -1 && !crack[n]) {
-                        label[n] = id; stack[sp++] = n
+                    val n = cur - GW
+                    if (label[n] == -1 && !crack[n]) {
+                        label[n] = id
+                        stack[sp++] = n
                     }
                 }
                 if (cy < GH - 1) {
-                    val n = cur + GW; if (label[n] == -1 && !crack[n]) {
-                        label[n] = id; stack[sp++] = n
+                    val n = cur + GW
+                    if (label[n] == -1 && !crack[n]) {
+                        label[n] = id
+                        stack[sp++] = n
                     }
                 }
             }
-            areaL.add(a); sumXL.add(sx); sumYL.add(sy)
+            areaL.add(a)
+            sumXL.add(sx)
+            sumYL.add(sy)
         }
         plateCount = areaL.size
         areaArr = IntArray(plateCount) { areaL[it] }
@@ -560,7 +602,9 @@ private class Extraction(net: Net) {
         for (i in 0 until GW * GH) {
             val l = label[i]
             if (l >= 0 && dead[l]) {
-                crack[i] = true; label[i] = -2; gape[i] = max(gape[i], 0f)
+                crack[i] = true
+                label[i] = -2
+                gape[i] = max(gape[i], 0f)
             }
         }
     }
@@ -570,33 +614,45 @@ private class Extraction(net: Net) {
         val inf = 20000
         for (i in 0 until GW * GH) {
             if (crack[i]) {
-                dx[i] = 0; dy[i] = 0; if (gape[i] < 0f) gape[i] = 0f
+                dx[i] = 0
+                dy[i] = 0
+                if (gape[i] < 0f) gape[i] = 0f
             } else {
-                dx[i] = inf; dy[i] = inf; gape[i] = 0f
+                dx[i] = inf
+                dy[i] = inf
+                gape[i] = 0f
             }
         }
         for (y in 0 until GH) {
             var x = 0
             while (x < GW) {
                 val i = y * GW + x
-                relax(i, x, y, -1, 0); relax(i, x, y, 0, -1); relax(i, x, y, -1, -1); relax(i, x, y, 1, -1)
+                relax(i, x, y, -1, 0)
+                relax(i, x, y, 0, -1)
+                relax(i, x, y, -1, -1)
+                relax(i, x, y, 1, -1)
                 x++
             }
             x = GW - 2
             while (x >= 0) {
-                relax(y * GW + x, x, y, 1, 0); x--
+                relax(y * GW + x, x, y, 1, 0)
+                x--
             }
         }
         for (y in GH - 1 downTo 0) {
             var x = GW - 1
             while (x >= 0) {
                 val i = y * GW + x
-                relax(i, x, y, 1, 0); relax(i, x, y, 0, 1); relax(i, x, y, 1, 1); relax(i, x, y, -1, 1)
+                relax(i, x, y, 1, 0)
+                relax(i, x, y, 0, 1)
+                relax(i, x, y, 1, 1)
+                relax(i, x, y, -1, 1)
                 x--
             }
             x = 1
             while (x < GW) {
-                relax(y * GW + x, x, y, -1, 0); x++
+                relax(y * GW + x, x, y, -1, 0)
+                x++
             }
         }
         plateMaxDist = FloatArray(plateCount)
@@ -617,7 +673,9 @@ private class Extraction(net: Net) {
         val cdx = dx[n] + ox
         val cdy = dy[n] + oy
         if (cdx * cdx + cdy * cdy < dx[i] * dx[i] + dy[i] * dy[i]) {
-            dx[i] = cdx; dy[i] = cdy; gape[i] = gape[n]
+            dx[i] = cdx
+            dy[i] = cdy
+            gape[i] = gape[n]
         }
     }
 
@@ -648,7 +706,8 @@ private fun shadePlates(f: Extraction, map: Gartmap) {
     for (i in 0 until GW * GH) {
         val l = f.label[i]
         if (l < 0) {
-            rgb[i] = VOID; continue
+            rgb[i] = VOID
+            continue
         }
         val maxd = f.plateMaxDist[l].coerceAtLeast(1f)
         val dxv = f.dx[i].toFloat()
@@ -658,12 +717,14 @@ private fun shadePlates(f: Extraction, map: Gartmap) {
         val inv = if (dd > 1e-3f) 1f / dd else 0f
         val tx = dxv * inv
         val ty = dyv * inv                       // unit toward fissure
-        val slope = DOME_H * HALF_PI * cos(t * HALF_PI) / maxd
+        val slope = DOME_H * HALF_PIf * cos(t * HALF_PIf) / maxd
         var nx = slope * tx
         var ny = slope * ty
         var nz = 1f        // dome normal (peak interior, valley at crack)
         val nl = sqrt(nx * nx + ny * ny + nz * nz)
-        nx /= nl; ny /= nl; nz /= nl
+        nx /= nl
+        ny /= nl
+        nz /= nl
         val lambert = (nx * LX + ny * LY + nz * LZ).coerceIn(0f, 1f)
         val gp = f.gape[i].coerceAtLeast(0f)
         val ao = smoothstep(0f, aoScale * (0.4f + gp), dd)
@@ -676,27 +737,9 @@ private fun shadePlates(f: Extraction, map: Gartmap) {
 
 // HELPERS, utils etc
 
-/** squared point-to-segment distance, allocation-free (the hot proximity query). */
-private fun footDist2(px: Float, py: Float, s: Seg): Float {
-    val vx = s.x1 - s.x0
-    val vy = s.y1 - s.y0
-    val len2 = vx * vx + vy * vy
-    val t = if (len2 < 1e-6f) 0f else (((px - s.x0) * vx + (py - s.y0) * vy) / len2).coerceIn(0f, 1f)
-    val fx = s.x0 + vx * t
-    val fy = s.y0 + vy * t
-    val ddx = px - fx
-    val ddy = py - fy
-    return ddx * ddx + ddy * ddy
-}
-
-private fun footOnSeg(px: Float, py: Float, s: Seg): Point {
-    val vx = s.x1 - s.x0
-    val vy = s.y1 - s.y0
-    val len2 = vx * vx + vy * vy
-    if (len2 < 1e-6f) return Point(s.x0, s.y0)
-    val t = (((px - s.x0) * vx + (py - s.y0) * vy) / len2).coerceIn(0f, 1f)
-    return Point(s.x0 + vx * t, s.y0 + vy * t)
-}
+// the hot proximity query and its foot, both on the lib now
+private fun footDist2(px: Float, py: Float, s: Seg) = distSquaredToSegment(px, py, s.x0, s.y0, s.x1, s.y1)
+private fun footOnSeg(px: Float, py: Float, s: Seg) = nearestOnSegment(px, py, s.x0, s.y0, s.x1, s.y1)
 
 private fun clipToFrame(x0: Float, y0: Float, x1: Float, y1: Float): Point {
     var tBest = 1f

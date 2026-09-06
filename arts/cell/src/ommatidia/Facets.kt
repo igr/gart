@@ -334,10 +334,14 @@ private fun cells(
         var src = bufA
         var dst = bufB
         var n = 4
-        src[0] = xi - half; src[1] = yi - half
-        src[2] = xi + half; src[3] = yi - half
-        src[4] = xi + half; src[5] = yi + half
-        src[6] = xi - half; src[7] = yi + half
+        src[0] = xi - half
+        src[1] = yi - half
+        src[2] = xi + half
+        src[3] = yi - half
+        src[4] = xi + half
+        src[5] = yi + half
+        src[6] = xi - half
+        src[7] = yi + half
 
         var nc = 0
         grid.near(xi, yi, 2) { j ->

@@ -11,16 +11,18 @@ import dev.oblac.gart.color.lighten
 import dev.oblac.gart.fx.addGrain
 import dev.oblac.gart.gfx.drawVignette
 import dev.oblac.gart.io.detectHeadlessFlags
+import dev.oblac.gart.util.Stopwatch
 import dev.oblac.gart.io.pf
 import dev.oblac.gart.io.pi
 import dev.oblac.gart.io.pl
 import dev.oblac.gart.io.ps
+import dev.oblac.gart.math.PIf
+import dev.oblac.gart.math.degToRad
 import dev.oblac.gart.math.hash01
 import dev.oblac.gart.math.lerp
 import dev.oblac.gart.math.smoothstep
 import dev.oblac.gart.noise.SimplexNoise
 import java.util.stream.IntStream
-import kotlin.math.PI
 import kotlin.math.atan2
 import kotlin.math.cos
 import kotlin.math.hypot
@@ -36,7 +38,6 @@ import kotlin.random.Random
  */
 private const val W = 1200
 private const val H = 1200
-private val PIf = PI.toFloat()
 
 // io
 private val SEED = pl("seed", 11)
@@ -95,7 +96,7 @@ private val DIM = pf("dim", 0.45f)                  // how deeply the low membra
 private val AMPVAR = pf("ampvar", 0.3f)            // regional fold damping - some fields lie calmer
 
 // light, screen coords (y down): +deg => up, 145 = upper-left, kept low to rake the crests
-private val LIGHT = pf("light", 145f) * PIf / 180f
+private val LIGHT = degToRad(pf("light", 145f))
 private val LZ = pf("lz", 0.46f)
 private val AMB = pf("amb", 0.24f)                  // ambient floor under the Lambert term
 private val AOMIN = pf("aomin", 0.10f)              // darkest valley shade
@@ -123,19 +124,18 @@ fun main(args: Array<String>) {
     val g = gart.gartvas()
     val c = g.canvas
 
-    var t0 = System.currentTimeMillis()
+    val sw = Stopwatch()
     val sim = Sim()
     sim.run()
-    println("sim ${SW}x${SH} x $STEPS in ${System.currentTimeMillis() - t0}ms")
+    println("sim ${SW}x${SH} x $STEPS in ${sw.lap()}ms")
 
-    t0 = System.currentTimeMillis()
     val relief = Relief(sim)
     val map = Gartmap(g.d)
     shade(relief, sim, map)
     map.drawToCanvas(g)
     c.drawVignette(g.d, VIG)
     if (GRAIN > 0f) addGrain(g, GRAIN, SEED.toInt())
-    println("render in ${System.currentTimeMillis() - t0}ms")
+    println("render in ${sw.lap()}ms")
 
     gart.saveImage(g, "$OUT.png")
     if (!headless) gart.window().showImage(g)
@@ -148,7 +148,8 @@ fun main(args: Array<String>) {
 /** a well with a wobbly rim*/
 private class Pore(val x: Float, val y: Float, val r: Float) {
     private val lut = FloatArray(EDGE_BINS)
-    var rMax = r; private set
+    var rMax = r
+        private set
 
     init {
         val ax = x * 0.011f + NZOFF * 7f
@@ -336,7 +337,7 @@ private class Sim {
 
     fun run() {
         var src = 0
-        val t0 = System.currentTimeMillis()
+        val sw = Stopwatch()
         repeat(STEPS) { step ->
             val us = if (src == 0) u else u2
             val vs = if (src == 0) v else v2
@@ -344,7 +345,7 @@ private class Sim {
             val vd = if (src == 0) v2 else v
             IntStream.range(0, SH).parallel().forEach { y -> stepRow(y, us, vs, ud, vd) }
             src = 1 - src
-            if ((step + 1) % 1000 == 0) println("  rd ${step + 1}/$STEPS  ${System.currentTimeMillis() - t0}ms")
+            if ((step + 1) % 1000 == 0) println("  rd ${step + 1}/$STEPS  ${sw.ms}ms")
         }
         if (src == 1) {     // results live in u2/v2 - fold them home
             System.arraycopy(u2, 0, u, 0, u.size)

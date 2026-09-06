@@ -6,6 +6,7 @@ import dev.oblac.gart.color.Palette
 import dev.oblac.gart.color.gradientOf
 import dev.oblac.gart.color.lerpColor
 import dev.oblac.gart.io.detectHeadlessFlags
+import dev.oblac.gart.util.Stopwatch
 import dev.oblac.gart.io.pf
 import dev.oblac.gart.io.pi
 import dev.oblac.gart.io.ps
@@ -109,14 +110,21 @@ fun main(args: Array<String>) {
     val fit = fitOf(computeBounds(p))
     println("params: clifford=${p.clifford} a=${p.a} b=${p.b} c=${p.c} d=${p.d}  ss=$SS pal=$PAL")
 
-    val t0 = System.currentTimeMillis()
+    val sw = Stopwatch()
     val field = grow(p, fit)
-    var maxD = 0f; var nonZero = 0; var maxV = 0f
+    var maxD = 0f
+    var nonZero = 0
+    var maxV = 0f
     for (i in field.density.indices) {
         val dd = field.density[i]
-        if (dd > 0f) { nonZero++; if (dd > maxD) maxD = dd; val v = field.velSum[i] / dd; if (v > maxV) maxV = v }
+        if (dd > 0f) {
+            nonZero++
+            if (dd > maxD) maxD = dd
+            val v = field.velSum[i] / dd
+            if (v > maxV) maxV = v
+        }
     }
-    println("grow: maxD=$maxD nonZero=$nonZero maxV=$maxV in ${System.currentTimeMillis() - t0}ms")
+    println("grow: maxD=$maxD nonZero=$nonZero maxV=$maxV in ${sw.ms}ms")
 
     val map = Gartmap(g.d)
     colorize(field, map)
@@ -151,15 +159,24 @@ private fun computeBounds(p: Params): DoubleArray {
     var x = START_X
     var y = START_Y
     repeat(WARMUP) {
-        val nx = nextX(p, x, y); val ny = nextY(p, x, y); x = nx; y = ny
+        val nx = nextX(p, x, y)
+        val ny = nextY(p, x, y)
+        x = nx
+        y = ny
     }
-    var minX = Double.MAX_VALUE; var maxX = -Double.MAX_VALUE
-    var minY = Double.MAX_VALUE; var maxY = -Double.MAX_VALUE
+    var minX = Double.MAX_VALUE
+    var maxX = -Double.MAX_VALUE
+    var minY = Double.MAX_VALUE
+    var maxY = -Double.MAX_VALUE
     repeat(BOUNDS_SAMPLES) {
-        val nx = nextX(p, x, y); val ny = nextY(p, x, y)
-        if (nx < minX) minX = nx; if (nx > maxX) maxX = nx
-        if (ny < minY) minY = ny; if (ny > maxY) maxY = ny
-        x = nx; y = ny
+        val nx = nextX(p, x, y)
+        val ny = nextY(p, x, y)
+        if (nx < minX) minX = nx
+        if (nx > maxX) maxX = nx
+        if (ny < minY) minY = ny
+        if (ny > maxY) maxY = ny
+        x = nx
+        y = ny
     }
     return doubleArrayOf(minX, maxX, minY, maxY)
 }
@@ -188,19 +205,29 @@ private fun splat(px: Double, py: Double, w: Float, density: FloatArray, velSum:
     val w01 = (1 - fx) * fy
     val w11 = fx * fy
     val i = y0 * RW + x0
-    density[i] += w00; velSum[i] += w00 * w
-    density[i + 1] += w10; velSum[i + 1] += w10 * w
-    density[i + RW] += w01; velSum[i + RW] += w01 * w
-    density[i + RW + 1] += w11; velSum[i + RW + 1] += w11 * w
+    density[i] += w00
+    velSum[i] += w00 * w
+    density[i + 1] += w10
+    velSum[i + 1] += w10 * w
+    density[i + RW] += w01
+    velSum[i + RW] += w01 * w
+    density[i + RW + 1] += w11
+    velSum[i + RW + 1] += w11 * w
 }
 
 private fun accumulate(p: Params, fit: Fit, startX: Double, iters: Long, density: FloatArray, velSum: FloatArray) {
-    val a = p.a; val b = p.b; val c = p.c; val d = p.d; val cl = p.clifford
-    var x = startX; var y = START_Y
+    val a = p.a
+    val b = p.b
+    val c = p.c
+    val d = p.d
+    val cl = p.clifford
+    var x = startX
+    var y = START_Y
     repeat(WARMUP) {
         val nx = if (cl) sin(a * y) + c * cos(a * x) else sin(a * y) - cos(b * x)
         val ny = if (cl) sin(b * x) + d * cos(b * y) else sin(c * x) - cos(d * y)
-        x = nx; y = ny
+        x = nx
+        y = ny
     }
     var i = 0L
     while (i < iters) {
@@ -208,7 +235,8 @@ private fun accumulate(p: Params, fit: Fit, startX: Double, iters: Long, density
         val ny = if (cl) sin(b * x) + d * cos(b * y) else sin(c * x) - cos(d * y)
         val sl = hypot(nx - x, ny - y).toFloat()
         splat(fit.offX + fit.scale * nx, fit.offY + fit.scale * ny, sl, density, velSum)
-        x = nx; y = ny
+        x = nx
+        y = ny
         i++
     }
 }
@@ -234,7 +262,10 @@ private fun grow(p: Params, fit: Fit): Field {
     val velSum = FloatArray(RW * RH)
     for (t in 0 until THREADS) {                  // merge in fixed worker order
         val f = parts[t]!!
-        for (i in density.indices) { density[i] += f.density[i]; velSum[i] += f.velSum[i] }
+        for (i in density.indices) {
+            density[i] += f.density[i]
+            velSum[i] += f.velSum[i]
+        }
     }
     return downsample(Field(density, velSum))
 }
@@ -248,16 +279,19 @@ private fun downsample(hi: Field): Field {
         val by = y * SS
         for (x in 0 until W) {
             val bx = x * SS
-            var sd = 0f;
+            var sd = 0f
             var sv = 0f
             for (yy in 0 until SS) {
                 var row = (by + yy) * RW + bx
                 for (xx in 0 until SS) {
-                    sd += hi.density[row]; sv += hi.velSum[row]; row++
+                    sd += hi.density[row]
+                    sv += hi.velSum[row]
+                    row++
                 }
             }
             val o = y * W + x
-            d[o] = sd; v[o] = sv
+            d[o] = sd
+            v[o] = sv
         }
     }
     return Field(d, v)
@@ -274,7 +308,10 @@ private fun colorize(field: Field, map: Gartmap) {
     val ramp = PALETTES[PAL.coerceIn(0, PALETTES.size - 1)].expand(GRAD_STEPS)
     for (i in density.indices) {
         val dd = density[i]
-        if (dd <= 0f) { px[i] = VOID; continue }
+        if (dd <= 0f) {
+            px[i] = VOID
+            continue
+        }
         var t = (ln(1.0 + dd) / logMax).toFloat()
         // black point clips the noise floor, then we renormalize + lift -> clean darks, visible smoke
         t = ((t - BLACK) / (1f - BLACK)).coerceIn(0f, 1f)
@@ -291,10 +328,11 @@ private fun applyAccent(field: Field, map: Gartmap) {
     val density = field.density
     val velSum = field.velSum
     val px = map.pixels
-    var maxV = 0f;
+    var maxV = 0f
     var maxD = 0f
     for (i in density.indices) if (density[i] > 0f) {
-        val v = velSum[i] / density[i]; if (v > maxV) maxV = v
+        val v = velSum[i] / density[i]
+        if (v > maxV) maxV = v
         if (density[i] > maxD) maxD = density[i]
     }
     if (maxV <= 0f) return

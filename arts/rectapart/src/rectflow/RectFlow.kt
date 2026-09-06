@@ -563,7 +563,9 @@ private fun runCa(tiles: List<Tile>, grid: TileGrid) {
             // first catch only, the second firing is just the same front sloshing back
             if (next[i] == EXCITED && tiles[i].firedAt < 0) tiles[i].firedAt = gen
         }
-        val swap = cur; cur = next; next = swap
+        val swap = cur
+        cur = next
+        next = swap
     }
 }
 

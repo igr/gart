@@ -10,6 +10,7 @@ import dev.oblac.gart.io.pi
 import dev.oblac.gart.io.ps
 import dev.oblac.gart.math.*
 import dev.oblac.gart.noise.SimplexNoise
+import dev.oblac.gart.vector.Vec2
 import org.jetbrains.skia.*
 import org.jetbrains.skia.Shader.Companion.makeRadialGradient
 import kotlin.math.ceil
@@ -168,7 +169,7 @@ private class Params(
     val ageWeight: Float,
     val circles: Int,
 ) {
-    private val lightRad = lightDeg * PIf / 180f
+    private val lightRad = degToRad(lightDeg)
     val lx = cos(lightRad)              // light unit vector, screen coords (y down)
     val ly = -sin(lightRad)            // +deg => up; 90 = straight up, 0 = right
 }
@@ -248,7 +249,8 @@ private class Venation(private val rng: Random, private val p: Params) {
     private val cx = W * 0.5
     private val cy = H * 0.5
 
-    var lastStep = 0; private set
+    var lastStep = 0
+        private set
     val nodeCount get() = nodes.size
     val attractorCount get() = ax.size
 
@@ -289,7 +291,10 @@ private class Venation(private val rng: Random, private val p: Params) {
                 val x = (gx + rng.rnd(0.0, step)).toFloat()
                 val y = (gy + rng.rnd(0.0, step)).toFloat()
                 if (rng.rndf() < keepProb(x, y)) {
-                    ax.add(x); ay.add(y); alive.add(true); aliveCount++
+                    ax.add(x)
+                    ay.add(y)
+                    alive.add(true)
+                    aliveCount++
                 }
                 gx += step
             }
@@ -321,7 +326,10 @@ private class Venation(private val rng: Random, private val p: Params) {
                     val dx = x - nodes[i].x
                     val dy = y - nodes[i].y
                     val d2 = dx * dx + dy * dy
-                    if (d2 < bestD) { bestD = d2; best = i }
+                    if (d2 < bestD) {
+                        bestD = d2
+                        best = i
+                    }
                 }
             }
         }
@@ -345,11 +353,17 @@ private class Venation(private val rng: Random, private val p: Params) {
                 val dx = ax[a] - nodes[near].x
                 val dy = ay[a] - nodes[near].y
                 val d = hypotFast(dx, dy)
-                if (d <= KILL_RADIUS) { alive[a] = false; aliveCount-- }
+                if (d <= KILL_RADIUS) {
+                    alive[a] = false
+                    aliveCount--
+                }
                 if (d > 1e-4f) {
                     dirx[near] += dx / d
                     diry[near] += dy / d
-                    if (!touched[near]) { touched[near] = true; touchedList.add(near) }
+                    if (!touched[near]) {
+                        touched[near] = true
+                        touchedList.add(near)
+                    }
                 }
             }
 
@@ -361,24 +375,24 @@ private class Venation(private val rng: Random, private val p: Params) {
                 var uy = diry[ni]
                 val len = hypotFast(ux, uy)
                 if (len < 1e-4f) continue
-                ux /= len; uy /= len
+                ux /= len
+                uy /= len
 
                 // phototropism: bias the step toward the light, then renormalize
                 ux += p.lx * p.pull
                 uy += p.ly * p.pull
                 val l2 = hypotFast(ux, uy)
                 if (l2 < 1e-4f) continue
-                ux /= l2; uy /= l2
+                ux /= l2
+                uy /= l2
 
                 // coherent curl (flow-field meander) + a touch of random wobble
                 val nx = nodes[ni].x
                 val ny = nodes[ni].y
                 val curl = SimplexNoise.noise(nx * CURL_SCALE, ny * CURL_SCALE).toFloat() * p.curl
                 val angle = curl + rng.rndf(-WOBBLE, WOBBLE)
-                val ca = cos(angle); val sa = sin(angle)
-                val rx = ux * ca - uy * sa
-                val ry = ux * sa + uy * ca
-                addNode(Node(nx + rx * STEP_LEN, ny + ry * STEP_LEN, ni, step))
+                val r = Vec2(ux, uy).rotate(angle)
+                addNode(Node(nx + r.x * STEP_LEN, ny + r.y * STEP_LEN, ni, step))
             }
         }
         lastStep = step
@@ -437,10 +451,14 @@ private inline fun contourAt(field: FloatArray, fw: Int, fh: Int, lv: Float, emi
 
             val fgx = gx.toFloat()
             val fgy = gy.toFloat()
-            val topX = fgx + (lv - a) / (b - a); val topY = fgy           // top edge a-b
-            val rightX = fgx + 1f; val rightY = fgy + (lv - b) / (cc - b) // right edge b-c
-            val botX = fgx + (lv - d) / (cc - d); val botY = fgy + 1f     // bottom edge d-c
-            val leftX = fgx; val leftY = fgy + (lv - a) / (d - a)         // left edge a-d
+            val topX = fgx + (lv - a) / (b - a)   // top edge a-b
+            val topY = fgy
+            val rightX = fgx + 1f   // right edge b-c
+            val rightY = fgy + (lv - b) / (cc - b)
+            val botX = fgx + (lv - d) / (cc - d)   // bottom edge d-c
+            val botY = fgy + 1f
+            val leftX = fgx   // left edge a-d
+            val leftY = fgy + (lv - a) / (d - a)
 
             when (case) {
                 1, 14 -> emit(leftX, leftY, botX, botY)
@@ -449,8 +467,14 @@ private inline fun contourAt(field: FloatArray, fw: Int, fh: Int, lv: Float, emi
                 4, 11 -> emit(topX, topY, rightX, rightY)
                 6, 9 -> emit(topX, topY, botX, botY)
                 7, 8 -> emit(topX, topY, leftX, leftY)
-                5 -> { emit(topX, topY, rightX, rightY); emit(leftX, leftY, botX, botY) }
-                10 -> { emit(topX, topY, leftX, leftY); emit(botX, botY, rightX, rightY) }
+                5 -> {
+                    emit(topX, topY, rightX, rightY)
+                    emit(leftX, leftY, botX, botY)
+                }
+                10 -> {
+                    emit(topX, topY, leftX, leftY)
+                    emit(botX, botY, rightX, rightY)
+                }
             }
         }
     }

@@ -2,6 +2,7 @@ package dev.oblac.gart.color
 
 import org.jetbrains.skia.Color4f
 import kotlin.math.abs
+import kotlin.random.Random
 
 class Palette(internal val colors: IntArray) {
     constructor(vararg values: Long) : this(values.map { it.toInt() }.toIntArray())
@@ -41,6 +42,13 @@ class Palette(internal val colors: IntArray) {
      */
     fun sample(t: Float): Int = lerpColors(colors, t)
 
+    /**
+     * [sample], but the blend between two entries is done in OKLCH: hue turns the short way round
+     * and lightness moves evenly, so a vivid palette stays vivid between its stops instead of
+     * dipping through grey. Slower, the two ends are converted per call.
+     */
+    fun sampleOklch(t: Float): Int = lerpColorsOklch(colors, t)
+
     fun last(): Int {
         return colors[size - 1]
     }
@@ -58,6 +66,9 @@ class Palette(internal val colors: IntArray) {
     fun random(): Int {
         return colors.random()
     }
+
+    /** [random] drawing from [rng] - one `nextInt(size)` - so a seeded piece gets the same pick every run. */
+    fun random(rng: Random): Int = colors[rng.nextInt(size)]
 
     fun randomExclude(vararg color: Int): Int {
         val filtered = colors.filter { it !in color }
@@ -113,6 +124,37 @@ class Palette(internal val colors: IntArray) {
         clone.shuffle()
         return Palette(clone)
     }
+
+    /** [shuffle] drawing from [rng], so a seeded piece gets the same order every run. */
+    fun shuffle(rng: Random): Palette {
+        val clone = colors.clone()
+        clone.shuffle(rng)
+        return Palette(clone)
+    }
+
+    /** The colours that pass [predicate], in their original order. */
+    fun filter(predicate: (Int) -> Boolean): Palette = Palette(colors.filter(predicate).toIntArray())
+
+    /** The first [n] colours, or all of them when there are fewer. */
+    fun take(n: Int): Palette = Palette(colors.take(n).toIntArray())
+
+    /** The colour with the lowest [lumOf]; ties go to the earlier one. */
+    fun darkest(): Int = colors.minBy { lumOf(it) }
+
+    /** The colour with the highest [lumOf]; ties go to the earlier one. */
+    fun lightest(): Int = colors.maxBy { lumOf(it) }
+
+    /** All but the first [n] colours, in order; empty when there are no more. */
+    fun drop(n: Int): Palette = Palette(colors.drop(n).toIntArray())
+
+    /** The colours ordered by [selector], lowest first. A stable sort, so ties keep their order. */
+    fun <R : Comparable<R>> sortedBy(selector: (Int) -> R): Palette = Palette(colors.sortedBy(selector).toIntArray())
+
+    /** The colour with the lowest [selector]; the earlier one wins a tie. Throws when empty. */
+    fun <R : Comparable<R>> minBy(selector: (Int) -> R): Int = colors.minBy(selector)
+
+    /** The colour with the highest [selector]; the earlier one wins a tie. Throws when empty. */
+    fun <R : Comparable<R>> maxBy(selector: (Int) -> R): Int = colors.maxBy(selector)
 
     /**
      * Splits the palette into [numberOfSplits] smaller palettes.

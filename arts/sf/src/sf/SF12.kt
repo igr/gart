@@ -98,8 +98,13 @@ private fun fly(
 ): End {
     val light = kind == Kind.LIGHT || kind == Kind.DELTA
     val loss = LOSS * if (light) 1f else HEAVY_LOSS
-    var x = x0; var y = y0; var h = heading0; var p = p0
-    var s = 0f; var acc = 0f; var turned = 0f
+    var x = x0
+    var y = y0
+    var h = heading0
+    var p = p0
+    var s = 0f
+    var acc = 0f
+    var turned = 0f
     val dots = mutableListOf<Dot>()
     val margin = 60f   // enough for a curl to dip out and come back
 
@@ -112,10 +117,12 @@ private fun fly(
         val fade = if (light) 1f else 1f - ((turned - 0.8f * PIf) / (0.4f * PIf)).coerceIn(0f, 1f)
         if (fade <= 0f) break
         val w = weight * (0.25f + 0.75f * fade)   // what this bit of track draws at
-        x += cos(h) * STEP; y += sin(h) * STEP
+        x += cos(h) * STEP
+        y += sin(h) * STEP
         val ion = 1f + GLOW / p
         p -= STEP * loss * (1f + 0.5f * (ion - 1f))
-        s += STEP; acc += STEP
+        s += STEP
+        acc += STEP
 
         val spacing = (GAP / ion).coerceAtLeast(0.9f)
         // bunched-up bubbles read heavier than beaded ones, so thin them as they close up. 0.6 at
@@ -154,7 +161,8 @@ private fun vertex(d: Dimension, at: End, event: Int) {
     if (rng.rndf() < 0.55f) {
         val h = at.heading + rng.rndGaussian(0f, 0.45f)
         val dist = rng.rndf(50f, 280f)
-        val x = at.x + cos(h) * dist; val y = at.y + sin(h) * dist
+        val x = at.x + cos(h) * dist
+        val y = at.y + sin(h) * dist
         val open = rng.rndf(0.12f, 0.4f)
         fly(d, x, y, h + open, rng.rndf(8f, 26f), 1, Kind.HEAVY, event)
         fly(d, x, y, h - open, rng.rndf(8f, 26f), -1, Kind.HEAVY, event)
@@ -163,8 +171,10 @@ private fun vertex(d: Dimension, at: End, event: Int) {
     if (rng.rndf() < 0.45f) {
         val h = at.heading + rng.rndGaussian(0f, 0.6f)
         val dist = rng.rndf(40f, 220f)
-        val x = at.x + cos(h) * dist; val y = at.y + sin(h) * dist
-        val e = rng.rndf(2.5f, 8f); val share = rng.rndf(0.25f, 0.75f)
+        val x = at.x + cos(h) * dist
+        val y = at.y + sin(h) * dist
+        val e = rng.rndf(2.5f, 8f)
+        val share = rng.rndf(0.25f, 0.75f)
         fly(d, x, y, h + 0.04f, e * share, 1, Kind.LIGHT, event, weight = at.weight)
         fly(d, x, y, h - 0.04f, e * (1f - share), -1, Kind.LIGHT, event, weight = at.weight)
     }
@@ -235,7 +245,8 @@ private fun draw(c: Canvas, d: Dimension) {
 // the crosses the camera uses to find itself on the plate
 private fun fiducials(c: Canvas, d: Dimension) {
     val paint = strokeOf(colorInk, 1.2f).alpha(130)
-    val n = 5; val arm = 7f
+    val n = 5
+    val arm = 7f
     for (i in 0 until n) for (j in 0 until n) {
         val x = d.wf * (0.1f + 0.8f * i / (n - 1)) + rng.rndf(-3f, 3f)
         val y = d.hf * (0.1f + 0.8f * j / (n - 1)) + rng.rndf(-3f, 3f)

@@ -1,6 +1,5 @@
 package ommatidia
 
-import dev.oblac.gart.color.lerpColors
 import dev.oblac.gart.color.space.ColorOKLCH
 import dev.oblac.gart.color.space.color4f
 import dev.oblac.gart.math.TAUf
@@ -29,7 +28,7 @@ internal class Scene(private val p: Params, private val colors: Colors, private 
         // push the bands toward the ends of the ramp
         if (p.bandC != 0f) t = 0.5f + (t - 0.5f) * (1f + p.bandC)
 
-        val col = lerpColors(colors.ramp, t)
+        val col = colors.ramp.sample(t)
 
         val dx = (x - p.sunX) / p.sunR
         val dy = (y - p.sunY) / p.sunR

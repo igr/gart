@@ -1,0 +1,134 @@
+# filum - a hot wire over a table of cards. a grid of small square cards of one half see-through
+# white, every cell one stack of the same card with a corner or two rounded off, the cards up a
+# stack sliding a few px the same way across the whole table so a stack builds up white toward
+# its middle and the steps band, and one lazy wire strung over the lot that is never drawn.
+# every card is a stiff sheet resting on whatever is under it. the wire is the only colour and
+# it carries a vivid palette along its length: a card pixel sums lambert irradiance from points
+# along it, each point ray marched for cover, so the stacks take colour toward the top and every
+# card throws a short thin shadow on the one below, away from the wire. a narrow band hugs the
+# wire on cards only. the table reflects nothing, so between the cells there is no sign of the
+# wire at all, you read where it runs off the cards.
+# run:  just sweep filum     (writes pngs + one contact sheet per branch to output/filum)
+# 123 renders across 11 branches. the rest of the piece is settled, see the block under the config.
+
+art    = filum.FilumKt
+module = arts:rects
+out    = output/filum
+par    = 4
+
+# Settled - constants in the source now. these are the branches that found them, kept so the
+# numbers dont get "fixed" back.
+# tint 1, vivid 1.4: the lamp. tint is how much of the palette the wire carries (0 a plain white
+#   lamp on white paper, 0.5 washed), vivid pulls the colours past the palette, 1 leaves them as
+#   they are. 1 / 2 were the other vivids.
+# core 1.5, halo 6: the band right under the wire, its brightness and half width in px. it is the
+#   bit that says there is a line at all now that the wire is not drawn, the wash alone read as a
+#   spotlight. 0 / 0.8 / 1.6 and 4 / 6 / 12 were the sweep.
+# amb 0.95, table 0.12: the room. amb is the white of the cards away from the wire - under 0.9
+#   they went grey and the colour came in paler, with a white room the wire has to outshine it
+#   and glow does that. table is how far the table comes up from black toward the palettes
+#   darkest colour, 0 and 0.5 tried.
+# gap 0.22: the dark between cells as a fraction of the pitch. 0.12 and 0.35 tried.
+# lean 0.12: how far each card up a stack slides, as a fraction of the card. the slide is capped
+#   so the whole stack stays inside the gap - before the cap a stack that reached into the next
+#   cell got laid on top of it and the heights staircased right across the row, top at 210px
+#   instead of 25. tall stacks lean less per card for the same reason. 0.05 and 0.25 tried.
+# relief 0.7: how much the stack heights follow a slow noise. 0 is dice per cell, 1 pure hills.
+# thick 5: card thickness in px. its only what the shadows measure, so this is shadow length.
+#   3 and 10 tried.
+# round 0.6, tilt 1.5: corner rounding (1 is a full half circle) and the degrees a cell may sit
+#   off square. 1.5 is hand laid, 5 starts to look dropped.
+# pulse 0.3: brightness wobble along the wire. never swept.
+# knots 40, bends 5: the wire. knots is how many points sample the wave before the catmull-rom
+#   runs through them, and the smoothing turned out not to matter - catmull, cardinal, b-spline,
+#   chaikin, a quadratic and a bare polyline all land on the same curve from 6 knots up, the
+#   wave is too lazy to show it (4 knots x 6 splines was the sweep, only the b-spline parted,
+#   by never reaching the end knots). bends is how many lobes the wander has across the frame:
+#   5 is a hand bent path, 9 shivered, 40 smeared the light into a fuzzy stripe.
+
+# A new seed draws the wire again (across or down, turned up to 25 deg), rolls the hills and the
+# lean, and picks five of the vivid set in a new order. the default is seed 1.
+[branch cast]
+seed = 1:24
+
+# Colourways. pal colours the light, not the cards: 0 is the vivid set (carto), n a cool palette,
+# and five of whichever it is run along the wire as a ramp, mixed in oklch, each colour scaled
+# to full brightness so only its hue counts. the cards were coloured at first, then off white,
+# then white: white paper that only takes colour under the wire was the call.
+[branch colour]
+seed = 1
+pal  = 0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23
+
+# The wash. lift is the wire height in px and sets how wide the glow is (half brightness one
+# lift away), glow how bright: 1 lights a card on the bare table to full colour right under
+# the wire, cards up a stack get more. with the small cells 110 tinted eight of the twelve
+# columns and the piece read as a gradient over a grid, 90 leaves white either side.
+[branch light]
+seed = 1
+lift = 60,90,140
+glow = 1.5,2.5,4
+
+# How solid a card is. 1 is card stock, the old look. under it a single card shows the table
+# through and a stack builds up white toward its middle, the lean steps banding, and a card in
+# the way of the wire only takes its share of the light. 0.5 went muddy under the wire on the
+# thin cells, at 0.7 you had to look for the see-through.
+[branch alpha]
+seed  = 1
+alpha = 0.35,0.5,0.6,0.8,1
+
+# The grid. cols is cells across, the rows follow the frame. 16 goes delicate and the glow spans
+# more cells, 9 is chunky and the stacks and shadows show.
+[branch grid]
+seed = 1
+cols = 9,12,16
+
+# The stacks. stack is the most cards a cell gets, the heights under it follow the hills.
+[branch stacks]
+seed  = 1
+stack = 2,5,8
+
+# The motif. order picks which corners round: 0 dice per cell, 1 a tab side that walks round the
+# grid along the diagonals (a quiet weave, the default), 2 blocks of four cells each rounding the
+# corner that faces out so four read as one big tile (bolder, more of a design). brick 1 lays
+# the odd rows half a cell in and a cell short, a wall instead of a grid.
+[branch motif]
+seed  = 1
+order = 0,1,2
+brick = 0,1
+
+# The wire. wave scales the swing of the one lazy wave (plus a whisper of a second) it is now;
+# 0 is a straight rod. three summed sines were the first go and snaked, a 0.35 cycle arc
+# read as a ruler, half to three quarters of a cycle in frame is the lazy s.
+[branch wire]
+seed = 1
+wave = 0.5,1,1.8
+
+# More colour. hues is how many of the set run along the wire, 5 was the call when the vivid set
+# came in and the ramp spans the 60% of the wire thats in frame, so more hues packs more colour
+# changes into the same run of cells. the vivid set has 11 past the grey filter, a cool palette
+# with 10 (1, 4, 12 and most of the first 24) carries them all, the 5-colour ones (2, 10, 11 and
+# 105 of the 181) cap at 5 whatever you ask for. on vivid 3 is a two tone (purple into blue),
+# 5 the hero, 8 and 12 run the whole rainbow down the wire and it reads as a ribbon, a new hue
+# about every cell at 12. cool 1 and 4 gain their warm end the same way. cool 12 is a beige set
+# and stays a wash at any count - the palette is the limit there, not the number.
+[branch hues]
+seed = 1
+pal  = 0,1,4,12
+hues = 3,5,8,12
+
+# Colourways past the first 24, same idea as colour. keepers by eye: 24 (red to yellow to green),
+# 25 (cyan and blue), 29 (a rainbow), 33 (magenta and violet), 34 (reds, and the table goes dark
+# red with them), 39 (cyan on a dark teal table), 41 (blue and violet), 43 (orange and red). 36 is
+# a one-colour red. 37 is all greys, the chroma filter drops every one and the lamp falls back to
+# white, so the piece comes out with no colour at all.
+[branch colour2]
+seed = 1
+pal  = 24:47
+
+# The wander. wander bends the wire off its wave by up to that many wave amplitudes, a smooth
+# random bend of five lobes across the frame from its own rng, so the table and the inks stay
+# put while only the wire moves. 1.5 is the one new wire worth a second look - a hand bent path
+# that hooks back across the frame (seed 1 and 3 both), 0.7 is only a nudge.
+[branch wander]
+seed   = 1,2,3
+wander = 0.7,1.5

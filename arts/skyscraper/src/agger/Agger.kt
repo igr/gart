@@ -4,6 +4,7 @@ import dev.oblac.gart.Dimension
 import dev.oblac.gart.Gart
 import dev.oblac.gart.Gartmap
 import dev.oblac.gart.Gartvas
+import dev.oblac.gart.color.Palette
 import dev.oblac.gart.color.Palettes
 import dev.oblac.gart.color.alpha
 import dev.oblac.gart.color.chromaOf
@@ -17,6 +18,7 @@ import dev.oblac.gart.gfx.fillOf
 import dev.oblac.gart.gfx.paint
 import dev.oblac.gart.gfx.strokeOf
 import dev.oblac.gart.io.detectHeadlessFlags
+import dev.oblac.gart.util.Stopwatch
 import dev.oblac.gart.io.pf
 import dev.oblac.gart.io.pi
 import dev.oblac.gart.io.ps
@@ -55,7 +57,7 @@ fun main(args: Array<String>) {
     val gart = Gart.of("agger", W, H)
     println(gart)
 
-    val t0 = System.currentTimeMillis()
+    val sw = Stopwatch()
     val way = colourway(PAL)
     val gv = Gartvas(Dimension(GW, GH))
     val c = gv.canvas
@@ -70,7 +72,7 @@ fun main(args: Array<String>) {
             cars += traffic(c, rd, way)
         }
     }
-    println("seed=$SEED pal=$PAL ${net.size} roads (${net.count { it.ghost }} ghost), $cars vehicles, ${System.currentTimeMillis() - t0}ms")
+    println("seed=$SEED pal=$PAL ${net.size} roads (${net.count { it.ghost }} ghost), $cars vehicles, ${sw.ms}ms")
 
     val g = gart.gartvas()
     val map = Gartmap(g.d)
@@ -124,40 +126,40 @@ private val SHY = sin(SHAZ * DEG)
 // the map of the world
 
 private class Way(
-    val ground: Int, val shades: IntArray, val tarmac: IntArray, val accent: Int,
-    val mark: Int, val grass: Int, val gunmetal: Int, val pool: IntArray,
+    val ground: Int, val shades: Palette, val tarmac: Palette, val accent: Int,
+    val mark: Int, val grass: Int, val gunmetal: Int, val pool: Palette,
     val umbra: Int
 )
 
 private fun colourway(n: Int): Way {
     val p = Palettes.coolPalette(n)
-    val cols = p.toIntArray().sortedBy { lumOf(it) }
+    val cols = p.sortedBy { lumOf(it) }
     val nd = max(2, cols.size / 2)
     val darks = cols.take(nd)
-    val lights = cols.drop(nd).ifEmpty { listOf(0xFFE8E2D4.toInt()) }
+    val lights = cols.drop(nd).takeIf { it.size > 0 } ?: Palette.of(0xFFE8E2D4.toInt())
     val dark2 = darks[min(1, nd - 1)]
     var ground = darks[0]
     ground = if (GROUND < 0f) lerpColor(ground, 0xFF06080C.toInt(), -GROUND) else lerpColor(ground, 0xFFF2EEE4.toInt(), GROUND * 0.7f)
     // near-ground tones for the big field arcs. keep them a whisper off the ground or they
     // start reading as roads that lost their paint
-    val shades = intArrayOf(
+    val shades = Palette.of(
         colorScale(ground, 1.07f), colorScale(ground, 0.93f),
         lerpColor(dark2, ground, 0.72f),
         lerpColor(ground, lights[0], 0.07f),
     )
     // tarmac leans to paper, the palette keeps its say through the ground and the cars.
     // full-chroma decks looked like a toy racetrack. lights are already sorted dim to bright
-    val tarmac = IntArray(lights.size) { i ->
+    val tarmac = Palette.of(List(lights.size) { i ->
         val rank = if (lights.size < 2) 1f else i.toFloat() / (lights.size - 1)
         lerpColor(lights[i], 0xFFF6F2E8.toInt(), 0.35f + 0.4f * rank)
-    }
+    })
     return Way(
         ground, shades, tarmac,
         accent = cols.maxBy { chromaOf(it) },
         mark = lighten(lights.last(), 0.55f),
         grass = lerpColor(dark2, ground, 0.3f),
         gunmetal = lerpColor(darks[0], 0xFF1A1E26.toInt(), 0.5f),
-        pool = cols.toIntArray(),
+        pool = cols,
         umbra = lerpColor(Color.WHITE, lerpColor(darks[0], 0xFF141C2C.toInt(), 0.55f), SHADE),
     )
 }
@@ -267,13 +269,15 @@ private fun road(kind: Kind, ang: Float, ghost: Boolean): Road {
             cx = tx
             cy = ty
             r = 0f
-            ux = cos(a); uy = sin(a)
+            ux = cos(a)
+            uy = sin(a)
         }
         Kind.LOOP -> {
             r = (85f + 130f * rng.nextFloat()) * min(CURL, 1.5f) * S
             cx = GW * (0.28f + 0.44f * rng.nextFloat())
             cy = GH * (0.28f + 0.44f * rng.nextFloat())
-            ux = 0f; uy = 0f
+            ux = 0f
+            uy = 0f
         }
 
         Kind.ARC -> {
@@ -281,7 +285,8 @@ private fun road(kind: Kind, ang: Float, ghost: Boolean): Road {
             val d = rng.nextFloat() * TAUf
             cx = tx + cos(d) * r
             cy = ty + sin(d) * r
-            ux = 0f; uy = 0f
+            ux = 0f
+            uy = 0f
         }
     }
     return Road(
@@ -355,7 +360,7 @@ private fun ground(c: Canvas, way: Way) {
         val ty = GH * rng.nextFloat()
         val r = (500f + 2200f * rng.nextFloat()) * S
         val d = rng.nextFloat() * TAUf
-        val p = strokeOf(way.shades[rng.nextInt(way.shades.size)], (170f + 480f * rng.nextFloat()) * S)
+        val p = strokeOf(way.shades.random(rng), (170f + 480f * rng.nextFloat()) * S)
         c.drawCircle(tx + cos(d) * r, ty + sin(d) * r, r, p)
     }
 }
@@ -449,7 +454,7 @@ private fun carColour(way: Way, under: Int): Int {
         u < 0.28f -> lighten(way.mark, 0.5f)
         u < 0.42f -> way.gunmetal
         u < 0.54f -> lighten(way.accent, rng.nextFloat() * 0.25f)
-        else -> lighten(way.pool[rng.nextInt(way.pool.size)], 0.15f)
+        else -> lighten(way.pool.random(rng), 0.15f)
     }
     return offGround(col, under)
 }

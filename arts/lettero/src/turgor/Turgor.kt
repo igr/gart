@@ -275,8 +275,10 @@ private fun render(c: Canvas, p: Params) {
     var r = -Float.MAX_VALUE
     var b = -Float.MAX_VALUE
     letters.forEach {
-        l = min(l, it.bounds.left); t = min(t, it.bounds.top)
-        r = max(r, it.bounds.right); b = max(b, it.bounds.bottom)
+        l = min(l, it.bounds.left)
+        t = min(t, it.bounds.top)
+        r = max(r, it.bounds.right)
+        b = max(b, it.bounds.bottom)
     }
     l -= reach
     t -= reach

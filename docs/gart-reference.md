@@ -299,8 +299,9 @@ Methods (signature + one-liner):
 - ⭐ `safe(position: Number): Int` — modulo wrap: `colors[abs(position.toInt()) % size]`; never throws.
 - `bound(position: Number): Int` — clamps index to `0..size-1`.
 - `relative(offset: Float): Int` — maps `offset` (0..1-ish) onto the palette: `colors[(offset*size).toInt() % size]`.
+- `sample(t: Float): Int` — continuous ramp: `t` in 0..1 (clamped) across the palette, blends between the two entries it falls between; `sampleOklch(t: Float): Int` — the same blend done in OKLCH (hue the short way round, no grey dip; converts both ends per call).
 - `last(): Int` — last color.
-- `random(): Int` — random color.
+- `random(): Int` — random color (unseeded `Random`); `random(rng: Random): Int` — one `rng.nextInt(size)` draw, for seeded pieces.
 - `randomExclude(vararg color: Int): Int` — random color excluding the given ones; throws if none remain.
 - `plus(other: Palette): Palette` (operator `+`) — concatenate two palettes.
 - `plus(color: Int): Palette` (operator `+`) — append one color.
@@ -310,7 +311,10 @@ Methods (signature + one-liner):
 - ⭐ `expand(steps: Int): Palette` — grows palette to **exactly `steps` colors** by inserting RGB gradients between each adjacent pair (uses `Palettes.gradient`); throws `IllegalStateException` if it can't hit `steps`. Pairs well with `safe`/`relative` for smooth lookups.
 - `sequence(): Sequence<Int>` — colors as a `Sequence`.
 - `expandReversed(): Palette` — `this + this.reversed()` (palindrome, good for looping gradients).
-- `shuffle(): Palette` — shuffled copy.
+- `shuffle(): Palette` — shuffled copy (unseeded `Random`, so not for deterministic pieces); `shuffle(rng: Random): Palette` — shuffled copy drawing from your own `rng`.
+- `filter(predicate: (Int) -> Boolean): Palette` — the colours that pass, in order; `take(n: Int): Palette` — the first `n` (or all, if fewer).
+- `darkest(): Int` / `lightest(): Int` — the colour with the lowest / highest `lumOf` (first wins a tie).
+- `drop(n: Int): Palette` — all but the first `n`; `sortedBy(selector): Palette` — stable sort by a key (e.g. `sortedBy { lumOf(it) }`); `minBy(selector): Int` / `maxBy(selector): Int` — the colour with the lowest / highest key (first wins a tie, throws when empty).
 - `split(numberOfSplits: Int): Array<Palette>` — splits into N sub-palettes (last gets remainder).
 - `splitIn(numberOfPalettes: Int): List<Palette>` — same as `split` but returns a `List`.
 - `shifted(steps: Int): Palette` — rotates colors by `steps` (mod size).
@@ -339,6 +343,7 @@ Conversions:
 
 Blending / mixing:
 - ⭐ `lerpColor(from: Int, to: Int, t: Float): Int` — linear ARGB interpolation, `t` coerced to 0..1.
+- `lerpColors(colors: IntArray, t: Float): Int` — `t` in 0..1 across the whole array, blends between the bracketing pair (backs `Palette.sample`); `lerpColorsOklch(colors: IntArray, t: Float): Int` — same slot arithmetic, the pair mixed in OKLCH (backs `Palette.sampleOklch`).
 - `blendColors(front: Int, back: Int): Int` — alpha-aware Porter-Duff SRC_OVER, integer math.
 - `blendDarken(existing: Int, new: Int): Int` — per-channel min (darken) with alpha compositing.
 
@@ -572,6 +577,7 @@ All in `math/constants.kt` (top-level `const val`):
 - `GOLDEN_RATIOf = 1.618034f` (Float) — golden ratio, Float.
 - `PIf = Math.PI.toFloat()` (Float) — π as Float.
 - `TAUf = 2 * PIf` (Float) — τ (2π).
+- `TAU = 2 * Math.PI` (Double) — τ for double-precision work; `kotlin.math` has `PI` but no tau.
 - `DOUBLE_PIf = 2 * Math.PI.toFloat()` (Float) — 2π (used widely internally for normalization).
 - `TWO_PIf = 2 * Math.PI.toFloat()` (Float) — 2π (alias of DOUBLE_PIf).
 - `HALF_PIf = PIf / 2` (Float) — π/2.
@@ -601,13 +607,14 @@ Note: there is NO `PIf`-named Double constant; `GOLDEN_RATIO` is the only Double
 - Number conversion shorthands — `math/math.kt`: `Double.f()`, `Int.f()` → Float; `Float.d()` → Double; `Float.i()`, `Long.i()` → Int.
 - `Int.isEven(): Boolean`, `Int.isOdd(): Boolean` — `math/math.kt`.
 - `Float.format(digits: Int): String` — `math/math.kt`. `"%.${digits}f"` formatting.
-- Trig/degree helpers — `math/trig.kt`: `Float.toRadians(): Float`, `Float.toDegrees(): Float`, `Float.subDeg(delta: Number)`, `Float.addDeg(delta: Number)` (note: addDeg currently subtracts — likely bug), `sinDeg(degrees: Number): Float`, `cosDeg(degrees: Number): Float`, `normalizeRad(rad: Float): Float` (folds into [0, 2π]).
+- Trig/degree helpers — `math/trig.kt`: `Float.toRadians(): Float`, `Float.toDegrees(): Float`, `Float.subDeg(delta: Number)`, `Float.addDeg(delta: Number)` (note: addDeg currently subtracts — likely bug), `sinDeg(degrees: Number): Float`, `cosDeg(degrees: Number): Float`, `normalizeRad(rad: Float): Float` (folds into [0, 2π]), `degToRad(deg: Float): Float` — single-precision `deg * PIf / 180f`, bit-exact with the hand-written form (unlike `toRadians`, which goes through Double).
 - `binaryEntropy(p: Double): Double` — `math/entropy.kt`. `-p·ln(p) - (1-p)·ln(1-p)`; 0 outside (0,1).
 - `globalStdDev(data: DoubleArray): Double` and `windowedStdDev(data, w, h, radius, mode=PadMode.REFLECT): DoubleArray` — `math/stdev.kt`. Standard deviation (global / per-pixel windowed).
 - `primes40: IntArray` — `math/primes.kt`. First 40 primes.
 
 ### Precalc tables, loops, curves
 
+- `Stopwatch` / `timed(label: String, block: () -> T): T` — `util/stopwatch.kt`. Wall-clock milliseconds for the progress prints in `main`: `sw.lap()` is the time since the previous lap (or the start), `sw.ms` the time since the start; `timed` runs the block, prints `"<label> in <ms>ms"` and returns the block's value.
 - `MathPrecalcTable` (sealed), `MathCos(resolution: Float = 0.1f)`, `MathSin(resolution: Float = 0.1f)` — `math/MathPrecalcTables.kt`. Precomputed cos/sin lookup tables indexed by degrees via `operator get(degrees: Number): Float`.
 - `GaussianFunction(height: Number, center: Number, standardDeviation: Number)` with `operator invoke(x: Number): Float` — `math/GaussianFunction.kt`. Gaussian bell curve evaluator.
 - `Lissajous(center: Point, A, B, a, b: Float, dx=0f, dy=0f, t=0f)` — `math/Lissajous.kt`. `step(delta: Float): Point`, `position(): Point`. Lissajous curve generator.
@@ -652,7 +659,7 @@ All in `angle/angle.kt`. Package `dev.oblac.gart.angle`.
 ### Vectors
 
 - ⭐ `data class Vec2(val x: Float, val y: Float)` — `vector/vector2.kt`. Secondary ctor `(x: Number, y: Number)`. Factory `vec2(x: Number, y: Number)`. Operators: `+`/`-`/`*`/`/` with both `Vec2` and `Number`. Methods: `dot(other): Float`, `cross(other): Float` (scalar 2D cross), `length(): Float`, lazy `magnitude`, `normalize(): Vec2` (returns self if magnitude 0), `rotate(angle: Float): Vec2`, lazy `val angle: Radians` (`atan2(y,x)`). Companion: `ZERO`, `of(angle: Angle): Vec2` (unit vector from angle). Free fns: `sin(v: Vec2)`, `frac(v: Vec2)`, `length(v: Vec2): Float`.
-- `data class Vec3(val x: Float, val y: Float, val z: Float)` — `vector/vector3.kt`. Factory `vec3(x, y, z: Number)`. Operators: `+`/`-`/`*`/`/` (Vec3 and Number; note: no `minus(Number)`, no `div(Vec3)`). Methods: `pow(other: Vec3)`, `length(): Float`, `normalize()`, `dot(other): Float`, `cross(other): Vec3`. Companion: `of(a: Float)`, `of(v: Vec2, a: Float)`, `ZERO`, `ONE`, `TWO_PI`. Free fns: `sin(v: Vec3)`, `cos(v: Vec3)`, `mix(a, b: Vec3, t: Float)`, `mix(a, b: Vec3, t: Vec3)`, `abs(v: Vec3)`.
+- `data class Vec3(val x: Float, val y: Float, val z: Float)` — `vector/vector3.kt`. Factory `vec3(x, y, z: Number)`. Operators: `+`/`-`/`*`/`/` (Vec3 and Number; note: no `minus(Number)`, no `div(Vec3)`). Methods: `pow(other: Vec3)`, `length(): Float`, `normalize()`, `dot(other): Float`, `cross(other): Vec3`, `rotateX/rotateY/rotateZ(angle: Float): Vec3` (radians, right-handed), `anyPerpendicular(): Vec3`, `basis(): Pair<Vec3, Vec3>`. Companion: `of(a: Float)`, `of(v: Vec2, a: Float)`, `ZERO`, `ONE`, `TWO_PI`. Free fns: `sin(v: Vec3)`, `cos(v: Vec3)`, `mix(a, b: Vec3, t: Float)`, `mix(a, b: Vec3, t: Vec3)`, `abs(v: Vec3)`.
 - `data class Vec4(val x, y, z, w: Float)` — `vector/vector4.kt`. Companion `of(vec3: Vec3, w: Float)`. Plain data holder, no operators.
 
 ### Matrices
@@ -741,6 +748,7 @@ Source: `gart/src/main/kotlin/dev/oblac/gart/gfx/point.kt`, `point_misc.kt`, `Po
 - `isPointOnLine(point, tolerance = 1f): Boolean`.
 - `Line.parallelTo(target, point)`, `Line.fromPointToLine(p, it)` (nearest point on segment), `Line.fromPointAtAngle(startingPoint, angle, length)`.
 - `fatLine(x0, y0, x1, y1, thickness): Path` — closed quad path for a thick line.
+- Segment tests (`intersections.kt`): `intersectionsOf(line: Line, circle: Circle): Array<Point>`, `segmentsCross(a1, a2, b1, b2): Boolean`, `segmentHitsCircle(ax, ay, bx, by, cx, cy, r)` / `Circle.blocks(a, b)` (line-of-sight, ends inside don't count), `distSquaredToSegment(px, py, ax, ay, bx, by): Float` / `distSquaredToSegment(p, a, b)` — squared distance to the nearest point of a segment (clamped to the ends), `nearestOnSegment(px, py, ax, ay, bx, by): Point` / `nearestOnSegment(p, a, b)` — that nearest point itself. Both treat a segment shorter than 1e-3 px as its start point.
 
 Polygons & other shapes (geometry side; draw helpers noted briefly, paints are out of scope):
 
@@ -750,6 +758,7 @@ Polygons & other shapes (geometry side; draw helpers noted briefly, paints are o
 - `RectIsometric` (sealed) with `RectIsometricTop/Right/Left(x, y, a, b, …angle)` — skewed isometric quads exposing `left/bottom/right/top`, `path()`, `width()`, `height()` (`RectIsometric.kt`).
 - `Rect` extensions (`rectangle.kt`): `points(): Array<Point>`, `path(): Path`, `center()`, `contains(rect)/contains(point)`, `thirds()`, `shrink/grow(delta)`, `move(delta)`, `dimension()`, corner accessors, `splitToGrid(cols, rows): List<Rect>`, `diagonal()`, companions `ofXYWH(...)`, `of(...)`, `ofCenter(center, w, h)`, `EMPTY`.
 - `gridOfDimension(d: Dimension, cellsX, cellsY): List<GridRect>` (`grid.kt`); `GridRect(rect, row, col)`.
+- `sdRoundBox(x, y, hw, hh, tl, tr, br, bl): Float` / `sdRoundBox(x, y, hw, hh, r)` — signed distance to an origin-centred box with a radius per corner (screen order tl, tr, br, bl; negative inside, exact euclidean outside). For a placed/rotated box bring the point into the box frame first (`sdf.kt`).
 - Shape draw helpers (geometry-flavored, on `Canvas`): `drawCircle(circle/p, …)`, `drawCircleArc(x, y, radius, paint, start, sweep)`, `drawCirclePie(...)`, `drawArc(rect, …)` (`arc.kt`), `createDrawRing(center, radius, radius2, width1, width2, width3, angle): Pair<DrawRing, DrawRing>` (`ring.kt`), `Moon(circle, shadowPaint, moonPaint, moonPhase = 0.5f)` Draw (`moon.kt`), `drawBorder(d, stroke)` / `drawRoundBorder(d, radius, width, color)` (`border.kt`), `drawPoly4`, `drawTriangle`, `drawRectWH`, `drawRotatedRect`, `clipCircle`.
 
 ### Path construction & sampling

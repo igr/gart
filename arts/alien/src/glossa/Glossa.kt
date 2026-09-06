@@ -224,7 +224,8 @@ private fun makeGlyph(): Glyph {
         when (ri(0, 3)) {
             0 -> pen.dot(mx, -0.3f, 0.075f)
             1 -> {
-                pen.dot(mx - 0.13f, -0.3f, 0.07f); pen.dot(mx + 0.13f, -0.3f, 0.07f)
+                pen.dot(mx - 0.13f, -0.3f, 0.07f)
+                pen.dot(mx + 0.13f, -0.3f, 0.07f)
             }
             2 -> pen.seg(mx - 0.16f, -0.36f, mx + 0.16f, -0.22f)
             else -> pen.run(mx - 0.15f, -0.24f, mx, -0.4f, mx + 0.15f, -0.24f)

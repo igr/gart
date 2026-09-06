@@ -12,9 +12,11 @@ import dev.oblac.gart.gfx.roundStroke
 import dev.oblac.gart.gfx.strokeOf
 import dev.oblac.gart.gfx.toClosedPath
 import dev.oblac.gart.io.detectHeadlessFlags
+import dev.oblac.gart.util.Stopwatch
 import dev.oblac.gart.io.pf
 import dev.oblac.gart.io.pi
 import dev.oblac.gart.io.ps
+import dev.oblac.gart.math.TAUf
 import dev.oblac.gart.math.hash01 as seededHash01
 import dev.oblac.gart.noise.SimplexNoise
 import dev.oblac.gart.triangulation.Delaunator
@@ -28,7 +30,6 @@ import kotlin.math.*
  */
 private const val W = 1280
 private const val H = 1280
-private const val TAU = 6.2831855f
 private val DIAG = hypot(W.toFloat(), H.toFloat())   // wave span: corner-to-corner
 
 private val OUT = ps("out", "butterfly")
@@ -121,7 +122,7 @@ private fun pupilFrac(p: Point): Float {
 private fun pupilWaveAt(p: Point, angDeg: Float, freq: Float): Float {
     val a = Math.toRadians(angDeg.toDouble())
     val proj = (p.x * cos(a).toFloat() + p.y * sin(a).toFloat()) / DIAG   // 0..1 along this direction
-    return sin(proj * TAU * freq + PUPILPHASE)
+    return sin(proj * TAUf * freq + PUPILPHASE)
 }
 
 /** the held mid-colour band for an eyespot whose pupil ends at [pupil]: returns (midStart, midEnd). */
@@ -158,9 +159,9 @@ fun main(args: Array<String>) {
     println(gart)
     val g = gart.gartvas()
 
-    val t0 = System.currentTimeMillis()
+    val sw = Stopwatch()
     val scales = buildScales()
-    println("scales: ${scales.size} in ${System.currentTimeMillis() - t0}ms")
+    println("scales: ${scales.size} in ${sw.ms}ms")
 
     // render the whole field supersampled, then mitchell-downscale (lots of thin strokes)
     val big = Gartvas(Dimension(FW, FH))
@@ -218,11 +219,16 @@ private fun generateSites(): List<Point> {
     val buckets = HashMap<Long, ArrayList<Point>>()
     fun key(bx: Int, by: Int) = (bx.toLong() shl 32) xor (by.toLong() and 0xffffffffL)
     fun tooClose(x: Float, y: Float, r: Float): Boolean {
-        val bx = floor(x / b).toInt(); val by = floor(y / b).toInt()
+        val bx = floor(x / b).toInt()
+        val by = floor(y / b).toInt()
         val r2 = r * r
         for (oy in -1..1) for (ox in -1..1) {
             val lst = buckets[key(bx + ox, by + oy)] ?: continue
-            for (q in lst) { val dx = q.x - x; val dy = q.y - y; if (dx * dx + dy * dy < r2) return true }
+            for (q in lst) {
+                val dx = q.x - x
+                val dy = q.y - y
+                if (dx * dx + dy * dy < r2) return true
+            }
         }
         return false
     }
@@ -242,9 +248,11 @@ private fun generateSites(): List<Point> {
                 pts.add(p)
                 buckets.getOrPut(key(floor(x / b).toInt(), floor(y / b).toInt())) { ArrayList() }.add(p)
             }
-            gx += step; col++
+            gx += step
+            col++
         }
-        gy += step; row++
+        gy += step
+        row++
     }
     return pts
 }
@@ -264,10 +272,12 @@ private fun buildScales(): List<Scale> {
 
         // directional grow: push only the bottom-right flank outward from the site
         val grown = raw.map { v ->
-            val dx = v.x - s.x; val dy = v.y - s.y
+            val dx = v.x - s.x
+            val dy = v.y - s.y
             val len = hypot(dx, dy)
             if (len < 1e-3f) v else {
-                val ux = dx / len; val uy = dy / len
+                val ux = dx / len
+                val uy = dy / len
                 val w = max(0f, ux * DR.x + uy * DR.y)
                 val push = GROW * len * w
                 Point(s.x + ux * (len + push), s.y + uy * (len + push))
@@ -361,7 +371,8 @@ private fun renderScene(c: Canvas, scales: List<Scale>) {
  */
 private fun drawSmudge(c: Canvas, sc: Scale, path: Path) {
     val s = SMUDGE.coerceIn(0f, 1f)
-    val sx = sc.eye.x.toInt(); val sy = sc.eye.y.toInt()
+    val sx = sc.eye.x.toInt()
+    val sy = sc.eye.y.toInt()
     val n = 4 + (hash01(sx, sy, 11) * 3f).toInt()        // 4..6 points
     c.save()
     c.clipPath(path)
@@ -375,7 +386,7 @@ private fun drawSmudge(c: Canvas, sc: Scale, path: Path) {
 private fun smudgeBlob(c: Canvas, center: Point, rad: Float, n: Int, sx: Int, sy: Int, salt: Int, color: Int, alpha: Int, width: Float) {
     val pts = ArrayList<Point>(n)
     for (i in 0 until n) {
-        val ang = (i / n.toFloat()) * TAU + (hash01(sx, sy, salt + i) - 0.5f) * 1.3f
+        val ang = (i / n.toFloat()) * TAUf + (hash01(sx, sy, salt + i) - 0.5f) * 1.3f
         val rr = rad * (0.55f + hash01(sx, sy, salt + 30 + i) * 0.55f)
         pts.add(Point(center.x + cos(ang) * rr, center.y + sin(ang) * rr))
     }
@@ -387,12 +398,16 @@ private fun smudgeBlob(c: Canvas, center: Point, rad: Float, n: Int, sx: Int, sy
 
 /** fine parallel ridge lines along the scale's length - the signature macro-butterfly microstructure. */
 private fun drawStriations(c: Canvas, eye: Point, radius: Float, mid: Int, path: Path) {
-    val sx = eye.x.toInt(); val sy = eye.y.toInt()
+    val sx = eye.x.toInt()
+    val sy = eye.y.toInt()
     // each scale tilts its ridges a touch off the growth axis so the field isn't mechanically parallel
     val tilt = (hash01(sx, sy, 71) - 0.5f) * 0.7f
-    val ca = cos(tilt); val sa = sin(tilt)
-    val dx = DR.x * ca - DR.y * sa; val dy = DR.x * sa + DR.y * ca    // along-scale
-    val nx = -dy; val ny = dx                                          // across-scale
+    val ca = cos(tilt)
+    val sa = sin(tilt)
+    val dx = DR.x * ca - DR.y * sa   // along-scale
+    val dy = DR.x * sa + DR.y * ca
+    val nx = -dy   // across-scale
+    val ny = dx
     val gap = max(1.2f, radius * STRIAGAP)
     val half = radius * 1.25f
     val k = (radius / gap).toInt()
@@ -402,7 +417,8 @@ private fun drawStriations(c: Canvas, eye: Point, radius: Float, mid: Int, path:
     c.clipPath(path)
     for (i in -k..k) {
         val off = i * gap + (hash01(sx, sy, 80 + i + k) - 0.5f) * gap * 0.3f
-        val px = eye.x + nx * off; val py = eye.y + ny * off
+        val px = eye.x + nx * off
+        val py = eye.y + ny * off
         c.drawLine(px - dx * half, py - dy * half, px + dx * half, py + dy * half, paint)
     }
     c.restore()
@@ -451,8 +467,10 @@ private fun drawRimLight(c: Canvas, sc: Scale, poly: List<Point>) {
     val paint = strokeOf(col, max(1f, BORDER * 0.8f)).roundStroke()
     val n = poly.size
     for (i in 0 until n) {
-        val a = poly[i]; val b = poly[(i + 1) % n]
-        val mx = (a.x + b.x) * 0.5f - sc.eye.x; val my = (a.y + b.y) * 0.5f - sc.eye.y
+        val a = poly[i]
+        val b = poly[(i + 1) % n]
+        val mx = (a.x + b.x) * 0.5f - sc.eye.x
+        val my = (a.y + b.y) * 0.5f - sc.eye.y
         val len = hypot(mx, my)
         if (len < 1e-3f) continue
         if ((mx / len) * DR.x + (my / len) * DR.y < -0.15f) c.drawLine(a.x, a.y, b.x, b.y, paint)
@@ -466,17 +484,24 @@ private fun serrate(poly: List<Point>, eye: Point, radius: Float): List<Point> {
     val n = poly.size
     val out = ArrayList<Point>(n * 3)
     for (i in 0 until n) {
-        val a = poly[i]; val b = poly[(i + 1) % n]
+        val a = poly[i]
+        val b = poly[(i + 1) % n]
         out.add(a)
-        val ex = b.x - a.x; val ey = b.y - a.y
+        val ex = b.x - a.x
+        val ey = b.y - a.y
         val len = hypot(ex, ey)
-        val mx = (a.x + b.x) * 0.5f - eye.x; val my = (a.y + b.y) * 0.5f - eye.y
+        val mx = (a.x + b.x) * 0.5f - eye.x
+        val my = (a.y + b.y) * 0.5f - eye.y
         val ml = hypot(mx, my)
         val faces = ml > 1e-3f && ((mx / ml) * DR.x + (my / ml) * DR.y) > 0.2f
         if (!faces || len < gap * 1.3f) continue
         val teeth = (len / gap).toInt().coerceIn(1, 12)
-        var nrmx = -ey / len; var nrmy = ex / len
-        if (nrmx * mx + nrmy * my < 0f) { nrmx = -nrmx; nrmy = -nrmy }   // outward
+        var nrmx = -ey / len
+        var nrmy = ex / len
+        if (nrmx * mx + nrmy * my < 0f) {   // outward
+            nrmx = -nrmx
+            nrmy = -nrmy
+        }
         for (t in 0 until teeth) {
             val tip = (t + 0.5f) / teeth
             out.add(Point(a.x + ex * tip + nrmx * depth, a.y + ey * tip + nrmy * depth))

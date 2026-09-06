@@ -65,7 +65,10 @@ private fun plot(d: Dimension): List<Bounce> {
     val py = (phy * frames).roundToInt()
 
     fun ticks(f: Int, k: Int, ph: Int) = 2 * k * f + ph
-    fun tri(t: Int): Float { val v = Math.floorMod(t, 2 * frames); return (if (v < frames) v else 2 * frames - v) / frames.toFloat() }
+    fun tri(t: Int): Float {
+        val v = Math.floorMod(t, 2 * frames)
+        return (if (v < frames) v else 2 * frames - v) / frames.toFloat()
+    }
     fun hit(f: Int, k: Int, ph: Int) = Math.floorDiv(ticks(f, k, ph), frames) > Math.floorDiv(ticks(f - 1, k, ph), frames)
 
     var col = 0 // hits so far. a hit on frame 0 counts as the wrap, so frame 0 is always red

@@ -7,6 +7,8 @@ import dev.oblac.gart.fx.addGrain
 import dev.oblac.gart.fx.supersampled
 import dev.oblac.gart.gfx.drawVignette
 import dev.oblac.gart.io.detectHeadlessFlags
+import dev.oblac.gart.util.Stopwatch
+import dev.oblac.gart.util.timed
 import dev.oblac.gart.io.pf
 import dev.oblac.gart.io.pi
 import dev.oblac.gart.io.ps
@@ -52,13 +54,11 @@ fun main(args: Array<String>) {
     val ssf = SS.toFloat()
     val big = gart.supersampled(SS)
 
-    var t0 = System.currentTimeMillis()
+    val sw = Stopwatch()
     val panes = buildPanes(rng)
-    println("${panes.size} panes in ${System.currentTimeMillis() - t0}ms")
+    println("${panes.size} panes in ${sw.ms}ms")
 
-    t0 = System.currentTimeMillis()
-    renderGlass(big.canvas, panes, ssf)
-    println("render in ${System.currentTimeMillis() - t0}ms")
+    timed("render") { renderGlass(big.canvas, panes, ssf) }
 
     val g = gart.gartvas()
     g.canvas.drawImageRect(

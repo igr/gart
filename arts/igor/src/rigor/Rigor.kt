@@ -9,6 +9,7 @@ import dev.oblac.gart.gfx.drawVignette
 import dev.oblac.gart.gfx.fillOf
 import dev.oblac.gart.gfx.strokeOf
 import dev.oblac.gart.io.detectHeadlessFlags
+import dev.oblac.gart.util.Stopwatch
 import dev.oblac.gart.io.pf
 import dev.oblac.gart.io.pi
 import dev.oblac.gart.io.ps
@@ -25,14 +26,14 @@ fun main(args: Array<String>) {
     val gart = Gart.of("rigor", W, H)
     println(gart)
 
-    val t0 = System.currentTimeMillis()
+    val sw = Stopwatch()
     val deal = deal()
 
     val gv = Gartvas(Dimension(GW, GH))
     val c = gv.canvas
     c.drawRect(gv.d.rect, fillOf(PAPER))
     drawGrid(c, deal)
-    println("seed=$SEED grid ${COLS}x$ROWS, letters at ${deal.letters.joinToString { "${it.letter}(${it.col},${it.row})" }}, ${System.currentTimeMillis() - t0}ms")
+    println("seed=$SEED grid ${COLS}x$ROWS, letters at ${deal.letters.joinToString { "${it.letter}(${it.col},${it.row})" }}, ${sw.ms}ms")
 
     val g = gart.gartvas()
     val map = Gartmap(g.d)
@@ -94,7 +95,10 @@ private fun deal(): Deal {
             val col = rng.nextInt(COLS)
             val row = b.first + rng.nextInt(b.second - b.first + 1)
             val clear = cells.none { (pc, _) -> abs(pc - col) < 2 } || tries > 40
-            if (clear) { cells += col to row; break }
+            if (clear) {
+                cells += col to row
+                break
+            }
             tries++
         }
     }
