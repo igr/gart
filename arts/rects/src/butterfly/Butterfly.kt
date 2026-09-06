@@ -6,6 +6,7 @@ import dev.oblac.gart.Gartvas
 import dev.oblac.gart.color.*
 import dev.oblac.gart.fx.addGrain
 import dev.oblac.gart.gfx.fillOf
+import dev.oblac.gart.gfx.lerp
 import dev.oblac.gart.gfx.paint
 import dev.oblac.gart.gfx.roundStroke
 import dev.oblac.gart.gfx.strokeOf
@@ -415,7 +416,7 @@ private fun drawStriations(c: Canvas, eye: Point, radius: Float, mid: Int, path:
 private fun drawCoverScale(c: Canvas, sc: Scale) {
     val cs = LAYERSCALE.coerceIn(0.3f, 0.95f)
     val cc = Point(sc.eye.x - DR.x * LAYEROFF * sc.radius, sc.eye.y - DR.y * LAYEROFF * sc.radius)
-    val cover = sc.poly.map { Point(cc.x + (it.x - cc.x) * cs, cc.y + (it.y - cc.y) * cs) }
+    val cover = sc.poly.map { lerp(cc, it, cs) }
     val path = cover.toClosedPath()
     val cr = max(1f, sc.radius * cs)
     val a = (LAYER.coerceIn(0f, 1f) * 255).toInt()

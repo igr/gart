@@ -1,11 +1,10 @@
 package lines.vitrali
 
-import dev.oblac.gart.Dimension
 import dev.oblac.gart.Gart
-import dev.oblac.gart.Gartvas
 import dev.oblac.gart.color.gradientOf
 import dev.oblac.gart.color.space.ColorOKLCH
 import dev.oblac.gart.fx.addGrain
+import dev.oblac.gart.fx.supersampled
 import dev.oblac.gart.gfx.drawVignette
 import dev.oblac.gart.io.detectHeadlessFlags
 import dev.oblac.gart.io.pf
@@ -51,7 +50,7 @@ fun main(args: Array<String>) {
 
     val rng = Random(SEED)
     val ssf = SS.toFloat()
-    val big = Gartvas(Dimension(W * SS, H * SS))
+    val big = gart.supersampled(SS)
 
     var t0 = System.currentTimeMillis()
     val panes = buildPanes(rng)

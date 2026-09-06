@@ -1,12 +1,11 @@
 package alea
 
-import dev.oblac.gart.Dimension
 import dev.oblac.gart.Gart
-import dev.oblac.gart.Gartvas
 import dev.oblac.gart.color.Palette
 import dev.oblac.gart.color.Palettes
 import dev.oblac.gart.color.lerpColor
 import dev.oblac.gart.fx.downsample
+import dev.oblac.gart.fx.supersampled
 import dev.oblac.gart.gfx.fillOf
 import dev.oblac.gart.io.detectHeadlessFlags
 import dev.oblac.gart.io.pf
@@ -182,7 +181,7 @@ fun main(args: Array<String>) {
     // cropped square can never do this - the crop provably sits inside the circle
     val cell = W * 0.5f * sqrt(2f) / (N - BLEED)
 
-    val big = Gartvas(Dimension(W * SS, H * SS))
+    val big = gart.supersampled(SS)
     val c = big.canvas
     c.scale(SS.toFloat(), SS.toFloat())
     c.drawRect(Rect.makeWH(W.toFloat(), H.toFloat()), fillOf(if (DARK == 1) INKG else PAPER))

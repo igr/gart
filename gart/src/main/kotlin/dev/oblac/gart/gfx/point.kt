@@ -4,6 +4,7 @@ import dev.oblac.gart.Dimension
 import dev.oblac.gart.angle.Radians
 import dev.oblac.gart.angle.cosf
 import dev.oblac.gart.angle.sinf
+import dev.oblac.gart.math.lerp
 import dev.oblac.gart.math.rndf
 import org.jetbrains.skia.Canvas
 import org.jetbrains.skia.Paint
@@ -97,6 +98,9 @@ operator fun Point.times(number: Number): Point {
 
 // dot product
 fun dot(a: Point, b: Point): Float = a.x * b.x + a.y * b.y
+
+// point on the segment a-b, t = 0 is a, 1 is b, outside 0..1 extrapolates
+fun lerp(a: Point, b: Point, t: Float) = Point(lerp(a.x, b.x, t), lerp(a.y, b.y, t))
 
 @JvmName("pointDot")
 fun Point.dot(b: Point): Float = dot(this, b)

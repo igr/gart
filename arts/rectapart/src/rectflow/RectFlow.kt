@@ -12,6 +12,7 @@ import dev.oblac.gart.color.lerpColor
 import dev.oblac.gart.gfx.Poly4
 import dev.oblac.gart.gfx.drawPoly4
 import dev.oblac.gart.gfx.fillOf
+import dev.oblac.gart.gfx.lerp
 import dev.oblac.gart.gfx.strokeOf
 import dev.oblac.gart.io.detectHeadlessFlags
 import dev.oblac.gart.io.ensureExtension
@@ -476,7 +477,7 @@ private fun tilesOf(trail: List<Point>): List<Tile> {
         val b = trail[seg]
         val span = (cum[seg] - cum[seg - 1]).coerceAtLeast(1e-4f)
         val t = ((s - cum[seg - 1]) / span).coerceIn(0f, 1f)
-        val at = Point(a.x + (b.x - a.x) * t, a.y + (b.y - a.y) * t)
+        val at = lerp(a, b, t)
 
         // taper first, then let the coarse field stretch whats left, so the fade survives either way
         val u = if (n > 1) k / (n - 1f) else 0.5f

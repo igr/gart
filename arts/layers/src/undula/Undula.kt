@@ -1,21 +1,18 @@
 package undula
 
-import dev.oblac.gart.Dimension
 import dev.oblac.gart.Gart
-import dev.oblac.gart.Gartvas
 import dev.oblac.gart.color.alpha
 import dev.oblac.gart.color.darken
 import dev.oblac.gart.color.gradientOf
 import dev.oblac.gart.color.lighten
 import dev.oblac.gart.color.toIntColor
-import dev.oblac.gart.gfx.clear
+import dev.oblac.gart.fx.supersampled
 import dev.oblac.gart.gfx.fillOf
 import dev.oblac.gart.gfx.paint
 import dev.oblac.gart.io.detectHeadlessFlags
 import org.jetbrains.skia.Canvas
 import org.jetbrains.skia.FilterTileMode
 import org.jetbrains.skia.ImageFilter
-import org.jetbrains.skia.Paint
 import org.jetbrains.skia.Path
 import org.jetbrains.skia.PathBuilder
 import org.jetbrains.skia.Rect
@@ -77,7 +74,7 @@ fun main(args: Array<String>) {
     val headless = detectHeadlessFlags(args)
     val gart = Gart.of("undula", W, H)
 
-    val large = Gartvas(Dimension(W * SS, H * SS))
+    val large = gart.supersampled(SS)
     large.canvas.scale(SS.toFloat(), SS.toFloat())
     render(large.canvas)
 
