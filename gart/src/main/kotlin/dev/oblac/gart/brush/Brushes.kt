@@ -63,6 +63,16 @@ object Brushes {
         pressure = Pressure.Bell(ends = 1.1f, peak = 0.95f, drift = 0.15f, spread = 0.4f),
     )
 
+    /**
+     * Blackboard chalk. The stick is hard. Thus the line is almost solid, with a dusty edge.
+     * The line skips where the pressure is light. This brush is for a light ink on a dark
+     * ground.
+     */
+    val chalk = Brush(
+        weight = 0.7f, scatter = 0.35f, sharpness = 0.75f, grain = 1.1f, opacity = 0.5f, spacing = 0.06f,
+        pressure = Pressure.Bell(ends = 0.85f, peak = 1.05f, drift = 0.2f, spread = 0.3f),
+    )
+
     /** Spray can: a cloud of specks that thins at the ends of the stroke. */
     val spray = Brush(
         tip = Tip.Spray(specks = 40),
@@ -94,6 +104,7 @@ object Brushes {
         "pastel" to pastel,
         "crayon" to crayon,
         "charcoal" to charcoal,
+        "chalk" to chalk,
         "spray" to spray,
         "marker" to marker,
         "hatch" to hatch,

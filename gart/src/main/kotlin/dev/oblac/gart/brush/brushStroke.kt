@@ -99,10 +99,45 @@ fun Canvas.drawBrush(
 }
 
 /**
- * One stroke's worth of state: the paint, the ink, and the per-stamp routines for each tip.
+ * A brush that makes one stamp at each point where you put it down. This brush is for marks
+ * that have no path: a stipple, a scatter, or the landings of an iterated map. One dab is one
+ * step of [drawBrush] with the same brush. Thus dabs and strokes look the same on the page.
+ *
+ * [pressure] has the same effect as the pressure profile of a stroke. It scales the dot
+ * (squared), the alpha, and the wander. [angle] is the direction in which the hand moves, in
+ * radians. The scatter is wider across this direction than along it. Image tips and custom
+ * tips turn to this direction.
+ *
+ * One dabber is for one run of marks. The dabber holds the paint. It sets the opacity of the
+ * run once, as a stroke does. Thus all dabs of one run are lighter or darker together.
+ */
+class BrushDabber(
+    c: Canvas,
+    brush: Brush,
+    color: Int,
+    size: Float = 1f,
+    rnd: Random = Random.Default,
+    blend: BlendMode = BlendMode.SRC_OVER,
+) {
+    init {
+        require(size > 0f) { "size must be > 0" }
+    }
+
+    private val stamper = Stamper(c, brush, color, size, rnd, blend)
+    private val opacity = stamper.rollOpacity()
+
+    fun dab(x: Float, y: Float, pressure: Float = 1f, angle: Float = 0f) {
+        if (pressure <= 0f) return
+        stamper.stamp(x, y, cos(angle), sin(angle), pressure, opacity)
+    }
+}
+
+/**
+ * The walker for one stroke. It steps along each contour of the path. At each step it
+ * calculates the pressure and gives the point to the [Stamper].
  */
 private class BrushStroker(
-    private val c: Canvas,
+    c: Canvas,
     private val brush: Brush,
     color: Int,
     private val size: Float,
@@ -111,19 +146,7 @@ private class BrushStroker(
     private val modulate: ((Float) -> Float)?,
     blend: BlendMode,
 ) {
-    private val rgb = color and 0xFFFFFF
-    private val inkAlpha = alphaf(color)
-    private val paint = paint().apply {
-        blendMode = blend
-    }
-
-    // image tips: the image is only a shape. SRC_IN swaps its colour for the ink, keeps its alpha
-    private val imagePaint = (brush.tip as? Tip.Image)?.let {
-        paint().apply {
-            blendMode = blend
-            colorFilter = ColorFilter.makeBlend(rgb or (0xFF shl 24), BlendMode.SRC_IN)
-        }
-    }
+    private val stamper = Stamper(c, brush, color, size, rnd, blend)
 
     fun stroke(path: Path) {
         val m = PathMeasure(path, false)
@@ -140,8 +163,7 @@ private class BrushStroker(
         val step = max(brush.spacing * size, MIN_STEP)
         val steps = max(1, (length / step).roundToInt())
         val pressureAt = brush.pressure.along(rnd, length)
-        // the whole stroke a touch lighter or darker than the one before
-        val opacity = (brush.opacity * (1f + rnd.rndGaussian(0f, 0.03f))).coerceIn(0f, 1f)
+        val opacity = stamper.rollOpacity()
         var offX = 0f
         var offY = 0f
         for (i in 0 until steps) {
@@ -173,13 +195,47 @@ private class BrushStroker(
             var p = pressureAt(s)
             if (modulate != null) p *= modulate(s / length)
             if (p <= 0f) continue
-            when (val tip = brush.tip) {
-                Tip.Dots -> dots(x, y, dx, dy, p, opacity)
-                is Tip.Spray -> spray(tip, x, y, p, opacity)
-                Tip.Marker -> marker(x, y, p, opacity)
-                is Tip.Image -> image(tip, x, y, dx, dy, p, opacity)
-                is Tip.Custom -> custom(tip, x, y, dx, dy, p, opacity)
-            }
+            stamper.stamp(x, y, dx, dy, p, opacity)
+        }
+    }
+}
+
+/**
+ * The paint, the ink, and the stamp procedure for each tip. Strokes and dabs use the same
+ * stamper.
+ */
+private class Stamper(
+    private val c: Canvas,
+    private val brush: Brush,
+    color: Int,
+    private val size: Float,
+    private val rnd: Random,
+    blend: BlendMode,
+) {
+    private val rgb = color and 0xFFFFFF
+    private val inkAlpha = alphaf(color)
+    private val paint = paint().apply {
+        blendMode = blend
+    }
+
+    // image tips: the image is only a shape. SRC_IN swaps its colour for the ink, keeps its alpha
+    private val imagePaint = (brush.tip as? Tip.Image)?.let {
+        paint().apply {
+            blendMode = blend
+            colorFilter = ColorFilter.makeBlend(rgb or (0xFF shl 24), BlendMode.SRC_IN)
+        }
+    }
+
+    // the whole stroke (or run of dabs) a touch lighter or darker than the one before
+    fun rollOpacity(): Float = (brush.opacity * (1f + rnd.rndGaussian(0f, 0.03f))).coerceIn(0f, 1f)
+
+    fun stamp(x: Float, y: Float, dx: Float, dy: Float, p: Float, opacity: Float) {
+        when (val tip = brush.tip) {
+            Tip.Dots -> dots(x, y, dx, dy, p, opacity)
+            is Tip.Spray -> spray(tip, x, y, p, opacity)
+            Tip.Marker -> marker(x, y, p, opacity)
+            is Tip.Image -> image(tip, x, y, dx, dy, p, opacity)
+            is Tip.Custom -> custom(tip, x, y, dx, dy, p, opacity)
         }
     }
 
