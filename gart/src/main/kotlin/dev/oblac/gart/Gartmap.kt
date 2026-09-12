@@ -13,7 +13,9 @@ import java.nio.IntBuffer
  *
  * Storage is an [IntArray] (`pixels`, ARGB, indexed `y * w + x`). Per-pixel
  * `[x, y]` access goes straight to the array — no `IntBuffer` view, no
- * round-trip to a Skia bitmap on every read/write.
+ * round-trip to a Skia bitmap on every read/write. Pixels pulled from a canvas are
+ * premultiplied (RGB scaled by alpha); [dev.oblac.gart.color.unpremultiply] lifts the
+ * straight colour back out of a translucent one.
  *
  * Two construction modes:
  *  - `Gartmap(d)`        — pure in-memory; no canvas binding. Useful as an

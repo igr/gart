@@ -116,6 +116,24 @@ fun Int.toStrokePaint(width: Float): Paint = strokeOf(this, width)
 fun Long.toIntColor(): Int = alpha(this.toInt(), 255)
 
 /**
+ * Undoes premultiplied alpha: a pixel read back from a Skia surface (see [dev.oblac.gart.Gartmap])
+ * has its RGB already scaled by its alpha, and this lifts the straight colour back out. Alpha is
+ * kept. Channels are divided with rounding, the inverse of how Skia premultiplies; a pixel with
+ * zero alpha comes back unchanged.
+ */
+fun unpremultiply(color: Int): Int {
+    val a = alpha(color)
+    if (a == 0 || a == 255) return color
+    val half = a / 2
+    return argb(
+        a,
+        min(255, (red(color) * 255 + half) / a),
+        min(255, (green(color) * 255 + half) / a),
+        min(255, (blue(color) * 255 + half) / a),
+    )
+}
+
+/**
  * Blends two colors considering their alpha channels.
  * The 'front' color is drawn over the 'back' color.
  * Integer only arithmetic for performance.
