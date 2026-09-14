@@ -3,6 +3,7 @@ package dev.oblac.gart.util
 import org.junit.jupiter.api.Test
 import kotlin.test.assertContentEquals
 import kotlin.test.assertEquals
+import kotlin.test.assertFailsWith
 import kotlin.test.assertTrue
 
 class ParallelBandsTest {
@@ -78,6 +79,19 @@ class ParallelBandsTest {
         parallelBands(0) { _, _ -> ran = true }
         parallelBands(-5) { _, _ -> ran = true }
         assertTrue(!ran)
+    }
+
+    @Test
+    fun aFailingBandFailsTheCallAfterTheOthersFinish() {
+        val ran = IntArray(4)
+        val e = assertFailsWith<IllegalStateException> {
+            parallelBands(40, 4) { y0, _ ->
+                ran[y0 / 10]++
+                if (y0 == 20) throw IllegalStateException("band $y0 broke")
+            }
+        }
+        assertEquals("band 20 broke", e.message)
+        assertTrue(ran.all { it == 1 }, "every band should still have run: ${ran.toList()}")
     }
 
     @Test

@@ -32,6 +32,9 @@ val defaultWorkers: Int = Runtime.getRuntime().availableProcessors().coerceIn(1,
  * Runs inline on the calling thread when there is only one worker or one row, so a debug run
  * with `workers = 1` has no threading in it at all.
  *
+ * A band that throws fails the whole call: every band is still joined first, then the failure
+ * from the lowest band is rethrown - so a render never comes back "done" with a hole in it.
+ *
  * @param height number of rows to divide up
  * @param workers how many bands to cut, defaults to [defaultWorkers]
  * @param body    called once per band with `[y0, y1)`
@@ -46,8 +49,18 @@ fun parallelBands(height: Int, workers: Int = defaultWorkers, body: (y0: Int, y1
     }
 
     val band = (height + n - 1) / n
+    val failed = arrayOfNulls<Throwable>(n)
     (0 until n)
-        .map { t -> Thread { body(t * band, min(height, (t + 1) * band)) } }
+        .map { t ->
+            Thread {
+                try {
+                    body(t * band, min(height, (t + 1) * band))
+                } catch (e: Throwable) {
+                    failed[t] = e
+                }
+            }
+        }
         .onEach { it.start() }
         .forEach { it.join() }
+    failed.firstOrNull { it != null }?.let { throw it }
 }

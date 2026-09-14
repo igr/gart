@@ -1319,6 +1319,55 @@ obstacles fatter than `segmentLength`) and roots aren't checked.
 
 ---
 
+### 7.10 Marbling
+
+`gart/.../marbling/`. Paper marbling as a history of closed-form plane deformations, every one a
+bijection with a closed-form inverse. Nothing is simulated: a pixel's colour is found by walking
+the ops backwards until the point lands inside a drop, a drop's outline by walking its rim
+forwards. Exact at any resolution, every pixel independent.
+
+```kotlin
+val m = Marbling(paper)                        // or Marbling(Ink.image(gartmap)) to rake a picture
+for (i in 0 until 150) m.drop(x, y, r, inks[i % inks.size])
+m.comb(d.cx, d.cy, Degrees(0f), z = 70f, c = 14f, tines = 17, spacing = 42f)          // across
+m.comb(d.cx, d.cy + 21f, Degrees(180f), z = 70f, c = 14f, tines = 17, spacing = 42f)  // and back, half a tine over: gelgit
+m.comb(d.cx, d.cy, Degrees(90f), z = 100f, c = 9f, tines = 18, spacing = 33f, amplitude = 14f, wavelength = 180f) // wavy: serpentine
+m.whirl(cx, cy, r = 40f, z = 120f, c = 24f)   // circular tine; vortex(cx, cy, z, c) is r = 0
+m.wave(amplitude = 5f, wavelength = 30f)       // the sheet wiggled as it is laid on (transfer moire)
+m.render(g, aa = 3)                            // Gartvas or any Pixels; aa = samples per pixel edge
+val outlines = m.contours(step = 1.5f)         // List<Contour>: color + points + path, placement order
+```
+- ops (`MarblingOp.kt`, each with `forward(p)` / `inverse(p)` on a `MutableVec2`): `Drop(cx, cy, r, color)`
+  shoves paint radially out, `C + (P-C)·sqrt(1 + r²/|P-C|²)`; `Comb(x, y, dir, z, c, offsets, amplitude,
+  wavelength, phase)` pulls paint along `dir` by `z · Σ 2^(-d_i/c)` (d_i = sideways distance to tine i,
+  `c` = the distance at which the pull halves) - a wavy comb is the same conjugated by a sinusoidal
+  sideways shear; `Whirl(cx, cy, r, z, c)` turns about the centre by an arc of `z·2^(-|h-r|/c)`;
+  `Wave(dir, push, amplitude, wavelength, phase)` slides along `push` by a sine of the coordinate along
+  `dir` (inverse by a bracketed Newton solve when push has a part along dir; folds past
+  `amplitude·(push·dir)·2π/wavelength = 1`); `Shift(dx, dy)`; `Custom(fwd, inv)`.
+- builder: `drop(x, y, r, color)`, `tine(x, y, angle, z, c, amplitude, wavelength, phase)`, `stroke(from, to, c)`
+  (z = the distance), `comb(x, y, angle, z, c, tines, spacing, ...)` / `comb(..., offsets: FloatArray, ...)`,
+  `whirl`, `vortex`, `wave(amplitude, wavelength, dir = Degrees(90), push = dir + 90°, phase)`, `shift(dx, dy)`,
+  `add(op)`. `Degrees(0)` drags right, `Degrees(90)` down. Tines centred on (x, y), offsets along the drag
+  direction turned +90°.
+- raster: `colorAt(x, y)`, `render(pixels | gartvas, aa = 1, workers = defaultWorkers)`; `Ink.flat(color)` /
+  `Ink.image(pixels, mode, background)` is the bath before any drop (the picture is copied then, so rendering back over it is fine). Cost = pixels × aa² × ops; a 460² tile
+  with ~150 ops at aa 3 is ~0.5 s.
+- vector: `contours(step = 1.5f, maxPoints = 100_000)` - the rim is seeded no coarser than `step` or the sharpest
+  later tine's `c`, every stretch is checked at its middle and split while either half is longer than `step`
+  (new points are mapped from the circle, never chords), `maxPoints` is a hard cap per rim; a `Contour` has `color`, `points`, `path`.
+- `map(x, y)` / `unmap(x, y)` follow one point through the whole history.
+- colours are copied through untouched; the Gartvas overload writes premultiplied pixels, so a translucent drop or
+  ink for a canvas must be premultiplied (opaque inks are unaffected).
+- No randomness inside: place drops with the piece's own seeded `Random`. A comb drags the whole bath along
+  by roughly `z` - a `shift` puts it back; keep the drop bed bigger than the sheet so nothing bare is dragged in.
+
+**Usage:** `example/ExampleMarbling.kt` (nine patterns: stone, gelgit, nonpareil, serpentine, bouquet, curls,
+spanish wave, suminagashi, strokes), `ExampleMarblingWarp.kt` (a picture raked, contours filled and drawn as
+pen lines).
+
+---
+
 #### Gaps / opportunities (unused by finished art)
 - `BelousovZhabotinskyContinuous` (continuous BZ spirals) — example only.
 - WHFAST orbital system (`NBodySystem2D` / `WHIntegrator2D`) — example only.

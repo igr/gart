@@ -16,3 +16,5 @@ const val DOUBLE_PIf = 2 * Math.PI.toFloat()
 const val TWO_PIf = 2 * Math.PI.toFloat()
 const val HALF_PIf = PIf / 2
 const val QUARTER_PIf = PIf / 4
+const val LN2 = 0.6931471805599453                  // ln 2: a falloff that halves every c px is exp(-LN2 * d / c)
+const val LN2f = 0.6931472f

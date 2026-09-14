@@ -70,6 +70,14 @@ There is really **a lot of features**, and I'm not sure how to organize them, bu
 - Hatching: Hatch, hatchLines, drawBrushHatch — spacing gradient, jitter, overshoot, holes handled
 - Watercolor — layered washes with bleeding edges, granulation, darkened rim (drawWatercolor)
 
+## Marbling
+
+- Marbling — a bath as an ordered list of invertible ops: drop, tine, stroke, comb (straight or wavy), whirl, vortex, wave, shift, custom
+- Raster: colorAt / render(pixels, aa) walk the history backwards per pixel — exact at any size, banded across cores
+- Ink — the bath before anything lands: Ink.flat(color), or Ink.image(pixels) so a finished render gets raked
+- Vector: contours(step) — every drop's rim carried forward as a closed Path, refined adaptively, in placement order
+- map / unmap — where a point of paint went, where it came from
+
 ## Physics & Simulation
 
 - Attractors (18): Lorenz, Lorenz84, Clifford, Rossler, Duffing, Thomas, Chen, Sprott, Langford-Aizawa, Halvorsen,
