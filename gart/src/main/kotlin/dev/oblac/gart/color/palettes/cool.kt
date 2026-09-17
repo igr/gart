@@ -1665,3 +1665,13 @@ internal val cool_181 = Palette(
     0xffe0482a,
     0xff8792a0
 )
+
+// nacre - deep blue-black through teal to a milky cream, then copper and a dried-blood red
+internal val cool_182 = Palette(
+    0xff16252e,
+    0xff356f88,
+    0xff99cec2,
+    0xffffecd0,
+    0xffe39152,
+    0xff733b43
+)
