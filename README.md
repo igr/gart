@@ -771,6 +771,10 @@ A collection of generative art pieces (ordered by name).
   </tr>
   <tr>
     <td width="33%" align="center">
+      <a href="arts/lines/striga.png"><img src="arts/lines/striga_thumb.png" alt="Striga" width="100%"/></a>
+      <br><b>Striga</b>
+    </td>
+    <td width="33%" align="center">
       <a href="arts/lines/stripes1.png"><img src="arts/lines/stripes1_thumb.png" alt="Stripes1" width="100%"/></a>
       <br><b>Stripes1</b>
     </td>
@@ -778,12 +782,12 @@ A collection of generative art pieces (ordered by name).
       <a href="arts/lines/stripes2.png"><img src="arts/lines/stripes2_thumb.png" alt="Stripes2" width="100%"/></a>
       <br><b>Stripes2</b>
     </td>
+  </tr>
+  <tr>
     <td width="33%" align="center">
       <a href="arts/lines/swing2.png"><img src="arts/lines/swing2_thumb.png" alt="Swing2" width="100%"/></a>
       <br><b>Swing2</b>
     </td>
-  </tr>
-  <tr>
     <td width="33%" align="center">
       <a href="arts/lines/swing3.png"><img src="arts/lines/swing3_thumb.png" alt="Swing3" width="100%"/></a>
       <br><b>Swing3</b>
@@ -792,12 +796,12 @@ A collection of generative art pieces (ordered by name).
       <a href="arts/lines/swing.png"><img src="arts/lines/swing_thumb.png" alt="Swing" width="100%"/></a>
       <br><b>Swing</b>
     </td>
+  </tr>
+  <tr>
     <td width="33%" align="center">
       <a href="arts/lines/tapesA.png"><img src="arts/lines/tapesA_thumb.png" alt="TapesA" width="100%"/></a>
       <br><b>TapesA</b>
     </td>
-  </tr>
-  <tr>
     <td width="33%" align="center">
       <a href="arts/lines/tapesB.png"><img src="arts/lines/tapesB_thumb.png" alt="TapesB" width="100%"/></a>
       <br><b>TapesB</b>
@@ -806,12 +810,12 @@ A collection of generative art pieces (ordered by name).
       <a href="arts/lines/triadance2.png"><img src="arts/lines/triadance2_thumb.png" alt="Triadance2" width="100%"/></a>
       <br><b>Triadance2</b>
     </td>
+  </tr>
+  <tr>
     <td width="33%" align="center">
       <a href="arts/lines/triangles.png"><img src="arts/lines/triangles_thumb.png" alt="Triangles" width="100%"/></a>
       <br><b>Triangles</b>
     </td>
-  </tr>
-  <tr>
     <td width="33%" align="center">
       <a href="arts/lines/tridance.png"><img src="arts/lines/tridance_thumb.png" alt="Tridance" width="100%"/></a>
       <br><b>Tridance</b>
@@ -820,7 +824,6 @@ A collection of generative art pieces (ordered by name).
       <a href="arts/lines/vitrall.png"><img src="arts/lines/vitrall_thumb.png" alt="Vitrall" width="100%"/></a>
       <br><b>Vitrall</b>
     </td>
-    <td width="33%"></td>
   </tr>
 </table>
 
@@ -848,8 +851,14 @@ A collection of generative art pieces (ordered by name).
       <a href="arts/mathy/corona.png"><img src="arts/mathy/corona_thumb.png" alt="Corona" width="100%"/></a>
       <br><b>Corona</b>
     </td>
-    <td width="33%"></td>
-    <td width="33%"></td>
+    <td width="33%" align="center">
+      <a href="arts/mathy/nacre.png"><img src="arts/mathy/nacre_thumb.png" alt="Nacre" width="100%"/></a>
+      <br><b>Nacre</b>
+    </td>
+    <td width="33%" align="center">
+      <a href="arts/mathy/vinculum.png"><img src="arts/mathy/vinculum_thumb.png" alt="Vinculum" width="100%"/></a>
+      <br><b>Vinculum</b>
+    </td>
   </tr>
 </table>
 
@@ -1590,4 +1599,4 @@ A collection of generative art pieces (ordered by name).
 
 ---
 
-🖼️ **270 works** across **42 collections** — and counting.
+🖼️ **273 works** across **42 collections** — and counting.
