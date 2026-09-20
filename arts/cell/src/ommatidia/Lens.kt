@@ -1,5 +1,6 @@
 package ommatidia
 
+import dev.oblac.gart.color.alphaf
 import dev.oblac.gart.color.colorLift
 import dev.oblac.gart.color.colorScale
 import dev.oblac.gart.color.gradientOf
@@ -104,8 +105,7 @@ internal class LensPainter(private val p: Params, colors: Colors) : AutoCloseabl
 
         val spec = (nx * hx + ny * hy + nz * hz).coerceAtLeast(0f).pow(p.shine)
         if (spec > p.specMin) {
-            val a = ((spec - p.specMin) / (1f - p.specMin) * p.specA * 255f).toInt().coerceIn(0, 255)
-            glint.color = (a shl 24) or glintRgb
+            glint.color = alphaf(glintRgb, (spec - p.specMin) / (1f - p.specMin) * p.specA)
             c.drawCircle(gx, gy, f.r * p.specSize, glint)
         }
     }

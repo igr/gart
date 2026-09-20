@@ -7,6 +7,7 @@ import dev.oblac.gart.color.NipponColors
 import dev.oblac.gart.color.Palette
 import dev.oblac.gart.color.PaletteGenerator
 import dev.oblac.gart.color.alpha
+import dev.oblac.gart.color.alphaf
 import dev.oblac.gart.color.gradientOf
 import dev.oblac.gart.color.lerpColor
 import dev.oblac.gart.color.lighten
@@ -414,7 +415,7 @@ private fun drawHalo(c: Canvas, p: Params, sunX: Float, sunY: Float, r: Float) {
     }
 
     val ink = paint().apply {
-        color = alpha(SUN_CORE, (p.glow * 255f).toInt().coerceIn(0, 255))
+        color = alphaf(SUN_CORE, p.glow)
     }
     // squared, else the glow spreads into an even wash across a third of the sky
     rasterScreen(

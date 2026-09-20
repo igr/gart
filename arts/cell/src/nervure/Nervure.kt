@@ -598,7 +598,7 @@ private fun drawIsochrones(c: Canvas, field: FloatArray, maxBirth: Int, p: Param
         val level = frac * mb
         // older rings (near the seed) deep, younger rings (near the front) bright
         val color = gradient.safe((lerp(p.ageLo, 1f, frac) * (GRAD_STEPS - 1)).toInt())
-        val paint = strokeOf(alpha(color, (255 * p.isoAlpha).toInt().coerceIn(0, 255)), ISO_W).apply {
+        val paint = strokeOf(alphaf(color, p.isoAlpha), ISO_W).apply {
             strokeCap = PaintStrokeCap.ROUND
             blendMode = BlendMode.SCREEN
         }

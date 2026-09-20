@@ -26,4 +26,13 @@ object PalettesOf4 {
     val q18 = Palette.of("#283d3b", "#197278", "#edddd4", "#c44536")
     val q19 = Palette.of("#177e89", "#084c61", "#db3a34", "#ffc857")
 
+    /** Every set here in order, so a knob can walk them: `PalettesOf4.of(pi("pal", 13))`. */
+    val all: List<Palette> = listOf(
+        q01, q02, q03, q04, q05, q06, q07, q08, q09, q10,
+        q11, q12, q13, q14, q15, q16, q17, q18, q19,
+    )
+
+    /** The [num]th set, 1-based, matching the `qNN` names. */
+    fun of(num: Int): Palette = all.getOrNull(num - 1)
+        ?: throw IllegalArgumentException("no palette q$num, have 1..${all.size}")
 }

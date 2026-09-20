@@ -5,6 +5,7 @@ import dev.oblac.gart.Gart
 import dev.oblac.gart.Gartvas
 import dev.oblac.gart.color.Palette
 import dev.oblac.gart.color.Palettes
+import dev.oblac.gart.color.alphaf
 import dev.oblac.gart.color.gradientOf
 import dev.oblac.gart.color.hueShift
 import dev.oblac.gart.color.space.ColorOKLCH
@@ -248,13 +249,12 @@ private fun render(c: Canvas, p: Params, colors: Colors) {
 
 
 private fun drawBloom(c: Canvas, p: Params, colors: Colors, d: Dimension) {
-    val a = (255f * p.bloom).toInt().coerceIn(0, 255)
     val paint = Paint().apply {
         blendMode = BlendMode.PLUS
         shader = Shader.makeRadialGradient(
             p.sunX * d.wf, p.sunY * d.wf, d.wf * 0.6f,
             gradientOf(
-                intArrayOf((a shl 24) or (colors.sun and 0xFFFFFF), 0x00000000),
+                intArrayOf(alphaf(colors.sun, p.bloom), 0x00000000),
                 floatArrayOf(0f, 1f),
             ),
         )

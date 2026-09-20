@@ -83,6 +83,16 @@ fun alpha(color: Int, a: Int): Int {
 
 fun Int.alpha(a: Int): Int = alpha(this, a)
 
+/**
+ * As [alpha], for an alpha given as `0f`..`1f` - the same convention as [alphaf] reads it back
+ * and as [argb] takes it. Out of range clamps, so a strength that overshoots pins at opaque
+ * instead of wrapping round to transparent.
+ */
+@JvmName("setAlphaf")
+fun alphaf(color: Int, a: Float): Int = alpha(color, (a * 255f).toInt().coerceIn(0, 255))
+
+fun Int.alphaf(a: Float): Int = alphaf(this, a)
+
 fun red(color: Int, r: Int): Int {
     return r and 0xFF shl 16 or (color and -0xff0001)
 }
