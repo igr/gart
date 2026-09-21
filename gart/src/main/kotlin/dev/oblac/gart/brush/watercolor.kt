@@ -3,6 +3,7 @@ package dev.oblac.gart.brush
 import dev.oblac.gart.angle.Angle
 import dev.oblac.gart.color.alphaf
 import dev.oblac.gart.gfx.paint
+import dev.oblac.gart.gfx.signedArea
 import dev.oblac.gart.gfx.simplifyPoints
 import dev.oblac.gart.math.lerp
 import dev.oblac.gart.math.map
@@ -114,16 +115,6 @@ internal fun washRings(path: Path, bleed: Float): List<List<Point>> {
         if (out.size >= 3) out else null
     }
     return rings
-}
-
-private fun signedArea(ring: List<Point>): Float {
-    var s = 0f
-    for (i in ring.indices) {
-        val a = ring[i]
-        val b = ring[(i + 1) % ring.size]
-        s += a.x * b.y - b.x * a.y
-    }
-    return s / 2f
 }
 
 /** One ring of a wash polygon: vertices, per-vertex bleed modifier, and which way its edges bleed. */
