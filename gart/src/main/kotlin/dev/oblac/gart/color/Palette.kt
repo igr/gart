@@ -49,6 +49,13 @@ class Palette(internal val colors: IntArray) {
      */
     fun sampleOklch(t: Float): Int = lerpColorsOklch(colors, t)
 
+    /**
+     * [sample], but the blend between two entries is a straight line in OKLab: lightness moves
+     * evenly and hue does not turn, so two far-apart hues meet in a muted colour between them
+     * (coral and navy give a dusty maroon, not the magenta [sampleOklch] swings through).
+     */
+    fun sampleOklab(t: Float): Int = lerpColorsOklab(colors, t)
+
     fun last(): Int {
         return colors[size - 1]
     }
@@ -146,6 +153,15 @@ class Palette(internal val colors: IntArray) {
 
     /** All but the first [n] colours, in order; empty when there are no more. */
     fun drop(n: Int): Palette = Palette(colors.drop(n).toIntArray())
+
+    /**
+     * The colours at [indices], in the order given. An index may repeat; one outside the
+     * palette throws.
+     */
+    fun pick(vararg indices: Int): Palette {
+        indices.forEach { require(it in colors.indices) { "no colour $it, have 0..${size - 1}" } }
+        return Palette(IntArray(indices.size) { colors[indices[it]] })
+    }
 
     /** The colours ordered by [selector], lowest first. A stable sort, so ties keep their order. */
     fun <R : Comparable<R>> sortedBy(selector: (Int) -> R): Palette = Palette(colors.sortedBy(selector).toIntArray())

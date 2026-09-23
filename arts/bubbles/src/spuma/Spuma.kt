@@ -23,7 +23,7 @@ import dev.oblac.gart.math.lerp
 import dev.oblac.gart.math.smin
 import dev.oblac.gart.noise.fbm
 import dev.oblac.gart.noise.noiseOffset
-import dev.oblac.gart.util.parallelBands
+import dev.oblac.gart.util.parallelForRows
 import kotlin.math.abs
 import kotlin.math.atan2
 import kotlin.math.ceil
@@ -386,7 +386,7 @@ private fun render(g: Gartvas) {
 
     // banded over the cores. every row belongs to one thread, so the picture is the same
     // whatever the core count - verify the usual way, render twice and shasum
-    parallelBands(H) { y0, y1 ->
+    parallelForRows(H) { y0, y1 ->
         val one = FloatArray(3)
         for (y in y0 until y1) {
             val ky = 0.5f - y.toFloat() / H

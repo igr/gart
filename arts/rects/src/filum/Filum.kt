@@ -35,7 +35,7 @@ import dev.oblac.gart.noise.noiseOffset
 import dev.oblac.gart.pixels.boxDownsample
 import dev.oblac.gart.smooth.catmullRomSpline
 import dev.oblac.gart.util.Stopwatch
-import dev.oblac.gart.util.parallelBands
+import dev.oblac.gart.util.parallelForRows
 import dev.oblac.gart.util.timed
 import dev.oblac.gart.vector.Vec2
 import org.jetbrains.skia.Color
@@ -294,7 +294,7 @@ private val REACH = 64f * SS
 private fun light(t: Table, wire: Path, ramp: Palette, tableCol: Int): IntArray {
     val lamp = Lamp(t, wire, ramp, tableCol)
     val img = IntArray(GW * GH)
-    parallelBands(GH) { y0, y1 ->
+    parallelForRows(GH) { y0, y1 ->
         for (y in y0 until y1) for (x in 0 until GW) {
             val i = y * GW + x
             img[i] = if (t.counts[i] == 0) tableCol else lamp.pixel(x, y)

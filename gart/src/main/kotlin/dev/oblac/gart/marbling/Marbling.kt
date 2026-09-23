@@ -6,7 +6,7 @@ import dev.oblac.gart.Pixels
 import dev.oblac.gart.angle.Angle
 import dev.oblac.gart.angle.Degrees
 import dev.oblac.gart.util.defaultWorkers
-import dev.oblac.gart.util.parallelBands
+import dev.oblac.gart.util.parallelForRows
 import dev.oblac.gart.vector.MutableVec2
 import dev.oblac.gart.vector.Vec2
 import org.jetbrains.skia.Color
@@ -124,7 +124,7 @@ class Marbling(val background: Ink = Ink.flat(Color.WHITE)) {
         require(aa >= 1) { "aa must be at least 1" }
         val w = target.d.w
         val px = target.pixels
-        parallelBands(target.d.h, workers) { y0, y1 ->
+        parallelForRows(target.d.h, workers) { y0, y1 ->
             val p = MutableVec2()
             for (y in y0 until y1) {
                 var i = y * w

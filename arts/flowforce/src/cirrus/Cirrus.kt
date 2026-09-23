@@ -21,7 +21,7 @@ import dev.oblac.gart.math.lerp
 import dev.oblac.gart.math.smoothstep
 import dev.oblac.gart.noise.curl
 import dev.oblac.gart.noise.fbm
-import dev.oblac.gart.util.parallelBands
+import dev.oblac.gart.util.parallelForRows
 import dev.oblac.gart.vector.MutableVec2
 import kotlin.math.abs
 import kotlin.math.ceil
@@ -656,7 +656,7 @@ private fun render(g: Gartvas) {
 
     val bins = Bins(W * ss, H * ss)
     val lut = buildLut()
-    parallelBands(bins.h) { y0, y1 -> splat(dots, lut, bins, y0, y1) }
+    parallelForRows(bins.h) { y0, y1 -> splat(dots, lut, bins, y0, y1) }
     println("  splat done (${sw.ms}ms)")
 
     val light = develop(bins, ss)

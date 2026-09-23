@@ -39,7 +39,7 @@ val defaultWorkers: Int = Runtime.getRuntime().availableProcessors().coerceIn(1,
  * @param workers how many bands to cut, defaults to [defaultWorkers]
  * @param body    called once per band with `[y0, y1)`
  */
-fun parallelBands(height: Int, workers: Int = defaultWorkers, body: (y0: Int, y1: Int) -> Unit) {
+fun parallelForRows(height: Int, workers: Int = defaultWorkers, body: (y0: Int, y1: Int) -> Unit) {
     if (height <= 0) return
 
     val n = workers.coerceIn(1, height)

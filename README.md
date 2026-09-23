@@ -1157,6 +1157,10 @@ A collection of generative art pieces (ordered by name).
   </tr>
   <tr>
     <td width="33%" align="center">
+      <a href="arts/rects/craticula.png"><img src="arts/rects/craticula_thumb.png" alt="Craticula" width="100%"/></a>
+      <br><b>Craticula</b>
+    </td>
+    <td width="33%" align="center">
       <a href="arts/rects/divine-divide.png"><img src="arts/rects/divine-divide_thumb.png" alt="Divine Divide" width="100%"/></a>
       <br><b>Divine Divide</b>
     </td>
@@ -1164,12 +1168,12 @@ A collection of generative art pieces (ordered by name).
       <a href="arts/rects/filum.png"><img src="arts/rects/filum_thumb.png" alt="Filum" width="100%"/></a>
       <br><b>Filum</b>
     </td>
+  </tr>
+  <tr>
     <td width="33%" align="center">
       <a href="arts/rects/impossible-rubik-one.png"><img src="arts/rects/impossible-rubik-one_thumb.png" alt="Impossible Rubik One" width="100%"/></a>
       <br><b>Impossible Rubik One</b>
     </td>
-  </tr>
-  <tr>
     <td width="33%" align="center">
       <a href="arts/rects/impossible-rubik-three.png"><img src="arts/rects/impossible-rubik-three_thumb.png" alt="Impossible Rubik Three" width="100%"/></a>
       <br><b>Impossible Rubik Three</b>
@@ -1178,12 +1182,12 @@ A collection of generative art pieces (ordered by name).
       <a href="arts/rects/impossible-rubik-two.png"><img src="arts/rects/impossible-rubik-two_thumb.png" alt="Impossible Rubik Two" width="100%"/></a>
       <br><b>Impossible Rubik Two</b>
     </td>
+  </tr>
+  <tr>
     <td width="33%" align="center">
       <a href="arts/rects/mondrian-01.png"><img src="arts/rects/mondrian-01_thumb.png" alt="Mondrian 01" width="100%"/></a>
       <br><b>Mondrian 01</b>
     </td>
-  </tr>
-  <tr>
     <td width="33%" align="center">
       <a href="arts/rects/mondrian-02.png"><img src="arts/rects/mondrian-02_thumb.png" alt="Mondrian 02" width="100%"/></a>
       <br><b>Mondrian 02</b>
@@ -1192,12 +1196,12 @@ A collection of generative art pieces (ordered by name).
       <a href="arts/rects/mondrian-03.png"><img src="arts/rects/mondrian-03_thumb.png" alt="Mondrian 03" width="100%"/></a>
       <br><b>Mondrian 03</b>
     </td>
+  </tr>
+  <tr>
     <td width="33%" align="center">
       <a href="arts/rects/rects-over.png"><img src="arts/rects/rects-over_thumb.png" alt="Rects Over" width="100%"/></a>
       <br><b>Rects Over</b>
     </td>
-  </tr>
-  <tr>
     <td width="33%" align="center">
       <a href="arts/rects/rects1.png"><img src="arts/rects/rects1_thumb.png" alt="Rects1" width="100%"/></a>
       <br><b>Rects1</b>
@@ -1206,7 +1210,6 @@ A collection of generative art pieces (ordered by name).
       <a href="arts/rects/rects2.png"><img src="arts/rects/rects2_thumb.png" alt="Rects2" width="100%"/></a>
       <br><b>Rects2</b>
     </td>
-    <td width="33%"></td>
   </tr>
 </table>
 
@@ -1599,4 +1602,4 @@ A collection of generative art pieces (ordered by name).
 
 ---
 
-🖼️ **273 works** across **42 collections** — and counting.
+🖼️ **274 works** across **42 collections** — and counting.

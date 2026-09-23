@@ -1,6 +1,6 @@
 package dev.oblac.gart.pixels
 
-import dev.oblac.gart.util.parallelBands
+import dev.oblac.gart.util.parallelForRows
 import kotlin.math.ceil
 import kotlin.math.exp
 import kotlin.math.max
@@ -94,7 +94,7 @@ fun gaussianBlur(src: FloatArray, w: Int, h: Int, sigma: Float, tmp: FloatArray 
     val norm = 1f / (k[0] + 2f * tail) // weights sum to 1, or the blur brightens the field
     for (i in k.indices) k[i] *= norm
 
-    parallelBands(h) { y0, y1 ->
+    parallelForRows(h) { y0, y1 ->
         for (y in y0 until y1) {
             val row = y * w
             for (x in 0 until w) {
@@ -104,7 +104,7 @@ fun gaussianBlur(src: FloatArray, w: Int, h: Int, sigma: Float, tmp: FloatArray 
             }
         }
     }
-    parallelBands(h) { y0, y1 ->
+    parallelForRows(h) { y0, y1 ->
         for (y in y0 until y1) for (x in 0 until w) {
             var s = tmp[y * w + x] * k[0]
             for (o in 1..rad) s += k[o] * (tmp[max(y - o, 0) * w + x] + tmp[min(y + o, h - 1) * w + x])

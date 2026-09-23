@@ -18,7 +18,7 @@ import dev.oblac.gart.math.smoothstep
 import dev.oblac.gart.noise.fbm
 import dev.oblac.gart.noise.noiseOffset
 import dev.oblac.gart.pixels.gaussianBlur
-import dev.oblac.gart.util.parallelBands
+import dev.oblac.gart.util.parallelForRows
 import kotlin.math.abs
 import kotlin.math.atan2
 import kotlin.math.ceil
@@ -271,7 +271,7 @@ private fun shade(foam: Foam, cov: FloatArray, film: FloatArray, sw: Int, sh: In
     val fine = foam.fine
     val tauMax = p.wall * 0.5f * (1f + p.wvar)
 
-    parallelBands(sh) { y0, y1 ->
+    parallelForRows(sh) { y0, y1 ->
         val pr = Probe(foam)
         val bd = pr.bd
         val bi = pr.bi
@@ -389,13 +389,13 @@ private fun render(g: Gartvas) {
             // the solid black by the drain shows its whole net of film lines
             System.arraycopy(cov, 0, aux, 0, cov.size)
             gaussianBlur(aux, sw, sh, p.cored / 2.9f * ss, tmp)
-            parallelBands(sh) { y0, y1 -> for (i in y0 * sw until y1 * sw) cov[i] *= 1f - film[i] * smoothstep(0.93f, 0.995f, aux[i]) }
+            parallelForRows(sh) { y0, y1 -> for (i in y0 * sw until y1 * sw) cov[i] *= 1f - film[i] * smoothstep(0.93f, 0.995f, aux[i]) }
         }
         val sigma = p.blur * k * ss
         if (sigma > 0.3f) gaussianBlur(cov, sw, sh, sigma, tmp)
         // front layer is ink, the rest go greyer the further back they sit
         val ink = if (k == 0) 1f else p.grey * p.fade.pow(k - 1)
-        parallelBands(sh) { y0, y1 -> for (i in y0 * sw until y1 * sw) acc[i] *= 1f - ink * cov[i] }
+        parallelForRows(sh) { y0, y1 -> for (i in y0 * sw until y1 * sw) acc[i] *= 1f - ink * cov[i] }
         println("layer $k: ${foam.n} bubbles, scale $scale, blur ${p.blur * k}, ink $ink")
     }
 
@@ -403,7 +403,7 @@ private fun render(g: Gartvas) {
     val px = m.pixels
     val seed = p.seed.toInt()
     val inv = 1f / (ss * ss)
-    parallelBands(H) { y0, y1 ->
+    parallelForRows(H) { y0, y1 ->
         for (y in y0 until y1) for (x in 0 until W) {
             var s = 0f
             for (sy in 0 until ss) {

@@ -1,5 +1,6 @@
 package dev.oblac.gart.color
 
+import dev.oblac.gart.color.space.ColorOKLAB
 import dev.oblac.gart.color.space.ColorOKLCH
 import dev.oblac.gart.color.space.color4f
 import dev.oblac.gart.color.space.of
@@ -273,6 +274,19 @@ fun lerpColorsOklch(colors: IntArray, t: Float): Int {
     val x = t.coerceIn(0f, 1f) * (colors.size - 1)
     val i = floor(x).toInt().coerceAtMost(colors.size - 2)
     return ColorOKLCH.of(Color4f(colors[i])).mix(ColorOKLCH.of(Color4f(colors[i + 1])), x - i).toColor4f().toColor()
+}
+
+/**
+ * [lerpColors] with the two bracketing entries mixed in OKLab: a straight line, no hue turn, so
+ * far-apart hues meet in a muted colour between them. Same slot arithmetic as [lerpColors];
+ * [t] is clamped. See [Palette.sampleOklab].
+ */
+fun lerpColorsOklab(colors: IntArray, t: Float): Int {
+    require(colors.isNotEmpty()) { "colors must not be empty" }
+    if (colors.size == 1) return colors[0]
+    val x = t.coerceIn(0f, 1f) * (colors.size - 1)
+    val i = floor(x).toInt().coerceAtMost(colors.size - 2)
+    return ColorOKLAB.of(Color4f(colors[i])).mix(ColorOKLAB.of(Color4f(colors[i + 1])), x - i).toColor4f().toColor()
 }
 
 /**
