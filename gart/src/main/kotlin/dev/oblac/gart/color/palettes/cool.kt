@@ -1675,3 +1675,21 @@ internal val cool_182 = Palette(
     0xffe39152,
     0xff733b43
 )
+
+// ocellus - rings outside in: pale mint to teal, a sage turn, peach through orange to coral,
+// maroon, an ink eye. its a ramp, keep the order
+internal val cool_183 = Palette(
+    0xffeef3d5,
+    0xff9cc9b5,
+    0xff30a09b,
+    0xff168c8a,
+    0xffa5ae93,
+    0xfffcc388,
+    0xffffc06a,
+    0xffffb027,
+    0xffff980e,
+    0xfffe7e30,
+    0xfffc5d61,
+    0xff953f4f,
+    0xff1b2a2e
+)

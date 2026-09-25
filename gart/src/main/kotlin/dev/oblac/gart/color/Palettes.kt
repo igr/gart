@@ -185,6 +185,7 @@ object Palettes {
     val cool180 = cool_180
     val cool181 = cool_181
     val cool182 = cool_182
+    val cool183 = cool_183
 
 
     val mix1 = mix_1
@@ -579,6 +580,7 @@ object Palettes {
             180 -> cool180
             181 -> cool181
             182 -> cool182
+            183 -> cool183
             else -> throw IllegalArgumentException("Unknown COOL palette number: $num")
         }
     }
