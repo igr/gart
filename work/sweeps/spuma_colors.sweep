@@ -5,7 +5,7 @@
 # 181 renders across 4 branches, plus the picks.
 
 art    = spuma.SpumaKt
-module = arts:blob
+module = arts:bubbles
 out    = output/spuma_colors
 par    = 6
 

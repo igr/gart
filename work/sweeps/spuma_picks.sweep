@@ -4,7 +4,7 @@
 # 16 renders, one sheet.
 
 art    = spuma.SpumaKt
-module = arts:blob
+module = arts:bubbles
 out    = output/spuma_picks
 par    = 6
 

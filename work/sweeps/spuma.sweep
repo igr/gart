@@ -7,7 +7,7 @@
 # 96 renders across 10 branches.
 
 art    = spuma.SpumaKt
-module = arts:blob
+module = arts:bubbles
 out    = output/spuma
 par    = 6
 
