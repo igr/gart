@@ -215,17 +215,21 @@ private fun resolveParams(): Params {
 /** the age->color ramp. `cyanotype` keeps the monochrome original; the rest turn growth-time
  *  into a multi-hue spectrum (old trunk -> bright young tips). */
 private fun paletteOf(name: String): Palette = when (name) {
-    "plasma" -> Palettes.colormap085
-    "magma" -> Palettes.colormap084
-    "inferno" -> Palettes.colormap083
-    "turbo" -> Palettes.colormap073
-    "viridis" -> Palettes.colormap087
-    "twilight" -> Palettes.colormap086
-    "cividis" -> Palettes.colormap082
+    "plasma" -> Palettes.colormap085.swapGreenBlue()
+    "magma" -> Palettes.colormap084.swapGreenBlue()
+    "inferno" -> Palettes.colormap083.swapGreenBlue()
+    "turbo" -> Palettes.colormap073.swapGreenBlue()
+    "viridis" -> Palettes.colormap087.swapGreenBlue()
+    "twilight" -> Palettes.colormap086.swapGreenBlue()
+    "cividis" -> Palettes.colormap082.swapGreenBlue()
     "sunset" -> Palettes.colormap026     // CARTO SunsetDark
     "tealrose" -> Palettes.colormap029   // CARTO TealRose
     else -> CyanotypeColors.palette2      // "cyanotype"
 }
+
+// the lib had green and blue swapped on these colormaps when i tuned this, and i like it that way.
+// fixed in the lib since, so the swap lives here now
+private fun Palette.swapGreenBlue() = Palette.of(map { rgb(red(it), blue(it), green(it)) })
 
 // SIMULATION
 

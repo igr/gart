@@ -51,4 +51,9 @@ class PaletteTest {
         assertEquals(red(mid).toFloat(), green(mid).toFloat(), 1f)
         assertEquals(red(mid).toFloat(), blue(mid).toFloat(), 1f)
     }
+
+    @Test
+    fun ofAwtColorKeepsEachChannelInPlace() {
+        assertEquals(0xFF0A141E.toInt(), Palette.of(java.awt.Color(10, 20, 30))[0])
+    }
 }
