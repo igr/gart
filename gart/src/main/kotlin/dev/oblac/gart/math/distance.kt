@@ -1,6 +1,16 @@
 package dev.oblac.gart.math
 
 import org.jetbrains.skia.Point
+import kotlin.math.sqrt
+
+/**
+ * Length of the vector ([x], [y]) with the exact [sqrt]: the same bits as a written-out
+ * `sqrt(x * x + y * y)`, so it can replace one without moving a pixel. [dist] and [hypotFast]
+ * go through [fastSqrt] and are only close.
+ */
+fun length(x: Float, y: Float): Float = sqrt(x * x + y * y)
+
+fun length(x: Double, y: Double): Double = sqrt(x * x + y * y)
 
 /**
  * Fast distance calculation using fast square root approximation.
