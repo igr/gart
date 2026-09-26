@@ -53,6 +53,22 @@ class PaletteTest {
     }
 
     @Test
+    fun stretchOklabGrowsEvenlyAlongTheRamp() {
+        val ramp = Palette(0xFF000000, 0xFF336699, 0xFFFFFFFF)
+        assertEquals((0 until 5).map { ramp.sampleOklab(it / 4f) }, ramp.stretchOklab(5).map { it })
+    }
+
+    @Test
+    fun stretchOklabShrinksToTheEnds() {
+        assertEquals(listOf(p.sampleOklab(0f), p.sampleOklab(1f)), p.stretchOklab(2).map { it })
+    }
+
+    @Test
+    fun stretchOklabNeedsTwoColours() {
+        assertFailsWith<IllegalArgumentException> { p.stretchOklab(1) }
+    }
+
+    @Test
     fun ofAwtColorKeepsEachChannelInPlace() {
         assertEquals(0xFF0A141E.toInt(), Palette.of(java.awt.Color(10, 20, 30))[0])
     }

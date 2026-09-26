@@ -56,6 +56,15 @@ class Palette(internal val colors: IntArray) {
      */
     fun sampleOklab(t: Float): Int = lerpColorsOklab(colors, t)
 
+    /**
+     * The palette resampled to [n] colours, evenly spaced along [sampleOklab] from the first entry
+     * to the last. A short palette gains blends between its entries, a long one is thinned out.
+     */
+    fun stretchOklab(n: Int): Palette {
+        require(n >= 2) { "need at least 2 colours, got $n" }
+        return Palette(IntArray(n) { sampleOklab(it / (n - 1f)) })
+    }
+
     fun last(): Int {
         return colors[size - 1]
     }
