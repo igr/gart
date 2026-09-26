@@ -2,6 +2,7 @@ package crista
 
 import dev.oblac.gart.Gart
 import dev.oblac.gart.Gartmap
+import dev.oblac.gart.math.divOrZero
 import dev.oblac.gart.pixels.boxDownsample
 import dev.oblac.gart.color.Palette
 import dev.oblac.gart.color.Palettes
@@ -498,7 +499,7 @@ private fun shade(relief: Relief, sim: Sim, map: Gartmap) {
                     val ring = RIPPLE * damp * sin(dN * ringK + wob)
                     val radial = RIPPLE * damp * cos(dN * ringK + wob) * ringK * lerp(1f, p.r / re, q) + // ring slope, per logical px
                         2f * BOWL * d / (re * re)                              // bowl wall rising to the rim
-                    val invD = if (d > 1e-3f) 1f / d else 0f
+                    val invD = divOrZero(1f, d, 1e-3f)
                     dhx = lerp(dhx, radial * ddx * invD * SIMDIV, inPore)
                     dhy = lerp(dhy, radial * ddy * invD * SIMDIV, inPore)
                     hc = lerp(hc, (0.05f + ring + BOWL * 0.1f * (d / re) * (d / re)).coerceAtLeast(0f), inPore)

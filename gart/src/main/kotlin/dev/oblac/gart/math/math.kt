@@ -27,6 +27,12 @@ fun mod(a: Int, b: Int) = ((a % b) + b) % b
 fun mod(a: Float, b: Float) = ((a % b) + b) % b
 fun mod(a: Long, b: Long) = ((a % b) + b) % b
 
+/**
+ * [a] / [b], or `0f` when [b] is not more than [eps] - the guard for dividing by a length that can
+ * shrink to nothing. A negative [b] gives `0f` too.
+ */
+fun divOrZero(a: Float, b: Float, eps: Float = 0f): Float = if (b > eps) a / b else 0f
+
 fun wrap(v: Int, size: Int): Int {
     val m = v % size
     return if (m < 0) m + size else m

@@ -2,6 +2,7 @@ package dev.oblac.gart.marbling
 
 import dev.oblac.gart.math.LN2f
 import dev.oblac.gart.math.TAUf
+import dev.oblac.gart.math.divOrZero
 import dev.oblac.gart.math.length
 import dev.oblac.gart.vector.MutableVec2
 import dev.oblac.gart.vector.Vec2
@@ -98,7 +99,7 @@ class Comb(
     private val ny = mx
     private val k = LN2f / c
     private val reach = REACH * c
-    private val omega = if (wavelength > 0f) TAUf / wavelength else 0f
+    private val omega = divOrZero(TAUf, wavelength)
 
     private fun pull(n: Float): Float {
         var sum = 0f

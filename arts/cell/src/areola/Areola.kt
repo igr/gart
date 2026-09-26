@@ -2,6 +2,7 @@ package areola
 
 import dev.oblac.gart.Gart
 import dev.oblac.gart.Gartmap
+import dev.oblac.gart.math.divOrZero
 import dev.oblac.gart.math.length
 import dev.oblac.gart.pixels.boxDownsample
 import dev.oblac.gart.color.Palette
@@ -715,7 +716,7 @@ private fun shadePlates(f: Extraction, map: Gartmap) {
         val dyv = f.dy[i].toFloat()
         val dd = length(dxv, dyv)
         val t = (dd / maxd).coerceIn(0f, 1f)
-        val inv = if (dd > 1e-3f) 1f / dd else 0f
+        val inv = divOrZero(1f, dd, 1e-3f)
         val tx = dxv * inv
         val ty = dyv * inv                       // unit toward fissure
         val slope = DOME_H * HALF_PIf * cos(t * HALF_PIf) / maxd
