@@ -2,6 +2,7 @@ package dev.oblac.gart.painter
 
 import dev.oblac.gart.color.*
 import dev.oblac.gart.gfx.Line
+import dev.oblac.gart.math.length
 import dev.oblac.gart.painter.SprayPainter.Companion.loadPng
 import org.jetbrains.skia.*
 import java.io.File
@@ -175,7 +176,7 @@ class SprayPainter(
             val q = points[i + 1]
             val dx = q.x - p.x;
             val dy = q.y - p.y
-            cum[i + 1] = cum[i] + sqrt(dx * dx + dy * dy)
+            cum[i + 1] = cum[i] + length(dx, dy)
         }
         val total = cum[segCount]
         if (total == 0f) return

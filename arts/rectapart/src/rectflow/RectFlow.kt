@@ -22,6 +22,7 @@ import dev.oblac.gart.io.pl
 import dev.oblac.gart.io.ps
 import dev.oblac.gart.math.PIf
 import dev.oblac.gart.math.TAUf
+import dev.oblac.gart.math.length
 import dev.oblac.gart.noise.fbm
 import dev.oblac.gart.vector.Vec2
 import org.jetbrains.skia.Canvas
@@ -31,7 +32,6 @@ import kotlin.math.abs
 import kotlin.math.cos
 import kotlin.math.max
 import kotlin.math.sin
-import kotlin.math.sqrt
 import kotlin.random.Random
 
 /**
@@ -374,7 +374,7 @@ private fun fieldAt(pt: Point, d: Dimension): Vec2 {
 
     val dx = pt.x - d.wf * p.ax
     val dy = pt.y - d.hf * p.ay
-    val r = sqrt(dx * dx + dy * dy).coerceAtLeast(1e-3f)
+    val r = length(dx, dy).coerceAtLeast(1e-3f)
 
     // perpendicular to the radius = circulation
     return Vec2(
@@ -461,7 +461,7 @@ private fun tilesOf(trail: List<Point>): List<Tile> {
     for (i in 1 until trail.size) {
         val dx = trail[i].x - trail[i - 1].x
         val dy = trail[i].y - trail[i - 1].y
-        cum[i] = cum[i - 1] + sqrt(dx * dx + dy * dy)
+        cum[i] = cum[i - 1] + length(dx, dy)
     }
 
     val n = (cum.last() / p.pitch).toInt()

@@ -6,6 +6,7 @@ import dev.oblac.gart.MemPixels
 import dev.oblac.gart.color.*
 import dev.oblac.gart.gfx.paint
 import dev.oblac.gart.gfx.toRegion
+import dev.oblac.gart.math.length
 import org.jetbrains.skia.Color
 import org.jetbrains.skia.PaintMode
 import org.jetbrains.skia.Path
@@ -45,7 +46,7 @@ fun drawGlassPath(
 
     // Precompute effective radius for each angular direction
     val region = path.toRegion()
-    val maxDist = sqrt(halfW * halfW + halfH * halfH) * 1.5f
+    val maxDist = length(halfW, halfH) * 1.5f
     val numAngles = 720
     val effectiveRadius = FloatArray(numAngles)
 
@@ -79,7 +80,7 @@ fun drawGlassPath(
 
             val dx = (px - cx).toDouble()
             val dy = (py - cy).toDouble()
-            val dist = sqrt(dx * dx + dy * dy)
+            val dist = length(dx, dy)
 
             if (dist < 0.001) continue
 

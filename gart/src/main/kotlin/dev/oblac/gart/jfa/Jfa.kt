@@ -3,10 +3,10 @@ package dev.oblac.gart.jfa
 import dev.oblac.gart.Dimension
 import dev.oblac.gart.Gartvas
 import dev.oblac.gart.gfx.fillOf
+import dev.oblac.gart.math.length
 import org.jetbrains.skia.Color
 import org.jetbrains.skia.Path
 import org.jetbrains.skia.PathBuilder
-import kotlin.math.sqrt
 
 /**
  * CPU-based Jump Flood Algorithm implementation.
@@ -159,7 +159,7 @@ class Jfa(private val d: Dimension) {
     private fun dist(x1: Int, y1: Int, x2: Int, y2: Int): Float {
         val dx = (x1 - x2).toFloat()
         val dy = (y1 - y2).toFloat()
-        return sqrt(dx * dx + dy * dy)
+        return length(dx, dy)
     }
 }
 
@@ -301,6 +301,6 @@ class JfaResult(
     private fun dist(a: Pair<Float, Float>, b: Pair<Float, Float>): Float {
         val dx = a.first - b.first
         val dy = a.second - b.second
-        return sqrt(dx * dx + dy * dy)
+        return length(dx, dy)
     }
 }

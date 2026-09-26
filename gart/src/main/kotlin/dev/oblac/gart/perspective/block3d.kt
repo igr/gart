@@ -1,6 +1,7 @@
 package dev.oblac.gart.perspective
 
 import dev.oblac.gart.gfx.Poly4
+import dev.oblac.gart.math.length
 import org.jetbrains.skia.Point
 
 /**
@@ -148,7 +149,7 @@ data class Block3D(
         private fun pointAtDistance(start: Point, end: Point, distance: Float): Point {
             val dx = end.x - start.x
             val dy = end.y - start.y
-            val length = kotlin.math.sqrt(dx * dx + dy * dy)
+            val length = length(dx, dy)
             if (length == 0f) return start
             val t = distance / length
             return Point(

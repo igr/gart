@@ -2,6 +2,7 @@ package areola
 
 import dev.oblac.gart.Gart
 import dev.oblac.gart.Gartmap
+import dev.oblac.gart.math.length
 import dev.oblac.gart.pixels.boxDownsample
 import dev.oblac.gart.color.Palette
 import dev.oblac.gart.color.Palettes
@@ -712,7 +713,7 @@ private fun shadePlates(f: Extraction, map: Gartmap) {
         val maxd = f.plateMaxDist[l].coerceAtLeast(1f)
         val dxv = f.dx[i].toFloat()
         val dyv = f.dy[i].toFloat()
-        val dd = sqrt(dxv * dxv + dyv * dyv)
+        val dd = length(dxv, dyv)
         val t = (dd / maxd).coerceIn(0f, 1f)
         val inv = if (dd > 1e-3f) 1f / dd else 0f
         val tx = dxv * inv

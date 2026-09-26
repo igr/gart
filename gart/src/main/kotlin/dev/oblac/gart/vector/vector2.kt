@@ -5,10 +5,10 @@ import dev.oblac.gart.angle.Radians
 import dev.oblac.gart.angle.cosf
 import dev.oblac.gart.angle.sinf
 import dev.oblac.gart.math.frac
+import dev.oblac.gart.math.length
 import kotlin.math.atan2
 import kotlin.math.cos
 import kotlin.math.sin
-import kotlin.math.sqrt
 
 fun vec2(x: Number, y: Number) = Vec2(x, y)
 
@@ -27,7 +27,7 @@ data class Vec2(val x: Float, val y: Float) {
     fun dot(other: Vec2) = x * other.x + y * other.y
     fun cross(other: Vec2) = x * other.y - y * other.x
 
-    fun length() = sqrt(x * x + y * y)
+    fun length() = length(x, y)
     val magnitude by lazy { length() }
 
     fun normalize(): Vec2 {
@@ -69,7 +69,7 @@ data class Vec2(val x: Float, val y: Float) {
 
 fun sin(v: Vec2) = Vec2(sin(v.x), sin(v.y))
 fun frac(v: Vec2) = Vec2(frac(v.x), frac(v.y))
-fun length(v: Vec2) = sqrt(v.x * v.x + v.y * v.y)
+fun length(v: Vec2) = length(v.x, v.y)
 
 /**
  * A [Vec2] you can write into: one instance, reused, for loops that would otherwise mint a
@@ -111,7 +111,7 @@ class MutableVec2(var x: Float = 0f, var y: Float = 0f) {
     operator fun component1() = x
     operator fun component2() = y
 
-    fun length() = sqrt(x * x + y * y)
+    fun length() = length(x, y)
 
     /** Freezes the current value into an immutable [Vec2]. */
     fun toVec2() = Vec2(x, y)

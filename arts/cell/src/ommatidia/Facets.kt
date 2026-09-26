@@ -1,11 +1,11 @@
 package ommatidia
 
 import dev.oblac.gart.math.TAUf
+import dev.oblac.gart.math.length
 import kotlin.math.cos
 import kotlin.math.max
 import kotlin.math.min
 import kotlin.math.sin
-import kotlin.math.sqrt
 import kotlin.random.Random
 
 /**
@@ -161,7 +161,7 @@ private fun seed(
         m.normalInto(px / w, py / w, nrm)
         var gx = nrm[0]
         var gy = nrm[1]
-        val gl = sqrt(gx * gx + gy * gy)
+        val gl = length(gx, gy)
         if (gl > 1e-5f) {
             gx /= gl
             gy /= gl
@@ -184,7 +184,7 @@ private fun seed(
             val qs = spacingAt(m, p, light, base, qx, qy, w, nrm)
             var qgx = nrm[0]
             var qgy = nrm[1]
-            val qgl = sqrt(qgx * qgx + qgy * qgy)
+            val qgl = length(qgx, qgy)
             if (qgl > 1e-5f) {
                 qgx /= qgl
                 qgy /= qgl
@@ -201,7 +201,7 @@ private fun seed(
                     val dy = soup.y[j] - qy
                     val along = (dx * qgx + dy * qgy) / qsq
                     val perp = -dx * qgy + dy * qgx
-                    if (sqrt(along * along + perp * perp) < max(qs, soup.s[j])) ok = false
+                    if (length(along, perp) < max(qs, soup.s[j])) ok = false
                 }
             }
             if (!ok) continue
@@ -253,7 +253,7 @@ private fun relax(
             m.normalInto(xi / w, yi / w, nrm)
             var gx = nrm[0]
             var gy = nrm[1]
-            val gl = sqrt(gx * gx + gy * gy)
+            val gl = length(gx, gy)
             if (gl > 1e-5f) {
                 gx /= gl
                 gy /= gl
@@ -271,7 +271,7 @@ private fun relax(
                     val dy = yi - soup.y[j]
                     val along = (dx * gx + dy * gy) / squash
                     val perp = -dx * gy + dy * gx
-                    val d = sqrt(along * along + perp * perp)
+                    val d = length(along, perp)
                     val want = max(si, soup.s[j])
                     if (d > 1e-4f && d < want) {
                         val push = (want - d) / d
@@ -352,7 +352,7 @@ private fun cells(
             val j = nbr[k]
             var ux = soup.x[j] - xi
             var uy = soup.y[j] - yi
-            val len = sqrt(ux * ux + uy * uy)
+            val len = length(ux, uy)
             if (len < 1e-4f) continue
             ux /= len
             uy /= len

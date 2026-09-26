@@ -5,6 +5,7 @@ import dev.oblac.gart.Gartmap
 import dev.oblac.gart.Gartvas
 import dev.oblac.gart.SampleMode
 import dev.oblac.gart.math.Complex
+import dev.oblac.gart.math.length
 import kotlin.math.*
 
 /**
@@ -65,7 +66,7 @@ fun conformalWarp(
 
             // ── Step 1: output pixel → complex plane ──────────────────────
             val u = pixelToComplex(px, py, outDimension.w, outDimension.h, unitPixels = unitPixels)
-            val r = sqrt(u.real * u.real + u.imag * u.imag)
+            val r = length(u.real, u.imag)
 
             if (r == 0.0) {
                 dst[px, py] = background

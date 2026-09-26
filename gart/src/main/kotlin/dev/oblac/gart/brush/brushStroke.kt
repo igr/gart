@@ -5,6 +5,7 @@ import dev.oblac.gart.gfx.Line
 import dev.oblac.gart.gfx.paint
 import dev.oblac.gart.gfx.pathOf
 import dev.oblac.gart.math.TAUf
+import dev.oblac.gart.math.length
 import dev.oblac.gart.math.rndGaussian
 import dev.oblac.gart.math.rndf
 import org.jetbrains.skia.BlendMode
@@ -172,7 +173,7 @@ private class BrushStroker(
             val tan = m.getTangent(s)
             var tx = tan?.x ?: 1f
             var ty = tan?.y ?: 0f
-            val tl = sqrt(tx * tx + ty * ty)
+            val tl = length(tx, ty)
             if (tl < 1e-6f) {
                 tx = 1f; ty = 0f
             } else {

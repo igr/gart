@@ -1,9 +1,9 @@
 package dev.oblac.gart.fluid.all
 
+import dev.oblac.gart.math.length
 import dev.oblac.gart.math.rndi
 import org.jetbrains.skia.Point
 import kotlin.math.min
-import kotlin.math.sqrt
 
 /**
  * Particle system for fluid visualization.
@@ -117,7 +117,7 @@ class FluidParticles(
             val opacity = calculateOpacity(ages[i])
 
             val (velX, velY) = solver.velocityAt(x, y)
-            val velMag = sqrt(velX * velX + velY * velY)
+            val velMag = length(velX, velY)
             val multiplier = (velMag * velMag * 0.05f + 0.7f).coerceIn(0f, 1f)
 
             action(x, y, opacity * multiplier, velX, velY)

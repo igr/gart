@@ -12,6 +12,7 @@ import dev.oblac.gart.io.pi
 import dev.oblac.gart.io.pl
 import dev.oblac.gart.io.ps
 import dev.oblac.gart.math.hash01
+import dev.oblac.gart.math.length
 import dev.oblac.gart.math.lerp
 import dev.oblac.gart.math.sminCubic
 import dev.oblac.gart.math.smoothstep
@@ -247,7 +248,7 @@ private class Probe(private val foam: Foam) {
             seen[j] = tick
             val dx = foam.x[j] - x
             val dy = foam.y[j] - y
-            val d = sqrt(dx * dx + dy * dy) - foam.r[j]
+            val d = length(dx, dy) - foam.r[j]
             if (d >= bd[3]) return@forEachIn
             var k = 3
             while (k > 0 && bd[k - 1] > d) {

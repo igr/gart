@@ -2,8 +2,8 @@ package dev.oblac.gart.fluid.all
 
 import dev.oblac.gart.color.BgColors
 import dev.oblac.gart.gfx.strokeOfBlack
+import dev.oblac.gart.math.length
 import org.jetbrains.skia.Canvas
-import kotlin.math.sqrt
 
 /**
  * Render velocity vector field directly on the canvas.
@@ -40,7 +40,7 @@ fun renderFluidVelocityField(
             canvas.drawLine(startX, startY, endX, endY, paint)
 
             // Draw arrow head
-            val mag = sqrt(u * u + v * v)
+            val mag = length(u, v)
             if (mag > 0.1f) {
                 val dirX = u / mag
                 val dirY = v / mag

@@ -14,6 +14,7 @@ import dev.oblac.gart.color.shiftLuma
 import dev.oblac.gart.gfx.paint
 import dev.oblac.gart.io.ensureExtension
 import dev.oblac.gart.math.hash01
+import dev.oblac.gart.math.length
 import dev.oblac.gart.noise.SimplexNoise
 import dev.oblac.gart.reactiondiffusion.GrayScott
 import org.jetbrains.skia.Canvas
@@ -405,7 +406,7 @@ private fun drawDrifters(canvas: Canvas, drifters: List<Drifter>) {
     for (sphere in drifters) {
         val toLightX = lightX - sphere.x
         val toLightY = lightY - sphere.y
-        val lightDistance = sqrt(toLightX * toLightX + toLightY * toLightY).coerceAtLeast(1f)
+        val lightDistance = length(toLightX, toLightY).coerceAtLeast(1f)
         val lx = toLightX / lightDistance
         val ly = toLightY / lightDistance
         val shadowPath = islandPath(sphere, -lx * 5f, -ly * 5f)

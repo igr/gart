@@ -1,5 +1,6 @@
 package dev.oblac.gart.gfx
 
+import dev.oblac.gart.math.length
 import org.jetbrains.skia.Path
 import org.jetbrains.skia.PathBuilder
 import org.jetbrains.skia.PathMeasure
@@ -72,7 +73,7 @@ fun pathToOutline(path: Path, width: Float): PathOutline {
         val dist = i * stepSize
         val pos = measure.getPosition(dist) ?: continue
         val tan = measure.getTangent(dist) ?: continue
-        val len = kotlin.math.sqrt(tan.x * tan.x + tan.y * tan.y)
+        val len = length(tan.x, tan.y)
         if (len == 0f) continue
         val nx = -tan.y / len
         val ny = tan.x / len

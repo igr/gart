@@ -6,13 +6,13 @@ import dev.oblac.gart.color.argb
 import dev.oblac.gart.fluid.all.FluidParticles
 import dev.oblac.gart.fluid.all.FluidSolver
 import dev.oblac.gart.gfx.randomPoints
+import dev.oblac.gart.math.length
 import org.jetbrains.skia.Canvas
 import org.jetbrains.skia.Paint
 import org.jetbrains.skia.PaintMode
 import org.jetbrains.skia.Rect
 import kotlin.math.cos
 import kotlin.math.sin
-import kotlin.math.sqrt
 import kotlin.random.Random
 
 /**
@@ -89,7 +89,7 @@ class ColorfulFluidRenderer(
             val idx = py * width + px
 
             // Color based on velocity direction
-            val velMag = sqrt(velX * velX + velY * velY)
+            val velMag = length(velX, velY)
             val colorIdx = ((velX / (velMag + 0.1f) + 1f) * 0.5f * 255).toInt().coerceIn(0, 255)
 
             trailBuffer[idx] = minOf(trailBuffer[idx] + opacity, 1f)

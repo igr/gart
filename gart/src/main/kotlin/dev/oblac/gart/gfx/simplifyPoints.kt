@@ -1,8 +1,8 @@
 package dev.oblac.gart.gfx
 
+import dev.oblac.gart.math.length
 import org.jetbrains.skia.Point
 import kotlin.math.abs
-import kotlin.math.sqrt
 
 /**
  * Douglas–Peucker simplification of a polyline. Returns a subsequence of
@@ -107,10 +107,10 @@ private fun farthestPair(points: List<Point>): Pair<Int, Int> {
 private fun perpDist(px: Float, py: Float, ax: Float, ay: Float, bx: Float, by: Float): Float {
     val dx = bx - ax
     val dy = by - ay
-    val len = sqrt(dx * dx + dy * dy)
+    val len = length(dx, dy)
     if (len < 1e-6f) {
         val ex = px - ax; val ey = py - ay
-        return sqrt(ex * ex + ey * ey)
+        return length(ex, ey)
     }
     return abs(dy * px - dx * py + bx * ay - by * ax) / len
 }

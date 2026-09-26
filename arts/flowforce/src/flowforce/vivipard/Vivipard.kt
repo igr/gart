@@ -9,6 +9,7 @@ import dev.oblac.gart.flow.Flow2
 import dev.oblac.gart.flow.FlowField
 import dev.oblac.gart.flow.PointTracer
 import dev.oblac.gart.gfx.*
+import dev.oblac.gart.math.length
 import dev.oblac.gart.noise.OpenSimplexNoise
 import dev.oblac.gart.noise.poissonDiskSamplingNoise
 import org.jetbrains.skia.Path
@@ -16,7 +17,6 @@ import org.jetbrains.skia.Point
 import kotlin.math.atan2
 import kotlin.math.cos
 import kotlin.math.sin
-import kotlin.math.sqrt
 
 fun main() {
     val gart = Gart.of("vivipard", 1024, 1024)
@@ -76,7 +76,7 @@ fun main() {
         }
         val cx = l.x - d.wf / 2
         val cy = l.y - d.hf / 2
-        val r = sqrt(cx * cx + cy * cy)
+        val r = length(cx, cy)
         val theta = atan2(cy, cx)
         val loff = sin(r * 0.03f + theta * 3f) * 200f +
             cos(theta * 2f - r * 0.01f) * 150f +

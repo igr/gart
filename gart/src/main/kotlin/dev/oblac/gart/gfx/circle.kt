@@ -4,6 +4,7 @@ import dev.oblac.gart.angle.Angle
 import dev.oblac.gart.angle.Degrees
 import dev.oblac.gart.angle.cos
 import dev.oblac.gart.angle.sin
+import dev.oblac.gart.math.length
 import dev.oblac.gart.vector.Vec2
 import org.jetbrains.skia.*
 import org.jetbrains.skia.Point
@@ -52,7 +53,7 @@ data class Circle(val x: Float, val y: Float, val radius: Float) {
         val rawDy = vx
 
         // Normalize (optional)
-        val length = sqrt(rawDx * rawDx + rawDy * rawDy)
+        val length = length(rawDx, rawDy)
         val dx = rawDx / length
         val dy = rawDy / length
 

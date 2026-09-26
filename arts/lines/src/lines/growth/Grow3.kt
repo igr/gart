@@ -5,6 +5,7 @@ import dev.oblac.gart.angle.Degrees
 import dev.oblac.gart.color.NipponColors
 import dev.oblac.gart.color.alpha
 import dev.oblac.gart.gfx.*
+import dev.oblac.gart.math.length
 import dev.oblac.gart.math.toDegrees
 import dev.oblac.gart.math.toRadians
 import dev.oblac.gart.painter.SprayPainter
@@ -12,7 +13,6 @@ import org.jetbrains.skia.*
 import kotlin.math.atan2
 import kotlin.math.cos
 import kotlin.math.sin
-import kotlin.math.sqrt
 import kotlin.random.Random
 
 fun main() {
@@ -58,7 +58,7 @@ fun main() {
 
         val dx = ex - s.x
         val dy = ey - s.y
-        val chordLen = sqrt(dx * dx + dy * dy)
+        val chordLen = length(dx, dy)
         val mx = (s.x + ex) / 2f
         val my = (s.y + ey) / 2f
 
@@ -109,7 +109,7 @@ fun main() {
 
         val dx = ex - s.x
         val dy = ey - s.y
-        val chordLen = sqrt(dx * dx + dy * dy)
+        val chordLen = length(dx, dy)
         val mx = (s.x + ex) / 2f
         val my = (s.y + ey) / 2f
 

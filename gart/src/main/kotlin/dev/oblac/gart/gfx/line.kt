@@ -3,6 +3,7 @@ package dev.oblac.gart.gfx
 import dev.oblac.gart.angle.Angle
 import dev.oblac.gart.angle.Radians
 import dev.oblac.gart.math.fastSqrt
+import dev.oblac.gart.math.length
 import dev.oblac.gart.vector.Vec2
 import org.jetbrains.skia.*
 import kotlin.math.*
@@ -58,7 +59,7 @@ data class Line(val a: Point, val b: Point) {
     fun toBoundingRectangle(gapW: Float, gapH: Float): Rect {
         val dx = b.x - a.x
         val dy = b.y - a.y
-        val length = sqrt(dx * dx + dy * dy)  // Manual hypot calculation
+        val length = length(dx, dy)  // Manual hypot calculation
 
         // Avoid division by zero
         if (length == 0f) return Rect(a.x, a.y, a.x + gapW, a.y + gapH)
@@ -94,7 +95,7 @@ data class Line(val a: Point, val b: Point) {
 
         val dx = x2 - x1
         val dy = y2 - y1
-        val length = sqrt(dx * dx + dy * dy)  // Compute the line length
+        val length = length(dx, dy)  // Compute the line length
 
         // Avoid division by zero
         if (length == 0f) throw IllegalArgumentException("Line length cannot be zero")
@@ -267,7 +268,7 @@ fun Canvas.drawLine(line: Line, color: Paint) = drawLine(line.a, line.b, color)
 fun fatLine(x0: Float, y0: Float, x1: Float, y1: Float, thickness: Float): Path {
     var dx = x1 - x0
     var dy = y1 - y0
-    val linelength = sqrt(dx * dx + dy * dy)
+    val linelength = length(dx, dy)
     dx /= linelength
     dy /= linelength
     // (dx, dy) is now a unit vector pointing in the direction of the line

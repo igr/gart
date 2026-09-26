@@ -147,7 +147,7 @@ class Physarum(val w: Int, val h: Int, agentCount: Int) {
     fun seedLine(x1: Float, y1: Float, x2: Float, y2: Float, thickness: Float = 1f, from: Int = 0, to: Int = n) {
         val dx = x2 - x1
         val dy = y2 - y1
-        val len = sqrt(dx * dx + dy * dy)
+        val len = length(dx, dy)
         val nx = if (len == 0f) 0f else -dy / len   // unit normal
         val ny = if (len == 0f) 0f else dx / len
         for (i in from until to) {

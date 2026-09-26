@@ -1,5 +1,6 @@
 package dev.oblac.gart.color.space
 
+import dev.oblac.gart.math.length
 import org.jetbrains.skia.Color4f
 import kotlin.math.*
 
@@ -29,7 +30,7 @@ data class ColorLCH(val l: Float, val c: Float, val h: Float, val alpha: Float =
     companion object {
         fun of(color4f: Color4f): ColorLCH {
             val lab = ColorLAB.of(color4f)
-            val c = sqrt(lab.a * lab.a + lab.b * lab.b)
+            val c = length(lab.a, lab.b)
             var h = (atan2(lab.b, lab.a) * RAD2DEG + 360f) % 360f
             if (round(c * 10000f) == 0f) h = 0f // Float.NaN
             return ColorLCH(l = lab.l, c = c, h = h, alpha = color4f.a)

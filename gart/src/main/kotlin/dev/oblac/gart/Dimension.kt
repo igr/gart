@@ -1,9 +1,9 @@
 package dev.oblac.gart
 
 import dev.oblac.gart.math.f
+import dev.oblac.gart.math.length
 import org.jetbrains.skia.Point
 import org.jetbrains.skia.Rect
-import kotlin.math.sqrt
 
 /**
  * Represents a virtual dimensions.
@@ -85,7 +85,7 @@ data class Dimension(val w: Int, val h: Int) {
     /**
      * Diagonal.
      */
-    val diag = (sqrt(wf * wf + hf * hf)) / 2f
+    val diag = length(wf, hf) / 2f
 
     fun isInside(x: Float, y: Float) = x.toInt() in 0 until w && y.toInt() in 0 until h
 

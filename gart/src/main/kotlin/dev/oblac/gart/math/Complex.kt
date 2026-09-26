@@ -166,7 +166,7 @@ class Complex(val real: Double, val imag: Double) {
 
     fun normSquared() = real * real + imag * imag
 
-    fun norm() = sqrt(real * real + imag * imag)
+    fun norm() = length(real, imag)
     fun mod() = norm()
 
     fun abs(): Double = sqrt(this.normSquared())

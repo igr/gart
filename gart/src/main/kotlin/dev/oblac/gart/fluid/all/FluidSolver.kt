@@ -1,8 +1,8 @@
 package dev.oblac.gart.fluid.all
 
+import dev.oblac.gart.math.length
 import kotlin.math.max
 import kotlin.math.min
-import kotlin.math.sqrt
 
 /**
  * Fluid solver based.
@@ -236,7 +236,7 @@ class FluidSolver(
                     var newV = velocityV[idx] + forceY * falloff * 2f
 
                     // Clamp velocity magnitude
-                    val mag = sqrt(newU * newU + newV * newV)
+                    val mag = length(newU, newV)
                     if (mag > maxVelocity) {
                         newU = newU / mag * maxVelocity
                         newV = newV / mag * maxVelocity

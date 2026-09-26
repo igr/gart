@@ -19,6 +19,7 @@ import dev.oblac.gart.math.TAUf
 import dev.oblac.gart.math.between
 import dev.oblac.gart.math.frac
 import dev.oblac.gart.math.hash01
+import dev.oblac.gart.math.length
 import dev.oblac.gart.math.lerp
 import dev.oblac.gart.math.smin
 import dev.oblac.gart.noise.fbm
@@ -277,7 +278,7 @@ private fun sample(sx: Float, sy: Float, f: Foam, out: FloatArray) {
     val popped = f.pop[i1]
     val dx1 = sx - bx1
     val dy1 = sy - by1
-    val d1 = sqrt(dx1 * dx1 + dy1 * dy1)
+    val d1 = length(dx1, dy1)
 
     // distance to my own skin, and to the two nearest boundaries overall - wall+wall makes a
     // triple node, wall+skin the bright pinch where an inner film lands on the raft's rim.

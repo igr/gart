@@ -2,6 +2,7 @@ package dev.oblac.gart.marbling
 
 import dev.oblac.gart.math.LN2f
 import dev.oblac.gart.math.TAUf
+import dev.oblac.gart.math.length
 import dev.oblac.gart.vector.MutableVec2
 import dev.oblac.gart.vector.Vec2
 import kotlin.math.abs
@@ -146,7 +147,7 @@ class Whirl(val cx: Float, val cy: Float, val r: Float, val z: Float, val c: Flo
     private fun turn(p: MutableVec2, z: Float) {
         val dx = p.x - cx
         val dy = p.y - cy
-        val h = sqrt(dx * dx + dy * dy)
+        val h = length(dx, dy)
         if (h < 1e-6f) return
         val a = z * exp(-k * abs(h - r)) / h
         val ca = cos(a)

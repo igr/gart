@@ -1,5 +1,6 @@
 package dev.oblac.gart.nbody
 
+import dev.oblac.gart.math.length
 import kotlin.math.sqrt
 import kotlin.random.Random
 
@@ -139,7 +140,7 @@ class BarnesHutSimulation(
             val y = centerY + r * kotlin.math.sin(angle)
 
             // Velocity from Plummer model (simplified)
-            val escapeSpeed = sqrt(2f * G * totalMass / sqrt(r * r + scaleRadius * scaleRadius))
+            val escapeSpeed = sqrt(2f * G * totalMass / length(r, scaleRadius))
             val speed = escapeSpeed * 0.5f * random.nextFloat()
             val vAngle = random.nextFloat() * 2f * kotlin.math.PI.toFloat()
             val vx = speed * kotlin.math.cos(vAngle)
@@ -248,8 +249,8 @@ class BarnesHutSimulation(
                 particles.x[i], particles.y[i], i, theta, G, softening
             )
             // φ ≈ -a·r (rough approximation)
-            val r = sqrt(particles.x[i] * particles.x[i] + particles.y[i] * particles.y[i])
-            val aMag = sqrt(ax * ax + ay * ay)
+            val r = length(particles.x[i], particles.y[i])
+            val aMag = length(ax, ay)
             pe -= 0.5f * particles.mass[i] * aMag * r
         }
 

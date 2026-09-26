@@ -1,5 +1,6 @@
 package dev.oblac.gart.dynagraph
 
+import dev.oblac.gart.math.length
 import org.jetbrains.skia.Point
 import kotlin.math.sqrt
 
@@ -24,7 +25,7 @@ fun DynaGraph.relaxSprings(
         val ax = x(e.a); val ay = y(e.a)
         val bx = x(e.b); val by = y(e.b)
         val dx = bx - ax; val dy = by - ay
-        val len = sqrt(dx * dx + dy * dy)
+        val len = length(dx, dy)
         if (len < 1e-6f) continue
         val factor = k * (len - restLen) / len * 0.5f
         val fx = dx * factor

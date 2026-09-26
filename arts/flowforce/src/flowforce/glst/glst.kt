@@ -9,12 +9,12 @@ import dev.oblac.gart.flow.FlowField
 import dev.oblac.gart.flow.StreamlineTracer
 import dev.oblac.gart.gfx.*
 import dev.oblac.gart.math.d
+import dev.oblac.gart.math.length
 import dev.oblac.gart.math.rndi
 import dev.oblac.gart.noise.OpenSimplexNoise
 import org.jetbrains.skia.Canvas
 import org.jetbrains.skia.Path
 import kotlin.math.atan2
-import kotlin.math.sqrt
 
 //private val backColor = BgColors.warmBlack2
 private val backColor = Palettes.cool9.last()
@@ -110,7 +110,7 @@ private fun hipline(
 private fun radialFlow(x: Float, y: Float, cx: Float, cy: Float, radius: Float, strength: Float, outward: Boolean): Flow2 {
     val dx = x - cx
     val dy = y - cy
-    val dist = sqrt(dx * dx + dy * dy)
+    val dist = length(dx, dy)
     if (dist >= radius) return Flow2(Degrees.of(0f), 0f)
     val radialAngle = Math.toDegrees(atan2(dx.d(), dy.d())).toFloat()
     val angle = if (outward) radialAngle else radialAngle + 180f

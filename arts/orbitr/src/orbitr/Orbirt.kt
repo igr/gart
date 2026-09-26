@@ -7,6 +7,7 @@ import dev.oblac.gart.Gartvas
 import dev.oblac.gart.color.Palette
 import dev.oblac.gart.color.RetroColors
 import dev.oblac.gart.gfx.fillOf
+import dev.oblac.gart.math.length
 import dev.oblac.gart.nbody.BarnesHutSimulation
 import org.jetbrains.skia.Canvas
 import org.jetbrains.skia.Color
@@ -70,7 +71,7 @@ private fun drawParticlesAsDots(c: Canvas, d: Dimension, sim: BarnesHutSimulatio
         val sx = d.cx + x * 10f
         val sy = d.cy + y * 10f
 
-        val distance = sqrt(x * x + y * y)
+        val distance = length(x, y)
         val size = distance / 10f
 
         c.drawCircle(sx, sy, size, fillOf(pal[i % pal.size]))

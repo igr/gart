@@ -20,6 +20,7 @@ import dev.oblac.gart.math.GOLDEN_TURNf
 import dev.oblac.gart.math.TAU
 import dev.oblac.gart.math.TAUf
 import dev.oblac.gart.math.hash01
+import dev.oblac.gart.math.length
 import dev.oblac.gart.math.smoothstep
 import dev.oblac.gart.noise.SimplexNoise
 import dev.oblac.gart.noise.noiseOffset
@@ -110,7 +111,7 @@ private fun follow(x0: Double, p0: Double): Orbit {
         x += p
         dv += cc * du
         du += dv
-        val n = sqrt(du * du + dv * dv)
+        val n = length(du, dv)
         lsum += ln(n)
         du /= n
         dv /= n
@@ -267,7 +268,7 @@ private fun layChalk(col: Int, px: Int, fx: Float, fy: Float): Int {
 private fun dimCorners(col: Int, fx: Float, fy: Float): Int {
     val ex = (fx - W * 0.5f) / (W * 0.72f)
     val ey = (fy - H * 0.5f) / (W * 0.72f)
-    return colorScale(col, 1f - 0.24f * smoothstep(0.55f, 1.25f, sqrt(ex * ex + ey * ey)))
+    return colorScale(col, 1f - 0.24f * smoothstep(0.55f, 1.25f, length(ex, ey)))
 }
 
 fun main(args: Array<String>) {
