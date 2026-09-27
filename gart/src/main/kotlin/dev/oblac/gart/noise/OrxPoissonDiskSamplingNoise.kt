@@ -12,9 +12,9 @@ import org.jetbrains.skia.Rect
 import kotlin.math.abs
 import kotlin.random.Random
 
-fun poissonDiskSamplingNoise(d: Dimension, r: Number = 30.0): List<Point> {
+fun poissonDiskSamplingNoise(d: Dimension, r: Number = 30.0, random: Random = Random.Default): List<Point> {
     return poissonDiskSampling(
-        Rect.ofXYWH(0.0, 0.0, d.wd, d.hd), r.toFloat()
+        Rect.ofXYWH(0.0, 0.0, d.wd, d.hd), r.toFloat(), random = random
     )
 }
 
@@ -31,7 +31,8 @@ internal const val epsilon = 0.0000001f
  * @param radius the minimum distance between each point
  * @param tries number of candidates per point
  * @param randomOnRing generate random points on a ring with an annulus from r to 2r
- * @param random a random number generator, default value is [Random.Default]
+ * @param random a random number generator, default value is [Random.Default]. Every draw comes
+ *               from it, so a seeded one gives the same points every time
  * @param initialPoints a list of points in sampler space, these points will not be tested against [r]
  * @param obstacleHashGrids a list of obstacles to avoid, defined by points and radii
  * @param boundsMapper a custom function to check if a point is within bounds
@@ -74,9 +75,9 @@ fun poissonDiskSampling(
         var candidateAccepted = false
         candidateSearch@ for (l in 0 until tries) {
             val c = if (randomOnRing) {
-                active + Point.uniformRing(activeRadius, 2 * activeRadius - epsilon)
+                active + Point.uniformRing(activeRadius, 2 * activeRadius - epsilon, random)
             } else {
-                active + Polar(Degrees.of(rndf(0.0, 360.0)), activeRadius).cartesian
+                active + Polar(Degrees.of(random.rndf(0.0, 360.0)), activeRadius).cartesian
             }
             if (!bounds.contains(c)) continue@candidateSearch
 
@@ -103,21 +104,23 @@ fun poissonDiskSampling(
     return disk
 }
 
+/** A uniform random point in the ring between the two radii, drawn from [random]. */
 fun Point.Companion.uniformRing(
     innerRadius: Float = 0.0f,
     outerRadius: Float = 1.0f,
+    random: Random = Random.Default,
 ): Point {
     require(innerRadius <= outerRadius)
 
     val eps = 1E-6
 
     if (abs(innerRadius - outerRadius) < eps) {
-        val angle = rndf(-180.0, 180.0)
+        val angle = random.rndf(-180.0, 180.0)
         return Polar(Degrees.of(angle), innerRadius).cartesian
 
     } else if (innerRadius < outerRadius) {
         while (true) {
-            uniform(-outerRadius, outerRadius).let {
+            uniform(-outerRadius, outerRadius, random).let {
                 val squaredLength = distSquared(Point.ZERO, it)
                 if (squaredLength >= innerRadius * innerRadius && squaredLength < outerRadius * outerRadius) {
                     return it
@@ -131,5 +134,5 @@ fun Point.Companion.uniformRing(
 
 
 private fun uniform(
-    min: Float = -1.0f, max: Float = 1.0f
-) = randomPoint(Point(min, min), Point(max, max))
+    min: Float, max: Float, random: Random
+) = Point(random.rndf(min, max), random.rndf(min, max))

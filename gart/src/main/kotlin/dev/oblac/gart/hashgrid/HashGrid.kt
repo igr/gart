@@ -111,30 +111,32 @@ class HashGrid(val radius: Float) {
 
     fun isFree(query: Point, ignoreOwners: Set<Any> = emptySet()): Boolean {
         val c = coords(query)
-        if (cells[c] == null) {
-            for (j in -2..2) {
-                for (i in -2..2) {
-                    if (i == 0 && j == 0) {
-                        continue
-                    }
-                    val n = c.offset(i, j)
-                    val nc = cells[n]
-                    if (nc != null && nc.squaredDistanceTo(query) <= radius * radius) {
-                        for (p in nc.points) {
+        // a cell's diagonal is the radius, so any point in the query's own cell is close enough
+        val own = cells[c]
+        if (own != null && own.points.any { it.second == null || it.second !in ignoreOwners }) {
+            return false
+        }
+        // an own cell with only ignored points says nothing about the cells around it
+        for (j in -2..2) {
+            for (i in -2..2) {
+                if (i == 0 && j == 0) {
+                    continue
+                }
+                val n = c.offset(i, j)
+                val nc = cells[n]
+                if (nc != null && nc.squaredDistanceTo(query) <= radius * radius) {
+                    for (p in nc.points) {
 
-                            if (p.second == null || p.second !in ignoreOwners) {
-                                if (p.first.squaredDistanceTo(query) <= radius * radius) {
-                                    return false
-                                }
+                        if (p.second == null || p.second !in ignoreOwners) {
+                            if (p.first.squaredDistanceTo(query) <= radius * radius) {
+                                return false
                             }
                         }
                     }
                 }
             }
-            return true
-        } else {
-            return cells[c]!!.points.all { it.second != null && it.second in ignoreOwners }
         }
+        return true
     }
 }
 
