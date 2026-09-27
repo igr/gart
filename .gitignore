@@ -10,3 +10,4 @@ output
 docs/superpowers
 .superpowers
 __pycache__/
+work/src/*

@@ -120,15 +120,19 @@ A collection of generative art pieces (ordered by name).
       <br><b>Holes</b>
     </td>
     <td width="33%" align="center">
+      <a href="arts/bubbles/ocellus-050.png"><img src="arts/bubbles/ocellus-050_thumb.png" alt="Ocellus 050" width="100%"/></a>
+      <br><b>Ocellus 050</b>
+    </td>
+    <td width="33%" align="center">
       <a href="arts/bubbles/ocellus.png"><img src="arts/bubbles/ocellus_thumb.png" alt="Ocellus" width="100%"/></a>
       <br><b>Ocellus</b>
     </td>
+  </tr>
+  <tr>
     <td width="33%" align="center">
       <a href="arts/bubbles/pebble1.png"><img src="arts/bubbles/pebble1_thumb.png" alt="Pebble1" width="100%"/></a>
       <br><b>Pebble1</b>
     </td>
-  </tr>
-  <tr>
     <td width="33%" align="center">
       <a href="arts/bubbles/pebble2.png"><img src="arts/bubbles/pebble2_thumb.png" alt="Pebble2" width="100%"/></a>
       <br><b>Pebble2</b>
@@ -137,17 +141,16 @@ A collection of generative art pieces (ordered by name).
       <a href="arts/bubbles/pinna.png"><img src="arts/bubbles/pinna_thumb.png" alt="Pinna" width="100%"/></a>
       <br><b>Pinna</b>
     </td>
+  </tr>
+  <tr>
     <td width="33%" align="center">
       <a href="arts/bubbles/spuma055.png"><img src="arts/bubbles/spuma055_thumb.png" alt="Spuma055" width="100%"/></a>
       <br><b>Spuma055</b>
     </td>
-  </tr>
-  <tr>
     <td width="33%" align="center">
       <a href="arts/bubbles/spuma.png"><img src="arts/bubbles/spuma_thumb.png" alt="Spuma" width="100%"/></a>
       <br><b>Spuma</b>
     </td>
-    <td width="33%"></td>
     <td width="33%"></td>
   </tr>
 </table>
@@ -1610,4 +1613,4 @@ A collection of generative art pieces (ordered by name).
 
 ---
 
-🖼️ **275 works** across **42 collections** — and counting.
+🖼️ **276 works** across **42 collections** — and counting.
