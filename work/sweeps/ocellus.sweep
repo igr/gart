@@ -1,0 +1,49 @@
+# ocellus - eyespots: random centres, each sunk to its own random depth, rings melting where
+# the stacks meet. run: just sweep ocellus
+# hero: seed 20, pal=0 (the hand mixed ramp), count=9, low=4, deep=1.6, core=0.09, room=0.03,
+#       margin=0.12, band=0.011, grow=2.5, fuse=0.5, pool=2.
+#
+# fuse was picked by eye over 0.3 / 0.6 / 0.9 / 1.3: at 0.3 the necks between lobes come to
+# points, past 0.9 the warm bodies go to peanuts and the rings stop reading as rings.
+# pool 3 with fuse 0.3 flooded the gaps with halo, 2 keeps it to the bays.
+# holes: a level that nearly closes over three eyes leaves a speck, mended if under 400 px.
+# seen once in the first 20 seeds (seed 8).
+
+art = ocellus.OcellusKt
+module = arts:bubbles
+out = output/ocellus
+par = 4
+
+[branch the shuffle]
+seed = 4,8,13,14,19,20,27,33,41,52
+
+[branch how many eyes]
+count = 3,5,9,14,20,32
+
+[branch how deep]
+# low is the shallowest an eye may be, deep leans the draw toward the full stack
+low = 1,4,8,12
+deep = 0.5,1,1.6,3
+
+[branch the cores]
+core = 0.02,0.05,0.09,0.15,0.22
+
+[branch spacing]
+room = 0,0.03,0.1
+margin = -0.1,0.12,0.3
+
+[branch the rings]
+band = 0.005,0.011,0.02
+grow = 0,1,2.5,5
+
+[branch the melt]
+fuse = 0.1,0.3,0.5,0.9,1.4
+pool = 1,2,4
+
+[branch the ramps]
+# 0 hand mixed, 1 mix 7, 2 mix 12, 3 cool 31, 4 cool 94, 5 cool 85. the five are Palette.pick of
+# those library palettes, indices in the order they go on the page, stretched to 13 levels in
+# oklab. the order came from sorting each colour to the hand ramp level it sits nearest to in
+# oklab (ties darker deeper). in their own order they came out inside out, coral outside and
+# teal eyes, and blending round the hue wheel put magenta between coral and navy
+pal = 0,1,2,3,4,5

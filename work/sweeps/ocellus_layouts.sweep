@@ -1,0 +1,92 @@
+# ocellus - other layouts, still round eyes. each branch is a whole look, several knobs moved at
+# once far from the hero, over the five library ramps (pal 1-5, pal 0 is the hero's).
+# run: just sweep ocellus_layouts
+# hero for reference: count=9 low=4 deep=1.6 core=0.09 room=0.03 margin=0.12 band=0.011 grow=2.5
+# fuse=0.5 pool=2
+
+art = ocellus.OcellusKt
+module = arts:bubbles
+out = output/ocellus_layouts
+par = 4
+seed = 4,14
+pal = 1,2,3,4,5
+
+[branch swarm]
+# lots of small eyes, fine rings
+count = 40
+core = 0.025
+low = 3
+deep = 1.2
+band = 0.005
+grow = 3
+room = 0.01
+margin = 0.04
+
+[branch giants]
+# three big deep eyes that fill the page
+count = 3
+core = 0.2
+low = 10
+deep = 3
+band = 0.016
+grow = 1.5
+room = 0.02
+margin = 0.2
+
+[branch shoal]
+# mostly shallow bumps, the odd deep eye
+count = 24
+core = 0.05
+low = 1
+deep = 0.4
+band = 0.009
+grow = 2
+fuse = 0.6
+
+[branch even]
+# no growth, every ring the same width, targets
+count = 7
+core = 0.07
+low = 6
+deep = 2
+band = 0.018
+grow = 0
+
+[branch flood]
+# a lot of melt, one soft body with the tops poking out
+count = 12
+core = 0.06
+band = 0.009
+grow = 3
+fuse = 1.2
+pool = 5
+
+[branch crisp]
+# hardly any melt, stacks kept apart
+count = 8
+core = 0.06
+band = 0.008
+grow = 2
+fuse = 0.12
+pool = 1
+room = 0.12
+margin = 0.15
+
+[branch edge]
+# bigger eyes cut by the page
+count = 10
+core = 0.12
+low = 5
+deep = 2.5
+band = 0.012
+margin = -0.15
+
+[branch pinholes]
+# tiny cores under tall wide stacks
+count = 14
+core = 0.012
+low = 8
+deep = 3
+band = 0.013
+grow = 4
+fuse = 0.6

@@ -1,0 +1,30 @@
+# ocellus - around render 050 of ocellus_layouts (the flood look on pal 5, seed 14): one soft
+# body over most of the page, turquoise corners, yellow and red tops. every branch keeps 050's
+# values and moves one thing; each branch has 050 itself in it, to compare against.
+# run: just sweep ocellus_050
+
+art = ocellus.OcellusKt
+module = arts:bubbles
+out = output/ocellus_050
+par = 4
+fixed = pal=5 seed=14 count=12 low=4 deep=1.6 core=0.06 room=0.03 margin=0.12 band=0.009 grow=3 fuse=1.2 pool=5
+
+[branch seeds]
+# other bodies, same look
+seed = 1:30
+
+[branch melt]
+fuse = 0.8,1.0,1.2,1.5,1.9
+pool = 3,5,8
+
+[branch rings]
+band = 0.006,0.009,0.013
+grow = 1.5,3,4.5
+
+[branch eyes]
+count = 8,12,16,20
+core = 0.04,0.06,0.09
+
+[branch depth]
+low = 2,4,7
+deep = 1,1.6,3

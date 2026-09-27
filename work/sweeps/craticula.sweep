@@ -1,0 +1,47 @@
+# craticula - two grids over each other, the turned one cutting the straight one into
+# rounded scraps.
+# run: just sweep craticula
+# hero: seed 4, way=brick, 6x6, angle=26, ratio=1.2, phx=0.17, phy=0.31, gap=7,
+#       round=0.95, minarea=0.012, speck=42, margin=26.
+#
+# note the geometry is all knobs - seed only shuffles which colour lands on which cell.
+
+art = craticula.CraticulaKt
+module = arts:rects
+out = output/craticula
+par = 3
+
+[branch colour shuffle]
+seed = 1,2,3,4,5,8,13
+
+[branch colourway]
+way = 0,1,2,3
+
+[branch how coarse the straight grid is]
+cols = 3,4,6,8,11
+rows = 3,4,6,8,11
+
+[branch the turn]
+angle = 4,9,14,26,33,45
+
+[branch the turned cell against the straight one]
+ratio = 0.55,0.8,1.2,1.6,2.1
+
+[branch where the turned grid sits - this moves the beat]
+phx = 0,0.17,0.4,0.62
+phy = 0,0.31,0.5,0.75
+
+[branch the gutter]
+gap = 2,7,13,20
+
+[branch the corners]
+round = 0.3,0.6,0.95,1.0
+
+[branch what gets swept off]
+# minarea goes by the cell, speck by the drawn tile in px - a compact little scrap passes
+# minarea and still lands as a dot, so the two cull different things
+minarea = 0,0.004,0.012,0.03,0.07
+speck = 0,20,42,70,110
+
+[branch the border]
+margin = 0,26,70,120
