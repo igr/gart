@@ -1,3 +1,5 @@
+@file:Suppress("DEPRECATION")
+
 package dev.oblac.gart.flow
 
 import dev.oblac.gart.angle.Radians
@@ -10,6 +12,7 @@ import kotlin.math.atan2
  * Circular force that pulls the points towards the center.
  * Closer points are faster. Points are always circulating around the center.
  */
+@Deprecated("Use flow2.VectorField.vortex with a reach.")
 class CircularVecFlow(
     val cx: Float,
     val cy: Float,
@@ -36,6 +39,7 @@ class CircularVecFlow(
  * Spiral force that pulls the points towards the center.
  * The center is never reached - points start to circle around it.
  */
+@Deprecated("Use flow2.VectorField.vortex with a pull and a reach.")
 class SpiralVecFlow(
     val cx: Float,
     val cy: Float,

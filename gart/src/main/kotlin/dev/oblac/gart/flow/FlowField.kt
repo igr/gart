@@ -1,8 +1,11 @@
+@file:Suppress("DEPRECATION")
+
 package dev.oblac.gart.flow
 
 import dev.oblac.gart.Dimension
 import dev.oblac.gart.angle.cos
 import dev.oblac.gart.angle.sin
+import dev.oblac.gart.flow2.VectorField
 import dev.oblac.gart.gfx.isInside
 import dev.oblac.gart.gfx.strokeOfBlue
 import dev.oblac.gart.gfx.strokeOfRed
@@ -11,6 +14,7 @@ import dev.oblac.gart.vector.Vec2
 import org.jetbrains.skia.Canvas
 import org.jetbrains.skia.Point
 
+@Deprecated("Use flow2.VectorField: bake for a grid, move for apply, Canvas.drawField for drawField. asVectorField() reads an old field.")
 class FlowField(val w: Int, val h: Int, private val field: Array<Array<Flow>>) {
 
     private val fieldDimension = Dimension(w, h)
@@ -102,4 +106,17 @@ class FlowField(val w: Int, val h: Int, private val field: Array<Array<Flow>>) {
         }
     }
 
+}
+
+/**
+ * Reads an old [FlowField] as a [VectorField]: the vector of the pixel under the point, and zero
+ * off the grid.
+ */
+fun FlowField.asVectorField() = VectorField { x, y, out ->
+    if (x < 0f || y < 0f || x >= w || y >= h) {
+        out.zero()
+    } else {
+        val v = this@asVectorField[x.toInt(), y.toInt()](Point(x, y))
+        out.set(v.x, v.y)
+    }
 }

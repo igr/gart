@@ -1,3 +1,5 @@
+@file:Suppress("DEPRECATION")
+
 package dev.oblac.gart.flow
 
 import dev.oblac.gart.gfx.offset
@@ -7,6 +9,7 @@ import org.jetbrains.skia.Point
 /**
  * Represents a flow at a point.
  */
+@Deprecated("Use flow2.VectorField.")
 fun interface Flow {
 
     /**

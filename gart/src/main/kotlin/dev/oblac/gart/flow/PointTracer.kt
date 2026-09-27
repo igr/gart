@@ -1,3 +1,5 @@
+@file:Suppress("DEPRECATION")
+
 package dev.oblac.gart.flow
 
 import dev.oblac.gart.Dimension
@@ -9,6 +11,7 @@ import org.jetbrains.skia.Point
  * The point is updated by applying the flow at its current position, and the new position is added to the path.
  * The tracing continues until the specified number of steps is reached or the point goes outside the dimension.
  */
+@Deprecated("Use flow2.VectorField.trace, with velocity = true when the vector length is the speed.")
 class PointTracer(
     private val d: Dimension,
     private val flowField: FlowField,

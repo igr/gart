@@ -1,3 +1,5 @@
+@file:Suppress("DEPRECATION")
+
 package dev.oblac.gart.flow
 
 import dev.oblac.gart.angle.Angle
@@ -16,6 +18,7 @@ import org.jetbrains.skia.Point
  * @param direction in radians, indicates the direction of the flow. The angle is measured from the negative x-axis.
  * 0 is up, PI/2 is right, PI is down, 3PI/2 is left.
  */
+@Deprecated("Use flow2.VectorField.angles. Flow1 counts angles from up, VectorField from the right.")
 data class Flow1(val direction: Angle, val magnitude: Float = 1f) : Flow {
 
     // this is not mathematically correct, see Flow2.plus for correct vector addition

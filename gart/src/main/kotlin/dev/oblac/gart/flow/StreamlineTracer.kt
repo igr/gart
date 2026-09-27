@@ -1,3 +1,5 @@
+@file:Suppress("DEPRECATION")
+
 package dev.oblac.gart.flow
 
 import dev.oblac.gart.Dimension
@@ -21,6 +23,7 @@ import org.jetbrains.skia.Point
  * @param maxSteps maximum number of integration steps per streamline direction (forward/backward)
  * @param seedInterval how often (in steps) to generate perpendicular seed candidates for new streamlines
  */
+@Deprecated("Use flow2.VectorField.streamlines.")
 class StreamlineTracer(
     private val d: Dimension,
     private val flowField: FlowField,
@@ -89,7 +92,7 @@ class StreamlineTracer(
             }
 
             if (!next.isInside(d)) break
-            if (!grid.isFree(next, ignore)) break
+            if (!isFreeAsBefore(next, ignore)) break
 
             points.add(next)
             grid.insert(next, owner)
@@ -107,5 +110,13 @@ class StreamlineTracer(
         }
 
         return points
+    }
+
+    // HashGrid.isFree used to skip the cells around when the own cell held only this line's
+    // points, so a line was checked against the others only as it entered a new cell. that leak
+    // is the look of this tracer: with the fixed test the lines get shorter and holes open up
+    private fun isFreeAsBefore(p: Point, ignore: Set<Any>): Boolean {
+        val own = grid.cell(p) ?: return grid.isFree(p, ignore)
+        return own.points.all { it.second != null && it.second in ignore }
     }
 }

@@ -1,3 +1,5 @@
+@file:Suppress("DEPRECATION")
+
 package dev.oblac.gart.flow
 
 import dev.oblac.gart.angle.Angle
@@ -12,6 +14,7 @@ import kotlin.math.atan2
 /**
  * Vector flow has a vector defined in each point.
  */
+@Deprecated("Use flow2.VectorField.")
 data class Flow2(val direction: Angle, val magnitude: Float = 1f) : Flow {
 
     operator fun plus(other: Flow2): Flow2 {

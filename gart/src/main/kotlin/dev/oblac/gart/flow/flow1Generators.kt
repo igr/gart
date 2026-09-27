@@ -1,3 +1,5 @@
+@file:Suppress("DEPRECATION")
+
 package dev.oblac.gart.flow
 
 import dev.oblac.gart.angle.Radians
@@ -11,6 +13,7 @@ import kotlin.math.sin
 /**
  * Simple circular flow generator.
  */
+@Deprecated("Use flow2.VectorField.vortex.")
 class CircularFlow(
     private val cx: Float,
     private val cy: Float,
@@ -30,6 +33,7 @@ class CircularFlow(
     }
 }
 
+@Deprecated("Use flow2.VectorField.vortex with a pull.")
 class SpiralFlow(
     val cx: Float,
     val cy: Float,
@@ -50,6 +54,7 @@ class SpiralFlow(
     }
 }
 
+@Deprecated("Use flow2.VectorField.angles.")
 class WaveFlow(
     private val xFreq: Float = 0.01f,
     private val yFreq: Float = 0.03f,
