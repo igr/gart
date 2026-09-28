@@ -3,7 +3,7 @@ package sixsix.one
 import dev.oblac.gart.*
 import dev.oblac.gart.color.CssColors
 import dev.oblac.gart.color.Palette
-import dev.oblac.gart.color.PalettesOf4
+import dev.oblac.gart.color.Palettes
 import dev.oblac.gart.math.doubleLoop
 import org.jetbrains.skia.Canvas
 import org.jetbrains.skia.Image
@@ -49,10 +49,10 @@ private class MyDraw3(g: Gartvas) : Drawing(g) {
     }
 }
 
-//private val pal4 = PalettesOf4.q01
-private val pal4 = PalettesOf4.q16
-//private val pal4 = PalettesOf4.q18
-//private val pal4 = PalettesOf4.q19
+//private val pal4 = Palettes.cool184
+private val pal4 = Palettes.cool198
+//private val pal4 = Palettes.cool199
+//private val pal4 = Palettes.cool200
 
 private fun draw(c: Canvas, d: Dimension) {
     c.clear(CssColors.white)

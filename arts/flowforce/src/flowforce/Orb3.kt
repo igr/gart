@@ -3,7 +3,7 @@ package flowforce
 import dev.oblac.gart.Gart
 import dev.oblac.gart.angle.Radians
 import dev.oblac.gart.color.BgColors
-import dev.oblac.gart.color.PalettesOf4
+import dev.oblac.gart.color.Palettes
 import dev.oblac.gart.flow.Flow2
 import dev.oblac.gart.flow.FlowField
 import dev.oblac.gart.flow.PointTracer
@@ -42,7 +42,7 @@ fun main() {
         Flow2(Radians.of(atan2(vy, vx) + PIf / 2), 1f)
     }
 
-    val plt = PalettesOf4.q18
+    val plt = Palettes.cool199
 
     // draw background once
     val clr = plt[0]//RetroColors.black01

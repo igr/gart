@@ -5,7 +5,7 @@ import dev.oblac.gart.Drawing
 import dev.oblac.gart.Gart
 import dev.oblac.gart.Gartvas
 import dev.oblac.gart.color.BgColors
-import dev.oblac.gart.color.PalettesOf4
+import dev.oblac.gart.color.Palettes
 import dev.oblac.gart.gfx.*
 import dev.oblac.gart.math.GOLDEN_RATIO
 import dev.oblac.gart.math.rndf
@@ -39,7 +39,7 @@ private class MyDraw(g: Gartvas) : Drawing(g) {
     }
 }
 
-private val pal = PalettesOf4.q19
+private val pal = Palettes.cool200
 
 private fun draw(c: Canvas, d: Dimension) {
     c.clear(BgColors.obsidian)

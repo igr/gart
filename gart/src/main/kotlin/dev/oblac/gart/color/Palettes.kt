@@ -186,6 +186,79 @@ object Palettes {
     val cool181 = cool_181
     val cool182 = cool_182
     val cool183 = cool_183
+    val cool184 = cool_184
+    val cool185 = cool_185
+    val cool186 = cool_186
+    val cool187 = cool_187
+    val cool188 = cool_188
+    val cool189 = cool_189
+    val cool190 = cool_190
+    val cool191 = cool_191
+    val cool192 = cool_192
+    val cool193 = cool_193
+    val cool194 = cool_194
+    val cool195 = cool_195
+    val cool196 = cool_196
+    val cool197 = cool_197
+    val cool198 = cool_198
+    val cool199 = cool_199
+    val cool200 = cool_200
+    val cool201 = cool_201
+    val cool202 = cool_202
+    val cool203 = cool_203
+    val cool204 = cool_204
+    val cool205 = cool_205
+    val cool206 = cool_206
+    val cool207 = cool_207
+    val cool208 = cool_208
+    val cool209 = cool_209
+    val cool210 = cool_210
+    val cool211 = cool_211
+    val cool212 = cool_212
+    val cool213 = cool_213
+    val cool214 = cool_214
+    val cool215 = cool_215
+    val cool216 = cool_216
+    val cool217 = cool_217
+    val cool218 = cool_218
+    val cool219 = cool_219
+    val cool220 = cool_220
+    val cool221 = cool_221
+    val cool222 = cool_222
+    val cool223 = cool_223
+    val cool224 = cool_224
+    val cool225 = cool_225
+    val cool226 = cool_226
+    val cool227 = cool_227
+    val cool228 = cool_228
+    val cool229 = cool_229
+    val cool230 = cool_230
+    val cool231 = cool_231
+    val cool232 = cool_232
+    val cool233 = cool_233
+    val cool234 = cool_234
+    val cool235 = cool_235
+    val cool236 = cool_236
+    val cool237 = cool_237
+    val cool238 = cool_238
+    val cool239 = cool_239
+    val cool240 = cool_240
+    val cool241 = cool_241
+    val cool242 = cool_242
+    val cool243 = cool_243
+    val cool244 = cool_244
+    val cool245 = cool_245
+    val cool246 = cool_246
+    val cool247 = cool_247
+    val cool248 = cool_248
+    val cool249 = cool_249
+    val cool250 = cool_250
+    val cool251 = cool_251
+    val cool252 = cool_252
+    val cool253 = cool_253
+    val cool254 = cool_254
+    val cool255 = cool_255
+    val cool256 = cool_256
 
 
     val mix1 = mix_1
@@ -396,6 +469,13 @@ object Palettes {
         }
     }
 
+    /** How many cool palettes there are: `cool1` to `cool$COOL_COUNT`. Bump it with every new one. */
+    const val COOL_COUNT = 256
+
+    /** Every cool palette with exactly [size] colors, in cool order. */
+    fun coolPalettesOfSize(size: Int): List<Palette> =
+        (1..COOL_COUNT).map { coolPalette(it) }.filter { it.size == size }
+
     fun coolPalette(num: Int): Palette {
         return when (num) {
             1 -> cool1
@@ -581,6 +661,79 @@ object Palettes {
             181 -> cool181
             182 -> cool182
             183 -> cool183
+            184 -> cool184
+            185 -> cool185
+            186 -> cool186
+            187 -> cool187
+            188 -> cool188
+            189 -> cool189
+            190 -> cool190
+            191 -> cool191
+            192 -> cool192
+            193 -> cool193
+            194 -> cool194
+            195 -> cool195
+            196 -> cool196
+            197 -> cool197
+            198 -> cool198
+            199 -> cool199
+            200 -> cool200
+            201 -> cool201
+            202 -> cool202
+            203 -> cool203
+            204 -> cool204
+            205 -> cool205
+            206 -> cool206
+            207 -> cool207
+            208 -> cool208
+            209 -> cool209
+            210 -> cool210
+            211 -> cool211
+            212 -> cool212
+            213 -> cool213
+            214 -> cool214
+            215 -> cool215
+            216 -> cool216
+            217 -> cool217
+            218 -> cool218
+            219 -> cool219
+            220 -> cool220
+            221 -> cool221
+            222 -> cool222
+            223 -> cool223
+            224 -> cool224
+            225 -> cool225
+            226 -> cool226
+            227 -> cool227
+            228 -> cool228
+            229 -> cool229
+            230 -> cool230
+            231 -> cool231
+            232 -> cool232
+            233 -> cool233
+            234 -> cool234
+            235 -> cool235
+            236 -> cool236
+            237 -> cool237
+            238 -> cool238
+            239 -> cool239
+            240 -> cool240
+            241 -> cool241
+            242 -> cool242
+            243 -> cool243
+            244 -> cool244
+            245 -> cool245
+            246 -> cool246
+            247 -> cool247
+            248 -> cool248
+            249 -> cool249
+            250 -> cool250
+            251 -> cool251
+            252 -> cool252
+            253 -> cool253
+            254 -> cool254
+            255 -> cool255
+            256 -> cool256
             else -> throw IllegalArgumentException("Unknown COOL palette number: $num")
         }
     }
