@@ -1,0 +1,29 @@
+# fascia - colour survey. every five colour cool palette at the hero seed, four sheets.
+# run: just sweep fascia_colors     (pngs + one contact sheet per branch in output/fascia_colors)
+# cool takes any cool palette straight, past the FIVES pick - pal is ignored while cool > 0.
+# 129 fives on 2026-09-28, the list Palettes.coolPalettesOfSize(5) gives. the 28 in FIVES are in
+# here too, so the sheets show the whole field.
+
+art    = fascia.FasciaKt
+module = arts:flowforce
+out    = output/fascia_colors
+par    = 6
+#
+# Settled 2026-09-28: the cool knob is gone, the picks went into FIVES (pal 29-34). the branches
+# stay below as the record. run as is, it renders the hero once.
+
+# [branch fives_a]
+# seed = 1
+# cool = 2,10,11,39,40,43,58,67,74,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91,92,93,94,95,96,97,98,99,100
+
+# [branch fives_b]
+# seed = 1
+# cool = 101,102,103,104,105,106,107,108,109,110,111,112,113,114,115,116,117,118,119,120,121,122,124,125,126,127,128,129,130,131,132,133
+
+# [branch fives_c]
+# seed = 1
+# cool = 134,135,136,137,138,139,140,141,142,143,144,145,146,147,148,149,150,151,152,153,154,155,156,157,158,159,160,161,162,163,164,165
+
+# [branch fives_d]
+# seed = 1
+# cool = 166,167,168,169,170,171,172,173,201,202,203,204,205,206,207,208,209,210,211,212,213,214,216,217,218,221,222,230,235,236,240,252

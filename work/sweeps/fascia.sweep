@@ -1,0 +1,73 @@
+# fascia - fat bands of flat ink on a flow, each one breaking up into spray grain somewhere.
+# run: just sweep fascia
+# hero: seed 1, pal=1 (cool2), the rest at defaults. it was pal=10 (cool127) until 2026-09-29.
+#
+# pal walks FIVES, a hand pick of five colour cool palettes. picked off seed 1 on all 105 fives
+# (2026-09-28). out went the ones whose palest ink sits on the paper, so a band of it reads as a
+# gap (109, 118, 139, 128, 143). out went the ones that end on three inks once the near-black
+# rule takes one (82, 89, 103, 116, 132, 137, 140, 148, 162, 165), and the ones with two or
+# three darks stacked on black (161, 170). from the rest i took the ones with four clear inks.
+# 127 is the old q18 hero (teal, dark, red on blush) with one more ink, a mint.
+#
+# 15-28 are cool201-214, fives off the web that all have the same shape: a black, a white,
+# one darker and two lighter. 26 fit the shape. i kept 14 off seed 1. out went two alike
+# blues, an all-pink, an all-yellow, a few drab ones, and near-twins of the ones i kept.
+#
+# 29-34 are cool218, 221, 230, 235, 236, 252, picked off fascia_colors (seed 1 on all 129 fives).
+#
+# the knob branches were redone 2026-09-28 on the pal 10 hero. the first rounds were loose
+# renders on the old house and q4 inks, never written down.
+
+art = fascia.FasciaKt
+module = arts:flowforce
+out = output/fascia_sweep     # labelled sheets per branch: sheet_*.jpg beside the pngs
+par = 6
+
+[branch the fives]
+seed = 1
+pal = 1:34
+
+[branch the shuffle]
+# 2 and 9 are long strands with one curl in a corner. 6, 10 and 11 park a whirl centre on the
+# sheet, a target, busy. 1 sits in between
+seed = 1:12
+
+[branch how many whirls]
+# 1 is nearly all drift, 2 puts one spiral in a corner, past 5 it breaks into short curly bits
+whirls = 1,2,3,4,5,6,8
+
+[branch the drift under them]
+# 0 is all curls. 1 and up combs everything into parallel diagonal stripes
+drift = 0,0.15,0.35,0.6,1,2
+
+[branch band spacing]
+# 0.05-0.07 is fine stripes, like a textile. from 0.18 its a few fat blobs and the lines are gone
+dsep = 0.05,0.07,0.09,0.11,0.14,0.18,0.25
+
+[branch band width]
+# under 0.7 its thin lines on paper. from 1 the bands lap into one mass and the fades pile up
+fat = 0.3,0.5,0.7,0.88,1.0,1.2,1.5
+
+[branch pal 27 on other seeds]
+# 8 is the calm one, big curves into one whirl on the right (picked 2026-09-29). 3 is one strong
+# diagonal, 12 horizontal S bands. 6, 11 and 13 are busy with whirl centres
+pal = 27
+seed = 2:13
+
+[branch pal 5 on other seeds]
+# same geometry as the pal 27 branch - the seed lays the bands, the palette only recolours them
+# (both have five inks, so the draws line up). 8 picked again
+# 14-25 added for a new seed: 16 picked, wide horizontal arcs down to one curl. 23 is a cousin of 8,
+# 14 the runner-up. 18, 21 and 24 are busy, 22 has an eye in a corner
+# 26-37 added for one more: 30 picked, long vertical bands swinging into a U, most open paper yet.
+# 26 a calm diagonal, 31 a target, 33 a black blob
+pal = 5
+seed = 2:37
+
+# Settled - knobs until 2026-09-28, now consts in the source: CUTS 3, FADE 0.75, GHOST 0.55,
+# GRAIN 6, CLUMP 0.75. what their sweeps showed, on the pal 10 hero:
+# cuts = 1,2,3,4,6,8 - 1 keeps long unbroken bands, 6-8 chops them into confetti
+# fade = 0,0.25,0.5,0.75,1 x ghost = 0,0.55,1 - fade 0 is a flat poster with no grain at all.
+#   ghost 0 fades into a second ink (paint over paint), ghost 1 dissolves everything into paper
+# grain = 2,4,6,9,14,24 x clump = 0,0.4,0.75,1 - clump 0 is plain stipple whatever the grain.
+#   at clump 1 and grain 14 up the spray turns to lace
