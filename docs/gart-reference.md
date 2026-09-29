@@ -410,7 +410,6 @@ Hand-curated named-color objects:
 | `RetroColors` | `RetroColors.kt` | 14 named fields + `allColors: List<Int>` | Muted vintage/retro hues. |
 | `NipponColors` | `NipponColors.kt` | 250 named fields `colNNN_NAME` (e.g. `col001_NADESHIKO`) via `rgb(...)` | Traditional Japanese colors, soft and earthy. |
 | `CssColors` | `CssColors.kt` | 141 `const val` (camelCase) + `cssColors` map + `color(name)` / `color4f(name)` lookup | Standard W3C/SVG CSS named colors. |
-| `PalettesOf4` | `PalettesOf4.kt` | `q01`–`q19`, each a 4-color `Palette` | Curated quad combos for posters/flat design. |
 
 ### `Palettes` collection (`Palettes.kt`)
 
@@ -418,7 +417,7 @@ Hand-curated named-color objects:
 
 | Family field (in `Palettes`) | Count | Source file | Notes / mood |
 |------|------:|-------------|------|
-| `cool1`–`cool173` | 173 | `cool.kt` | Large grab-bag of curated artistic palettes (multi-hue). |
+| `cool1`–`cool256` | 256 | `cool.kt` | Large grab-bag of curated artistic palettes (multi-hue). `cool184`–`cool200` have 4 colors each; `cool201`–`cool214` have 5 colors: a near-black, a near-white, one darker and two lighter colors. `cool215`–`cool256` have 4–10 colors; in `cool215`–`cool244` the last one or two colors are the set's own ink and paper. |
 | `mix1`–`mix15` | 15 | `mix.kt` | Mixed hand-picked palettes. |
 | `colormap001`–`colormap133` | 133 | (aliases below) | Scientific/data-viz colormaps, mapped 1:1 in order. |
 
@@ -439,12 +438,13 @@ The 133 `colormapNNN` entries alias these source families (in this order):
 
 Generators / accessors on `Palettes`:
 - `gradient(colorFrom: Int/Long, colorTo, steps): Palette` — interpolate two colors into `steps` colors.
-- `mixPalette(num)` → mix1..15; `coolPalette(num)` → cool1..173; `colormapPalette(num)` → colormap001..133 (1-based, throws on out-of-range).
+- `mixPalette(num)` → mix1..15; `coolPalette(num)` → cool1..256; `colormapPalette(num)` → colormap001..133 (1-based, throws on out-of-range).
+- `coolPalettesOfSize(size)` → every cool palette with exactly `size` colors, in cool order. `COOL_COUNT` is the number of cool palettes (256).
 - `navigator(): PalettesNavigator`.
 
-`PalettesNavigator` (`PalettesNavigator.kt`) — UI-style cycler over sets `mix` (15), `cool` (76), `colormap` (133): `palette()`, `name()`, `nextPalette()/previousPalette()`, `nextSet()/previousSet()`. (Note: its `cool` set bound is 76, narrower than the 173 actually available.)
+`PalettesNavigator` (`PalettesNavigator.kt`) — UI-style cycler over sets `mix` (15), `cool` (256), `colormap` (133): `palette()`, `name()`, `nextPalette()/previousPalette()`, `nextSet()/previousSet()`.
 
-Source-of-truth files: `Palette.kt`, `color.kt`, `gradient.kt`, `colorRamp.kt`, `colorMatrix.kt`, `PaletteGenerator.kt`, `CyanotypeColors.kt`, `BgColors.kt`, `MidCenturyColors.kt`, `RetroColors.kt`, `NipponColors.kt`, `CssColors.kt`, `PalettesOf4.kt`, `Palettes.kt`, `PalettesNavigator.kt`, `color/palettes/*.kt`, `color/space/*.kt`.
+Source-of-truth files: `Palette.kt`, `color.kt`, `gradient.kt`, `colorRamp.kt`, `colorMatrix.kt`, `PaletteGenerator.kt`, `CyanotypeColors.kt`, `BgColors.kt`, `MidCenturyColors.kt`, `RetroColors.kt`, `NipponColors.kt`, `CssColors.kt`, `Palettes.kt`, `PalettesNavigator.kt`, `color/palettes/*.kt`, `color/space/*.kt`.
 ## 3. Noise & Flow Fields
 
 All paths are under `gart/src/main/kotlin/dev/oblac/gart/`.
@@ -501,12 +501,13 @@ All paths are under `gart/src/main/kotlin/dev/oblac/gart/`.
 
 **`poissonDiskSampling(...)`** — top-level fn (ORX-derived). Bridson sampler with HashGrid acceleration, obstacle avoidance, and custom bounds.
 - `fun poissonDiskSampling(bounds: Rect, radius: Float, tries: Int = 30, randomOnRing: Boolean = true, random: Random = Random.Default, initialPoints: List<Point> = listOf(bounds.center()), obstacleHashGrids: List<HashGrid> = emptyList(), boundsMapper: ((v: Point) -> Boolean)? = null): List<Point>`
+- Every draw comes from `random`, so a seeded one gives the same points every time (until 2026-09-27 the candidates used the global `rndf`, so a seed did nothing).
 - File: `noise/OrxPoissonDiskSamplingNoise.kt`
 
-**`poissonDiskSamplingNoise(d: Dimension, r: Number = 30.0): List<Point>`** — convenience wrapper calling `poissonDiskSampling` over `Rect.ofXYWH(0,0,d.wd,d.hd)`.
+**`poissonDiskSamplingNoise(d: Dimension, r: Number = 30.0, random: Random = Random.Default): List<Point>`** — convenience wrapper calling `poissonDiskSampling` over `Rect.ofXYWH(0,0,d.wd,d.hd)`.
 - File: `noise/OrxPoissonDiskSamplingNoise.kt`
 
-**`Point.Companion.uniformRing(innerRadius = 0.0f, outerRadius = 1.0f): Point`** — extension; uniform random point in an annulus. File: `noise/OrxPoissonDiskSamplingNoise.kt`
+**`Point.Companion.uniformRing(innerRadius = 0.0f, outerRadius = 1.0f, random: Random = Random.Default): Point`** — extension; uniform random point in an annulus. File: `noise/OrxPoissonDiskSamplingNoise.kt`
 
 **`poissonDither(...)`** — top-level fn. Variable-density Poisson-disk dithering: dark pixels → dense dots, light → sparse (Bridson with per-point radius).
 - `fun poissonDither(pixels: Pixels, minR: Float, maxR: Float, gamma: Float = 1.6f, brightnessMax: Float = 0.9f, k: Int = 30, seed: Int = 42): List<Point>`
@@ -518,39 +519,70 @@ All paths are under `gart/src/main/kotlin/dev/oblac/gart/`.
 
 ### Flow fields
 
-**⭐ `Flow`** — `fun interface Flow` (functional, `(Point) -> Vec2`).
+Package `dev.oblac.gart.flow2`. The old `dev.oblac.gart.flow` classes are deprecated (below).
+
+**⭐ `VectorField`** — `fun interface VectorField`. A vector at each point, in canvas coordinates (y grows down). A plain function, sampled exactly where it is asked.
+- `fun at(x: Float, y: Float, out: MutableVec2)` — writes the vector into `out`, no allocation (for hot loops). `operator fun invoke(p: Point): Vec2` — convenience.
+- Companion: `angles(angle: (x, y) -> Float)` — unit vectors, radians, 0 = right, a quarter turn = down (same rule as `Vec2.angle`); `curl(potential: (x, y) -> Float, eps = 1f)` — `(dp/dy, -dp/dx)`, no sources or sinks, streamlines close round each high and low; `vortex(cx, cy, spin = 1f, pull = 0f, reach = +inf)` — spin > 0 turns clockwise on screen, pull > 0 points to the centre, fades by `1 / (1 + r² / reach²)`, zero at the centre.
+- Operators: `VectorField.plus(other)`, `VectorField.times(k: Float)`.
+- `FlowField.asVectorField()` (in the old `flow` package) — reads an old field: the vector of the pixel under the point, zero off the grid.
+- File: `flow2/VectorField.kt`
+
+**`VectorGrid`** — `class VectorGrid(left, top, cell, cols, rows, vx: FloatArray, vy: FloatArray) : VectorField`. Nodes `cell` px apart; reads interpolate x and y bilinearly (not angles); off the grid the edge value holds. Fill the arrays yourself for data fields (row by row).
+- `fun VectorField.bake(d: Dimension, cell: Float = 8f, margin: Float = 0f): VectorGrid` — samples a slow field once over the canvas plus `margin`. Detail smaller than a cell is lost.
+- File: `flow2/VectorGrid.kt`
+
+**`Integrator`** — `enum class Integrator { EULER, RK2, RK4 }`. By default a tracer uses only the direction of the field, so the step length is its own parameter; with `velocity = true` it uses the vector as is and the step is a time step. EULER drifts off curves (about 3 px out per turn of a circle at 1 px steps); RK2 (default) holds them; RK4 for long steps on tight curves.
+- `fun VectorField.trace(start: Point, steps: Int, step: Float = 1f, rk: Integrator = RK2, bounds: Rect? = null, velocity: Boolean = false): List<Point>` — one path, `start` first. A negative step walks against the flow. Ends at a zero or NaN vector, and before a step leaves `bounds`. With `velocity` a step moves the vector times `step`, so the path goes faster where the vector is longer.
+- `fun VectorField.move(points: List<Point>, step: Float = 1f, rk: Integrator = RK2, bounds: Rect? = null, velocity: Boolean = false, onMove: (from: Point, to: Point) -> Unit = { _, _ -> }): List<Point>` — moves each point one step (once per frame, for a crowd of points), returns the moved ones in order; `onMove` sees each move for drawing a trail. Drops a point with no direction, outside `bounds`, or about to leave them.
+- File: `flow2/Integrator.kt`
+
+**`Canvas.drawField(field: VectorField, d: Dimension, gap: Float = 20f, color: Int = 0xFF2F55D4, scaled: Boolean = false)`** — debug view: an arrow from a dot at each grid point (`gap / 2 + i * gap`), 0.8 of `gap` long; with `scaled` only the longest arrow is, the others in proportion to their vectors. No direction = dot only. File: `flow2/drawField.kt`
+
+**⭐ `streamlines`** — `fun VectorField.streamlines(d: Dimension, rnd: Random, dSep: Float, dTest: Float = dSep * 0.5f, step: Float = 1f, minLength: Float = dSep, maxLength: Float = +inf, margin: Float = 0f, rk: Integrator = RK2): List<Streamline>`. Evenly spaced streamlines.
+- A seed is at least `dSep` from all lines; a line grows both ways until it comes closer than `dTest` to another line or to an earlier part of itself (its own points within `2 * dTest` along it are skipped), leaves the canvas plus `margin`, reaches a point with no direction, or reaches `maxLength`.
+- Seed candidates go `dSep` to both sides of each point of each new line; `rnd` picks the next one. When none is left, a last pass tries seeds on a `dSep` grid, so no open part stays empty. Same `rnd` seed, same lines.
+- Lines shorter than `minLength` are dropped and their space is free again. `dTest` below `dSep` gives longer lines (half = long lines, near `dSep` = short lines, even gaps). Needs `step <= dTest <= dSep`.
+- **`Streamline`** — `points: List<Point>` in flow order; `clearance: FloatArray` — per point, the distance to the nearest other line, capped at `dSep`; `fun taper(i: Int): Float` — width factor, 1 in the open down to 0 where the line stopped next to another (`(clearance - dTest) / (dSep - dTest)` in 0..1, and 1 everywhere when `dTest == dSep`); `length: Float`; `fun toPath(): Path`.
+- File: `flow2/Streamlines.kt`
+
+### Old flow classes (`dev.oblac.gart.flow`, deprecated)
+
+All below are `@Deprecated`; they stay for the pieces that use them and keep their output. `Flow1`/`Flow2` count angles from up, clockwise (`dx = sin a`, `dy = -cos a`); `VectorField.angles` counts from the right.
+
+**`Flow`** (deprecated, use `VectorField`) — `fun interface Flow` (functional, `(Point) -> Vec2`).
 - `operator fun invoke(p: Point): Vec2` — force/offset vector at a point.
 - `fun offset(p: Point): Point` — default; applies the flow (`p.offset(invoke(p))`).
 - File: `flow/Flow.kt`
 
-**`Flow1`** — `data class Flow1(val direction: Angle, val magnitude: Float = 1f) : Flow`. Scalar flow (direction + speed magnitude, NOT a true vector). `direction` measured from negative x-axis: 0 up, PI/2 right, PI down, 3PI/2 left.
+**`Flow1`** (deprecated, use `VectorField.angles`) — `data class Flow1(val direction: Angle, val magnitude: Float = 1f) : Flow`. Scalar flow (direction + speed magnitude, NOT a true vector). `direction` measured from negative x-axis: 0 up, PI/2 right, PI down, 3PI/2 left.
 - `operator fun plus(other: Flow1): Flow1` — averages angle (`middleAngle`) and magnitude (not mathematically correct vector add).
 - `override fun invoke(p: Point): Vec2` — `Vec2(sin(dir)*mag, -cos(dir)*mag)`.
 - File: `flow/Flow1.kt`
 
-**`Flow2`** — `data class Flow2(val direction: Angle, val magnitude: Float = 1f) : Flow`. True vector flow.
+**`Flow2`** (deprecated, use `VectorField`) — `data class Flow2(val direction: Angle, val magnitude: Float = 1f) : Flow`. True vector flow.
 - `operator fun plus(other: Flow2): Flow2` — correct vector addition (component sum → magnitude/angle).
 - `override fun invoke(p: Point): Vec2` — same form as Flow1.
 - File: `flow/Flow2.kt`
 
-**`FlowField`** — `class FlowField(val w: Int, val h: Int, field: Array<Array<Flow>>)`. Grid of per-cell `Flow`.
+**`FlowField`** (deprecated, use `VectorField` / `bake`) — `class FlowField(val w: Int, val h: Int, field: Array<Array<Flow>>)`. Grid of per-cell `Flow`.
 - Indexing: `get(x: Int, y: Int): Flow`, `get(point: Point): Flow`, `get(x: Number, y: Number): Flow`.
 - `fun apply(points: List<Point>, pointConsumer: (Point, Point) -> Unit): List<Point>` — advances each in-bounds point one step, calls consumer(old, new).
 - `fun drawField(c: Canvas, d: Dimension, gap: Int = 20)` and `fun drawField2(...)` — visualisation helpers.
 - Companion: `fun of(d: Dimension, fn: (Float, Float) -> Flow): FlowField`; `fun from(d: Dimension, fn: (Int, Int) -> Vec2): FlowField`.
 - File: `flow/FlowField.kt`
 
-**`PointTracer`** — `class PointTracer(d: Dimension, flowField: FlowField)`. Follows a point through the field.
+**`PointTracer`** (deprecated, use `VectorField.trace`) — `class PointTracer(d: Dimension, flowField: FlowField)`. Follows a point through the field.
 - `fun trace(point: Point, steps: Int): List<Point>` — path of up to `steps + 1` points (stops when out of bounds).
 - `fun trace(p: Point): Point?` — single step; null if out of bounds.
 - File: `flow/PointTracer.kt`
 
-**`StreamlineTracer`** — `class StreamlineTracer(d: Dimension, flowField: FlowField, dSep: Float = 18f, maxSteps: Int = 300, seedInterval: Int = 4)`. Evenly-spaced streamlines (Jobard & Lefer) using a `HashGrid`; seeds perpendicular candidates.
+**`StreamlineTracer`** (deprecated, use `VectorField.streamlines`) — `class StreamlineTracer(d: Dimension, flowField: FlowField, dSep: Float = 18f, maxSteps: Int = 300, seedInterval: Int = 4)`. Evenly-spaced streamlines (Jobard & Lefer) using a `HashGrid`; seeds perpendicular candidates.
 - `fun trace(): List<Path>` — traces forward+backward per seed, merges into Skia `Path`s.
 - Companion consts: `D_SEP = 18f`, `STEP_SIZE = 1f`, `MAX_STEPS = 300`, `SEED_INTERVAL = 4`.
 - File: `flow/StreamlineTracer.kt`
 
-### Prebuilt flow generators
+### Prebuilt flow generators (deprecated, use `VectorField.vortex` / `VectorField.angles`)
 
 All implement `(Float, Float) -> Flow` (i.e. `fun invoke(x, y): Flow1` or `Flow2`), suitable for `FlowField.of(d, generator)`.
 
@@ -1418,7 +1450,7 @@ Package `stipple`. Public API is 4 top-level functions + `WangTileSet`; `stipple
 
 ⭐ **`HashGrid(radius: Float)`** — uniform spatial hash (cellSize = radius/√2) for O(1) neighbor/free-space queries on points; each point can carry an `owner: Any?`.
   - `insert(point: Point, owner: Any? = null)`, `points(): Sequence<Pair<Point,Any?>>`, `random(random): Point`, `var size`.
-  - `isFree(query: Point, ignoreOwners: Set<Any> = emptySet()): Boolean` — is query ≥ radius from all existing points (the core min-distance test).
+  - `isFree(query: Point, ignoreOwners: Set<Any> = emptySet()): Boolean` — true when every point that counts is farther than `radius` from query (the core min-distance test). Points whose owner is in `ignoreOwners` do not count; points with no owner always count. (Before 2026-09-27 it skipped the cells around when the query's own cell held only ignored points.)
   - Extensions: `List<Point>.hashGrid(radius): HashGrid`; `List<Point>.filter(radius): List<Point>` (Poisson-style thinning to min spacing). Used internally by `noise/OrxPoissonDiskSamplingNoise.kt` and `flow/StreamlineTracer.kt` — UNUSED directly by art. `gart/.../hashgrid/HashGrid.kt`
 
 ### Graph layout

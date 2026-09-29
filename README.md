@@ -9,9 +9,12 @@
 ⭐️ **Gȧrt** is a pragmatical framework and set of utilities for generating and rendering
 **still images** and **movies**.
 
+🙏 Gȧrt uses the work of others:
+
 + uses [Skiko](https://github.com/JetBrains/skiko) (by JetBrains) for [Skia](https://skia.org) binding.
 + `box-2d` for physics simulation.
 + `ffmpeg` for video encoding.
++ color palettes from [Chromotome](https://github.com/kgolid/chromotome) (by Kjetil Golid), [MetBrewer](https://github.com/BlakeRMills/MetBrewer) (by Blake R. Mills) and the [COLOURlovers](https://www.colourlovers.com) top list (via [nice-color-palettes](https://github.com/Experience-Monks/nice-color-palettes)).
 
 🤷‍♂️ Honestly, I put the framework together for my own needs, so it’s a bit rough around the edges and the naming isn’t
 great. _It’s not how I normally write code._
@@ -367,6 +370,10 @@ A collection of generative art pieces (ordered by name).
   </tr>
   <tr>
     <td width="33%" align="center">
+      <a href="arts/flowforce/fascia.png"><img src="arts/flowforce/fascia_thumb.png" alt="Fascia" width="100%"/></a>
+      <br><b>Fascia</b>
+    </td>
+    <td width="33%" align="center">
       <a href="arts/flowforce/fire.png"><img src="arts/flowforce/fire_thumb.png" alt="Fire" width="100%"/></a>
       <br><b>Fire</b>
     </td>
@@ -374,12 +381,12 @@ A collection of generative art pieces (ordered by name).
       <a href="arts/flowforce/flow10.png"><img src="arts/flowforce/flow10_thumb.png" alt="Flow10" width="100%"/></a>
       <br><b>Flow10</b>
     </td>
+  </tr>
+  <tr>
     <td width="33%" align="center">
       <a href="arts/flowforce/flowforce1.png"><img src="arts/flowforce/flowforce1_thumb.png" alt="Flowforce1" width="100%"/></a>
       <br><b>Flowforce1</b>
     </td>
-  </tr>
-  <tr>
     <td width="33%" align="center">
       <a href="arts/flowforce/flowforce2.png"><img src="arts/flowforce/flowforce2_thumb.png" alt="Flowforce2" width="100%"/></a>
       <br><b>Flowforce2</b>
@@ -388,12 +395,12 @@ A collection of generative art pieces (ordered by name).
       <a href="arts/flowforce/flowforce3.png"><img src="arts/flowforce/flowforce3_thumb.png" alt="Flowforce3" width="100%"/></a>
       <br><b>Flowforce3</b>
     </td>
+  </tr>
+  <tr>
     <td width="33%" align="center">
       <a href="arts/flowforce/flowforce4.png"><img src="arts/flowforce/flowforce4_thumb.png" alt="Flowforce4" width="100%"/></a>
       <br><b>Flowforce4</b>
     </td>
-  </tr>
-  <tr>
     <td width="33%" align="center">
       <a href="arts/flowforce/glst1.png"><img src="arts/flowforce/glst1_thumb.png" alt="Glst1" width="100%"/></a>
       <br><b>Glst1</b>
@@ -402,12 +409,12 @@ A collection of generative art pieces (ordered by name).
       <a href="arts/flowforce/glst2.png"><img src="arts/flowforce/glst2_thumb.png" alt="Glst2" width="100%"/></a>
       <br><b>Glst2</b>
     </td>
+  </tr>
+  <tr>
     <td width="33%" align="center">
       <a href="arts/flowforce/interruption.png"><img src="arts/flowforce/interruption_thumb.png" alt="Interruption" width="100%"/></a>
       <br><b>Interruption</b>
     </td>
-  </tr>
-  <tr>
     <td width="33%" align="center">
       <a href="arts/flowforce/monolith.png"><img src="arts/flowforce/monolith_thumb.png" alt="Monolith" width="100%"/></a>
       <br><b>Monolith</b>
@@ -416,12 +423,12 @@ A collection of generative art pieces (ordered by name).
       <a href="arts/flowforce/noisepads.png"><img src="arts/flowforce/noisepads_thumb.png" alt="Noisepads" width="100%"/></a>
       <br><b>Noisepads</b>
     </td>
+  </tr>
+  <tr>
     <td width="33%" align="center">
       <a href="arts/flowforce/orb1.png"><img src="arts/flowforce/orb1_thumb.png" alt="Orb1" width="100%"/></a>
       <br><b>Orb1</b>
     </td>
-  </tr>
-  <tr>
     <td width="33%" align="center">
       <a href="arts/flowforce/orb2.png"><img src="arts/flowforce/orb2_thumb.png" alt="Orb2" width="100%"/></a>
       <br><b>Orb2</b>
@@ -430,12 +437,12 @@ A collection of generative art pieces (ordered by name).
       <a href="arts/flowforce/orb3-1.png"><img src="arts/flowforce/orb3-1_thumb.png" alt="Orb3 1" width="100%"/></a>
       <br><b>Orb3 1</b>
     </td>
+  </tr>
+  <tr>
     <td width="33%" align="center">
       <a href="arts/flowforce/orb3-2.png"><img src="arts/flowforce/orb3-2_thumb.png" alt="Orb3 2" width="100%"/></a>
       <br><b>Orb3 2</b>
     </td>
-  </tr>
-  <tr>
     <td width="33%" align="center">
       <a href="arts/flowforce/perl_1.png"><img src="arts/flowforce/perl_1_thumb.png" alt="Perl 1" width="100%"/></a>
       <br><b>Perl 1</b>
@@ -444,12 +451,12 @@ A collection of generative art pieces (ordered by name).
       <a href="arts/flowforce/perl.png"><img src="arts/flowforce/perl_thumb.png" alt="Perl" width="100%"/></a>
       <br><b>Perl</b>
     </td>
+  </tr>
+  <tr>
     <td width="33%" align="center">
       <a href="arts/flowforce/surfing.png"><img src="arts/flowforce/surfing_thumb.png" alt="Surfing" width="100%"/></a>
       <br><b>Surfing</b>
     </td>
-  </tr>
-  <tr>
     <td width="33%" align="center">
       <a href="arts/flowforce/vivipard.png"><img src="arts/flowforce/vivipard_thumb.png" alt="Vivipard" width="100%"/></a>
       <br><b>Vivipard</b>
@@ -458,10 +465,14 @@ A collection of generative art pieces (ordered by name).
       <a href="arts/flowforce/vorflow.png"><img src="arts/flowforce/vorflow_thumb.png" alt="Vorflow" width="100%"/></a>
       <br><b>Vorflow</b>
     </td>
+  </tr>
+  <tr>
     <td width="33%" align="center">
       <a href="arts/flowforce/worms.png"><img src="arts/flowforce/worms_thumb.png" alt="Worms" width="100%"/></a>
       <br><b>Worms</b>
     </td>
+    <td width="33%"></td>
+    <td width="33%"></td>
   </tr>
 </table>
 
@@ -1613,4 +1624,4 @@ A collection of generative art pieces (ordered by name).
 
 ---
 
-🖼️ **276 works** across **42 collections** — and counting.
+🖼️ **277 works** across **42 collections** — and counting.

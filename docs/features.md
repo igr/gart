@@ -18,7 +18,7 @@ There is really **a lot of features**, and I'm not sure how to organize them, bu
 ## Color
 
 - Color spaces: RGBA, HSL, HSV, HSI, LAB, LCH, OKLAB, OKLCH, CMYK
-- Palettes: 173 cool + 15 mix + 112 colormaps (Carto, CET, ColorBrewer, Matplotlib, Ocean, Plotly, Tableau, etc.)
+- Palettes: 256 cool + 15 mix + 112 colormaps (Carto, CET, ColorBrewer, Matplotlib, Ocean, Plotly, Tableau, etc.)
 - Named colors: CssColors, NipponColors, RetroColors, MidCenturyColors, CyanotypeColors, BgColors
 - Functions: blendColors, lerpColor, lerpColors, lerpColorsOklch, colorDistance, colorMatrix, toFillPaint, toStrokePaint
 - PaletteGenerator — Dynamic palette generation
@@ -87,7 +87,7 @@ There is really **a lot of features**, and I'm not sure how to organize them, bu
 - Fluid dynamics: Navier-Stokes solver, Lattice Boltzmann, FluidSolver with particle rendering
 - Cellular automata: Elementary rules, Belousov-Zhabotinsky reaction
 - Reaction-diffusion (continuous): Gray-Scott, FitzHugh-Nagumo, Belousov-Zhabotinsky continuous, with 5-stop gradient coloring
-- Flow fields: Flow, FlowField, flow generators, StreamlineTracer (evenly-spaced streamlines)
+- Flow fields (`flow2`): VectorField (angles, curl, vortex; baked grids with bilinear reads), Euler/RK2/RK4 tracing by direction or velocity, moving point crowds, evenly-spaced streamlines with per-point clearance for tapering, debug arrows (old `flow` package deprecated)
 - Particles: Particle system, Gravitron
 - Box2D integration (gart-box2d module): JBox2D rigid body and particle physics, createContainer, World.particles()
 
