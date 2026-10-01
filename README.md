@@ -1338,11 +1338,15 @@ A collection of generative art pieces (ordered by name).
       <br><b>Sf13</b>
     </td>
     <td width="33%" align="center">
-      <a href="arts/sf/sf1.png"><img src="arts/sf/sf1_thumb.png" alt="Sf1" width="100%"/></a>
-      <br><b>Sf1</b>
+      <a href="arts/sf/sf14.png"><img src="arts/sf/sf14_thumb.png" alt="Sf14" width="100%"/></a>
+      <br><b>Sf14</b>
     </td>
   </tr>
   <tr>
+    <td width="33%" align="center">
+      <a href="arts/sf/sf1.png"><img src="arts/sf/sf1_thumb.png" alt="Sf1" width="100%"/></a>
+      <br><b>Sf1</b>
+    </td>
     <td width="33%" align="center">
       <a href="arts/sf/sf2.png"><img src="arts/sf/sf2_thumb.png" alt="Sf2" width="100%"/></a>
       <br><b>Sf2</b>
@@ -1351,12 +1355,12 @@ A collection of generative art pieces (ordered by name).
       <a href="arts/sf/sf3.png"><img src="arts/sf/sf3_thumb.png" alt="Sf3" width="100%"/></a>
       <br><b>Sf3</b>
     </td>
+  </tr>
+  <tr>
     <td width="33%" align="center">
       <a href="arts/sf/sf4.png"><img src="arts/sf/sf4_thumb.png" alt="Sf4" width="100%"/></a>
       <br><b>Sf4</b>
     </td>
-  </tr>
-  <tr>
     <td width="33%" align="center">
       <a href="arts/sf/sf5.png"><img src="arts/sf/sf5_thumb.png" alt="Sf5" width="100%"/></a>
       <br><b>Sf5</b>
@@ -1365,12 +1369,12 @@ A collection of generative art pieces (ordered by name).
       <a href="arts/sf/sf6.png"><img src="arts/sf/sf6_thumb.png" alt="Sf6" width="100%"/></a>
       <br><b>Sf6</b>
     </td>
+  </tr>
+  <tr>
     <td width="33%" align="center">
       <a href="arts/sf/sf7.png"><img src="arts/sf/sf7_thumb.png" alt="Sf7" width="100%"/></a>
       <br><b>Sf7</b>
     </td>
-  </tr>
-  <tr>
     <td width="33%" align="center">
       <a href="arts/sf/sf8.png"><img src="arts/sf/sf8_thumb.png" alt="Sf8" width="100%"/></a>
       <br><b>Sf8</b>
@@ -1379,7 +1383,6 @@ A collection of generative art pieces (ordered by name).
       <a href="arts/sf/sf9.png"><img src="arts/sf/sf9_thumb.png" alt="Sf9" width="100%"/></a>
       <br><b>Sf9</b>
     </td>
-    <td width="33%"></td>
   </tr>
 </table>
 
@@ -1624,4 +1627,4 @@ A collection of generative art pieces (ordered by name).
 
 ---
 
-🖼️ **277 works** across **42 collections** — and counting.
+🖼️ **278 works** across **42 collections** — and counting.
