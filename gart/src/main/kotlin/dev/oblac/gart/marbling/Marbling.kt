@@ -5,6 +5,7 @@ import dev.oblac.gart.Gartvas
 import dev.oblac.gart.Pixels
 import dev.oblac.gart.angle.Angle
 import dev.oblac.gart.angle.Degrees
+import dev.oblac.gart.pixels.shadeBlock
 import dev.oblac.gart.util.defaultWorkers
 import dev.oblac.gart.util.parallelForRows
 import dev.oblac.gart.vector.MutableVec2
@@ -117,8 +118,8 @@ class Marbling(val background: Ink = Ink.flat(Color.WHITE)) {
 
     /**
      * Fills [target] with the bath, one sample per pixel centre, or [aa] x [aa] samples averaged
-     * (the integer block mean, same as a box downsample). Rows are banded across [workers] and
-     * every pixel is its own walk, so the output does not depend on the worker count.
+     * (the integer block mean of [shadeBlock], same as a box downsample). Rows are banded across
+     * [workers] and every pixel is its own walk, so the output does not depend on the worker count.
      */
     fun render(target: Pixels, aa: Int = 1, workers: Int = defaultWorkers) {
         require(aa >= 1) { "aa must be at least 1" }
@@ -129,29 +130,11 @@ class Marbling(val background: Ink = Ink.flat(Color.WHITE)) {
             for (y in y0 until y1) {
                 var i = y * w
                 for (x in 0 until w) {
-                    px[i] = if (aa == 1) colorAt(x + 0.5f, y + 0.5f, p) else block(x, y, aa, p)
+                    px[i] = shadeBlock(x, y, aa) { sx, sy -> colorAt(sx, sy, p) }
                     i++
                 }
             }
         }
-    }
-
-    private fun block(x: Int, y: Int, aa: Int, p: MutableVec2): Int {
-        var a = 0
-        var r = 0
-        var g = 0
-        var b = 0
-        for (j in 0 until aa) {
-            for (i in 0 until aa) {
-                val c = colorAt(x + (i + 0.5f) / aa, y + (j + 0.5f) / aa, p)
-                a += (c ushr 24) and 0xFF
-                r += (c ushr 16) and 0xFF
-                g += (c ushr 8) and 0xFF
-                b += c and 0xFF
-            }
-        }
-        val n = aa * aa
-        return ((a / n) shl 24) or ((r / n) shl 16) or ((g / n) shl 8) or (b / n)
     }
 
     /**
