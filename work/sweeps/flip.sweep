@@ -1,0 +1,63 @@
+# flip - all-circles on a flip-disc board, stopped while a ripple turns the discs from pale to red.
+# the sun is never drawn, the turned discs make it. the front is a ring of discs on edge (slivers),
+# and the bounces off the stop leave rings of flat red ellipses behind it.
+# run:  just sweep flip     (writes pngs + one contact sheet per branch to output/flip)
+# hero: seed 1, defaults (83de3d38).
+#
+# first pass 2026-10-02, by eye:
+# - ink backs on a paper board (all-circles turned around) are heavy, the whole page goes dark. pale
+#   backs on an ink board read best: the old picture is a field of pale circles, the new one is red.
+#   backs lighter than the paper glow a bit more. paper backs keep it to four RetroColors (paper,
+#   ink, red, gray01 edges), and the cut discs at the border melt into it. paper won.
+# - a damped spring (step response) ties the ring spacing to the turn: rings 3.5x the front width.
+#   at low damping the discs swing back past the edge and show pale again inside the sun. noisy.
+#   a fall and a bounce off a stop (keep = restitution) keeps each turned disc on the red side.
+# - keep 0.7 puts the first bounce near the edge again. that is a second dark ring, a target.
+#   at 0.55 the rings go faint. 0.62 gives one clear echo ring and a faint second one.
+# - n 18 is too coarse for the rings. at 30 and up the edge dash gets too thin to see.
+#
+# the sweep, same day:
+# - place: at thumb size the flat discs read as dark slits, so the sun looks striped, a bit retro.
+#   reach 0.32 is a coin, 0.48 fills the board and the ring falls off the frame. upper right
+#   (0.7, 0.38, reach 0.44) cut by the border is the bold crop. all-circles' spot (0.605) keeps
+#   the whole ring on the page, that is the hero.
+# - motion: rise 2 with keep 0.7 is a target. rise 4.5 with keep 0.7 stripes the middle.
+# - board: n 16 is bold but the rings get coarse. size 0.98 turns the gaps into ink stars, like the
+#   fat end of all-circles. 0.84 is a sieve.
+# - slop: 0 is clean and symmetric, too much a machine. 0.6 pushes single discs out of the ring.
+#   0.35. a cast of seeds 1:12 at the hero spot looks all the same. 1 has the roundest ring.
+#
+# review 1, 2026-10-02: Igor, "reduce white circle radius for couple of px". the pale side got its
+# own knob, pale 0.89 (2.1 px under the red side at n 22). the red discs stay at 0.98, so the sun
+# is a touch fatter than the field round it. hero e05f4fc1 -> 79ba4570, same layout.
+# review 2, same day: "decrease a bit more - see margin, there is tiny arc from circles bellow it".
+# the edge rows sit under the 40px border with their centres at 23.3 px, so 4 px of each one
+# peeked out. pale 0.89 -> 0.71 (16.5 px, the edge ends 0.2 px short of the border). the pixel
+# lines next to the border are pure ink now. hero 79ba4570 -> f59255a5.
+# review 3, same day: "dont draw 3d component of the circle (the height of it, grey)". the edge is
+# gone, and so are the thick knob and the gray01 ink. a disc is only its face now, an ellipse flat
+# by cos th, so a disc on its edge is a sliver or nothing. three RetroColors left. hero -> 83de3d38.
+
+art    = palecircles.flip.FlipKt
+module = arts:palecircles
+out    = output/flip
+par    = 6
+
+# where the ripple started and how far it got
+[branch place]
+dropx = 0.5,0.605,0.7
+dropy = 0.38,0.605,0.66
+reach = 0.32,0.38,0.46
+
+# the seed only moves the timing slop of each disc
+[branch seed]
+seed = 1:4
+
+# Settled - knobs until 2026-10-02, now consts in the source with the same values: N 22, RISE 3.2,
+# KEEP 0.62, SIZE 0.98, PALE 0.71, SLOP 0.35 (hero 83de3d38, bit-exact). PALE is fitted to N 22, so N
+# cannot move alone. what their sweeps showed:
+# rise = 2,3.2,4.5 x keep = 0.5,0.62,0.7 - rise 2 with keep 0.7 is a target, rise 4.5 with keep 0.7
+#   stripes the middle. keep 0.55 makes the rings faint
+# n = 16,22,28 x size = 0.84,0.92,0.98 - n 16 is bold but the rings get coarse, 30 and up the edge
+#   dash is too thin. size 0.98 turns the gaps into ink stars, 0.84 is a sieve
+# slop = 0,0.35,0.6 - 0 is clean and symmetric, too much a machine. 0.6 pushes single discs out of the ring
