@@ -370,6 +370,10 @@ A collection of generative art pieces (ordered by name).
   </tr>
   <tr>
     <td width="33%" align="center">
+      <a href="arts/flowforce/fascia-pal5-seed30.png"><img src="arts/flowforce/fascia-pal5-seed30_thumb.png" alt="Fascia Pal5 Seed30" width="100%"/></a>
+      <br><b>Fascia Pal5 Seed30</b>
+    </td>
+    <td width="33%" align="center">
       <a href="arts/flowforce/fascia.png"><img src="arts/flowforce/fascia_thumb.png" alt="Fascia" width="100%"/></a>
       <br><b>Fascia</b>
     </td>
@@ -377,12 +381,12 @@ A collection of generative art pieces (ordered by name).
       <a href="arts/flowforce/fire.png"><img src="arts/flowforce/fire_thumb.png" alt="Fire" width="100%"/></a>
       <br><b>Fire</b>
     </td>
+  </tr>
+  <tr>
     <td width="33%" align="center">
       <a href="arts/flowforce/flow10.png"><img src="arts/flowforce/flow10_thumb.png" alt="Flow10" width="100%"/></a>
       <br><b>Flow10</b>
     </td>
-  </tr>
-  <tr>
     <td width="33%" align="center">
       <a href="arts/flowforce/flowforce1.png"><img src="arts/flowforce/flowforce1_thumb.png" alt="Flowforce1" width="100%"/></a>
       <br><b>Flowforce1</b>
@@ -391,12 +395,12 @@ A collection of generative art pieces (ordered by name).
       <a href="arts/flowforce/flowforce2.png"><img src="arts/flowforce/flowforce2_thumb.png" alt="Flowforce2" width="100%"/></a>
       <br><b>Flowforce2</b>
     </td>
+  </tr>
+  <tr>
     <td width="33%" align="center">
       <a href="arts/flowforce/flowforce3.png"><img src="arts/flowforce/flowforce3_thumb.png" alt="Flowforce3" width="100%"/></a>
       <br><b>Flowforce3</b>
     </td>
-  </tr>
-  <tr>
     <td width="33%" align="center">
       <a href="arts/flowforce/flowforce4.png"><img src="arts/flowforce/flowforce4_thumb.png" alt="Flowforce4" width="100%"/></a>
       <br><b>Flowforce4</b>
@@ -405,12 +409,12 @@ A collection of generative art pieces (ordered by name).
       <a href="arts/flowforce/glst1.png"><img src="arts/flowforce/glst1_thumb.png" alt="Glst1" width="100%"/></a>
       <br><b>Glst1</b>
     </td>
+  </tr>
+  <tr>
     <td width="33%" align="center">
       <a href="arts/flowforce/glst2.png"><img src="arts/flowforce/glst2_thumb.png" alt="Glst2" width="100%"/></a>
       <br><b>Glst2</b>
     </td>
-  </tr>
-  <tr>
     <td width="33%" align="center">
       <a href="arts/flowforce/interruption.png"><img src="arts/flowforce/interruption_thumb.png" alt="Interruption" width="100%"/></a>
       <br><b>Interruption</b>
@@ -419,12 +423,12 @@ A collection of generative art pieces (ordered by name).
       <a href="arts/flowforce/monolith.png"><img src="arts/flowforce/monolith_thumb.png" alt="Monolith" width="100%"/></a>
       <br><b>Monolith</b>
     </td>
+  </tr>
+  <tr>
     <td width="33%" align="center">
       <a href="arts/flowforce/noisepads.png"><img src="arts/flowforce/noisepads_thumb.png" alt="Noisepads" width="100%"/></a>
       <br><b>Noisepads</b>
     </td>
-  </tr>
-  <tr>
     <td width="33%" align="center">
       <a href="arts/flowforce/orb1.png"><img src="arts/flowforce/orb1_thumb.png" alt="Orb1" width="100%"/></a>
       <br><b>Orb1</b>
@@ -433,12 +437,12 @@ A collection of generative art pieces (ordered by name).
       <a href="arts/flowforce/orb2.png"><img src="arts/flowforce/orb2_thumb.png" alt="Orb2" width="100%"/></a>
       <br><b>Orb2</b>
     </td>
+  </tr>
+  <tr>
     <td width="33%" align="center">
       <a href="arts/flowforce/orb3-1.png"><img src="arts/flowforce/orb3-1_thumb.png" alt="Orb3 1" width="100%"/></a>
       <br><b>Orb3 1</b>
     </td>
-  </tr>
-  <tr>
     <td width="33%" align="center">
       <a href="arts/flowforce/orb3-2.png"><img src="arts/flowforce/orb3-2_thumb.png" alt="Orb3 2" width="100%"/></a>
       <br><b>Orb3 2</b>
@@ -447,12 +451,12 @@ A collection of generative art pieces (ordered by name).
       <a href="arts/flowforce/perl_1.png"><img src="arts/flowforce/perl_1_thumb.png" alt="Perl 1" width="100%"/></a>
       <br><b>Perl 1</b>
     </td>
+  </tr>
+  <tr>
     <td width="33%" align="center">
       <a href="arts/flowforce/perl.png"><img src="arts/flowforce/perl_thumb.png" alt="Perl" width="100%"/></a>
       <br><b>Perl</b>
     </td>
-  </tr>
-  <tr>
     <td width="33%" align="center">
       <a href="arts/flowforce/surfing.png"><img src="arts/flowforce/surfing_thumb.png" alt="Surfing" width="100%"/></a>
       <br><b>Surfing</b>
@@ -461,17 +465,16 @@ A collection of generative art pieces (ordered by name).
       <a href="arts/flowforce/vivipard.png"><img src="arts/flowforce/vivipard_thumb.png" alt="Vivipard" width="100%"/></a>
       <br><b>Vivipard</b>
     </td>
+  </tr>
+  <tr>
     <td width="33%" align="center">
       <a href="arts/flowforce/vorflow.png"><img src="arts/flowforce/vorflow_thumb.png" alt="Vorflow" width="100%"/></a>
       <br><b>Vorflow</b>
     </td>
-  </tr>
-  <tr>
     <td width="33%" align="center">
       <a href="arts/flowforce/worms.png"><img src="arts/flowforce/worms_thumb.png" alt="Worms" width="100%"/></a>
       <br><b>Worms</b>
     </td>
-    <td width="33%"></td>
     <td width="33%"></td>
   </tr>
 </table>
@@ -967,11 +970,15 @@ A collection of generative art pieces (ordered by name).
       <br><b>Around</b>
     </td>
     <td width="33%" align="center">
-      <a href="arts/palecircles/palecircles.png"><img src="arts/palecircles/palecircles_thumb.png" alt="Palecircles" width="100%"/></a>
-      <br><b>Palecircles</b>
+      <a href="arts/palecircles/flip.png"><img src="arts/palecircles/flip_thumb.png" alt="Flip" width="100%"/></a>
+      <br><b>Flip</b>
     </td>
   </tr>
   <tr>
+    <td width="33%" align="center">
+      <a href="arts/palecircles/palecircles.png"><img src="arts/palecircles/palecircles_thumb.png" alt="Palecircles" width="100%"/></a>
+      <br><b>Palecircles</b>
+    </td>
     <td width="33%" align="center">
       <a href="arts/palecircles/phases.png"><img src="arts/palecircles/phases_thumb.png" alt="Phases" width="100%"/></a>
       <br><b>Phases</b>
@@ -980,7 +987,6 @@ A collection of generative art pieces (ordered by name).
       <a href="arts/palecircles/shad.png"><img src="arts/palecircles/shad_thumb.png" alt="Shad" width="100%"/></a>
       <br><b>Shad</b>
     </td>
-    <td width="33%"></td>
   </tr>
 </table>
 
@@ -1535,16 +1541,19 @@ A collection of generative art pieces (ordered by name).
       <br><b>Echoes2</b>
     </td>
     <td width="33%" align="center">
-      <a href="arts/sun/sunNS1.png"><img src="arts/sun/sunNS1_thumb.png" alt="SunNS1" width="100%"/></a>
-      <br><b>SunNS1</b>
+      <a href="arts/sun/solargraph.png"><img src="arts/sun/solargraph_thumb.png" alt="Solargraph" width="100%"/></a>
+      <br><b>Solargraph</b>
     </td>
   </tr>
   <tr>
     <td width="33%" align="center">
+      <a href="arts/sun/sunNS1.png"><img src="arts/sun/sunNS1_thumb.png" alt="SunNS1" width="100%"/></a>
+      <br><b>SunNS1</b>
+    </td>
+    <td width="33%" align="center">
       <a href="arts/sun/sunlines.png"><img src="arts/sun/sunlines_thumb.png" alt="Sunlines" width="100%"/></a>
       <br><b>Sunlines</b>
     </td>
-    <td width="33%"></td>
     <td width="33%"></td>
   </tr>
 </table>
@@ -1627,4 +1636,4 @@ A collection of generative art pieces (ordered by name).
 
 ---
 
-🖼️ **278 works** across **42 collections** — and counting.
+🖼️ **281 works** across **42 collections** — and counting.
