@@ -1,6 +1,7 @@
 package liss1
 
 import dev.oblac.gart.Gart
+import dev.oblac.gart.color.BgColors
 import dev.oblac.gart.color.Palettes
 import dev.oblac.gart.color.alpha
 import dev.oblac.gart.gfx.fillOf
@@ -28,7 +29,7 @@ fun main() {
 
 
 fun draw(canvas: Canvas) {
-    canvas.drawRect(Rect(0f, 0f, d.wf, d.hf), fillOf(0xFF121212))
+    canvas.drawRect(Rect(0f, 0f, d.wf, d.hf), fillOf(BgColors.charcoalGray))
 
     // draw every tick
     drawLissajous(canvas, d.cx, d.cy, d.wf - 40, d.hf - 40)

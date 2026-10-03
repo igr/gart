@@ -22,6 +22,8 @@ object BgColors {
     val clottedCream = 0xFFF5EDE2.toInt()
     val linen = 0xFFF8F0E7.toInt()
     val milkMustache = 0xFFFAF5E7.toInt()
+    const val parchment = 0xFFF1E9D6.toInt()
+    const val paperWhite = 0xFFFAF8F2.toInt()
 
     val dark01 = 0xFF18191A.toInt()
     val dark02 = 0xFF242526.toInt()
@@ -33,6 +35,7 @@ object BgColors {
     val richBlack = 0xFF0A0A0A.toInt()
     val coffeeBean = 0xFF1B1B1B.toInt()
     val charcoalGray = 0xFF121212.toInt()
+    const val plumCharcoal = 0xFF1D1B1E.toInt()
 
     val coolDark = 0xFF1a1a1a.toInt()
     val coolGray = 0xFFe5e5e5.toInt()

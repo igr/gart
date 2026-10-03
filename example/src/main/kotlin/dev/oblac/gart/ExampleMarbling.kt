@@ -1,6 +1,7 @@
 package dev.oblac.gart
 
 import dev.oblac.gart.angle.Degrees
+import dev.oblac.gart.color.BgColors
 import dev.oblac.gart.color.Palette
 import dev.oblac.gart.gfx.drawBlackText
 import dev.oblac.gart.io.detectHeadlessFlags
@@ -26,7 +27,7 @@ fun main(args: Array<String>) {
     val c = g.canvas
     c.clear(0xFFFFFFFF.toInt())
 
-    val paper = 0xFFF1E9D6.toInt()
+    val paper = BgColors.parchment
     val inks = Palette(0xFF24364F, 0xFFA0342C, 0xFFD9A441, 0xFF6F8F6A, 0xFF2B2B2B, 0xFFF6F1E6)
     val sw = Stopwatch()
 

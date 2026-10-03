@@ -1,5 +1,6 @@
 package dev.oblac.gart
 
+import dev.oblac.gart.color.BgColors
 import dev.oblac.gart.color.CssColors
 import dev.oblac.gart.dynagraph.DynaGraph
 import dev.oblac.gart.dynagraph.drawDynaGraphEdges
@@ -49,7 +50,7 @@ fun main() {
         if (f.new && graph.verticesCount < maxVerts) {
             growTips(graph, tips)
         }
-        c.clear(0xFFFAF8F2.toInt())
+        c.clear(BgColors.paperWhite)
         c.drawDynaGraphEdges(graph, paint = trunk)
         for (t in tips) c.drawCircle(graph.x(t), graph.y(t), 1.8f, tipFill)
     }

@@ -1,5 +1,6 @@
 package dev.oblac.gart
 
+import dev.oblac.gart.color.BgColors
 import dev.oblac.gart.dynagraph.DynaGraph
 import dev.oblac.gart.dynagraph.addCircle
 import dev.oblac.gart.dynagraph.drawDynaGraphEdges
@@ -46,7 +47,7 @@ fun main() {
             }
         }
 
-        c.clear(0xFFFAF8F2.toInt())
+        c.clear(BgColors.paperWhite)
         sp.clear()
         sp.drawDynaGraphEdges(dyg, samplesPerEdge = 60)
         sp.drawTo(c)

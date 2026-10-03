@@ -2,6 +2,7 @@ package spiral2
 
 import dev.oblac.gart.*
 import dev.oblac.gart.angle.Degrees
+import dev.oblac.gart.color.BgColors
 import dev.oblac.gart.color.Palettes
 import dev.oblac.gart.gfx.drawCircleArc
 import dev.oblac.gart.gfx.fillOf
@@ -31,7 +32,7 @@ private val pal = Palettes.cool73
 
 private fun draw(c: Canvas, d: Dimension) {
 
-    c.drawRect(Rect(0f, 0f, d.w.toFloat(), d.h.toFloat()), fillOf(0xFF121212))
+    c.drawRect(Rect(0f, 0f, d.w.toFloat(), d.h.toFloat()), fillOf(BgColors.charcoalGray))
 
     val right = makeCircles(d, 0, 20f).cropRect(d.w3, 0f, d.w3 * 2, d.h.toFloat() * 2)
     val left = makeCircles(d, 1, -10f).cropRect(0f, 0f, d.w3 * 2, d.h.toFloat() * 2)
