@@ -4,6 +4,7 @@ import dev.oblac.gart.vector.Vec3
 import org.jetbrains.skia.Point
 import kotlin.math.cos
 import kotlin.math.ln
+import kotlin.math.max
 import kotlin.math.sqrt
 import kotlin.random.Random
 
@@ -58,6 +59,16 @@ fun Random.rndGaussian(mean: Float = 0.0f, standardDeviation: Float = 1.0f): Flo
 }
 
 /**
+ * [rndGaussian] with float draws. It takes two [Random.nextFloat] values instead of two doubles,
+ * so it uses fewer random bits and gives other numbers. A float draw is exactly 0 about once in
+ * 17 million, so the first draw is lifted to 1e-7 before the log, and the result is never infinite.
+ */
+fun Random.rndGaussianf(mean: Float = 0f, standardDeviation: Float = 1f): Float {
+    val u = max(nextFloat(), 1e-7f)
+    return sqrt(-2f * ln(u)) * cos(TAUf * nextFloat()) * standardDeviation + mean
+}
+
+/**
  * Returns a uniformly distributed random point inside a disc of radius [r].
  */
 fun Random.rndInDisc(r: Float): Point {
@@ -95,6 +106,9 @@ fun rndsgn(): Int = Random.rndsgn()
 
 fun rndGaussian(mean: Float = 0.0f, standardDeviation: Float = 1.0f): Float =
     Random.rndGaussian(mean, standardDeviation)
+
+fun rndGaussianf(mean: Float = 0f, standardDeviation: Float = 1f): Float =
+    Random.rndGaussianf(mean, standardDeviation)
 
 fun rndInDisc(r: Float): Point = Random.rndInDisc(r)
 fun rndInBall(r: Float): Vec3 = Random.rndInBall(r)

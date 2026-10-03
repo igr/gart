@@ -13,6 +13,8 @@ data class Vec3(val x: Float, val y: Float, val z: Float) {
     operator fun plus(scalar: Number) = Vec3(x + scalar.toFloat(), y + scalar.toFloat(), z + scalar.toFloat())
     operator fun minus(other: Vec3) = Vec3(x - other.x, y - other.y, z - other.z)
     operator fun times(scalar: Number) = Vec3(x * scalar.toFloat(), y * scalar.toFloat(), z * scalar.toFloat())
+    // the same for a Float, without boxing it into a Number on every call
+    operator fun times(scalar: Float) = Vec3(x * scalar, y * scalar, z * scalar)
     operator fun times(other: Vec3) = Vec3(x * other.x, y * other.y, z * other.z)
     operator fun div(scalar: Number) = Vec3(x / scalar.toFloat(), y / scalar.toFloat(), z / scalar.toFloat())
 

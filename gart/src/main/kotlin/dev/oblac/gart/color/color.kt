@@ -70,6 +70,12 @@ fun argb(a: Int, r: Int, g: Int, b: Int): Int {
     return Color.makeARGB(a, r, g, b)
 }
 
+/**
+ * Packs channels in `0..1` with alpha 255, the same way as the float [argb]: each channel is
+ * cut to `0..255` (not rounded) and clamped.
+ */
+fun rgb(rf: Float, gf: Float, bf: Float): Int = argb(1f, rf, gf, bf)
+
 fun argb(af: Float, rf: Float, gf: Float, bf: Float): Int {
     val r = (rf * 255).toInt().coerceIn(0, 255)
     val g = (gf * 255).toInt().coerceIn(0, 255)
