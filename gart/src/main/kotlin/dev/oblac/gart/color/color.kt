@@ -36,7 +36,8 @@ fun bluef(color: Int): Float = blue(color) / 255f
 
 /**
  * Relative luminance (perceived brightness) of a packed ARGB [color], in `0..255`.
- * Uses Rec. 601 luma weights. For normalized `Color4f` with Rec. 709 weights, see `Color4f.luminance`.
+ * Uses Rec. 601 luma weights. For normalized `Color4f` with Rec. 709 weights, see `Color4f.luma`,
+ * and `Color4f.luminance` for the linear one.
  */
 fun lumOf(color: Int): Float = red(color) * 0.299f + green(color) * 0.587f + blue(color) * 0.114f
 

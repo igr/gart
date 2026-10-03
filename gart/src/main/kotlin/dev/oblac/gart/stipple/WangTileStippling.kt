@@ -1,7 +1,7 @@
 package dev.oblac.gart.stipple
 
 import dev.oblac.gart.Pixels
-import dev.oblac.gart.color.space.luminance
+import dev.oblac.gart.color.space.luma
 import dev.oblac.gart.color.space.of
 import org.jetbrains.skia.Color4f
 import kotlin.math.*
@@ -39,7 +39,7 @@ fun stippleWangTile(
 	val density = FloatArray(w * h)
 	for (y in 0 until h) {
 		for (x in 0 until w) {
-			density[y * w + x] = 1f - Color4f.of(bitmap[x, y]).luminance
+			density[y * w + x] = 1f - Color4f.of(bitmap[x, y]).luma
 		}
 	}
 

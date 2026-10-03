@@ -10,10 +10,18 @@ import kotlin.math.sqrt
 fun Number.color4f(): Color4f = Color4f(this.toInt())
 
 /**
- * Calculates luminance value according to
- * https://www.w3.org/TR/2008/REC-WCAG20-20081211/#relativeluminancedef
+ * Relative luminance, as WCAG defines it: the channels go linear with the sRGB curve, then
+ * they get the Rec. 709 weights. Black is 0, white is 1, and a mid grey of 0.5 is about 0.21.
+ * For the weights on the encoded channels, see [luma].
+ * https://www.w3.org/TR/WCAG21/#dfn-relative-luminance
  */
 val Color4f.luminance: Float
+    get() = (0.2126 * gammaAdjustSRGB(r.toDouble()) + 0.7152 * gammaAdjustSRGB(g.toDouble()) + 0.0722 * gammaAdjustSRGB(b.toDouble())).toFloat()
+
+/**
+ * Rec. 709 luma: the luminance weights on the encoded channels, with no linear step.
+ */
+val Color4f.luma: Float
     get() = 0.2126f * r + 0.7152f * g + 0.0722f * b
 
 /**

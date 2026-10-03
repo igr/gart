@@ -1,7 +1,7 @@
 package dev.oblac.gart.stipple
 
 import dev.oblac.gart.Pixels
-import dev.oblac.gart.color.space.luminance
+import dev.oblac.gart.color.space.luma
 import dev.oblac.gart.color.space.of
 import dev.oblac.gart.math.doubleLoop
 import org.jetbrains.skia.Color4f
@@ -73,7 +73,7 @@ private fun cellBrightness(bitmap: Pixels, cx: Int, cy: Int, dotSize: Int): Floa
     for (dy in 0 until min(dotSize, bitmap.d.h - cy)) {
         for (dx in 0 until min(dotSize, bitmap.d.w - cx)) {
             val pixel = bitmap[cx + dx, cy + dy]
-            total += Color4f.of(pixel).luminance
+            total += Color4f.of(pixel).luma
             count++
         }
     }

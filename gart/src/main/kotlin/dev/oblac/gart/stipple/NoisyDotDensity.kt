@@ -4,7 +4,7 @@ import dev.oblac.gart.MemPixels
 import dev.oblac.gart.Pixels
 import dev.oblac.gart.SampleMode.CLAMP
 import dev.oblac.gart.color.CssColors
-import dev.oblac.gart.color.space.luminance
+import dev.oblac.gart.color.space.luma
 import dev.oblac.gart.color.space.of
 import org.jetbrains.skia.Color
 import org.jetbrains.skia.Color4f
@@ -36,7 +36,7 @@ fun stippleNoisyDotDensity(
     val field = FloatArray(width * height)
 
     fun sourceDarkness(x: Int, y: Int): Float {
-        return 1f - Color4f.of(source.sampleNearest(x, y, CLAMP, backgroundColor)).luminance
+        return 1f - Color4f.of(source.sampleNearest(x, y, CLAMP, backgroundColor)).luma
     }
 
     fun smoothDarkness(x: Int, y: Int): Float {

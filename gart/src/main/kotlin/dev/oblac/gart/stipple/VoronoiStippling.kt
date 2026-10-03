@@ -1,7 +1,7 @@
 package dev.oblac.gart.stipple
 
 import dev.oblac.gart.Pixels
-import dev.oblac.gart.color.space.luminance
+import dev.oblac.gart.color.space.luma
 import dev.oblac.gart.color.space.of
 import org.jetbrains.skia.Color4f
 import kotlin.math.max
@@ -59,7 +59,7 @@ fun stippleVoronoi(
 	var totalDensity = 0.0
 	for (y in 0 until h) {
 		for (x in 0 until w) {
-			val lum = Color4f.of(pixels[x, y]).luminance
+			val lum = Color4f.of(pixels[x, y]).luma
 			// Skip pixels brighter than threshold
 			val d = if (lum > brightnessThreshold) 0f
 			else (1f - lum).pow(gamma)
