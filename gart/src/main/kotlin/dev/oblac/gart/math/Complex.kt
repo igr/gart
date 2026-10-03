@@ -105,6 +105,14 @@ fun arcsinh(z: Complex): Complex {
 fun roots(n: Int) =
     (1..n).map { exp(i * 2 * PI * it / n) }
 
+/**
+ * Pairs [re] and [im] into complex numbers, `re[k] + im[k]i`. Both arrays must have the same length.
+ */
+fun complexOf(re: DoubleArray, im: DoubleArray): Array<Complex> {
+    require(re.size == im.size) { "re and im must have the same length, got ${re.size} and ${im.size}" }
+    return Array(re.size) { Complex(re[it], im[it]) }
+}
+
 operator fun Number.plus(c: Complex) = Complex(this.toDouble() + c.real, c.imag)
 
 operator fun Number.minus(c: Complex) = Complex(this.toDouble() - c.real, -c.imag)

@@ -12,7 +12,8 @@ fun Float.i() = toInt()
 fun Long.i() = toInt()
 
 fun Int.isEven() = this % 2 == 0
-fun Int.isOdd() = this % 2 == 1
+fun Int.isOdd() = this % 2 != 0
+fun Int.isPowerOfTwo() = this > 0 && this and (this - 1) == 0
 fun Float.format(digits: Int) = "%.${digits}f".format(this)
 
 fun hypotFast(a: Float, b: Float): Float {
