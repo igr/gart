@@ -7,8 +7,9 @@ import kotlin.math.pow
 /**
  * Light to tone: `(1 - e^(-exposure l))^gamma`. Any light `l >= 0` maps into `0..1`.
  *
- * The exponential rolls bright light off toward white, so nothing clips. A gamma over 1 sinks
- * the mid tones.
+ * The exponential rolls bright light off toward white, so nothing clips. It works like film:
+ * each extra unit of light exposes the same share of the film that is still clear. A gamma over 1
+ * sinks the mid tones.
  */
 class ToneCurve(val exposure: Float, val gamma: Float = 1f) {
     operator fun invoke(l: Float): Float = (1f - exp(-exposure * l)).pow(gamma)
@@ -16,7 +17,8 @@ class ToneCurve(val exposure: Float, val gamma: Float = 1f) {
 
 /**
  * Ink to paper in 256 steps, mixed in linear light (gamma 2.2), the way printed dots mix from
- * a step back. A plain sRGB lerp sits too dark in the mid tones.
+ * a step back. Each channel goes to linear light with the power 2.2, mixes there, and goes back
+ * with the power 1/2.2. A plain sRGB lerp sits too dark in the mid tones.
  */
 class InkRamp(ink: Int, paper: Int) {
 
@@ -27,7 +29,7 @@ class InkRamp(ink: Int, paper: Int) {
     }
 
     /**
-     * The colour at [t]: 0 is the ink, 1 is the paper. Values outside `0..1` clamp.
+     * The color at [t]: 0 is the ink, 1 is the paper. Values outside `0..1` clamp.
      */
     fun at(t: Float): Int = lut[(t.coerceIn(0f, 1f) * 255f + 0.5f).toInt()]
 

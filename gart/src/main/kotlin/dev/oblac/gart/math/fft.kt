@@ -14,6 +14,10 @@ import kotlin.math.sin
  *
  * The twiddle factors come from a running product, not from a table. This keeps the code
  * short, but the error grows with the length.
+ *
+ * Reference: Cooley, J. W. and Tukey, J. W. (1965). An algorithm for the machine calculation of
+ * complex Fourier series. Mathematics of Computation 19(90), 297-301.
+ * <https://doi.org/10.1090/S0025-5718-1965-0178586-1>
  */
 fun fftInPlace(re: DoubleArray, im: DoubleArray, inverse: Boolean = false) {
     val n = re.size
