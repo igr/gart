@@ -2264,3 +2264,13 @@ internal val cool_256 = Palette(
     0xff508ea2,
     0xff17486f
 )
+internal val cool_257 = Palette(
+    0xff76687a,
+    0xffc8b4a0,
+    0xffd0703c,
+    0xffe8583a,
+    0xffff4a28,
+    0xff13333c,
+    0xff58748c,
+    0xfff2d2be
+)

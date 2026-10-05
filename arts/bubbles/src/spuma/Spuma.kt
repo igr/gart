@@ -8,6 +8,7 @@ import dev.oblac.gart.color.bluef
 import dev.oblac.gart.color.darken
 import dev.oblac.gart.color.greenf
 import dev.oblac.gart.color.redf
+import dev.oblac.gart.color.space.MutableColor4f
 import dev.oblac.gart.gfx.drawVignette
 import dev.oblac.gart.io.detectHeadlessFlags
 import dev.oblac.gart.io.ensureExtension
@@ -233,9 +234,9 @@ private class Foam(bubs: List<Bub>) {
 // worked out at the call site so the maths stays in the order it was tuned in
 private fun gauss(dx: Float, dy: Float, den: Float) = exp(-(dx * dx + dy * dy) / den)
 
-// one sample of the foam. rgb out through a flat array, because seven million boxed colour
+// one sample of the foam. rgb out through one reused colour, because seven million new colour
 // objects is how a render dies
-private fun sample(sx: Float, sy: Float, f: Foam, out: FloatArray) {
+private fun sample(sx: Float, sy: Float, f: Foam, out: MutableColor4f) {
     val cands = f.at(sx, sy)
 
     // owner = least power distance. thats the whole voronoi
@@ -266,9 +267,7 @@ private fun sample(sx: Float, sy: Float, f: Foam, out: FloatArray) {
             vg += (liqG - vg + 0.10f) * hI
             vb += (liqB - vb + 0.10f) * hI
         }
-        out[0] = vr
-        out[1] = vg
-        out[2] = vb
+        out.set(vr, vg, vb)
         return
     }
 
@@ -368,9 +367,7 @@ private fun sample(sx: Float, sy: Float, f: Foam, out: FloatArray) {
     val gmul = ((r1 - 5f) / 14f).coerceIn(0f, 1f)
     val gI = (g1 + g2 * 0.28f) * p.glint * gmul * (if (popped) ghostGlint else 1f)
 
-    out[0] = lerp(lr, 1f, gI)
-    out[1] = lerp(lg, 1f, gI)
-    out[2] = lerp(lb, 1f, gI)
+    out.set(lerp(lr, 1f, gI), lerp(lg, 1f, gI), lerp(lb, 1f, gI))
 }
 
 // the exposure -----
@@ -388,7 +385,7 @@ private fun render(g: Gartvas) {
     // banded over the cores. every row belongs to one thread, so the picture is the same
     // whatever the core count - verify the usual way, render twice and shasum
     parallelForRows(H) { y0, y1 ->
-        val one = FloatArray(3)
+        val one = MutableColor4f()
         for (y in y0 until y1) {
             val ky = 0.5f - y.toFloat() / H
             for (x in 0 until W) {
@@ -397,9 +394,9 @@ private fun render(g: Gartvas) {
                 var ab = 0f
                 for (sy in 0 until SS) for (sx in 0 until SS) {
                     sample(x + (sx + 0.5f) / SS, y + (sy + 0.5f) / SS, foam, one)
-                    ar += one[0]
-                    ag += one[1]
-                    ab += one[2]
+                    ar += one.r
+                    ag += one.g
+                    ab += one.b
                 }
 
                 // one slow key light across the tank, mottle in the liquid, grain over the lot

@@ -259,6 +259,7 @@ object Palettes {
     val cool254 = cool_254
     val cool255 = cool_255
     val cool256 = cool_256
+    val cool257 = cool_257
 
 
     val mix1 = mix_1
@@ -470,7 +471,7 @@ object Palettes {
     }
 
     /** How many cool palettes there are: `cool1` to `cool$COOL_COUNT`. Bump it with every new one. */
-    const val COOL_COUNT = 256
+    const val COOL_COUNT = 257
 
     /** Every cool palette with exactly [size] colors, in cool order. */
     fun coolPalettesOfSize(size: Int): List<Palette> =
@@ -734,6 +735,7 @@ object Palettes {
             254 -> cool254
             255 -> cool255
             256 -> cool256
+            257 -> cool257
             else -> throw IllegalArgumentException("Unknown COOL palette number: $num")
         }
     }

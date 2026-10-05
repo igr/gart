@@ -1,5 +1,6 @@
 package dev.oblac.gart.color
 
+import dev.oblac.gart.color.space.MutableColor4f
 import kotlin.math.pow
 
 /**
@@ -36,8 +37,9 @@ data class Tint(val r: Float, val g: Float, val b: Float) {
  * Greys and black give exactly [Tint.NEUTRAL]. The alpha of [color] does not count.
  */
 fun tintOf(color: Int): Tint {
-    val v = FloatArray(3) { (((color shr (16 - 8 * it)) and 255) / 255f).pow(2.2f) }
-    if (v[0] == v[1] && v[1] == v[2]) return Tint.NEUTRAL // exactly 1, so a grey light changes no bits
-    val y = 0.2126f * v[0] + 0.7152f * v[1] + 0.0722f * v[2]
-    return Tint(v[0] / y, v[1] / y, v[2] / y)
+    fun lin(shift: Int) = (((color shr shift) and 255) / 255f).pow(2.2f)
+    val v = MutableColor4f(lin(16), lin(8), lin(0))
+    if (v.r == v.g && v.g == v.b) return Tint.NEUTRAL // exactly 1, so a grey light changes no bits
+    val y = 0.2126f * v.r + 0.7152f * v.g + 0.0722f * v.b
+    return Tint(v.r / y, v.g / y, v.b / y)
 }
