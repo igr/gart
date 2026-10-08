@@ -18,7 +18,7 @@ There is really **a lot of features**, and I'm not sure how to organize them, bu
 ## Color
 
 - Color spaces: RGBA, HSL, HSV, HSI, LAB, LCH, OKLAB, OKLCH, CMYK
-- Palettes: 256 cool + 15 mix + 112 colormaps (Carto, CET, ColorBrewer, Matplotlib, Ocean, Plotly, Tableau, etc.)
+- Palettes: 257 cool + 15 mix + 112 colormaps (Carto, CET, ColorBrewer, Matplotlib, Ocean, Plotly, Tableau, etc.)
 - Named colors: CssColors, NipponColors, RetroColors, MidCenturyColors, CyanotypeColors, BgColors
 - Functions: blendColors, lerpColor, lerpColors, lerpColorsOklch, colorDistance, colorMatrix, toFillPaint, toStrokePaint
 - PaletteGenerator — Dynamic palette generation
