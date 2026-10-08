@@ -190,6 +190,7 @@ Free functions operating on `Pixels` / `Gartmap`:
 | `createScaledPixels` | `(input: Pixels, newD: Dimension): Pixels` | `pixels/scalePixels.kt` |
 | `floodFill` | `(m: Gartmap, start: Pixel, fillColor: Int, shouldFill: (Int)->Float)` | `pixels/floodFill.kt` |
 | `matchExactColor` / `matchNotColor` / `matchSimilarColor` | predicate builders returning `(Int)->Float` (e.g. `matchSimilarColor(target, tolerance=30)`) | `pixels/floodFill.kt` |
+| `labelRegions` | `(wall: BooleanArray, w, h, label = IntArray(w*h)): Regions` — 4-connected regions between walls. `label` is -1 on a wall, else the region id; ids go in row order of each region's first cell. `Regions.touchesEdge()` flags the regions that are not closed | `pixels/regions.kt` |
 | `applyGaussianBlur` | `(b: Gartmap)` | `pixels/gaussianBlur.kt` |
 | `applyMotionBlur` | `(b: Gartmap, distance: Int, angle: Angle)` | `pixels/motionBlur.kt` |
 | `makeGray` | `(bitmap: Pixels)` | `pixels/gray.kt` |

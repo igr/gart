@@ -5,6 +5,7 @@ import dev.oblac.gart.Gartmap
 import dev.oblac.gart.math.divOrZero
 import dev.oblac.gart.math.length
 import dev.oblac.gart.pixels.boxDownsample
+import dev.oblac.gart.pixels.labelRegions
 import dev.oblac.gart.color.Palette
 import dev.oblac.gart.color.Palettes
 import dev.oblac.gart.color.colorScale
@@ -457,7 +458,7 @@ private class Net {
 
 private class Extraction(net: Net) {
     val crack = BooleanArray(GW * GH)                 // true = fissure
-    val label = IntArray(GW * GH) { -1 }              // -2 crack, >=0 plate id
+    val label = IntArray(GW * GH) { -1 }              // -1 crack, >=0 plate id
     val dx = IntArray(GW * GH)                         // 8SSEDT offset to nearest fissure (SS px)
     val dy = IntArray(GW * GH)
     val gape = FloatArray(GW * GH) { -1f }            // crack gape, then DT-propagated to plate pixels
@@ -534,67 +535,19 @@ private class Extraction(net: Net) {
     }
 
     private fun floodFill() {
-        val areaL = ArrayList<Int>()
-        val sumXL = ArrayList<Long>()
-        val sumYL = ArrayList<Long>()
-        val stack = IntArray(GW * GH)
-        for (start in 0 until GW * GH) {
-            if (crack[start]) {
-                label[start] = -2
-                continue
-            }
-            if (label[start] != -1) continue
-            val id = areaL.size
-            var a = 0
-            var sx = 0L
-            var sy = 0L
-            var sp = 0
-            stack[sp++] = start
-            label[start] = id
-            while (sp > 0) {
-                val cur = stack[--sp]
-                val cx = cur % GW
-                val cy = cur / GW
-                a++
-                sx += cx
-                sy += cy
-                if (cx > 0) {
-                    val n = cur - 1
-                    if (label[n] == -1 && !crack[n]) {
-                        label[n] = id
-                        stack[sp++] = n
-                    }
-                }
-                if (cx < GW - 1) {
-                    val n = cur + 1
-                    if (label[n] == -1 && !crack[n]) {
-                        label[n] = id
-                        stack[sp++] = n
-                    }
-                }
-                if (cy > 0) {
-                    val n = cur - GW
-                    if (label[n] == -1 && !crack[n]) {
-                        label[n] = id
-                        stack[sp++] = n
-                    }
-                }
-                if (cy < GH - 1) {
-                    val n = cur + GW
-                    if (label[n] == -1 && !crack[n]) {
-                        label[n] = id
-                        stack[sp++] = n
-                    }
-                }
-            }
-            areaL.add(a)
-            sumXL.add(sx)
-            sumYL.add(sy)
+        plateCount = labelRegions(crack, GW, GH, label).count
+        areaArr = IntArray(plateCount)
+        val sumX = LongArray(plateCount)
+        val sumY = LongArray(plateCount)
+        for (i in 0 until GW * GH) {
+            val l = label[i]
+            if (l < 0) continue
+            areaArr[l]++
+            sumX[l] += i % GW
+            sumY[l] += i / GW
         }
-        plateCount = areaL.size
-        areaArr = IntArray(plateCount) { areaL[it] }
-        cxArr = FloatArray(plateCount) { sumXL[it].toFloat() / areaArr[it] }
-        cyArr = FloatArray(plateCount) { sumYL[it].toFloat() / areaArr[it] }
+        cxArr = FloatArray(plateCount) { sumX[it].toFloat() / areaArr[it] }
+        cyArr = FloatArray(plateCount) { sumY[it].toFloat() / areaArr[it] }
         dead = BooleanArray(plateCount)
     }
 
@@ -605,7 +558,7 @@ private class Extraction(net: Net) {
             val l = label[i]
             if (l >= 0 && dead[l]) {
                 crack[i] = true
-                label[i] = -2
+                label[i] = -1
                 gape[i] = max(gape[i], 0f)
             }
         }
