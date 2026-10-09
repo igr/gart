@@ -50,7 +50,7 @@ fun main(args: Array<String>) {
         c.drawBrush(Point(440f, y), Point(690f, y), brush, ink, 3f, rnd)
         c.drawBrush(wave(730f, y, 250f, 28f), brush, ink, 3f, rnd)
         c.drawBrush(Point(1020f, y), Point(1370f, y), brush, ink, 3f, rnd, wobble = Wobble.hand(rnd))
-        y += 115f
+        y += 105f // 14 brushes, they have to stop above the hatching at 1500
     }
 
     // hatching: a circle with the hatch brush, a star cross-hatched in pencil

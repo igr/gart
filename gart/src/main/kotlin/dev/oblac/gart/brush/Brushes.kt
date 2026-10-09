@@ -1,6 +1,8 @@
 package dev.oblac.gart.brush
 
 import dev.oblac.gart.math.lerp
+import org.jetbrains.skia.Rect
+import kotlin.math.min
 
 /**
  * Stock brushes. All tuned for size 1 on a canvas around 1000 px; go to
@@ -93,6 +95,24 @@ object Brushes {
         pressure = Pressure.Bell(ends = 1f, peak = 1.5f, drift = 0.5f, spread = 0.7f),
     )
 
+    /**
+     * A flat nib, held at one [angle] for the whole stroke: degrees from the x axis, up to the
+     * right. Where the stroke runs across the nib it is [width] wide, where it runs along the nib
+     * it is [hair] thin, so the weight of a line comes from its direction only. Both in px at
+     * size 1. The ink pools a little where the pen lands and lifts.
+     *
+     * The stamp is a thin bar, so the stamps sit at most half the [hair] apart, or a stroke
+     * across the nib breaks into stripes.
+     */
+    fun nib(width: Float = 4f, hair: Float = 0.5f, angle: Float = 40f) = Brush(
+        tip = Tip.Custom(Rotate.NONE) { c, p ->
+            c.rotate(-angle)
+            c.drawRect(Rect.makeLTRB(-0.5f, -hair / width / 2f, 0.5f, hair / width / 2f), p)
+        },
+        weight = width, scatter = 0f, opacity = 1f, spacing = min(0.5f, hair / 2f),
+        pressure = Pressure.Bell(ends = 1.3f),
+    )
+
     /** Every stock brush by name, for knobs like `ps("brush", "pencil2B")`. */
     val all: Map<String, Brush> = linkedMapOf(
         "pen" to pen,
@@ -108,6 +128,7 @@ object Brushes {
         "spray" to spray,
         "marker" to marker,
         "hatch" to hatch,
+        "nib" to nib(),
     )
 
     fun of(name: String): Brush = all[name]
