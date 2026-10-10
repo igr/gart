@@ -15,6 +15,13 @@ class MathTest {
 	}
 
 	@Test
+	fun addDeg() {
+		assertEquals(60f, 50f.addDeg(10f), 0.001f)
+		assertEquals(5f, 355f.addDeg(10f), 0.001f)
+		assertEquals(355f, (-10f).addDeg(5f), 0.001f)
+	}
+
+	@Test
 	fun divOrZeroDivides() {
 		assertEquals(2f, divOrZero(6f, 3f))
 		assertEquals(0.3f / 0.7f, divOrZero(0.3f, 0.7f, 1e-3f))

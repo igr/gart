@@ -113,6 +113,45 @@ fun gaussianBlur(src: FloatArray, w: Int, h: Int, sigma: Float, tmp: FloatArray 
     }
 }
 
+/**
+ * Box blur of a [FloatArray] field, [passes] times each way. Three passes come close to a Gaussian
+ * with sigma `sqrt(r * (r + 1))`. A running sum does the work, so a big [r] costs the same as a small
+ * one. On a field with a very wide range of values, the running sum loses some precision.
+ * Edges are clamped like in [gaussianBlur]. Returns a new array, [src] stays as it is.
+ */
+fun boxBlur(src: FloatArray, w: Int, h: Int, r: Int, passes: Int = 3): FloatArray {
+    require(src.size == w * h) { "src must be w * h" }
+    require(r >= 0) { "r must not be negative, got $r" }
+    val a = src.copyOf()
+    val b = FloatArray(a.size)
+    repeat(passes) {
+        parallelForRows(h) { y0, y1 -> for (y in y0 until y1) boxRow(a, b, w, y, r) }
+        parallelForRows(w) { x0, x1 -> for (x in x0 until x1) boxColumn(b, a, w, h, x, r) }
+    }
+    return a
+}
+
+private fun boxRow(src: FloatArray, dst: FloatArray, w: Int, y: Int, r: Int) {
+    val k = 1f / (2 * r + 1)
+    val row = y * w
+    var acc = 0f
+    for (i in -r..r) acc += src[row + i.coerceIn(0, w - 1)]
+    for (x in 0 until w) {
+        dst[row + x] = acc * k
+        acc += src[row + min(x + r + 1, w - 1)] - src[row + max(x - r, 0)]
+    }
+}
+
+private fun boxColumn(src: FloatArray, dst: FloatArray, w: Int, h: Int, x: Int, r: Int) {
+    val k = 1f / (2 * r + 1)
+    var acc = 0f
+    for (i in -r..r) acc += src[i.coerceIn(0, h - 1) * w + x]
+    for (y in 0 until h) {
+        dst[y * w + x] = acc * k
+        acc += src[min(y + r + 1, h - 1) * w + x] - src[max(y - r, 0) * w + x]
+    }
+}
+
 private fun gaussianKernel1D(radius: Int, sigma: Double): DoubleArray {
     val size = 2 * radius + 1
     val kernel = DoubleArray(size)

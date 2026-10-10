@@ -3,6 +3,8 @@ package dev.oblac.gart.angle
 import dev.oblac.gart.math.DOUBLE_PIf
 import dev.oblac.gart.math.HALF_PIf
 import dev.oblac.gart.math.PIf
+import dev.oblac.gart.math.normalizeDeg
+import dev.oblac.gart.math.normalizeRad
 
 private const val RADIANS_TO_DEGREES = 180f / PIf
 
@@ -66,16 +68,7 @@ data class Radians(val value: Float) : Angle {
     override val radians = value
     override val degrees by lazy { value * RADIANS_TO_DEGREES }
 
-    override fun normalize(): Radians {
-        var result = value
-        while (result < 0) {
-            result += DOUBLE_PIf
-        }
-        while (result > DOUBLE_PIf) {
-            result -= DOUBLE_PIf
-        }
-        return Radians(result)
-    }
+    override fun normalize(): Radians = Radians(normalizeRad(value))
 
     companion object {
         val ZERO = Radians(0f)
@@ -94,17 +87,7 @@ data class Degrees(val value: Float) : Angle {
     override val radians by lazy { value * DEGREES_TO_RADIANS }
     override val degrees = value
 
-    // todo use math abs instead of while, eg. Degrees.of(mod(theta.degrees, 360.0f)),
-    override fun normalize(): Degrees {
-        var result = value
-        while (result < 0) {
-            result += 360
-        }
-        while (result > 360) {
-            result -= 360
-        }
-        return Degrees(result)
-    }
+    override fun normalize(): Degrees = Degrees(normalizeDeg(value))
 
     companion object {
         val ZERO = Degrees(0f)

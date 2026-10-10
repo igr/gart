@@ -11,31 +11,45 @@ fun Float.subDeg(delta: Number) = normalizeDeg(this - delta.toFloat())
 /**
  * Safe degrees' addition.
  */
-fun Float.addDeg(delta: Number) = normalizeDeg(this - delta.toFloat())
+fun Float.addDeg(delta: Number) = normalizeDeg(this + delta.toFloat())
 
 fun sinDeg(degrees: Number) = kotlin.math.sin(degrees.toFloat().toRadians())
 fun cosDeg(degrees: Number) = kotlin.math.cos(degrees.toFloat().toRadians())
 
-fun normalizeRad(rad: Float): Float {
-    var result = rad
-    while (result < 0) {
-        result += DOUBLE_PIf
-    }
-    while (result > DOUBLE_PIf) {
-        result -= DOUBLE_PIf
-    }
-    return result
+/**
+ * Wraps the angle [rad] into `0..2PI`, both ends kept. [wrapPi] wraps into `-PI..PI`.
+ */
+fun normalizeRad(rad: Float): Float = normalizeTurn(rad, DOUBLE_PIf)
+
+/**
+ * Wraps the angle [rad] into `-PI..PI`. Both ends stay: `PIf` gives `PIf`, `-PIf` gives `-PIf`.
+ * [normalizeRad] wraps into `0..2PI` instead.
+ *
+ * Up to two turns, it adds or subtracts one turn at a time. This is the loop that the pieces write
+ * by hand, so the bits are the same. Past two turns, it takes one remainder first. Then a big angle
+ * does not loop for a long time, and an infinite angle gives NaN, not a hang.
+ */
+fun wrapPi(rad: Float): Float {
+    var a = rad
+    if (kotlin.math.abs(a) > 2 * TAUf) a %= TAUf
+    while (a > PIf) a -= TAUf
+    while (a < -PIf) a += TAUf
+    return a
 }
 
-private fun normalizeDeg(deg: Float): Float {
-    var result = deg
-    while (result < 0) {
-        result += 360
-    }
-    while (result > 360) {
-        result -= 360
-    }
-    return result
+internal fun normalizeDeg(deg: Float): Float = normalizeTurn(deg, 360f)
+
+/**
+ * Wraps [v] into `0..turn`, both ends kept. Up to two turns, it adds or subtracts one turn at a time.
+ * This is the old loop, so the old pieces keep their bits. Past two turns, it takes one remainder first.
+ * Then a big value does not loop for a long time, and an infinite value gives NaN, not a hang.
+ */
+private fun normalizeTurn(v: Float, turn: Float): Float {
+    var a = v
+    if (kotlin.math.abs(a) > 2 * turn) a %= turn
+    while (a < 0f) a += turn
+    while (a > turn) a -= turn
+    return a
 }
 
 /**
