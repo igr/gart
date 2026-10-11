@@ -47,8 +47,6 @@ data class Gart(
 
     fun snapshot() = GartSnapshot(this)
 
-    fun rand(reply: Boolean) = GartRand(this.name, reply)
-
     override fun toString(): String {
         return "gȧrt! • $name"
     }

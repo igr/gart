@@ -11,7 +11,6 @@ There is really **a lot of features**, and I'm not sure how to organize them, bu
 - Window / WindowView — Swing display with keyboard/mouse handlers
 - Movie — MP4/GIF video recording (FFmpeg + GifSequenceWriter)
 - Frames — Frame timing, FPS control
-- GartRand — Deterministic random with replay
 - Sprite — Image with chainable transforms (rotate, translate, scale, flip)
 - DrawFrame / Drawing — Functional draw interface and abstract base class for rendering
 

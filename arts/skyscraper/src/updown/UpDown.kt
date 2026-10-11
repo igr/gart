@@ -21,7 +21,6 @@ fun main() {
 
     val w = gart.window()
     val g = gart.gartvas()
-    val rand = gart.rand(false)
 
     // Hot reload requires a real class to be created, not a lambda!
 

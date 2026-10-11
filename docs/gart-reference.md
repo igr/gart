@@ -113,7 +113,6 @@ All file paths are relative to the repo root; sources live under `gart/src/main/
 - `fun saveImage(canvas: Canvas, d = this.d, name = "$name.png")` / `fun saveImage(image: Image, name = "$name.png")` — overloads.
 - `fun saveMovie(movie: Movie, fps = this.fps, name = movie.name)` — encode buffered frames to disk.
 - `fun snapshot(): GartSnapshot` — frame-capture helper for view loops.
-- `fun rand(reply: Boolean): GartRand` — seeded/replayable RNG keyed on the gart name.
 
 ### Dimensions
 
@@ -267,10 +266,9 @@ All saving is in `media.kt`; files are written via `java.io.File(name)`, so `nam
 **MP4**: `class VideoRecorder(width, height, framesPerSecond=25)` — H.264 via JavaCPP/FFmpeg, encoding to an in-memory buffer. `video/VideoRecorder.kt`
 - `fun writeFrame(pixels: ByteArray)` (RGBA bytes), `fun finish(): ByteArray`, `fun close()`. Driven by `saveMp4ToFile`.
 
-### Snapshots & determinism
+### Snapshots
 
 - **`GartSnapshot`** — `class GartSnapshot(gart: Gart)` (`GartSnapshot.kt`) — capture/replay the canvas state inside a view loop: `fun freeze(targetCanvas: Canvas)`, `fun draw(targetCanvas: Canvas)`, `fun get(): Gartvas?`, `fun isCaptured(): Boolean`, `fun saveImage()`.
-- **`GartRand`** — `class GartRand(name, replay=false)` (`GartRand.kt`) — record/replay RNG for reproducible art: `fun f(min=0f, max=1f): Float`, `fun b(): Boolean`, `fun save()`. Replay reads `"$name.rand"`.
 
 ### Hot reload (brief)
 
