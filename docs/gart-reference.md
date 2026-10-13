@@ -883,6 +883,7 @@ Source: `dev/oblac/gart/gfx/canvas.kt`
 - `pixelate(gartvas: Gartvas, pixelSize: Int)` — downscale then nearest-neighbor upscale via `drawImageRect`. Source: `dev/oblac/gart/fx/pixelate.kt`.
 - `Image.scaleImage(newWidth: Int, newHeight: Int): Image` — resamples an Image onto a new raster surface. Source: `dev/oblac/gart/fx/scale.kt`.
 - `borderize(src: GartGG, border: Int, color: Int): GartGG` — clones a Gart into a larger one with a uniform colored border. Source: `dev/oblac/gart/fx/borderize.kt`.
+- `addScanlines(target: Pixels, pitch: Float = 4f, depth: Float = 0.3f)` — CRT scanlines, in place: row `y` is scaled by `1 - depth * sin²(π y / pitch)` through `colorScale`, alpha stays. The `addScanlines(gartvas: Gartvas, ...)` overload reads the canvas pixels and writes them back. Source: `dev/oblac/gart/fx/scanlines.kt`.
 
 ### Raw Skia effects commonly reached for
 
