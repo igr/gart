@@ -73,7 +73,7 @@ private fun drawTemplateImage(c: Canvas, d: Dimension) {
     triangles.forEachIndexed { i, t ->
         c.drawTriangle(t, fillOf(Palettes.cool56.safe(i)))
     }
-    voronoi.forEachIndexed { i, v ->
+    voronoi.forEachIndexed { _, v ->
         v.toPathPoints().let {
             c.drawPath(it.toPath(), strokeOf(Palettes.cool56[1], 3f))
         }

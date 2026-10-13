@@ -56,7 +56,7 @@ fun main() {
             val radius = 40f - ring * 6f
             val alpha = 0.15f + ring * 0.1f
             val glowPaint = paint().apply {
-                color = (((alpha * 255).toInt() shl 24) or 0x00e94560).toInt()
+                color = ((alpha * 255).toInt() shl 24) or 0x00e94560
             }
             c.drawCircle(d.cx, d.cy, radius + 20f, glowPaint)
         }

@@ -23,7 +23,7 @@ import org.jetbrains.skia.*
 import kotlin.math.cos
 import kotlin.math.sin
 
-val slide09 = DrawFrame { c, d, f ->
+val slide09 = DrawFrame { c, _, _ ->
     val labelFont = font(FontFamily.RethinkSans, screen.height * 0.020f)
     val labelPaint = white.toFillPaint()
     val headerFont = font(FontFamily.RethinkSans, screen.height * 0.032f)

@@ -224,7 +224,7 @@ internal class Adjacency {
 		if (a >= 0 && b >= 0) result[idx++] = createTriangle(a, b, newVertex)
 		if (d >= 0 && c >= 0) result[idx++] = createTriangle(d, c, newVertex)
 		if (a >= 0 && c >= 0) result[idx++] = createTriangle(a, newVertex, c)
-		if (b >= 0 && d >= 0) result[idx++] = createTriangle(b, d, newVertex)
+		if (b >= 0 && d >= 0) result[idx] = createTriangle(b, d, newVertex)
 		return result
 	}
 

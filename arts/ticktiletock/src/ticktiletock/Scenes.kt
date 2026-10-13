@@ -52,8 +52,8 @@ object Scenes {
 
 class SceneAWithFill2(private val d: Dimension, split: Int, private val m: Gartmap) : SceneX(d, split, paintTile2) {
     private val r: Array<Pair<Pixel, Int>> = Array(32) { Pixel(rndi(d.w), rndi(d.h)) to Palettes.cool9.random() }
-    override fun invoke(canvas: Canvas, d: Dimension) {
-        super.invoke(canvas, d)
+    override fun invoke(canvas: Canvas, dimension: Dimension) {
+        super.invoke(canvas, dimension)
         m.updatePixelsFromCanvas()
         r.forEach {
             floodFill(
@@ -72,9 +72,9 @@ open class SceneX(d: Dimension, split: Int, tilePainter: (Tile) -> Draw) : Draw 
         drawable = calcMatrix(matrix) { tilePainter(it) }
     }
 
-    override fun invoke(canvas: Canvas, d: Dimension) {
+    override fun invoke(canvas: Canvas, dimension: Dimension) {
         clear(canvas)
-        drawable(canvas, d)
+        drawable(canvas, dimension)
     }
 }
 

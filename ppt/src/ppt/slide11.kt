@@ -19,7 +19,7 @@ import dev.oblac.gart.text.drawStringInRect
 import org.jetbrains.skia.*
 import org.jetbrains.skia.ImageFilter.Companion.makeBlur
 
-val slide11 = DrawFrame { c, d, f ->
+val slide11 = DrawFrame { c, _, _ ->
     val labelFont = font(FontFamily.RethinkSans, screen.height * 0.020f)
     val labelPaint = white.toFillPaint()
 

@@ -11,7 +11,6 @@ fun main() {
     val gart = Gart.of("plasma4", 1024, 1024, 30)
     println(gart)
 
-    val w = gart.window()
     val g = gart.gartvas()
 
     //w.show(MyDraw(g)).hotReload(g)
@@ -128,9 +127,9 @@ private fun calcColor(value: Double, qx: Double, qy: Double, rx: Double, ry: Dou
 private class MyDraw(g: Gartvas) : Drawing(g) {
     val b = Gartmap(g)
 
-    override fun draw(canvas: Canvas, dimension: Dimension, frames: Frames) {
-        val time = frames.frame * animationSpeed
-        draw(b, dimension, time)
+    override fun draw(c: Canvas, d: Dimension, f: Frames) {
+        val time = f.frame * animationSpeed
+        draw(b, d, time)
         b.drawToCanvas()
     }
 }

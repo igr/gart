@@ -36,12 +36,8 @@ object CoordinateTransform {
         val x_orb = a * (cosE - e)
         val y_orb = a * sqrt(1f - e * e) * sinE
 
-        // Velocity in orbital plane
+        // Radius in orbital plane
         val r = a * (1f - e * cosE)
-        val n = sqrt(mu / (a * a * a))  // Mean motion
-
-        val vx_orb = -a * n * sinE / (1f - e * cosE) * r / a
-        val vy_orb = a * n * sqrt(1f - e * e) * cosE / (1f - e * cosE) * r / a
 
         // Simplified velocity calculation
         val factor = sqrt(mu * a) / r

@@ -61,7 +61,6 @@ fun main() {
 
     // paint
 
-    val marker = 6.seconds.toFrames(gart.fps)
     val markerMiddle = 3.seconds.toFrames(gart.fps)
     val w = gart.window()
     var image = g.snapshot()

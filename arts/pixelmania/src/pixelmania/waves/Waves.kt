@@ -20,7 +20,6 @@ fun main() {
     println(gart)
 
     val g = gart.gartvas()
-    val d = g.d
     val c = g.canvas
 
     val paths = draw(g.canvas, g.d)
@@ -53,7 +52,7 @@ fun main() {
             }
         }
     }
-    paths.forEachIndexed { index, path ->
+    paths.forEachIndexed { _, path ->
         if (bw) {
             c.drawPath(path, strokeOfBlack(20f))
         } else {

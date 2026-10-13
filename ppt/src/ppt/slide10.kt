@@ -20,7 +20,7 @@ import dev.oblac.gart.text.drawTextOnPath
 import org.jetbrains.skia.*
 import org.jetbrains.skia.paragraph.*
 
-val slide10 = DrawFrame { c, d, f ->
+val slide10 = DrawFrame { c, _, _ ->
     val labelFont = font(FontFamily.RethinkSans, screen.height * 0.020f)
     val labelPaint = white.toFillPaint()
 

@@ -57,8 +57,7 @@ fun ditherContrastAware(
             bitmap.setBlock(x, y, pixelSize, RGBA.of(newR, newG, newB, oldColor.a).value)
             visited[y * width + x] = true
 
-            // Compute luminance of original pixel for weight calculation
-            val origLum = (0.299 * oldColor.r + 0.587 * oldColor.g + 0.114 * oldColor.b) / 255.0
+            // Compute luminance of the error for weight calculation
             val errorLum = (0.299 * errorR + 0.587 * errorG + 0.114 * errorB) / 255.0
 
             // Calculate weights for circular mask

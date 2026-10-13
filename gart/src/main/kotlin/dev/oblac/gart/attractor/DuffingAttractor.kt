@@ -13,7 +13,6 @@ class DuffingAttractor(
     override fun compute(p: Point3, dt: Float): Point3 {
         val x = p.x
         val y = p.y
-        val z = p.z
 
         val x1 = x + dt * y
         val y1 = y + dt * (x - x * x * x - a * y + b * cos(w * t))

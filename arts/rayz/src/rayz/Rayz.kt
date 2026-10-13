@@ -20,7 +20,6 @@ fun main() {
     val gart = Gart.of("rayz", 1024, 1024, 15)
     println(gart)
 
-    val g = gart.gartvas()
     val w = gart.window()
     val m = gart.movieGif()
 

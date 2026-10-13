@@ -136,7 +136,6 @@ class WHIntegrator2D(
                 val r = rij.length()
 
                 if (r > 1e-10f) {
-                    val r3 = r * r * r
                     val direction = rij / r
 
                     // Gravitational acceleration

@@ -92,9 +92,4 @@ private fun draw(c: Canvas, d: Dimension) {
     //c.drawPath(path, strokeOf(RetroColors.red01, 20f).roundStroke())
 }
 
-private fun windowTitle(size: Int) {
-    val g = Gartvas.of(size, size)
-    val c = g.canvas
-}
-
 

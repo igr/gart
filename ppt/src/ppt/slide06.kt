@@ -15,7 +15,7 @@ import org.jetbrains.skia.BlendMode
 import org.jetbrains.skia.Canvas
 import org.jetbrains.skia.Rect
 
-val slide06 = DrawFrame { c, d, f ->
+val slide06 = DrawFrame { c, _, _ ->
     val labelFont = font(FontFamily.RethinkSans, screen.height * 0.024f)
     val labelPaint = white.toFillPaint()
 

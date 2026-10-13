@@ -20,8 +20,8 @@ import kotlin.math.sqrt
 typealias GfxFun = (x: Float, t: Float) -> Float
 
 val f1: GfxFun = { x, t -> 4 + 4 * smoothstep(0f, 0.7f, sin(x + t)) }
-val f2: GfxFun = { x, t -> sqrt(9 * 9 - x * x) }
-val f3: GfxFun = { x, t -> 3 * sin(x) / x }
+val f2: GfxFun = { x, _ -> sqrt(9 * 9 - x * x) }
+val f3: GfxFun = { x, _ -> 3 * sin(x) / x }
 val f4: GfxFun = { x, t -> 2 * noise(3 * x + t) + f3(x, t) }
 val f5: GfxFun = { x, t -> (t + floor(x - t)) / 2 - 5 }
 val f6: GfxFun = { x, t -> sin(f5(x, t)) - 5 }

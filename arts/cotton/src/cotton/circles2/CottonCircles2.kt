@@ -13,7 +13,6 @@ import dev.oblac.gart.gfx.strokeOfWhite
 import dev.oblac.gart.shader.createNoiseGrainFilter
 import dev.oblac.gart.util.loop
 import org.jetbrains.skia.*
-import kotlin.math.sin
 
 val gart = Gart.of(
     "cotton-circles2",
@@ -100,7 +99,6 @@ fun drawCCircle(
     frametime: Long,
     random: Float
 ) {
-    val s = sin(frametime.toFloat() / period)
 //    val angle = -60f + 5 * frametime + s * s * 20f * (r / 14f)
 
     val angle = 90f + random

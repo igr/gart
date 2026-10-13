@@ -33,7 +33,7 @@ fun main() {
     var type = 1
 
     val font = font(FontFamily.OdibeeSans, 44f)
-    w.show { c, d, f ->
+    w.show { c, d, _ ->
         val p = if (reverse) {
             paletteOf(type)(index).reversed()
         } else {

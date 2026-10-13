@@ -48,7 +48,7 @@ private fun drawFromBottom(c: Canvas, d: Dimension, gap: Int) {
     val yyOff = rndf(-0.4f, 0.4f)
     val yyPeriod = 0.005f//rndf(0.0005f, 0.002f)
 
-    (0 until d.w step gap).forEachIndexed { i, x ->
+    (0 until d.w step gap).forEachIndexed { _, x ->
         val xx = x.toFloat()
         val yy = sin(yyOff + xx * yyPeriod) * h / 2 + 300f
 

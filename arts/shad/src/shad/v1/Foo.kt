@@ -61,7 +61,7 @@ private suspend fun draw(bmp: Gartmap, iResolution: Vec2, time: Float) = corouti
 
 private fun something(fragCoord: Vec2, resolution: Vec2, time: Float): Vec4 {
     // normalized pixel coordinates (from 0 to 1) from the center
-    var uv = (fragCoord * 2 - resolution) / resolution
+    val uv = (fragCoord * 2 - resolution) / resolution
 
     var col = Vec3.ZERO
     var acc = 0f

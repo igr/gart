@@ -1,10 +1,12 @@
 package dev.oblac.gart
 
 import org.jetbrains.skia.Canvas
+import org.jetbrains.skiko.ExperimentalSkikoApi
 import org.jetbrains.skiko.SkikoRenderDelegate
 import org.jetbrains.skiko.swing.SkiaSwingLayer
 import javax.swing.JFrame
 
+@OptIn(ExperimentalSkikoApi::class)
 class GartView(
     private val d: Dimension,
     private var drawFrame: DrawFrame,

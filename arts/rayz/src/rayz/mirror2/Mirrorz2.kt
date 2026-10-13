@@ -129,7 +129,7 @@ private fun drawRayTraces(c: Canvas, rayTraces: MutableList<Pair<Int, RayTrace>>
 //        }
         rayTraces
             .filter { it.second.iteration == iteration }
-            .forEach { (rayIndex, rayTrace) ->
+            .forEach { (_, rayTrace) ->
                 val ray = rayTrace.ray
                 val alpha = (ray.intensity * 255).toInt().coerceIn(0, 255)
 
@@ -150,7 +150,7 @@ private fun drawRayTraces(c: Canvas, rayTraces: MutableList<Pair<Int, RayTrace>>
                     this.pathEffect = PathEffect.makeDiscrete(40f, 10f, rndi())
                 })
                 c.drawLine(line, strokeOf(color, 20f).apply {
-                    this.alpha = (alpha1 * 2).toInt()
+                    this.alpha = alpha1 * 2
                     this.strokeCap = PaintStrokeCap.ROUND
                 })
                 // draw stroke

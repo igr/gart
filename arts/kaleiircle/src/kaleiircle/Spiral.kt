@@ -28,6 +28,6 @@ class MakeSpiral(private val d: Dimension) {
             }
         }
 
-        return Draw { canvas, d -> canvas.drawPath(path.detach(), strokeOf(0x11000000, 4f)) }
+        return Draw { canvas, _ -> canvas.drawPath(path.detach(), strokeOf(0x11000000, 4f)) }
     }
 }

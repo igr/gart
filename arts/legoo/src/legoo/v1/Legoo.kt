@@ -24,10 +24,6 @@ fun main() {
     // main canvas
     val g = gart.gartvas()
 
-    // offset for
-    var leftOff = 0
-    var rightOff = 0
-
     // draw on canvas
     g.draw { c, d ->
         c.drawRect(Rect(0f, 0f, d.wf, d.hf), fillOf(BgColors.elegantDark))

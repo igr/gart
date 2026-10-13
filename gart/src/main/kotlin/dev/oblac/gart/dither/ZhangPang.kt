@@ -6,7 +6,6 @@ import dev.oblac.gart.pixels.roundToNearestQuantization
 import kotlin.math.abs
 import kotlin.math.max
 import kotlin.math.min
-import kotlin.random.Random
 
 /**
  * Rapidly creating structure-aware halftoning with improved error diffusion
@@ -25,7 +24,6 @@ fun ditherZhangPang(bitmap: Pixels, pixelSize: Int = 1, colorCount: Int = 256, c
     val stepSize = 255 / (colorCount - 1)
 
     val coefficients = buildZhangPangCoefficients()
-    val modulator = buildZhangPangModulator()
 
     // Compute original luminance map (before any error diffusion)
     val originalLum = IntArray(width * height)
@@ -88,11 +86,6 @@ fun ditherZhangPang(bitmap: Pixels, pixelSize: Int = 1, colorCount: Int = 256, c
                 itf = max(-127.0, min(127.0, itf))
             }
 
-            // Threshold modulation
-            val rnd = Random.nextDouble()
-            val mod = modulator[luminance]
-            val modThreshold = (0.5 + (rnd % 0.5) * mod) * stepSize
-
             val newR = (oldColor.r + itf).toInt().roundToNearestQuantization(stepSize)
             val newG = (oldColor.g + itf).toInt().roundToNearestQuantization(stepSize)
             val newB = (oldColor.b + itf).toInt().roundToNearestQuantization(stepSize)
@@ -125,21 +118,6 @@ fun ditherZhangPang(bitmap: Pixels, pixelSize: Int = 1, colorCount: Int = 256, c
         }
         leftToRight = !leftToRight
     }
-}
-
-private fun buildZhangPangModulator(): DoubleArray {
-    val keyValues = listOf(
-        Pair(0, doubleArrayOf(0.0)),
-        Pair(44, doubleArrayOf(0.34)),
-        Pair(64, doubleArrayOf(0.50)),
-        Pair(85, doubleArrayOf(1.00)),
-        Pair(95, doubleArrayOf(0.17)),
-        Pair(102, doubleArrayOf(0.5)),
-        Pair(107, doubleArrayOf(0.7)),
-        Pair(112, doubleArrayOf(0.79)),
-        Pair(127, doubleArrayOf(1.00)),
-    )
-    return interpolateAndMirror(keyValues).map { it[0] }.toDoubleArray()
 }
 
 private fun buildZhangPangCoefficients(): Array<DoubleArray> {

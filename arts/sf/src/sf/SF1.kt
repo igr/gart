@@ -48,7 +48,7 @@ private fun draw(c: Canvas, d: Dimension) {
     }
 
     val revs = paths.reversed()
-    revs.forEachIndexed { index, line ->
+    revs.forEachIndexed { index, _ ->
 
         if (index < revs.size - 1) {
             val strokeWidth = 20.1f - cos(index * 0.1f) * 20f

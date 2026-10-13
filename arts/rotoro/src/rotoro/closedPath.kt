@@ -25,7 +25,6 @@ fun generateClosedPath(): List<Cell> {
 
 // Uses DFS to find a valid closed path
 private fun generateClosedPathFromCells(cells: Set<Cell>): List<Cell>? {
-    val adjacency = buildAdjacencyMap(cells)
     val start = cells.first()
     val path = mutableListOf<Cell>()
 

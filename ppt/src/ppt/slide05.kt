@@ -19,7 +19,7 @@ import dev.oblac.gart.text.HorizontalAlign
 import dev.oblac.gart.text.drawStringInRect
 import org.jetbrains.skia.*
 
-val slide05 = DrawFrame { c, d, f ->
+val slide05 = DrawFrame { c, _, f ->
     val labelFont = font(FontFamily.RethinkSans, screen.height * 0.024f)
     val labelPaint = white.toFillPaint()
 

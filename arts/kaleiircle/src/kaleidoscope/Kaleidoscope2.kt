@@ -36,7 +36,7 @@ fun main() {
     val tSize = 450f
 
     val l = Lissajous(d.center, 1f, 1f, 1f, 2f)
-    var angle = Degrees.ZERO + Degrees.of(30f)
+    val angle = Degrees.ZERO + Degrees.of(30f)
 
     val sprite = makeTriangleSprite(g, l.position(), tSize, angle)
 

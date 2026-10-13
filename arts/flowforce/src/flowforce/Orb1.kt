@@ -44,7 +44,7 @@ fun main() {
 
     // source - the list of points that gets
     val totalPoints = 20000
-    val source = List(totalPoints) { i ->
+    val source = List(totalPoints) { _ ->
         val y = rndf(0, 1024f)
         PointX(
             Point(

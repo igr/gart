@@ -23,7 +23,7 @@ import org.jetbrains.skia.Canvas
 import org.jetbrains.skia.Image
 import org.jetbrains.skia.Rect
 
-val slide12 = DrawFrame { c, d, f ->
+val slide12 = DrawFrame { c, _, _ ->
     val labelFont = font(FontFamily.RethinkSans, screen.height * 0.020f)
     val labelPaint = white.toFillPaint()
 

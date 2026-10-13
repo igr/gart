@@ -133,7 +133,6 @@ private fun Canvas.drawRotatedRect(center: Point, width: Float, height: Float, a
     this.clipRect(rect)
 
     val radius = width.coerceAtMost(height) / 2.4f
-    val point = rect.bottomLeftPoint()
     this.drawCircle(center, radius, fillOf(RetroColors.red01))
 
     this.restore()

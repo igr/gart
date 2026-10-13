@@ -25,7 +25,7 @@ import java.lang.Math.toRadians
 import kotlin.math.cos
 import kotlin.math.sin
 
-val slide04 = DrawFrame { c, d, f ->
+val slide04 = DrawFrame { c, _, _ ->
     val labelFont = font(FontFamily.RethinkSans, screen.height * 0.024f)
     val labelPaint = white.toFillPaint()
 

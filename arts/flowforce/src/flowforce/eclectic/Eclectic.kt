@@ -63,7 +63,7 @@ fun ff(): FlowField {
     val noise = PerlinNoise()
     val smooth = 300
     val step = 10
-    val ff = FlowField.of(gart.d) { x, y ->
+    val ff = FlowField.of(gart.d) { _, _ ->
         object : Flow {
             override fun invoke(p: Point): Vec2 {
                 val n = noise.noise(p.x / smooth, p.y / smooth) * 3

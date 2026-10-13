@@ -70,7 +70,7 @@ fun main() {
     var image = g.snapshot()
 
     var image1 = image
-    var image2 = image
+    var image2: Image
 
     w.show { c, d, f ->
         f.onBeforeFrame(startDrawing) {

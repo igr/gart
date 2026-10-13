@@ -76,14 +76,6 @@ private fun drawCloud(c: Canvas, d: Dimension) {
 //    }
 }
 
-private fun Line.points(count: Int): List<Point> {
-    val step = this.length() / (count - 1)
-    return (0 until count).map { i ->
-        val t = i * step
-        this.pointFromStartLen(t)
-    }
-}
-
 private fun drawRay(c: Canvas, circle: Circle, lastPoint: Point) {
     val line = Line(circle.center, lastPoint.offset(rndf(-20f, 20f), rndf(-20f, 20f)))
     c.drawLine(line, strokeOf(colorInk, rndf(2f, 3f)))

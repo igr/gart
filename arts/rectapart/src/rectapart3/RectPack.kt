@@ -79,9 +79,6 @@ private fun draw(c: Canvas, d: Dimension) {
 
     val maxLength = sqrt((d.w * d.w + d.h * d.h).toFloat()) * 1.2f
 
-    val linePaint = strokeOf(1f, RetroColors.white01)
-    val rectPaint = strokeOf(2f, RetroColors.white01)
-
     val m = 20 // Number of rectangles per line
 
     // Draw n radial lines

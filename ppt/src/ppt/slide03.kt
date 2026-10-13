@@ -21,7 +21,7 @@ import dev.oblac.gart.text.drawStringInRect
 import org.jetbrains.skia.*
 import org.jetbrains.skia.PathEffect.Companion.makeDash
 
-val slide03 = DrawFrame { c, d, f ->
+val slide03 = DrawFrame { c, _, f ->
     val labelFont = font(FontFamily.RethinkSans, screen.height * 0.024f)
     val labelPaint = white.toFillPaint()
 

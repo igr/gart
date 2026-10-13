@@ -118,7 +118,7 @@ half4 main(vec2 fragcoord) {
 }
 """.sksl()
 
-val slide08 = DrawFrame { c, d, f ->
+val slide08 = DrawFrame { c, _, f ->
     val labelFont = font(FontFamily.RethinkSans, screen.height * 0.024f)
     val labelPaint = white.toFillPaint()
 

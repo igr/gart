@@ -114,7 +114,7 @@ private fun paintSquares(tile: Tile, type: Int): Draw {
             draw(canvas, newX, newY, size, size, xMovement, yMovement, step - 1)
         }
 
-        override fun invoke(canvas: Canvas, d: Dimension) {
+        override fun invoke(canvas: Canvas, dimension: Dimension) {
             draw(canvas, tile.x, tile.y, tile.d, tile.d, xDirection, yDirection, totalSteps - 1)
         }
     }

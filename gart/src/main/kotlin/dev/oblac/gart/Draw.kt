@@ -24,5 +24,5 @@ abstract class Drawing(private val g: Gartvas? = null) : DrawFrame {
         canvas.drawImage(snapshot, 0f, 0f)
     }
 
-    open fun draw(canvas: Canvas, dimension: Dimension, frames: Frames) {}
+    open fun draw(c: Canvas, d: Dimension, f: Frames) {}
 }

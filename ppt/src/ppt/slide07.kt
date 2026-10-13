@@ -33,7 +33,7 @@ private val vivid = Palettes.colormap032
 private val vividColors = IntArray(vivid.size) { vivid[it] }
 private val vividPos = FloatArray(vivid.size) { it.toFloat() / (vivid.size - 1) }
 
-val slide07 = DrawFrame { c, d, f ->
+val slide07 = DrawFrame { c, _, _ ->
     val labelFont = font(FontFamily.RethinkSans, screen.height * 0.024f)
     val labelPaint = white.toFillPaint()
 

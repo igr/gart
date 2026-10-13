@@ -161,7 +161,7 @@ class NavierStokesSolver(
             avgSpeed += u[i] * u[i] + v[i] * v[i]
 
             // calc avg density
-            r[i] = min(1.0, r[i].toDouble()).toDouble()
+            r[i] = min(1.0, r[i])
             // float density = Math.max(r[i], Math.max(g[i], b[i]));
             val density = r[i]
             avgDensity += density // add it up

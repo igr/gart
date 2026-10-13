@@ -140,19 +140,13 @@ class NSSolverImplicit(
 //        val x = DoubleArray(max((nx - 1).toDouble(), (ny - 1).toDouble()).toInt())
 
         for (i in 0..<nx - start) {
-            val ineg = mod(i - 1, nx)
             val ipos = mod(i + 1, nx)
 
             for (j in 0..<ny - start) {
-                val jneg = mod(j - 1, ny)
                 val jpos = mod(j + 1, ny)
                 val rp = rPrev[i][j]
                 val uw = (u[i][j] + u[i][jpos]) / 2
                 val ue = (u[ipos][j] + u[ipos][jpos]) / 2
-                val us = (u[i][jpos] + u[ipos][jpos]) / 2
-                val un = (u[i][j] + u[ipos][j]) / 2
-                val vw = (v[i][j] + v[i][jpos]) / 2
-                val ve = (v[ipos][j] + v[ipos][jpos]) / 2
                 val vs = (v[i][jpos] + v[ipos][jpos]) / 2
                 val vn = (v[i][j] + v[ipos][j]) / 2
                 r[i][j] = rPrev[i][j] + (rp * ((uw - ue) / dx + (vn - vs) / dy)
@@ -198,7 +192,7 @@ class NSSolverImplicit(
             var b = DoubleArray(max(nx.toDouble(), ny.toDouble()).toInt())
             var c = DoubleArray(max(nx.toDouble(), ny.toDouble()).toInt())
             var s = DoubleArray(max(nx.toDouble(), ny.toDouble()).toInt())
-            var x = DoubleArray(max(nx.toDouble(), ny.toDouble()).toInt())
+            var x: DoubleArray
 
             var k = 1
             var start = 1
@@ -216,7 +210,6 @@ class NSSolverImplicit(
                         val jpos = mod(j + 1, ny)
                         for (i in start..<nx - start) {
                             val ineg = mod(i - 1, nx)
-                            val ipos = mod(i + 1, nx)
 
                             rho = (r[i][j] + r[i][jneg] + r[ineg][j] + r[ineg][jneg]) / 4
 
@@ -261,7 +254,6 @@ class NSSolverImplicit(
                         val ipos = mod(i + 1, nx)
                         for (j in start..<ny - start) {
                             val jneg = mod(j - 1, ny)
-                            val jpos = mod(j + 1, ny)
 
                             rho = (r[i][j] + r[i][jneg] + r[ineg][j] + r[ineg][jneg]) / 4
 
@@ -302,7 +294,6 @@ class NSSolverImplicit(
                 b = DoubleArray(max(nx.toDouble(), ny.toDouble()).toInt())
                 c = DoubleArray(max(nx.toDouble(), ny.toDouble()).toInt())
                 s = DoubleArray(max(nx.toDouble(), ny.toDouble()).toInt())
-                x = DoubleArray(max(nx.toDouble(), ny.toDouble()).toInt())
 
                 // Calculate V TMDA in J dir
                 if (!stepI) {
@@ -313,7 +304,6 @@ class NSSolverImplicit(
 
                         for (j in start..<ny - start) {
                             val jneg = mod(j - 1, ny)
-                            val jpos = mod(j + 1, ny)
 
                             rho = (r[i][j] + r[i][jneg] + r[ineg][j] + r[ineg][jneg]) / 4
 
@@ -358,7 +348,6 @@ class NSSolverImplicit(
 
                         for (i in start..<nx - start) {
                             val ineg = mod(i - 1, nx)
-                            val ipos = mod(i + 1, nx)
 
                             rho = (r[i][j] + r[i][jneg] + r[ineg][j] + r[ineg][jneg]) / 4
 
@@ -412,13 +401,8 @@ class NSSolverImplicit(
             for (j in 0..<ny - start) {
                 val jneg = mod(j - 1, ny)
                 val jpos = mod(j + 1, ny)
-                val rp = rPrev[i][j]
                 val uw = (u[i][j] + u[i][jpos]) / 2
                 val ue = (u[ipos][j] + u[ipos][jpos]) / 2
-                val us = (u[i][jpos] + u[ipos][jpos]) / 2
-                val un = (u[i][j] + u[ipos][j]) / 2
-                val vw = (v[i][j] + v[i][jpos]) / 2
-                val ve = (v[ipos][j] + v[ipos][jpos]) / 2
                 val vs = (v[i][jpos] + v[ipos][jpos]) / 2
                 val vn = (v[i][j] + v[ipos][j]) / 2
                 e[i][j] = (ePrev[i][j]

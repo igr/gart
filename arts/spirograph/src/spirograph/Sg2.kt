@@ -17,11 +17,10 @@ fun main() {
     println(gart)
 
     val w = gart.window()
-    val g = gart.gartvas()
     val m = gart.movie()
 
     var r = 0f
-    var a = Degrees.of(3f)
+    val a = Degrees.of(3f)
     m.record(w).show { c, d, f ->
         //w.show { c, d, _ ->
         draw(c, d, r, a)

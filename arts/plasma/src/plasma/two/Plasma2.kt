@@ -19,7 +19,6 @@ fun main() {
     val gart = Gart.of("plasma2", 1024, 1024, 30)
     println(gart)
 
-    val w = gart.window()
     val g = gart.gartvas()
 
     val d = MyDraw(g)
@@ -84,8 +83,8 @@ private class MyDraw(g: Gartvas) : Drawing(g) {
         println("Hello")
     }
 
-    override fun draw(canvas: Canvas, dimension: Dimension, frames: Frames) {
-        draw(b, dimension, frames.frame)
+    override fun draw(c: Canvas, d: Dimension, f: Frames) {
+        draw(b, d, f.frame)
         b.drawToCanvas()
     }
 }

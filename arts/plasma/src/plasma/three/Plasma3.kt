@@ -134,8 +134,8 @@ private class MyDraw(g: Gartvas) : Drawing(g) {
         b2.updatePixelsFromCanvas()
     }
 
-    override fun draw(canvas: Canvas, dimension: Dimension, frames: Frames) {
-        draw(b, dimension, frames.frame, b2)
+    override fun draw(c: Canvas, d: Dimension, f: Frames) {
+        draw(b, d, f.frame, b2)
         b.drawToCanvas()
     }
 }

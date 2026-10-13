@@ -63,14 +63,13 @@ fun hatchPaint(color: Int, density: Float = 5f, dotWidth: Float = 1f, strokeWidt
     this.strokeWidth = strokeWidth
 }
 
-fun dashPaint(color: Int, density: Float = 6f, angle: Angle = Degrees(-45f), strokeWidth: Float = 2f) = Paint().apply {
+fun dashPaint(color: Int, density: Float = 6f, angle: Angle = Degrees(-45f), strokeWidth: Float = 2f): Paint {
     val diagLinesPath = PathEffect.makeLine2D(strokeWidth, Matrix33.multiply(Matrix33.makeScale(density, density), Matrix33.makeRotate(angle.degrees)))
-    val paint = Paint().apply {
+    return Paint().apply {
         this.color = color
         this.strokeWidth = strokeWidth
         this.pathEffect = diagLinesPath
     }
-    return paint
 }
 
 /**

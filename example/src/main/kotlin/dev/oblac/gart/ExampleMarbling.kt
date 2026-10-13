@@ -53,7 +53,7 @@ fun main(args: Array<String>) {
             nonpareil(m, rnd, t, inks)
             m.wave(amplitude = 5f, wavelength = 30f, dir = Degrees(90f)) // the sheet wiggled as it went down on the bath
         },
-        "suminagashi" to { m, rnd ->
+        "suminagashi" to { m, _ ->
             rings(m, t * 0.5f, t * 0.5f, t * 0.09f, 44, Palette(0xFF23262B, 0xFFEFEAE0))
             m.wave(amplitude = 22f, wavelength = t * 0.9f, dir = Degrees(15f))
             m.wave(amplitude = 12f, wavelength = t * 0.6f, dir = Degrees(100f), push = Degrees(100f))

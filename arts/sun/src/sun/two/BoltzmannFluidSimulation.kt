@@ -50,7 +50,7 @@ class BoltzmannFluidSimulation(rows: Int, cols: Int) {
     }
 
     fun render(c: Canvas) {
-        fluid.forEach { x, y, s, d, vx, vy, _ ->
+        fluid.forEach { x, y, s, d, _, _, _ ->
             val colorNdx = map(d, 0.998f, 1.011f, 0, p.size).toInt()
             val color = p.bound(colorNdx)
             if (s) {

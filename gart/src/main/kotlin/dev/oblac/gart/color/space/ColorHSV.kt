@@ -10,9 +10,9 @@ import kotlin.math.floor
 data class ColorHSV(val h: Float, val s: Float, val v: Float, val a: Float = 1f) {
 
     fun toColor4f(): Color4f {
-        var r: Float
-        var g: Float
-        var b: Float
+        val r: Float
+        val g: Float
+        val b: Float
 
         if (s == 0f) {
             r = v

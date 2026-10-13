@@ -12,8 +12,6 @@ val p = Palettes.cool9.expand(255).reversed()
 
 fun main() {
     val gart = Gart.of("blob", 1024, 1024)
-    val g = gart.gartvas()
-    val b = gart.gartmap(g)
     val w = gart.window()
     val d = gart.d
     val m = gart.movieGif()
@@ -74,7 +72,6 @@ private fun blobifyWeird(b: Pixels, blobs: Blobs, step: Float = 0.01f) {
     for (b in blobs.blobs) {
         b.step(step)
     }
-    val times = blobs.blobs.map { it.t }.toFloatArray()
 
     b.forEach { x, y, _ ->
         var dSq = 1.0

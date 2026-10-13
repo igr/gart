@@ -4,7 +4,6 @@ import dev.oblac.gart.Dimension
 import dev.oblac.gart.Gart
 import dev.oblac.gart.color.RetroColors
 import dev.oblac.gart.gfx.*
-import dev.oblac.gart.math.doubleLoop
 import org.jetbrains.skia.Canvas
 
 fun main() {
@@ -38,7 +37,7 @@ private fun draw(c: Canvas, d: Dimension) {
 
     val rin1 = 240f
     val circleIn1 = Circle.of(d.center.offset((rin1 - r1), 0f), rin1)
-    var rin2 = rin1 + (r2 - r1) / 2
+    val rin2 = rin1 + (r2 - r1) / 2
     val circleIn2 = Circle.of(d.center.offset(-50f, 0f), rin2)
 
 //    c.drawCircle(circle1, strokeOfGreen(2f))
@@ -63,16 +62,16 @@ private fun draw(c: Canvas, d: Dimension) {
             }
     }
 
-    val step = 10f
-    doubleLoop(Pair(0f, 0f), d.wf, d.hf, step = Pair(step, step)) { (x, y) ->
-        val p = Point(x, y)
+//    val step = 10f
+//    doubleLoop(Pair(0f, 0f), d.wf, d.hf, step = Pair(step, step)) { (x, y) ->
+//        val p = Point(x, y)
 //        if (!circle2.contains(p) || circle1.contains(p)) {
 //            c.drawCircle(p, 1f, fillOf(colorBold))
 //        }
 //        if (circle1.contains(p)) {
 //            c.drawCircle(p, 1f, fillOf(colorBold))
 //        }
-    }
+//    }
 
 }
 

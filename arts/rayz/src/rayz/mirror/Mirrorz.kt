@@ -177,7 +177,7 @@ private fun drawRayTraces(c: Canvas, rayTraces: List<RayTrace>) {
 }
 
 private fun debugDrawMirrors(c: Canvas, mirrors: List<Mirror>) {
-    mirrors.forEach { mirror ->
+    mirrors.forEach { _ ->
         //c.drawLine(mirror.line, strokeOfWhite(4f))
     }
 }

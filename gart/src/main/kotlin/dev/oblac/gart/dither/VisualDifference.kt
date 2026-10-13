@@ -38,7 +38,6 @@ fun ditherVisualDifference(
     require(colorCount >= 2) { "Color count must be 2 or greater" }
     val width = bitmap.d.w
     val height = bitmap.d.h
-    val stepSize = 255 / (colorCount - 1)
 
     // Build luminance map (0-255 scale)
     val originalLum = DoubleArray(width * height)

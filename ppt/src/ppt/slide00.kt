@@ -188,7 +188,7 @@ private val plane by lazy { FSSPlane(screen.wf, screen.hf, 20, 14) }
 
 private val meshPaint = 0xFFFFFFFF.toInt().toFillPaint()
 
-val slide00 = DrawFrame { c, d, f ->
+val slide00 = DrawFrame { c, _, f ->
     c.clear(clearColor)
 
     plane.update(f.frameTimeSeconds)

@@ -27,7 +27,7 @@ fun main() {
     draw(c, d)
 
     gart.saveImage(g)
-    w.show { c, d, _ ->
+    w.show { c, _, _ ->
         c.drawImage(g.snapshot())
     }.onKey {
         when (it) {
