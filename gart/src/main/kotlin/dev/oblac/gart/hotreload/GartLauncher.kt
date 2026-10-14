@@ -12,7 +12,7 @@ import kotlin.system.exitProcess
  *
  * Usage: GartLauncherKt <classes-dir> <main-class>
  *
- * Normally started through `just dev <module> <main-class>` (or a `just dev-<piece>` shortcut),
+ * Normally started through `just dev run <module> <main-class>` (or a `just dev <piece>` shortcut),
  * which builds the deps-only classpath and runs Gradle continuous compile alongside.
  * See docs/hotreload.md.
  */

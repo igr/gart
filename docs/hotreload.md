@@ -7,7 +7,7 @@ is _reused automatically_ (no flicker).
 ## Usage
 
 ```bash
-just dev <module> <main-class>
+just dev run <module> <main-class>
 ```
 
 `<module>` is the Gradle project path with `:` separators (`work`, `arts:sea`).
@@ -15,21 +15,20 @@ just dev <module> <main-class>
 Note it follows the `package` line, not the module path.
 
 ```bash
-just dev arts:sea unda.UndaKt
-just dev arts:flowforce flowforce.monolith.MonolithKt
-just dev arts:pixelmania pixelmania.cosmic.CosmicTopoKt
+just dev run arts:sea unda.UndaKt
+just dev run arts:flowforce flowforce.monolith.MonolithKt
+just dev run arts:pixelmania pixelmania.cosmic.CosmicTopoKt
 ```
 
-A piece you keep coming back to gets a one-line shortcut recipe in the `justfile`:
+A piece you keep coming back to gets a one-line shortcut recipe in `just/dev.just`:
 
 ```just
 # Dev session for unda.
-[group('dev')]
-dev-unda: (dev "arts:sea" "unda.UndaKt")
+unda: (run "arts:sea" "unda.UndaKt")
 ```
 
-so `just dev-unda` does the same thing. Existing shortcuts: `dev-unda`, `dev-monolith`,
-`dev-cosmic` (`just --list` shows them under `dev`).
+so `just dev unda` does the same thing. Existing shortcuts: `unda`, `monolith`, `cosmic`
+(`just dev` lists them).
 
 This starts a tmux session with two panes:
 
@@ -58,7 +57,7 @@ hot-reload mechanism. It still works but is not needed; don't use it in new piec
 
 - The reload time equals the `main()` execution time. Keep expensive computations
   (JFA, large noise fields) minimal during iteration, then restore for the final render.
-- The window is positioned with `-Dgart.align=right` by default (set in `justfile`).
-- Use `just dev-stop` to kill the tmux session.
+- The window is positioned with `-Dgart.align=right` by default (set in `just/dev.just`).
+- Use `just dev stop` to kill the tmux session.
 - JVM flags `-XX:TieredStopAtLevel=1 -XX:+UseSerialGC -Xverify:none` are used to
   minimize startup overhead.

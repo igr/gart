@@ -135,7 +135,7 @@ There is really **a lot of features**, and I'm not sure how to organize them, bu
 
 - GartLauncher — Classloader-based hot restart: watches `.class` files, re-invokes `main()` with a fresh
   `URLClassLoader` while reusing the existing Swing window (no flicker). Started with
-  `just dev <module> <main-class>` or a per-piece shortcut like `just dev-unda`, see [Hot Reload](hotreload.md)
+  `just dev run <module> <main-class>` or a per-piece shortcut like `just dev unda`, see [Hot Reload](hotreload.md)
 
 ## Utilities
 

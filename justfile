@@ -31,40 +31,7 @@ readme:
 
 # Dev session: continuous compile + classloader-based hot restart.
 [group('dev')]
-dev module main:
-    #!/usr/bin/env bash
-    set -e
-    GRADLE_PROJECT=":{{module}}"
-    MODULE_DIR="$(echo "{{module}}" | tr ':' '/')"
-    echo "Building and resolving classpath..."
-    ./gradlew "${GRADLE_PROJECT}:writeLauncherClasspath" "${GRADLE_PROJECT}:classes" -q
-    SESSION="gart-dev"
-    LAUNCHER_CP="$(pwd)/${MODULE_DIR}/build/launcher-cp.txt"
-    CLASSES_DIR="$(pwd)/${MODULE_DIR}/build/classes/kotlin/main"
-    tmux kill-session -t "$SESSION" 2>/dev/null || true
-    tmux new-session -d -s "$SESSION" -n compile \
-        "bash -c './gradlew ${GRADLE_PROJECT}:compileKotlin --continuous -Dorg.gradle.continuous.quietperiod=100'"
-    tmux set-option -t "$SESSION" remain-on-exit on
-    tmux split-window -t "$SESSION" -h \
-        "bash -c 'java -XX:CICompilerCount=1 -XX:TieredStopAtLevel=1 -XX:+UseSerialGC -Xverify:none -Dgart.align=right @${LAUNCHER_CP} dev.oblac.gart.hotreload.GartLauncherKt ${CLASSES_DIR} {{main}}'"
-    tmux attach -t "$SESSION"
-
-# Dev session for cosmic topo.
-[group('dev')]
-dev-cosmic: (dev "arts:pixelmania" "pixelmania.cosmic.CosmicTopoKt")
-
-# Dev session for monolith.
-[group('dev')]
-dev-monolith: (dev "arts:flowforce" "flowforce.monolith.MonolithKt")
-
-# Dev session for unda.
-[group('dev')]
-dev-unda: (dev "arts:sea" "unda.UndaKt")
-
-# Stops the dev session.
-[group('dev')]
-dev-stop:
-    tmux kill-session -t gart-dev 2>/dev/null || echo "No dev session running."
+mod dev 'just/dev.just'
 
 # Run a sweeper config from work/sweeps/<name>.sweep (brute-force an art over a grid of inputs).
 # Every setting lives in the .sweep file (no flags). Usage: just sweep example
