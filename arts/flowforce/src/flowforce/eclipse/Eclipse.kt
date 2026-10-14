@@ -3,7 +3,7 @@ package flowforce.eclipse
 import dev.oblac.gart.Dimension
 import dev.oblac.gart.Gart
 import dev.oblac.gart.angle.Radians
-import dev.oblac.gart.color.BgColors
+import dev.oblac.gart.color.BwColors
 import dev.oblac.gart.color.CssColors
 import dev.oblac.gart.flow.Flow
 import dev.oblac.gart.flow.Flow2
@@ -34,7 +34,7 @@ fun main() {
 
     // background
 
-    c.clear(BgColors.dark01)
+    c.clear(BwColors.dark01)
 
     // rays
 

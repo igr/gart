@@ -2,7 +2,7 @@ package igor
 
 import dev.oblac.gart.Dimension
 import dev.oblac.gart.Gart
-import dev.oblac.gart.color.BgColors
+import dev.oblac.gart.color.BwColors
 import dev.oblac.gart.font.FontFamily
 import dev.oblac.gart.font.font
 import dev.oblac.gart.gfx.fillOf
@@ -32,7 +32,7 @@ fun main() {
         val xx = (a * x).toFloat()
         val yy = (a * y).toFloat()
 
-        c.drawCircle(xx + a / 2f, yy + a / 2f, a / 2f - 4f, fillOf(BgColors.dark02))
+        c.drawCircle(xx + a / 2f, yy + a / 2f, a / 2f - 4f, fillOf(BwColors.dark02))
         val xxc = xx + a / 2f
         val yyc = yy + a / 2f
 
@@ -75,7 +75,7 @@ private fun poissonDiskSampling(c: Canvas, d: Dimension) {
     val noise = PoissonDiskSamplingNoise()
     val samples = noise.generate(0.0, 0.0, d.w.toDouble(), d.h.toDouble(), 60_000)
     for (sample in samples) {
-        c.drawPoint(sample.x, sample.y, fillOf(BgColors.dark02).also { it.alpha = 160 })
+        c.drawPoint(sample.x, sample.y, fillOf(BwColors.dark02).also { it.alpha = 160 })
     }
 }
 
@@ -85,7 +85,7 @@ private fun poissonDiskSamplingInside(c: Canvas, d: Dimension, rect: Rect) {
     for (sample in samples) {
         val p = Point(sample.x, sample.y)
         if (p.isInside(rect)) {
-            c.drawPoint(sample.x, sample.y, fillOf(BgColors.dark02).also { it.alpha = 160 })
+            c.drawPoint(sample.x, sample.y, fillOf(BwColors.dark02).also { it.alpha = 160 })
         }
     }
 }

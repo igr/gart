@@ -1,6 +1,6 @@
 package dev.oblac.gart.fluid.all
 
-import dev.oblac.gart.color.BgColors
+import dev.oblac.gart.color.BwColors
 import dev.oblac.gart.gfx.strokeOfBlack
 import dev.oblac.gart.math.length
 import org.jetbrains.skia.Canvas
@@ -15,7 +15,7 @@ fun renderFluidVelocityField(
     vectorScale: Float = 2.5f,
     arrowSize: Float = 3f
 ) {
-    canvas.clear(BgColors.coconutMilk)
+    canvas.clear(BwColors.coconutMilk)
 
     val width = solver.width
     val velocityU = solver.velocityU()

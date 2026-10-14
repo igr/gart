@@ -1,7 +1,7 @@
 package repetition
 
 import dev.oblac.gart.Gart
-import dev.oblac.gart.color.BgColors
+import dev.oblac.gart.color.BwColors
 import dev.oblac.gart.color.CssColors
 import dev.oblac.gart.gfx.strokeOf
 import dev.oblac.gart.math.PIf
@@ -79,7 +79,7 @@ fun main() {
     val g = gart.gartvas()
     val w = gart.window()
     val c = g.canvas
-    c.clear(BgColors.warmBlack1)
+    c.clear(BwColors.warmBlack1)
     drawAll(c, 175)
 
     gart.saveImage(g)

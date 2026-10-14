@@ -404,7 +404,7 @@ Hand-curated named-color objects:
 | Object | File | Access | Mood |
 |--------|------|--------|------|
 | ⭐ `CyanotypeColors` | `CyanotypeColors.kt` | `.palette1` (8), `.palette2` (16), `.accent`, `.accent2` | Deep blue cyanotype prints, warm orange accent. |
-| `BgColors` | `BgColors.kt` | named fields (`bg01`–`bg08`, `pearlWhite`…, `dark01`…, `warmBlack0`–`5`) | Curated light/dark background neutrals. |
+| `BwColors` | `BwColors.kt` | named fields (`bg01`–`bg08`, `pearlWhite`…, `dark01`…, `warmBlack0`–`5`) | Curated light/dark background neutrals. |
 | `MidCenturyColors` | `MidCenturyColors.kt` | named fields (white1, green, black, red, yellow, blue, blue2) | Warm mid-century-modern accents. |
 | `RetroColors` | `RetroColors.kt` | 14 named fields + `allColors: List<Int>` | Muted vintage/retro hues. |
 | `NipponColors` | `NipponColors.kt` | 250 named fields `colNNN_NAME` (e.g. `col001_NADESHIKO`) via `rgb(...)` | Traditional Japanese colors, soft and earthy. |
@@ -443,7 +443,7 @@ Generators / accessors on `Palettes`:
 
 `PalettesNavigator` (`PalettesNavigator.kt`) — UI-style cycler over sets `mix` (15), `cool` (258), `colormap` (133): `palette()`, `name()`, `nextPalette()/previousPalette()`, `nextSet()/previousSet()`.
 
-Source-of-truth files: `Palette.kt`, `color.kt`, `gradient.kt`, `colorRamp.kt`, `colorMatrix.kt`, `PaletteGenerator.kt`, `CyanotypeColors.kt`, `BgColors.kt`, `MidCenturyColors.kt`, `RetroColors.kt`, `NipponColors.kt`, `CssColors.kt`, `Palettes.kt`, `PalettesNavigator.kt`, `color/palettes/*.kt`, `color/space/*.kt`.
+Source-of-truth files: `Palette.kt`, `color.kt`, `gradient.kt`, `colorRamp.kt`, `colorMatrix.kt`, `PaletteGenerator.kt`, `CyanotypeColors.kt`, `BwColors.kt`, `MidCenturyColors.kt`, `RetroColors.kt`, `NipponColors.kt`, `CssColors.kt`, `Palettes.kt`, `PalettesNavigator.kt`, `color/palettes/*.kt`, `color/space/*.kt`.
 ## 3. Noise & Flow Fields
 
 All paths are under `gart/src/main/kotlin/dev/oblac/gart/`.

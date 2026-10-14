@@ -2,7 +2,7 @@ package legoo.v1
 
 import dev.oblac.gart.Gart
 import dev.oblac.gart.angle.Degrees
-import dev.oblac.gart.color.BgColors
+import dev.oblac.gart.color.BwColors
 import dev.oblac.gart.color.CssColors
 import dev.oblac.gart.gfx.RectIsometricLeft
 import dev.oblac.gart.gfx.RectIsometricRight
@@ -26,7 +26,7 @@ fun main() {
 
     // draw on canvas
     g.draw { c, d ->
-        c.drawRect(Rect(0f, 0f, d.wf, d.hf), fillOf(BgColors.elegantDark))
+        c.drawRect(Rect(0f, 0f, d.wf, d.hf), fillOf(BwColors.elegantDark))
         c.drawCircle(d.cx, d.cy, 260f, fillOf(CssColors.crimson))
         c.drawCircle(d.cx + 100f, d.cy - 40f, 200f, fillOf(CssColors.crimson))
 
@@ -50,9 +50,9 @@ fun main() {
     gart.window().showImage(g)
 }
 
-val cdark = fillOf(BgColors.elegantDark)
-val c01 = fillOf(BgColors.bg01).also { it.alpha = 31 }
-val c02 = fillOf(BgColors.coconutMilk).also { it.alpha = 31 }
+val cdark = fillOf(BwColors.elegantDark)
+val c01 = fillOf(BwColors.bg01).also { it.alpha = 31 }
+val c02 = fillOf(BwColors.coconutMilk).also { it.alpha = 31 }
 
 private fun kocka(x: Float, y: Float, c: Canvas) {
     RectIsometricTop(x, y, a, a, angle).path().let { c.drawPath(it, c02) }

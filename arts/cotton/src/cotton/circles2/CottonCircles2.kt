@@ -1,7 +1,7 @@
 package cotton.circles2
 
 import dev.oblac.gart.Gart
-import dev.oblac.gart.color.BgColors
+import dev.oblac.gart.color.BwColors
 import dev.oblac.gart.color.Palettes
 import dev.oblac.gart.flow.CircularFlow
 import dev.oblac.gart.flow.FlowField
@@ -54,7 +54,7 @@ fun main() {
 
 //    m.record(w).show { c, d, f ->
     w.show { c, d, f ->
-        c.clear(BgColors.dark01)
+        c.clear(BwColors.dark01)
         loop(count) { x ->
             drawCCircle(
                 c,

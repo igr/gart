@@ -1,9 +1,9 @@
 package dev.oblac.gart.color
 
 /**
- * Some nice predefined background colors.
+ * Black, white and grey colors for paper, grounds and ink.
  */
-object BgColors {
+object BwColors {
     val bg01 = 0xFFFCFCFD.toInt()
     val bg02 = 0xFFE8E8E8.toInt()
     val bg03 = 0xFFF3F3F3.toInt()

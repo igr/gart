@@ -1,12 +1,12 @@
 package bubbles.bubbub
 
 import dev.oblac.gart.Gart
-import dev.oblac.gart.color.BgColors
+import dev.oblac.gart.color.BwColors
 import dev.oblac.gart.color.Palettes
 import dev.oblac.gart.gfx.*
 import dev.oblac.gart.pack.simpleCirclePacker
 
-private val fillBack = fillOf(BgColors.elegantDark)
+private val fillBack = fillOf(BwColors.elegantDark)
 //val pal = Palettes.cool24
 //val pal = Palettes.cool28
 private val pal = Palettes.cool35

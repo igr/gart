@@ -2,7 +2,7 @@ package flowforce
 
 import dev.oblac.gart.Gart
 import dev.oblac.gart.angle.Degrees
-import dev.oblac.gart.color.BgColors
+import dev.oblac.gart.color.BwColors
 import dev.oblac.gart.color.NipponColors
 import dev.oblac.gart.flow.Flow2
 import dev.oblac.gart.flow.FlowField
@@ -41,7 +41,7 @@ fun main() {
 
     c.clear(clr)
     val circle = Circle(d.cx, d.cy, 400f)
-    c.drawCircle(circle, fillOf(BgColors.pearlWhite))
+    c.drawCircle(circle, fillOf(BwColors.pearlWhite))
 
     c.save()
     c.clipPath(Circle(d.cx, d.cy, 400f).toPath())

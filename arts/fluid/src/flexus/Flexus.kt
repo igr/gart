@@ -5,7 +5,7 @@ import dev.oblac.gart.Gart
 import dev.oblac.gart.brush.Brushes
 import dev.oblac.gart.brush.Wobble
 import dev.oblac.gart.brush.drawBrush
-import dev.oblac.gart.color.BgColors
+import dev.oblac.gart.color.BwColors
 import dev.oblac.gart.color.Palettes
 import dev.oblac.gart.gfx.closedPathOf
 import dev.oblac.gart.gfx.drawBorder
@@ -40,7 +40,7 @@ private const val DROPS = 200
 private const val MARGIN = 0.05f
 private const val RULE = 10f
 
-private const val PAPER = BgColors.plumCharcoal
+private const val PAPER = BwColors.plumCharcoal
 private val PAL = pi("pal", 202, 1..256)
 private val inks = Palettes.coolPalette(PAL)
 

@@ -16,7 +16,7 @@ import org.jetbrains.skia.Canvas
 import org.jetbrains.skia.Path
 import kotlin.math.atan2
 
-//private val backColor = BgColors.warmBlack2
+//private val backColor = BwColors.warmBlack2
 private val backColor = Palettes.cool9.last()
 
 fun main() {

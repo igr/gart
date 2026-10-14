@@ -74,7 +74,7 @@ private fun drawww(r: Float, color: Int) {
     }.toList()
 
     //g.canvas.clear(Colors.black)  // for animation
-    //val color = BgColors.cloudDancer
+    //val color = BwColors.cloudDancer
     repeat(8000) {
         randomPoints = ff.apply(randomPoints) { _, p ->
             g.canvas.drawPoint(p, strokeOf(color, 3f).also {

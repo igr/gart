@@ -4,7 +4,7 @@ import dev.oblac.gart.Dimension
 import dev.oblac.gart.Gart
 import dev.oblac.gart.Key
 import dev.oblac.gart.angle.Radians
-import dev.oblac.gart.color.BgColors
+import dev.oblac.gart.color.BwColors
 import dev.oblac.gart.color.CssColors
 import dev.oblac.gart.color.Palettes
 import dev.oblac.gart.gfx.*
@@ -75,5 +75,5 @@ private fun draw(c: Canvas, d: Dimension) {
     }
     c.restore()
 
-    c.drawBorder(d, 20f, BgColors.clottedCream)
+    c.drawBorder(d, 20f, BwColors.clottedCream)
 }

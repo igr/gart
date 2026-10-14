@@ -3,7 +3,7 @@ package flowforce.spring
 import dev.oblac.gart.Dimension
 import dev.oblac.gart.Frames
 import dev.oblac.gart.Gart
-import dev.oblac.gart.color.BgColors
+import dev.oblac.gart.color.BwColors
 import dev.oblac.gart.color.Palettes
 import dev.oblac.gart.flow.FlowField
 import dev.oblac.gart.flow.WaveFlow
@@ -44,7 +44,7 @@ val trails = Array(TRAILS) { newTrail() }.toMutableList()
 
 fun main() {
     w.show { c, _, f ->
-        c.clear(BgColors.dark01)
+        c.clear(BwColors.dark01)
         drawRays(c, d, f)
         c.drawRect(d.rect, strokeOfBlack(40f))
 

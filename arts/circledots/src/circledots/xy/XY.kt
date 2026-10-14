@@ -4,7 +4,7 @@ import dev.oblac.gart.Dimension
 import dev.oblac.gart.Drawing
 import dev.oblac.gart.Gart
 import dev.oblac.gart.Gartvas
-import dev.oblac.gart.color.BgColors
+import dev.oblac.gart.color.BwColors
 import dev.oblac.gart.color.Palettes
 import dev.oblac.gart.gfx.Line
 import dev.oblac.gart.gfx.Point
@@ -48,7 +48,7 @@ private class MyDraw(g: Gartvas) : Drawing(g) {
 private val pal = Palettes.colormap045.let { it + it.reversed() }
 
 private fun draw(c: Canvas, d: Dimension) {
-    c.clear(BgColors.elegantDark)
+    c.clear(BwColors.elegantDark)
 
     val n = 22      // number of circles per row/column
     val nc = n / 2  // center index

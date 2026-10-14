@@ -5,7 +5,7 @@ import dev.oblac.gart.Gart
 import dev.oblac.gart.angle.Degrees
 import dev.oblac.gart.angle.cosf
 import dev.oblac.gart.angle.sinf
-import dev.oblac.gart.color.BgColors
+import dev.oblac.gart.color.BwColors
 import dev.oblac.gart.color.Palettes
 import dev.oblac.gart.gfx.fillOf
 import dev.oblac.gart.gfx.toPathBuilder
@@ -30,7 +30,7 @@ fun main() {
 }
 
 private fun draw(c: Canvas, d: Dimension) {
-    c.clear(BgColors.coolDark)
+    c.clear(BwColors.coolDark)
 
     val h = 16
 
@@ -49,7 +49,7 @@ private fun draw(c: Canvas, d: Dimension) {
     path.lineTo(0f, d.h.toFloat())
     path.lineTo(0f, 0f)
     path.closePath()
-    c.drawPath(path.detach(), fillOf(BgColors.clottedCream))
+    c.drawPath(path.detach(), fillOf(BwColors.clottedCream))
 
     // draw rectangles
     val w = 200

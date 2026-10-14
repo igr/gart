@@ -4,7 +4,7 @@ import dev.oblac.gart.Gart
 import dev.oblac.gart.Gartvas
 import dev.oblac.gart.Key
 import dev.oblac.gart.angle.Degrees
-import dev.oblac.gart.color.BgColors
+import dev.oblac.gart.color.BwColors
 import dev.oblac.gart.color.Palettes
 import dev.oblac.gart.gfx.RectIsometricLeft
 import dev.oblac.gart.gfx.RectIsometricRight
@@ -64,7 +64,7 @@ fun main() {
 
 fun draw(g: Gartvas) {
     g.draw { c, d ->
-        c.drawRect(Rect(0f, 0f, d.wf, d.hf), fillOf(BgColors.elegantDark))
+        c.drawRect(Rect(0f, 0f, d.wf, d.hf), fillOf(BwColors.elegantDark))
 
         val randomRow = rndi(2, 6)
         val randomCol = rndi(2, 6)

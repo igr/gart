@@ -3,7 +3,7 @@ package flowforce
 import dev.oblac.gart.Gart
 import dev.oblac.gart.angle.Degrees
 import dev.oblac.gart.angle.Radians
-import dev.oblac.gart.color.BgColors
+import dev.oblac.gart.color.BwColors
 import dev.oblac.gart.color.CssColors
 import dev.oblac.gart.color.Palettes
 import dev.oblac.gart.color.alpha
@@ -46,7 +46,7 @@ fun main() {
         Point(rndf(d.wf), rndf(100f))
     }.toList()
 
-    g.canvas.drawPaint(fillOf(BgColors.pearlWhite))
+    g.canvas.drawPaint(fillOf(BwColors.pearlWhite))
 //    voids.forEach {
 //        g.canvas.drawCircle(it.x, it.y, it.radius, strokeOfRed(1f))
 //    }
@@ -55,7 +55,7 @@ fun main() {
     // paint
 
     val stopDrawing = 6.seconds.toFrames(gart.fps)
-    val pal = Palettes.gradient(BgColors.elegantDark, CssColors.crimson, 100)
+    val pal = Palettes.gradient(BwColors.elegantDark, CssColors.crimson, 100)
 
     val w = gart.window()
     var image = g.snapshot()
@@ -69,7 +69,7 @@ fun main() {
                     flowField[it.x, it.y]
                         .offset(it)
                         .also { p ->
-                            var color = BgColors.elegantDark.alpha(0x28)
+                            var color = BwColors.elegantDark.alpha(0x28)
                             if (it.y > 200) {
                                 color = pal[it.y.toInt() / 10]
                             }
@@ -77,7 +77,7 @@ fun main() {
                                 it.alpha = 0x28
                             }
                             g.canvas.drawPoint(p.x, p.y, paint)
-                            //g.canvas.drawLine(it.x, it.y, p.x, p.y, strokeOf(BgColors.elegantDark.alpha(0x28), 1f))
+                            //g.canvas.drawLine(it.x, it.y, p.x, p.y, strokeOf(BwColors.elegantDark.alpha(0x28), 1f))
                         }
                 }
             g.canvas.translate(20f, -20f)

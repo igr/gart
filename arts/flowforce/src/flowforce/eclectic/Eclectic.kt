@@ -1,7 +1,7 @@
 package flowforce.eclectic
 
 import dev.oblac.gart.Gart
-import dev.oblac.gart.color.BgColors
+import dev.oblac.gart.color.BwColors
 import dev.oblac.gart.color.Palettes
 import dev.oblac.gart.flow.Flow
 import dev.oblac.gart.flow.FlowField
@@ -45,7 +45,7 @@ fun main() {
     val g = gart.gartvas()
     val c = g.canvas
 
-    c.clear(BgColors.elegant)
+    c.clear(BwColors.elegant)
 
     Palettes.cool35.sequence().forEachIndexed { index, it ->
         drawww(
@@ -112,10 +112,10 @@ private fun drawww(c: Canvas, color: Int, index: Int) {
 
     // draw
     when (index) {
-        3 -> c.drawCircle(d.w - 200f, d.hf / 3, 100f, fillOf(BgColors.coconutMilk))
-        6 -> c.drawCircle(d.cx / 3 + 400, d.hf / 3 + 400, 80f, fillOf(BgColors.coconutMilk))
-        7 -> c.drawCircle(d.cx / 2, d.hf / 3, 100f, fillOf(BgColors.coconutMilk))
-        9 -> c.drawCircle(d.cx, d.cy, 50f, fillOf(BgColors.coconutMilk))
+        3 -> c.drawCircle(d.w - 200f, d.hf / 3, 100f, fillOf(BwColors.coconutMilk))
+        6 -> c.drawCircle(d.cx / 3 + 400, d.hf / 3 + 400, 80f, fillOf(BwColors.coconutMilk))
+        7 -> c.drawCircle(d.cx / 2, d.hf / 3, 100f, fillOf(BwColors.coconutMilk))
+        9 -> c.drawCircle(d.cx, d.cy, 50f, fillOf(BwColors.coconutMilk))
     }
 
 
@@ -128,5 +128,5 @@ private fun drawww(c: Canvas, color: Int, index: Int) {
         }
     }
     //ff.drawField(c, d)
-    c.drawBorder(d, 20f, BgColors.bg08)
+    c.drawBorder(d, 20f, BwColors.bg08)
 }

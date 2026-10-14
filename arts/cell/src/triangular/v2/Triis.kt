@@ -5,7 +5,7 @@ import dev.oblac.gart.Gart
 import dev.oblac.gart.Gartvas
 import dev.oblac.gart.Key
 import dev.oblac.gart.attractor.LangfordAizawaAttractor
-import dev.oblac.gart.color.BgColors
+import dev.oblac.gart.color.BwColors
 import dev.oblac.gart.color.Palettes
 import dev.oblac.gart.gfx.*
 import dev.oblac.gart.noise.PoissonDiskSamplingNoise
@@ -68,7 +68,7 @@ fun main() {
 private fun draw(g: Gartvas, triangles: List<Triangle>) {
     val points = PoissonDiskSamplingNoise().generate(10.0, 10.0, g.d.wd - 10, g.d.hd - 10, 8.0, 10)
     g.draw { c, _ ->
-        c.clear(BgColors.elegantDark)
+        c.clear(BwColors.elegantDark)
         points.forEach {
             c.drawCircle(it.x, it.y, 2f, fillOf(Palettes.cool18.random()))
         }
@@ -79,7 +79,7 @@ private fun draw(g: Gartvas, triangles: List<Triangle>) {
                 it.mode = PaintMode.STROKE_AND_FILL
             })
         }
-        c.drawBorder(g.d, 20f, BgColors.elegantDark)
+        c.drawBorder(g.d, 20f, BwColors.elegantDark)
     }
 }
 

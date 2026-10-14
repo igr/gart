@@ -1,6 +1,6 @@
 package flowforce
 
-import dev.oblac.gart.color.BgColors
+import dev.oblac.gart.color.BwColors
 import dev.oblac.gart.color.Palettes
 import dev.oblac.gart.color.alpha
 import dev.oblac.gart.flow.FlowField
@@ -40,7 +40,7 @@ fun main() {
         )
     }.toList()
 
-    g.canvas.clear(BgColors.sand)
+    g.canvas.clear(BwColors.sand)
 
     val w = gart.window()
     var image = g.snapshot()
@@ -58,7 +58,7 @@ fun main() {
         f.onFrame(stopDrawing) {
             val border = 30f
             g.canvas.drawImage(image, 30f, 0f)
-            g.canvas.drawRect(gart.d.rect.shrink(border / 2), strokeOf(BgColors.milkMustache, border))
+            g.canvas.drawRect(gart.d.rect.shrink(border / 2), strokeOf(BwColors.milkMustache, border))
             image = g.snapshot()
             println("Done")
             gart.saveImage(image)

@@ -2,7 +2,7 @@ package lines
 
 import dev.oblac.gart.Dimension
 import dev.oblac.gart.Gart
-import dev.oblac.gart.color.BgColors
+import dev.oblac.gart.color.BwColors
 import dev.oblac.gart.color.Palettes
 import dev.oblac.gart.gfx.paint
 import dev.oblac.gart.math.DOUBLE_PIf
@@ -45,7 +45,7 @@ fun main() {
 }
 
 private fun draw(c: Canvas, d: Dimension) {
-    c.clear(BgColors.coolDark)
+    c.clear(BwColors.coolDark)
     val streets = generateCityMap(
         r = 1.1f,
         angle = 0.06f,

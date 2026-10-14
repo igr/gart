@@ -2,7 +2,7 @@ package thre3
 
 import dev.oblac.gart.Dimension
 import dev.oblac.gart.Gart
-import dev.oblac.gart.color.BgColors
+import dev.oblac.gart.color.BwColors
 import dev.oblac.gart.color.Palettes
 import dev.oblac.gart.color.alpha
 import dev.oblac.gart.flow.FlowField
@@ -63,7 +63,7 @@ fun main() {
         Point(d.wf * it / n, 700f)
     }.toList()
 
-    g.canvas.clear(BgColors.sand)
+    g.canvas.clear(BwColors.sand)
     //g.canvas.clear(palette[3])
 
     val w = gart.window()
@@ -74,7 +74,7 @@ fun main() {
 
     w.show { c, d, f ->
         f.onBeforeFrame(startDrawing) {
-            g.canvas.clear(BgColors.sand)
+            g.canvas.clear(BwColors.sand)
         }
         f.onBeforeFrame(stopDrawing1) {
             line1 = line1
@@ -144,7 +144,7 @@ fun drawFinalImage(image1: Image, image2: Image) {
 
     val g = gart.gartvas()
 
-    g.canvas.clear(BgColors.sand)
+    g.canvas.clear(BwColors.sand)
 
     val rect1 = Rect(100f, 100f, 100f + 400, 100f + 400f)
     val rect2 = Rect(100f, 600f, 100f + 400, 600f + 400f)

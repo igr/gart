@@ -1,7 +1,7 @@
 package cotton.circles
 
 import dev.oblac.gart.Gart
-import dev.oblac.gart.color.BgColors
+import dev.oblac.gart.color.BwColors
 import dev.oblac.gart.color.Palettes
 import dev.oblac.gart.math.rndi
 import dev.oblac.gart.noise.NoiseColor
@@ -33,7 +33,7 @@ fun main() {
             }
     }
 
-    g.canvas.clear(BgColors.bg01)
+    g.canvas.clear(BwColors.bg01)
     //g.canvas.drawRect(Rect(100f, 100f, 600f, 600f), paint)
 
     val count = 10

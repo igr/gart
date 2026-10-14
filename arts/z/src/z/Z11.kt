@@ -2,7 +2,7 @@ package z
 
 import dev.oblac.gart.Dimension
 import dev.oblac.gart.Gart
-import dev.oblac.gart.color.BgColors
+import dev.oblac.gart.color.BwColors
 import dev.oblac.gart.color.CssColors
 import dev.oblac.gart.color.Palettes
 import dev.oblac.gart.gfx.*
@@ -64,5 +64,5 @@ private fun draw(c: Canvas, d: Dimension, koef: Float) {
         c.drawCircle(x, y, 1.5f, fillOf(CssColors.white).alpha(170))
     }
 
-    c.drawBorder(d, 20f, BgColors.clottedCream)
+    c.drawBorder(d, 20f, BwColors.clottedCream)
 }

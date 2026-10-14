@@ -7,7 +7,7 @@ import dev.oblac.gart.angle.Angle
 import dev.oblac.gart.angle.Degrees
 import dev.oblac.gart.angle.cosf
 import dev.oblac.gart.angle.sinf
-import dev.oblac.gart.color.BgColors
+import dev.oblac.gart.color.BwColors
 import dev.oblac.gart.color.NipponColors
 import dev.oblac.gart.color.Palette
 import dev.oblac.gart.color.Palettes
@@ -25,7 +25,7 @@ private val palette = p(Palettes.cool37.reversed())
 private val palette2 = p(Palettes.cool16)
 private val palette3 = p(Palettes.cool11)
 
-private var backColor = BgColors.elegantDark
+private var backColor = BwColors.elegantDark
 private var x1 = 500f
 private var y1 = 500f
 private var x2 = 500f

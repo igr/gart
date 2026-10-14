@@ -2,7 +2,7 @@ package harmongraph
 
 import dev.oblac.gart.Frames
 import dev.oblac.gart.Gart
-import dev.oblac.gart.color.BgColors
+import dev.oblac.gart.color.BwColors
 import dev.oblac.gart.color.CssColors
 import dev.oblac.gart.color.alpha
 import dev.oblac.gart.gfx.Triangle
@@ -56,7 +56,7 @@ private fun draw(canvas: Canvas, tick: Frames, drawing: Int) {
         Point(0f, d.hf),
         Point(d.wf, d.hf)
     )
-    canvas.drawTriangle(backTriangle1, fillOf(BgColors.warmBlack1))
+    canvas.drawTriangle(backTriangle1, fillOf(BwColors.warmBlack1))
     canvas.drawTriangle(backTriangle2, fillOf(CssColors.oldLace))
 
     when (drawing) {

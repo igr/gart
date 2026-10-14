@@ -4,7 +4,7 @@ import dev.oblac.gart.Dimension
 import dev.oblac.gart.Drawing
 import dev.oblac.gart.Gart
 import dev.oblac.gart.Gartvas
-import dev.oblac.gart.color.BgColors
+import dev.oblac.gart.color.BwColors
 import dev.oblac.gart.color.gradientOf
 import dev.oblac.gart.gfx.paint
 import dev.oblac.gart.math.doubleLoopSequence
@@ -59,7 +59,7 @@ private fun drawSquare(w: Float, rotationAngle: Float = 0f): Image {
     val d = g.d
     val c = g.canvas
 
-    val colors = intArrayOf(BgColors.linen, BgColors.richBlack, BgColors.linen)
+    val colors = intArrayOf(BwColors.linen, BwColors.richBlack, BwColors.linen)
     val positions = floatArrayOf(0.0f, 0.5f, 1.0f)
 
     // Create the radial gradient shader

@@ -1,7 +1,7 @@
 package rects.rectover
 
 import dev.oblac.gart.Gart
-import dev.oblac.gart.color.BgColors
+import dev.oblac.gart.color.BwColors
 import dev.oblac.gart.color.CssColors
 import dev.oblac.gart.color.Palettes
 import dev.oblac.gart.gfx.*
@@ -68,7 +68,7 @@ fun main() {
             }
         }
     }
-    c.drawBorder(gart.d, 20f, BgColors.warmBlack2)
+    c.drawBorder(gart.d, 20f, BwColors.warmBlack2)
     gart.window().showImage(g)
     gart.saveImage(g)
 }

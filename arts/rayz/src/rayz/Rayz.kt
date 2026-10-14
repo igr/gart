@@ -6,7 +6,7 @@ import dev.oblac.gart.angle.Angle
 import dev.oblac.gart.angle.Degrees
 import dev.oblac.gart.angle.cosf
 import dev.oblac.gart.angle.sinf
-import dev.oblac.gart.color.BgColors
+import dev.oblac.gart.color.BwColors
 import dev.oblac.gart.color.Palettes
 import dev.oblac.gart.gfx.*
 import dev.oblac.gart.math.rndf
@@ -51,7 +51,7 @@ private fun draw(c: Canvas, d: Dimension, paletteOffset: Int) {
     val ye = 600f + cos(paletteOffset.toFloat() / 100) * 50f
     val obstacle = Obstacle(Point(xo, yo), Point(xe, ye), 100f)
 
-    c.clear(BgColors.elegantDark)
+    c.clear(BwColors.elegantDark)
 
     val from = drawSun(c, d, palette.safe(paletteOffset))
 
@@ -136,7 +136,7 @@ internal fun calcWayAround(line: Line, obstacle: Obstacle, intersectionPoint: Po
     return points
 }
 
-val oPal = Palettes.gradient(BgColors.elegantDark, BgColors.milkMustache, 10)
+val oPal = Palettes.gradient(BwColors.elegantDark, BwColors.milkMustache, 10)
 
 private fun drawObstacle(c: Canvas, obstacle: Obstacle) {
     val oc = obstacle.line.centerPoint()

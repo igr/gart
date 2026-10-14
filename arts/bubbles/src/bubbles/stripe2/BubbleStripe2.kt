@@ -4,7 +4,7 @@ import dev.oblac.gart.Dimension
 import dev.oblac.gart.Drawing
 import dev.oblac.gart.Gart
 import dev.oblac.gart.Gartvas
-import dev.oblac.gart.color.BgColors
+import dev.oblac.gart.color.BwColors
 import dev.oblac.gart.color.Palettes
 import dev.oblac.gart.gfx.*
 import dev.oblac.gart.math.GOLDEN_RATIO
@@ -42,7 +42,7 @@ private class MyDraw(g: Gartvas) : Drawing(g) {
 private val pal = Palettes.cool200
 
 private fun draw(c: Canvas, d: Dimension) {
-    c.clear(BgColors.obsidian)
+    c.clear(BwColors.obsidian)
 
     val r = d.rect
     val box = d.rect.shrink(40f)
@@ -85,7 +85,7 @@ private fun draw(c: Canvas, d: Dimension) {
         .forEach { circle ->
             repeat(10) {
                 val circ = circle.resize(circle.radius + it)
-                c.drawCircle(circ, strokeOf(2f, BgColors.obsidian).apply {
+                c.drawCircle(circ, strokeOf(2f, BwColors.obsidian).apply {
                     this.pathEffect = PathEffect.makeDash(
                         floatArrayOf(rndf(80, 120), rndf(40, 80)), rndf()
                     )

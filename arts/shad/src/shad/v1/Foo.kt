@@ -4,7 +4,7 @@ import dev.oblac.gart.Drawing
 import dev.oblac.gart.Gart
 import dev.oblac.gart.Gartmap
 import dev.oblac.gart.Gartvas
-import dev.oblac.gart.color.BgColors
+import dev.oblac.gart.color.BwColors
 import dev.oblac.gart.gfx.draw
 import dev.oblac.gart.math.f
 import dev.oblac.gart.math.smoothstep
@@ -41,7 +41,7 @@ private class MyFooDraw(g: Gartvas) : Drawing(g) {
     val c = g.canvas
 
     init {
-        c.clear(BgColors.outerSpace)
+        c.clear(BwColors.outerSpace)
         b.updatePixelsFromCanvas()
         runBlocking {
             draw(b, Vec2(d.w.f(), d.h.f()), 110.5f)

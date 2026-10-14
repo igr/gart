@@ -7,7 +7,7 @@ import de.pirckheimer_gymnasium.jbox2d.dynamics.*
 import de.pirckheimer_gymnasium.jbox2d.particle.ParticleGroupDef
 import dev.obac.gart.box2d.createContainer
 import dev.oblac.gart.Gart
-import dev.oblac.gart.color.BgColors
+import dev.oblac.gart.color.BwColors
 import dev.oblac.gart.color.Palettes
 import dev.oblac.gart.color.gradientOf
 import dev.oblac.gart.color.space.color4f
@@ -58,7 +58,7 @@ fun main() {
 
     val s = gart.snapshot()
     gart.window().show { c, _, f ->
-        c.clear(BgColors.bg03)
+        c.clear(BwColors.bg03)
         if (f.new) {
             println(f.frame)
         }

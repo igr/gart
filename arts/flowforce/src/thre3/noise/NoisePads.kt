@@ -1,7 +1,7 @@
 package thre3.noise
 
 import dev.oblac.gart.Gart
-import dev.oblac.gart.color.BgColors
+import dev.oblac.gart.color.BwColors
 import dev.oblac.gart.color.CssColors
 import dev.oblac.gart.flow.FlowField
 import dev.oblac.gart.flow.WaveFlow
@@ -23,7 +23,7 @@ fun main() {
     val g = gart.gartvas()
     val c = g.canvas
 
-    c.clear(BgColors.cloudDancer)
+    c.clear(BwColors.cloudDancer)
 
     val height = 200f
     val count = 3

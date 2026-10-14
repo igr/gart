@@ -2,7 +2,7 @@ package flowforce
 
 import dev.oblac.gart.Gart
 import dev.oblac.gart.angle.Radians
-import dev.oblac.gart.color.BgColors
+import dev.oblac.gart.color.BwColors
 import dev.oblac.gart.color.Palettes
 import dev.oblac.gart.flow.Flow2
 import dev.oblac.gart.flow.FlowField
@@ -48,7 +48,7 @@ fun main() {
     val clr = plt[0]//RetroColors.black01
     c.clear(clr)
     val circle = Circle(d.cx, d.cy, 400f)
-    c.drawCircle(circle, fillOf(BgColors.pearlWhite))
+    c.drawCircle(circle, fillOf(BwColors.pearlWhite))
 
     // source - the list of points that gets
     val totalPoints = 40000

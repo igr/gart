@@ -1,6 +1,6 @@
 package dev.oblac.gart
 
-import dev.oblac.gart.color.BgColors
+import dev.oblac.gart.color.BwColors
 import dev.oblac.gart.color.CssColors
 import dev.oblac.gart.color.Palettes
 import dev.oblac.gart.font.FontFamily
@@ -64,7 +64,7 @@ private class FunDraw : Drawing() {
 }
 
 private fun draw(c: Canvas, d: Dimension, frame: Long) {
-    c.clear(BgColors.coolDark)
+    c.clear(BwColors.coolDark)
 
 
     drawGrid(c, d, maxX, maxY)
@@ -149,7 +149,7 @@ private fun drawGrid(c: Canvas, d: Dimension, maxX: Float, maxY: Float, maxGridL
     val stepY = calculateNiceStep(maxY, maxGridLines)
 
     // Draw grid lines
-    val gridPaint = strokeOf(BgColors.bg05, 1f).apply {
+    val gridPaint = strokeOf(BwColors.bg05, 1f).apply {
         // Create dotted line effect: 3px dash, 3px gap
         pathEffect = PathEffect.makeDash(floatArrayOf(3f, 3f), 0f)
     }
@@ -187,7 +187,7 @@ private fun drawGrid(c: Canvas, d: Dimension, maxX: Float, maxY: Float, maxGridL
     }
 
     // Draw X and Y axes with thicker, solid lines
-    val axisPaint = strokeOf(BgColors.bg01, 2f)
+    val axisPaint = strokeOf(BwColors.bg01, 2f)
 
     // X-axis (horizontal line through center)
     c.drawLine(0f, d.cy, d.wf, d.cy, axisPaint)

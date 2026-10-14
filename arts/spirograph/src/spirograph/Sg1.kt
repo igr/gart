@@ -3,7 +3,7 @@ package spirograph
 import dev.oblac.gart.Dimension
 import dev.oblac.gart.Gart
 import dev.oblac.gart.angle.Degrees
-import dev.oblac.gart.color.BgColors
+import dev.oblac.gart.color.BwColors
 import dev.oblac.gart.color.Palettes
 import dev.oblac.gart.gfx.*
 import dev.oblac.gart.spirograph.createSpirograph
@@ -29,7 +29,7 @@ fun main() {
 private val pal = Palettes.colormap058.expand(1000)
 
 private fun draw(c: Canvas, d: Dimension) {
-    c.clear(BgColors.coolDark)
+    c.clear(BwColors.coolDark)
 
     val path1 = path1(d)
     val spiro1 = createSpirograph(

@@ -2,7 +2,7 @@ package ticktiletock.nidus
 
 import dev.oblac.gart.Gart
 import dev.oblac.gart.Gartmap
-import dev.oblac.gart.color.BgColors
+import dev.oblac.gart.color.BwColors
 import dev.oblac.gart.color.Palettes
 import dev.oblac.gart.fx.supersampled
 import dev.oblac.gart.io.detectHeadlessFlags
@@ -26,8 +26,8 @@ private val ss = pi("ss", 3, 1..4)
 private val out = ps("out", "nidus")
 
 private const val W = 1024
-private const val PAPER = BgColors.warmPaper
-private const val INK = BgColors.inkBlack
+private const val PAPER = BwColors.warmPaper
+private const val INK = BwColors.inkBlack
 
 fun main(args: Array<String>) {
     val gart = Gart.of("nidus", W, W)

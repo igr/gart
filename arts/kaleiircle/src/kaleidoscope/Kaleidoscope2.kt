@@ -7,7 +7,7 @@ import dev.oblac.gart.Sprite
 import dev.oblac.gart.Sprite.Companion.of
 import dev.oblac.gart.angle.Angle
 import dev.oblac.gart.angle.Degrees
-import dev.oblac.gart.color.BgColors
+import dev.oblac.gart.color.BwColors
 import dev.oblac.gart.color.CssColors
 import dev.oblac.gart.color.Palettes
 import dev.oblac.gart.gfx.*
@@ -60,7 +60,7 @@ private fun drawTemplateImage(c: Canvas, d: Dimension) {
             c.drawPath(it.toPath(), strokeOfBlack(2f))
         }
     }
-    c.drawBorder(d, 20f, BgColors.coolDark)
+    c.drawBorder(d, 20f, BwColors.coolDark)
 }
 
 private fun makeTriangleSprite(g: Gartvas, point: Point, tSize: Float, angle: Angle): Sprite {

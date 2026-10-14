@@ -3,7 +3,7 @@ package liss2
 import dev.oblac.gart.Dimension
 import dev.oblac.gart.Frames
 import dev.oblac.gart.Gart
-import dev.oblac.gart.color.BgColors
+import dev.oblac.gart.color.BwColors
 import dev.oblac.gart.color.Palettes
 import dev.oblac.gart.gfx.drawCircle
 import dev.oblac.gart.gfx.fillOf
@@ -23,8 +23,8 @@ val d = gart.d
 const val xrad = 100f
 const val yrad = 100f
 
-var c1 = BgColors.coolDark
-var c2 = BgColors.coolGray
+var c1 = BwColors.coolDark
+var c2 = BwColors.coolGray
 
 data class Config(val a: Int, val b: Int, val c: Int, val d: Int, val e: Int, val f: Int, val g: Int)
 
