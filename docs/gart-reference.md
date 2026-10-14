@@ -404,7 +404,7 @@ Hand-curated named-color objects:
 | Object | File | Access | Mood |
 |--------|------|--------|------|
 | ⭐ `CyanotypeColors` | `CyanotypeColors.kt` | `.palette1` (8), `.palette2` (16), `.accent`, `.accent2` | Deep blue cyanotype prints, warm orange accent. |
-| `BgColors` | `BgColors.kt` | named fields (`bg01`–`bg08`, `pearlWhite`…, `dark01`…, `warmBlack1`–`5`) | Curated light/dark background neutrals. |
+| `BgColors` | `BgColors.kt` | named fields (`bg01`–`bg08`, `pearlWhite`…, `dark01`…, `warmBlack0`–`5`) | Curated light/dark background neutrals. |
 | `MidCenturyColors` | `MidCenturyColors.kt` | named fields (white1, green, black, red, yellow, blue, blue2) | Warm mid-century-modern accents. |
 | `RetroColors` | `RetroColors.kt` | 14 named fields + `allColors: List<Int>` | Muted vintage/retro hues. |
 | `NipponColors` | `NipponColors.kt` | 250 named fields `colNNN_NAME` (e.g. `col001_NADESHIKO`) via `rgb(...)` | Traditional Japanese colors, soft and earthy. |
