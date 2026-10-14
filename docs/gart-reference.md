@@ -416,7 +416,7 @@ Hand-curated named-color objects:
 
 | Family field (in `Palettes`) | Count | Source file | Notes / mood |
 |------|------:|-------------|------|
-| `cool1`–`cool257` | 257 | `cool.kt` | Large grab-bag of curated artistic palettes (multi-hue). `cool184`–`cool200` have 4 colors each; `cool201`–`cool214` have 5 colors: a near-black, a near-white, one darker and two lighter colors. `cool215`–`cool256` have 4–10 colors; in `cool215`–`cool244` the last one or two colors are the set's own ink and paper. `cool257` has 8 colors in the order of the jobs of a light: sky top, horizon, glow, glare, sun, deep water, lit crests, foam. |
+| `cool1`–`cool258` | 258 | `cool.kt` | Large grab-bag of curated artistic palettes (multi-hue). `cool184`–`cool200` have 4 colors each; `cool201`–`cool214` have 5 colors: a near-black, a near-white, one darker and two lighter colors. `cool215`–`cool256` have 4–10 colors; in `cool215`–`cool244` the last one or two colors are the set's own ink and paper. `cool257` has 8 colors in the order of the jobs of a light: sky top, horizon, glow, glare, sun, deep water, lit crests, foam. `cool258` has 17 colors, cool first and warm last. |
 | `mix1`–`mix15` | 15 | `mix.kt` | Mixed hand-picked palettes. |
 | `colormap001`–`colormap133` | 133 | (aliases below) | Scientific/data-viz colormaps, mapped 1:1 in order. |
 
@@ -437,11 +437,11 @@ The 133 `colormapNNN` entries alias these source families (in this order):
 
 Generators / accessors on `Palettes`:
 - `gradient(colorFrom: Int/Long, colorTo, steps): Palette` — interpolate two colors into `steps` colors.
-- `mixPalette(num)` → mix1..15; `coolPalette(num)` → cool1..257; `colormapPalette(num)` → colormap001..133 (1-based, throws on out-of-range).
-- `coolPalettesOfSize(size)` → every cool palette with exactly `size` colors, in cool order. `COOL_COUNT` is the number of cool palettes (257).
+- `mixPalette(num)` → mix1..15; `coolPalette(num)` → cool1..258; `colormapPalette(num)` → colormap001..133 (1-based, throws on out-of-range).
+- `coolPalettesOfSize(size)` → every cool palette with exactly `size` colors, in cool order. `COOL_COUNT` is the number of cool palettes (258).
 - `navigator(): PalettesNavigator`.
 
-`PalettesNavigator` (`PalettesNavigator.kt`) — UI-style cycler over sets `mix` (15), `cool` (257), `colormap` (133): `palette()`, `name()`, `nextPalette()/previousPalette()`, `nextSet()/previousSet()`.
+`PalettesNavigator` (`PalettesNavigator.kt`) — UI-style cycler over sets `mix` (15), `cool` (258), `colormap` (133): `palette()`, `name()`, `nextPalette()/previousPalette()`, `nextSet()/previousSet()`.
 
 Source-of-truth files: `Palette.kt`, `color.kt`, `gradient.kt`, `colorRamp.kt`, `colorMatrix.kt`, `PaletteGenerator.kt`, `CyanotypeColors.kt`, `BgColors.kt`, `MidCenturyColors.kt`, `RetroColors.kt`, `NipponColors.kt`, `CssColors.kt`, `Palettes.kt`, `PalettesNavigator.kt`, `color/palettes/*.kt`, `color/space/*.kt`.
 ## 3. Noise & Flow Fields
