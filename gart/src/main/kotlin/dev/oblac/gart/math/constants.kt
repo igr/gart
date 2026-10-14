@@ -1,10 +1,5 @@
 package dev.oblac.gart.math
 
-const val WIDE_SCREEN_RATIO = 16.0f / 9
-const val ULTRA_WIDE_SCREEN_RATIO = 21.0f / 9
-const val CINEMA_RATIO = 2.4f
-const val GOLDEN_RATIO = 1.61803398875
-const val GOLDEN_RATIOf = 1.618034f
 const val GOLDEN_TURN = 2 - GOLDEN_RATIO             // 1 - 1/phi = 1/phi², the golden angle as a share of a turn. the hardest rotation number to lock
 const val GOLDEN_TURNf = 0.38196601f
 const val GOLDEN_ANGLE = 2 * Math.PI * GOLDEN_TURN   // 137.5°, the small part of a turn cut in golden ratio. sunflower seeds sit this far apart
