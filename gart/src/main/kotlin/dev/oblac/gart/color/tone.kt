@@ -1,6 +1,5 @@
 package dev.oblac.gart.color
 
-import dev.oblac.gart.math.lerp
 import kotlin.math.exp
 import kotlin.math.pow
 
@@ -15,18 +14,27 @@ class ToneCurve(val exposure: Float, val gamma: Float = 1f) {
     operator fun invoke(l: Float): Float = (1f - exp(-exposure * l)).pow(gamma)
 }
 
+// one channel in linear light, gamma 2.2
+private val LINEAR = FloatArray(256) { (it / 255f).pow(2.2f) }
+
 /**
- * Ink to paper in 256 steps, mixed in linear light (gamma 2.2), the way printed dots mix from
- * a step back. Each channel goes to linear light with the power 2.2, mixes there, and goes back
- * with the power 1/2.2. A plain sRGB lerp sits too dark in the mid tones.
+ * Mixes two colors in linear light (gamma 2.2), the way printed dots mix from a step back.
+ * Each channel goes to linear light with the power 2.2, mixes there, and goes back with the
+ * power 1/2.2. A plain sRGB lerp like [lerpColor] sits too dark in the mid tones.
+ * [t] clamps to `0..1`. The alpha of the two colors does not count, the result is opaque.
+ */
+fun lerpColorInLight(from: Int, to: Int, t: Float): Int {
+    val k = t.coerceIn(0f, 1f)
+    fun ch(p: Int, q: Int) = ((LINEAR[p] + (LINEAR[q] - LINEAR[p]) * k).pow(1f / 2.2f) * 255f + 0.5f).toInt().coerceIn(0, 255)
+    return rgb(ch(red(from), red(to)), ch(green(from), green(to)), ch(blue(from), blue(to)))
+}
+
+/**
+ * Ink to paper in 256 steps of [lerpColorInLight].
  */
 class InkRamp(ink: Int, paper: Int) {
 
-    private val lut = IntArray(256) { i ->
-        // one channel from ink to paper, mixed in light
-        fun ch(a: Int, b: Int) = (lerp((a / 255f).pow(2.2f), (b / 255f).pow(2.2f), i / 255f).pow(1f / 2.2f) * 255f + 0.5f).toInt()
-        rgb(ch(red(ink), red(paper)), ch(green(ink), green(paper)), ch(blue(ink), blue(paper)))
-    }
+    private val lut = IntArray(256) { lerpColorInLight(ink, paper, it / 255f) }
 
     /**
      * The color at [t]: 0 is the ink, 1 is the paper. Values outside `0..1` clamp.

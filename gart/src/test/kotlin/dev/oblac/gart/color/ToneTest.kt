@@ -44,4 +44,25 @@ class ToneTest {
     fun rgbWalksEachChannelOnItsOwn() {
         assertEquals(0xFF00FFBA.toInt(), InkRamp(0xFF000000.toInt(), 0xFFFFFFFF.toInt()).rgb(0f, 1f, 0.5f))
     }
+
+    @Test
+    fun lerpColorInLightIsLighterThanAnSrgbLerp() {
+        assertEquals(0xFFBABABA.toInt(), lerpColorInLight(0xFF000000.toInt(), 0xFFFFFFFF.toInt(), 0.5f))
+        assertEquals(0xFF7F7F7F.toInt(), lerpColor(0xFF000000.toInt(), 0xFFFFFFFF.toInt(), 0.5f))
+    }
+
+    @Test
+    fun lerpColorInLightEndsAreTheTwoColors() {
+        val a = 0xFF151B2C.toInt()
+        val b = 0xFFEEE8DB.toInt()
+        assertEquals(a, lerpColorInLight(a, b, 0f))
+        assertEquals(b, lerpColorInLight(a, b, 1f))
+        assertEquals(a, lerpColorInLight(a, b, -2f))
+        assertEquals(b, lerpColorInLight(a, b, 5f))
+    }
+
+    @Test
+    fun lerpColorInLightIsOpaque() {
+        assertEquals(0xFFBABABA.toInt(), lerpColorInLight(0x00000000, 0x80FFFFFF.toInt(), 0.5f))
+    }
 }

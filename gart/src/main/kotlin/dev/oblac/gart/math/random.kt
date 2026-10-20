@@ -8,6 +8,21 @@ import kotlin.math.max
 import kotlin.math.sqrt
 import kotlin.random.Random
 
+/**
+ * A [Random] for the seed knob of a piece. Seeds next to each other give draws that are not related.
+ *
+ * `Random(seed)` does not do this. Its generator does not mix the bits of the seed well, so the
+ * draws of seeds next to each other have patterns. For example, after three floats, the next coin
+ * changes only one time in 8 seeds. Here the seed is first multiplied by 2^64 / golden ratio.
+ * The multiplication spreads each bit of the seed over the full Long. The number is odd, so two
+ * seeds never give the same sequence.
+ * Do not change the number: each piece that uses this function would change its image.
+ */
+fun seededRandom(seed: Int): Random = Random(seed * GOLDEN_GAMMA)
+
+// 0x9E3779B97F4A7C15 as a signed Long: 2^64 / golden ratio, rounded down. it is odd
+private const val GOLDEN_GAMMA = -0x61c8864680b583ebL
+
 fun Random.rndi(): Int = nextInt()
 fun Random.rndi(max: Int): Int = nextInt(max)
 fun Random.rndi(min: Int, max: Int): Int = nextInt(min, max)

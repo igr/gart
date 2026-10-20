@@ -5,7 +5,7 @@ import dev.oblac.gart.color.blue
 import dev.oblac.gart.color.green
 import dev.oblac.gart.color.red
 import org.jetbrains.skia.Color4f
-import kotlin.math.sqrt
+import kotlin.math.pow
 
 fun Number.color4f(): Color4f = Color4f(this.toInt())
 
@@ -44,13 +44,16 @@ fun Color4f.mix(other: Color4f, f: Float = 0.5f): Color4f {
     )
 }
 
-fun Color4f.mixLrgb(other: Color4f, f: Float = 0.5f): Color4f {
-    return Color4f(
-        sqrt(r * r * (1 - f) + other.r * other.r * f),
-        sqrt(g * g * (1 - f) + other.g * other.g * f),
-        sqrt(b * b * (1 - f) + other.b * other.b * f),
-        a + f * (other.a - a)
-    )
+/**
+ * Mixes two colors in linear light. Each channel goes up to the power [gamma], mixes there, and
+ * goes back with the power 1/[gamma]. The default 2 is the square and the square root. 2.2 is
+ * closer to sRGB, and 1 is a straight sRGB mix. Alpha mixes straight. The channels must be in `0..1`.
+ * For Int colors at gamma 2.2, see [dev.oblac.gart.color.lerpColorInLight].
+ */
+fun Color4f.mixLrgb(other: Color4f, f: Float = 0.5f, gamma: Float = 2f): Color4f {
+    require(gamma > 0f) { "gamma must be more than 0, got $gamma" }
+    fun ch(p: Float, q: Float) = (p.pow(gamma) * (1 - f) + q.pow(gamma) * f).pow(1f / gamma)
+    return Color4f(ch(r, other.r), ch(g, other.g), ch(b, other.b), a + f * (other.a - a))
 }
 
 fun Color4f.Companion.of(r: Int, g: Int, b: Int, a: Int = 255) = Color4f(
