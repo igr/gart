@@ -1,0 +1,13 @@
+art    = sigillum.SigillumKt
+module = arts:mathy
+out    = output/sigillum_sweep
+par    = 4
+
+[branch cast]
+seed = 1:77
+
+[branch press]
+press = 0.35,0.5,0.62,0.8
+
+[branch chips]
+chips = 0,0.5,1

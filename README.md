@@ -903,9 +903,17 @@ A collection of generative art pieces (ordered by name).
       <br><b>Nacre</b>
     </td>
     <td width="33%" align="center">
+      <a href="arts/mathy/sigillum.png"><img src="arts/mathy/sigillum_thumb.png" alt="Sigillum" width="100%"/></a>
+      <br><b>Sigillum</b>
+    </td>
+  </tr>
+  <tr>
+    <td width="33%" align="center">
       <a href="arts/mathy/vinculum.png"><img src="arts/mathy/vinculum_thumb.png" alt="Vinculum" width="100%"/></a>
       <br><b>Vinculum</b>
     </td>
+    <td width="33%"></td>
+    <td width="33%"></td>
   </tr>
 </table>
 
@@ -1672,4 +1680,4 @@ A collection of generative art pieces (ordered by name).
 
 ---
 
-🖼️ **288 works** across **42 collections** — and counting.
+🖼️ **289 works** across **42 collections** — and counting.

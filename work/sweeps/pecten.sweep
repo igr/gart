@@ -1,0 +1,32 @@
+art    = lines.pecten.PectenKt
+module = arts:lines
+out    = output/pecten_sweep
+par    = 6
+ss     = 2
+
+[branch cast]
+seed = 1:12
+
+# how far each layer swells and pinches
+[branch lenses]
+swell = 0,0.5,1,1.5,2
+
+# how hard the stack is bent
+[branch squeeze]
+folds = 0,1,2,3,5
+amp   = 0.06,0.12,0.2,0.3
+
+# 0 dashes square to the band, 1 all upright
+[branch cleavage]
+cleave = 0,0.2,0.4,0.7,1
+
+[branch scale]
+layers = 10,20,35
+pitch  = 8,13,20
+
+[branch marks]
+brush  = chalk,charcoal,crayon
+passes = 1,2,3
+
+[branch colourway]
+pal = 1,2,27,29,35,153,189,225,233,252,258
