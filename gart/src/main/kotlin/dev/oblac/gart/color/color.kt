@@ -208,6 +208,17 @@ fun blendDarken(existingColor: Int, newColor: Int): Int {
     return argb(blendedA, blendedR, blendedG, blendedB)
 }
 
+/**
+ * Screens [over] onto [base] by [amount]. Each channel goes to `a + (1 - a) * b * amount`, the
+ * `BlendMode.SCREEN` formula with [over] at alpha [amount]. For an [amount] in `0..1` the result is
+ * never darker than [base]. A black [over] or an [amount] of `0f` gives the [base] channels back.
+ * Each channel is cut to `0..255` (not rounded), like the float [rgb]. Alpha is forced opaque.
+ */
+fun blendScreen(base: Int, over: Int, amount: Float = 1f): Int {
+    fun ch(a: Int, b: Int) = (a + (255 - a) * b / 255f * amount) / 255f
+    return rgb(ch(red(base), red(over)), ch(green(base), green(over)), ch(blue(base), blue(over)))
+}
+
 fun String.parseColor4f() = Color4f.of(parseColor())
 
 fun String.parseColor(): Int {
