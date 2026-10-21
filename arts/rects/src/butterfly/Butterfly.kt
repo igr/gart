@@ -5,6 +5,7 @@ import dev.oblac.gart.Gart
 import dev.oblac.gart.Gartvas
 import dev.oblac.gart.color.*
 import dev.oblac.gart.fx.addGrain
+import dev.oblac.gart.fx.bloom
 import dev.oblac.gart.gfx.fillOf
 import dev.oblac.gart.gfx.lerp
 import dev.oblac.gart.gfx.paint
@@ -546,17 +547,9 @@ private fun hash01(a: Int, b: Int, k: Int): Float = seededHash01(a, b, k, SEED)
 // POST ----------------------------------------------------------------------
 
 private fun drawBloom(c: Canvas, img: Image) {
-    bloomOctave(c, img, 4f, 0.5f * BLOOM, BlendMode.SCREEN)
-    bloomOctave(c, img, 10f, 0.3f * BLOOM, BlendMode.PLUS)
-    bloomOctave(c, img, 22f, 0.18f * BLOOM, BlendMode.PLUS)
-}
-
-private fun bloomOctave(c: Canvas, img: Image, sigma: Float, strength: Float, blend: BlendMode) {
-    c.drawImage(img, 0f, 0f, Paint().apply {
-        imageFilter = ImageFilter.makeBlur(sigma, sigma, FilterTileMode.CLAMP)
-        blendMode = blend
-        alpha = (strength.coerceIn(0f, 1f) * 255).toInt()
-    })
+    bloom(c, img, 4f, 0.5f * BLOOM, BlendMode.SCREEN)
+    bloom(c, img, 10f, 0.3f * BLOOM, BlendMode.PLUS)
+    bloom(c, img, 22f, 0.18f * BLOOM, BlendMode.PLUS)
 }
 
 private fun drawVignette(c: Canvas) {

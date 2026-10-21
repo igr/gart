@@ -94,6 +94,23 @@ fun paintOfImageFilter(imageFilter: ImageFilter) = paint().apply {
     this.imageFilter = imageFilter
 }
 
+/**
+ * A paint that blurs what it lays down by [sigma] and blends it with [blend] at [alpha]. Use it for
+ * glow layers (`saveLayer`) and for blurred copies of an image. There only the alpha of the paint
+ * colour counts. [tile] is what the blur reads past the edge: `DECAL` (the Skia default) reads
+ * transparent, and `CLAMP` repeats the edge pixels, so the borders of a full-canvas copy stay lit.
+ */
+fun blurPaint(
+    sigma: Float,
+    blend: BlendMode = BlendMode.SRC_OVER,
+    alpha: Int = 255,
+    tile: FilterTileMode = FilterTileMode.DECAL,
+) = paint().apply {
+    imageFilter = ImageFilter.makeBlur(sigma, sigma, tile)
+    blendMode = blend
+    this.alpha = alpha
+}
+
 fun Paint.roundStroke(): Paint {
     this.strokeCap = PaintStrokeCap.ROUND
     this.strokeJoin = PaintStrokeJoin.ROUND

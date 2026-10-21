@@ -5,6 +5,7 @@ import dev.oblac.gart.Gartmap
 import dev.oblac.gart.color.Palette
 import dev.oblac.gart.color.gradientOf
 import dev.oblac.gart.color.lerpColor
+import dev.oblac.gart.fx.bloom
 import dev.oblac.gart.io.detectHeadlessFlags
 import dev.oblac.gart.util.Stopwatch
 import dev.oblac.gart.io.pf
@@ -350,17 +351,9 @@ private fun applyAccent(field: Field, map: Gartmap) {
 
 /** multi-octave bloom: tight core glow + a couple of wide additive halos = the corona. */
 private fun drawBloom(c: Canvas, img: Image) {
-    bloomOctave(c, img, BLOOM_SIGMA * 0.7f, 0.55f * BLOOM, BlendMode.SCREEN)  // tight core glow
-    bloomOctave(c, img, BLOOM_SIGMA * 2.0f, 0.40f * BLOOM, BlendMode.PLUS)    // mid halo, additive
-    bloomOctave(c, img, BLOOM_SIGMA * 5.0f, 0.22f * BLOOM, BlendMode.PLUS)    // wide corona into the void
-}
-
-private fun bloomOctave(c: Canvas, img: Image, sigma: Float, strength: Float, blend: BlendMode) {
-    c.drawImage(img, 0f, 0f, Paint().apply {
-        imageFilter = ImageFilter.makeBlur(sigma, sigma, FilterTileMode.CLAMP)
-        blendMode = blend
-        alpha = (strength.coerceIn(0f, 1f) * 255).toInt()
-    })
+    bloom(c, img, BLOOM_SIGMA * 0.7f, 0.55f * BLOOM, BlendMode.SCREEN)  // tight core glow
+    bloom(c, img, BLOOM_SIGMA * 2.0f, 0.40f * BLOOM, BlendMode.PLUS)    // mid halo, additive
+    bloom(c, img, BLOOM_SIGMA * 5.0f, 0.22f * BLOOM, BlendMode.PLUS)    // wide corona into the void
 }
 
 /** darken the edges a bit for depth. */

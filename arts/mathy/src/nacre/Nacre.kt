@@ -18,6 +18,7 @@ import dev.oblac.gart.math.degToRad
 import dev.oblac.gart.math.lerp
 import dev.oblac.gart.noise.SimplexNoise
 import dev.oblac.gart.noise.noiseOffset
+import dev.oblac.gart.noise.ringNoise
 import dev.oblac.gart.tri3d.Camera
 import dev.oblac.gart.tri3d.Face
 import dev.oblac.gart.tri3d.Mesh
@@ -87,7 +88,7 @@ private fun pigment(u: Float, t: Float, n: Vec3, view: Vec3): Int {
     val spec = n.dot(half).coerceAtLeast(0f).pow(38) * 0.75f
     val glaze = n.dot((fill + view).normalize()).coerceAtLeast(0f).pow(12) * 0.23f
     val shade = 0.19f + 0.98f * diffuse + 0.24f * bounce
-    val mottle = 1f + 0.045f * SimplexNoise.noise(cos(u) * 7f + nz, sin(u) * 7f + t * 9f)
+    val mottle = 1f + 0.045f * ringNoise(u, 7f, nz, t * 9f)
     val dark = lerpColor(pal[0], pal[5], copper * 0.6f)
     val lit = lerpColor(dark, base, (shade * mottle).coerceIn(0f, 1f))
     return lerpColor(lit, pal[3], (spec + glaze).coerceIn(0f, 0.85f))

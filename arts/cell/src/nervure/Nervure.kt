@@ -2,6 +2,7 @@ package nervure
 
 import dev.oblac.gart.Gart
 import dev.oblac.gart.color.*
+import dev.oblac.gart.gfx.blurPaint
 import dev.oblac.gart.gfx.fillOf
 import dev.oblac.gart.gfx.strokeOf
 import dev.oblac.gart.io.detectHeadlessFlags
@@ -572,11 +573,7 @@ private fun drawBloom(c: Canvas, nodes: List<Node>, tips: IntArray, p: Params, h
     fun pass(glow: Int, widthMul: Float, sigma: Float, baseAlpha: Int) {
         val layerAlpha = (baseAlpha * p.bloom).toInt().coerceIn(0, 255)
         if (layerAlpha <= 0) return
-        c.saveLayer(null, Paint().apply {
-            color = alpha(0xFFFFFFFF.toInt(), layerAlpha)
-            blendMode = BlendMode.PLUS
-            imageFilter = ImageFilter.makeBlur(sigma, sigma, FilterTileMode.CLAMP)
-        })
+        c.saveLayer(null, blurPaint(sigma, BlendMode.PLUS, layerAlpha, FilterTileMode.CLAMP))
         for (i in order) {
             val node = nodes[i]
             val parent = nodes[node.parent]
