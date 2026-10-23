@@ -884,6 +884,7 @@ Source: `dev/oblac/gart/gfx/canvas.kt`
 - `Image.scaleImage(newWidth: Int, newHeight: Int): Image` — resamples an Image onto a new raster surface. Source: `dev/oblac/gart/fx/scale.kt`.
 - `borderize(src: GartGG, border: Int, color: Int): GartGG` — clones a Gart into a larger one with a uniform colored border. Source: `dev/oblac/gart/fx/borderize.kt`.
 - `addScanlines(target: Pixels, pitch: Float = 4f, depth: Float = 0.3f)` — CRT scanlines, in place: row `y` is scaled by `1 - depth * sin²(π y / pitch)` through `colorScale`, alpha stays. The `addScanlines(gartvas: Gartvas, ...)` overload reads the canvas pixels and writes them back. Source: `dev/oblac/gart/fx/scanlines.kt`.
+- `addLens(target: Pixels, center: Point = d.center, split: Float = 0.006f, maxSplit: Float = +∞, vignette: Float = 0.35f, fade = 0.7f..1.45f, grain: Float = 46f, seed: Int = 0)` — a cheap lens, in place, the result is opaque. `r` is the distance from `center` in half short sides. Each pixel takes its red `split * r` of its distance farther out and its blue as far in (at most `maxSplit` px, about 2.5 when there is small type). The light falls by `vignette` over `fade` (smoothstep in `r`). The grain adds ±`grain / 2` levels from `hash01(x, y, 9, seed)`. The `addLens(gartvas: Gartvas, ...)` overload reads the canvas pixels and writes them back. Used: neuromancer/NM2. Source: `dev/oblac/gart/fx/lens.kt`.
 
 ### Raw Skia effects commonly reached for
 
