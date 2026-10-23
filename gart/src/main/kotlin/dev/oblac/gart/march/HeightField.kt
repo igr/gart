@@ -80,7 +80,7 @@ fun HeightField.march(
     if (t >= end) return -1f
     while (t < end) {
         // the last step stops at the end, so no hit past far ever counts
-        val tn = min(t + max(gap / (abs(dy) + slope(t * fps)), max(t * spread * 0.5f, minStep)), end)
+        val tn = min(t + maxOf(gap / (abs(dy) + slope(t * fps)), t * spread * 0.5f, minStep), end)
         val gn = oy + dy * tn - height(ox + dx * tn, oz + dz * tn, tn * fps)
         if (gn <= 0f) return refine(ox, oy, oz, dx, dy, dz, fps, t, tn)
         t = tn

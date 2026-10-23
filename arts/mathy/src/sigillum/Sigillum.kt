@@ -194,7 +194,7 @@ private class Glyph(c: List<GaussianInt>) {
 }
 
 // how far p is outside from..to. it is 0 inside
-private fun outside(p: Float, from: Float, to: Float) = max(max(from - p, p - to), 0f)
+private fun outside(p: Float, from: Float, to: Float) = maxOf(from - p, p - to, 0f)
 
 // a soft square around a line end. round caps looked stamped by a machine, square ones by a printer
 private fun cap(dx: Float, dy: Float): Float {

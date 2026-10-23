@@ -61,7 +61,7 @@ data class ColorHSI(val h: Float, val s: Float, val i: Float, val a: Float = 1f)
             val g = color4f.g
             val b = color4f.b
 
-            val min_ = min(r, min(g, b))
+            val min_ = minOf(r, g, b)
             val i = (r + g + b) / 3f
             val s = if (i > 0f) 1f - min_ / i else 0f
 

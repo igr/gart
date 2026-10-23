@@ -381,14 +381,14 @@ private class Net {
     }
 
     private fun nearestBoundary(x: Float, y: Float): Point {
-        val border = min(min(x, W - x), min(y, H - y))
+        val border = minOf(x, W - x, y, H - y)
         val hit = nearestSeg(x, y, -999)
         if (hit != null && hit.dist <= border) return Point(hit.fx, hit.fy)
         val dl = x
         val dr = W - x
         val dt = y
         val db = H - y
-        val m = min(min(dl, dr), min(dt, db))
+        val m = minOf(dl, dr, dt, db)
         return when (m) {
             dl -> Point(0f, y)
             dr -> Point(W.toFloat(), y)
@@ -398,7 +398,7 @@ private class Net {
     }
 
     private fun clearance(x: Float, y: Float): Float {
-        val border = min(min(x, W - x), min(y, H - y))
+        val border = minOf(x, W - x, y, H - y)
         if (segs.isEmpty()) return border
         return min(border, nearestRing(x, y, border)?.dist ?: border)
     }

@@ -572,7 +572,7 @@ private fun stain(g: Gartvas) {
         val y = i / W
 
         val n = fbm(x * 0.0018f + nzoff, y * 0.0018f, octaves = 3, lacunarity = 2.4f, gain = 0.5f)
-        val e = (1f - min(min(x, W - 1 - x), min(y, H - 1 - y)) / edge).coerceAtLeast(0f)
+        val e = (1f - minOf(x, W - 1 - x, y, H - 1 - y) / edge).coerceAtLeast(0f)
         val t = ((n * 0.5f + 0.5f) * p.mottle + e.pow(2.4f) * p.age).coerceIn(0f, 1f)
 
         val col = px[i]

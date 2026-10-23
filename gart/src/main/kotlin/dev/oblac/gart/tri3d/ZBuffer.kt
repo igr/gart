@@ -116,7 +116,4 @@ class ZBuffer(val width: Int, val height: Int, private val shading: Shading = Sh
     fun drawTo(canvas: Canvas, x: Float = 0f, y: Float = 0f) {
         canvas.drawImage(toImage(), x, y)
     }
-
-    private fun minOf(a: Float, b: Float, c: Float): Float = kotlin.math.min(a, kotlin.math.min(b, c))
-    private fun maxOf(a: Float, b: Float, c: Float): Float = kotlin.math.max(a, kotlin.math.max(b, c))
 }

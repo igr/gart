@@ -10,7 +10,6 @@ import org.jetbrains.skia.Color
 import org.jetbrains.skia.Color4f
 import org.jetbrains.skia.Paint
 import kotlin.math.floor
-import kotlin.math.max
 import kotlin.math.min
 
 fun alpha(color: Int): Int {
@@ -359,7 +358,7 @@ fun hueShift(color: Int, deg: Float): Int {
 
 fun colorLift(color: Int, s: Float): Int {
     if (s <= 1f) return colorScale(color, s)
-    val m = max(max(red(color), green(color)), blue(color))
+    val m = maxOf(red(color), green(color), blue(color))
     if (m == 0) return color
     return colorScale(color, min(s, 255f / m))
 }

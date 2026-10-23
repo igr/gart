@@ -20,7 +20,7 @@ class HatchLinesTest {
 
     private fun onSquareEdge(p: Point, l: Float, t: Float, r: Float, b: Float, tol: Float = 0.5f): Boolean {
         val inside = p.x >= l - tol && p.x <= r + tol && p.y >= t - tol && p.y <= b + tol
-        val edge = min(min(abs(p.x - l), abs(p.x - r)), min(abs(p.y - t), abs(p.y - b)))
+        val edge = minOf(abs(p.x - l), abs(p.x - r), abs(p.y - t), abs(p.y - b))
         return inside && edge <= tol
     }
 

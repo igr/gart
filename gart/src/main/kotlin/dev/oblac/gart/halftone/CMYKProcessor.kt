@@ -9,7 +9,6 @@ import dev.oblac.gart.color.green
 import dev.oblac.gart.color.red
 import dev.oblac.gart.color.space.ColorCMYK
 import dev.oblac.gart.color.space.RGBA
-import kotlin.math.max
 
 /**
  * Extracts a specific color channel from source image and
@@ -41,7 +40,7 @@ private fun extractKeyChannel(color: Int): Int {
     val r = red(color)
     val g = green(color)
     val b = blue(color)
-    val keyValue = 255 - max(r, max(g, b))
+    val keyValue = 255 - maxOf(r, g, b)
     return 255 - keyValue // Invert for grayscale representation
 }
 
@@ -54,7 +53,7 @@ private fun extractColorChannelValue(color: Int, channel: ColorChannel): Int {
     val b = blue(color)
 
     // Calculate key value (black)
-    val keyValue = 255 - max(r, max(g, b))
+    val keyValue = 255 - maxOf(r, g, b)
 
     // Get the complement of the specific channel
     val channelValue = when (channel) {
