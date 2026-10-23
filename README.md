@@ -1523,6 +1523,10 @@ A collection of generative art pieces (ordered by name).
 <table width="100%">
   <tr>
     <td width="33%" align="center">
+      <a href="arts/spirograph/cera.png"><img src="arts/spirograph/cera_thumb.png" alt="Cera" width="100%"/></a>
+      <br><b>Cera</b>
+    </td>
+    <td width="33%" align="center">
       <a href="arts/spirograph/spirograph1.png"><img src="arts/spirograph/spirograph1_thumb.png" alt="Spirograph1" width="100%"/></a>
       <br><b>Spirograph1</b>
     </td>
@@ -1530,7 +1534,6 @@ A collection of generative art pieces (ordered by name).
       <a href="arts/spirograph/spirograph2.png"><img src="arts/spirograph/spirograph2_thumb.png" alt="Spirograph2" width="100%"/></a>
       <br><b>Spirograph2</b>
     </td>
-    <td width="33%"></td>
   </tr>
 </table>
 
@@ -1680,4 +1683,4 @@ A collection of generative art pieces (ordered by name).
 
 ---
 
-🖼️ **289 works** across **42 collections** — and counting.
+🖼️ **290 works** across **42 collections** — and counting.
