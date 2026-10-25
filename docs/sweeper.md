@@ -12,10 +12,10 @@ and fish out the good ones ("find the beauty in the noise"). Everything — inpu
 ## Usage
 
 ```bash
-just sweep <name>           # runs work/sweeps/<name>.sweep
+just dev sweep <name>           # runs work/sweeps/<name>.sweep
 ```
 
-`just sweep` builds the sweeper and the art's [module](#which-module-the-art-lives-in), then invokes
+`just dev sweep` builds the sweeper and the art's [module](#which-module-the-art-lives-in), then invokes
 the Sweeper. For an art in `arts/layers`, equivalent to:
 
 ```bash
@@ -68,7 +68,7 @@ art    = plica.PlicaKt
 module = arts:layers
 ```
 
-`just sweep` builds that module and its `classpath.txt` for you. Running the sweeper by hand means
+`just dev sweep` builds that module and its `classpath.txt` for you. Running the sweeper by hand means
 building it yourself first (`./gradlew :arts:layers:writeClasspath`); if you forget, the sweeper
 says so instead of failing every render with a `ClassNotFoundException`. An art still in `work/`
 needs no `module` line. Note that `art` must be the *real* package — graduating a piece does not
@@ -151,7 +151,7 @@ steps    = 3                  # points per knob
 ```
 
 ```bash
-just sweep refine
+just dev sweep refine
 ```
 
 For each survivor it reads the full params from the `.txt`, sweeps `±spread` around each `vary`

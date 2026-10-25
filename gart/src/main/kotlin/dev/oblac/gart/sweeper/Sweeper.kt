@@ -31,7 +31,7 @@ private data class Opts(val par: Int, val name: String?, val sheet: Boolean, val
 fun main(args: Array<String>) {
     // one arg only: the .sweep config file. every setting lives in the file, no flags.
     if (args.size != 1 || args[0].startsWith("-")) {
-        System.err.println("usage: Sweeper <config.sweep>  (or: just sweep <name>) - see docs/sweeper.md"); return
+        System.err.println("usage: Sweeper <config.sweep>  (or: just dev sweep <name>) - see docs/sweeper.md"); return
     }
     val configFile = File(args[0])
     if (!configFile.isFile) { System.err.println("config file not found: ${args[0]}"); return }
@@ -182,7 +182,7 @@ private fun classpathFileOf(module: String) =
 /**
  * Child renders run on the art's own module classpath. The sweeper lives in the library, whose
  * classpath has no art on it at all, so we always read what `:<module>:writeClasspath` wrote
- * (`just sweep` runs that task for us). A missing file means the task never ran and every render
+ * (`just dev sweep` runs that task for us). A missing file means the task never ran and every render
  * would fail with a ClassNotFoundException, so say so up front instead.
  */
 private fun classpathOf(module: String, cpFile: File): String {
@@ -306,7 +306,7 @@ private fun parseConfig(file: File): Config {
         val value = line.substringAfter('=').trim()
         if (cur == null) when (key) {
             "art" -> cfg.art = value
-            "module" -> if (value.isNotEmpty()) cfg.module = value   // blank means "the default", as in just sweep
+            "module" -> if (value.isNotEmpty()) cfg.module = value   // blank means "the default", as in just dev sweep
             "out" -> cfg.out = value
             "par" -> cfg.par = value.toInt()
             "name" -> cfg.name = value
