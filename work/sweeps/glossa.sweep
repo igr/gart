@@ -1,7 +1,7 @@
 # glossa - alien, but the letters got a language. one construction rule (a spine hanging off a
 # headline bar) makes a fixed alphabet, the alphabet makes a lexicon, the lexicon gets set as
 # prose. every seed is a different hand, so `cast` is the branch that actually shows the piece.
-# run:  just sweep glossa     (writes pngs + one contact sheet per branch to output/glossa)
+# run:  just dev sweep glossa     (writes pngs + one contact sheet per branch to output/glossa)
 # 255 renders across 7 branches - still under the sweeper's 500-render guard, but not by as much
 # as it looks, so new directions go in glossa_hand.sweep / glossa_press.sweep rather than here.
 

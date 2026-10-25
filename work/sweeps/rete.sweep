@@ -9,7 +9,7 @@
 # the corner, through white-line cells, to black-line cells. nothing is painted over anything,
 # its a gradient of cell size. back layers: same thing again with another seed, blurred and
 # greyed, multiplied in.
-# run:  just sweep rete     (writes pngs + one contact sheet per branch to output/rete)
+# run:  just dev sweep rete     (writes pngs + one contact sheet per branch to output/rete)
 # 93 renders across 11 branches.
 
 art    = rete.ReteKt

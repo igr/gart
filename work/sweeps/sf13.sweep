@@ -3,7 +3,7 @@
 # the sun goes through the same lathe in red with a rough grain, and sits in a pond of plain
 # rings that thin to nothing where a body is in the way, so the shadows are wedges. a moon in
 # its planets shadow gets cut in red too.
-# run:  just sweep sf13     (writes pngs + one contact sheet per branch to output/sf13)
+# run:  just dev sweep sf13     (writes pngs + one contact sheet per branch to output/sf13)
 # 60 seeds + 5 branches.
 
 art    = sf.SF13Kt

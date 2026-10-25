@@ -2,7 +2,7 @@
 # hanging dead vertical off them and screening onto whatever hangs behind. a layered image and
 # nothing more - each rod picks a layer, back ones go dim. three colours of rod, the rest is one
 # over another.
-# run:  just sweep fimbria     (writes pngs + one contact sheet per branch to output/fimbria)
+# run:  just dev sweep fimbria     (writes pngs + one contact sheet per branch to output/fimbria)
 # 93 renders across 10 branches.
 
 art    = fimbria.FimbriaKt

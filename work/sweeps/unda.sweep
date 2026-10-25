@@ -1,7 +1,7 @@
 # unda - a woodblock sea. one family of curves sampled at every depth: the heavy ones are crests,
 # the fine broken ones between them are the gouge marks that carry all the tone. nothing is
 # shaded, only cut denser or sparser, because that is the only thing a block can do.
-# run:  just sweep unda     (writes pngs + one contact sheet per branch to output/unda)
+# run:  just dev sweep unda     (writes pngs + one contact sheet per branch to output/unda)
 # 210 renders across 9 branches - well under the sweeper's 500-render guard.
 
 art    = unda.UndaKt

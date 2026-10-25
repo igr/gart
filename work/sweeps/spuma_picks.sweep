@@ -1,6 +1,6 @@
 # spuma - the picks out of the colour survey (spuma_colors), each ramp both ways round. flip
 # swaps which end the liquid and the young skins take, so a ramp that reads muddy one way can
-# sing the other. run:  just sweep spuma_picks
+# sing the other. run:  just dev sweep spuma_picks
 # 16 renders, one sheet.
 
 art    = spuma.SpumaKt

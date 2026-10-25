@@ -6,7 +6,7 @@
 # leaves visible, cadence decides how many turns share the frame, and stray decides how far
 # ribbons swallow each other. So palette and wave have to move together.
 #
-# run:  just sweep plica_cool      (writes pngs + one contact sheet to output/plica_cool)
+# run:  just dev sweep plica_cool      (writes pngs + one contact sheet to output/plica_cool)
 
 art    = plica.PlicaKt
 module = arts:layers

@@ -2,7 +2,7 @@
 # decks shadow drifts sun-side. roads are one spine stroked at offsets: tarmac, edge lines,
 # dashes, sometimes a grass median. ghosts are decks outside the frame that only send their
 # shadow.
-# run:  just sweep agger     (writes pngs + one contact sheet per branch to output/agger)
+# run:  just dev sweep agger     (writes pngs + one contact sheet per branch to output/agger)
 # agger2, the green one, is pal 177 seed 46 traffic 1.0 - see branch green
 
 art    = agger.AggerKt

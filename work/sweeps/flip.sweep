@@ -1,7 +1,7 @@
 # flip - all-circles on a flip-disc board, stopped while a ripple turns the discs from pale to red.
 # the sun is never drawn, the turned discs make it. the front is a ring of discs on edge (slivers),
 # and the bounces off the stop leave rings of flat red ellipses behind it.
-# run:  just sweep flip     (writes pngs + one contact sheet per branch to output/flip)
+# run:  just dev sweep flip     (writes pngs + one contact sheet per branch to output/flip)
 # hero: seed 1, defaults (83de3d38).
 #
 # first pass 2026-10-02, by eye:

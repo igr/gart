@@ -1,5 +1,5 @@
 # areola - crack / craquelure: small cells crowd the main faults, coarse plates fill the field.
-# run:  just sweep areola      (writes pngs + a contact sheet per branch to output/areola)
+# run:  just dev sweep areola      (writes pngs + a contact sheet per branch to output/areola)
 
 art    = areola.AreolaKt
 module = arts:cell

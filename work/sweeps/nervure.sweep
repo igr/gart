@@ -1,5 +1,5 @@
 # example sweep: two different directions ("branches") for nervure.
-# run:  just sweep example
+# run:  just dev sweep example
 
 art    = nervure.NervureKt
 module = arts:cell

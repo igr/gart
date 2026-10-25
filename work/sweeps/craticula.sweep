@@ -1,6 +1,6 @@
 # craticula - two grids over each other, the turned one cutting the straight one into
 # rounded scraps.
-# run: just sweep craticula
+# run: just dev sweep craticula
 # hero: seed 4, way=brick, 6x6, angle=26, ratio=1.2, phx=0.17, phy=0.31, gap=7,
 #       round=0.95, minarea=0.012, speck=42, margin=26.
 #

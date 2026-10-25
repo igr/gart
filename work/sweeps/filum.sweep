@@ -8,7 +8,7 @@
 # card throws a short thin shadow on the one below, away from the wire. a narrow band hugs the
 # wire on cards only. the table reflects nothing, so between the cells there is no sign of the
 # wire at all, you read where it runs off the cards.
-# run:  just sweep filum     (writes pngs + one contact sheet per branch to output/filum)
+# run:  just dev sweep filum     (writes pngs + one contact sheet per branch to output/filum)
 # 123 renders across 11 branches. the rest of the piece is settled, see the block under the config.
 
 art    = filum.FilumKt

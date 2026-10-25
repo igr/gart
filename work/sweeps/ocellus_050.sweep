@@ -1,7 +1,7 @@
 # ocellus - around render 050 of ocellus_layouts (the flood look on pal 5, seed 14): one soft
 # body over most of the page, turquoise corners, yellow and red tops. every branch keeps 050's
 # values and moves one thing; each branch has 050 itself in it, to compare against.
-# run: just sweep ocellus_050
+# run: just dev sweep ocellus_050
 
 art = ocellus.OcellusKt
 module = arts:bubbles

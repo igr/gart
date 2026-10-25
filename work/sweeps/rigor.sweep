@@ -1,7 +1,7 @@
 # rigor - a wallpaper of flat primitives with I G O R swapped in for four tiles. the block
 # repeats strict as print, the letters lean, and the tiles around each letter twist and get
 # shoved off grid. the disturbance is the picture.
-# run:  just sweep rigor     (writes pngs + one contact sheet per branch to output/rigor)
+# run:  just dev sweep rigor     (writes pngs + one contact sheet per branch to output/rigor)
 
 art    = rigor.RigorKt
 module = arts:igor

@@ -1,7 +1,7 @@
 # voronin chooser: butterfly-wing-macro scales. voronoi cells on a noise-warped grid that grow
 # bottom-right and imbricate; each painted dark-border / drifting-mid-colour / red-core.
 # ss=1 here for speed; finalize the keeper at ss=2-3.
-# run:  just sweep voronin
+# run:  just dev sweep voronin
 
 art   = work.voronin.VoroninKt
 out   = output/voronin

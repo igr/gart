@@ -2,7 +2,7 @@
 # every charged thing bends with r = p * rscale, drawn as the trail of bubbles it boils off.
 # heavies cross as long arcs, light ones shed momentum and wind in to a point, some beam tracks
 # hit and spray, neutrals come apart further on as vees out of nothing. one event in red.
-# run:  just sweep sf12     (writes pngs + one contact sheet per branch to output/sf12)
+# run:  just dev sweep sf12     (writes pngs + one contact sheet per branch to output/sf12)
 # 120 renders across 6 branches.
 
 art    = sf.SF12Kt

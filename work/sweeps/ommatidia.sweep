@@ -3,7 +3,7 @@
 # axis, so every swell acts as the converging lens it actually is and magnifies what sits
 # behind it. nothing draws the picture; the picture is what 19k samples of something
 # invisible look like when they end up next to each other.
-# run:  just sweep ommatidia     (writes pngs + one contact sheet per branch to output/ommatidia)
+# run:  just dev sweep ommatidia     (writes pngs + one contact sheet per branch to output/ommatidia)
 # 495 renders across 13 branches at these settings - under the sweeper's 500-render guard, so
 # no yes=true is needed. par=6 matches this machine's cores.
 

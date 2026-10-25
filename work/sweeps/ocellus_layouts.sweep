@@ -1,6 +1,6 @@
 # ocellus - other layouts, still round eyes. each branch is a whole look, several knobs moved at
 # once far from the hero, over the five library ramps (pal 1-5, pal 0 is the hero's).
-# run: just sweep ocellus_layouts
+# run: just dev sweep ocellus_layouts
 # hero for reference: count=9 low=4 deep=1.6 core=0.09 room=0.03 margin=0.12 band=0.011 grow=2.5
 # fuse=0.5 pool=2
 

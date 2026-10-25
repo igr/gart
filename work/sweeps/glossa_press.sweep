@@ -11,7 +11,7 @@
 # down to rubric and ruling, and a trio that's elegant at rubric=60 is a rash at rubric=6. Same
 # for the aging: foxing and the vignette are both hardcoded warm (tan blooms, a brown edge), which
 # is correct on 0/1/2 and actively fights 3. So palette moves with those or not at all.
-# run:  just sweep glossa_press     (writes pngs + one contact sheet per branch to output/glossa_press)
+# run:  just dev sweep glossa_press     (writes pngs + one contact sheet per branch to output/glossa_press)
 # 120 renders across 3 branches.
 
 art    = glossa.GlossaKt

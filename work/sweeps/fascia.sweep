@@ -1,5 +1,5 @@
 # fascia - fat bands of flat ink on a flow, each one breaking up into spray grain somewhere.
-# run: just sweep fascia
+# run: just dev sweep fascia
 # hero: seed 1, pal=1 (cool2), the rest at defaults. it was pal=10 (cool127) until 2026-09-29.
 #
 # pal walks FIVES, a hand pick of five colour cool palettes. picked off seed 1 on all 105 fives

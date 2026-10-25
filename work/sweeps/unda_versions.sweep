@@ -2,7 +2,7 @@
 # goes the other way - a handful of complete looks, each across the same six seeds, because a
 # version that only works on one cast isnt a version. the ids in brackets are the renders in
 # output/unda that each look was lifted from.
-# run:  just sweep unda_versions     (writes pngs + one contact sheet per branch to output/unda_versions)
+# run:  just dev sweep unda_versions     (writes pngs + one contact sheet per branch to output/unda_versions)
 # 42 renders across 6 branches.
 
 art    = unda.UndaKt

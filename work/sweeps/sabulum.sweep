@@ -1,7 +1,7 @@
 # sabulum - a sand sea under a low sun. Crests are drawn back to front, each filling the frame below
 # itself, so a far dune survives only as the sliver between its own crest and the one in front.
 # Defaults are the reference-facing composition; these branches explore what holds it together.
-# run:  just sweep sabulum    (writes pngs + one contact sheet per branch to output/sabulum)
+# run:  just dev sweep sabulum    (writes pngs + one contact sheet per branch to output/sabulum)
 
 art    = sabulum.SabulumKt
 module = arts:layers

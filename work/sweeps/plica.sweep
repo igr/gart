@@ -1,6 +1,6 @@
 # plica - a stack of ribbons folded along their length into a lit face and a shadowed one.
 # Defaults are the reference-facing composition; these branches explore its structural knobs.
-# run:  just sweep plica      (writes pngs + one contact sheet per branch to output/plica)
+# run:  just dev sweep plica      (writes pngs + one contact sheet per branch to output/plica)
 
 art    = plica.PlicaKt
 module = arts:layers

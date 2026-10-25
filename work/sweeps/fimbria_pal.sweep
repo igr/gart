@@ -2,7 +2,7 @@
 # warm glass under screen, and most of the other boxes need their own blend and glass before they
 # look like anything: the pale ones (yarn, ash) screen up to white and night screens up to a lilac
 # haze. nothing in here touches the source defaults - the warm branch *is* them.
-# run:  just sweep fimbria_pal     (writes 001..005.png to output/fimbria_pal, one per box, no sheet)
+# run:  just dev sweep fimbria_pal     (writes 001..005.png to output/fimbria_pal, one per box, no sheet)
 # 5 renders across 5 branches, in box order: 001 warm, 002 jewel, 003 yarn, 004 night, 005 ash.
 
 art    = fimbria.FimbriaKt

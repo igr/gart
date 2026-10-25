@@ -1,6 +1,6 @@
 # strata - a coherent family of cut-paper waves opening around a luminous disc.
 # Defaults are the reference-facing composition; these branches explore its useful structural knobs.
-# run:  just sweep strata      (writes pngs + one contact sheet per branch to output/strata)
+# run:  just dev sweep strata      (writes pngs + one contact sheet per branch to output/strata)
 
 art    = work.strata.StrataKt
 module = arts:layers

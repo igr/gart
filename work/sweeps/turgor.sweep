@@ -1,7 +1,7 @@
 # turgor - a Literata skeleton inflated into a graffiti piece.
 # Defaults are the reference-facing look; these branches explore what actually makes it read
 # as spray rather than as a bold serif.
-# run:  just sweep turgor      (writes pngs + one contact sheet per branch to output/turgor)
+# run:  just dev sweep turgor      (writes pngs + one contact sheet per branch to output/turgor)
 
 art    = turgor.TurgorKt
 module = arts:lettero

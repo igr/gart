@@ -3,7 +3,7 @@
 # (plateau geometry for free), then one per-pixel shader does all the optics: interference
 # bands parallel to each cell edge, bright film lines on the walls, nodes where three films
 # meet, a glint per bubble, a few cells already burst.
-# run:  just sweep spuma     (writes pngs + one contact sheet per branch to output/spuma)
+# run:  just dev sweep spuma     (writes pngs + one contact sheet per branch to output/spuma)
 # 96 renders across 10 branches.
 
 art    = spuma.SpumaKt

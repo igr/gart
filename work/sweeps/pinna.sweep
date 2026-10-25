@@ -1,7 +1,7 @@
 # pinna - a space-colonization tree whose canopy is filled with grain: iso-contours of the
 # distance field from the branches, so the fill flows around the tree the way grain flows
 # around a knot.
-# run:  just sweep pinna     (writes pngs + one contact sheet per branch to output/pinna)
+# run:  just dev sweep pinna     (writes pngs + one contact sheet per branch to output/pinna)
 # 492 renders across 11 branches at these settings - under the sweeper's 500-render guard, so
 # no yes=true is needed. par=6 matches this machine's cores.
 

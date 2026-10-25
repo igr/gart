@@ -1,7 +1,7 @@
 # cirrus - braided ribbons wound into a gyre. the flamebrush rosette dragged through a field of
 # vortices, splatted into a float buffer and tone mapped by log density, so where the ribbons
 # cross you get light rather than paint.
-# run:  just sweep cirrus     (writes pngs + one contact sheet per branch to output/cirrus)
+# run:  just dev sweep cirrus     (writes pngs + one contact sheet per branch to output/cirrus)
 # 356 renders across 8 branches, about a second and a half each - well under the 500 guard.
 
 art    = work.cirrus.CirrusKt

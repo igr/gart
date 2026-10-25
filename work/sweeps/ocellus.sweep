@@ -1,5 +1,5 @@
 # ocellus - eyespots: random centres, each sunk to its own random depth, rings melting where
-# the stacks meet. run: just sweep ocellus
+# the stacks meet. run: just dev sweep ocellus
 # hero: seed 20, pal=0 (the hand mixed ramp), count=9, low=4, deep=1.6, core=0.09, room=0.03,
 #       margin=0.12, band=0.011, grow=2.5, fuse=0.5, pool=2.
 #

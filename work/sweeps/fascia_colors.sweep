@@ -1,5 +1,5 @@
 # fascia - colour survey. every five colour cool palette at the hero seed, four sheets.
-# run: just sweep fascia_colors     (pngs + one contact sheet per branch in output/fascia_colors)
+# run: just dev sweep fascia_colors     (pngs + one contact sheet per branch in output/fascia_colors)
 # cool takes any cool palette straight, past the FIVES pick - pal is ignored while cool > 0.
 # 129 fives on 2026-09-28, the list Palettes.coolPalettesOfSize(5) gives. the 28 in FIVES are in
 # here too, so the sheets show the whole field.

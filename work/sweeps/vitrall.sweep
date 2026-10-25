@@ -1,7 +1,7 @@
 # vitrall - sagrada familia stained glass: bsp cuts with a shared grain make the panes,
 # a warped hue field pours the jewel color, slices + arcs + heavy bone lines + lead.
 # defaults are the kept piece (seed=10 nou rise arc=0.35); branches explore around it.
-# run:  just sweep vitrall     (writes pngs + a contact sheet per branch to output/vitrall)
+# run:  just dev sweep vitrall     (writes pngs + a contact sheet per branch to output/vitrall)
 
 art    = lines.vitrali.VitrallKt
 module = arts:lines

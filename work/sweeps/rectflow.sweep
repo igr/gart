@@ -6,7 +6,7 @@
 # They then get printed off-register, cut out, dropped in a heap, and photographed with the lens
 # wide open - so the last three branches here are about the pile and the camera rather than the
 # drawing, and theyre the ones that decide where the eye goes.
-# run:  just sweep rectflow     (writes pngs + one contact sheet per branch to output/rectflow)
+# run:  just dev sweep rectflow     (writes pngs + one contact sheet per branch to output/rectflow)
 # 323 renders across 17 branches - well under the sweeper's 500-render guard.
 
 art    = rectflow.RectFlowKt

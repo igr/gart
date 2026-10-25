@@ -8,7 +8,7 @@
 # Every branch here pairs knobs that actually interact - sweeping them one at a time hides the
 # coupling, and the coupling is where this piece lives or dies.
 #
-# run:  just sweep sabulum_geom
+# run:  just dev sweep sabulum_geom
 
 art    = sabulum.SabulumKt
 module = arts:layers

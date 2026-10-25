@@ -2,7 +2,7 @@
 # letters (marks, bowls, descenders) and the size of the type - this one is about the *hand* and
 # the *setting*: how big the alphabet is in the first place, how tight the words sit, how steady
 # the pen is, and what shape the text block ends up.
-# run:  just sweep glossa_hand     (writes pngs + one contact sheet per branch to output/glossa_hand)
+# run:  just dev sweep glossa_hand     (writes pngs + one contact sheet per branch to output/glossa_hand)
 # 115 renders across 4 branches. seed is pinned at 41 all the way down - the point here is to see
 # one hand change its habits, not to see twelve different hands.
 
