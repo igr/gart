@@ -266,6 +266,19 @@ A collection of generative art pieces (ordered by name).
   </tr>
 </table>
 
+## Clouds
+
+<table width="100%">
+  <tr>
+    <td width="33%" align="center">
+      <a href="arts/clouds/nimbus.png"><img src="arts/clouds/nimbus_thumb.png" alt="Nimbus" width="100%"/></a>
+      <br><b>Nimbus</b>
+    </td>
+    <td width="33%"></td>
+    <td width="33%"></td>
+  </tr>
+</table>
+
 ## Cotton
 
 <table width="100%">
@@ -963,7 +976,10 @@ A collection of generative art pieces (ordered by name).
       <a href="arts/neuromancer/nm1.png"><img src="arts/neuromancer/nm1_thumb.png" alt="Nm1" width="100%"/></a>
       <br><b>Nm1</b>
     </td>
-    <td width="33%"></td>
+    <td width="33%" align="center">
+      <a href="arts/neuromancer/nm2.png"><img src="arts/neuromancer/nm2_thumb.png" alt="Nm2" width="100%"/></a>
+      <br><b>Nm2</b>
+    </td>
     <td width="33%"></td>
   </tr>
 </table>
@@ -1683,4 +1699,4 @@ A collection of generative art pieces (ordered by name).
 
 ---
 
-🖼️ **290 works** across **42 collections** — and counting.
+🖼️ **292 works** across **43 collections** — and counting.
