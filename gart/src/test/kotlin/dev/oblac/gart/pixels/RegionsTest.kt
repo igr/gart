@@ -94,4 +94,35 @@ class RegionsTest {
         ), 3, 2)
         assertContentEquals(booleanArrayOf(true), r.touchesEdge())
     }
+
+    @Test
+    fun sizesCountTheCellsOfEachRegion() {
+        val r = labelRegions(grid(
+            ".#.",
+            ".#.",
+            "#..",
+        ), 3, 3)
+        assertContentEquals(intArrayOf(2, 4), r.sizes())
+    }
+
+    @Test
+    fun in3dOnlyAFaceJoinsTwoCells() {
+        // 3 x 2 x 2, the index is (y * nx + x) * nz + z. (0, 0, z) is open at both z, (1, 1, 1) and
+        // (2, 1, 1) share a face. (0, 0, 1) and (1, 1, 1) share only an edge
+        val open = setOf(0, 1, 9, 11)
+        val r = labelRegions(BooleanArray(12) { it !in open }, 3, 2, 2)
+        assertEquals(2, r.count)
+        assertContentEquals(intArrayOf(0, 0, -1, -1, -1, -1, -1, -1, -1, 1, -1, 1), r.label)
+        assertContentEquals(intArrayOf(2, 2), r.sizes())
+    }
+
+    @Test
+    fun in3dWithOneLayerOfZItIsThe2dGrid() {
+        val wall = grid(
+            ".#.",
+            ".#.",
+            "...",
+        )
+        assertContentEquals(labelRegions(wall, 3, 3).label, labelRegions(wall, 3, 3, 1).label)
+    }
 }

@@ -29,7 +29,7 @@ There is really **a lot of features**, and I'm not sure how to organize them, bu
 - DLine — Parametric line (point + direction), perpendicular, pointFromStart/End
 - Collections: Points, PointsTrail
 - Intersections: line-line, line-circle, dline-line, segment-circle (line of sight), point-to-segment distance and nearest point
-- Signed distance: sdRoundBox (box with a radius per corner)
+- Signed distance: sdRoundBox (box with a radius per corner), sdEllipsoid (3D)
 - Drawing: drawCircle, drawLine, drawPoly4, drawTriangle, drawRotatedRect, drawPointsAsCircles, fatLine, n-gon, arc, ring, spiral, wave, grid, border, moon, tree, human
 - Paint helpers: strokeOf, fillOf, hatchPaint, dashPaint
 - Path utilities: pathOf, closedPathOf, toQuadPath, toPath, toClosedPath, pointsOn (with easing), combinePathsWithOp (boolean ops), deformPath, pathOutline
@@ -42,7 +42,9 @@ There is really **a lot of features**, and I'm not sure how to organize them, bu
 - Vectors: Vector2/3/4, Vec2 (with dot, cross, rotation, normalization, angle), Vec3 (dot, cross, rotateX/Y/Z, perpendicular/basis), Matrix2, Matrix3
 - Complex numbers: Complex, ComplexField, ComplexPolynomial, transcendental functions
 - Curves: Lissajous, GaussianFunction
-- Utilities: clamp, map, lerp, smoothstep, frac, mod, distance, primes, fastSqrt, stdev
+- Utilities: clamp, map, lerp, smoothstep, smin/smax, frac, mod, distance, primes, fastSqrt, stdev
+- Henyey-Greenstein phase, for light through haze
+- Grid3 — a 3D grid of floats with trilinear lookup
 - Angles: Radians, Degrees with trig functions, middleAngle, degToRad
 - Polar coordinates, affine transforms, tangent calculations
 - Precalculated trig tables: MathCos, MathSin, MathPrecalcTable
@@ -51,7 +53,7 @@ There is really **a lot of features**, and I'm not sure how to organize them, bu
 
 ## Noise & Sampling
 
-- Noise: Perlin, multi-octave PerlinNoise, SimplexNoise, OpenSimplexNoise, FBM
+- Noise: Perlin, multi-octave PerlinNoise, SimplexNoise, OpenSimplexNoise, FBM, Worley (3D cellular)
 - Sampling: Halton sequence, Poisson disk sampling
 - Pixel sampling: sampleNearest, sampleBilinear with SampleMode (CLAMP, TILE, BACKGROUND)
 

@@ -189,7 +189,7 @@ Free functions operating on `Pixels` / `Gartmap`:
 | `createScaledPixels` | `(input: Pixels, newD: Dimension): Pixels` | `pixels/scalePixels.kt` |
 | `floodFill` | `(m: Gartmap, start: Pixel, fillColor: Int, shouldFill: (Int)->Float)` | `pixels/floodFill.kt` |
 | `matchExactColor` / `matchNotColor` / `matchSimilarColor` | predicate builders returning `(Int)->Float` (e.g. `matchSimilarColor(target, tolerance=30)`) | `pixels/floodFill.kt` |
-| `labelRegions` | `(wall: BooleanArray, w, h, label = IntArray(w*h)): Regions` — 4-connected regions between walls. `label` is -1 on a wall, else the region id; ids go in row order of each region's first cell. `Regions.touchesEdge()` flags the regions that are not closed | `pixels/regions.kt` |
+| `labelRegions` | `(wall: BooleanArray, w, h, label = IntArray(w*h)): Regions` — 4-connected regions between walls. `label` is -1 on a wall, else the region id; ids go in row order of each region's first cell. `Regions.touchesEdge()` flags the regions that are not closed, `sizes()` counts the cells of each region. 3D overload `(wall, nx, ny, nz, label = IntArray(nx*ny*nz)): Regions3` — 6-connected (a shared face, not an edge), cells z fastest, then x, then y (index `(y*nx + x)*nz + z`, as in `Grid3`); `Regions3` has `label`, `count`, `sizes()` | `pixels/regions.kt` |
 | `applyGaussianBlur` | `(b: Gartmap)` | `pixels/gaussianBlur.kt` |
 | `applyMotionBlur` | `(b: Gartmap, distance: Int, angle: Angle)` | `pixels/motionBlur.kt` |
 | `makeGray` | `(bitmap: Pixels)` | `pixels/gray.kt` |
@@ -478,6 +478,9 @@ All paths are under `gart/src/main/kotlin/dev/oblac/gart/`.
 - Range depends on supplied `noise` and params; starts at `offset`, adds `amplitude * noise(p * frequency)` per octave then `p *= lacunarity; amplitude *= gain`.
 - File: `noise/fbm.kt`
 
+**`worley(p: Vec3, seed: Int): Float`** — top-level fn. 3D Worley (cellular) noise: the distance from `p` to the nearest feature point, one point per unit cell at a spot from `hash01(i, j, k, seed..seed + 2)`. Range **[0, √3]**, 0 on a point. Scale `p` to set the cell size. Used: congestus.
+- File: `noise/worley.kt`
+
 **`noise(x: Float): Float`** — top-level 1-D value-noise helper (smoothstep-interpolated `cellnoise`). Output range roughly **[-1, 1]** (final `2.0f * (a + ...)`).
 - File: `noise/noise.kt`
 
@@ -629,6 +632,8 @@ Note: there is NO `PIf`-named Double constant; `GOLDEN_RATIO` is the only Double
 - ⭐ `wrap(v: Float, size: Float): Float` — `math/math.kt`. Wraps into `[0, size)`; guards against float rounding to exactly `size` (folds back to 0f, safe as array index).
 - `mod(a, b)` over `Double`, `Int`, `Float`, `Long` (each same-type pair) — `math/math.kt`. True modulo `((a % b) + b) % b` (always non-negative).
 - `frac(value: Float): Float` / `frac(value: Double): Double` — `math/math.kt`. Fractional part `value - floor(value)`. Vec2 overload in `vector2.kt`.
+- `smin(a, b, k)` / `sminCubic(a, b, k)` / `smax(a, b, k)` — `math/math.kt`. Smooth min and max for SDFs: the crease rounded over a band of width `k`. `smin` dips `k/4` at `a == b`, `sminCubic` only `k/6` and gives the winner back exactly outside the band, `smax` is `-smin(-a, -b, k)` (a soft cut).
+- `henyeyGreenstein(cosTheta: Float, g: Float): Float` — `math/math.kt`. The Henyey-Greenstein phase: the light scattered per unit solid angle at an angle with cosine `cosTheta` from its way in. `g` in -1..1: 0 the same all round, toward 1 forward, toward -1 back. Over the sphere it adds up to 1.
 - `clamp` — NOT present as a named function. Codebase uses Kotlin stdlib `coerceIn`. `math/clamp.kt` only defines `cond(b: Boolean, x: T, y: T): T` (ternary helper), despite the filename.
 - ⭐ `dist(x1, y1, x2, y2: Float): Float` and `dist(p1: Point, p2: Point): Float` — `math/distance.kt`. Euclidean distance using `fastSqrt`.
 - `distSquared(x1, y1, x2, y2: Float): Float` and `distSquared(p1: Point, p2: Point): Float` — `math/distance.kt`. Squared distance (no sqrt).
@@ -646,6 +651,7 @@ Note: there is NO `PIf`-named Double constant; `GOLDEN_RATIO` is the only Double
 ### Precalc tables, loops, curves
 
 - `Stopwatch` / `timed(label: String, block: () -> T): T` — `util/stopwatch.kt`. Wall-clock milliseconds for the progress prints in `main`: `sw.lap()` is the time since the previous lap (or the start), `sw.ms` the time since the start; `timed` runs the block, prints `"<label> in <ms>ms"` and returns the block's value.
+- `Grid3(step: Float, origin: Vec3, nx, ny, nz)` — `math/Grid3.kt`. A 3D grid of float samples, `step` apart from `origin`, in `values: FloatArray`; `idx(i, j, k)` is `(j*nx + i)*nz + k` (z fastest, then x, then y: a band of y rows is one block for `parallelForRows`, a ray along z reads in order). `at(p: Vec3)` is trilinear, reads outside clamp to the edge. At least 2 samples on each axis. Used: congestus (the light grids).
 - `MathPrecalcTable` (sealed), `MathCos(resolution: Float = 0.1f)`, `MathSin(resolution: Float = 0.1f)` — `math/MathPrecalcTables.kt`. Precomputed cos/sin lookup tables indexed by degrees via `operator get(degrees: Number): Float`.
 - `GaussianFunction(height: Number, center: Number, standardDeviation: Number)` with `operator invoke(x: Number): Float` — `math/GaussianFunction.kt`. Gaussian bell curve evaluator.
 - `Lissajous(center: Point, A, B, a, b: Float, dx=0f, dy=0f, t=0f)` — `math/Lissajous.kt`. `step(delta: Float): Point`, `position(): Point`. Lissajous curve generator.
@@ -690,7 +696,7 @@ All in `angle/angle.kt`. Package `dev.oblac.gart.angle`.
 ### Vectors
 
 - ⭐ `data class Vec2(val x: Float, val y: Float)` — `vector/vector2.kt`. Secondary ctor `(x: Number, y: Number)`. Factory `vec2(x: Number, y: Number)`. Operators: `+`/`-`/`*`/`/` with both `Vec2` and `Number`. Methods: `dot(other): Float`, `cross(other): Float` (scalar 2D cross), `length(): Float`, lazy `magnitude`, `normalize(): Vec2` (returns self if magnitude 0), `rotate(angle: Float): Vec2`, lazy `val angle: Radians` (`atan2(y,x)`). Companion: `ZERO`, `of(angle: Angle): Vec2` (unit vector from angle). Free fns: `sin(v: Vec2)`, `frac(v: Vec2)`, `length(v: Vec2): Float`.
-- `data class Vec3(val x: Float, val y: Float, val z: Float)` — `vector/vector3.kt`. Factory `vec3(x, y, z: Number)`. Operators: `+`/`-`/`*`/`/` (Vec3 and Number; note: no `minus(Number)`, no `div(Vec3)`). Methods: `pow(other: Vec3)`, `length(): Float`, `normalize()`, `dot(other): Float`, `cross(other): Vec3`, `rotateX/rotateY/rotateZ(angle: Float): Vec3` (radians, right-handed), `anyPerpendicular(): Vec3`, `basis(): Pair<Vec3, Vec3>`. Companion: `of(a: Float)`, `of(v: Vec2, a: Float)`, `ZERO`, `ONE`, `TWO_PI`. Free fns: `sin(v: Vec3)`, `cos(v: Vec3)`, `mix(a, b: Vec3, t: Float)`, `mix(a, b: Vec3, t: Vec3)`, `abs(v: Vec3)`.
+- `data class Vec3(val x: Float, val y: Float, val z: Float)` — `vector/vector3.kt`. Factory `vec3(x, y, z: Number)`. Operators: `+`/`-`/`*`/`/` (Vec3 and Number; `*` and `/` by a Vec3 go per component; note: no `minus(Number)`). Methods: `pow(other: Vec3)`, `length(): Float`, `normalize()`, `dot(other): Float`, `cross(other): Vec3`, `rotateX/rotateY/rotateZ(angle: Float): Vec3` (radians, right-handed), `anyPerpendicular(): Vec3`, `basis(): Pair<Vec3, Vec3>`. Companion: `of(a: Float)`, `of(v: Vec2, a: Float)`, `ZERO`, `ONE`, `TWO_PI`. Free fns: `sin(v: Vec3)`, `cos(v: Vec3)`, `mix(a, b: Vec3, t: Float)`, `mix(a, b: Vec3, t: Vec3)`, `abs(v: Vec3)`, `Iterable<Vec3>.average()` (the mean point, NaN on each axis when empty).
 - `data class Vec4(val x, y, z, w: Float)` — `vector/vector4.kt`. Companion `of(vec3: Vec3, w: Float)`. Plain data holder, no operators.
 
 ### Matrices
@@ -790,6 +796,7 @@ Polygons & other shapes (geometry side; draw helpers noted briefly, paints are o
 - `Rect` extensions (`rectangle.kt`): `points(): Array<Point>`, `path(): Path`, `center()`, `contains(rect)/contains(point)`, `thirds()`, `shrink/grow(delta)`, `move(delta)`, `dimension()`, corner accessors, `splitToGrid(cols, rows): List<Rect>`, `diagonal()`, companions `ofXYWH(...)`, `of(...)`, `ofCenter(center, w, h)`, `EMPTY`.
 - `gridOfDimension(d: Dimension, cellsX, cellsY): List<GridRect>` (`grid.kt`); `GridRect(rect, row, col)`.
 - `sdRoundBox(x, y, hw, hh, tl, tr, br, bl): Float` / `sdRoundBox(x, y, hw, hh, r)` — signed distance to an origin-centred box with a radius per corner (screen order tl, tr, br, bl; negative inside, exact euclidean outside). For a placed/rotated box bring the point into the box frame first (`sdf.kt`).
+- `sdEllipsoid(p: Vec3, r: Vec3): Float` — signed distance to an origin-centred ellipsoid with radii `r`. Not exact: close near the surface, rougher away from it, enough to march on. Minus the smallest radius at the centre. Subtract the centre from the point first (`sdf.kt`). Used: congestus.
 - Shape draw helpers (geometry-flavored, on `Canvas`): `drawCircle(circle/p, …)`, `drawCircleArc(x, y, radius, paint, start, sweep)`, `drawCirclePie(...)`, `drawArc(rect, …)` (`arc.kt`), `createDrawRing(center, radius, radius2, width1, width2, width3, angle): Pair<DrawRing, DrawRing>` (`ring.kt`), `Moon(circle, shadowPaint, moonPaint, moonPhase = 0.5f)` Draw (`moon.kt`), `drawBorder(d, stroke)` / `drawRoundBorder(d, radius, width, color)` (`border.kt`), `drawPoly4`, `drawTriangle`, `drawRectWH`, `drawRotatedRect`, `clipCircle`.
 
 ### Path construction & sampling

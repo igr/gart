@@ -48,4 +48,23 @@ class MathTest {
 		for (n in listOf(-3, -1, 1, 3, Int.MIN_VALUE + 1, Int.MAX_VALUE)) assertTrue(n.isOdd(), "$n")
 		for (n in listOf(-4, -2, 0, 2, Int.MIN_VALUE)) assertFalse(n.isOdd(), "$n")
 	}
+
+	@Test
+	fun smaxIsMaxOutsideTheBandAndBulgesInside() {
+		assertEquals(3f, smax(3f, -2f, 1f))
+		assertEquals(3f, smax(-2f, 3f, 1f))
+		// the k/4 dip of smin, upside down
+		assertEquals(1.25f, smax(1f, 1f, 1f))
+	}
+
+	@Test
+	fun henyeyGreensteinIsFlatAtZeroAndAddsUpToOne() {
+		assertEquals(1f / (4f * PIf), henyeyGreenstein(0.3f, 0f), 1e-7f)
+		// over the sphere: 2 pi times the sum over cos theta from -1 to 1
+		val n = 2000
+		var sum = 0.0
+		for (i in 0 until n) sum += henyeyGreenstein(-1f + (i + 0.5f) * 2f / n, 0.5f) * 2.0 / n
+		assertEquals(1.0, 2.0 * Math.PI * sum, 1e-3)
+		assertTrue(henyeyGreenstein(1f, 0.5f) > henyeyGreenstein(-1f, 0.5f)) // g > 0 leans forward
+	}
 }

@@ -4,6 +4,7 @@ import kotlin.math.abs
 import kotlin.math.floor
 import kotlin.math.max
 import kotlin.math.min
+import kotlin.math.pow
 
 fun Double.f() = toFloat()
 fun Int.f() = toFloat()
@@ -69,6 +70,22 @@ fun smin(a: Float, b: Float, k: Float): Float {
     val h = (0.5f + 0.5f * (b - a) / k).coerceIn(0f, 1f)
     return lerp(b, a, h) - k * h * (1f - h)
 }
+
+/**
+ * Smooth-max, [smin] turned over: `max(a, b)` with the crease rounded over a band of width [k].
+ * The bump at `a == b` is `k/4`. On two SDFs it is a soft cut, one shape trimmed by the other.
+ */
+fun smax(a: Float, b: Float, k: Float) = -smin(-a, -b, k)
+
+/**
+ * Henyey-Greenstein phase: how much of the light that hits a speck of haze goes off at an angle,
+ * per unit of solid angle. [cosTheta] is the cosine between the way the light comes in and the
+ * way it goes out. [g] in -1..1 is the lean: at 0 the light goes out the same in all directions,
+ * toward 1 most of it goes on forward, toward -1 most of it comes back. Over the sphere it adds
+ * up to 1.
+ */
+fun henyeyGreenstein(cosTheta: Float, g: Float): Float =
+    (1f - g * g) / (4f * PIf * (1f + g * g - 2f * g * cosTheta).pow(1.5f))
 
 /**
  * Cubic smooth-min (iq): dips only `k/6` at `a == b`, so the blend comes in as a long

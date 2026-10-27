@@ -17,6 +17,7 @@ data class Vec3(val x: Float, val y: Float, val z: Float) {
     operator fun times(scalar: Float) = Vec3(x * scalar, y * scalar, z * scalar)
     operator fun times(other: Vec3) = Vec3(x * other.x, y * other.y, z * other.z)
     operator fun div(scalar: Number) = Vec3(x / scalar.toFloat(), y / scalar.toFloat(), z / scalar.toFloat())
+    operator fun div(other: Vec3) = Vec3(x / other.x, y / other.y, z / other.z)
 
     fun pow(other: Vec3) = Vec3(x.pow(other.x), y.pow(other.y), z.pow(other.z))
 
@@ -81,3 +82,10 @@ fun cos(v: Vec3) = Vec3(cos(v.x), cos(v.y), cos(v.z))
 fun mix(a: Vec3, b: Vec3, t: Float) = a * (1f - t) + b * t
 fun mix(a: Vec3, b: Vec3, t: Vec3) = a * (Vec3.ONE - t) + b * t
 fun abs(v: Vec3) = Vec3(kotlin.math.abs(v.x), kotlin.math.abs(v.y), kotlin.math.abs(v.z))
+
+/** The mean of these points. Each axis is NaN when there are none. */
+fun Iterable<Vec3>.average() = Vec3(
+    map { it.x }.average().toFloat(),
+    map { it.y }.average().toFloat(),
+    map { it.z }.average().toFloat(),
+)

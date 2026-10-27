@@ -1,5 +1,6 @@
 package dev.oblac.gart.gfx
 
+import dev.oblac.gart.vector.Vec3
 import kotlin.math.abs
 import kotlin.math.hypot
 import kotlin.math.max
@@ -29,3 +30,16 @@ fun sdRoundBox(x: Float, y: Float, hw: Float, hh: Float, tl: Float, tr: Float, b
 
 /** [sdRoundBox] with the same radius [r] on all four corners; `0f` is a plain box. */
 fun sdRoundBox(x: Float, y: Float, hw: Float, hh: Float, r: Float): Float = sdRoundBox(x, y, hw, hh, r, r, r, r)
+
+/**
+ * Signed distance from [p] to an ellipsoid centred on the origin, with the radii [r] along x, y
+ * and z. Negative inside, zero on the surface, positive outside. It is not the exact distance: it
+ * is close near the surface and rougher away from it, which is enough to march on. At the centre
+ * it is minus the smallest radius. To place one, subtract its centre from the point first.
+ */
+fun sdEllipsoid(p: Vec3, r: Vec3): Float {
+    val q = p / r
+    val k0 = q.length()
+    val k1 = (q / r).length()
+    return if (k1 > 1e-9f) k0 * (k0 - 1f) / k1 else -minOf(r.x, r.y, r.z)
+}
