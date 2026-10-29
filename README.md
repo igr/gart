@@ -271,10 +271,13 @@ A collection of generative art pieces (ordered by name).
 <table width="100%">
   <tr>
     <td width="33%" align="center">
+      <a href="arts/clouds/congestus.png"><img src="arts/clouds/congestus_thumb.png" alt="Congestus" width="100%"/></a>
+      <br><b>Congestus</b>
+    </td>
+    <td width="33%" align="center">
       <a href="arts/clouds/nimbus.png"><img src="arts/clouds/nimbus_thumb.png" alt="Nimbus" width="100%"/></a>
       <br><b>Nimbus</b>
     </td>
-    <td width="33%"></td>
     <td width="33%"></td>
   </tr>
 </table>
@@ -1699,4 +1702,4 @@ A collection of generative art pieces (ordered by name).
 
 ---
 
-🖼️ **292 works** across **43 collections** — and counting.
+🖼️ **293 works** across **43 collections** — and counting.
