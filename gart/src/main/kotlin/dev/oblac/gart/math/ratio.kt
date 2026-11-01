@@ -6,6 +6,7 @@ import kotlin.math.roundToInt
 const val WIDE_SCREEN_RATIO = 16.0f / 9
 const val ULTRA_WIDE_SCREEN_RATIO = 21.0f / 9
 const val CINEMA_RATIO = 2.4f
+const val ISO_RATIO = 1.4142135f // A paper (iso 216), root 2: half a sheet has the same shape
 const val GOLDEN_RATIO = 1.61803398875
 const val GOLDEN_RATIOf = 1.618034f
 

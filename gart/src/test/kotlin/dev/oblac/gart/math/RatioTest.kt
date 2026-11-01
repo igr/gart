@@ -23,6 +23,12 @@ class RatioTest {
     }
 
     @Test
+    fun isoPaper() {
+        assertEquals(1414, shortSide(2000, ISO_RATIO))   // 1414.21
+        assertEquals(2000, longSide(1414, ISO_RATIO))    // 1999.70
+    }
+
+    @Test
     fun ratioWorksEitherWayRound() {
         assertEquals(1125, shortSide(2000, 9f / 16))
         assertEquals(1920, longSide(1080, 9f / 16))
