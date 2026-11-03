@@ -1347,6 +1347,10 @@ A collection of generative art pieces (ordered by name).
 <table width="100%">
   <tr>
     <td width="33%" align="center">
+      <a href="arts/sea/gutta.png"><img src="arts/sea/gutta_thumb.png" alt="Gutta" width="100%"/></a>
+      <br><b>Gutta</b>
+    </td>
+    <td width="33%" align="center">
       <a href="arts/sea/salum.png"><img src="arts/sea/salum_thumb.png" alt="Salum" width="100%"/></a>
       <br><b>Salum</b>
     </td>
@@ -1354,12 +1358,12 @@ A collection of generative art pieces (ordered by name).
       <a href="arts/sea/sea.png"><img src="arts/sea/sea_thumb.png" alt="Sea" width="100%"/></a>
       <br><b>Sea</b>
     </td>
+  </tr>
+  <tr>
     <td width="33%" align="center">
       <a href="arts/sea/unda-010.png"><img src="arts/sea/unda-010_thumb.png" alt="Unda 010" width="100%"/></a>
       <br><b>Unda 010</b>
     </td>
-  </tr>
-  <tr>
     <td width="33%" align="center">
       <a href="arts/sea/unda-033.png"><img src="arts/sea/unda-033_thumb.png" alt="Unda 033" width="100%"/></a>
       <br><b>Unda 033</b>
@@ -1368,7 +1372,6 @@ A collection of generative art pieces (ordered by name).
       <a href="arts/sea/unda.png"><img src="arts/sea/unda_thumb.png" alt="Unda" width="100%"/></a>
       <br><b>Unda</b>
     </td>
-    <td width="33%"></td>
   </tr>
 </table>
 
@@ -1705,4 +1708,4 @@ A collection of generative art pieces (ordered by name).
 
 ---
 
-🖼️ **294 works** across **43 collections** — and counting.
+🖼️ **295 works** across **43 collections** — and counting.
