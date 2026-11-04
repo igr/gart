@@ -22,24 +22,19 @@ import kotlin.math.sqrt
 import kotlin.random.Random
 
 /**
- * The centre line of a wide stroke. The [points] are [step] px apart. Each point has the unit
- * normal across the stroke, the [arc] length there and the [half] width of the stroke there.
- * [Bristles] ride a spine.
- *
- * Make one from a path with [along], or fill the arrays yourself when you walk the curve.
+ * One point of a [Spine]: where it is ([at]), the unit [normal] across the stroke, the [arc]
+ * length along the spine and the [half] width of the stroke there, both in px.
  */
-class Spine(
-    val points: List<Point>,
-    val normals: List<Vec2>,
-    val arc: FloatArray,
-    val half: FloatArray,
-    val step: Float,
-) {
+data class SpinePoint(val at: Point, val normal: Vec2, val arc: Float, val half: Float)
+
+/**
+ * The centre line of a wide stroke: [points] that are [step] px apart. [Bristles] ride a spine.
+ *
+ * Make one from a path with [along], or make the points yourself when you walk the curve.
+ */
+class Spine(val points: List<SpinePoint>, val step: Float) {
     init {
         require(points.size >= 2) { "a spine needs at least 2 points" }
-        require(normals.size == points.size && arc.size == points.size && half.size == points.size) {
-            "points, normals, arc and half must have the same size"
-        }
         require(step > 0f) { "step must be > 0" }
     }
 
@@ -58,20 +53,14 @@ class Spine(
                 val length = m.length
                 require(length >= step) { "the path must be at least one step long" }
                 val n = (length / step).toInt() + 1
-                val points = ArrayList<Point>(n)
-                val normals = ArrayList<Vec2>(n)
-                val arc = FloatArray(n)
-                val hw = FloatArray(n)
-                for (k in 0 until n) {
+                val points = List(n) { k ->
                     val s = k * step
-                    points += m.getPosition(s) ?: error("no position at $s")
+                    val at = m.getPosition(s) ?: error("no position at $s")
                     val tan = m.getTangent(s) ?: error("no tangent at $s")
                     val dir = Vec2(tan.x, tan.y).normalize()
-                    normals += Vec2(-dir.y, dir.x)
-                    arc[k] = s
-                    hw[k] = half(s / length)
+                    SpinePoint(at, Vec2(-dir.y, dir.x), s, half(s / length))
                 }
-                return Spine(points, normals, arc, hw, step)
+                return Spine(points, step)
             } finally {
                 m.close()
             }
@@ -117,14 +106,14 @@ data class Bristles(
      * [drawBristles] got. Use it for a shadow or a clip.
      */
     fun outline(spine: Spine, load: ((t: Float) -> Float)? = null, roundHead: Boolean = false): Path {
-        val arc = spine.arc
-        val len = arc[spine.size - 1] - arc[0]
+        val pts = spine.points
+        val len = pts.last().arc - pts[0].arc
         val gone = goneOf(spine, load)
         val cap = headLength(spine)
         // cut square, the body showed as a flat dark wedge past the last bristles. it dries
         // up before the bristles do, by the time 0.6 of the load is gone it is the centre line
         fun h(k: Int): Float {
-            val from = arc[k] - arc[0]
+            val from = pts[k].arc - pts[0].arc
             val shape = if (roundHead) {
                 // half an ellipse at the start, the same curve the first bristles start on
                 val head = if (cap > 0f) 1f - (1f - min(from / cap, 1f)).let { it * it } else 1f
@@ -132,10 +121,10 @@ data class Bristles(
             } else {
                 ((minOf(from, len - from) - 50f) / 150f).coerceIn(0f, 1f)
             }
-            return spine.half[k] * sqrt(shape * smoothstep(0.6f, 0.2f, gone[k]))
+            return pts[k].half * sqrt(shape * smoothstep(0.6f, 0.2f, gone[k]))
         }
-        val left = List(spine.size) { spine.points[it].offset(spine.normals[it] * h(it)) }
-        val right = List(spine.size) { spine.points[it].offset(spine.normals[it] * -h(it)) }
+        val left = pts.mapIndexed { k, sp -> sp.at.offset(sp.normal * h(k)) }
+        val right = pts.mapIndexed { k, sp -> sp.at.offset(sp.normal * -h(k)) }
         return closedPathOf(left + right.reversed())
     }
 }
@@ -168,7 +157,7 @@ fun Canvas.drawBristles(
     drawPath(bristles.outline(spine, load, roundHead), fillOf(bristles.ink(tone - bristles.body)))
     val gone = goneOf(spine, load)
     val cap = headLength(spine)
-    val count = (2 * spine.half.max() / bristles.pitch).toInt()
+    val count = (2 * spine.points.maxOf { it.half } / bristles.pitch).toInt()
     val run = BristleRun(this, bristles, rnd)
     for (j in 0 until count) {
         val t0 = -1f + 2f * (j + rnd.nextFloat()) / count
@@ -180,7 +169,8 @@ fun Canvas.drawBristles(
         // a round head: the further out a bristle is, the later it starts, on half an ellipse
         val first = if (!roundHead) trim else ((cap * (1f - sqrt(1f - t0 * t0)) + spine.step * rnd.nextFloat()) / spine.step).toInt()
         for (k in first until spine.size - trim) {
-            val s = spine.arc[k]
+            val sp = spine.points[k]
+            val s = sp.arc
             val t = t0 + 0.035f * noise(s / 380f + ph)
             // gone dry, a bristle thins to nothing. gaps cut square read as glitches
             val g = gone[k]
@@ -193,7 +183,7 @@ fun Canvas.drawBristles(
                 val hi = 1.2f - 1.75f * g.pow(1.5f)
                 dw *= (1f - 0.3f * g) * smoothstep(hi, hi - 0.2f, noise(s / 220f + ph * 0.7f))
             }
-            val p = spine.points[k].offset(spine.normals[k] * (spine.half[k] * t))
+            val p = sp.at.offset(sp.normal * (sp.half * t))
             val outside = bounds != null && (p.x < bounds.left || p.x > bounds.right || p.y < bounds.top || p.y > bounds.bottom)
             if (abs(t) > 1.02f || dw <= 0.02f || outside) {
                 run.flush(wid)
@@ -201,7 +191,7 @@ fun Canvas.drawBristles(
             }
             // the stroke as a soft round bundle. more light than 0.22 makes pipes of them
             val q = t * 0.85f
-            val lam = spine.normals[k].dot(bristles.light) * q + sqrt(1f - q * q) * bristles.lz
+            val lam = sp.normal.dot(bristles.light) * q + sqrt(1f - q * q) * bristles.lz
             var v = base
             v += 0.22f * (lam - bristles.lz)
             v += 0.14f * noise(s / 1500f + seed * 0.37f) // the load runs out and comes back
@@ -217,7 +207,7 @@ fun Canvas.drawBristles(
 
 // how far along the round head goes before the stroke is at its full width: 0.8 of the half
 // width, so the head is a bit flatter than a half circle
-private fun headLength(spine: Spine) = 0.8f * spine.half[0]
+private fun headLength(spine: Spine) = 0.8f * spine.points[0].half
 
 // how much of the load is gone at each point of the spine, 0 when there is no load
 private fun goneOf(spine: Spine, load: ((t: Float) -> Float)?) =

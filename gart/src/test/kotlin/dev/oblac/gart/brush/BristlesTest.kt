@@ -46,19 +46,18 @@ class BristlesTest {
     fun aSpineAlongALineIsSampledEveryStep() {
         val s = Spine.along(PathBuilder().moveTo(0f, 0f).lineTo(100f, 0f).detach(), step = 4f) { t -> 10f + 10f * t }
         assertEquals(26, s.size)
-        assertEquals(40f, s.points[10].x, 1e-4f)
-        assertEquals(40f, s.arc[10], 1e-4f)
+        assertEquals(40f, s.points[10].at.x, 1e-4f)
+        assertEquals(40f, s.points[10].arc, 1e-4f)
         // along +x the normal points down the page, +y
-        assertEquals(0f, s.normals[10].x, 1e-6f)
-        assertEquals(1f, s.normals[10].y, 1e-6f)
-        assertEquals(10f, s.half[0], 1e-6f)
-        assertEquals(20f, s.half[25], 1e-6f)
+        assertEquals(0f, s.points[10].normal.x, 1e-6f)
+        assertEquals(1f, s.points[10].normal.y, 1e-6f)
+        assertEquals(10f, s.points[0].half, 1e-6f)
+        assertEquals(20f, s.points[25].half, 1e-6f)
     }
 
     @Test
-    fun aSpineNeedsMatchingArrays() {
-        val s = spine()
-        assertThrows<IllegalArgumentException> { Spine(s.points, s.normals.drop(1), s.arc, s.half, s.step) }
+    fun aSpineNeedsTwoPoints() {
+        assertThrows<IllegalArgumentException> { Spine(spine().points.take(1), 3f) }
     }
 
     @Test
@@ -91,7 +90,7 @@ class BristlesTest {
         val outline = Bristles(ramp).outline(spine)
         val bounds = outline.bounds
         assertEquals(20f, bounds.left, 0.5f)
-        assertEquals(spine.points.last().x, bounds.right, 0.5f)
+        assertEquals(spine.points.last().at.x, bounds.right, 0.5f)
         assertEquals(h / 2f - 20f, bounds.top, 0.5f)
         assertEquals(h / 2f + 20f, bounds.bottom, 0.5f)
         // 30 px in from an end the body is not yet a px wide
@@ -144,7 +143,7 @@ class BristlesTest {
         assertTrue(round.contains(20f + 17f, h / 2f + 15f))
         assertTrue(!pointed.contains(20f + 17f, h / 2f + 2f))
         // the end lifts the same way
-        val end = spine.points.last().x - 17f
+        val end = spine.points.last().at.x - 17f
         assertTrue(!round.contains(end, h / 2f + 2f))
     }
 
