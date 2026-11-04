@@ -1,16 +1,20 @@
 package dev.oblac.gart
 
 import dev.oblac.gart.angle.Degrees
+import dev.oblac.gart.brush.Bristles
 import dev.oblac.gart.brush.Brush
 import dev.oblac.gart.brush.Brushes
 import dev.oblac.gart.brush.Hatch
 import dev.oblac.gart.brush.Pressure
 import dev.oblac.gart.brush.Rotate
+import dev.oblac.gart.brush.Spine
 import dev.oblac.gart.brush.Tip
 import dev.oblac.gart.brush.Wobble
+import dev.oblac.gart.brush.drawBristles
 import dev.oblac.gart.brush.drawBrush
 import dev.oblac.gart.brush.drawBrushHatch
 import dev.oblac.gart.color.CssColors
+import dev.oblac.gart.color.Palette
 import dev.oblac.gart.gfx.Circle
 import dev.oblac.gart.gfx.closedPathOf
 import dev.oblac.gart.gfx.drawBlackText
@@ -24,16 +28,19 @@ import org.jetbrains.skia.Rect
 import java.io.File
 import kotlin.math.PI
 import kotlin.math.cos
+import kotlin.math.pow
 import kotlin.math.sin
 import kotlin.random.Random
 
 /**
  * Sampler sheet of the brush package: every stock brush on a straight line at size 1 and 3, on
  * a wave, and with a hand wobble; below that hatching, an image tip, a custom nib and a curved
- * wobble. Run with `-Dheadless=1` to just write `output/exampleBrush.png`.
+ * wobble; at the bottom the wide bristle brush at three widths, with a width that swells, and
+ * a loop that lands round and runs dry. Run with `-Dheadless=1` to just write
+ * `output/exampleBrush.png`.
  */
 fun main(args: Array<String>) {
-    val gart = Gart.of("exampleBrush", 1400, 2000)
+    val gart = Gart.of("exampleBrush", 1400, 2560)
     val g = gart.gartvas()
     val c = g.canvas
     val rnd = Random(42)
@@ -104,6 +111,24 @@ fun main(args: Array<String>) {
         val yy = 1860f + i * 20f
         c.drawBrush(Point(160f, yy), Point(700f, yy), Brushes.pen, ink, 2f, rnd, wobble = curved)
     }
+
+    // bristles: a wide brush of many bristles on one spine. the width of a stroke is the half
+    // width of its spine, given along the stroke, so it can change as it goes
+    val bristles = Bristles(Palette(0xFF011132, 0xFF19365A, 0xFF436589, 0xFF7A9CBB, 0xFFB9D7F1))
+    c.drawBlackText("bristles", 30f, 2040f)
+    for ((i, half) in listOf(12, 24, 40).withIndex()) {
+        val x = 160f + i * 410f
+        c.drawBlackText("half width $half", x, 2075f)
+        c.drawBristles(Spine.along(wave(x, 2150f, 370f, 12f)) { half.toFloat() }, bristles, 0.62f, rnd, seed = i)
+    }
+    c.drawBlackText("width that swells", 160f, 2270f)
+    c.drawBristles(Spine.along(wave(160f, 2380f, 620f, 14f)) { t -> 6f + 48f * sin(PI.toFloat() * t) }, bristles, 0.62f, rnd, seed = 3)
+    c.drawBlackText("load + round head", 880f, 2270f)
+    val loop = pathOf((0..240).map { i ->
+        val a = -1.2f + 0.92f * 2f * PI.toFloat() * i / 240f
+        Point(1130f + 115f * cos(a), 2400f + 115f * sin(a))
+    })
+    c.drawBristles(Spine.along(loop) { 40f }, bristles, 0.62f, rnd, seed = 4, load = { t -> (1f - t).pow(0.7f) }, roundHead = true)
 
     println("brushes: ${(System.nanoTime() - t0) / 1_000_000} ms")
 
