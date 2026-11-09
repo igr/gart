@@ -26,10 +26,16 @@ class BristlesTest {
     // and the middle to be at full width
     private fun spine() = Spine.along(PathBuilder().moveTo(20f, h / 2f).lineTo(w - 20f, h / 2f).detach()) { 20f }
 
-    private fun render(seed: Int, bounds: Rect? = null, load: ((Float) -> Float)? = null, roundHead: Boolean = false): IntArray {
+    private fun render(
+        seed: Int,
+        bounds: Rect? = null,
+        load: ((Float) -> Float)? = null,
+        roundHead: Boolean = false,
+        head: ((Float) -> Float)? = null,
+    ): IntArray {
         val g = Gartvas(Dimension(w, h))
         g.canvas.clear(Color.WHITE)
-        g.canvas.drawBristles(spine(), Bristles(ramp), 0.5f, Random(seed), bounds = bounds, load = load, roundHead = roundHead)
+        g.canvas.drawBristles(spine(), Bristles(ramp), 0.5f, Random(seed), bounds = bounds, load = load, roundHead = roundHead, head = head)
         return Gartmap(g).use { it.pixels.copyOf() }
     }
 
@@ -145,6 +151,45 @@ class BristlesTest {
         // the end lifts the same way
         val end = spine.points.last().at.x - 17f
         assertTrue(!round.contains(end, h / 2f + 2f))
+    }
+
+    // the top edge (t -1) lands at the start of the spine, the bottom edge (t 1) 120 px in
+    private val slant: (Float) -> Float = { t -> 60f * (t + 1f) }
+
+    @Test
+    fun eachBristleLandsWhereTheHeadSays() {
+        val px = render(13, head = slant)
+        // the first 38 px of the spine: only the bristles with t under -0.36 are down, all of them
+        // in the top half
+        fun inked(y0: Int, y1: Int) = (y0 until y1).sumOf { y -> (20 until 58).count { x -> !white(px[y * w + x]) } }
+        assertTrue(inked(h / 2 - 22, h / 2 - 8) > 100, "no ink where the top edge landed")
+        assertEquals(0, inked(h / 2 + 1, h))
+    }
+
+    @Test
+    fun theBodyIsOnlyWhereTheBristlesAreDown() {
+        val body = Bristles(ramp).outline(spine(), head = slant)
+        // 30 px in the bristles from the top edge to t -0.5 are down
+        assertTrue(body.contains(20f + 30f, h / 2f - 15f))
+        assertTrue(!body.contains(20f + 30f, h / 2f + 5f))
+        // the whole head is down at 120 px, past it the body is at its full width
+        assertTrue(body.contains(20f + 200f, h / 2f - 18f))
+        assertTrue(body.contains(20f + 200f, h / 2f + 18f))
+    }
+
+    @Test
+    fun theBodyLeavesTheGapBetweenTwoClumps() {
+        // both edges land first, the middle 100 px in
+        val body = Bristles(ramp).outline(spine(), head = { t -> 100f * (1f - abs(t)) })
+        // 30 px in the bristles out from t 0.7 are down on both sides, the middle is not
+        assertTrue(body.contains(20f + 30f, h / 2f + 17f))
+        assertTrue(body.contains(20f + 30f, h / 2f - 17f))
+        assertTrue(!body.contains(20f + 30f, h / 2f))
+    }
+
+    @Test
+    fun aHeadWinsOverTheRoundHead() {
+        assertContentEquals(render(15, head = slant), render(15, roundHead = true, head = slant))
     }
 
     @Test

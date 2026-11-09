@@ -102,10 +102,12 @@ data class Bristles(
     /**
      * The outline of the body under the bristles of a stroke on [spine]. It comes to a point at
      * both ends, where the outer bristles lift, and it narrows away where the [load] runs out.
-     * With [roundHead] the start is round. Give it the same [load] and [roundHead] as
-     * [drawBristles] got. Use it for a shadow or a clip.
+     * With [roundHead] the start is round. With [head] the start follows the points where the
+     * bristles land. Give it the same [load], [roundHead] and [head] as [drawBristles] got. Use
+     * it for a shadow or a clip.
      */
-    fun outline(spine: Spine, load: ((t: Float) -> Float)? = null, roundHead: Boolean = false): Path {
+    fun outline(spine: Spine, load: ((t: Float) -> Float)? = null, roundHead: Boolean = false, head: ((t: Float) -> Float)? = null): Path {
+        if (head != null) return landedOutline(spine, goneOf(spine, load), head)
         val pts = spine.points
         val len = pts.last().arc - pts[0].arc
         val gone = goneOf(spine, load)
@@ -143,6 +145,11 @@ data class Bristles(
  *
  * With [roundHead] the stroke lands with a round head: the bristles press out where the brush
  * lands, so the start is round, not pointed. The end still lifts to a point.
+ *
+ * [head] sets the start to any shape. It gives the point where each bristle lands: for the
+ * bristle at `t` across the stroke (-1 on one edge, 1 on the other), the px along the spine where
+ * it touches down. Use it for a slant, a blunt front or clumps of bristles. A value under 0 is 0.
+ * The body under the bristles follows it. When [head] is set, [roundHead] has no effect.
  */
 fun Canvas.drawBristles(
     spine: Spine,
@@ -153,8 +160,9 @@ fun Canvas.drawBristles(
     bounds: Rect? = null,
     load: ((t: Float) -> Float)? = null,
     roundHead: Boolean = false,
+    head: ((t: Float) -> Float)? = null,
 ) {
-    drawPath(bristles.outline(spine, load, roundHead), fillOf(bristles.ink(tone - bristles.body)))
+    drawPath(bristles.outline(spine, load, roundHead, head), fillOf(bristles.ink(tone - bristles.body)))
     val gone = goneOf(spine, load)
     val cap = headLength(spine)
     val count = (2 * spine.points.maxOf { it.half } / bristles.pitch).toInt()
@@ -167,7 +175,11 @@ fun Canvas.drawBristles(
         // the brush ends: the outer bristles let go first
         val trim = ((30f + 140f * t0 * t0 + 60f * rnd.nextFloat()) / spine.step).toInt()
         // a round head: the further out a bristle is, the later it starts, on half an ellipse
-        val first = if (!roundHead) trim else ((cap * (1f - sqrt(1f - t0 * t0)) + spine.step * rnd.nextFloat()) / spine.step).toInt()
+        val first = when {
+            head != null -> ((head(t0).coerceAtLeast(0f) + spine.step * rnd.nextFloat()) / spine.step).toInt()
+            !roundHead -> trim
+            else -> ((cap * (1f - sqrt(1f - t0 * t0)) + spine.step * rnd.nextFloat()) / spine.step).toInt()
+        }
         for (k in first until spine.size - trim) {
             val sp = spine.points[k]
             val s = sp.arc
@@ -208,6 +220,33 @@ fun Canvas.drawBristles(
 // how far along the round head goes before the stroke is at its full width: 0.8 of the half
 // width, so the head is a bit flatter than a half circle
 private fun headLength(spine: Spine) = 0.8f * spine.points[0].half
+
+// the body under a stroke with its own head covers what the bristles cover: the front where
+// they land, then along both edges to the end. a hull of what is down filled the gap between
+// two clumps that land first
+private fun landedOutline(spine: Spine, gone: FloatArray, head: (t: Float) -> Float): Path {
+    val pts = spine.points
+    val last = pts.size - 1
+    val len = pts[last].arc - pts[0].arc
+    // t across the stroke at the spine point k. the end lifts to a point and the body narrows
+    // away with the load, as with the other heads
+    fun at(k: Int, t: Float): Point {
+        val from = pts[k].arc - pts[0].arc
+        val end = sqrt(((len - from - 50f) / 150f).coerceIn(0f, 1f))
+        val dry = sqrt(smoothstep(0.6f, 0.2f, gone[k]))
+        return pts[k].at.offset(pts[k].normal * (pts[k].half * t.coerceIn(-end, end) * dry))
+    }
+    val ts = FloatArray(HEAD_SAMPLES) { -1f + 2f * it / (HEAD_SAMPLES - 1) }
+    val lands = IntArray(HEAD_SAMPLES) { (head(ts[it]).coerceAtLeast(0f) / spine.step).toInt().coerceAtMost(last) }
+    val outline = ArrayList<Point>(HEAD_SAMPLES + 2 * pts.size)
+    for (i in ts.indices) outline += at(lands[i], ts[i])
+    for (k in lands.last() + 1..last) outline += at(k, 1f)
+    for (k in last downTo lands.first() + 1) outline += at(k, -1f)
+    return closedPathOf(outline)
+}
+
+// t steps across the stroke for the body of a head
+private const val HEAD_SAMPLES = 129
 
 // how much of the load is gone at each point of the spine, 0 when there is no load
 private fun goneOf(spine: Spine, load: ((t: Float) -> Float)?) =
