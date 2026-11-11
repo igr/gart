@@ -1,6 +1,7 @@
 package pinna
 
 import dev.oblac.gart.gfx.Circle
+import dev.oblac.gart.gfx.vecTo
 import dev.oblac.gart.math.between
 import dev.oblac.gart.noise.SimplexNoise
 import dev.oblac.gart.vector.Vec2
@@ -90,7 +91,7 @@ internal fun growSkeleton(canopy: Canopy, p: Params, rng: Random, nz: Float, w: 
                 }
             }
             if (best >= 0) {
-                val v = Vec2(a.x - nodes[best].pos.x, a.y - nodes[best].pos.y).normalize()
+                val v = nodes[best].pos.vecTo(a).normalize()
                 if (pull[best] == null) pulled++
                 pull[best] = (pull[best] ?: Vec2.ZERO) + v
             }

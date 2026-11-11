@@ -10,6 +10,7 @@ import dev.oblac.gart.color.space.ColorOKLAB
 import dev.oblac.gart.fx.downsample
 import dev.oblac.gart.fx.supersampled
 import dev.oblac.gart.gfx.offset
+import dev.oblac.gart.gfx.vecTo
 import dev.oblac.gart.io.detectHeadlessFlags
 import dev.oblac.gart.io.ensureExtension
 import dev.oblac.gart.io.pf
@@ -284,7 +285,7 @@ private fun draw(c: Canvas, dashes: List<Dash>, rnd: Random) {
     for (d in dashes) {
         val size = d.w / band
         val tip = brush.weight * size / 2f
-        val run = Vec2(d.b.x - d.a.x, d.b.y - d.a.y)
+        val run = d.a.vecTo(d.b)
         val cut = run.normalize() * min(tip, run.length() / 2f - 0.25f)
         val a = d.a.offset(cut)
         val b = d.b.offset(cut * -1f)

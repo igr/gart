@@ -21,6 +21,11 @@ fun Point.isInside(triangle: Triangle) =
 
 fun Point.offset(vec: Vec2) = this.offset(vec.x, vec.y)
 
+/**
+ * Returns the vector from this point to [p].
+ */
+fun Point.vecTo(p: Point): Vec2 = Vec2(p.x - x, p.y - y)
+
 fun Point.fromCenter(d: Dimension, fl: Float = 1f): Point {
     val x = d.cx + x * fl
     val y = d.cy + y * fl

@@ -5,6 +5,7 @@ import dev.oblac.gart.Gartvas
 import dev.oblac.gart.Pixels
 import dev.oblac.gart.angle.Angle
 import dev.oblac.gart.angle.Degrees
+import dev.oblac.gart.gfx.vecTo
 import dev.oblac.gart.pixels.shadeBlock
 import dev.oblac.gart.util.defaultWorkers
 import dev.oblac.gart.util.parallelForRows
@@ -54,7 +55,7 @@ class Marbling(val background: Ink = Ink.flat(Color.WHITE)) {
 
     /** A stylus dragged from [from] to [to]: the paint on its line travels the whole way. */
     fun stroke(from: Point, to: Point, c: Float): Marbling {
-        val d = Vec2(to.x - from.x, to.y - from.y)
+        val d = from.vecTo(to)
         val len = d.length()
         require(len > 0f) { "a stroke needs two different points" }
         return add(Comb(from.x, from.y, d / len, len, c))

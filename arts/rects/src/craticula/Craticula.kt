@@ -9,6 +9,7 @@ import dev.oblac.gart.gfx.lerp
 import dev.oblac.gart.gfx.offset
 import dev.oblac.gart.gfx.signedArea
 import dev.oblac.gart.gfx.squaredDistanceTo
+import dev.oblac.gart.gfx.vecTo
 import dev.oblac.gart.io.detectHeadlessFlags
 import dev.oblac.gart.io.ensureExtension
 import dev.oblac.gart.io.pf
@@ -175,7 +176,7 @@ private fun inset(raw: List<Point>, d: Float): List<Point>? {
     for (i in 0 until n) {
         val a = poly[i]
         val b = poly[(i + 1) % n]
-        val e = Vec2(b.x - a.x, b.y - a.y)
+        val e = a.vecTo(b)
         if (e.magnitude < 1e-4f) return null
         val u = e.normalize()
         dir += u
@@ -186,7 +187,7 @@ private fun inset(raw: List<Point>, d: Float): List<Point>? {
         val j = (i + n - 1) % n
         val den = dir[j].cross(dir[i])
         if (abs(den) < 1e-5f) return null   // the two edges are in line, no corner to keep
-        val e = Vec2(at[i].x - at[j].x, at[i].y - at[j].y)
+        val e = at[j].vecTo(at[i])
         val t = e.cross(dir[i]) / den
         out += at[j].offset(dir[j] * t)
     }
@@ -203,8 +204,8 @@ private fun roundedPath(poly: List<Point>, round: Float): Path {
         val v = poly[i]
         val p = poly[(i + n - 1) % n]
         val q = poly[(i + 1) % n]
-        val e1 = Vec2(p.x - v.x, p.y - v.y)
-        val e2 = Vec2(q.x - v.x, q.y - v.y)
+        val e1 = v.vecTo(p)
+        val e2 = v.vecTo(q)
         val u1 = e1.normalize()
         val u2 = e2.normalize()
         val bend = acos(u1.dot(u2).coerceIn(-1f, 1f)) * 0.5f

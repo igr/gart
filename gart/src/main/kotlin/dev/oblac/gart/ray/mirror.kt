@@ -3,6 +3,7 @@ package dev.oblac.gart.ray
 import dev.oblac.gart.gfx.DLine
 import dev.oblac.gart.gfx.Line
 import dev.oblac.gart.gfx.intersectionOf
+import dev.oblac.gart.gfx.vecTo
 import dev.oblac.gart.vector.Vec2
 import org.jetbrains.skia.Path
 import org.jetbrains.skia.PathBuilder
@@ -25,7 +26,7 @@ data class Mirror(
         val intersectionPoint = intersectionOf(rayLine, line) ?: return null
 
         // Calculate mirror normal vector (perpendicular to mirror line)
-        val mirrorVector = Vec2(line.b.x - line.a.x, line.b.y - line.a.y).normalize()
+        val mirrorVector = line.a.vecTo(line.b).normalize()
         val normalVector = Vec2(-mirrorVector.y, mirrorVector.x) // Perpendicular to mirror
 
         // Get incident ray direction (normalized)

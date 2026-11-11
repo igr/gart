@@ -14,6 +14,7 @@ import dev.oblac.gart.gfx.drawPoly4
 import dev.oblac.gart.gfx.fillOf
 import dev.oblac.gart.gfx.lerp
 import dev.oblac.gart.gfx.strokeOf
+import dev.oblac.gart.gfx.vecTo
 import dev.oblac.gart.io.detectHeadlessFlags
 import dev.oblac.gart.io.ensureExtension
 import dev.oblac.gart.io.pf
@@ -488,7 +489,7 @@ private fun tilesOf(trail: List<Point>): List<Tile> {
         val isAccent = rnd.nextInt(p.accent) == 0
         val solid = isAccent || rnd.nextInt(p.fill) == 0
 
-        val tile = Tile(at, len, Vec2(b.x - a.x, b.y - a.y).angle, isAccent, depthAt(at))
+        val tile = Tile(at, len, a.vecTo(b).angle, isAccent, depthAt(at))
         tile.firedAt = if (solid) 0 else -1 // the scatter IS the CA seed, gen 0
         out += tile
     }
