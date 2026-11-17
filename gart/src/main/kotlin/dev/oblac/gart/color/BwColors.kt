@@ -33,6 +33,8 @@ object BwColors {
     val darkSlateGray = 0xFF191919.toInt()
     val outerSpace = 0xFF252525.toInt()
     val obsidian = 0xFF081215.toInt()
+    const val abyss = 0xFF04090C.toInt()
+    const val nightTeal = 0xFF0F1C24.toInt()
     val richBlack = 0xFF0A0A0A.toInt()
     val coffeeBean = 0xFF1B1B1B.toInt()
     val charcoalGray = 0xFF121212.toInt()
