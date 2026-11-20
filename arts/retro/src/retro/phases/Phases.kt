@@ -2,6 +2,11 @@ package retro.phases
 
 import dev.oblac.gart.Dimension
 import dev.oblac.gart.Gart
+import dev.oblac.gart.angle.Angle
+import dev.oblac.gart.angle.Degrees
+import dev.oblac.gart.angle.Radians
+import dev.oblac.gart.angle.cosf
+import dev.oblac.gart.angle.sinf
 import dev.oblac.gart.color.RetroColors
 import dev.oblac.gart.gfx.Circle
 import dev.oblac.gart.gfx.drawBorder
@@ -17,14 +22,11 @@ import org.jetbrains.skia.Paint
 import org.jetbrains.skia.PathBuilder
 import org.jetbrains.skia.Point
 import org.jetbrains.skia.Rect
-import kotlin.math.PI
 import kotlin.math.abs
 import kotlin.math.atan2
 import kotlin.math.ceil
-import kotlin.math.cos
 import kotlin.math.hypot
 import kotlin.math.pow
-import kotlin.math.sin
 
 /**
  * phases - all-circles, but every dot is a moon and the red disc is the sun.
@@ -48,7 +50,7 @@ private val young = pf("young", 0.35f) // past dark a young moon comes back on t
 private val youngpow = pf("youngpow", 1.3f) // >1 keeps the young moons to the last few dots
 private val rnear = pf("rnear", 0.6f)  // dot radius over half a cell, at the small end of the ramp
 private val rfar = pf("rfar", 1.05f)   // ...and at the big end. over 1 and they overlap
-private val screen = pf("screen", 0f)  // halftone screen angle in degrees. 0 is upright like all-circles, 10 is a nice print
+private val screen = Degrees(pf("screen", 0f))  // halftone screen angle in degrees. 0 is upright like all-circles, 33 is a nice print
 private val ramp = ps("ramp", "diag")  // what the dot size follows: diag = all-circles' diagonal, sun = distance from the sun
 private val out = ps("out", "phases")
 
@@ -79,15 +81,15 @@ internal fun draw(c: Canvas, d: Dimension, sun: Circle, lit: Paint) {
     // the screen. same parity as n so the dots land where all-circles puts them, but enough of
     // them to still cover the corners once its turned
     val m = n + 2 * ceil(n * 0.21f).toInt()
-    val cs = cos(screen)
-    val sn = sin(screen)
+    val cs = cosf(screen)
+    val sn = sinf(screen)
     val dots = (0 until m * m).map {
         val ux = (it % m - (m - 1) / 2f) * cell
         val uy = (it / m - (m - 1) / 2f) * cell
         Point(d.cx + ux * cs - uy * sn, d.cy + ux * sn + uy * cs)
     }.filter { it.x > -cell && it.x < d.wf + cell && it.y > -cell && it.y < d.hf + cell }
 
-    class Moon(val ctr: Point, val r: Float, val a: Float, val p: Float, val dist: Float)
+    class Moon(val ctr: Point, val r: Float, val a: Angle, val p: Float, val dist: Float)
 
     // the young ramp runs from dark to the farthest dot on the page, so young is what the last one gets
     val tfar = ((dots.maxOf { hypot(sun.x - it.x, sun.y - it.y) } - sun.radius) / reach).coerceIn(0f, 1f).pow(gamma)
@@ -98,7 +100,7 @@ internal fun draw(c: Canvas, d: Dimension, sun: Circle, lit: Paint) {
         val dist = hypot(dx, dy)
 
         // t is 0 at the rim and 1 where the light gives up
-        val a = atan2(dy, dx)
+        val a = Radians(atan2(dy, dx))
         val t = ((dist - sun.radius) / reach).coerceIn(0f, 1f)
         val tr = if (ramp == "diag") (ctr.x + ctr.y) / (d.wf + d.hf) else t
         val r = lerp(rnear, rfar, tr.coerceIn(0f, 1f)) * cell / 2f
@@ -124,18 +126,18 @@ internal fun draw(c: Canvas, d: Dimension, sun: Circle, lit: Paint) {
 
     val farthest = moons.maxOf { it.dist }
     moons.sortedBy { if (it.p >= 0f) it.dist else 2 * farthest - it.dist }.forEach {
-        if (it.p >= 0f) drawMoon(c, it.ctr, it.r, it.a, it.p, lit) else drawMoon(c, it.ctr, it.r, it.a + PI.toFloat(), -it.p, lit)
+        if (it.p >= 0f) drawMoon(c, it.ctr, it.r, it.a, it.p, lit) else drawMoon(c, it.ctr, it.r, it.a + Radians.PI, -it.p, lit)
     }
 
     c.drawBorder(d, 40f, paper)
 }
 
-// lit fraction p: 1 full, 0.5 half, 0 new. lit side points at angle a (radians)
-private fun drawMoon(c: Canvas, ctr: Point, r: Float, a: Float, p: Float, fill: Paint) {
+// lit fraction p: 1 full, 0.5 half, 0 new. lit side points at angle a
+private fun drawMoon(c: Canvas, ctr: Point, r: Float, a: Angle, p: Float, fill: Paint) {
     val cx = ctr.x
     val cy = ctr.y
     c.save()
-    c.rotate(Math.toDegrees(a.toDouble()).toFloat(), cx, cy)
+    c.rotate(a.degrees, cx, cy)
     c.drawCircle(cx, cy, r, inkFill)
 
     // the lit bit is the sun-side half disc, plus or minus half an ellipse. skia sweeps clockwise
