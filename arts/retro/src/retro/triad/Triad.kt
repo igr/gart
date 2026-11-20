@@ -19,6 +19,7 @@ import dev.oblac.gart.io.ensureExtension
 import dev.oblac.gart.io.pf
 import dev.oblac.gart.io.pi
 import dev.oblac.gart.io.ps
+import dev.oblac.gart.math.PIf
 import dev.oblac.gart.math.lerp
 import dev.oblac.gart.vector.Vec2
 import org.jetbrains.skia.BlendMode
@@ -107,7 +108,7 @@ private fun lattice(d: Dimension, cell: Float, angle: Angle): List<Point> {
 }
 
 private fun dot(kind: Dot, at: Point, cell: Float, tone: Float, angle: Angle): Path = when (kind) {
-    Dot.CIRCLE -> PathBuilder().addCircle(at.x, at.y, cell * sqrt(tone / Math.PI.toFloat())).detach()
+    Dot.CIRCLE -> PathBuilder().addCircle(at.x, at.y, cell * sqrt(tone / PIf)).detach()
     Dot.SQUARE -> polygon(at, cell * sqrt(tone / 2f), 4, Degrees(45f) + angle)
     Dot.TRIANGLE -> polygon(at, cell * sqrt(tone * 4f / (3f * sqrt(3f))), 3, Degrees(-90f) + angle)
 }
