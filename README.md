@@ -1301,6 +1301,10 @@ A collection of generative art pieces (ordered by name).
   </tr>
   <tr>
     <td width="33%" align="center">
+      <a href="arts/retro/coil.png"><img src="arts/retro/coil_thumb.png" alt="Coil" width="100%"/></a>
+      <br><b>Coil</b>
+    </td>
+    <td width="33%" align="center">
       <a href="arts/retro/fall-squares.png"><img src="arts/retro/fall-squares_thumb.png" alt="Fall Squares" width="100%"/></a>
       <br><b>Fall Squares</b>
     </td>
@@ -1308,12 +1312,12 @@ A collection of generative art pieces (ordered by name).
       <a href="arts/retro/flip.png"><img src="arts/retro/flip_thumb.png" alt="Flip" width="100%"/></a>
       <br><b>Flip</b>
     </td>
-    <td width="33%" align="center">
-      <a href="arts/retro/gnomon.png"><img src="arts/retro/gnomon_thumb.png" alt="Gnomon" width="100%"/></a>
-      <br><b>Gnomon</b>
-    </td>
   </tr>
   <tr>
+    <td width="33%" align="center">
+      <a href="arts/retro/overtone.png"><img src="arts/retro/overtone_thumb.png" alt="Overtone" width="100%"/></a>
+      <br><b>Overtone</b>
+    </td>
     <td width="33%" align="center">
       <a href="arts/retro/phases.png"><img src="arts/retro/phases_thumb.png" alt="Phases" width="100%"/></a>
       <br><b>Phases</b>
@@ -1322,12 +1326,12 @@ A collection of generative art pieces (ordered by name).
       <a href="arts/retro/rectaround.png"><img src="arts/retro/rectaround_thumb.png" alt="Rectaround" width="100%"/></a>
       <br><b>Rectaround</b>
     </td>
+  </tr>
+  <tr>
     <td width="33%" align="center">
       <a href="arts/retro/romb.png"><img src="arts/retro/romb_thumb.png" alt="Romb" width="100%"/></a>
       <br><b>Romb</b>
     </td>
-  </tr>
-  <tr>
     <td width="33%" align="center">
       <a href="arts/retro/rotor.png"><img src="arts/retro/rotor_thumb.png" alt="Rotor" width="100%"/></a>
       <br><b>Rotor</b>
@@ -1336,12 +1340,12 @@ A collection of generative art pieces (ordered by name).
       <a href="arts/retro/stripes1.png"><img src="arts/retro/stripes1_thumb.png" alt="Stripes1" width="100%"/></a>
       <br><b>Stripes1</b>
     </td>
+  </tr>
+  <tr>
     <td width="33%" align="center">
       <a href="arts/retro/tiles.png"><img src="arts/retro/tiles_thumb.png" alt="Tiles" width="100%"/></a>
       <br><b>Tiles</b>
     </td>
-  </tr>
-  <tr>
     <td width="33%" align="center">
       <a href="arts/retro/triad.png"><img src="arts/retro/triad_thumb.png" alt="Triad" width="100%"/></a>
       <br><b>Triad</b>
@@ -1350,7 +1354,6 @@ A collection of generative art pieces (ordered by name).
       <a href="arts/retro/weft.png"><img src="arts/retro/weft_thumb.png" alt="Weft" width="100%"/></a>
       <br><b>Weft</b>
     </td>
-    <td width="33%"></td>
   </tr>
 </table>
 
@@ -1775,4 +1778,4 @@ A collection of generative art pieces (ordered by name).
 
 ---
 
-🖼️ **309 works** across **44 collections** — and counting.
+🖼️ **310 works** across **44 collections** — and counting.
