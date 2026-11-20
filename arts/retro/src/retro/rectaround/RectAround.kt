@@ -1,4 +1,4 @@
-package rectaround
+package retro.rectaround
 
 import dev.oblac.gart.Dimension
 import dev.oblac.gart.Drawing

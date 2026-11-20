@@ -1503,7 +1503,7 @@ Package `ray` — 2D ray-vs-mirror reflection (not 3D path tracing).
 
 ### Perspective & glass (brief)
 
-- **`Block3D(left, right: Poly4, top, bottom: Poly4?)`** — two-point-perspective box (3 visible faces). Companion `Block3D.of(vpLeft, vpRight, frontBottom: Point, height, leftWidth, rightWidth: Float): Block3D` picks top/bottom face from horizon. `faces(): List<Poly4>`, `horizontalFace(): Poly4?`. Pure 2D vanishing-point geometry (no camera). Used: skyscraper, lines/nocube, lines/boks, example. `perspective/block3d.kt`
+- **`Block3D(left, right: Poly4, top, bottom: Poly4?)`** — two-point-perspective box (3 visible faces). Companion `Block3D.of(vpLeft, vpRight, frontBottom: Point, height, leftWidth, rightWidth: Float): Block3D` picks top/bottom face from horizon. `faces(): List<Poly4>`, `horizontalFace(): Poly4?`. Pure 2D vanishing-point geometry (no camera). Used: skyscraper, lines/nocube, retro/boks, example. `perspective/block3d.kt`
 - **`drawGlassBall(g: Gartvas, cx, cy, radius: Float, eta = 1.0/1.5, thickness = 1.2, baseColor = BLACK, whiteSpot = false, rimDarkening = true)`** — per-pixel spherical Snell's-law refraction of existing canvas pixels + Fresnel/highlight overlays. Used: flowforce/Orb1, Orb3. `glass/glassBall.kt`
 - **`drawGlassPath(g: Gartvas, path: Path, eta = 1.0/1.5, thickness = 1.2, baseColor = BLACK, whiteSpot = false)`** — same refraction effect over an arbitrary closed path (binary-search effective radius per angle). UNUSED by art (gap — only `drawGlassBall` is used). `glass/glassPath.kt`
 ---

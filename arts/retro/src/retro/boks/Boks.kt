@@ -1,4 +1,4 @@
-package lines.boks
+package retro.boks
 
 import dev.oblac.gart.Dimension
 import dev.oblac.gart.Gart

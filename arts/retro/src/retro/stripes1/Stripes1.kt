@@ -1,4 +1,4 @@
-package stripes.s1
+package retro.stripes1
 
 import dev.oblac.gart.Dimension
 import dev.oblac.gart.Gart

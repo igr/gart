@@ -1,4 +1,4 @@
-package pixelmania.romb
+package retro.romb
 
 import dev.oblac.gart.*
 import dev.oblac.gart.color.RetroColors

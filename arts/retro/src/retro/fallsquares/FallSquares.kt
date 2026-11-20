@@ -1,4 +1,4 @@
-package fallsquares
+package retro.fallsquares
 
 import dev.oblac.gart.Dimension
 import dev.oblac.gart.Drawing

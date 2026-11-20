@@ -38,8 +38,8 @@
 # gone, and so are the thick knob and the gray01 ink. a disc is only its face now, an ellipse flat
 # by cos th, so a disc on its edge is a sliver or nothing. three RetroColors left. hero -> 83de3d38.
 
-art    = palecircles.flip.FlipKt
-module = arts:palecircles
+art    = retro.flip.FlipKt
+module = arts:retro
 out    = output/flip
 par    = 6
 

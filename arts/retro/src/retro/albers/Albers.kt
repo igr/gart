@@ -1,4 +1,4 @@
-package palecircles.albers
+package retro.albers
 
 import dev.oblac.gart.Dimension
 import dev.oblac.gart.Gart
