@@ -933,11 +933,15 @@ A collection of generative art pieces (ordered by name).
       <br><b>Nacre</b>
     </td>
     <td width="33%" align="center">
-      <a href="arts/mathy/sigillum001.png"><img src="arts/mathy/sigillum001_thumb.png" alt="Sigillum001" width="100%"/></a>
-      <br><b>Sigillum001</b>
+      <a href="arts/mathy/numen.png"><img src="arts/mathy/numen_thumb.png" alt="Numen" width="100%"/></a>
+      <br><b>Numen</b>
     </td>
   </tr>
   <tr>
+    <td width="33%" align="center">
+      <a href="arts/mathy/sigillum001.png"><img src="arts/mathy/sigillum001_thumb.png" alt="Sigillum001" width="100%"/></a>
+      <br><b>Sigillum001</b>
+    </td>
     <td width="33%" align="center">
       <a href="arts/mathy/sigillum003.png"><img src="arts/mathy/sigillum003_thumb.png" alt="Sigillum003" width="100%"/></a>
       <br><b>Sigillum003</b>
@@ -946,10 +950,14 @@ A collection of generative art pieces (ordered by name).
       <a href="arts/mathy/sigillum.png"><img src="arts/mathy/sigillum_thumb.png" alt="Sigillum" width="100%"/></a>
       <br><b>Sigillum</b>
     </td>
+  </tr>
+  <tr>
     <td width="33%" align="center">
       <a href="arts/mathy/vinculum.png"><img src="arts/mathy/vinculum_thumb.png" alt="Vinculum" width="100%"/></a>
       <br><b>Vinculum</b>
     </td>
+    <td width="33%"></td>
+    <td width="33%"></td>
   </tr>
 </table>
 
@@ -1778,4 +1786,4 @@ A collection of generative art pieces (ordered by name).
 
 ---
 
-🖼️ **310 works** across **44 collections** — and counting.
+🖼️ **311 works** across **44 collections** — and counting.
